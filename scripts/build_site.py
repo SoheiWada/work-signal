@@ -276,7 +276,7 @@ def article_end(article):
             "text": article["title"], "url": url,
         })),
         ("Threads", "https://www.threads.net/intent/post?" + urlencode({
-            "text": article["title"] + "\n" + url,
+            "text": article["title"] + "\n" + url + "\n\n一次情報:\n" + article["source_url"],
         })),
         ("LINE", "https://social-plugins.line.me/lineit/share?" + urlencode({
             "url": url,

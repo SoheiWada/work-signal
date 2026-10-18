@@ -178,7 +178,7 @@ def article_card_image(article):
     """An optional article-owned visual; no generic cover competes with headlines."""
     image = article.get("card_image")
     if not isinstance(image, str) or not re.fullmatch(
-            r"/assets/[A-Za-z0-9/_-]+\\.(?:png|jpe?g|webp|avif)", image, re.I):
+            r"/assets/[A-Za-z0-9/_-]+\.(?:png|jpe?g|webp|avif)", image, re.I):
         return ""
     alt = article.get("card_image_alt")
     if not isinstance(alt, str):

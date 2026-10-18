@@ -1,27 +1,69 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="忙しい働く人のために、AI・仕事・マネジメント・経済の重要ニュースを一次情報に基づいて解説。">
-<title>WORK SIGNAL | ニュースは短く、意味は深く。</title>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f2efe7">
+<meta name="description" content="WORK SIGNAL。ニュースは短く、意味は深く。AI、仕事、マネジメント、経済の重要な変化を一次情報から読み解く独立メディア。">
+<title>WORK SIGNAL — Read beyond the headline.</title>
+<meta property="og:title" content="WORK SIGNAL — ニュースは短く。意味は深く。">
+<meta property="og:description" content="情報のノイズを越えて、働く人に必要なシグナルを。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN",Meiryo,sans-serif;color:#202126;background:#f7f7fa}
-*{box-sizing:border-box}body{margin:0}a{color:inherit}header,main,footer{max-width:1040px;margin:auto;padding:24px}
-header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ddd}header strong{letter-spacing:.08em;font-size:1.25rem}header span{font-size:.8rem;color:#727480}
-.hero{background:#26243a;color:white;border-radius:20px;padding:clamp(26px,6vw,60px);margin:28px 0}.hero small{color:#e5cafa;letter-spacing:.12em}.hero h1{font-size:clamp(1.9rem,5vw,3.5rem);line-height:1.35;margin:12px 0}.hero p{color:#ebe6f5}
-nav{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}button{border:1px solid #dcdce5;border-radius:100px;padding:9px 16px;background:white;cursor:pointer;font:inherit}button.active{background:#26243a;color:white}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}.card{background:white;border:1px solid #e7e7ed;border-radius:16px;padding:22px}.meta{font-size:.8rem;color:#6c6a7d}.score{display:inline-block;border:1px solid #dcd4ef;padding:3px 8px;border-radius:8px;margin-right:8px}.card h2{font-size:1.15rem;line-height:1.5}.card p{line-height:1.75;color:#575665}.card a{font-weight:bold;text-underline-offset:4px}
-.empty{background:white;border:1px dashed #d9d5e3;border-radius:16px;padding:42px;text-align:center;color:#666477}
-footer{font-size:.8rem;color:#73717f;border-top:1px solid #ddd;margin-top:50px;line-height:1.8}
-</style></head><body>
-<header><strong>◉ WORK SIGNAL</strong><span>NEWS THAT MATTERS.</span></header>
-<main><section class="hero"><small>CURATED NEWS FOR WORKING PEOPLE</small><h1>ニュースは短く。<br>意味は深く。</h1><p>AI・仕事・マネジメント・お金・経済・Crypto。一次情報を確かめ、働く人に関係するニュースだけを届けます。</p></section>
-<h2>最新のシグナル</h2><nav id="filters" aria-label="カテゴリー"></nav><section class="cards" id="articles" aria-live="polite"></section>
-</main><footer>WORK SIGNAL | 掲載内容は独自の解説です。出典を明示し、事実と考察を区別します。投資判断を推奨するものではありません。</footer>
+:root{--paper:#f2efe7;--ink:#191918;--orange:#fa4c24;--line:#c9c4ba;--muted:#68665f;--white:#fffdf8;--sans:"Space Grotesk","DM Sans",sans-serif;--jp:"Noto Sans JP",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--jp);-webkit-font-smoothing:antialiased}a{color:inherit}button{font:inherit}::selection{background:var(--orange);color:white}
+.shell{width:min(100% - 64px,1440px);margin:auto}.topline{height:7px;background:var(--ink)}
+.masthead{height:100px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ink);gap:20px}
+.brand{font:800 clamp(24px,3vw,39px)/1 var(--sans);letter-spacing:-.095em;text-decoration:none;white-space:nowrap}.brand .dot{color:var(--orange)}.brand .sup{font-size:10px;vertical-align:top;letter-spacing:0;margin-left:5px}
+.navlinks{display:flex;align-items:center;gap:28px;font:600 11px var(--sans);letter-spacing:.11em}.navlinks a{text-decoration:none}.navlinks a:hover{color:var(--orange)}
+.issue{display:flex;align-items:center;gap:8px;font:600 10px var(--sans);letter-spacing:.09em;white-space:nowrap}.live{width:7px;height:7px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 4px #fa4c241c}
+.hero{display:grid;grid-template-columns:1.13fr .87fr;min-height:620px;border-bottom:1px solid var(--ink);position:relative}
+.hero-copy{display:flex;flex-direction:column;justify-content:space-between;padding:38px 36px 35px 0;position:relative;z-index:1}
+.eyebrow{display:flex;align-items:center;gap:12px;font:700 11px var(--sans);letter-spacing:.16em}.eyebrow:before{content:"";width:27px;height:2px;background:var(--orange)}
+.hero h1{margin:28px 0 20px;font-family:var(--jp);font-weight:900;font-size:clamp(53px,7.1vw,112px);letter-spacing:-.105em;line-height:1.18;white-space:nowrap}
+.hero h1 .stroke{display:block;color:transparent;-webkit-text-stroke:1.5px var(--ink);letter-spacing:-.1em}.hero h1 .accent{color:var(--orange)}
+.hero-bottom{display:flex;align-items:end;justify-content:space-between;gap:20px}.hero-description{max-width:360px;font-size:13px;font-weight:500;line-height:2;color:#48463f}.hero-description strong{color:var(--ink)}
+.scrollcue{display:flex;align-items:center;gap:10px;font:700 10px var(--sans);letter-spacing:.12em;white-space:nowrap}.scrollcue i{font-style:normal;font-size:24px}
+.art{background:var(--orange);overflow:hidden;position:relative;min-height:490px;display:grid;place-items:center}
+.art:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#ffffff19 1px,transparent 1px),linear-gradient(90deg,#ffffff19 1px,transparent 1px);background-size:38px 38px;opacity:.5}
+.orbit{width:min(78%,530px);aspect-ratio:1;border:2px solid var(--ink);border-radius:50%;position:relative;display:grid;place-items:center;animation:turn 28s linear infinite}
+.orbit:before,.orbit:after{content:"";position:absolute;inset:15%;border:2px solid var(--ink);border-radius:50%}.orbit:after{inset:30%}
+.orbit .ring{position:absolute;inset:-14%;border:1px solid #19191870;border-radius:50%}.orbit .ring:before{content:"";position:absolute;top:15%;left:13%;height:23px;width:23px;background:var(--ink);border-radius:50%}
+.orbit .signal{position:relative;z-index:1;font:800 clamp(80px,11vw,170px)/1 var(--sans);letter-spacing:-.12em;transform:rotate(-14deg);color:var(--paper);text-shadow:7px 7px 0 var(--ink)}
+.art-label{position:absolute;top:25px;left:25px;font:700 11px var(--sans);letter-spacing:.14em}.art-corner{position:absolute;right:24px;bottom:20px;font:700 11px var(--sans);letter-spacing:.1em;text-align:right;line-height:1.8}
+@keyframes turn{to{transform:rotate(360deg)}}
+.ticker{background:var(--ink);color:var(--paper);overflow:hidden;padding:14px 0}.ticker-track{display:flex;gap:32px;width:max-content;animation:marquee 32s linear infinite;font:700 12px var(--sans);letter-spacing:.12em}.ticker b{color:var(--orange);font-weight:700}@keyframes marquee{to{transform:translateX(-50%)}}
+.section{padding:90px 0 110px}.section-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;border-bottom:1px solid var(--ink);padding-bottom:22px}.kicker{font:700 11px var(--sans);letter-spacing:.16em;color:var(--orange)}.section-heading h2{margin:8px 0 0;font:800 clamp(40px,6vw,78px)/1 var(--sans);letter-spacing:-.075em}.section-aside{font:600 11px var(--sans);letter-spacing:.08em;color:var(--muted);text-align:right}
+.filters{display:flex;flex-wrap:wrap;gap:8px;padding:27px 0 32px}.filter{cursor:pointer;border:1px solid var(--line);background:transparent;border-radius:0;padding:11px 19px;font:700 12px var(--sans);transition:background .2s,color .2s,border-color .2s}.filter:hover{border-color:var(--ink)}.filter[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.story{background:var(--white);border:1px solid var(--line);min-height:330px;padding:27px;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}.story:hover{transform:translateY(-5px);box-shadow:8px 8px 0 var(--ink)}.story-top{display:flex;justify-content:space-between;gap:10px;align-items:center;font:700 11px var(--sans);letter-spacing:.09em}.story-score{background:var(--orange);color:white;padding:7px 9px}.story-category{color:var(--muted)}.story h3{font-size:clamp(20px,2vw,27px);letter-spacing:-.04em;line-height:1.5;margin:34px 0 12px}.story p{font-size:13px;line-height:1.9;color:var(--muted);margin:0 0 32px}.story-link{margin-top:auto;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:18px;text-decoration:none;font:700 11px var(--sans);letter-spacing:.1em}.story-link span{font-size:21px;color:var(--orange)}.empty{grid-column:1/-1;border:1px solid var(--line);background:var(--white);min-height:340px;display:grid;place-items:center;text-align:center;padding:40px}.empty strong{display:block;font:800 clamp(26px,4vw,48px)/1.3 var(--sans);letter-spacing:-.05em}.empty p{font-size:13px;color:var(--muted);line-height:1.9}.empty .number{font:800 13px var(--sans);color:var(--orange);letter-spacing:.14em;margin-bottom:20px}
+.manifesto{background:var(--ink);color:var(--paper);padding:90px 0}.manifesto-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px}.manifesto h2{font:800 clamp(45px,6vw,86px)/1.1 var(--sans);letter-spacing:-.075em;margin:16px 0}.manifesto h2 em{font-style:normal;color:var(--orange)}.manifesto p{font-size:14px;line-height:2.2;color:#c9c4ba;max-width:480px}.principles{display:grid;align-content:center}.principle{display:flex;gap:20px;padding:22px 0;border-bottom:1px solid #59554e}.principle:first-child{border-top:1px solid #59554e}.principle b{font:700 12px var(--sans);color:var(--orange)}.principle div{font-size:15px;font-weight:700}.principle small{display:block;margin-top:8px;color:#b2aca3;font-size:12px;font-weight:400}
+footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-between;gap:25px;align-items:start}.footer-logo{font:800 30px var(--sans);letter-spacing:-.08em}.footer-logo span{color:var(--orange)}.footer-copy{font-size:11px;line-height:2;color:var(--muted);text-align:right}
+@media(max-width:1050px){.hero h1{font-size:clamp(45px,7vw,78px)}.navlinks{gap:15px}.hero{min-height:560px}.hero-description{max-width:300px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.shell{width:min(100% - 36px,1440px)}.topline{height:5px}.masthead{height:77px}.brand{font-size:28px}.navlinks{display:none}.issue{font-size:9px}.hero{grid-template-columns:1fr;min-height:0}.hero-copy{padding:27px 0 30px}.hero h1{font-size:clamp(44px,11vw,74px);margin:36px 0 25px}.hero-description{font-size:12px;max-width:270px}.scrollcue{font-size:9px}.art{min-height:360px;margin:0 -18px}.orbit{width:240px}.orbit .signal{font-size:100px}.art-label,.art-corner{font-size:9px}.section{padding:62px 0 80px}.section-heading h2{font-size:49px}.section-aside{font-size:9px}.filters{gap:7px}.filter{padding:9px 13px;font-size:11px}.grid{grid-template-columns:1fr}.story{min-height:280px}.manifesto{padding:70px 0}.manifesto-grid{grid-template-columns:1fr;gap:35px}.footer-row{flex-direction:column}.footer-copy{text-align:left}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="topline"></div>
+<div class="shell"><header class="masthead"><a href="./" class="brand" aria-label="WORK SIGNAL ホーム">WORK<span class="dot">.</span>SIGNAL<span class="sup">®</span></a><nav class="navlinks"><a href="#latest">LATEST</a><a href="#about">OUR POINT OF VIEW</a></nav><div class="issue"><span class="live" aria-hidden="true"></span> INDEPENDENT NEWS EDITION</div></header>
+<main><section class="hero" aria-label="WORK SIGNALの紹介"><div class="hero-copy"><div class="eyebrow">THE SIGNAL OVER THE NOISE</div><h1>ニュースは<br><span class="stroke">短く。</span>意味は<br><span class="accent">深く。</span></h1><div class="hero-bottom"><div class="hero-description"><strong>情報は増えた。判断する時間は減った。</strong><br>AI、仕事、マネジメント、経済。重要な変化を一次情報から読み解き、働く人に必要な視点を届けます。</div><a class="scrollcue" href="#latest">EXPLORE <i aria-hidden="true">↘</i></a></div></div>
+<div class="art" aria-hidden="true"><div class="art-label">01 / FIND YOUR FREQUENCY</div><div class="orbit"><div class="ring"></div><div class="signal">W<span style="color:#191918">.</span></div></div><div class="art-corner">NO MORE NOISE.<br>JUST SIGNAL.</div></div></section></main></div>
+<div class="ticker" aria-hidden="true"><div class="ticker-track"><span>AI <b>✳</b> WORK <b>✳</b> MANAGEMENT <b>✳</b> ECONOMY <b>✳</b> MONEY <b>✳</b> CRYPTO <b>✳</b> READ BEYOND THE HEADLINE <b>✳</b></span><span>AI <b>✳</b> WORK <b>✳</b> MANAGEMENT <b>✳</b> ECONOMY <b>✳</b> MONEY <b>✳</b> CRYPTO <b>✳</b> READ BEYOND THE HEADLINE <b>✳</b></span></div></div>
+<div class="shell"><section class="section" id="latest"><div class="section-heading"><div><div class="kicker">/ CURATED FOR THE CURIOUS</div><h2>THE LATEST<span style="color:var(--orange)">.</span></h2></div><div class="section-aside">ONLY WHAT MATTERS<br>UPDATED WHEN VERIFIED</div></div><nav class="filters" id="filters" aria-label="記事カテゴリー"></nav><div class="grid" id="articles" aria-live="polite"></div></section></div>
+<section class="manifesto" id="about"><div class="shell manifesto-grid"><div><div class="kicker">/ OUR POINT OF VIEW</div><h2>LESS NOISE.<br><em>MORE MEANING.</em></h2><p>ニュースを速く消費するためではなく、変化を深く理解するために。WORK SIGNALは、出来事の要約だけで終わらず、「自分の仕事や暮らしに何が関係するのか」まで考えるニュースメディアです。</p></div><div class="principles"><div class="principle"><b>01</b><div>FIRST-HAND SOURCES<small>原典を確かめる。事実と解釈を分ける。</small></div></div><div class="principle"><b>02</b><div>CONTEXT OVER CLICKS<small>煽りより文脈。話題性より実用性。</small></div></div><div class="principle"><b>03</b><div>HUMAN-IN-THE-LOOP<small>AIで調査・編集を支援し、公開は人が判断する。</small></div></div></div></div></section>
+<div class="shell"><footer><div class="footer-row"><div class="footer-logo">WORK<span>.</span>SIGNAL</div><div class="footer-copy">© <span id="year"></span> WORK SIGNAL. INDEPENDENT PERSPECTIVES.<br>掲載内容は独自の解説です。投資判断を推奨するものではありません。</div></div></footer></div>
 <script>
-const categories=['すべて','AI','仕事','マネジメント','お金','経済','Crypto'];let active='すべて',items=[];
+document.querySelector('#year').textContent=new Date().getFullYear();
+const categories=['すべて','AI','仕事','マネジメント','お金','経済','Crypto'];
+let active='すべて',items=[];
 const filters=document.querySelector('#filters'),root=document.querySelector('#articles');
-function el(tag,text,cls){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n}
-function render(){filters.replaceChildren();categories.forEach(c=>{const b=el('button',c);b.className=c===active?'active':'';b.onclick=()=>{active=c;render()};filters.append(b)});
-root.replaceChildren();const selected=items.filter(a=>active==='すべて'||a.category===active);if(!selected.length){root.append(el('div','公開準備中です。一次情報を確認した記事から順次掲載します。','empty'));return}
-selected.forEach(a=>{const card=el('article',undefined,'card');const meta=el('div',undefined,'meta');meta.append(el('span',a.score+'点','score'),document.createTextNode(a.category+' ・ '+a.published_at));card.append(meta,el('h2',a.title),el('p',a.summary));const link=el('a','一次情報を読む →');link.href=a.source_url;link.target='_blank';link.rel='noopener noreferrer';card.append(link);root.append(card)})}
-fetch('./data/articles.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('data unavailable');return r.json()}).then(data=>{items=Array.isArray(data)?data.filter(a=>a.status==='published'&&a.score>=80&&/^https:\/\//.test(a.source_url)):[];render()}).catch(()=>render());
-</script></body></html>
+function node(tag,content,className){const n=document.createElement(tag);if(content!==undefined)n.textContent=content;if(className)n.className=className;return n}
+function render(){filters.replaceChildren();categories.forEach(category=>{const button=node('button',category,'filter');button.type='button';button.setAttribute('aria-pressed',String(active===category));button.onclick=()=>{active=category;render()};filters.append(button)});
+root.replaceChildren();const selected=items.filter(a=>active==='すべて'||a.category===active);
+if(!selected.length){const box=node('div',undefined,'empty'),inner=node('div');inner.append(node('div','TRANSMISSION 001 / STANDBY','number'),node('strong','THE SIGNAL IS COMING.'));inner.append(node('p','公開準備中です。\n一次情報を検証し、承認されたニュースから掲載します。'));box.append(inner);root.append(box);return}
+selected.forEach(a=>{const card=node('article',undefined,'story'),top=node('div',undefined,'story-top');top.append(node('span',a.category,'story-category'),node('span',a.score+' / 100','story-score'));card.append(top,node('h3',a.title),node('p',a.summary));const link=node('a',undefined,'story-link');link.href=a.source_url;link.target='_blank';link.rel='noopener noreferrer';link.append(node('span','VIEW ORIGINAL SOURCE'),node('span','↗'));card.append(link);root.append(card)})}
+render();fetch('./data/articles.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('data unavailable');return r.json()}).then(data=>{items=Array.isArray(data)?data.filter(a=>a.status==='published'&&a.score>=80&&categories.includes(a.category)&&typeof a.source_url==='string'&&/^https:\/\//.test(a.source_url)):[];render()}).catch(()=>render());
+</script>
+</body></html>

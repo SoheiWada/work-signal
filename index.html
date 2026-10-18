@@ -78,10 +78,25 @@
 .story-figure{margin:0 0 23px;overflow:hidden;aspect-ratio:16/9;background:var(--paper);border:1px solid #e5e0d6}
 .story-figure img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .55s cubic-bezier(.2,.8,.2,1)}
 .story:hover .story-figure img{transform:scale(1.025)}
-.story-link{margin-top:auto;display:flex;justify-content:space-between;gap:18px;align-items:center;border-top:1px solid var(--line);padding-top:18px;text-decoration:none;font:700 11px var(--sans);letter-spacing:.095em}
-.story-link:after{content:"";display:block;flex:none;width:28px;height:1px;background:var(--orange);transition:width .25s ease}
-.story:hover .story-link:after,.story-link:focus-visible:after{width:52px}
-.story-link:focus-visible{outline:2px solid var(--orange);outline-offset:5px}
+
+/* Article navigation is an explicit touch target; the card itself is not clickable. */
+.story-link{margin-top:auto;min-height:61px;display:flex;align-items:center;gap:16px;padding:10px 17px;
+ background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--orange);
+ text-decoration:none;color:var(--ink);transition:background .25s,color .25s,border-color .25s;touch-action:manipulation}
+.story-link-copy{display:flex;flex-direction:column;gap:4px;min-width:0}
+.story-link-jp{font:800 15px/1.35 var(--jp);letter-spacing:-.035em}
+.story-link-en{font:700 9px/1.25 var(--sans);letter-spacing:.14em;color:var(--muted);transition:color .25s}
+.story-link-mark{margin-left:auto;display:grid;place-items:center;width:86px;min-width:65px;height:33px;overflow:hidden;border-left:1px solid var(--line);padding-left:13px}
+.story-link-wave{display:block;width:72px;height:26px;overflow:visible}
+.story-link-wave path{fill:none;stroke:var(--orange);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.story-link-wave .link-wave-track{opacity:.3;stroke-width:1}
+.story-link-wave .link-wave-live{stroke-dasharray:160;stroke-dashoffset:0}
+@keyframes link-wave-trace{0%{stroke-dashoffset:160;opacity:.3}70%,100%{stroke-dashoffset:0;opacity:1}}
+.story-link:is(:hover,:focus-visible,:active){background:var(--ink);color:var(--paper);border-color:var(--ink);border-left-color:var(--orange)}
+.story-link:is(:hover,:focus-visible,:active) .story-link-en{color:#d0cac0}
+.story-link:is(:hover,:focus-visible,:active) .link-wave-live{animation:link-wave-trace .72s cubic-bezier(.22,.8,.24,1) both}
+.story-link:active{background:#35322e}
+.story-link:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
 .empty{grid-column:1/-1;border:1px solid var(--line);background:var(--white);min-height:340px;display:grid;place-items:center;text-align:center;padding:40px}.empty strong{display:block;font:800 clamp(26px,4vw,48px)/1.3 var(--sans);letter-spacing:-.05em}.empty p{font-size:13px;color:var(--muted);line-height:1.9}.empty .number{font:800 13px var(--sans);color:var(--orange);letter-spacing:.14em;margin-bottom:20px}
 .manifesto{background:var(--ink);color:var(--paper);padding:90px 0}.manifesto-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px}.manifesto h2{font:800 clamp(45px,6vw,86px)/1.1 var(--sans);letter-spacing:-.075em;margin:16px 0}.manifesto h2 em{font-style:normal;color:var(--orange)}.manifesto p{font-size:14px;line-height:2.2;color:#c9c4ba;max-width:480px}.principles{display:grid;align-content:center}.principle{display:flex;gap:20px;padding:22px 0;border-bottom:1px solid #59554e}.principle:first-child{border-top:1px solid #59554e}.principle b{font:700 12px var(--sans);color:var(--orange)}.principle div{font-size:15px;font-weight:700}.principle small{display:block;margin-top:8px;color:#b2aca3;font-size:12px;font-weight:400}
 footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-between;gap:25px;align-items:start}.footer-logo{font:800 30px var(--sans);letter-spacing:-.08em}.footer-logo span{color:var(--orange)}.footer-copy{font-size:11px;line-height:2;color:var(--muted);text-align:right}
@@ -135,7 +150,7 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
 .story h3{font-size:clamp(22px,5.7vw,28px);line-height:1.48;margin:24px 0 12px}
 .story p{font-size:13px;margin-bottom:24px}
 .manifesto{padding:70px 0}.manifesto-grid{grid-template-columns:1fr;gap:35px}.footer-row{flex-direction:column}.footer-copy{text-align:left}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.guide-pulse path,.signal-mark .signal-sweep{stroke-dashoffset:0!important;opacity:1!important}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.guide-pulse path,.signal-mark .signal-sweep,.link-wave-live{stroke-dashoffset:0!important;opacity:1!important}}
 </style>
 <!-- Google tag (gtag.js): WORK SIGNAL -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4B5F6JJZH"></script>
@@ -230,7 +245,12 @@ selected.forEach(a=>{
    figure.append(img);body.append(figure);
  }
  body.append(node('p',a.summary));
- const link=node('a',undefined,'story-link');link.href='./articles/'+encodeURIComponent(a.id)+'/';link.append(node('span','READ THE STORY'));
+ const link=node('a',undefined,'story-link');link.href='./articles/'+encodeURIComponent(a.id)+'/';link.setAttribute('aria-label',a.title+' の記事を読む');
+ const copy=node('span',undefined,'story-link-copy');copy.append(node('span','記事を読む','story-link-jp'),node('span','READ THE STORY','story-link-en'));
+ const signal=document.createElementNS('http://www.w3.org/2000/svg','svg');signal.setAttribute('viewBox','0 0 88 26');signal.setAttribute('aria-hidden','true');signal.classList.add('story-link-wave');
+ const waveD='M2 13 H20 L27 13 L33 8 L39 18 L46 3 L53 23 L59 13 H86';
+ for(const cls of ['link-wave-track','link-wave-live']){const path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d',waveD);path.classList.add(cls);signal.append(path)}
+ const mark=node('span',undefined,'story-link-mark');mark.append(signal);link.append(copy,mark);
  body.append(link);card.append(head,body);root.append(card)
 })}
 fetch('./data/articles.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('data unavailable');return r.json()}).then(data=>{items=Array.isArray(data)?data.filter(a=>a.status==='published'&&a.score>=80&&typeof a.id==='string'&&categories.includes(a.category)&&typeof a.source_url==='string'&&/^https:\/\//.test(a.source_url)):[];render()}).catch(()=>{if(!root.children.length)render()});

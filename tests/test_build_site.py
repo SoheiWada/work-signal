@@ -167,6 +167,7 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertIn('記事を読む', home)
             self.assertIn('class="story-link-wave"', home)
             self.assertIn('id="page-top"', page)
+            self.assertIn('id="article-end"', page)
             self.assertIn('aria-label="読了後のナビゲーション"', page)
             self.assertIn('SHARE THE SIGNAL', page)
             self.assertIn('ページ上部へ戻る', page)

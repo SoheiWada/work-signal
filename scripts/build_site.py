@@ -200,16 +200,17 @@ def article_card_image(article):
 
 
 def story_link(article):
-    wave = "M2 13 H20 L27 13 L33 8 L39 18 L46 3 L53 23 L59 13 H86"
+    """A true touch target: the article card itself remains scrollable."""
+    line = "M0 16 H30 L42 16 L49 10 L57 23 L65 4 L73 29 L81 16 H120"
     return (
         '<a class="story-link" href="' + article_url(article)
-        + '" aria-label="' + esc(article["title"]) + ' の記事を読む">'
-        '<span class="story-link-copy"><span class="story-link-jp">記事を読む</span>'
-        '<span class="story-link-en">READ THE STORY</span></span>'
+        + '" aria-label="' + esc(article["title"]) + ' のシグナルを読む">'
+        '<span class="story-link-copy"><span class="story-link-title">READ THE SIGNAL</span></span>'
         '<span class="story-link-mark">'
-        '<svg class="story-link-wave" viewBox="0 0 88 26" aria-hidden="true">'
-        '<path class="link-wave-track" d="' + wave + '"/>'
-        '<path class="link-wave-live" d="' + wave + '"/>'
+        '<svg class="story-link-wave" viewBox="0 0 120 32" '
+        'preserveAspectRatio="xMidYMid meet" aria-hidden="true">'
+        '<path class="link-wave-track" d="' + line + '"/>'
+        '<path class="link-wave-live" d="' + line + '"/>'
         '</svg></span></a>'
     )
 
@@ -268,44 +269,48 @@ def article_body(article):
 
 
 def article_end(article):
-    """Completion controls and external share intents, without a card-wide link."""
+    """One editorial transmission rail, then a typographic return to all signals."""
     url = article_url(article)
-    link_data = [
+    share_options = [
         ("X", "https://twitter.com/intent/tweet?" + urlencode({
             "text": article["title"], "url": url,
         })),
         ("Threads", "https://www.threads.net/intent/post?" + urlencode({
-            "text": article["title"] + "\n" + url,
+            "text": article["title"] + "\\n" + url,
         })),
         ("LINE", "https://social-plugins.line.me/lineit/share?" + urlencode({
             "url": url,
         })),
     ]
-    social = ''.join(
+    share_links = ''.join(
         '<a class="article-share-button" href="' + esc(href)
         + '" target="_blank" rel="noopener noreferrer" aria-label="'
-        + esc(name) + 'で記事を共有（新しいタブ）">' + esc(name) + '</a>'
-        for name, href in link_data
+        + esc(name) + 'でこの記事を共有する（新しいタブ）">'
+        + esc(name) + '</a>'
+        for name, href in share_options
     )
     return (
         '<section class="article-end" id="article-end" aria-label="読了後のナビゲーション">'
-        '<div class="article-end-label">END OF SIGNAL / READING COMPLETE</div>'
+        '<div class="article-end-label">TRANSMISSION / AFTER THE SIGNAL</div>'
         '<div class="article-end-intro"><h2>読んだ、その先へ。</h2>'
-        '<p>この記事を共有するか、ページ上部から次のニュースへ。</p></div>'
-        '<div class="article-end-grid"><div class="article-share">'
-        '<p class="article-share-title">SHARE THE SIGNAL</p>'
-        '<div class="article-share-list">' + social
+        '<p>気になった変化を共有して、次のシグナルへ。</p></div>'
+        '<div class="article-end-grid">'
+        '<div class="article-share"><p class="article-share-title">SHARE THIS SIGNAL</p>'
+        '<nav class="article-share-list" aria-label="この記事を共有する">'
+        + share_links
         + '<button type="button" class="article-share-button" data-copy-article-url="'
-        + esc(url) + '">URLをコピー</button></div>'
-        '<span class="article-share-feedback" data-share-feedback="" role="status"'
-        ' aria-live="polite"></span></div>'
-        '<a class="article-return" href="#page-top">'
-        '<span class="article-return-sub">BACK TO THE TOP</span>'
-        '<span class="article-return-label"><span>ページ上部へ戻る</span>'
-        '<svg class="article-return-svg" viewBox="0 0 96 48" aria-hidden="true">'
-        '<path class="return-line" d="M0 35 H25 L38 35 L53 10 L68 35 H96"/>'
-        '<path class="return-rise" d="M0 35 H25 L38 35 L53 10 L68 35 H96"/>'
-        '</svg></span></a></div></section>'
+        + esc(url) + '">URLをコピー</button></nav>'
+        '<span class="article-share-feedback" data-share-feedback="" '
+        'role="status" aria-live="polite"></span></div>'
+        '<a class="article-return" href="/#latest" aria-label="記事一覧のALL SIGNALSへ戻る">'
+        '<span class="article-return-sub">BACK TO THE INDEX / FIND THE NEXT SIGNAL</span>'
+        '<span class="article-return-label"><span class="article-return-name">ALL SIGNALS</span>'
+        '<span class="article-return-signal">'
+        '<svg class="article-return-svg" viewBox="0 0 200 56" '
+        'preserveAspectRatio="xMidYMid meet" aria-hidden="true">'
+        '<path class="return-line" d="M0 28 H42 C58 28 62 14 80 28 S112 42 130 28 H200"/>'
+        '<path class="return-rise" d="M0 28 H42 C58 28 62 14 80 28 S112 42 130 28 H200"/>'
+        '</svg></span></span></a></div></section>'
     )
 
 
@@ -335,11 +340,12 @@ def article_page(article, template):
             + image_metadata(image_url, title)
             + '<meta name="robots" content="max-image-preview:large">'
             + json_ld(schema) + fonts + style
+            + '<link rel="stylesheet" href="/assets/css/signal-interactions.css">'
             + '<script defer src="/assets/js/article-actions.js"></script>' + analytics
             + '<script>measurePageView();</script></head>')
     body = ('<body><div class="top" id="page-top"></div><div class="shell"><header>'
             + '<a class="brand" href="/">WORK<span>.</span>SIGNAL</a>'
-            + '<a class="back" href="/#latest">ALL STORIES</a></header>'
+            + '<a class="back" href="/#latest">ALL SIGNALS</a></header>'
             + '<main id="article">' + article_body(article) + article_end(article) + '</main></div>'
             + '<footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong>'
             + '<small>NEWS IS SHORT. MEANING IS DEEP.</small></div></footer></body></html>')
@@ -359,6 +365,10 @@ def build(output, feed=None):
     output_actions = output / 'assets/js/article-actions.js'
     output_actions.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(shared_actions, output_actions)
+    shared_style = ROOT / 'assets/css/signal-interactions.css'
+    output_style = output / 'assets/css/signal-interactions.css'
+    output_style.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(shared_style, output_style)
     index = (ROOT / 'index.html').read_text()
     cards = ''.join(article_card(article) for article in articles)
     if not cards:

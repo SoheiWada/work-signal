@@ -288,7 +288,7 @@ def article_end(article):
         for name, href in link_data
     )
     return (
-        '<section class="article-end" aria-label="読了後のナビゲーション">'
+        '<section class="article-end" id="article-end" aria-label="読了後のナビゲーション">'
         '<div class="article-end-label">END OF SIGNAL / READING COMPLETE</div>'
         '<div class="article-end-intro"><h2>読んだ、その先へ。</h2>'
         '<p>この記事を共有するか、ページ上部から次のニュースへ。</p></div>'

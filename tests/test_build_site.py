@@ -77,7 +77,28 @@ class StaticPublishingTests(unittest.TestCase):
         self.assertNotIn('story-masthead', card)
         self.assertNotIn('story-score', card)
         self.assertIn(article['title'], card)
-        self.assertIn('class="guide-pulse"', card)
+        self.assertIn('class="signal-mark"', card)
+        self.assertIn('class="signal-base"', card)
+        self.assertIn('class="signal-sweep"', card)
+        self.assertIn('preserveAspectRatio="xMidYMid meet"', card)
+        self.assertNotIn('guide-visual', card)
+
+    def test_article_format_marks_are_isolated_from_large_guide_animation(self):
+        source = (ROOT / 'index.html').read_text()
+        self.assertIn('function signalMark(deep)', source)
+        self.assertIn('.story-format .signal-mark', source)
+        self.assertNotIn('cloneNode(true)', source)
+        self.assertNotIn('.story-format .guide-pulse', source)
+        self.assertIn('@keyframes signal-mini-trace', source)
+        for format_name in (None, 'deep_dive'):
+            article = copy.deepcopy(self.article)
+            if format_name:
+                article['format'] = format_name
+            html = article_card(article)
+            self.assertIn('<svg class="signal-mark"', html)
+            self.assertIn('signal-base', html)
+            self.assertIn('signal-sweep', html)
+            self.assertNotIn('viewBox="0 0 480 130"', html)
 
     def test_missing_article_visual_fails_build_instead_of_broken_image(self):
         article = copy.deepcopy(self.article)

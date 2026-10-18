@@ -139,6 +139,61 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertNotIn('outside.example', home)
             self.assertNotIn('class="story-figure"', home)
 
+    def test_story_call_to_action_is_explicit_and_has_wave_animation(self):
+        source = (ROOT / 'index.html').read_text()
+        card = article_card(self.article)
+        self.assertIn('class="story-link-jp">記事を読む', card)
+        self.assertIn('class="story-link-wave"', card)
+        self.assertIn('class="link-wave-live"', card)
+        self.assertIn('aria-label="' + self.article['title'] + ' の記事を読む"', card)
+        self.assertIn('.story-link:is(:hover,:focus-visible,:active)', source)
+        self.assertIn('@keyframes link-wave-trace', source)
+        self.assertIn('.reading-guide{display:grid', source)
+        # Touch scrolling remains native because the surrounding story is not clickable.
+        self.assertNotIn('onclick=', card)
+
+    def test_article_end_has_share_targets_top_link_and_shared_behavior(self):
+        from urllib.parse import parse_qs, urlparse
+
+        with tempfile.TemporaryDirectory() as temp:
+            output = Path(temp) / 'site'
+            build(output, [self.article])
+            canonical = BASE + 'articles/' + self.article['id'] + '/'
+            page = (output / 'articles' / self.article['id'] / 'index.html').read_text()
+            home = (output / 'index.html').read_text()
+            doc = Document(page)
+            links = [attrs for tag, attrs in doc.tags if tag == 'a']
+            buttons = [attrs for tag, attrs in doc.tags if tag == 'button']
+            self.assertIn('記事を読む', home)
+            self.assertIn('class="story-link-wave"', home)
+            self.assertIn('id="page-top"', page)
+            self.assertIn('aria-label="読了後のナビゲーション"', page)
+            self.assertIn('SHARE THE SIGNAL', page)
+            self.assertIn('ページ上部へ戻る', page)
+            self.assertIn('.article-end{', page)
+            self.assertTrue(any(attrs.get('href') == '#page-top' for attrs in links))
+            self.assertTrue(any(attrs.get('data-copy-article-url') == canonical
+                                for attrs in buttons))
+            outbound = [attrs for attrs in links
+                        if attrs.get('class') == 'article-share-button']
+            self.assertEqual(len(outbound), 3)
+            for attrs in outbound:
+                self.assertEqual(attrs.get('target'), '_blank')
+                self.assertIn('noopener', attrs.get('rel', ''))
+                params = parse_qs(urlparse(attrs['href']).query)
+                if 'url' in params:
+                    self.assertEqual(params['url'][0], canonical)
+                else:
+                    self.assertIn(canonical, params['text'][0])
+            self.assertIn('src="/assets/js/article-actions.js"', page)
+            self.assertIn('src="/assets/js/article-actions.js"', (output / 'article.html').read_text())
+            self.assertIn('src="/assets/js/article-actions.js"', (output / 'preview.html').read_text())
+            shared = output / 'assets/js/article-actions.js'
+            self.assertTrue(shared.is_file())
+            self.assertIn("document.addEventListener('click'", shared.read_text())
+            # A draft may be previewed, but the client-only preview never promotes it.
+            self.assertIn("articleEnd(a,true)", (output / 'preview.html').read_text())
+
     def test_feed_text_cannot_inject_markup_or_terminate_structured_data(self):
         article = copy.deepcopy(self.article)
         article['title'] = 'A </script><script src="https://invalid.example/attack.js">'

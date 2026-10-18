@@ -197,6 +197,7 @@ class StaticPublishingTests(unittest.TestCase):
                 else:
                     self.assertIn(canonical, params['text'][0])
                     self.assertIn('\n' + canonical, params['text'][0])
+                    self.assertTrue(params['text'][0].endswith(self.article['source_url']))
 
             self.assertIn('href="/assets/css/signal-interactions.css"', page)
             self.assertIn('src="/assets/js/article-actions.js"', page)

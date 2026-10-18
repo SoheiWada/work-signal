@@ -64,13 +64,13 @@
 .story-category{font:800 11px var(--sans);letter-spacing:.06em;color:var(--ink)}
 .story-format{display:inline-flex;align-items:center;gap:8px;min-width:0;color:var(--muted);font:700 10px var(--sans);letter-spacing:.055em}
 .story-format-label{white-space:nowrap}
-.story-format .guide-visual{position:relative;display:grid;flex:none;grid-column:auto;grid-row:auto;place-items:center;width:48px;height:19px;margin:0;min-height:0;opacity:.8;overflow:hidden}
-.story-format .guide-visual:before{background:#19191825}
-.story-format .guide-pulse{width:100%;height:18px;min-height:0;transform:none}
-.story-format .guide-pulse path{stroke-width:1.6;animation-duration:7s}
-.story-format .guide-pulse .echo,.story-format .guide-pulse .echo-two{stroke-width:.8}
-.story-format .guide-orbit{width:15px;opacity:.65;animation-duration:25s}
-.story-format .guide-orbit:after{width:3px;height:3px;top:2px;left:0}
+/* Dedicated small-format signal. Do not scale the large guide SVG or inherit its layout. */
+.story-format .signal-mark{display:block;flex:none;width:65px;height:20px;overflow:visible}
+.story-format .signal-mark .signal-base{fill:none;stroke:var(--orange);stroke-width:1.8;opacity:.66;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.story-format .signal-mark .signal-echo{fill:none;stroke:var(--muted);stroke-width:.9;opacity:.5;vector-effect:non-scaling-stroke}
+.story-format .signal-mark .signal-ring{fill:none;stroke:var(--muted);stroke-width:.8;opacity:.52;vector-effect:non-scaling-stroke}
+.story-format .signal-mark .signal-sweep{fill:none;stroke:var(--orange);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:16 192;stroke-dashoffset:0;vector-effect:non-scaling-stroke;animation:signal-mini-trace 5s linear infinite}
+@keyframes signal-mini-trace{to{stroke-dashoffset:-208}}
 .story-readtime{font:700 10px var(--sans);letter-spacing:.06em;color:var(--muted);white-space:nowrap}
 .story h3{font-size:clamp(23px,2.1vw,32px);letter-spacing:-.055em;line-height:1.43;font-weight:800;margin:27px 0 17px;text-wrap:pretty}
 .story p{font-size:13px;line-height:1.95;color:var(--muted);margin:0 0 29px}
@@ -98,13 +98,12 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
 .guide-pulse{height:30px}.guide-orbit{width:29px}
 .story{min-height:0;padding:23px 21px 22px}
 .story-head{gap:8px;align-items:flex-start}.story-top{gap:6px 10px}.story-format{font-size:9px;gap:5px}
-.story-format .guide-visual{position:relative;right:auto;bottom:auto;width:35px;height:16px;opacity:.65}
-.story-format .guide-pulse{height:14px}.story-format .guide-orbit{width:12px}
+.story-format .signal-mark{width:56px;height:18px}
 .story-readtime{font-size:9px;padding-top:2px}
 .story h3{font-size:clamp(22px,5.7vw,28px);line-height:1.48;margin:24px 0 12px}
 .story p{font-size:13px;margin-bottom:24px}
 .manifesto{padding:70px 0}.manifesto-grid{grid-template-columns:1fr;gap:35px}.footer-row{flex-direction:column}.footer-copy{text-align:left}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.guide-pulse path{stroke-dashoffset:0!important;opacity:1!important}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.guide-pulse path,.signal-mark .signal-sweep{stroke-dashoffset:0!important;opacity:1!important}}
 </style>
 <!-- Google tag (gtag.js): WORK SIGNAL -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4B5F6JJZH"></script>
@@ -151,6 +150,34 @@ const formatButtons=[...document.querySelectorAll('.guide-item[data-format]')];
 formatButtons.forEach(button=>button.addEventListener('click',()=>{formatActive=formatActive===button.dataset.format?null:button.dataset.format;formatButtons.forEach(b=>b.setAttribute('aria-pressed',String(formatActive===b.dataset.format)));render()}));
 const filters=document.querySelector('#filters'),root=document.querySelector('#articles');
 function node(tag,content,className){const n=document.createElement(tag);if(content!==undefined)n.textContent=content;if(className)n.className=className;return n}
+/* Same waveform geometry as the reading guide, rendered at a native icon viewBox.
+   The dim base path stays visible at every animation frame. */
+const miniPaths={
+ brief:'M0 13 H20.8 L23.8 13 L27.2 8 L30.2 18.4 L33.8 3.4 L37.8 22.2 L41.4 13 H96',
+ deep:'M0 13 C15 13 21.6 7.2 33 9.6 S49 20.2 60.8 15.4 S78.6 9.6 96 13',
+ echo:'M0 13 C16 13 24 23 35 19.8 S48 2.6 61 7 S78 18.4 96 13'
+};
+function signalMark(deep){
+ const namespace='http://www.w3.org/2000/svg';
+ const svg=document.createElementNS(namespace,'svg');
+ svg.setAttribute('viewBox','0 0 96 26');
+ svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+ svg.setAttribute('aria-hidden','true');
+ svg.setAttribute('focusable','false');
+ svg.classList.add('signal-mark');
+ function path(d,cls){
+   const p=document.createElementNS(namespace,'path');
+   p.setAttribute('d',d);p.setAttribute('class',cls);svg.append(p)
+ }
+ if(deep){
+   for(const rad of [10,6]){const circle=document.createElementNS(namespace,'circle');circle.setAttribute('cx','49');circle.setAttribute('cy','13');circle.setAttribute('r',String(rad));circle.setAttribute('class','signal-ring');svg.append(circle)}
+   path(miniPaths.echo,'signal-echo');
+ }
+ path(deep?miniPaths.deep:miniPaths.brief,'signal-base');
+ path(deep?miniPaths.deep:miniPaths.brief,'signal-sweep');
+ return svg;
+}
+
 function render(){filters.replaceChildren();categories.forEach(category=>{const button=node('button',category,'filter');button.type='button';button.setAttribute('aria-pressed',String(active===category));button.onclick=()=>{active=category;render()};filters.append(button)});
 root.replaceChildren();const selected=items.filter(a=>(active==='すべて'||a.category===active)&&(!formatActive||(a.format==='deep_dive'?'deep_dive':'brief')===formatActive));
 if(!selected.length){const box=node('div',undefined,'empty'),inner=node('div');inner.append(node('div','TRANSMISSION 001 / STANDBY','number'),node('strong','THE SIGNAL IS COMING.'));inner.append(node('p','公開準備中です。\n一次情報を検証し、承認されたニュースから掲載します。'));box.append(inner);root.append(box);return}
@@ -160,9 +187,7 @@ selected.forEach(a=>{
  const head=node('div',undefined,'story-head'),top=node('div',undefined,'story-top');
  top.append(node('span',a.category,'story-category'));
  const badge=node('span',undefined,'story-format');
- const visual=document.querySelector(deep?'.guide-item--deep .guide-visual':'.guide-item--brief .guide-visual').cloneNode(true);
- visual.setAttribute('aria-hidden','true');
- badge.append(visual,node('span',deep?'SIGNAL DEEP DIVE':'SIGNAL BRIEF','story-format-label'));
+ badge.append(signalMark(deep),node('span',deep?'SIGNAL DEEP DIVE':'SIGNAL BRIEF','story-format-label'));
  top.append(badge);
  head.append(top,node('span',deep?'4–7 MIN':'1–2 MIN','story-readtime'));
  const body=node('div',undefined,'story-content');body.append(node('h3',a.title));

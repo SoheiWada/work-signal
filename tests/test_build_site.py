@@ -83,6 +83,28 @@ class StaticPublishingTests(unittest.TestCase):
         self.assertIn('preserveAspectRatio="xMidYMid meet"', card)
         self.assertNotIn('guide-visual', card)
 
+    def test_reading_index_has_global_layout_and_visible_wave_strokes(self):
+        """Guard against dropping guide CSS when article card styles are redesigned."""
+        source = (ROOT / 'index.html').read_text()
+        stylesheet = source.split('<style>', 1)[1].split('</style>', 1)[0]
+        base_styles = stylesheet.split('@media(max-width:1050px)', 1)[0]
+        for required in (
+            '.reading-guide{display:grid',
+            '.guide-panels{display:grid',
+            '.guide-item{appearance:none',
+            '.guide-visual{grid-column:2',
+            '.guide-pulse path{fill:none',
+            '.guide-orbit{position:absolute',
+            '@keyframes signal-draw',
+            '@keyframes guide-spin',
+        ):
+            self.assertIn(required, base_styles)
+        self.assertIn('id="reading-guide"', source)
+        self.assertIn('data-format="brief"', source)
+        self.assertIn('data-format="deep_dive"', source)
+        self.assertIn('class="signal-mark"', article_card(self.article))
+        self.assertNotIn('cloneNode(true)', source)
+
     def test_article_format_marks_are_isolated_from_large_guide_animation(self):
         source = (ROOT / 'index.html').read_text()
         self.assertIn('function signalMark(deep)', source)

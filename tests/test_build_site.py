@@ -139,20 +139,26 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertNotIn('outside.example', home)
             self.assertNotIn('class="story-figure"', home)
 
-    def test_story_call_to_action_is_explicit_and_has_wave_animation(self):
+    def test_read_the_signal_is_the_only_card_navigation_target(self):
+        """Large touch targets should not make the whole article card clickable."""
         source = (ROOT / 'index.html').read_text()
+        css = (ROOT / 'assets/css/signal-interactions.css').read_text()
         card = article_card(self.article)
-        self.assertIn('class="story-link-jp">記事を読む', card)
+        self.assertIn('<span class="story-link-title">READ THE SIGNAL</span>', card)
         self.assertIn('class="story-link-wave"', card)
         self.assertIn('class="link-wave-live"', card)
-        self.assertIn('aria-label="' + self.article['title'] + ' の記事を読む"', card)
-        self.assertIn('.story-link:is(:hover,:focus-visible,:active)', source)
-        self.assertIn('@keyframes link-wave-trace', source)
-        self.assertIn('.reading-guide{display:grid', source)
-        # Touch scrolling remains native because the surrounding story is not clickable.
+        self.assertIn('aria-label="' + self.article['title'] + ' のシグナルを読む"', card)
+        self.assertNotIn('記事を読む</span>', card)
         self.assertNotIn('onclick=', card)
+        self.assertNotIn('href=', card.split('<a class="story-link"')[0])
+        self.assertIn('@keyframes signal-transmit', css)
+        self.assertIn('.story .story-link:focus-visible', css)
+        self.assertIn('.story .story-link{', css)
+        self.assertIn('.reading-guide{display:grid', source)
+        self.assertIn('href="/assets/css/signal-interactions.css"', source)
+        self.assertIn("'READ THE SIGNAL','story-link-title'", source)
 
-    def test_article_end_has_share_targets_top_link_and_shared_behavior(self):
+    def test_article_end_is_a_shared_editorial_transmission_and_all_signals_return(self):
         from urllib.parse import parse_qs, urlparse
 
         with tempfile.TemporaryDirectory() as temp:
@@ -164,15 +170,19 @@ class StaticPublishingTests(unittest.TestCase):
             doc = Document(page)
             links = [attrs for tag, attrs in doc.tags if tag == 'a']
             buttons = [attrs for tag, attrs in doc.tags if tag == 'button']
-            self.assertIn('記事を読む', home)
+            self.assertIn('READ THE SIGNAL', home)
             self.assertIn('class="story-link-wave"', home)
-            self.assertIn('id="page-top"', page)
             self.assertIn('id="article-end"', page)
             self.assertIn('aria-label="読了後のナビゲーション"', page)
-            self.assertIn('SHARE THE SIGNAL', page)
-            self.assertIn('ページ上部へ戻る', page)
-            self.assertIn('.article-end{', page)
-            self.assertTrue(any(attrs.get('href') == '#page-top' for attrs in links))
+            self.assertIn('SHARE THIS SIGNAL', page)
+            self.assertIn('TRANSMISSION / AFTER THE SIGNAL', page)
+            self.assertIn('ALL SIGNALS', page)
+            self.assertIn('href="/#latest"', page)
+            self.assertNotIn('ALL STORIES', page)
+            self.assertNotIn('BACK TO THE TOP', page)
+            self.assertTrue(any(attrs.get('href') == '/#latest'
+                                and attrs.get('class') == 'article-return' for attrs in links))
+            self.assertFalse(any(attrs.get('href') == '#page-top' for attrs in links))
             self.assertTrue(any(attrs.get('data-copy-article-url') == canonical
                                 for attrs in buttons))
             outbound = [attrs for attrs in links
@@ -186,14 +196,45 @@ class StaticPublishingTests(unittest.TestCase):
                     self.assertEqual(params['url'][0], canonical)
                 else:
                     self.assertIn(canonical, params['text'][0])
+                    self.assertIn('\n' + canonical, params['text'][0])
+
+            self.assertIn('href="/assets/css/signal-interactions.css"', page)
             self.assertIn('src="/assets/js/article-actions.js"', page)
-            self.assertIn('src="/assets/js/article-actions.js"', (output / 'article.html').read_text())
-            self.assertIn('src="/assets/js/article-actions.js"', (output / 'preview.html').read_text())
-            shared = output / 'assets/js/article-actions.js'
-            self.assertTrue(shared.is_file())
-            self.assertIn("document.addEventListener('click'", shared.read_text())
-            # A draft may be previewed, but the client-only preview never promotes it.
-            self.assertIn("articleEnd(a,true)", (output / 'preview.html').read_text())
+            dynamic = (output / 'article.html').read_text()
+            preview = (output / 'preview.html').read_text()
+            self.assertIn('href="/assets/css/signal-interactions.css"', dynamic)
+            self.assertIn('href="/assets/css/signal-interactions.css"', preview)
+            self.assertIn("returnLink.href='/#latest'", dynamic)
+            self.assertIn("returnLink.href='/#latest'", preview)
+            self.assertIn("'SHARE THIS SIGNAL'", dynamic)
+            self.assertIn("'ALL SIGNALS','article-return-name'", preview)
+            self.assertIn("articleEnd(a,true)", preview)
+            self.assertIn('noindex,nofollow', preview)
+            shared_js = output / 'assets/js/article-actions.js'
+            shared_css = output / 'assets/css/signal-interactions.css'
+            self.assertTrue(shared_js.is_file())
+            self.assertTrue(shared_css.is_file())
+            self.assertIn("document.addEventListener('click'", shared_js.read_text())
+            self.assertIn('@keyframes return-transmit', shared_css.read_text())
+            self.assertIn('.article-share-list{', shared_css.read_text())
+            self.assertIn('.article-return-name{', shared_css.read_text())
+            self.assertIn('@media(prefers-reduced-motion:reduce)', shared_css.read_text())
+
+    def test_transmission_is_consistent_with_existing_site_and_has_no_pseudo_card_navigation(self):
+        index = (ROOT / 'index.html').read_text()
+        article = (ROOT / 'article.html').read_text()
+        preview = (ROOT / 'preview.html').read_text()
+        for source in (article, preview):
+            self.assertIn("section.id='article-end'", source)
+            self.assertIn('ALL SIGNALS</a>', source)
+            self.assertNotIn('ALL STORIES</a>', source)
+            self.assertNotIn("returnLink.href='#page-top'", source)
+            self.assertIn('href="/assets/css/signal-interactions.css"', source)
+        self.assertIn('function signalMark(deep)', index)
+        self.assertIn('.guide-pulse path{fill:none', index)
+        self.assertIn('.reading-guide{display:grid', index)
+        self.assertIn('@keyframes signal-draw', index)
+        self.assertIn('.story-format .signal-mark', index)
 
     def test_feed_text_cannot_inject_markup_or_terminate_structured_data(self):
         article = copy.deepcopy(self.article)

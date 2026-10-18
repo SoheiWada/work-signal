@@ -46,6 +46,7 @@ html{scroll-behavior:smooth}
  .article-return-svg{width:75px;height:38px}
 }
 </style>
+<link rel="stylesheet" href="/assets/css/signal-interactions.css">
 <script defer src="/assets/js/article-actions.js"></script>
 <!-- Google tag (gtag.js): WORK SIGNAL -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4B5F6JJZH"></script>
@@ -63,7 +64,7 @@ html{scroll-behavior:smooth}
     });
   }
 </script>
-</head><body><div class="top" id="page-top"></div><div class="shell"><header><a class="brand" href="./">WORK<span>.</span>SIGNAL</a><a class="back" href="./#latest">ALL STORIES</a></header><main id="article" aria-live="polite"><section class="notfound"><div class="eyebrow">/ LOADING THE SIGNAL</div><h1>PLEASE WAIT<span class="accent">.</span></h1></section></main></div><footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong><small>NEWS IS SHORT. MEANING IS DEEP.</small></div></footer>
+</head><body><div class="top" id="page-top"></div><div class="shell"><header><a class="brand" href="/">WORK<span>.</span>SIGNAL</a><a class="back" href="/#latest">ALL SIGNALS</a></header><main id="article" aria-live="polite"><section class="notfound"><div class="eyebrow">/ LOADING THE SIGNAL</div><h1>PLEASE WAIT<span class="accent">.</span></h1></section></main></div><footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong><small>NEWS IS SHORT. MEANING IS DEEP.</small></div></footer>
 <script>
 const root=document.querySelector('#article');const params=new URLSearchParams(location.search);const id=params.get('id');
 function el(tag,txt,cls){const n=document.createElement(tag);if(txt!==undefined)n.textContent=txt;if(cls)n.className=cls;return n}
@@ -75,20 +76,22 @@ let canonical=document.querySelector('link[rel="canonical"]');if(!canonical){can
 for(const [name,value] of [['og:title',document.title],['og:description',a.summary],['og:url',url],['og:type','article'],['og:site_name','WORK SIGNAL'],['og:locale','ja_JP'],['og:image','https://signal.amberlight.co.jp/assets/og/'+encodeURIComponent(a.id)+'.png'],['og:image:width','1200'],['og:image:height','630'],['og:image:alt',document.title]]){let meta=document.querySelector('meta[property="'+name+'"]');if(!meta){meta=document.createElement('meta');meta.setAttribute('property',name);document.head.append(meta)}meta.content=value}
 }
 
+
 function articleEnd(a,isPreview){
  const section=el('section',undefined,'article-end'+(isPreview?' article-end--preview':''));
  section.id='article-end';
  section.setAttribute('aria-label','読了後のナビゲーション');
- section.append(el('div','END OF SIGNAL / READING COMPLETE','article-end-label'));
+ section.append(el('div','TRANSMISSION / AFTER THE SIGNAL','article-end-label'));
  const intro=el('div',undefined,'article-end-intro');
- intro.append(el('h2','読んだ、その先へ。'),el('p',isPreview?'未公開原稿の確認が終わったら、ページ上部へ戻れます。':'この記事を共有するか、ページ上部から次のニュースへ。'));
+ intro.append(el('h2','読んだ、その先へ。'),el('p',isPreview?'原稿を確認したら、シグナル一覧へ戻れます。':'気になった変化を共有して、次のシグナルへ。'));
  section.append(intro);
  const grid=el('div',undefined,'article-end-grid');
  if(!isPreview){
    const url='https://signal.amberlight.co.jp/articles/'+encodeURIComponent(a.id)+'/';
    const share=el('div',undefined,'article-share');
-   share.append(el('p','SHARE THE SIGNAL','article-share-title'));
-   const list=el('div',undefined,'article-share-list');
+   share.append(el('p','SHARE THIS SIGNAL','article-share-title'));
+   const list=el('nav',undefined,'article-share-list');
+   list.setAttribute('aria-label','この記事を共有する');
    const destinations=[
      ['X','https://twitter.com/intent/tweet?'+new URLSearchParams({text:a.title,url:url}).toString()],
      ['Threads','https://www.threads.net/intent/post?text='+encodeURIComponent(a.title+'\n'+url)],
@@ -97,7 +100,7 @@ function articleEnd(a,isPreview){
    destinations.forEach(([name,href])=>{
      const aLink=el('a',name,'article-share-button');aLink.href=href;
      aLink.target='_blank';aLink.rel='noopener noreferrer';
-     aLink.setAttribute('aria-label',name+'で記事を共有（新しいタブ）');
+     aLink.setAttribute('aria-label',name+'でこの記事を共有する（新しいタブ）');
      list.append(aLink);
    });
    const copy=el('button','URLをコピー','article-share-button');
@@ -107,17 +110,22 @@ function articleEnd(a,isPreview){
    feedback.setAttribute('data-share-feedback','');feedback.setAttribute('role','status');feedback.setAttribute('aria-live','polite');share.append(feedback);
    grid.append(share);
  }
- const topLink=el('a',undefined,'article-return');topLink.href='#page-top';
- topLink.append(el('span','BACK TO THE TOP','article-return-sub'));
+ const returnLink=el('a',undefined,'article-return');returnLink.href='/#latest';
+ returnLink.setAttribute('aria-label','記事一覧のALL SIGNALSへ戻る');
+ returnLink.append(el('span','BACK TO THE INDEX / FIND THE NEXT SIGNAL','article-return-sub'));
  const label=el('span',undefined,'article-return-label');
- label.append(el('span','ページ上部へ戻る'));
+ label.append(el('span','ALL SIGNALS','article-return-name'));
+ const mark=el('span',undefined,'article-return-signal');
  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
- svg.setAttribute('viewBox','0 0 96 48');svg.setAttribute('aria-hidden','true');svg.classList.add('article-return-svg');
+ svg.setAttribute('viewBox','0 0 200 56');svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+ svg.setAttribute('aria-hidden','true');svg.classList.add('article-return-svg');
  for(const cssClass of ['return-line','return-rise']){
    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
-   path.setAttribute('d','M0 35 H25 L38 35 L53 10 L68 35 H96');path.setAttribute('class',cssClass);svg.append(path);
+   path.setAttribute('d','M0 28 H42 C58 28 62 14 80 28 S112 42 130 28 H200');
+   path.setAttribute('class',cssClass);svg.append(path);
  }
- label.append(svg);topLink.append(label);grid.append(topLink);section.append(grid);return section;
+ mark.append(svg);label.append(mark);returnLink.append(label);grid.append(returnLink);
+ section.append(grid);return section;
 }
 
 function fail(){const robots=document.createElement('meta');robots.name='robots';robots.content='noindex';document.head.append(robots);root.replaceChildren();const wrap=el('section',undefined,'notfound');wrap.append(el('div','/ SIGNAL NOT FOUND','eyebrow'),el('h1','NO SIGNAL.'),el('p','記事が見つからないか、まだ公開されていません。'));const a=el('a','記事一覧へ戻る','back');a.href='./#latest';wrap.append(a);root.append(wrap);document.title='記事が見つかりません — WORK SIGNAL';measurePageView()}

@@ -262,8 +262,8 @@ def build(output, feed=None):
     (output / 'article.html').write_text(template)
     # Preview is not linked or indexed; it is accessible to anyone who knows the URL.
     (output / 'preview.html').write_text((ROOT / 'preview.html').read_text())
-    (output / 'data/drafts.json').write_text((ROOT / 'data/drafts.json').read_text())
     (output / 'data').mkdir()
+    (output / 'data/drafts.json').write_text((ROOT / 'data/drafts.json').read_text())
     (output / 'data/articles.json').write_text(json.dumps(articles, ensure_ascii=False, indent=2) + '\n')
     for article in articles:
         share_card(output, article)

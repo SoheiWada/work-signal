@@ -53,40 +53,56 @@
 .ticker{background:var(--ink);color:var(--paper);overflow:hidden;padding:14px 0}.ticker-track{display:flex;gap:32px;width:max-content;animation:marquee 32s linear infinite;font:700 12px var(--sans);letter-spacing:.12em}.ticker b{display:inline-block;width:14px;height:1px;background:var(--orange);vertical-align:middle;transform:rotate(-35deg)}@keyframes marquee{to{transform:translateX(-50%)}}
 .section{padding:90px 0 110px}.section-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;border-bottom:1px solid var(--ink);padding-bottom:22px}.kicker{font:700 11px var(--sans);letter-spacing:.16em;color:var(--orange)}.section-heading h2{margin:8px 0 0;font:800 clamp(40px,6vw,78px)/1 var(--sans);letter-spacing:-.075em}.section-aside{font:600 11px var(--sans);letter-spacing:.08em;color:var(--muted);text-align:right}
 .filters{display:flex;flex-wrap:wrap;gap:8px;padding:27px 0 32px}.filter{cursor:pointer;border:1px solid var(--line);background:transparent;border-radius:0;padding:11px 19px;font:700 12px var(--sans);transition:background .2s,color .2s,border-color .2s}.filter:hover{border-color:var(--ink)}.filter[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.grid{margin-top:22px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.story{background:var(--white);border:1px solid var(--line);min-height:330px;padding:27px;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}.story:hover{transform:translateY(-5px);box-shadow:8px 8px 0 var(--ink)}.story-top{display:flex;justify-content:space-between;gap:10px;align-items:center;font:700 11px var(--sans);letter-spacing:.09em}.story-score{background:var(--orange);color:white;padding:7px 9px}.story-category{color:var(--muted)}.reading-guide{margin:42px 0 0;position:relative;overflow:hidden;background:var(--ink);color:var(--paper);isolation:isolate}
-.reading-guide:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background-image:linear-gradient(90deg,#fff 1px,transparent 1px),linear-gradient(#fff 1px,transparent 1px);background-size:52px 52px;mask-image:linear-gradient(90deg,transparent,#000)}
-.guide-intro{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 30px;border-bottom:1px solid #ffffff38;position:relative;z-index:2}
-.guide-overline{font:700 10px var(--sans);letter-spacing:.2em;color:#bcb8af}.guide-counter{font:700 10px var(--sans);letter-spacing:.12em;color:var(--orange)}
-.guide-panels{display:grid;grid-template-columns:1fr 1fr;position:relative;z-index:1}
-.guide-item{min-width:0;position:relative;display:flex;flex-direction:column;align-items:stretch;padding:35px 34px 30px;min-height:395px;overflow:hidden;transition:background .55s cubic-bezier(.2,.8,.2,1)}
-.guide-item+.guide-item{border-left:1px solid #ffffff3b}
-.guide-item:hover,.guide-item:focus-within{background:#ffffff0d}
-.guide-head{display:flex;justify-content:space-between;align-items:start;gap:16px}
-.guide-name{font:800 clamp(17px,2.1vw,27px)/1.12 var(--sans);letter-spacing:-.055em}
-.guide-time{font:700 11px var(--sans);color:var(--orange);letter-spacing:.09em;white-space:nowrap;padding-top:5px}
-.guide-visual{position:relative;flex:1;min-height:170px;display:grid;place-items:center;margin:14px 0;overflow:hidden}
-.guide-visual:before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:#ffffff22}
-.guide-pulse{width:100%;height:130px;overflow:visible}
-.guide-pulse path{fill:none;stroke:var(--orange);stroke-width:3;vector-effect:non-scaling-stroke;stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:900;stroke-dashoffset:900;animation:signal-draw 3.6s cubic-bezier(.3,.8,.2,1) infinite}
-.guide-pulse .echo{stroke:var(--paper);stroke-width:1;opacity:.45;animation-delay:.4s;animation-duration:4.4s}
-.guide-pulse .echo-two{stroke:var(--orange);stroke-width:1;opacity:.3;animation-delay:.9s;animation-duration:5.2s}
-.guide-orbit{position:absolute;width:170px;aspect-ratio:1;border:1px solid #ffffff4d;border-radius:50%;animation:guide-spin 17s linear infinite}
-.guide-orbit:before{content:"";position:absolute;inset:24px;border:1px solid #ffffff4d;border-radius:50%}
-.guide-orbit:after{content:"";position:absolute;width:9px;height:9px;background:var(--orange);border-radius:50%;top:18px;left:20px}
-.guide-item--brief .guide-orbit{display:none}
-.guide-item--deep .guide-pulse{position:relative;z-index:1;transform:scale(.93)}
-.guide-item--deep .guide-pulse path{animation-duration:5.5s}
-.guide-foot{display:flex;justify-content:space-between;align-items:end;gap:24px;border-top:1px solid #ffffff38;padding-top:20px}
-.guide-description{font-size:clamp(12px,1.1vw,14px);line-height:1.85;color:#dedbd2;max-width:350px}
-.guide-index{font:700 11px var(--sans);color:var(--orange);white-space:nowrap}
-.guide-item:hover .guide-orbit{animation-duration:7s}
-.guide-item:hover .guide-pulse path{animation-duration:2.1s}
-.reading-guide:not(.is-visible) .guide-item{opacity:.6}
-.reading-guide.is-visible .guide-item{animation:guide-enter .8s both}
-.reading-guide.is-visible .guide-item--deep{animation-delay:.14s}
-@keyframes signal-draw{0%{stroke-dashoffset:900;opacity:0}12%{opacity:1}62%,85%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:-900;opacity:0}}
+.grid{margin-top:22px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.story{background:var(--white);border:1px solid var(--line);min-height:330px;padding:27px;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}.story:hover{transform:translateY(-5px);box-shadow:8px 8px 0 var(--ink)}.story-top{display:flex;justify-content:space-between;gap:10px;align-items:center;font:700 11px var(--sans);letter-spacing:.09em}.story-score{background:var(--orange);color:white;padding:7px 9px}.story-category{color:var(--muted)}/* Editorial reading index — an integrated control, not a promotional panel. */
+.reading-guide{
+ display:grid;grid-template-columns:190px minmax(0,1fr);align-items:stretch;
+ margin:30px 0 24px;border-top:1px solid var(--ink);border-bottom:1px solid var(--line);
+ color:var(--ink);background:transparent
+}
+.guide-intro{display:flex;flex-direction:column;justify-content:center;gap:7px;padding:20px 20px 20px 0}
+.guide-overline{font:700 10px var(--sans);letter-spacing:.15em;color:var(--orange)}
+.guide-caption{font-size:13px;font-weight:800;letter-spacing:-.03em;line-height:1.5}
+.guide-note{font-size:10px;color:var(--muted);line-height:1.55}
+.guide-panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0}
+.guide-item{
+ position:relative;appearance:none;border:0;border-left:1px solid var(--line);
+ border-radius:0;background:transparent;color:var(--ink);cursor:pointer;text-align:left;
+ display:grid;grid-template-columns:minmax(0,1fr) 96px;align-content:center;
+ gap:7px 13px;padding:21px 20px;min-width:0;
+ transition:background .25s ease
+}
+.guide-item:after{content:"";position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.guide-item:hover,.guide-item[aria-pressed="true"]{background:#ffffffa8}
+.guide-item:hover:after,.guide-item[aria-pressed="true"]:after{transform:scaleX(1)}
+.guide-item:focus-visible{outline:2px solid var(--orange);outline-offset:-3px}
+.guide-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:5px 14px;grid-column:1}
+.guide-name{font:800 clamp(15px,1.3vw,19px)/1.2 var(--sans);letter-spacing:-.065em}
+.guide-time{font:700 10px var(--sans);letter-spacing:.07em;color:var(--orange);white-space:nowrap}
+.guide-description{grid-column:1;font-size:11px;color:var(--muted);line-height:1.6}
+.guide-visual{grid-column:2;grid-row:1/3;position:relative;min-width:0;height:54px;display:grid;place-items:center;align-self:center;overflow:hidden;opacity:.9;pointer-events:none}
+.guide-visual:before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:#19191820}
+.guide-pulse{width:100%;height:52px;overflow:visible}
+.guide-pulse path{
+ fill:none;stroke:var(--orange);stroke-width:2;vector-effect:non-scaling-stroke;
+ stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:900;
+ stroke-dashoffset:900;animation:signal-draw 5.6s cubic-bezier(.3,.8,.2,1) infinite
+}
+.guide-pulse .echo{stroke:var(--muted);stroke-width:1;opacity:.5;animation-delay:.45s;animation-duration:6.5s}
+.guide-pulse .echo-two{stroke:var(--orange);stroke-width:1;opacity:.45;animation-delay:.9s;animation-duration:7.3s}
+.guide-orbit{position:absolute;width:48px;aspect-ratio:1;border:1px solid #19191850;border-radius:50%;animation:guide-spin 20s linear infinite}
+.guide-orbit:before{content:"";position:absolute;inset:23%;border:1px solid #19191840;border-radius:50%}
+.guide-orbit:after{content:"";position:absolute;top:7px;left:4px;width:5px;height:5px;border-radius:50%;background:var(--orange)}
+.guide-item--deep .guide-pulse{position:relative;z-index:1;transform:scale(.94)}
+.guide-item--deep .guide-pulse path{animation-duration:6.4s}
+.guide-item:hover .guide-pulse path,.guide-item:focus-visible .guide-pulse path{animation-duration:3.2s}
+.guide-item:hover .guide-orbit,.guide-item:focus-visible .guide-orbit{animation-duration:11s}
+.reading-guide:not(.is-visible) .guide-pulse path,
+.reading-guide:not(.is-visible) .guide-orbit{animation-play-state:paused}
+@keyframes signal-draw{
+ 0%{stroke-dashoffset:900;opacity:0}12%{opacity:1}
+ 62%,85%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:-900;opacity:0}
+}
 @keyframes guide-spin{to{transform:rotate(360deg)}}
-@keyframes guide-enter{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 /* One visual language: story mastheads reuse the guide's exact waveform artwork. */
 .story{padding:0;min-height:0;overflow:hidden}
 .story-top{padding:23px 25px 0}
@@ -114,8 +130,18 @@
 .manifesto{background:var(--ink);color:var(--paper);padding:90px 0}.manifesto-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px}.manifesto h2{font:800 clamp(45px,6vw,86px)/1.1 var(--sans);letter-spacing:-.075em;margin:16px 0}.manifesto h2 em{font-style:normal;color:var(--orange)}.manifesto p{font-size:14px;line-height:2.2;color:#c9c4ba;max-width:480px}.principles{display:grid;align-content:center}.principle{display:flex;gap:20px;padding:22px 0;border-bottom:1px solid #59554e}.principle:first-child{border-top:1px solid #59554e}.principle b{font:700 12px var(--sans);color:var(--orange)}.principle div{font-size:15px;font-weight:700}.principle small{display:block;margin-top:8px;color:#b2aca3;font-size:12px;font-weight:400}
 footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-between;gap:25px;align-items:start}.footer-logo{font:800 30px var(--sans);letter-spacing:-.08em}.footer-logo span{color:var(--orange)}.footer-copy{font-size:11px;line-height:2;color:var(--muted);text-align:right}
 @media(max-width:1050px){.hero h1{font-size:clamp(45px,7vw,78px)}.navlinks{gap:15px}.hero{min-height:560px}.hero-description{max-width:300px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:700px){.shell{width:min(100% - 36px,1440px)}.topline{height:5px}.masthead{height:77px}.brand{font-size:28px}.navlinks{display:none}.issue{font-size:9px}.hero{grid-template-columns:1fr;min-height:0}.hero-copy{padding:27px 0 30px}.hero h1{font-size:clamp(44px,11vw,74px);margin:36px 0 25px}.hero-description{font-size:12px;max-width:270px}.scrollcue{font-size:9px}.art{min-height:360px;margin:0 -18px}.orbit{width:240px}.orbit .signal{font-size:100px}.art-label,.art-corner{font-size:9px}.section{padding:62px 0 80px}.section-heading h2{font-size:49px}.section-aside{font-size:9px}.filters{gap:7px}.filter{padding:9px 13px;font-size:11px}.grid{grid-template-columns:1fr}.guide-panels{grid-template-columns:1fr}.guide-intro{padding:13px 20px}.guide-overline{font-size:9px}.guide-item{padding:17px 20px;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 110px;grid-template-rows:auto auto;column-gap:12px;row-gap:8px;align-items:center}.guide-head{grid-column:1;grid-row:1}.guide-name{font-size:17px}.guide-time{font-size:10px}.guide-visual{grid-column:2;grid-row:1/3;min-height:68px;height:68px;margin:0}.guide-foot{grid-column:1;grid-row:2;padding-top:8px}.guide-description{font-size:11px;line-height:1.55}.guide-index{display:none}.guide-item+.guide-item{border-left:0;border-top:1px solid #ffffff3b}.guide-pulse{height:68px}.guide-orbit{width:70px}.story{min-height:0}.story-masthead{min-height:175px;margin-top:15px;padding:21px}.story-masthead-name{font-size:23px}.story-content{padding:0 21px 22px}.story-top{padding:20px 21px 0}.manifesto{padding:70px 0}.manifesto-grid{grid-template-columns:1fr;gap:35px}.footer-row{flex-direction:column}.footer-copy{text-align:left}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.guide-pulse path,.story-format path{stroke-dashoffset:0!important;opacity:1!important}.reading-guide .guide-item{opacity:1!important}}
+@media(max-width:700px){.shell{width:min(100% - 36px,1440px)}.topline{height:5px}.masthead{height:77px}.brand{font-size:28px}.navlinks{display:none}.issue{font-size:9px}.hero{grid-template-columns:1fr;min-height:0}.hero-copy{padding:27px 0 30px}.hero h1{font-size:clamp(44px,11vw,74px);margin:36px 0 25px}.hero-description{font-size:12px;max-width:270px}.scrollcue{font-size:9px}.art{min-height:360px;margin:0 -18px}.orbit{width:240px}.orbit .signal{font-size:100px}.art-label,.art-corner{font-size:9px}.section{padding:62px 0 80px}.section-heading h2{font-size:49px}.section-aside{font-size:9px}.filters{gap:7px}.filter{padding:9px 13px;font-size:11px}.grid{grid-template-columns:1fr}.reading-guide{grid-template-columns:1fr;margin:19px 0 20px}
+.guide-intro{padding:12px 0 10px;display:flex;flex-direction:row;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px 12px}
+.guide-overline{font-size:9px}.guide-caption{font-size:11px}.guide-note{display:none}
+.guide-panels{grid-template-columns:repeat(2,minmax(0,1fr))}
+.guide-item{display:flex;flex-direction:column;align-items:stretch;justify-content:space-between;min-height:108px;padding:13px 11px;gap:8px}
+.guide-head{display:flex;flex-direction:column;align-items:start;gap:6px;position:relative;z-index:1}
+.guide-name{font-size:clamp(11px,3.2vw,15px);line-height:1.16;letter-spacing:-.06em}
+.guide-time{font-size:9px}.guide-description{font-size:10px;line-height:1.5;max-width:130px;position:relative;z-index:1}
+.guide-visual{position:absolute;right:6px;bottom:8px;width:68px;height:32px;opacity:.4}
+.guide-pulse{height:30px}.guide-orbit{width:29px}
+.story{min-height:0}.story-masthead{min-height:175px;margin-top:15px;padding:21px}.story-masthead-name{font-size:23px}.story-content{padding:0 21px 22px}.story-top{padding:20px 21px 0}.manifesto{padding:70px 0}.manifesto-grid{grid-template-columns:1fr;gap:35px}.footer-row{flex-direction:column}.footer-copy{text-align:left}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.guide-pulse path{stroke-dashoffset:0!important;opacity:1!important}}
 </style>
 <!-- Google tag (gtag.js): WORK SIGNAL -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4B5F6JJZH"></script>
@@ -137,18 +163,33 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
 <main><section class="hero" aria-label="WORK SIGNALの紹介"><div class="hero-copy"><div class="eyebrow">THE SIGNAL OVER THE NOISE</div><h1>ニュースは<br><span class="stroke">短く。</span>意味は<br><span class="accent">深く。</span></h1><div class="hero-bottom"><div class="hero-description"><strong>情報は増えた。判断する時間は減った。</strong><br>AI、仕事、マネジメント、経済。重要な変化を一次情報から読み解き、働く人に必要な視点を届けます。</div><a class="scrollcue" href="#latest">EXPLORE</a></div></div>
 <div class="art" aria-hidden="true"><div class="art-label">01 / FIND YOUR FREQUENCY</div><div class="orbit"><div class="ring"></div><div class="signal">W<span style="color:#191918">.</span></div></div><div class="art-corner">NO MORE NOISE.<br>JUST SIGNAL.</div></div></section></main></div>
 <div class="ticker" aria-hidden="true"><div class="ticker-track"><span>AI <b aria-hidden="true"></b> WORK <b aria-hidden="true"></b> MANAGEMENT <b aria-hidden="true"></b> ECONOMY <b aria-hidden="true"></b> MONEY <b aria-hidden="true"></b> CRYPTO <b aria-hidden="true"></b> READ BEYOND THE HEADLINE <b aria-hidden="true"></b></span><span>AI <b aria-hidden="true"></b> WORK <b aria-hidden="true"></b> MANAGEMENT <b aria-hidden="true"></b> ECONOMY <b aria-hidden="true"></b> MONEY <b aria-hidden="true"></b> CRYPTO <b aria-hidden="true"></b> READ BEYOND THE HEADLINE <b aria-hidden="true"></b></span></div></div>
-<div class="shell"><section class="section" id="latest"><div class="section-heading"><div><div class="kicker">/ CURATED FOR THE CURIOUS</div><h2>THE LATEST<span style="color:var(--orange)">.</span></h2></div><div class="section-aside">ONLY WHAT MATTERS<br>UPDATED WHEN VERIFIED</div></div><nav class="filters" id="filters" aria-label="記事カテゴリー"></nav><section class="reading-guide" id="reading-guide" aria-label="記事の読み方"><div class="guide-intro"><span class="guide-overline">TWO WAYS TO READ THE SIGNAL</span><span class="guide-counter">01 / 02</span></div><div class="guide-panels"><div class="guide-item guide-item--brief"><div class="guide-head"><div class="guide-name">SIGNAL BRIEF</div><div class="guide-time">01—02 MIN</div></div><div class="guide-visual" aria-hidden="true"><svg class="guide-pulse" viewBox="0 0 480 130" preserveAspectRatio="none"><path d="M0 65 H104 L119 65 L136 40 L151 92 L169 17 L189 111 L207 65 H480"/></svg></div><div class="guide-foot"><div class="guide-description">ニュースの核心へ、まっすぐ。<br>要点と影響を短時間でつかむ。</div><div class="guide-index">01</div></div></div><div class="guide-item guide-item--deep"><div class="guide-head"><div class="guide-name">SIGNAL DEEP DIVE</div><div class="guide-time">04—07 MIN</div></div><div class="guide-visual" aria-hidden="true"><div class="guide-orbit"></div><svg class="guide-pulse" viewBox="0 0 480 130" preserveAspectRatio="none"><path class="echo-two" d="M0 65 C90 65 98 8 155 20 S225 125 270 102 S350 23 480 65"/><path class="echo" d="M0 65 C80 65 120 115 175 99 S240 13 305 35 S390 92 480 65"/><path d="M0 65 C75 65 108 36 165 48 S245 101 304 77 S393 48 480 65"/></svg></div><div class="guide-foot"><div class="guide-description">その先の意味まで、深く。<br>データと背景を読み解き、判断につなぐ。</div><div class="guide-index">02</div></div></div></div></section><div class="grid" id="articles" aria-live="polite"></div></section></div>
+<div class="shell"><section class="section" id="latest"><div class="section-heading"><div><div class="kicker">/ CURATED FOR THE CURIOUS</div><h2>THE LATEST<span style="color:var(--orange)">.</span></h2></div><div class="section-aside">ONLY WHAT MATTERS<br>UPDATED WHEN VERIFIED</div></div><nav class="filters" id="filters" aria-label="記事カテゴリー"></nav><section class="reading-guide" id="reading-guide" aria-label="記事の読み方から絞り込む">
+<div class="guide-intro"><span class="guide-overline">READING INDEX</span><span class="guide-caption">読み方を選ぶ。</span><span class="guide-note">選択で絞り込み、再選択で解除</span></div>
+<div class="guide-panels" role="group" aria-label="記事の形式">
+<button type="button" class="guide-item guide-item--brief" data-format="brief" aria-pressed="false">
+<span class="guide-head"><span class="guide-name">SIGNAL BRIEF</span><span class="guide-time">1–2 MIN</span></span>
+<span class="guide-description">ニュースの核心へ、まっすぐ。</span>
+<span class="guide-visual" aria-hidden="true"><svg class="guide-pulse" viewBox="0 0 480 130" preserveAspectRatio="none"><path d="M0 65 H104 L119 65 L136 40 L151 92 L169 17 L189 111 L207 65 H480"/></svg></span>
+</button>
+<button type="button" class="guide-item guide-item--deep" data-format="deep_dive" aria-pressed="false">
+<span class="guide-head"><span class="guide-name">SIGNAL DEEP DIVE</span><span class="guide-time">4–7 MIN</span></span>
+<span class="guide-description">その先の意味まで、深く。</span>
+<span class="guide-visual" aria-hidden="true"><span class="guide-orbit"></span><svg class="guide-pulse" viewBox="0 0 480 130" preserveAspectRatio="none"><path class="echo-two" d="M0 65 C90 65 98 8 155 20 S225 125 270 102 S350 23 480 65"/><path class="echo" d="M0 65 C80 65 120 115 175 99 S240 13 305 35 S390 92 480 65"/><path d="M0 65 C75 65 108 36 165 48 S245 101 304 77 S393 48 480 65"/></svg></span>
+</button>
+</div></section><div class="grid" id="articles" aria-live="polite"></div></section></div>
 <section class="manifesto" id="about"><div class="shell manifesto-grid"><div><div class="kicker">/ OUR POINT OF VIEW</div><h2>LESS NOISE.<br><em>MORE MEANING.</em></h2><p>ニュースを速く消費するためではなく、変化を深く理解するために。WORK SIGNALは、出来事の要約だけで終わらず、「自分の仕事や暮らしに何が関係するのか」まで考えるニュースメディアです。</p></div><div class="principles"><div class="principle"><b>01</b><div>FIRST-HAND SOURCES<small>原典を確かめる。事実と解釈を分ける。</small></div></div><div class="principle"><b>02</b><div>CONTEXT OVER CLICKS<small>煽りより文脈。話題性より実用性。</small></div></div><div class="principle"><b>03</b><div>HUMAN-IN-THE-LOOP<small>AIで調査・編集を支援し、公開は人が判断する。</small></div></div></div></div></section>
 <div class="shell"><footer><div class="footer-row"><div class="footer-logo">WORK<span>.</span>SIGNAL</div><div class="footer-copy">© <span id="year"></span> WORK SIGNAL. INDEPENDENT PERSPECTIVES.<br>掲載内容は独自の解説です。投資判断を推奨するものではありません。</div></div></footer></div>
 <script>
 document.querySelector('#year').textContent=new Date().getFullYear();
 const readingGuide=document.querySelector('#reading-guide');if('IntersectionObserver' in window){const guideObserver=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){readingGuide.classList.add('is-visible');guideObserver.disconnect();break}}},{threshold:.12});guideObserver.observe(readingGuide)}else{readingGuide.classList.add('is-visible')}
 const categories=['すべて','AI','仕事','マネジメント','お金','経済','Crypto'];
-let active='すべて',items=[];
+let active='すべて',formatActive=null,items=[];
+const formatButtons=[...document.querySelectorAll('.guide-item[data-format]')];
+formatButtons.forEach(button=>button.addEventListener('click',()=>{formatActive=formatActive===button.dataset.format?null:button.dataset.format;formatButtons.forEach(b=>b.setAttribute('aria-pressed',String(formatActive===b.dataset.format)));render()}));
 const filters=document.querySelector('#filters'),root=document.querySelector('#articles');
 function node(tag,content,className){const n=document.createElement(tag);if(content!==undefined)n.textContent=content;if(className)n.className=className;return n}
 function render(){filters.replaceChildren();categories.forEach(category=>{const button=node('button',category,'filter');button.type='button';button.setAttribute('aria-pressed',String(active===category));button.onclick=()=>{active=category;render()};filters.append(button)});
-root.replaceChildren();const selected=items.filter(a=>active==='すべて'||a.category===active);
+root.replaceChildren();const selected=items.filter(a=>(active==='すべて'||a.category===active)&&(!formatActive||(a.format==='deep_dive'?'deep_dive':'brief')===formatActive));
 if(!selected.length){const box=node('div',undefined,'empty'),inner=node('div');inner.append(node('div','TRANSMISSION 001 / STANDBY','number'),node('strong','THE SIGNAL IS COMING.'));inner.append(node('p','公開準備中です。\n一次情報を検証し、承認されたニュースから掲載します。'));box.append(inner);root.append(box);return}
 selected.forEach(a=>{const card=node('article',undefined,'story'),top=node('div',undefined,'story-top');top.append(node('span',a.category,'story-category'),node('span',a.score+' / 100','story-score'));const deep=a.format==='deep_dive';const masthead=node('div',undefined,'story-masthead'+(deep?' story-masthead--deep':''));const visual=document.querySelector(deep?'.guide-item--deep .guide-visual':'.guide-item--brief .guide-visual').cloneNode(true);visual.setAttribute('aria-hidden','true');masthead.append(visual,node('span','EDITORIAL FORMAT','story-masthead-kicker'),node('strong',deep?'SIGNAL DEEP DIVE':'SIGNAL BRIEF','story-masthead-name'));const bottom=node('div',undefined,'story-masthead-bottom');bottom.append(node('span',deep?'CONTEXT / PERSPECTIVE':'FACTS / IMPACT'),node('span',deep?'04—07 MIN':'01—02 MIN'));masthead.append(bottom);const content=node('div',undefined,'story-content');content.append(node('h3',a.title),node('p',a.summary));const link=node('a',undefined,'story-link');link.href='./articles/'+encodeURIComponent(a.id)+'/';link.append(node('span','READ THE STORY'));content.append(link);card.append(top,masthead,content);root.append(card)})}
 fetch('./data/articles.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('data unavailable');return r.json()}).then(data=>{items=Array.isArray(data)?data.filter(a=>a.status==='published'&&a.score>=80&&typeof a.id==='string'&&categories.includes(a.category)&&typeof a.source_url==='string'&&/^https:\/\//.test(a.source_url)):[];render()}).catch(()=>{if(!root.children.length)render()});

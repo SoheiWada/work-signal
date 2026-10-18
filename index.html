@@ -152,6 +152,7 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
 .manifesto{padding:70px 0}.manifesto-grid{grid-template-columns:1fr;gap:35px}.footer-row{flex-direction:column}.footer-copy{text-align:left}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.guide-pulse path,.signal-mark .signal-sweep,.link-wave-live{stroke-dashoffset:0!important;opacity:1!important}}
 </style>
+<link rel="stylesheet" href="/assets/css/signal-interactions.css">
 <!-- Google tag (gtag.js): WORK SIGNAL -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4B5F6JJZH"></script>
 <script>
@@ -245,10 +246,10 @@ selected.forEach(a=>{
    figure.append(img);body.append(figure);
  }
  body.append(node('p',a.summary));
- const link=node('a',undefined,'story-link');link.href='./articles/'+encodeURIComponent(a.id)+'/';link.setAttribute('aria-label',a.title+' の記事を読む');
- const copy=node('span',undefined,'story-link-copy');copy.append(node('span','記事を読む','story-link-jp'),node('span','READ THE STORY','story-link-en'));
- const signal=document.createElementNS('http://www.w3.org/2000/svg','svg');signal.setAttribute('viewBox','0 0 88 26');signal.setAttribute('aria-hidden','true');signal.classList.add('story-link-wave');
- const waveD='M2 13 H20 L27 13 L33 8 L39 18 L46 3 L53 23 L59 13 H86';
+ const link=node('a',undefined,'story-link');link.href='./articles/'+encodeURIComponent(a.id)+'/';link.setAttribute('aria-label',a.title+' のシグナルを読む');
+ const copy=node('span',undefined,'story-link-copy');copy.append(node('span','READ THE SIGNAL','story-link-title'));
+ const signal=document.createElementNS('http://www.w3.org/2000/svg','svg');signal.setAttribute('viewBox','0 0 120 32');signal.setAttribute('preserveAspectRatio','xMidYMid meet');signal.setAttribute('aria-hidden','true');signal.classList.add('story-link-wave');
+ const waveD='M0 16 H30 L42 16 L49 10 L57 23 L65 4 L73 29 L81 16 H120';
  for(const cls of ['link-wave-track','link-wave-live']){const path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d',waveD);path.classList.add(cls);signal.append(path)}
  const mark=node('span',undefined,'story-link-mark');mark.append(signal);link.append(copy,mark);
  body.append(link);card.append(head,body);root.append(card)

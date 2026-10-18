@@ -19,7 +19,7 @@
     });
   }
 </script>
-</head><body><div class="top"></div><div class="shell"><header><a class="brand" href="./">WORK<span>.</span>SIGNAL</a><a class="back" href="./#latest">← ALL STORIES</a></header><main id="article" aria-live="polite"><section class="notfound"><div class="eyebrow">/ LOADING THE SIGNAL</div><h1>PLEASE WAIT<span class="accent">.</span></h1></section></main></div><footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong><small>NEWS IS SHORT. MEANING IS DEEP.</small></div></footer>
+</head><body><div class="top"></div><div class="shell"><header><a class="brand" href="./">WORK<span>.</span>SIGNAL</a><a class="back" href="./#latest">ALL STORIES</a></header><main id="article" aria-live="polite"><section class="notfound"><div class="eyebrow">/ LOADING THE SIGNAL</div><h1>PLEASE WAIT<span class="accent">.</span></h1></section></main></div><footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong><small>NEWS IS SHORT. MEANING IS DEEP.</small></div></footer>
 <script>
 const root=document.querySelector('#article');const params=new URLSearchParams(location.search);const id=params.get('id');
 function el(tag,txt,cls){const n=document.createElement(tag);if(txt!==undefined)n.textContent=txt;if(cls)n.className=cls;return n}
@@ -30,7 +30,7 @@ const url='https://signal.amberlight.co.jp/articles/'+encodeURIComponent(a.id)+'
 let canonical=document.querySelector('link[rel="canonical"]');if(!canonical){canonical=document.createElement('link');canonical.rel='canonical';document.head.append(canonical)}canonical.href=url;
 for(const [name,value] of [['og:title',document.title],['og:description',a.summary],['og:url',url],['og:type','article'],['og:site_name','WORK SIGNAL'],['og:locale','ja_JP'],['og:image','https://signal.amberlight.co.jp/assets/og/'+encodeURIComponent(a.id)+'.png'],['og:image:width','1200'],['og:image:height','630'],['og:image:alt',document.title]]){let meta=document.querySelector('meta[property="'+name+'"]');if(!meta){meta=document.createElement('meta');meta.setAttribute('property',name);document.head.append(meta)}meta.content=value}
 }
-function fail(){const robots=document.createElement('meta');robots.name='robots';robots.content='noindex';document.head.append(robots);root.replaceChildren();const wrap=el('section',undefined,'notfound');wrap.append(el('div','/ SIGNAL NOT FOUND','eyebrow'),el('h1','NO SIGNAL.'),el('p','記事が見つからないか、まだ公開されていません。'));const a=el('a','← 記事一覧へ戻る','back');a.href='./#latest';wrap.append(a);root.append(wrap);document.title='記事が見つかりません — WORK SIGNAL';measurePageView()}
+function fail(){const robots=document.createElement('meta');robots.name='robots';robots.content='noindex';document.head.append(robots);root.replaceChildren();const wrap=el('section',undefined,'notfound');wrap.append(el('div','/ SIGNAL NOT FOUND','eyebrow'),el('h1','NO SIGNAL.'),el('p','記事が見つからないか、まだ公開されていません。'));const a=el('a','記事一覧へ戻る','back');a.href='./#latest';wrap.append(a);root.append(wrap);document.title='記事が見つかりません — WORK SIGNAL';measurePageView()}
 function render(a){
 root.replaceChildren();const deep=a.format==='deep_dive'&&Array.isArray(a.sections)&&a.sections.length>0;
 const hero=el('section',undefined,'hero');hero.append(el('div','/ '+a.category.toUpperCase()+' / '+(deep?'DEEP DIVE':'EDITORIAL BRIEFING'),'eyebrow'),el('h1',a.title));
@@ -45,7 +45,7 @@ for(const [title,key] of [['何が起きた？','what_happened'],['なぜ重要�
 }
 const aside=el('aside',undefined,'side');aside.append(el('div','ARTICLE INTELLIGENCE','side-title'));const dl=el('dl');for(const [k,v] of [['FORMAT',deep?'DEEP DIVE':'BRIEF'],['READ TIME',readingMinutes(a)+' MIN'],['CATEGORY',a.category],['SIGNAL SCORE',a.score+' / 100'],['PUBLISHED',a.published_at]]){dl.append(el('dt',k),el('dd',v))}aside.append(dl);
 if(toc.length){const nav=el('nav',undefined,'toc');nav.setAttribute('aria-label','記事の目次');nav.append(el('div','IN THIS STORY','side-title'));toc.forEach(item=>{const l=el('a',item.title);l.href='#'+item.id;nav.append(l)});aside.append(nav)}
-const source=el('div',undefined,'source');source.append(el('small','/ PRIMARY SOURCE'));const link=el('a',a.source_url+' ↗');link.href=a.source_url;link.target='_blank';link.rel='noopener noreferrer';source.append(link);aside.append(source,el('p','この記事は一次情報に基づく独自の要約・考察です。掲載内容は投資助言ではありません。','note'));layout.append(content,aside);root.append(hero,layout);document.title=a.title+' — WORK SIGNAL';
+const source=el('div',undefined,'source');source.append(el('small','/ PRIMARY SOURCE'));const link=el('a',a.source_url);link.href=a.source_url;link.target='_blank';link.rel='noopener noreferrer';source.append(link);aside.append(source,el('p','この記事は一次情報に基づく独自の要約・考察です。掲載内容は投資助言ではありません。','note'));layout.append(content,aside);root.append(hero,layout);document.title=a.title+' — WORK SIGNAL';
 const desc=document.querySelector('meta[name="description"]');desc.content=a.summary;articleMetadata(a);measurePageView()}
 
 if(!id||id.length>120){fail()}else{fetch('./data/articles.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(items=>{const a=Array.isArray(items)?items.find(x=>x.id===id&&x.status==='published'&&x.score>=80&&typeof x.source_url==='string'&&/^https:\/\//.test(x.source_url)):null;if(a)render(a);else fail()}).catch(fail)}

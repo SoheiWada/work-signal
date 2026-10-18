@@ -199,6 +199,21 @@ def article_card_image(article):
 
 
 
+def story_link(article):
+    wave = "M2 13 H20 L27 13 L33 8 L39 18 L46 3 L53 23 L59 13 H86"
+    return (
+        '<a class="story-link" href="' + article_url(article)
+        + '" aria-label="' + esc(article["title"]) + ' の記事を読む">'
+        '<span class="story-link-copy"><span class="story-link-jp">記事を読む</span>'
+        '<span class="story-link-en">READ THE STORY</span></span>'
+        '<span class="story-link-mark">'
+        '<svg class="story-link-wave" viewBox="0 0 88 26" aria-hidden="true">'
+        '<path class="link-wave-track" d="' + wave + '"/>'
+        '<path class="link-wave-live" d="' + wave + '"/>'
+        '</svg></span></a>'
+    )
+
+
 def article_card(article):
     deep = article.get("format") == "deep_dive"
     form = "SIGNAL DEEP DIVE" if deep else "SIGNAL BRIEF"
@@ -210,8 +225,7 @@ def article_card(article):
             '</div><span class="story-readtime">' + minutes + '</span></div>'
             '<div class="story-content"><h3>' + esc(article["title"]) + '</h3>'
             + article_card_image(article) + '<p>' + esc(article["summary"])
-            + '</p><a class="story-link" href="' + article_url(article)
-            + '"><span>READ THE STORY</span></a></div></article>')
+            + '</p>' + story_link(article) + '</div></article>')
 
 
 
@@ -253,6 +267,48 @@ def article_body(article):
             + '</p></aside></div>')
 
 
+def article_end(article):
+    """Completion controls and external share intents, without a card-wide link."""
+    url = article_url(article)
+    link_data = [
+        ("X", "https://twitter.com/intent/tweet?" + urlencode({
+            "text": article["title"], "url": url,
+        })),
+        ("Threads", "https://www.threads.net/intent/post?" + urlencode({
+            "text": article["title"] + "\n" + url,
+        })),
+        ("LINE", "https://social-plugins.line.me/lineit/share?" + urlencode({
+            "url": url,
+        })),
+    ]
+    social = ''.join(
+        '<a class="article-share-button" href="' + esc(href)
+        + '" target="_blank" rel="noopener noreferrer" aria-label="'
+        + esc(name) + 'で記事を共有（新しいタブ）">' + esc(name) + '</a>'
+        for name, href in link_data
+    )
+    return (
+        '<section class="article-end" aria-label="読了後のナビゲーション">'
+        '<div class="article-end-label">END OF SIGNAL / READING COMPLETE</div>'
+        '<div class="article-end-intro"><h2>読んだ、その先へ。</h2>'
+        '<p>この記事を共有するか、ページ上部から次のニュースへ。</p></div>'
+        '<div class="article-end-grid"><div class="article-share">'
+        '<p class="article-share-title">SHARE THE SIGNAL</p>'
+        '<div class="article-share-list">' + social
+        + '<button type="button" class="article-share-button" data-copy-article-url="'
+        + esc(url) + '">URLをコピー</button></div>'
+        '<span class="article-share-feedback" data-share-feedback="" role="status"'
+        ' aria-live="polite"></span></div>'
+        '<a class="article-return" href="#page-top">'
+        '<span class="article-return-sub">BACK TO THE TOP</span>'
+        '<span class="article-return-label"><span>ページ上部へ戻る</span>'
+        '<svg class="article-return-svg" viewBox="0 0 96 48" aria-hidden="true">'
+        '<path class="return-line" d="M0 35 H25 L38 35 L53 10 L68 35 H96"/>'
+        '<path class="return-rise" d="M0 35 H25 L38 35 L53 10 L68 35 H96"/>'
+        '</svg></span></a></div></section>'
+    )
+
+
 def article_page(article, template):
     url = article_url(article)
     image_url = BASE + 'assets/og/' + article['id'] + '.png'
@@ -278,12 +334,13 @@ def article_page(article, template):
             + '<meta property="og:url" content="' + url + '">'
             + image_metadata(image_url, title)
             + '<meta name="robots" content="max-image-preview:large">'
-            + json_ld(schema) + fonts + style + analytics
+            + json_ld(schema) + fonts + style
+            + '<script defer src="/assets/js/article-actions.js"></script>' + analytics
             + '<script>measurePageView();</script></head>')
-    body = ('<body><div class="top"></div><div class="shell"><header>'
+    body = ('<body><div class="top" id="page-top"></div><div class="shell"><header>'
             + '<a class="brand" href="/">WORK<span>.</span>SIGNAL</a>'
-            + '<a class="back" href="/#latest">← ALL STORIES</a></header>'
-            + '<main id="article">' + article_body(article) + '</main></div>'
+            + '<a class="back" href="/#latest">ALL STORIES</a></header>'
+            + '<main id="article">' + article_body(article) + article_end(article) + '</main></div>'
             + '<footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong>'
             + '<small>NEWS IS SHORT. MEANING IS DEEP.</small></div></footer></body></html>')
     return head + body
@@ -297,6 +354,11 @@ def build(output, feed=None):
         shutil.rmtree(output)
     output.mkdir(parents=True)
     share_card(output)
+    # Shared behavior for article link copying on both static and dynamic pages.
+    shared_actions = ROOT / 'assets/js/article-actions.js'
+    output_actions = output / 'assets/js/article-actions.js'
+    output_actions.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(shared_actions, output_actions)
     index = (ROOT / 'index.html').read_text()
     cards = ''.join(article_card(article) for article in articles)
     if not cards:

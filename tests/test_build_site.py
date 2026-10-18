@@ -63,6 +63,37 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertIn('Sitemap: ' + BASE + 'sitemap.xml', (output / 'robots.txt').read_text())
             self.assertNotIn("fetch('./data/articles.json'", page)
 
+    def test_editorial_cards_put_article_first_and_support_optional_assets(self):
+        article = copy.deepcopy(self.article)
+        article['format'] = 'deep_dive'
+        article['card_image'] = '/assets/cards/feature.webp'
+        article['card_image_alt'] = 'Independent editorial illustration'
+        with tempfile.TemporaryDirectory() as temp:
+            output = Path(temp) / 'site'
+            build(output, [article])
+            home = (output / 'index.html').read_text()
+            card = home.split('<article class="story">', 1)[1].split('</article>', 1)[0]
+            self.assertIn('SIGNAL DEEP DIVE', card)
+            self.assertIn('story-format', card)
+            self.assertIn('class="story-figure"', card)
+            self.assertIn('alt="Independent editorial illustration"', card)
+            self.assertLess(card.index('<h3>'), card.index('<figure'))
+            self.assertNotIn('story-masthead', card)
+            self.assertNotIn('story-score', card)
+            self.assertIn(article['title'], card)
+            self.assertIn('class="guide-pulse"', card)
+            self.assertTrue((output / 'assets/og/' / (article['id'] + '.png')).exists())
+
+    def test_unsafe_card_image_is_ignored(self):
+        article = copy.deepcopy(self.article)
+        article['card_image'] = 'https://outside.example/tracker.png'
+        with tempfile.TemporaryDirectory() as temp:
+            output = Path(temp) / 'site'
+            build(output, [article])
+            home = (output / 'index.html').read_text()
+            self.assertNotIn('outside.example', home)
+            self.assertNotIn('class="story-figure"', home)
+
     def test_feed_text_cannot_inject_markup_or_terminate_structured_data(self):
         article = copy.deepcopy(self.article)
         article['title'] = 'A </script><script src="https://invalid.example/attack.js">'

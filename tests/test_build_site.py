@@ -23,7 +23,7 @@ class Document(HTMLParser):
 
 class StaticPublishingTests(unittest.TestCase):
     def setUp(self):
-        self.article = json.loads((ROOT / 'data/articles.json').read_text())[0]
+        self.article = next(a for a in json.loads((ROOT / 'data/articles.json').read_text()) if a.get('what_happened'))
 
     def test_public_output_is_crawlable_and_does_not_publish_drafts(self):
         draft = dict(self.article, id='unapproved', status='draft', title='PRIVATE DRAFT')

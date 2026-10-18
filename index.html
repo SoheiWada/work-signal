@@ -151,6 +151,58 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
 .story p{font-size:13px;margin-bottom:24px}
 .manifesto{padding:70px 0}.manifesto-grid{grid-template-columns:1fr;gap:35px}.footer-row{flex-direction:column}.footer-copy{text-align:left}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.guide-pulse path,.signal-mark .signal-sweep,.link-wave-live{stroke-dashoffset:0!important;opacity:1!important}}
+
+/* ABOUT SECTION ONLY — sourced from WORK_SIGNAL_refinement_v2.
+   Every selector is constrained to .manifesto. No header/article/footer overrides. */
+.manifesto{padding:92px 0 35px;scroll-margin-top:0}
+.manifesto>.shell{width:min(100% - 96px,1440px)}
+.manifesto .manifesto-top{display:grid;grid-template-columns:1.25fr 1fr;gap:70px;align-items:end}
+.manifesto h2{font-size:clamp(44px,6.5vw,92px);font-weight:500;line-height:1.04;letter-spacing:-.075em;margin:28px 0 0}
+.manifesto .editorial-label{font:600 9px var(--sans);letter-spacing:.18em;color:#aaa69e}
+.manifesto .manifesto-intro p{margin:18px 0 0;font-size:13px;line-height:2.2;color:#c9c4ba}
+.manifesto .editorial-flow{position:relative;height:150px;margin:40px 0 24px;padding:0 0 22px;border-bottom:1px solid #ffffff35;display:flex;justify-content:space-between;align-items:end;font:600 9px var(--sans);letter-spacing:.17em;color:#aaa69e}
+.manifesto .editorial-flow svg{position:absolute;top:5px;left:0;width:100%;height:100px;overflow:visible}
+.manifesto .flow-noise{stroke:#aaa69e;stroke-width:.75;fill:none;opacity:.25}
+.manifesto .flow-signal{stroke:var(--orange);stroke-width:2;fill:none}
+.manifesto.is-received .flow-signal{animation:manifesto-flow-arrive 1.8s cubic-bezier(.2,.75,.2,1) both}
+@keyframes manifesto-flow-arrive{from{stroke-dasharray:1;stroke-dashoffset:1}to{stroke-dasharray:1;stroke-dashoffset:0}}
+.manifesto .principles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px;align-content:stretch}
+.manifesto .principle,.manifesto .principle:first-child{display:block;border:0;padding:10px 0 35px}
+.manifesto .principle b{font-size:9px;letter-spacing:.12em;font-weight:500}
+.manifesto .principle div{margin-top:18px;font:500 clamp(12px,1.35vw,18px)/1.5 var(--sans);letter-spacing:-.02em}
+.manifesto .principle small{margin-top:13px;font:400 12px/1.9 var(--jp);color:#c9c4ba}
+.manifesto .manifesto-signoff{border-top:1px solid #ffffff35;padding-top:26px;display:flex;justify-content:space-between;align-items:center;gap:20px;font:500 9px var(--sans);letter-spacing:.13em;color:#aaa69e}
+.manifesto .manifesto-signoff a{color:var(--paper);min-height:44px;display:flex;align-items:center;gap:15px;text-decoration:none;font-size:12px;letter-spacing:.06em}
+.manifesto .signoff-line{display:block;width:45px;height:1px;background:var(--orange);transition:width .3s}
+.manifesto .manifesto-signoff a:hover .signoff-line,.manifesto .manifesto-signoff a:focus-visible .signoff-line{width:65px}
+.manifesto .manifesto-signoff a:focus-visible{outline:2px solid var(--orange);outline-offset:5px}
+@media(max-width:1000px){
+ .manifesto>.shell{width:calc(100% - 56px)}
+ .manifesto .manifesto-top{gap:35px}
+}
+@media(max-width:700px){
+ .manifesto{padding:60px 0 25px}
+ .manifesto>.shell{width:calc(100% - 40px)}
+ .manifesto .manifesto-top{grid-template-columns:1fr;gap:30px}
+ .manifesto h2{font-size:clamp(40px,10.8vw,70px);margin-top:22px}
+ .manifesto .manifesto-intro p{font-size:12px;margin-top:13px}
+ .manifesto .editorial-flow{height:120px;margin:25px 0 18px}
+ .manifesto .editorial-flow svg{height:80px}
+ .manifesto .principles{grid-template-columns:1fr;gap:0}
+ .manifesto .principle,.manifesto .principle:first-child{display:grid;grid-template-columns:92px 1fr;gap:13px;padding:23px 0;border-bottom:1px solid #ffffff25}
+ .manifesto .principle div{margin:0;font-size:13px}
+ .manifesto .principle b{font-size:8px;padding-top:3px}
+ .manifesto .principle small{font-size:11px;margin-top:8px}
+ .manifesto .principle br{display:none}
+ .manifesto .manifesto-signoff{margin-top:14px;border:0;padding-top:9px}
+ .manifesto .manifesto-signoff>span{font-size:7px;letter-spacing:.05em}
+ .manifesto .manifesto-signoff a{font-size:10px}
+ .manifesto .signoff-line{width:22px}
+}
+@media(prefers-reduced-motion:reduce){
+ .manifesto.is-received .flow-signal{animation:none!important}
+ .manifesto .signoff-line{transition:none!important}
+}
 </style>
 <link rel="stylesheet" href="/assets/css/signal-interactions.css">
 <!-- Google tag (gtag.js): WORK SIGNAL -->
@@ -187,7 +239,13 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
 <span class="guide-visual" aria-hidden="true"><span class="guide-orbit"></span><svg class="guide-pulse" viewBox="0 0 480 130" preserveAspectRatio="none"><path class="echo-two" d="M0 65 C90 65 98 8 155 20 S225 125 270 102 S350 23 480 65"/><path class="echo" d="M0 65 C80 65 120 115 175 99 S240 13 305 35 S390 92 480 65"/><path d="M0 65 C75 65 108 36 165 48 S245 101 304 77 S393 48 480 65"/></svg></span>
 </button>
 </div></section><div class="grid" id="articles" aria-live="polite"></div></section></div>
-<section class="manifesto" id="about"><div class="shell manifesto-grid"><div><div class="kicker">/ OUR POINT OF VIEW</div><h2>LESS NOISE.<br><em>MORE MEANING.</em></h2><p>ニュースを速く消費するためではなく、変化を深く理解するために。WORK SIGNALは、出来事の要約だけで終わらず、「自分の仕事や暮らしに何が関係するのか」まで考えるニュースメディアです。</p></div><div class="principles"><div class="principle"><b>01</b><div>FIRST-HAND SOURCES<small>原典を確かめる。事実と解釈を分ける。</small></div></div><div class="principle"><b>02</b><div>CONTEXT OVER CLICKS<small>煽りより文脈。話題性より実用性。</small></div></div><div class="principle"><b>03</b><div>HUMAN-IN-THE-LOOP<small>AIで調査・編集を支援し、公開は人が判断する。</small></div></div></div></div></section>
+<section class="manifesto" id="about" aria-labelledby="manifesto-title"><div class="shell"><div class="manifesto-top"><div><div class="kicker">/ OUR POINT OF VIEW</div><h2 id="manifesto-title">LESS NOISE.<br><em>MORE MEANING.</em></h2></div><div class="manifesto-intro"><span class="editorial-label">THE EDITORIAL PROCESS</span><p>ニュースを速く消費するためではなく、変化を深く理解するために。WORK SIGNALは、出来事の要約だけで終わらず、「自分の仕事や暮らしに何が関係するのか」まで考えるニュースメディアです。</p></div></div><div class="editorial-flow" aria-hidden="true"><span>INFORMATION</span><svg viewBox="0 0 1000 120" preserveAspectRatio="none"><g class="flow-noise"><path d="M0 30Q80 110 150 27T300 60T470 60H1000"/><path d="M0 100Q60 0 130 80T300 60T470 60H1000"/><path d="M0 65Q80 0 180 90T400 60H1000"/></g><path class="flow-signal" pathLength="1" d="M0 60Q45 0 90 75T170 60T240 60H450C490 60 492 26 520 60S550 94 580 60H1000"/></svg><span>MEANING</span></div><div class="principles"><div class="principle"><b>01 / SOURCE</b><div>FIRST-HAND SOURCES<small>原典を確かめる。<br>事実と解釈を分ける。</small></div></div><div class="principle"><b>02 / CONTEXT</b><div>CONTEXT OVER CLICKS<small>煽りより文脈。<br>話題性より実用性。</small></div></div><div class="principle"><b>03 / JUDGMENT</b><div>HUMAN-IN-THE-LOOP<small>AIで調査・編集を支援し、<br>公開は人が判断する。</small></div></div></div><div class="manifesto-signoff"><span>READ BEYOND THE HEADLINE.</span><a href="#latest">ALL SIGNALS<span aria-hidden="true" class="signoff-line"></span></a></div></div>
+<script>
+/* Scoped to the ABOUT section. Do not animate outside #about. */
+(()=>{const about=document.getElementById('about');if(!about||!('IntersectionObserver' in window)||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+const observer=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){about.classList.add('is-received');observer.disconnect()}},{threshold:.18});observer.observe(about)})();
+</script>
+</section>
 <div class="shell"><footer><div class="footer-row"><div class="footer-logo">WORK<span>.</span>SIGNAL</div><div class="footer-copy">© <span id="year"></span> WORK SIGNAL. INDEPENDENT PERSPECTIVES.<br>掲載内容は独自の解説です。投資判断を推奨するものではありません。</div></div></footer></div>
 <script>
 document.querySelector('#year').textContent=new Date().getFullYear();

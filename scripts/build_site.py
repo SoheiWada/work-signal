@@ -160,18 +160,21 @@ def threads_url(article=None, placement="post_01"):
 
 
 def story_icon(deep):
-    """Reuse the reading index signal as subtle article-format identification."""
-    if deep:
-        return ('<span class="guide-visual" aria-hidden="true"><span class="guide-orbit"></span>'
-                '<svg class="guide-pulse" viewBox="0 0 480 130" preserveAspectRatio="none">'
-                '<path class="echo-two" d="M0 65 C90 65 98 8 155 20 S225 125 270 102 S350 23 480 65"/>'
-                '<path class="echo" d="M0 65 C80 65 120 115 175 99 S240 13 305 35 S390 92 480 65"/>'
-                '<path d="M0 65 C75 65 108 36 165 48 S245 101 304 77 S393 48 480 65"/>'
-                '</svg></span>')
-    return ('<span class="guide-visual" aria-hidden="true">'
-            '<svg class="guide-pulse" viewBox="0 0 480 130" preserveAspectRatio="none">'
-            '<path d="M0 65 H104 L119 65 L136 40 L151 92 L169 17 L189 111 L207 65 H480"/>'
-            '</svg></span>')
+    """Compact, aspect-safe signal mark. Geometry matches the guide's signal vocabulary."""
+    brief = "M0 13 H20.8 L23.8 13 L27.2 8 L30.2 18.4 L33.8 3.4 L37.8 22.2 L41.4 13 H96"
+    deep_line = "M0 13 C15 13 21.6 7.2 33 9.6 S49 20.2 60.8 15.4 S78.6 9.6 96 13"
+    echo = "M0 13 C16 13 24 23 35 19.8 S48 2.6 61 7 S78 18.4 96 13"
+    line = deep_line if deep else brief
+    rings = (
+        '<circle class="signal-ring" cx="49" cy="13" r="10"/>'
+        '<circle class="signal-ring" cx="49" cy="13" r="6"/>'
+        '<path class="signal-echo" d="' + echo + '"/>'
+        if deep else ''
+    )
+    return ('<svg class="signal-mark" viewBox="0 0 96 26" '
+            'preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">'
+            + rings + '<path class="signal-base" d="' + line + '"/>'
+            '<path class="signal-sweep" d="' + line + '"/></svg>')
 
 
 def card_image_path(article):

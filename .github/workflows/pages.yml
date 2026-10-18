@@ -20,6 +20,7 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
+          cache-dependency-path: requirements-build.txt
       - name: Install image build dependency
         run: python -m pip install -r requirements-build.txt
       - uses: actions/configure-pages@v5

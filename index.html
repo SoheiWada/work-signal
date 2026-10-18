@@ -53,7 +53,41 @@
 .ticker{background:var(--ink);color:var(--paper);overflow:hidden;padding:14px 0}.ticker-track{display:flex;gap:32px;width:max-content;animation:marquee 32s linear infinite;font:700 12px var(--sans);letter-spacing:.12em}.ticker b{display:inline-block;width:14px;height:1px;background:var(--orange);vertical-align:middle;transform:rotate(-35deg)}@keyframes marquee{to{transform:translateX(-50%)}}
 .section{padding:90px 0 110px}.section-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;border-bottom:1px solid var(--ink);padding-bottom:22px}.kicker{font:700 11px var(--sans);letter-spacing:.16em;color:var(--orange)}.section-heading h2{margin:8px 0 0;font:800 clamp(40px,6vw,78px)/1 var(--sans);letter-spacing:-.075em}.section-aside{font:600 11px var(--sans);letter-spacing:.08em;color:var(--muted);text-align:right}
 .filters{display:flex;flex-wrap:wrap;gap:8px;padding:27px 0 32px}.filter{cursor:pointer;border:1px solid var(--line);background:transparent;border-radius:0;padding:11px 19px;font:700 12px var(--sans);transition:background .2s,color .2s,border-color .2s}.filter:hover{border-color:var(--ink)}.filter[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.grid{margin-top:22px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.story{background:var(--white);border:1px solid var(--line);min-height:330px;padding:27px;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}.story:hover{transform:translateY(-5px);box-shadow:8px 8px 0 var(--ink)}.story-top{display:flex;justify-content:space-between;gap:10px;align-items:center;font:700 11px var(--sans);letter-spacing:.09em}.story-score{background:var(--orange);color:white;padding:7px 9px}.story-category{color:var(--muted)}/* One visual language: story mastheads reuse the guide's exact waveform artwork. */
+.grid{margin-top:22px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.story{background:var(--white);border:1px solid var(--line);min-height:330px;padding:27px;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}.story:hover{transform:translateY(-5px);box-shadow:8px 8px 0 var(--ink)}.story-top{display:flex;justify-content:space-between;gap:10px;align-items:center;font:700 11px var(--sans);letter-spacing:.09em}.story-score{background:var(--orange);color:white;padding:7px 9px}.story-category{color:var(--muted)}.reading-guide{margin:42px 0 0;position:relative;overflow:hidden;background:var(--ink);color:var(--paper);isolation:isolate}
+.reading-guide:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background-image:linear-gradient(90deg,#fff 1px,transparent 1px),linear-gradient(#fff 1px,transparent 1px);background-size:52px 52px;mask-image:linear-gradient(90deg,transparent,#000)}
+.guide-intro{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 30px;border-bottom:1px solid #ffffff38;position:relative;z-index:2}
+.guide-overline{font:700 10px var(--sans);letter-spacing:.2em;color:#bcb8af}.guide-counter{font:700 10px var(--sans);letter-spacing:.12em;color:var(--orange)}
+.guide-panels{display:grid;grid-template-columns:1fr 1fr;position:relative;z-index:1}
+.guide-item{min-width:0;position:relative;display:flex;flex-direction:column;align-items:stretch;padding:35px 34px 30px;min-height:395px;overflow:hidden;transition:background .55s cubic-bezier(.2,.8,.2,1)}
+.guide-item+.guide-item{border-left:1px solid #ffffff3b}
+.guide-item:hover,.guide-item:focus-within{background:#ffffff0d}
+.guide-head{display:flex;justify-content:space-between;align-items:start;gap:16px}
+.guide-name{font:800 clamp(17px,2.1vw,27px)/1.12 var(--sans);letter-spacing:-.055em}
+.guide-time{font:700 11px var(--sans);color:var(--orange);letter-spacing:.09em;white-space:nowrap;padding-top:5px}
+.guide-visual{position:relative;flex:1;min-height:170px;display:grid;place-items:center;margin:14px 0;overflow:hidden}
+.guide-visual:before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:#ffffff22}
+.guide-pulse{width:100%;height:130px;overflow:visible}
+.guide-pulse path{fill:none;stroke:var(--orange);stroke-width:3;vector-effect:non-scaling-stroke;stroke-linecap:square;stroke-linejoin:miter;stroke-dasharray:900;stroke-dashoffset:900;animation:signal-draw 3.6s cubic-bezier(.3,.8,.2,1) infinite}
+.guide-pulse .echo{stroke:var(--paper);stroke-width:1;opacity:.45;animation-delay:.4s;animation-duration:4.4s}
+.guide-pulse .echo-two{stroke:var(--orange);stroke-width:1;opacity:.3;animation-delay:.9s;animation-duration:5.2s}
+.guide-orbit{position:absolute;width:170px;aspect-ratio:1;border:1px solid #ffffff4d;border-radius:50%;animation:guide-spin 17s linear infinite}
+.guide-orbit:before{content:"";position:absolute;inset:24px;border:1px solid #ffffff4d;border-radius:50%}
+.guide-orbit:after{content:"";position:absolute;width:9px;height:9px;background:var(--orange);border-radius:50%;top:18px;left:20px}
+.guide-item--brief .guide-orbit{display:none}
+.guide-item--deep .guide-pulse{position:relative;z-index:1;transform:scale(.93)}
+.guide-item--deep .guide-pulse path{animation-duration:5.5s}
+.guide-foot{display:flex;justify-content:space-between;align-items:end;gap:24px;border-top:1px solid #ffffff38;padding-top:20px}
+.guide-description{font-size:clamp(12px,1.1vw,14px);line-height:1.85;color:#dedbd2;max-width:350px}
+.guide-index{font:700 11px var(--sans);color:var(--orange);white-space:nowrap}
+.guide-item:hover .guide-orbit{animation-duration:7s}
+.guide-item:hover .guide-pulse path{animation-duration:2.1s}
+.reading-guide:not(.is-visible) .guide-item{opacity:.6}
+.reading-guide.is-visible .guide-item{animation:guide-enter .8s both}
+.reading-guide.is-visible .guide-item--deep{animation-delay:.14s}
+@keyframes signal-draw{0%{stroke-dashoffset:900;opacity:0}12%{opacity:1}62%,85%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:-900;opacity:0}}
+@keyframes guide-spin{to{transform:rotate(360deg)}}
+@keyframes guide-enter{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+/* One visual language: story mastheads reuse the guide's exact waveform artwork. */
 .story{padding:0;min-height:0;overflow:hidden}
 .story-top{padding:23px 25px 0}
 .story-masthead{position:relative;isolation:isolate;overflow:hidden;min-height:214px;margin-top:18px;padding:25px 25px 22px;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:space-between}

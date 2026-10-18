@@ -77,6 +77,7 @@ for(const [name,value] of [['og:title',document.title],['og:description',a.summa
 
 function articleEnd(a,isPreview){
  const section=el('section',undefined,'article-end'+(isPreview?' article-end--preview':''));
+ section.id='article-end';
  section.setAttribute('aria-label','読了後のナビゲーション');
  section.append(el('div','END OF SIGNAL / READING COMPLETE','article-end-label'));
  const intro=el('div',undefined,'article-end-intro');

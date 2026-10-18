@@ -200,7 +200,7 @@ def article_body(article):
             + ' / 100</dd><dt>PUBLISHED</dt><dd>' + esc(article['published_at'])
             + '</dd></dl>' + toc + '<div class="source"><small>/ PRIMARY SOURCE</small><a href="'
             + esc(article['source_url']) + '" target="_blank" rel="noopener noreferrer">'
-            + esc(article['source_url']) + ' ↗</a></div><p class="note">'
+            + esc(article['source_url']) + '</a></div><p class="note">'
             + 'この記事は一次情報に基づく独自の要約・考察です。掲載内容は投資助言ではありません。'
             + '</p></aside></div>')
 

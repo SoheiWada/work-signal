@@ -94,7 +94,7 @@ function articleEnd(a,isPreview){
    list.setAttribute('aria-label','この記事を共有する');
    const destinations=[
      ['X','https://twitter.com/intent/tweet?'+new URLSearchParams({text:a.title,url:url}).toString()],
-     ['Threads','https://www.threads.net/intent/post?text='+encodeURIComponent(a.title+'\n'+url)],
+     ['Threads','https://www.threads.net/intent/post?text='+encodeURIComponent(a.title+'\n'+url+'\n\n一次情報:\n'+a.source_url)],
      ['LINE','https://social-plugins.line.me/lineit/share?url='+encodeURIComponent(url)]
    ];
    destinations.forEach(([name,href])=>{

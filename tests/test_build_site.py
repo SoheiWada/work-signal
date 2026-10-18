@@ -1,10 +1,12 @@
 import copy
 import json
+import re
 import tempfile
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
 from xml.etree import ElementTree as ET
+from PIL import Image
 
 from scripts.build_site import BASE, ROOT, build
 
@@ -36,11 +38,24 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertIn(self.article['what_happened'], page)
             self.assertNotIn('PRIVATE DRAFT', home)
             self.assertFalse((output / 'articles/unapproved').exists())
+            self.assertFalse((output / 'assets/og/unapproved.png').exists())
             self.assertEqual(len(json.loads((output / 'data/articles.json').read_text())), 1)
             doc = Document(page)
             canonicals = [attrs['href'] for tag, attrs in doc.tags
                           if tag == 'link' and attrs.get('rel') == 'canonical']
             self.assertEqual(canonicals, [BASE + path])
+            meta = {attrs.get('property', attrs.get('name')): attrs.get('content')
+                    for tag, attrs in doc.tags if tag == 'meta'}
+            image_url = meta['og:image']
+            image_path = output / image_url.removeprefix(BASE)
+            with Image.open(image_path) as image:
+                self.assertEqual(image.format, 'PNG')
+                self.assertEqual(image.size, (int(meta['og:image:width']), int(meta['og:image:height'])))
+                self.assertEqual(image.size, (1200, 630))
+            schema = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', page, re.S).group(1))
+            self.assertEqual(schema['image'], [image_url])
+            self.assertEqual(meta['twitter:card'], 'summary_large_image')
+            self.assertTrue((output / 'assets/og/home.png').is_file())
             sitemap = ET.parse(output / 'sitemap.xml')
             urls = [node.text for node in sitemap.iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
             self.assertEqual(urls, [BASE, BASE + path])

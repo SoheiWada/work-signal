@@ -16,6 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install image build dependency
+        run: python -m pip install -r requirements-build.txt
       - uses: actions/configure-pages@v5
       - name: Validate static site generation
         run: python3 -m unittest discover -s tests

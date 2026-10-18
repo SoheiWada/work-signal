@@ -35,6 +35,7 @@ mainへの更新を受け、GitHub Actionsが公開用の `_site/` を生成し�
 - 旧 `/article.html?id=<記事ID>`: 引き続き表示でき、正規URLは新記事URLを指定
 - ホームに公開記事リンクを事前生成（JavaScriptなしでも発見可能）
 - 正規URL・OGP・WebSite / NewsArticle構造化データ
+- トップと記事ごとの1200×630 PNG共有画像を自動生成。記事の構造化データにも画像URLを設定
 - `/sitemap.xml` と `/robots.txt` を自動生成
 - 公開対象は `status=published`、スコア80以上、有効な記事データのみ
 - GA4とカスタムドメイン・HTTPSは継続
@@ -42,9 +43,13 @@ mainへの更新を受け、GitHub Actionsが公開用の `_site/` を生成し�
 ローカル確認:
 
 ```sh
+python3 -m pip install -r requirements-build.txt
 python3 -m unittest discover -s tests
 python3 scripts/build_site.py
 ```
+
+共有時は `/articles/<記事ID>/` を使用する。この固定URLではタイトル・説明文・画像を
+JavaScript実行前のHTMLに出力している。旧 `article.html?id=...` は表示互換用として継続する。
 
 Search Consoleでは `https://signal.amberlight.co.jp/` を使い、
 `https://signal.amberlight.co.jp/sitemap.xml` を送信する。

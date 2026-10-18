@@ -4,16 +4,108 @@ import html
 import json
 import re
 import shutil
+import math
 from datetime import date
+from functools import lru_cache
 from pathlib import Path
 from urllib.parse import urlencode, urlparse
 from xml.etree import ElementTree as ET
+from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://signal.amberlight.co.jp/"
 CATEGORIES = {"AI", "仕事", "マネジメント", "お金", "経済", "Crypto"}
 SECTIONS = [("何が起きた？", "what_happened"), ("なぜ重要？", "why_it_matters"),
             ("仕事や暮らしへの影響", "impact"), ("確認しておきたいこと", "caveats")]
+CARD_SIZE = (1200, 630)
+
+
+@lru_cache(maxsize=128)
+def card_font(size, weight=700):
+    font = ImageFont.truetype(str(ROOT / 'assets/fonts/NotoSansJP.ttf'), size)
+    font.set_variation_by_axes([weight])
+    return font
+
+
+def wrap_title(text, font, width):
+    lines = []
+    for paragraph in text.split('\n'):
+        line = ''
+        for char in paragraph:
+            if line and font.getlength(line + char) > width:
+                carry = ''
+                # Keep Japanese opening/closing punctuation with its surrounding text.
+                if line[-1] in '「『（【〈《［(' or char in '、。，．！？：；」』）】〉》］!?.,:;)':
+                    carry, line = line[-1], line[:-1]
+                if line:
+                    lines.append(line)
+                line = carry + char
+            else:
+                line += char
+        if line:
+            lines.append(line)
+    return lines
+
+
+def fit_title(text, width=1072, height=290):
+    for size in range(84, 27, -2):
+        font = card_font(size, 800)
+        lines = wrap_title(text, font, width)
+        line_height = math.ceil(size * 1.3)
+        if len(lines) * line_height <= height and all(font.getlength(line) <= width for line in lines):
+            balanced_width = min(width, sum(font.getlength(part) for part in text.split('\n')) / max(1, len(lines)) + size)
+            balanced = wrap_title(text, font, balanced_width)
+            if len(balanced) <= len(lines):
+                lines = balanced
+            return font, lines, line_height
+    raise ValueError('Article title is too long for a readable share image')
+
+
+def share_card(output, article=None):
+    paper, ink, orange = '#f2efe7', '#191918', '#fa4c24'
+    image = Image.new('RGB', CARD_SIZE, paper)
+    draw = ImageDraw.Draw(image)
+    draw.rectangle((0, 0, 1200, 8), fill=ink)
+    brand = card_font(43, 800)
+    brand_baseline = 39 - brand.getbbox('WORK', anchor='ls')[1]
+    x = 64
+    for text, color in [('WORK', ink), ('.', orange), ('SIGNAL', ink)]:
+        draw.text((x, brand_baseline), text, font=brand, fill=color, anchor='ls')
+        x += brand.getlength(text)
+    draw.text((1136, 58), 'READ BEYOND THE HEADLINE', font=card_font(16), fill=ink, anchor='rt')
+    draw.line((64, 109, 1136, 109), fill=ink, width=1)
+    label = article['category'] if article else 'INDEPENDENT NEWS'
+    label_font = card_font(19, 700)
+    label_width = math.ceil(label_font.getlength(label)) + 32
+    draw.rectangle((64, 139, 64 + label_width, 175), fill=orange)
+    draw.text((80, 145), label, font=label_font, fill=ink, anchor='lt')
+    if article:
+        draw.text((88 + label_width, 146), article['published_at'], font=card_font(18), fill=ink, anchor='lt')
+    title = article['title'] if article else 'ニュースは短く。\n意味は深く。'
+    font, lines, line_height = fit_title(title)
+    for i, line in enumerate(lines):
+        draw.text((64, 211 + i * line_height), line, font=font,
+                  fill=orange if not article and i == len(lines) - 1 else ink, anchor='lt')
+    draw.line((64, 540, 1136, 540), fill='#c9c4ba', width=1)
+    draw.text((64, 566), 'signal.amberlight.co.jp', font=card_font(19, 500), fill=ink, anchor='lt')
+    for radius in [22, 14, 6]:
+        draw.ellipse((1112 - radius, 582 - radius, 1112 + radius, 582 + radius), outline=orange, width=2)
+    path = output / 'assets/og' / ((article['id'] if article else 'home') + '.png')
+    path.parent.mkdir(parents=True, exist_ok=True)
+    image.save(path, optimize=True)
+    return path
+
+
+def image_metadata(url, alt):
+    return ('<meta property="og:image" content="' + url + '">'
+            + '<meta property="og:image:secure_url" content="' + url + '">'
+            + '<meta property="og:image:type" content="image/png">'
+            + '<meta property="og:image:width" content="1200">'
+            + '<meta property="og:image:height" content="630">'
+            + '<meta property="og:image:alt" content="' + esc(alt) + '">'
+            + '<meta name="twitter:card" content="summary_large_image">'
+            + '<meta name="twitter:image" content="' + url + '">'
+            + '<meta name="twitter:image:alt" content="' + esc(alt) + '">')
 
 
 def esc(value):
@@ -99,12 +191,13 @@ def article_body(article):
 
 def article_page(article, template):
     url = article_url(article)
+    image_url = BASE + 'assets/og/' + article['id'] + '.png'
     title = article["title"] + " — WORK SIGNAL"
     style = re.search(r'<style>.*?</style>', template, re.S).group()
     fonts = re.search(r'<link rel="preconnect".*?<style>', template, re.S).group().removesuffix('<style>')
     analytics = template.split('<!-- Google tag (gtag.js): WORK SIGNAL -->', 1)[1].split('</head>', 1)[0]
     schema = {"@context": "https://schema.org", "@type": "NewsArticle", "headline": article["title"],
-              "description": article["summary"], "datePublished": article["published_at"],
+              "description": article["summary"], "datePublished": article["published_at"], "image": [image_url],
               "inLanguage": "ja", "mainEntityOfPage": {"@type": "WebPage", "@id": url},
               "publisher": {"@type": "Organization", "name": "WORK SIGNAL", "url": BASE}}
     # Do not invent a person or organization byline that the feed does not provide.
@@ -119,7 +212,7 @@ def article_page(article, template):
             + '<meta property="og:title" content="' + esc(title) + '">'
             + '<meta property="og:description" content="' + esc(article["summary"]) + '">'
             + '<meta property="og:url" content="' + url + '">'
-            + '<meta name="twitter:card" content="summary">'
+            + image_metadata(image_url, title)
             + '<meta name="robots" content="max-image-preview:large">'
             + json_ld(schema) + fonts + style + analytics
             + '<script>measurePageView();</script></head>')
@@ -139,6 +232,7 @@ def build(output, feed=None):
     if output.exists():
         shutil.rmtree(output)
     output.mkdir(parents=True)
+    share_card(output)
     index = (ROOT / 'index.html').read_text()
     cards = ''.join(article_card(article) for article in articles)
     if not cards:
@@ -153,6 +247,7 @@ def build(output, feed=None):
     (output / 'data').mkdir()
     (output / 'data/articles.json').write_text(json.dumps(articles, ensure_ascii=False, indent=2) + '\n')
     for article in articles:
+        share_card(output, article)
         folder = output / 'articles' / article['id']
         folder.mkdir(parents=True)
         (folder / 'index.html').write_text(article_page(article, template))

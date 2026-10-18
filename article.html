@@ -24,12 +24,17 @@
 const root=document.querySelector('#article');const params=new URLSearchParams(location.search);const id=params.get('id');
 function el(tag,txt,cls){const n=document.createElement(tag);if(txt!==undefined)n.textContent=txt;if(cls)n.className=cls;return n}
 function section(title,body){if(!body)return null;const box=el('section',undefined,'block');box.append(el('h2',title),el('p',body));return box}
-function fail(){root.replaceChildren();const wrap=el('section',undefined,'notfound');wrap.append(el('div','/ SIGNAL NOT FOUND','eyebrow'),el('h1','NO SIGNAL.'),el('p','記事が見つからないか、まだ公開されていません。'));const a=el('a','← 記事一覧へ戻る','back');a.href='./#latest';wrap.append(a);root.append(wrap);document.title='記事が見つかりません — WORK SIGNAL';measurePageView()}
+function articleMetadata(a){
+const url='https://signal.amberlight.co.jp/articles/'+encodeURIComponent(a.id)+'/';
+let canonical=document.querySelector('link[rel="canonical"]');if(!canonical){canonical=document.createElement('link');canonical.rel='canonical';document.head.append(canonical)}canonical.href=url;
+for(const [name,value] of [['og:title',document.title],['og:description',a.summary],['og:url',url],['og:type','article'],['og:site_name','WORK SIGNAL'],['og:locale','ja_JP']]){let meta=document.querySelector('meta[property="'+name+'"]');if(!meta){meta=document.createElement('meta');meta.setAttribute('property',name);document.head.append(meta)}meta.content=value}
+}
+function fail(){const robots=document.createElement('meta');robots.name='robots';robots.content='noindex';document.head.append(robots);root.replaceChildren();const wrap=el('section',undefined,'notfound');wrap.append(el('div','/ SIGNAL NOT FOUND','eyebrow'),el('h1','NO SIGNAL.'),el('p','記事が見つからないか、まだ公開されていません。'));const a=el('a','← 記事一覧へ戻る','back');a.href='./#latest';wrap.append(a);root.append(wrap);document.title='記事が見つかりません — WORK SIGNAL';measurePageView()}
 function render(a){root.replaceChildren();const hero=el('section',undefined,'hero');hero.append(el('div','/ '+a.category.toUpperCase()+' / EDITORIAL BRIEFING','eyebrow'),el('h1',a.title));const meta=el('div',undefined,'meta');meta.append(el('span',a.score+' / 100','score'),el('span',a.category),el('time',a.published_at));hero.append(meta);
 const layout=el('div',undefined,'layout'),content=el('article',undefined,'content');content.append(el('p',a.summary,'lead'));
 for(const [title,key] of [['何が起きた？','what_happened'],['なぜ重要？','why_it_matters'],['仕事や暮らしへの影響','impact'],['確認しておきたいこと','caveats']]){const s=section(title,a[key]);if(s)content.append(s)}
 const aside=el('aside',undefined,'side');aside.append(el('div','ARTICLE INTELLIGENCE','side-title'));const dl=el('dl');for(const [k,v] of [['CATEGORY',a.category],['SIGNAL SCORE',a.score+' / 100'],['PUBLISHED',a.published_at]]){dl.append(el('dt',k),el('dd',v))}aside.append(dl);
 const source=el('div',undefined,'source');source.append(el('small','/ PRIMARY SOURCE'));const link=el('a',a.source_url+' ↗');link.href=a.source_url;link.target='_blank';link.rel='noopener noreferrer';source.append(link);aside.append(source,el('p','この記事は一次情報に基づく独自の要約・考察です。掲載内容は投資助言ではありません。','note'));layout.append(content,aside);root.append(hero,layout);document.title=a.title+' — WORK SIGNAL';
-const desc=document.querySelector('meta[name="description"]');desc.content=a.summary;measurePageView()}
+const desc=document.querySelector('meta[name="description"]');desc.content=a.summary;articleMetadata(a);measurePageView()}
 if(!id||id.length>120){fail()}else{fetch('./data/articles.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(items=>{const a=Array.isArray(items)?items.find(x=>x.id===id&&x.status==='published'&&x.score>=80&&typeof x.source_url==='string'&&/^https:\/\//.test(x.source_url)):null;if(a)render(a);else fail()}).catch(fail)}
 </script></body></html>

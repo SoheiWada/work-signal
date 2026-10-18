@@ -4,10 +4,18 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#f2efe7">
 <meta name="description" content="WORK SIGNAL。ニュースは短く、意味は深く。AI、仕事、マネジメント、経済の重要な変化を一次情報から読み解く独立メディア。">
-<title>WORK SIGNAL — Read beyond the headline.</title>
+<title>WORK SIGNAL｜AI・仕事・マネジメントのニュース解説</title>
 <meta property="og:title" content="WORK SIGNAL — ニュースは短く。意味は深く。">
 <meta property="og:description" content="情報のノイズを越えて、働く人に必要なシグナルを。">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://signal.amberlight.co.jp/">
+<meta property="og:site_name" content="WORK SIGNAL">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://signal.amberlight.co.jp/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"WORK SIGNAL","url":"https://signal.amberlight.co.jp/","inLanguage":"ja","description":"AI・仕事・マネジメント・経済の変化を一次情報から読み解くニュース解説メディア。"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -76,7 +84,7 @@ function node(tag,content,className){const n=document.createElement(tag);if(cont
 function render(){filters.replaceChildren();categories.forEach(category=>{const button=node('button',category,'filter');button.type='button';button.setAttribute('aria-pressed',String(active===category));button.onclick=()=>{active=category;render()};filters.append(button)});
 root.replaceChildren();const selected=items.filter(a=>active==='すべて'||a.category===active);
 if(!selected.length){const box=node('div',undefined,'empty'),inner=node('div');inner.append(node('div','TRANSMISSION 001 / STANDBY','number'),node('strong','THE SIGNAL IS COMING.'));inner.append(node('p','公開準備中です。\n一次情報を検証し、承認されたニュースから掲載します。'));box.append(inner);root.append(box);return}
-selected.forEach(a=>{const card=node('article',undefined,'story'),top=node('div',undefined,'story-top');top.append(node('span',a.category,'story-category'),node('span',a.score+' / 100','story-score'));card.append(top,node('h3',a.title),node('p',a.summary));const link=node('a',undefined,'story-link');link.href='./article.html?id='+encodeURIComponent(a.id);link.append(node('span','READ THE STORY'),node('span','↗'));card.append(link);root.append(card)})}
-render();fetch('./data/articles.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('data unavailable');return r.json()}).then(data=>{items=Array.isArray(data)?data.filter(a=>a.status==='published'&&a.score>=80&&typeof a.id==='string'&&categories.includes(a.category)&&typeof a.source_url==='string'&&/^https:\/\//.test(a.source_url)):[];render()}).catch(()=>render());
+selected.forEach(a=>{const card=node('article',undefined,'story'),top=node('div',undefined,'story-top');top.append(node('span',a.category,'story-category'),node('span',a.score+' / 100','story-score'));card.append(top,node('h3',a.title),node('p',a.summary));const link=node('a',undefined,'story-link');link.href='./articles/'+encodeURIComponent(a.id)+'/';link.append(node('span','READ THE STORY'),node('span','↗'));card.append(link);root.append(card)})}
+fetch('./data/articles.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('data unavailable');return r.json()}).then(data=>{items=Array.isArray(data)?data.filter(a=>a.status==='published'&&a.score>=80&&typeof a.id==='string'&&categories.includes(a.category)&&typeof a.source_url==='string'&&/^https:\/\//.test(a.source_url)):[];render()}).catch(()=>{if(!root.children.length)render()});
 </script>
 </body></html>

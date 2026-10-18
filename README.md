@@ -26,7 +26,8 @@
 カテゴリーは `AI`、`仕事`、`マネジメント`、`お金`、`経済`、`Crypto`。
 
 ## 公開設定
-GitHubリポジトリの **Settings → Pages → Build and deployment → Deploy from a branch → main / (root) → Save** を選択。
+GitHub PagesのSourceは **GitHub Actions**。mainの更新を受けて `.github/workflows/pages.yml` が記事ページとサイトマップを生成・公開します。
+独自ドメインは https://signal.amberlight.co.jp/ 。SEO・Threads計測の運用は `docs/analytics-seo.md` を参照。
 
 ## 注意
 記事は原典と数値を確認してから公開すること。ChatGPT内の承認ボタンからの自動反映、ニュース自動収集、Threads自動投稿は**未実装**。Threads投稿文の生成と手動投稿は継続する。

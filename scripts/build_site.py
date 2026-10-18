@@ -159,12 +159,48 @@ def threads_url(article=None, placement="post_01"):
                                   "utm_campaign": campaign, "utm_content": placement})
 
 
+def story_icon(deep):
+    """Reuse the reading index signal as subtle article-format identification."""
+    if deep:
+        return ('<span class="guide-visual" aria-hidden="true"><span class="guide-orbit"></span>'
+                '<svg class="guide-pulse" viewBox="0 0 480 130" preserveAspectRatio="none">'
+                '<path class="echo-two" d="M0 65 C90 65 98 8 155 20 S225 125 270 102 S350 23 480 65"/>'
+                '<path class="echo" d="M0 65 C80 65 120 115 175 99 S240 13 305 35 S390 92 480 65"/>'
+                '<path d="M0 65 C75 65 108 36 165 48 S245 101 304 77 S393 48 480 65"/>'
+                '</svg></span>')
+    return ('<span class="guide-visual" aria-hidden="true">'
+            '<svg class="guide-pulse" viewBox="0 0 480 130" preserveAspectRatio="none">'
+            '<path d="M0 65 H104 L119 65 L136 40 L151 92 L169 17 L189 111 L207 65 H480"/>'
+            '</svg></span>')
+
+
+def article_card_image(article):
+    """An optional article-owned visual; no generic cover competes with headlines."""
+    image = article.get("card_image")
+    if not isinstance(image, str) or not re.fullmatch(
+            r"/assets/[A-Za-z0-9/_-]+\\.(?:png|jpe?g|webp|avif)", image, re.I):
+        return ""
+    alt = article.get("card_image_alt")
+    if not isinstance(alt, str):
+        alt = ""
+    return ('<figure class="story-figure"><img src="' + esc(image) + '" alt="'
+            + esc(alt) + '" loading="lazy" decoding="async"></figure>')
+
+
 def article_card(article):
-    return ('<article class="story"><div class="story-top"><span class="story-category">'
-            + esc(article["category"]) + '</span><span class="story-score">'
-            + esc(article["score"]) + ' / 100</span></div><h3>' + esc(article["title"])
-            + '</h3><p>' + esc(article["summary"]) + '</p><a class="story-link" href="'
-            + article_url(article) + '"><span>READ THE STORY</span><span>↗</span></a></article>')
+    deep = article.get("format") == "deep_dive"
+    form = "SIGNAL DEEP DIVE" if deep else "SIGNAL BRIEF"
+    minutes = "4–7 MIN" if deep else "1–2 MIN"
+    return ('<article class="story"><div class="story-head"><div class="story-top">'
+            '<span class="story-category">' + esc(article["category"]) + '</span>'
+            '<span class="story-format">' + story_icon(deep)
+            + '<span class="story-format-label">' + form + '</span></span>'
+            '</div><span class="story-readtime">' + minutes + '</span></div>'
+            '<div class="story-content"><h3>' + esc(article["title"]) + '</h3>'
+            + article_card_image(article) + '<p>' + esc(article["summary"])
+            + '</p><a class="story-link" href="' + article_url(article)
+            + '"><span>READ THE STORY</span></a></div></article>')
+
 
 
 def article_body(article):

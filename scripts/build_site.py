@@ -174,17 +174,26 @@ def story_icon(deep):
             '</svg></span>')
 
 
-def article_card_image(article):
-    """An optional article-owned visual; no generic cover competes with headlines."""
+def card_image_path(article):
+    """Safe root-relative, site-owned image path or None."""
     image = article.get("card_image")
     if not isinstance(image, str) or not re.fullmatch(
             r"/assets/[A-Za-z0-9/_-]+\.(?:png|jpe?g|webp|avif)", image, re.I):
+        return None
+    return image
+
+
+def article_card_image(article):
+    """An optional article-owned visual; no generic cover competes with headlines."""
+    image = card_image_path(article)
+    if not image:
         return ""
     alt = article.get("card_image_alt")
     if not isinstance(alt, str):
         alt = ""
     return ('<figure class="story-figure"><img src="' + esc(image) + '" alt="'
             + esc(alt) + '" loading="lazy" decoding="async"></figure>')
+
 
 
 def article_card(article):
@@ -302,6 +311,14 @@ def build(output, feed=None):
     (output / 'data/drafts.json').write_text((ROOT / 'data/drafts.json').read_text())
     (output / 'data/articles.json').write_text(json.dumps(articles, ensure_ascii=False, indent=2) + '\n')
     for article in articles:
+        image_path = card_image_path(article)
+        if image_path:
+            source = ROOT / image_path.lstrip('/')
+            if not source.is_file():
+                raise ValueError('Missing article card image: ' + image_path)
+            destination = output / image_path.lstrip('/')
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(source, destination)
         share_card(output, article)
         folder = output / 'articles' / article['id']
         folder.mkdir(parents=True)

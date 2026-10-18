@@ -168,23 +168,39 @@ def article_card(article):
 
 
 def article_body(article):
-    blocks = ''.join('<section class="block"><h2>' + title + '</h2><p>'
-                     + esc(article[key]) + '</p></section>' for title, key in SECTIONS
-                     if article.get(key))
+    deep = article.get('format') == 'deep_dive' and isinstance(article.get('sections'), list) and bool(article['sections'])
+    reading = max(1, math.ceil((len(article.get('summary', '')) + sum(len(str(part.get('body', ''))) for part in article.get('sections', []))) / 600))
+    if deep:
+        blocks = ''
+        for i, part in enumerate(article['sections'], 1):
+            if not isinstance(part, dict) or not part.get('title') or not part.get('body'):
+                continue
+            paragraphs = ''.join('<p>' + esc(p) + '</p>' for p in re.split(r'\\n\\s*\\n', str(part['body'])) if p.strip())
+            stats = ''.join('<div class="stat"><strong>' + esc(stat['value']) + '</strong><span>' + esc(stat.get('label', '')) + '</span></div>' for stat in part.get('stats', []) if isinstance(stat, dict) and stat.get('value'))
+            blocks += '<section class="block" id="section-' + str(i) + '"><h2>' + esc(part['title']) + '</h2>' + paragraphs + stats + '</section>'
+        if article.get('quick_take'):
+            blocks = '<section class="takeaways"><h2>30秒でわかる / THE SIGNAL</h2><p>' + esc(article['quick_take']) + '</p></section>' + blocks
+        toc = '<nav class="toc" aria-label="記事の目次"><div class="side-title">IN THIS STORY</div>' + ''.join('<a href="#section-' + str(i) + '">' + esc(part['title']) + '</a>' for i, part in enumerate(article['sections'], 1) if isinstance(part, dict) and part.get('title') and part.get('body')) + '</nav>'
+    else:
+        blocks = ''.join('<section class="block"><h2>' + title + '</h2><p>' + esc(article[key]) + '</p></section>' for title, key in SECTIONS if article.get(key))
+        toc = ''
+    format_label = 'SIGNAL DEEP DIVE' if deep else 'SIGNAL BRIEF'
     return ('<section class="hero"><div class="eyebrow">/ ' + esc(article["category"])
-            + ' / EDITORIAL BRIEFING</div><h1>' + esc(article["title"])
-            + '</h1><div class="meta"><span class="score">' + esc(article["score"])
-            + ' / 100</span><span>' + esc(article["category"]) + '</span><time datetime="'
-            + esc(article["published_at"]) + '">' + esc(article["published_at"])
-            + '</time></div></section><div class="layout"><article class="content">'
-            + '<p class="lead">' + esc(article["summary"]) + '</p>' + blocks
+            + (' / DEEP DIVE' if deep else ' / EDITORIAL BRIEFING') + '</div><h1>' + esc(article['title'])
+            + '</h1><div class="meta"><span class="score">' + esc(article['score'])
+            + ' / 100</span><span class="article-type">' + format_label + '</span><span>'
+            + esc(article['category']) + '</span><time datetime="' + esc(article['published_at'])
+            + '">' + esc(article['published_at']) + '</time><span class="readtime">約'
+            + str(reading) + '分で読める</span></div></section><div class="layout"><article class="content">'
+            + '<p class="lead">' + esc(article['summary']) + '</p>' + blocks
             + '</article><aside class="side"><div class="side-title">ARTICLE INTELLIGENCE</div>'
-            + '<dl><dt>CATEGORY</dt><dd>' + esc(article["category"])
-            + '</dd><dt>SIGNAL SCORE</dt><dd>' + esc(article["score"])
-            + ' / 100</dd><dt>PUBLISHED</dt><dd>' + esc(article["published_at"])
-            + '</dd></dl><div class="source"><small>/ PRIMARY SOURCE</small><a href="'
-            + esc(article["source_url"]) + '" target="_blank" rel="noopener noreferrer">'
-            + esc(article["source_url"]) + ' ↗</a></div><p class="note">'
+            + '<dl><dt>FORMAT</dt><dd>' + format_label + '</dd><dt>READ TIME</dt><dd>'
+            + str(reading) + ' MIN</dd><dt>CATEGORY</dt><dd>' + esc(article['category'])
+            + '</dd><dt>SIGNAL SCORE</dt><dd>' + esc(article['score'])
+            + ' / 100</dd><dt>PUBLISHED</dt><dd>' + esc(article['published_at'])
+            + '</dd></dl>' + toc + '<div class="source"><small>/ PRIMARY SOURCE</small><a href="'
+            + esc(article['source_url']) + '" target="_blank" rel="noopener noreferrer">'
+            + esc(article['source_url']) + ' ↗</a></div><p class="note">'
             + 'この記事は一次情報に基づく独自の要約・考察です。掲載内容は投資助言ではありません。'
             + '</p></aside></div>')
 
@@ -244,6 +260,9 @@ def build(output, feed=None):
     (output / 'index.html').write_text(index)
     template = (ROOT / 'article.html').read_text()
     (output / 'article.html').write_text(template)
+    # Preview is not linked or indexed; it is accessible to anyone who knows the URL.
+    (output / 'preview.html').write_text((ROOT / 'preview.html').read_text())
+    (output / 'data/drafts.json').write_text((ROOT / 'data/drafts.json').read_text())
     (output / 'data').mkdir()
     (output / 'data/articles.json').write_text(json.dumps(articles, ensure_ascii=False, indent=2) + '\n')
     for article in articles:

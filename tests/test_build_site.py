@@ -36,7 +36,27 @@ class StaticPublishingTests(unittest.TestCase):
             path = 'articles/' + self.article['id'] + '/'
             page = (output / path / 'index.html').read_text()
             self.assertIn(self.article['title'], home)
-            self.assertIn(self.article['what_happened'], html.unescape(page))
+            # Deep dives render 'sections' instead of the legacy what_happened field.
+            # Compare the published, visible paragraph text rather than raw HTML.
+            class VisibleText(HTMLParser):
+                def __init__(self):
+                    super().__init__()
+                    self.parts = []
+
+                def handle_data(self, data):
+                    self.parts.append(data)
+
+            parser = VisibleText()
+            parser.feed(page)
+            visible = re.sub(r'\s+', ' ', ' '.join(parser.parts))
+            sections = self.article.get('sections')
+            expected_bodies = ([part['body'] for part in sections if part.get('body')]
+                               if sections else [self.article['what_happened']])
+            for body in expected_bodies:
+                for paragraph in re.split(r'\n\s*\n', body):
+                    normalized = re.sub(r'\s+', ' ', paragraph).strip()
+                    if normalized:
+                        self.assertIn(normalized, visible)
             self.assertNotIn('PRIVATE DRAFT', home)
             self.assertFalse((output / 'articles/unapproved').exists())
             self.assertFalse((output / 'assets/og/unapproved.png').exists())

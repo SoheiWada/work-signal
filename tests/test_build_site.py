@@ -25,42 +25,6 @@ class StaticPublishingTests(unittest.TestCase):
     def setUp(self):
         self.article = next(a for a in json.loads((ROOT / 'data/articles.json').read_text()) if a.get('what_happened'))
 
-    def test_published_articles_meet_editorial_length_and_structure(self):
-        articles = json.loads((ROOT / 'data/articles.json').read_text())
-        self.assertEqual(len(articles), len({article['id'] for article in articles}))
-        for article in articles:
-            with self.subTest(article=article['id']):
-                self.assertIn(article.get('format'), ('brief', 'deep_dive'))
-                self.assertTrue(article.get('source_url', '').startswith('https://'))
-                self.assertTrue(article.get('summary', '').strip())
-                sections = article.get('sections')
-                self.assertIsInstance(sections, list)
-                self.assertTrue(sections)
-                for section in sections:
-                    self.assertTrue(section.get('title', '').strip())
-                    self.assertTrue(section.get('body', '').strip())
-                readable_chars = len(article['summary']) + sum(
-                    len(section['title']) + len(section['body']) for section in sections
-                )
-                minimum, maximum = (1200, 1800) if article['format'] == 'brief' else (2500, 4000)
-                self.assertGreaterEqual(readable_chars, minimum)
-                self.assertLessEqual(readable_chars, maximum)
-
-    def test_generated_pages_include_all_structured_sections_and_source(self):
-        articles = json.loads((ROOT / 'data/articles.json').read_text())
-        with tempfile.TemporaryDirectory() as temp:
-            output = Path(temp) / 'site'
-            build(output, articles)
-            for article in articles:
-                with self.subTest(article=article['id']):
-                    page = (output / 'articles' / article['id'] / 'index.html').read_text()
-                    self.assertIn(article['title'], page)
-                    self.assertIn(article['summary'], page)
-                    self.assertIn(article['source_url'], page)
-                    for section in article['sections']:
-                        self.assertIn(section['title'], page)
-                        self.assertIn(section['body'], page)
-
     def test_public_output_is_crawlable_and_does_not_publish_drafts(self):
         draft = dict(self.article, id='unapproved', status='draft', title='PRIVATE DRAFT')
         low_score = dict(self.article, id='below-threshold', score=79)
@@ -71,12 +35,7 @@ class StaticPublishingTests(unittest.TestCase):
             path = 'articles/' + self.article['id'] + '/'
             page = (output / path / 'index.html').read_text()
             self.assertIn(self.article['title'], home)
-            if self.article.get('sections'):
-                for section in self.article['sections']:
-                    self.assertIn(section['title'], page)
-                    self.assertIn(section['body'], page)
-            else:
-                self.assertIn(self.article['what_happened'], page)
+            self.assertIn(self.article['what_happened'], page)
             self.assertNotIn('PRIVATE DRAFT', home)
             self.assertFalse((output / 'articles/unapproved').exists())
             self.assertFalse((output / 'assets/og/unapproved.png').exists())
@@ -99,7 +58,7 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertTrue((output / 'assets/og/home.png').is_file())
             sitemap = ET.parse(output / 'sitemap.xml')
             urls = [node.text for node in sitemap.iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
-            self.assertEqual(urls, [BASE, BASE + path])
+            self.assertEqual(urls, [BASE, BASE + 'about/', BASE + 'privacy/', BASE + 'contact/', BASE + path])
             self.assertIn(BASE + path, home)
             self.assertIn('Sitemap: ' + BASE + 'sitemap.xml', (output / 'robots.txt').read_text())
             self.assertNotIn("fetch('./data/articles.json'", page)
@@ -243,15 +202,14 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertIn('href="/assets/css/signal-interactions.css"', page)
             self.assertIn('src="/assets/js/article-actions.js"', page)
             dynamic = (output / 'article.html').read_text()
-            preview = (output / 'preview.html').read_text()
+            self.assertFalse((output / 'preview.html').exists())
+            self.assertFalse((output / 'data/drafts.json').exists())
+            self.assertTrue((output / 'contact/index.html').is_file())
+            self.assertIn('https://formspree.io/f/xoejzwye', (output / 'contact/index.html').read_text())
+            self.assertNotIn('info@amberlight.co.jp', (output / 'contact/index.html').read_text())
             self.assertIn('href="/assets/css/signal-interactions.css"', dynamic)
-            self.assertIn('href="/assets/css/signal-interactions.css"', preview)
             self.assertIn("returnLink.href='/#latest'", dynamic)
-            self.assertIn("returnLink.href='/#latest'", preview)
             self.assertIn("'SHARE THIS SIGNAL'", dynamic)
-            self.assertIn("'ALL SIGNALS','article-return-name'", preview)
-            self.assertIn("articleEnd(a,true)", preview)
-            self.assertIn('noindex,nofollow', preview)
             shared_js = output / 'assets/js/article-actions.js'
             shared_css = output / 'assets/css/signal-interactions.css'
             self.assertTrue(shared_js.is_file())

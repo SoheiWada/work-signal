@@ -349,7 +349,7 @@ def article_page(article, template):
             + '<a class="back" href="/#latest">ALL SIGNALS</a></header>'
             + '<main id="article">' + article_body(article) + article_end(article) + '</main></div>'
             + '<footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong>'
-            + '<small>NEWS IS SHORT. MEANING IS DEEP.</small></div></footer></body></html>')
+            + '<small>NEWS IS SHORT. MEANING IS DEEP. · <a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a></small></div></footer></body></html>')
     return head + body
 
 
@@ -382,9 +382,12 @@ def build(output, feed=None):
     template = (ROOT / 'article.html').read_text()
     (output / 'article.html').write_text(template)
     # Preview is not linked or indexed; it is accessible to anyone who knows the URL.
-    (output / 'preview.html').write_text((ROOT / 'preview.html').read_text())
+    # Editorial previews remain local; do not deploy draft content or preview UI.
     (output / 'data').mkdir()
-    (output / 'data/drafts.json').write_text((ROOT / 'data/drafts.json').read_text())
+    for page in ('about', 'privacy', 'contact'):
+        destination = output / page
+        destination.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / page / 'index.html', destination / 'index.html')
     (output / 'data/articles.json').write_text(json.dumps(articles, ensure_ascii=False, indent=2) + '\n')
     for article in articles:
         image_path = card_image_path(article)
@@ -402,7 +405,7 @@ def build(output, feed=None):
     ns = 'http://www.sitemaps.org/schemas/sitemap/0.9'
     ET.register_namespace('', ns)
     sitemap = ET.Element('{' + ns + '}urlset')
-    for url in [BASE] + [article_url(article) for article in articles]:
+    for url in [BASE, BASE + 'about/', BASE + 'privacy/', BASE + 'contact/'] + [article_url(article) for article in articles]:
         entry = ET.SubElement(sitemap, '{' + ns + '}url')
         ET.SubElement(entry, '{' + ns + '}loc').text = url
     ET.ElementTree(sitemap).write(output / 'sitemap.xml', encoding='utf-8', xml_declaration=True)

@@ -1,4 +1,5 @@
 import copy
+import html
 import json
 import re
 import tempfile
@@ -35,7 +36,7 @@ class StaticPublishingTests(unittest.TestCase):
             path = 'articles/' + self.article['id'] + '/'
             page = (output / path / 'index.html').read_text()
             self.assertIn(self.article['title'], home)
-            self.assertIn(self.article['what_happened'], page)
+            self.assertIn(self.article['what_happened'], html.unescape(page))
             self.assertNotIn('PRIVATE DRAFT', home)
             self.assertFalse((output / 'articles/unapproved').exists())
             self.assertFalse((output / 'assets/og/unapproved.png').exists())

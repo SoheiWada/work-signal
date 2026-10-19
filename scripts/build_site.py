@@ -231,9 +231,10 @@ def article_card(article):
 
 
 def article_body(article):
-    deep = article.get('format') == 'deep_dive' and isinstance(article.get('sections'), list) and bool(article['sections'])
+    deep = article.get('format') == 'deep_dive'
+    has_sections = isinstance(article.get('sections'), list) and bool(article['sections'])
     reading = max(1, math.ceil((len(article.get('summary', '')) + sum(len(str(part.get('body', ''))) for part in article.get('sections', []))) / 600))
-    if deep:
+    if has_sections:
         blocks = ''
         for i, part in enumerate(article['sections'], 1):
             if not isinstance(part, dict) or not part.get('title') or not part.get('body'):

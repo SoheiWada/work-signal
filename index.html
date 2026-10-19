@@ -246,7 +246,7 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
 const observer=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){about.classList.add('is-received');observer.disconnect()}},{threshold:.18});observer.observe(about)})();
 </script>
 </section>
-<div class="shell"><footer><div class="footer-row"><div class="footer-logo">WORK<span>.</span>SIGNAL</div><div class="footer-copy">© <span id="year"></span> WORK SIGNAL. INDEPENDENT PERSPECTIVES.<br>掲載内容は独自の解説です。投資判断を推奨するものではありません。</div></div></footer></div>
+<div class="shell"><footer><div class="footer-row"><div class="footer-logo">WORK<span>.</span>SIGNAL</div><div class="footer-copy">© <span id="year"></span> WORK SIGNAL. INDEPENDENT PERSPECTIVES.<br>掲載内容は独自の解説です。投資判断を推奨するものではありません。<br><a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a><br>© Amber Light Inc.</div></div></footer></div>
 <script>
 document.querySelector('#year').textContent=new Date().getFullYear();
 const readingGuide=document.querySelector('#reading-guide');if('IntersectionObserver' in window){const guideObserver=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){readingGuide.classList.add('is-visible');guideObserver.disconnect();break}}},{threshold:.12});guideObserver.observe(readingGuide)}else{readingGuide.classList.add('is-visible')}

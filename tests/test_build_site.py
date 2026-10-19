@@ -123,6 +123,17 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertIn('signal-sweep', html)
             self.assertNotIn('viewBox="0 0 480 130"', html)
 
+    def test_editorial_section_paragraphs_split_on_blank_lines(self):
+        from scripts.build_site import article_body
+
+        article = copy.deepcopy(self.article)
+        article['sections'] = [{
+            'title': '本文の見出し',
+            'body': '第一段落です。\\n\\n第二段落です。'.replace('\\n', '\n'),
+        }]
+        body = article_body(article)
+        self.assertIn('<p>第一段落です。</p><p>第二段落です。</p>', body)
+
     def test_missing_article_visual_fails_build_instead_of_broken_image(self):
         article = copy.deepcopy(self.article)
         article['card_image'] = '/assets/cards/nonexistent_work_signal_card_image_123.webp'

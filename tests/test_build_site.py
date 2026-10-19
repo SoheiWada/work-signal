@@ -25,6 +25,42 @@ class StaticPublishingTests(unittest.TestCase):
     def setUp(self):
         self.article = next(a for a in json.loads((ROOT / 'data/articles.json').read_text()) if a.get('what_happened'))
 
+    def test_published_articles_meet_editorial_length_and_structure(self):
+        articles = json.loads((ROOT / 'data/articles.json').read_text())
+        self.assertEqual(len(articles), len({article['id'] for article in articles}))
+        for article in articles:
+            with self.subTest(article=article['id']):
+                self.assertIn(article.get('format'), ('brief', 'deep_dive'))
+                self.assertTrue(article.get('source_url', '').startswith('https://'))
+                self.assertTrue(article.get('summary', '').strip())
+                sections = article.get('sections')
+                self.assertIsInstance(sections, list)
+                self.assertTrue(sections)
+                for section in sections:
+                    self.assertTrue(section.get('title', '').strip())
+                    self.assertTrue(section.get('body', '').strip())
+                readable_chars = len(article['summary']) + sum(
+                    len(section['title']) + len(section['body']) for section in sections
+                )
+                minimum, maximum = (1200, 1800) if article['format'] == 'brief' else (2500, 4000)
+                self.assertGreaterEqual(readable_chars, minimum)
+                self.assertLessEqual(readable_chars, maximum)
+
+    def test_generated_pages_include_all_structured_sections_and_source(self):
+        articles = json.loads((ROOT / 'data/articles.json').read_text())
+        with tempfile.TemporaryDirectory() as temp:
+            output = Path(temp) / 'site'
+            build(output, articles)
+            for article in articles:
+                with self.subTest(article=article['id']):
+                    page = (output / 'articles' / article['id'] / 'index.html').read_text()
+                    self.assertIn(article['title'], page)
+                    self.assertIn(article['summary'], page)
+                    self.assertIn(article['source_url'], page)
+                    for section in article['sections']:
+                        self.assertIn(section['title'], page)
+                        self.assertIn(section['body'], page)
+
     def test_public_output_is_crawlable_and_does_not_publish_drafts(self):
         draft = dict(self.article, id='unapproved', status='draft', title='PRIVATE DRAFT')
         low_score = dict(self.article, id='below-threshold', score=79)

@@ -48,13 +48,13 @@ class StaticPublishingTests(unittest.TestCase):
 
             parser = VisibleText()
             parser.feed(page)
-            visible = re.sub(r'\\s+', ' ', ' '.join(parser.parts))
+            visible = re.sub(r'\s+', ' ', ' '.join(parser.parts))
             sections = self.article.get('sections')
             expected_bodies = ([part['body'] for part in sections if part.get('body')]
                                if sections else [self.article['what_happened']])
             for body in expected_bodies:
-                for paragraph in re.split(r'\\n\\s*\\n', body):
-                    normalized = re.sub(r'\\s+', ' ', paragraph).strip()
+                for paragraph in re.split(r'\n\s*\n', body):
+                    normalized = re.sub(r'\s+', ' ', paragraph).strip()
                     if normalized:
                         self.assertIn(normalized, visible)
             self.assertNotIn('PRIVATE DRAFT', home)

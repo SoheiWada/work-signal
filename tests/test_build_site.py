@@ -35,7 +35,12 @@ class StaticPublishingTests(unittest.TestCase):
             path = 'articles/' + self.article['id'] + '/'
             page = (output / path / 'index.html').read_text()
             self.assertIn(self.article['title'], home)
-            self.assertIn(self.article['what_happened'], page)
+            if self.article.get('sections'):
+                for section in self.article['sections']:
+                    self.assertIn(section['title'], page)
+                    self.assertIn(section['body'], page)
+            else:
+                self.assertIn(self.article['what_happened'], page)
             self.assertNotIn('PRIVATE DRAFT', home)
             self.assertFalse((output / 'articles/unapproved').exists())
             self.assertFalse((output / 'assets/og/unapproved.png').exists())

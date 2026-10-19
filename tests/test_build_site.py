@@ -58,7 +58,7 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertTrue((output / 'assets/og/home.png').is_file())
             sitemap = ET.parse(output / 'sitemap.xml')
             urls = [node.text for node in sitemap.iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
-            self.assertEqual(urls, [BASE, BASE + path])
+            self.assertEqual(urls, [BASE, BASE + 'about/', BASE + 'privacy/', BASE + 'contact/', BASE + path])
             self.assertIn(BASE + path, home)
             self.assertIn('Sitemap: ' + BASE + 'sitemap.xml', (output / 'robots.txt').read_text())
             self.assertNotIn("fetch('./data/articles.json'", page)
@@ -202,15 +202,11 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertIn('href="/assets/css/signal-interactions.css"', page)
             self.assertIn('src="/assets/js/article-actions.js"', page)
             dynamic = (output / 'article.html').read_text()
-            preview = (output / 'preview.html').read_text()
+            self.assertFalse((output / 'preview.html').exists())
+            self.assertFalse((output / 'data/drafts.json').exists())
             self.assertIn('href="/assets/css/signal-interactions.css"', dynamic)
-            self.assertIn('href="/assets/css/signal-interactions.css"', preview)
             self.assertIn("returnLink.href='/#latest'", dynamic)
-            self.assertIn("returnLink.href='/#latest'", preview)
             self.assertIn("'SHARE THIS SIGNAL'", dynamic)
-            self.assertIn("'ALL SIGNALS','article-return-name'", preview)
-            self.assertIn("articleEnd(a,true)", preview)
-            self.assertIn('noindex,nofollow', preview)
             shared_js = output / 'assets/js/article-actions.js'
             shared_css = output / 'assets/css/signal-interactions.css'
             self.assertTrue(shared_js.is_file())

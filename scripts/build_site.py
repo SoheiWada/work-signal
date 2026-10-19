@@ -239,7 +239,7 @@ def article_body(article):
         for i, part in enumerate(article['sections'], 1):
             if not isinstance(part, dict) or not part.get('title') or not part.get('body'):
                 continue
-            paragraphs = ''.join('<p>' + esc(p) + '</p>' for p in re.split(r'\\n\\s*\\n', str(part['body'])) if p.strip())
+            paragraphs = ''.join('<p>' + esc(p) + '</p>' for p in re.split(r'\n\s*\n', str(part['body'])) if p.strip())
             stats = ''.join('<div class="stat"><strong>' + esc(stat['value']) + '</strong><span>' + esc(stat.get('label', '')) + '</span></div>' for stat in part.get('stats', []) if isinstance(stat, dict) and stat.get('value'))
             blocks += '<section class="block" id="section-' + str(i) + '"><h2>' + esc(part['title']) + '</h2>' + paragraphs + stats + '</section>'
         if article.get('quick_take'):

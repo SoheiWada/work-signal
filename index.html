@@ -294,9 +294,9 @@ selected.forEach(a=>{
  const head=node('div',undefined,'story-head'),top=node('div',undefined,'story-top');
  top.append(node('span',a.category,'story-category'));
  const badge=node('span',undefined,'story-format');
- badge.append(signalMark(deep),node('span',deep?'SIGNAL DEEP DIVE':'SIGNAL BRIEF','story-format-label'));
+ badge.append(signalMark(deep),node('span',a.format==='special_story'?'SPECIAL STORY · 自社製品紹介':deep?'SIGNAL DEEP DIVE':'SIGNAL BRIEF','story-format-label'));
  top.append(badge);
- head.append(top,node('span',deep?'4–7 MIN':'1–2 MIN','story-readtime'));
+ head.append(top,node('span',a.format==='special_story'?'SPECIAL FEATURE':deep?'4–7 MIN':'1–2 MIN','story-readtime'));
  const body=node('div',undefined,'story-content');body.append(node('h3',a.title));
  const picture=typeof a.card_image==='string'?a.card_image:'';
  if(/^\/assets\/[A-Za-z0-9/_-]+\.(?:png|jpe?g|webp|avif)$/i.test(picture)){
@@ -313,6 +313,6 @@ selected.forEach(a=>{
  const mark=node('span',undefined,'story-link-mark');mark.append(signal);link.append(copy,mark);
  body.append(link);card.append(head,body);root.append(card)
 })}
-fetch('./data/articles.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('data unavailable');return r.json()}).then(data=>{items=Array.isArray(data)?data.filter(a=>a.status==='published'&&a.score>=80&&typeof a.id==='string'&&categories.includes(a.category)&&typeof a.source_url==='string'&&/^https:\/\//.test(a.source_url)):[];render()}).catch(()=>{if(!root.children.length)render()});
+fetch('./data/articles.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('data unavailable');return r.json()}).then(data=>{items=Array.isArray(data)?data.filter(a=>a.status==='published'&&(a.format==='special_story'||a.score>=80)&&typeof a.id==='string'&&categories.includes(a.category)&&typeof a.source_url==='string'&&/^https:\/\//.test(a.source_url)):[];render()}).catch(()=>{if(!root.children.length)render()});
 </script>
 </body></html>

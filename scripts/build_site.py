@@ -127,7 +127,7 @@ def published_articles(data):
         if not isinstance(article, dict) or article.get("status") != "published":
             continue
         score = article.get("score")
-        if not isinstance(score, (int, float)) or isinstance(score, bool) or score < 80:
+        if not (article.get("format") == "special_story" or (isinstance(score, (int, float)) and not isinstance(score, bool) and score >= 80)):
             continue
         if article.get("category") not in CATEGORIES:
             raise ValueError("Unknown category in published article")
@@ -217,8 +217,8 @@ def story_link(article):
 
 def article_card(article):
     deep = article.get("format") == "deep_dive"
-    form = "SIGNAL DEEP DIVE" if deep else "SIGNAL BRIEF"
-    minutes = "4–7 MIN" if deep else "1–2 MIN"
+    form = "SPECIAL STORY · 自社製品紹介" if article.get("format") == "special_story" else ("SIGNAL DEEP DIVE" if deep else "SIGNAL BRIEF")
+    minutes = "SPECIAL FEATURE" if article.get("format") == "special_story" else ("4–7 MIN" if deep else "1–2 MIN")
     return ('<article class="story"><div class="story-head"><div class="story-top">'
             '<span class="story-category">' + esc(article["category"]) + '</span>'
             '<span class="story-format">' + story_icon(deep)
@@ -248,11 +248,10 @@ def article_body(article):
     else:
         blocks = ''.join('<section class="block"><h2>' + title + '</h2><p>' + esc(article[key]) + '</p></section>' for title, key in SECTIONS if article.get(key))
         toc = ''
-    format_label = 'SIGNAL DEEP DIVE' if deep else 'SIGNAL BRIEF'
+    format_label = 'SPECIAL STORY · 自社製品紹介' if article.get('format') == 'special_story' else ('SIGNAL DEEP DIVE' if deep else 'SIGNAL BRIEF')
     return ('<section class="hero"><div class="eyebrow">/ ' + esc(article["category"])
-            + (' / DEEP DIVE' if deep else ' / EDITORIAL BRIEFING') + '</div><h1>' + esc(article['title'])
-            + '</h1><div class="meta"><span class="score">' + esc(article['score'])
-            + ' / 100</span><span class="article-type">' + format_label + '</span><span>'
+             + (' / SPECIAL STORY · 自社製品紹介' if article.get('format') == 'special_story' else (' / DEEP DIVE' if deep else ' / EDITORIAL BRIEFING')) + '</div><h1>' + esc(article['title'])
+            + '</h1><div class="meta">' + ('' if article.get('format') == 'special_story' else '<span class="score">' + esc(article['score']) + ' / 100</span>') + '<span class="article-type">' + format_label + '</span><span>'
             + esc(article['category']) + '</span><time datetime="' + esc(article['published_at'])
             + '">' + esc(article['published_at']) + '</time><span class="readtime">約'
             + str(reading) + '分で読める</span></div></section><div class="layout"><article class="content">'
@@ -260,12 +259,11 @@ def article_body(article):
             + '</article><aside class="side"><div class="side-title">ARTICLE INTELLIGENCE</div>'
             + '<dl><dt>FORMAT</dt><dd>' + format_label + '</dd><dt>READ TIME</dt><dd>'
             + str(reading) + ' MIN</dd><dt>CATEGORY</dt><dd>' + esc(article['category'])
-            + '</dd><dt>SIGNAL SCORE</dt><dd>' + esc(article['score'])
-            + ' / 100</dd><dt>PUBLISHED</dt><dd>' + esc(article['published_at'])
+            + '</dd>' + ('' if article.get('format') == 'special_story' else '<dt>SIGNAL SCORE</dt><dd>' + esc(article['score']) + ' / 100</dd>') + '<dt>PUBLISHED</dt><dd>' + esc(article['published_at'])
             + '</dd></dl>' + toc + '<div class="source"><small>/ PRIMARY SOURCE</small><a href="'
             + esc(article['source_url']) + '" target="_blank" rel="noopener noreferrer">'
             + esc(article['source_url']) + '</a></div><p class="note">'
-            + 'この記事は一次情報に基づく独自の要約・考察です。掲載内容は投資助言ではありません。'
+            + ('本記事はWORK SIGNALと同じ運営元による自社製品紹介・開発ストーリーです。独立した第三者レビューではありません。' if article.get('format') == 'special_story' else 'この記事は一次情報に基づく独自の要約・考察です。掲載内容は投資助言ではありません。')
             + '</p></aside></div>')
 
 
@@ -322,7 +320,7 @@ def article_page(article, template):
     style = re.search(r'<style>.*?</style>', template, re.S).group()
     fonts = re.search(r'<link rel="preconnect".*?<style>', template, re.S).group().removesuffix('<style>')
     analytics = template.split('<!-- Google tag (gtag.js): WORK SIGNAL -->', 1)[1].split('</head>', 1)[0]
-    schema = {"@context": "https://schema.org", "@type": "NewsArticle", "headline": article["title"],
+    schema = {"@context": "https://schema.org", "@type": ("Article" if article.get("format") == "special_story" else "NewsArticle"), "headline": article["title"],
               "description": article["summary"], "datePublished": article["published_at"], "image": [image_url],
               "inLanguage": "ja", "mainEntityOfPage": {"@type": "WebPage", "@id": url},
               "publisher": {"@type": "Organization", "name": "WORK SIGNAL", "url": BASE}}

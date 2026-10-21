@@ -318,6 +318,31 @@ BTC_CALENDAR_CSS = """<style>
 </style>"""
 
 
+DSX_POD_DIAGRAM_CSS = """<style>
+.dsx-figure{margin:1.6rem 0 2rem;border:1px solid #c9c4ba;border-radius:16px;background:#f2efe7;padding:clamp(16px,3vw,28px);color:#191918}
+.dsx-figure *{box-sizing:border-box}.dsx-kicker{font-size:.72rem;letter-spacing:.14em;font-weight:800;color:#fa4c24}.dsx-figure h3{margin:.35rem 0 .5rem;font-size:clamp(1.1rem,2vw,1.5rem);line-height:1.45}.dsx-intro{font-size:.88rem;color:#54504a;margin:0 0 1.3rem}
+.dsx-track{border-top:1px solid #c9c4ba;padding:1rem 0}.dsx-track-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.8rem;flex-wrap:wrap}.dsx-track-head strong{font-size:1rem}.dsx-time{font-size:1.05rem;font-weight:850;color:#191918}.dsx-track:last-of-type .dsx-time{color:#b6381d}.dsx-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.dsx-step{position:relative;min-height:90px;padding:12px 10px;background:#fff;border:1px solid #e2ded5;border-radius:8px}.dsx-step small{display:block;font-size:.65rem;color:#a63a24;font-weight:800;margin-bottom:7px}.dsx-step span{display:block;font-size:.78rem;font-weight:700;line-height:1.5}.dsx-step:not(:last-child):after{content:'→';position:absolute;right:-10px;top:40%;z-index:2;background:#f2efe7;padding:0 2px;color:#fa4c24}.dsx-step--factory{border-left:4px solid #fa4c24}.dsx-step--site{border-left:4px solid #66716c}.dsx-footnote{border-top:1px solid #c9c4ba;padding-top:12px;font-size:.73rem;color:#55504a;line-height:1.7;margin:12px 0 0}
+@media(max-width:640px){.dsx-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.dsx-step{min-height:85px}.dsx-step:nth-child(2):after{content:'↓';right:47%;top:auto;bottom:-16px}.dsx-step:nth-child(3):after{content:'→'}.dsx-figure{padding:14px}}
+</style>"""
+
+def dsx_pod_diagram(article):
+    if article.get('id') != '20261021-nvidia-dsx-pod-ai-datacenter-deployment':
+        return ''
+    def step(num, label, mode):
+        return '<div class="dsx-step dsx-step--' + mode + '"><small>STEP ' + str(num) + '</small><span>' + label + '</span></div>'
+    traditional = [('敷地・電力・冷却などの準備','site'),('機器を個別搬入・設置','site'),('現地で配線・配管','site'),('統合検証・稼働','site')]
+    pod = [('工場で組立・配線','factory'),('工場で機能検証','factory'),('輸送・現地接続','site'),('最終確認・稼働','site')]
+    def track(name, time, steps):
+        return ('<div class="dsx-track"><div class="dsx-track-head"><strong>' + name + '</strong><span class="dsx-time">' + time + '</span></div><div class="dsx-steps">' +
+                ''.join(step(i, label, mode) for i, (label, mode) in enumerate(steps, 1)) + '</div></div>')
+    return ('<figure class="dsx-figure" aria-label="従来型とDSX PODの導入工程の比較">'
+            '<div class="dsx-kicker">WORK SIGNAL / PROCESS COMPARISON</div>'
+            '<h3>AIデータセンターの導入工程はどう変わる？</h3>'
+            '<p class="dsx-intro">現地での統合作業を、工場での事前組立・検証へ</p>' +
+            track('従来型｜現地で統合', '約6カ月', traditional) +
+            track('DSX POD｜工場で事前統合', '最短14日', pod) +
+            '<figcaption class="dsx-footnote">※ NVIDIA公表値。電力・冷却・ネットワーク等の外部インフラが準備済みの設置場所での導入期間を比較。更地からの建設期間ではなく、最短値は全案件での実績を示すものではありません。DSX PODの工場作業と設置先の準備は並行可能です。出典：NVIDIA Newsroom（2026年10月21日）。</figcaption></figure>')
+
 def article_body(article):
     deep = article.get('format') == 'deep_dive'
     has_sections = isinstance(article.get('sections'), list) and bool(article['sections'])
@@ -329,6 +354,8 @@ def article_body(article):
                 continue
             calendar = event_calendar(article, part)
             paragraphs = calendar if calendar is not None else ''.join('<p>' + linked_text(p) + '</p>' for p in re.split(r'\n\s*\n', str(part['body'])) if p.strip())
+            if part.get('title') == '図解｜従来型とDSX PODの導入工程を比較':
+                paragraphs += dsx_pod_diagram(article)
             stats = ''.join('<div class="stat"><strong>' + esc(stat['value']) + '</strong><span>' + esc(stat.get('label', '')) + '</span></div>' for stat in part.get('stats', []) if isinstance(stat, dict) and stat.get('value'))
             blocks += '<section class="block" id="section-' + str(i) + '"><h2>' + esc(part['title']) + '</h2>' + paragraphs + stats + '</section>'
         if article.get('quick_take'):
@@ -442,7 +469,7 @@ def article_page(article, template):
             + '<meta property="og:url" content="' + url + '">'
             + image_metadata(image_url, title)
             + '<meta name="robots" content="max-image-preview:large">'
-            + json_ld(schema) + fonts + style + (BTC_CALENDAR_CSS if article.get('id') == '20261021-bitcoin-ath-events' else '')
+            + json_ld(schema) + fonts + style + (BTC_CALENDAR_CSS if article.get('id') == '20261021-bitcoin-ath-events' else '') + (DSX_POD_DIAGRAM_CSS if article.get('id') == '20261021-nvidia-dsx-pod-ai-datacenter-deployment' else '')
             + '<link rel="stylesheet" href="/assets/css/signal-interactions.css">'
             + '<script defer src="/assets/js/article-actions.js"></script>' + analytics
             + '<script>measurePageView();</script></head>')

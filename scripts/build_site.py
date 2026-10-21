@@ -5,7 +5,7 @@ import json
 import re
 import shutil
 import math
-from datetime import date
+from datetime import date, datetime, timezone
 from functools import lru_cache
 from pathlib import Path
 from urllib.parse import urlencode, urlparse
@@ -392,6 +392,42 @@ def article_page(article, template):
     return head + body
 
 
+def write_rss(output, articles):
+    """Generate an RSS 2.0 summary feed from approved published articles."""
+    rss = ET.Element('rss', {'version': '2.0'})
+    channel = ET.SubElement(rss, 'channel')
+    for tag, value in (
+        ('title', 'WORK SIGNAL'),
+        ('link', BASE),
+        ('description', 'AI・仕事・マネジメント・お金・経済・Cryptoのニュースを、一次情報と独自の視点から読み解く。'),
+        ('language', 'ja'),
+        ('generator', 'WORK SIGNAL static site builder'),
+        ('ttl', '60'),
+    ):
+        ET.SubElement(channel, tag).text = value
+    atom_ns = 'http://www.w3.org/2005/Atom'
+    ET.register_namespace('atom', atom_ns)
+    ET.SubElement(channel, '{' + atom_ns + '}link', {
+        'href': BASE + 'feed.xml', 'rel': 'self', 'type': 'application/rss+xml'
+    })
+    for article in sorted(articles, key=lambda item: (item['published_at'], item['id']), reverse=True):
+        item = ET.SubElement(channel, 'item')
+        for tag, value in (
+            ('title', article['title']),
+            ('link', article_url(article)),
+            ('guid', article_url(article)),
+            ('description', article['summary']),
+            ('category', article['category']),
+        ):
+            element = ET.SubElement(item, tag)
+            element.text = value
+            if tag == 'guid':
+                element.set('isPermaLink', 'true')
+        published = datetime.combine(date.fromisoformat(article['published_at']), datetime.min.time(), tzinfo=timezone.utc)
+        ET.SubElement(item, 'pubDate').text = published.strftime('%a, %d %b %Y %H:%M:%S +0000')
+    ET.ElementTree(rss).write(output / 'feed.xml', encoding='utf-8', xml_declaration=True)
+
+
 def build(output, feed=None):
     if output.resolve() == ROOT.resolve() or ROOT.resolve().is_relative_to(output.resolve()):
         raise ValueError("Output must not overwrite the source repository")
@@ -453,6 +489,7 @@ def build(output, feed=None):
         folder = output / 'articles' / article['id']
         folder.mkdir(parents=True)
         (folder / 'index.html').write_text(article_page(article, template))
+    write_rss(output, articles)
     ns = 'http://www.sitemaps.org/schemas/sitemap/0.9'
     ET.register_namespace('', ns)
     sitemap = ET.Element('{' + ns + '}urlset')

@@ -250,7 +250,7 @@ def management_cta(article):
     return ""
 
 
-URL_PATTERN = re.compile(r"https?://[^\\s<>\\\"'\\u3000]+")
+URL_PATTERN = re.compile(r"https?://[^\s<>'\u3000]+")
 
 
 def linked_text(value):

@@ -1,5 +1,39 @@
 [
   {
+    "id": "20261021-anthropic-claude-attack-surface-reduction",
+    "title": "AIがソフトウェアの安全性を弱める問題を493件発見。Anthropicの最新研究が示す、新しいサイバー防御",
+    "summary": "AnthropicがClaudeを使って25のオープンソースプロジェクトを調査し、493件のセキュリティ上の問題を発見。企業の防御と設定確認への意味を解説。",
+    "category": "AI",
+    "score": 92,
+    "published_at": "2026-10-21",
+    "source_url": "https://www.anthropic.com/research/attack-surface-reduction",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "25プロジェクトで493件の問題を発見。94の設定の組み合わせで保護機能が無効に。すべてが悪用可能な脆弱性ではなく、人間による検証が必要。",
+    "sections": [
+      {
+        "title": "25のプロジェクトから493件の問題を発見",
+        "body": "2026年10月20日、AnthropicはClaudeを使ったソフトウェアの安全性に関する研究を公表した。25のオープンソースプロジェクト、500万行以上のコードを分析し、493件の問題を発見した。すべてが直ちに悪用可能な脆弱性という意味ではない。"
+      },
+      {
+        "title": "設定の組み合わせで保護機能が無効に",
+        "body": "研究では162のセキュリティに関係する設定の組み合わせに問題があり、そのうち94件で保護機能が無効になっていた。個々の設定が適切でも、組み合わせによって意図しない結果になる場合がある。"
+      },
+      {
+        "title": "OpenSSHの改善にも貢献",
+        "body": "Anthropicによると、ClaudeがOpenSSHの不要なコードの露出を発見し、開発者との協力で改善した。変更はOpenSSH 10.6にも反映されている。"
+      },
+      {
+        "title": "管理職にとっての意味",
+        "body": "ここからはWORK SIGNALの考察だ。企業が利用するシステムの安全性は、設定項目を有効にするだけでは十分とは限らない。管理職や経営者は、設定の効果を検証しているか、不要な機能が公開されていないか、委託先と確認したい。"
+      },
+      {
+        "title": "AIと人間の検証を組み合わせる",
+        "body": "AIによる分析はセキュリティ改善に役立つ可能性があるが、すべての問題を発見できるわけではない。発見事項の重要性や対策の妥当性には人間による検証が必要だ。一次情報：https://www.anthropic.com/research/attack-surface-reduction"
+      }
+    ]
+  },
+  {
     "id": "20261021-jp-incident-monitor-cyber-risk-management",
     "title": "情報漏洩や不正アクセスを一目で把握。無料ツール「JP Incident Monitor」が変える企業のリスク管理",
     "summary": "国内の公開サイバーインシデントを収集・整理する無料ダッシュボード「JP Incident Monitor」。機能と情報の限界を確認し、取引先管理や社内教育など企業のリスク管理への活用を考える。",

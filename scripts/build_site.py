@@ -402,6 +402,20 @@ def article_end(article):
     )
 
 
+def wage_widget_script(article, template):
+    """Attach the wage-specific interactive widgets to generated, crawlable article pages."""
+    if article.get('id') != '20261021-wage-raise-92-percent-real-wages':
+        return ''
+    match = re.search(r'function addWageWidgets\\(content\\)\\{.*?\\n\\}\\nfunction render\\(a\\)', template, re.S)
+    if not match:
+        raise ValueError('Wage widget implementation missing from article template')
+    function_source = match.group().removesuffix('function render(a)')
+    return ('<script>function el(tag,txt,cls){const n=document.createElement(tag);'
+            'if(txt!==undefined)n.textContent=txt;if(cls)n.className=cls;return n}'
+            + function_source
+            + "addWageWidgets(document.querySelector('#article .content'));</script>")
+
+
 def article_page(article, template):
     url = article_url(article)
     image_url = BASE + 'assets/og/' + article['id'] + '.png'
@@ -437,7 +451,8 @@ def article_page(article, template):
             + '<a class="back" href="/#latest">ALL SIGNALS</a></header>'
             + '<main id="article">' + article_body(article) + article_end(article) + '</main></div>'
             + '<footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong>'
-            + '<small>NEWS IS SHORT. MEANING IS DEEP. · <a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a> · <a href="/feed.xml">RSS</a></small></div></footer></body></html>')
+            + '<small>NEWS IS SHORT. MEANING IS DEEP. · <a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a> · <a href="/feed.xml">RSS</a></small></div></footer>'
+            + wage_widget_script(article, template) + '</body></html>')
     return head + body
 
 

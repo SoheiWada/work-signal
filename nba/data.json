@@ -1,0 +1,260 @@
+{
+  "version": 1,
+  "provider": "balldontlie",
+  "season": 2026,
+  "throughDate": "2026-10-21",
+  "fetchedAt": "2026-10-21T05:52:36.121Z",
+  "lastAttemptAt": "2026-10-21T05:52:36.121Z",
+  "refreshState": "ok",
+  "paginationComplete": true,
+  "standingsAvailable": true,
+  "countedGames": 3,
+  "standingsReason": null,
+  "teams": [
+    {
+      "code": "ATL",
+      "name": "Atlanta Hawks",
+      "conference": "East",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "BOS",
+      "name": "Boston Celtics",
+      "conference": "East",
+      "wins": 0,
+      "losses": 1
+    },
+    {
+      "code": "BKN",
+      "name": "Brooklyn Nets",
+      "conference": "East",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "CHA",
+      "name": "Charlotte Hornets",
+      "conference": "East",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "CHI",
+      "name": "Chicago Bulls",
+      "conference": "East",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "CLE",
+      "name": "Cleveland Cavaliers",
+      "conference": "East",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "DAL",
+      "name": "Dallas Mavericks",
+      "conference": "West",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "DEN",
+      "name": "Denver Nuggets",
+      "conference": "West",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "DET",
+      "name": "Detroit Pistons",
+      "conference": "East",
+      "wins": 1,
+      "losses": 0
+    },
+    {
+      "code": "GSW",
+      "name": "Golden State Warriors",
+      "conference": "West",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "HOU",
+      "name": "Houston Rockets",
+      "conference": "West",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "IND",
+      "name": "Indiana Pacers",
+      "conference": "East",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "LAC",
+      "name": "LA Clippers",
+      "conference": "West",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "LAL",
+      "name": "Los Angeles Lakers",
+      "conference": "West",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "MEM",
+      "name": "Memphis Grizzlies",
+      "conference": "West",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "MIA",
+      "name": "Miami Heat",
+      "conference": "East",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "MIL",
+      "name": "Milwaukee Bucks",
+      "conference": "East",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "MIN",
+      "name": "Minnesota Timberwolves",
+      "conference": "West",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "NOP",
+      "name": "New Orleans Pelicans",
+      "conference": "West",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "NYK",
+      "name": "New York Knicks",
+      "conference": "East",
+      "wins": 0,
+      "losses": 1
+    },
+    {
+      "code": "OKC",
+      "name": "Oklahoma City Thunder",
+      "conference": "West",
+      "wins": 1,
+      "losses": 0
+    },
+    {
+      "code": "ORL",
+      "name": "Orlando Magic",
+      "conference": "East",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "PHI",
+      "name": "Philadelphia 76ers",
+      "conference": "East",
+      "wins": 1,
+      "losses": 0
+    },
+    {
+      "code": "PHX",
+      "name": "Phoenix Suns",
+      "conference": "West",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "POR",
+      "name": "Portland Trail Blazers",
+      "conference": "West",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "SAC",
+      "name": "Sacramento Kings",
+      "conference": "West",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "SAS",
+      "name": "San Antonio Spurs",
+      "conference": "West",
+      "wins": 0,
+      "losses": 1
+    },
+    {
+      "code": "TOR",
+      "name": "Toronto Raptors",
+      "conference": "East",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "UTA",
+      "name": "Utah Jazz",
+      "conference": "West",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "code": "WAS",
+      "name": "Washington Wizards",
+      "conference": "East",
+      "wins": 0,
+      "losses": 0
+    }
+  ],
+  "sets": [
+    [
+      {
+        "id": "21717857",
+        "date": "2026-10-20",
+        "home": "SAS",
+        "away": "OKC",
+        "homeScore": 104,
+        "awayScore": 116,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21717856",
+        "date": "2026-10-20",
+        "home": "NYK",
+        "away": "PHI",
+        "homeScore": 100,
+        "awayScore": 106,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21717855",
+        "date": "2026-10-20",
+        "home": "DET",
+        "away": "BOS",
+        "homeScore": 121,
+        "awayScore": 113,
+        "competition": "regular",
+        "countsForStandings": true
+      }
+    ]
+  ],
+  "requests": 5
+}

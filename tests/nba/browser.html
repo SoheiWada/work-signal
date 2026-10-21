@@ -10,7 +10,7 @@ async function until(fn){for(let i=0;i<100;i++){if(fn())return;await wait(50);}t
 async function load(width,reduce=false,production=false){
  frame.style.width=width+'px';frame.style.height='1050px';const scale=Math.min(1,(innerWidth-32)/width);frame.style.transform=`scale(${scale})`;stage.style.width=width*scale+'px';stage.style.height=1050*scale+'px';
  await new Promise(r=>{frame.onload=r;frame.src=(production?'/nba/':'/nba-study/')+(reduce?'?motion=reduce':'');});
- await until(()=>production?frame.contentDocument.querySelector('.court-motion'):frame.contentDocument.querySelectorAll('.match-row').length===4);
+ await until(()=>production?frame.contentDocument.querySelector('.court-motion')&&!frame.contentDocument.querySelector('#nba-data-status').textContent.includes('接続状態を確認'):frame.contentDocument.querySelectorAll('.match-row').length===4);
  await frame.contentDocument.fonts.ready;return frame.contentDocument;
 }
 function check(ok,label){const p=document.createElement('p');p.className=ok?'pass':'fail';p.textContent=(ok?'PASS · ':'FAIL · ')+label;results.append(p);if(!ok)throw Error(label);}
@@ -68,12 +68,16 @@ else try{
  check(d.querySelector('#court-pause').hidden,'Reduced motion has no redundant animation control');
  check(d.querySelector('.court-scan').getAttribute('opacity')==='0'&&[...d.querySelectorAll('.track-pulse')].every(n=>n.getAttribute('opacity')==='0'),'Reduced motion hides the sweep and reception pulses');
  d.querySelector('.featured-match').click();await until(()=>d.querySelector('dialog').open);check(d.querySelector('#detail-score').textContent==='118—112','Reduced motion retains match details');
+ const snapshot=await(await fetch('/nba/data.json')).json();
  for(const width of [1440,390,320]){
   d=await load(width,false,true);
   check(d.documentElement.scrollWidth<=width&&courtFits(d),`${width}px: integrated NBA page fits with the full court`);
-  check(d.querySelector('.featured-match').hidden&&d.querySelectorAll('.match-row').length===0&&d.querySelector('.featured-pending').textContent.includes('未接続')&&!d.body.textContent.includes('BOS'),`${width}px: integrated page never invents unavailable scores`);
+  const expected=snapshot.sets?.[0]||[];
+  check(d.querySelectorAll('.match-row').length===expected.length&&d.querySelector('.featured-match').hidden===!expected.length,`${width}px: integrated results match the real snapshot, with no invented fallback`);
+  if(expected.length){check(d.querySelector('.match-score').textContent===`${expected[0].homeScore}—${expected[0].awayScore}`,`${width}px: final score matches the provider snapshot`);check(d.querySelector('#nba-data-time').textContent.includes('JST'),`${width}px: acquisition time is visible`)}
  }
- check(d.querySelector('.conference-picker').hidden&&d.querySelector('#expand-table').hidden,'Unavailable standings do not expose empty data controls');
+ check(d.querySelector('.conference-picker').hidden===!snapshot.standingsAvailable,'Standings controls reflect verified aggregate availability');
+ check(!d.defaultView.performance.getEntriesByType('resource').some(e=>e.name.includes('api.balldontlie.io')),'Public page never calls the credentialed provider API');
  check(!d.defaultView.performance.getEntriesByType('resource').some(e=>e.name.includes('data.mjs')||e.name.includes('/nba-study/')),'Integrated page loads no study fixtures');
  results.dataset.complete='true';results.dataset.passed='true';const p=document.createElement('p');p.textContent='ALL NBA BROWSER CHECKS PASSED';results.append(p);
 }catch(e){results.dataset.complete='true';results.dataset.passed='false';const p=document.createElement('p');p.className='fail';p.textContent=e.message;results.append(p);}

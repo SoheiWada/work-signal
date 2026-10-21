@@ -7,7 +7,7 @@
 <meta name="description" content="勝敗の、その先へ。WORK SIGNALのバスケットボールページ。"><link rel="canonical" href="https://signal.amberlight.co.jp/nba/">
 <link rel="icon" href="data:,">
 <link rel="preload" href="./fonts/Anton-Regular.ttf" as="font" type="font/ttf" crossorigin>
-<link rel="stylesheet" href="./style.css?v=20261021-navigation"><script type="module" src="./app.mjs"></script>
+<link rel="stylesheet" href="./style.css?v=20261021-data"><script type="module" src="./app.mjs?v=20261021-data"></script>
 </head>
 <body>
 <a class="skip-link" href="#results">試合結果へスキップ</a>
@@ -38,6 +38,7 @@
 </div>
 <div class="hero-bottom"><span>THE SIGNAL OVER THE NOISE.</span><span>スコアから、ゲームの輪郭へ。</span><a href="#results" aria-label="試合結果へ">SCROLL TO THE GAME <span>↓</span></a></div>
 </section>
+<aside class="data-provenance wrap" aria-label="試合データの更新情報"><p id="nba-data-status" role="status">データの接続状態を確認しています。</p><div><span>最終取得 <time id="nba-data-time">未取得</time></span><span>最終更新確認 <time id="nba-data-attempt">未取得</time></span></div><small>原則12時間ごとに更新 / 試合日は米東部日付 / コートの動きは架空の演出です</small><a href="https://www.balldontlie.io/" target="_blank" rel="noopener noreferrer">DATA / BALLDONTLIE ↗</a></aside>
 <section class="results" id="results" aria-labelledby="results-title">
 <div class="wrap">
 <div class="section-index"><span>02 / RESULTS</span><span>ONE NIGHT. MANY STORIES.</span></div>

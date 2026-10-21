@@ -59,7 +59,7 @@ class Preview(SimpleHTTPRequestHandler):
             asset = parsed.path.removeprefix(prefix) or 'index.html'
             allowed = {'index.html': 'text/html; charset=utf-8', 'style.css': 'text/css',
                 'app.mjs': 'text/javascript', 'page.mjs': 'text/javascript', 'model.mjs': 'text/javascript',
-                'court-motion.mjs': 'text/javascript',
+                'court-motion.mjs': 'text/javascript', 'feed.mjs': 'text/javascript', 'data.json': 'application/json',
                 'fonts/Anton-Regular.ttf': 'font/ttf', 'fonts/OFL.txt': 'text/plain'}
             if study:
                 allowed = {'index.html': 'text/html; charset=utf-8',

@@ -11,7 +11,7 @@ python3 scripts/preview_market.py --cache ../../work/market-live-cache.json
 ```
 
 - http://127.0.0.1:8765/nba-study/ — 架空スコアで操作を確認
-- http://127.0.0.1:8765/nba/ — 本体ページ。実データ未接続のため未取得表示
+- http://127.0.0.1:8765/nba/ — 本体ページ。取得済みの実データを表示（更新条件は`../../docs/nba-data.md`）
 - http://127.0.0.1:8765/__nba-review?view=desktop — 1440px
 - http://127.0.0.1:8765/__nba-review?view=mobile — 390px
 - http://127.0.0.1:8765/__nba-review — ブラウザー検証

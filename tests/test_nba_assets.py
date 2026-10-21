@@ -14,7 +14,7 @@ class NbaPublishingTests(unittest.TestCase):
             build(out, [])
             nba = out / 'nba'
             expected = {'index.html', 'app.mjs', 'page.mjs', 'model.mjs',
-                        'court-motion.mjs', 'style.css',
+                        'court-motion.mjs', 'style.css', 'feed.mjs', 'data.json',
                         'fonts/Anton-Regular.ttf', 'fonts/OFL.txt'}
             self.assertEqual({str(p.relative_to(nba)) for p in nba.rglob('*') if p.is_file()}, expected)
             for name in expected:
@@ -22,9 +22,9 @@ class NbaPublishingTests(unittest.TestCase):
             for module in nba.glob('*.mjs'):
                 for dependency in re.findall(r"from ['\"]([^'\"]+)['\"]", module.read_text()):
                     self.assertTrue(dependency.startswith('./'), dependency)
-                    self.assertTrue((module.parent / dependency).is_file(), dependency)
+                    self.assertTrue((module.parent / dependency.split('?')[0]).is_file(), dependency)
             public = '\n'.join(p.read_text() for p in nba.iterdir() if p.suffix in ('.html', '.mjs', '.css'))
-            for fixture in ('Boston Celtics', 'BOS', '118対', './data.mjs', 'prototypes/', 'nba-study/'):
+            for fixture in ('./data.mjs', 'prototypes/', 'nba-study/', 'BALLDONTLIE_API_KEY'):
                 self.assertNotIn(fixture, public)
             self.assertIn('試合データは現在未接続です。', public)
             self.assertIn('noindex,nofollow', (nba / 'index.html').read_text())

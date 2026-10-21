@@ -454,7 +454,7 @@ def build(output, feed=None):
         shutil.copyfile(ROOT / asset, destination)
     # Approved NBA UI only. Local study scores and provider code stay out of Pages.
     for asset in ('index.html', 'app.mjs', 'page.mjs', 'model.mjs', 'court-motion.mjs',
-                  'style.css', 'fonts/Anton-Regular.ttf', 'fonts/OFL.txt'):
+                  'style.css', 'feed.mjs', 'data.json', 'fonts/Anton-Regular.ttf', 'fonts/OFL.txt'):
         destination = output / 'nba' / asset
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / 'nba' / asset, destination)

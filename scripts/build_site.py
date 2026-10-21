@@ -370,7 +370,8 @@ def article_page(article, template):
             + '<meta name="viewport" content="width=device-width,initial-scale=1">'
             + '<meta name="theme-color" content="#f2efe7"><title>' + esc(title) + '</title>'
             + '<meta name="description" content="' + esc(article["summary"]) + '">'
-            + '<link rel="canonical" href="' + url + '">'
+            + '<link rel="canonical" href="' + url + '">' 
+            + '<link rel="alternate" type="application/rss+xml" title="WORK SIGNAL RSS" href="/feed.xml">'
             + '<link rel="icon" href="/favicon.svg" type="image/svg+xml">'
             + '<meta property="og:type" content="article"><meta property="og:locale" content="ja_JP">'
             + '<meta property="og:site_name" content="WORK SIGNAL">'
@@ -388,7 +389,7 @@ def article_page(article, template):
             + '<a class="back" href="/#latest">ALL SIGNALS</a></header>'
             + '<main id="article">' + article_body(article) + article_end(article) + '</main></div>'
             + '<footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong>'
-            + '<small>NEWS IS SHORT. MEANING IS DEEP. · <a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a></small></div></footer></body></html>')
+            + '<small>NEWS IS SHORT. MEANING IS DEEP. · <a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a> · <a href="/feed.xml">RSS</a></small></div></footer></body></html>')
     return head + body
 
 

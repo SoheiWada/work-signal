@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#eeece4"><meta name="robots" content="noindex,nofollow">
+<title>NBA SIGNAL — Every point matters. / Design study</title>
+<link rel="icon" href="data:,">
+<link rel="preload" href="../../nba/fonts/Anton-Regular.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="../../nba/style.css"><script type="module" src="./app.mjs"></script>
+</head>
+<body>
+<a class="skip-link" href="#results">試合結果へスキップ</a>
+<div class="study-notice"><span>DESIGN STUDY / 01</span><span>架空の試合結果・参考順位です</span><span class="notice-end">NO LIVE DATA</span></div>
+<header class="masthead wrap">
+<a class="brand" href="/" aria-label="WORK SIGNAL ホーム">WORK<span>.</span>SIGNAL<sup>®</sup></a>
+<a class="edition" href="#top">THE COURTSIDE EDITION <span>BY WORK SIGNAL</span></a>
+<nav aria-label="ページ内ナビゲーション"><a href="#results">RESULTS <span>↘</span></a><a href="#standings">STANDINGS <span>↘</span></a></nav>
+</header>
+<main id="top">
+<section class="hero wrap" aria-labelledby="hero-title">
+<div class="hero-kicker"><span class="eyebrow">NBA SIGNAL</span><span>INDEPENDENT BASKETBALL CULTURE</span><span class="edition-number">VOL. 001 / DESIGN EDITION</span></div>
+<div class="hero-grid">
+<div class="hero-copy"><h1 id="hero-title" aria-label="Every point matters.">EVERY<br><span>POINT</span><br>MATTERS<span class="period">.</span></h1><div class="hero-intro"><span class="tiny-cross" aria-hidden="true">✳</span><p>勝敗の、その先へ。<br><span>一試合の熱を、ひとつのシグナルに。</span></p></div></div>
+<div class="arena" aria-label="コート上に架空の選手の動きを描くシグナル演出">
+<div class="arena-art" aria-hidden="true">
+<span class="arena-top">SIGNALS ON THE FLOOR.</span>
+
+<div class="court-plane"><svg class="court-drawing" viewBox="0 0 940 500" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="938" height="498" rx="3"/><path d="M470 0V500"/><circle cx="470" cy="250" r="60"/><circle cx="470" cy="250" r="8"/><path d="M0 170H190V330H0M940 170H750V330H940"/><circle cx="190" cy="250" r="60"/><circle cx="750" cy="250" r="60"/><path d="M0 30H140C410 165 410 335 140 470H0M940 30H800C530 165 530 335 800 470H940"/><path d="M45 220V280M895 220V280"/><circle cx="57" cy="250" r="8"/><circle cx="883" cy="250" r="8"/></svg></div>
+<span class="court-coordinate coordinate-a">X 00 / Y 00</span><span class="court-coordinate coordinate-b">X 94 / Y 50</span>
+
+</div>
+<div class="tracking-caption"><span>MOTION STUDY / 架空の選手軌跡</span><button type="button" id="court-pause" aria-label="コートのシグナルの動きを止める">動きを止める</button></div>
+<div class="featured-label"><span>01 / FEATURED MATCHUP</span><span>DESIGN SAMPLE</span></div>
+<button class="featured-match" type="button" data-game="feature" aria-label="架空の試合 BOS 118対LAL 112 の詳細を受信">
+<span class="featured-team"><b>BOS</b><small>BOSTON</small></span><span class="featured-score">118<span class="score-divider">:</span>112</span><span class="featured-team away"><b>LAL</b><small>LOS ANGELES</small></span><span class="receive-hint">RECEIVE SIGNAL <i aria-hidden="true">↗</i></span>
+</button>
+</div>
+</div>
+<div class="hero-bottom"><span>THE SIGNAL OVER THE NOISE.</span><span>スコアに触れて、ゲームを読む。</span><a href="#results" aria-label="試合結果へ">SCROLL TO THE GAME <span>↓</span></a></div>
+</section>
+<section class="results" id="results" aria-labelledby="results-title">
+<div class="wrap">
+<div class="section-index"><span>02 / RESULTS</span><span>ONE NIGHT. MANY STORIES.</span></div>
+<div class="results-heading"><div><h2 id="results-title">THE NIGHT<br>IN NUMBERS<span>.</span></h2><p>試合が終わっても、数字は語る。</p></div><div class="edition-picker"><span>架空の試合セット</span><div><button type="button" id="previous-set" aria-label="前の試合セット">←</button><span id="set-label" aria-live="polite">SET 01 / 03</span><button type="button" id="next-set" aria-label="次の試合セット">→</button></div></div></div>
+<div class="results-labels" aria-hidden="true"><span>GAME</span><span>MATCHUP</span><span>FINAL SCORE / SAMPLE</span><span>RECEIVE</span></div>
+<div class="match-list" id="match-list"></div>
+<div class="results-foot"><span>ALL SCORES ARE ILLUSTRATIVE.</span><span>試合を選ぶと、結果の詳細が開きます。 <span aria-hidden="true">↗</span></span></div>
+</div>
+</section>
+<section class="standings wrap" id="standings" aria-labelledby="standings-title">
+<div class="section-index"><span>03 / THE BIG PICTURE</span><span>THE SEASON IS A LONG GAME.</span></div>
+<div class="standings-heading"><div><h2 id="standings-title">WHERE<br>THEY STAND<span>.</span></h2><p>一勝の重みを、シーズンの景色へ。</p></div><div class="conference-picker" role="group" aria-label="カンファレンスを選択"><button type="button" data-conference="East" aria-pressed="true">EAST<span>01</span></button><button type="button" data-conference="West" aria-pressed="false">WEST<span>02</span></button></div></div>
+<div class="table-meta"><span id="conference-label">EASTERN CONFERENCE</span><span>参考順位 / 架空の成績</span></div>
+<div class="standings-layout"><aside class="conference-art" aria-hidden="true"><span class="conference-letter" id="conference-letter">E</span><div class="conference-seal">THE LONG<br>GAME<span>↗</span></div><span class="conference-art-note">EVERY WIN LEAVES A MARK.</span></aside><div class="table-wrap"><table><caption class="sr-only">架空のチーム成績を勝率で並べた参考順位。公式順位ではありません。</caption><thead><tr><th scope="col">#</th><th scope="col">TEAM</th><th scope="col"><abbr title="勝利数">W</abbr></th><th scope="col"><abbr title="敗戦数">L</abbr></th><th scope="col"><abbr title="勝率">PCT</abbr></th><th scope="col" class="rate-label">WIN RATE</th></tr></thead><tbody id="standings-body"></tbody></table><button type="button" class="expand-table" id="expand-table" aria-expanded="false">全15チームを表示 <span aria-hidden="true">＋</span></button></div></div>
+<p class="table-note">表示はデザイン確認用の架空成績です。同勝率は同順位で表示。公式の順位・タイブレーク・プレーオフ出場枠を示すものではありません。</p>
+</section>
+<section class="closing" aria-labelledby="closing-title"><div class="wrap"><div class="closing-top"><span>THE WORK SIGNAL WAY.</span><span>BASKETBALL, WITH PERSPECTIVE.</span></div><h2 id="closing-title">LESS NOISE.<br><span>MORE GAME.</span><svg aria-hidden="true" viewBox="0 0 100 100"><path d="M10 90L90 10M10 10H90V90"/></svg></h2><div class="closing-bottom"><p>数字の向こうに、ゲームがある。</p><a href="#top">BACK TO THE TOP <span>↑</span></a></div></div></section>
+</main>
+<footer class="wrap"><a class="brand" href="/">WORK<span>.</span>SIGNAL</a><p>NBA SIGNAL / AN INDEPENDENT DESIGN STUDY<br>非公式のデザイン試作。すべての試合結果・成績は架空です。</p><span>© WORK SIGNAL</span></footer>
+<dialog id="game-dialog" aria-labelledby="detail-title"><div class="detail-top"><span>SIGNAL RECEIVED / DESIGN SAMPLE</span><button type="button" class="detail-close" aria-label="試合詳細を閉じる">×</button></div><div class="detail-content"><span class="detail-index">THE GAME, IN FOCUS.</span><h2 id="detail-title">BOS <span>vs</span> LAL</h2><p class="detail-score" id="detail-score"></p><div class="detail-teams" id="detail-teams"></div><div class="detail-metrics" id="detail-metrics"></div><p class="detail-note">架空の試合結果です。実際の試合・最新の成績を示すものではありません。</p><button type="button" class="detail-done">BACK TO THE COURT <span>↗</span></button></div></dialog>
+<div class="reception" id="reception" hidden aria-hidden="true"><span class="reception-cross">＋</span><span>SIGNAL RECEIVED</span></div>
+</body>
+</html>

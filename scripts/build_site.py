@@ -368,6 +368,18 @@ def build(output, feed=None):
     output_style = output / 'assets/css/signal-interactions.css'
     output_style.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(shared_style, output_style)
+    # Explicit allowlist: no server source, test specimens or credentials enter Pages.
+    for asset in ('assets/css/hero-market.css', 'assets/js/hero-market.mjs', 'assets/js/market-model.mjs',
+                  'assets/js/free-market-client.mjs', 'assets/js/free-market-feeds.mjs'):
+        destination = output / asset
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / asset, destination)
+    # Approved NBA UI only. Local study scores and provider code stay out of Pages.
+    for asset in ('index.html', 'app.mjs', 'page.mjs', 'model.mjs', 'court-motion.mjs',
+                  'style.css', 'fonts/Anton-Regular.ttf', 'fonts/OFL.txt'):
+        destination = output / 'nba' / asset
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / 'nba' / asset, destination)
     index = (ROOT / 'index.html').read_text()
     cards = ''.join(article_card(article) for article in articles)
     if not cards:

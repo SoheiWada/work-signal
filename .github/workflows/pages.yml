@@ -16,6 +16,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Validate market data safety and provider adapter
+        run: node --test tests/market/*.test.mjs
+      - name: Validate NBA result calculations and court motion
+        run: node --test tests/nba/*.test.mjs
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'

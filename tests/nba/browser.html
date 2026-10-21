@@ -1,0 +1,80 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NBA SIGNAL / Local visual review</title>
+<style>body{margin:0;background:#e0ddd3;font:12px system-ui;color:#1c1e1a}header{background:#1c1e1a;color:#eeece4;padding:18px 22px}h1{font-size:16px;margin:0 0 6px}p{margin:6px 0}a{color:inherit;margin-right:18px}#stage{margin:20px auto;position:relative}iframe{border:0;transform-origin:top left;background:#eeece4}#results{padding:22px;line-height:1.8}.pass{color:#1b5a39}.fail{color:#a12d15}</style>
+<header><h1>NBA SIGNAL / DESIGN STUDY</h1><p>架空の試合結果・参考順位を使った、公開前のデザイン確認です。</p><a href="/nba-study/">デザイン確認</a><a href="?view=desktop">1440px</a><a href="?view=mobile">390px</a><a href="?view=narrow">320px</a><a href="/__nba-review">動作テスト</a></header>
+<div id="stage"><iframe title="NBA SIGNAL preview"></iframe></div><div id="results" role="status"></div>
+<script type="module">
+const frame=document.querySelector('iframe'),stage=document.querySelector('#stage'),results=document.querySelector('#results');
+const view=new URLSearchParams(location.search).get('view');
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function until(fn){for(let i=0;i<100;i++){if(fn())return;await wait(50);}throw Error('Timed out');}
+async function load(width,reduce=false,production=false){
+ frame.style.width=width+'px';frame.style.height='1050px';const scale=Math.min(1,(innerWidth-32)/width);frame.style.transform=`scale(${scale})`;stage.style.width=width*scale+'px';stage.style.height=1050*scale+'px';
+ await new Promise(r=>{frame.onload=r;frame.src=(production?'/nba/':'/nba-study/')+(reduce?'?motion=reduce':'');});
+ await until(()=>production?frame.contentDocument.querySelector('.court-motion'):frame.contentDocument.querySelectorAll('.match-row').length===4);
+ await frame.contentDocument.fonts.ready;return frame.contentDocument;
+}
+function check(ok,label){const p=document.createElement('p');p.className=ok?'pass':'fail';p.textContent=(ok?'PASS · ':'FAIL · ')+label;results.append(p);if(!ok)throw Error(label);}
+if(view)await load(view==='desktop'?1440:view==='narrow'?320:view==='tablet'?1024:390);
+else try{
+ let d=await load(1440),w=d.defaultView;
+ check(d.querySelector('.study-notice').textContent.includes('架空'),'Fictional scores are explicitly identified at the top');
+ check(d.documentElement.scrollWidth<=1440,'1440px: no horizontal overflow');
+ const courtFits=d=>{const p=d.querySelector('.court-plane').getBoundingClientRect(),a=d.querySelector('.arena-art').getBoundingClientRect(),c=d.querySelector('.tracking-caption').getBoundingClientRect();return p.top>=a.top&&p.bottom<=c.top&&p.left>=a.left&&p.right<=a.right;};
+ check(courtFits(d),'Desktop court fits above the motion caption');
+ check(w.getComputedStyle(d.querySelector('h1')).fontFamily.includes('Anton')&&d.fonts.check('16px Anton'),'Local display font loads');
+ check(!d.querySelector('.ball')&&!d.querySelector('.orbit-guide')&&d.querySelectorAll('.track-marker').length===10,'Court alone carries ten synthetic player signals');
+ const positions=()=>[...d.querySelectorAll('.track-marker')].map(n=>n.getAttribute('transform')).join();
+ const scan=()=>d.querySelector('.court-scan').getAttribute('transform');
+ const firstPositions=positions(),firstScan=scan();await wait(240);check(positions()!==firstPositions,'Signals move along the court surface');
+ check(scan()!==firstScan,'Acquisition sweep moves across the court');
+ await until(()=>[...d.querySelectorAll('.track-pulse')].some(n=>Number(n.getAttribute('opacity'))>.1));
+ check(true,'A sweep crossing emits a visible reception pulse');
+ d.querySelector('#court-pause').click();const pausedPositions=positions(),pausedScan=scan(),pausedPulses=[...d.querySelectorAll('.track-pulse')].map(n=>n.outerHTML).join();await wait(240);
+ check(positions()===pausedPositions&&scan()===pausedScan&&pausedPulses===[...d.querySelectorAll('.track-pulse')].map(n=>n.outerHTML).join()&&d.querySelector('.court-motion').dataset.motion==='paused','Pause freezes player signals, sweep and reception pulses');
+ d.querySelector('#court-pause').click();await wait(240);check(positions()!==pausedPositions,'Resume continues the motion study');
+ d.querySelector('#results').scrollIntoView({behavior:'instant'});await until(()=>d.querySelector('.court-motion').dataset.motion==='idle');
+ const idlePositions=positions();await wait(160);check(positions()===idlePositions,'Off-screen court stops its animation work');
+ d.defaultView.scrollTo({top:0,behavior:'instant'});await until(()=>d.querySelector('.court-motion').dataset.motion==='running');
+ check(d.querySelectorAll('#standings-body tr').length===6,'Standings start with six rows');
+ d.querySelector('[data-conference="West"]').click();check(d.querySelector('#conference-label').textContent==='WESTERN CONFERENCE'&&d.querySelector('#standings-body tr').dataset.team==='OKC','Conference switch changes the table and label');
+ d.querySelector('#expand-table').click();check(d.querySelectorAll('#standings-body tr').length===15&&d.querySelector('#expand-table').getAttribute('aria-expanded')==='true','All fifteen conference teams can be expanded');
+ d.querySelector('#expand-table').click();check(d.querySelectorAll('#standings-body tr').length===6,'Expanded table collapses');
+ d.querySelector('#next-set').click();check(d.querySelector('#set-label').textContent.includes('02')&&d.querySelector('.match-row').dataset.game==='g05','Results switch to the next design set');
+ d.querySelector('#next-set').click();check(d.querySelector('#next-set').disabled,'Results stop at the last available set');
+ d.querySelector('#previous-set').click();d.querySelector('#previous-set').click();check(d.querySelector('#previous-set').disabled,'Results stop at the first available set');
+ const trigger=d.querySelector('.featured-match');trigger.focus();trigger.click();
+ check(!d.querySelector('#reception').hidden&&!d.querySelector('dialog').open,'Visible reception precedes the detail dialog');
+ await until(()=>d.querySelector('dialog').open);
+ check(d.activeElement.classList.contains('detail-close')&&d.querySelector('#detail-title').textContent==='BOSvsLAL','Detail opens with keyboard focus and the selected matchup');
+ check(d.querySelector('#detail-metrics').textContent.includes('230')&&d.querySelector('.detail-note').textContent.includes('架空'),'Detail calculates total points and keeps the fiction label');
+ const last=d.querySelector('.detail-done');last.focus();last.dispatchEvent(new KeyboardEvent('keydown',{key:'Tab',bubbles:true,cancelable:true}));
+ check(d.activeElement.classList.contains('detail-close'),'Tab from the final control loops to the first modal control');
+ d.activeElement.dispatchEvent(new KeyboardEvent('keydown',{key:'Tab',shiftKey:true,bubbles:true,cancelable:true}));
+ check(d.activeElement===last,'Shift-Tab loops back inside the modal');
+ d.querySelector('.detail-close').click();await until(()=>!d.querySelector('dialog').open);await wait(30);
+ check(d.activeElement===trigger&&d.body.style.overflow==='','Closing restores focus and page scrolling');
+ trigger.click();d.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}));await wait(500);
+ check(!d.querySelector('dialog').open&&d.querySelector('#reception').hidden,'Escape cancels a pending reception');
+ for(const width of [1024,700,430,390,320]){
+  d=await load(width);check(d.documentElement.scrollWidth<=width,`${width}px: no horizontal overflow`);
+  check(courtFits(d),`${width}px: full court stays clear of its caption`);
+  check([...d.querySelectorAll('button')].filter(b=>b.getBoundingClientRect().height).every(b=>b.getBoundingClientRect().height>=44),`${width}px: touch controls have at least 44px height`);
+ }
+ d=await load(390);d.querySelector('.featured-match').click();await until(()=>d.querySelector('dialog').open);await wait(450);
+ const r=d.querySelector('dialog').getBoundingClientRect();check(r.left>=0&&r.right<=390&&r.top>=0&&r.bottom<=1050,'Mobile detail stays within the viewport');
+ d.querySelector('.detail-done').click();await wait(20);check(!d.querySelector('dialog').open,'Mobile back-to-court control closes the detail');
+ d=await load(390,true);const reducedPositions=[...d.querySelectorAll('.track-marker')].map(n=>n.getAttribute('transform')).join();await wait(240);
+ check(d.querySelector('.court-motion').dataset.motion==='static'&&reducedPositions===[...d.querySelectorAll('.track-marker')].map(n=>n.getAttribute('transform')).join(),'Reduced motion keeps all ten signals static');
+ check(d.querySelector('#court-pause').hidden,'Reduced motion has no redundant animation control');
+ check(d.querySelector('.court-scan').getAttribute('opacity')==='0'&&[...d.querySelectorAll('.track-pulse')].every(n=>n.getAttribute('opacity')==='0'),'Reduced motion hides the sweep and reception pulses');
+ d.querySelector('.featured-match').click();await until(()=>d.querySelector('dialog').open);check(d.querySelector('#detail-score').textContent==='118—112','Reduced motion retains match details');
+ for(const width of [1440,390,320]){
+  d=await load(width,false,true);
+  check(d.documentElement.scrollWidth<=width&&courtFits(d),`${width}px: integrated NBA page fits with the full court`);
+  check(d.querySelector('.featured-match').hidden&&d.querySelectorAll('.match-row').length===0&&d.querySelector('.featured-pending').textContent.includes('未接続')&&!d.body.textContent.includes('BOS'),`${width}px: integrated page never invents unavailable scores`);
+ }
+ check(d.querySelector('.conference-picker').hidden&&d.querySelector('#expand-table').hidden,'Unavailable standings do not expose empty data controls');
+ check(!d.defaultView.performance.getEntriesByType('resource').some(e=>e.name.includes('data.mjs')||e.name.includes('/nba-study/')),'Integrated page loads no study fixtures');
+ results.dataset.complete='true';results.dataset.passed='true';const p=document.createElement('p');p.textContent='ALL NBA BROWSER CHECKS PASSED';results.append(p);
+}catch(e){results.dataset.complete='true';results.dataset.passed='false';const p=document.createElement('p');p.className='fail';p.textContent=e.message;results.append(p);}
+</script></html>

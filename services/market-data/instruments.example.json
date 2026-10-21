@@ -1,0 +1,8 @@
+[
+  { "id": "btc", "symbol": "BTC/USD", "expectedName": "", "expectedExchange": "", "identityConfirmed": false, "publicDisplay": false, "timing": "realtime", "delaySeconds": 0 },
+  { "id": "eth", "symbol": "ETH/USD", "expectedName": "", "expectedExchange": "", "identityConfirmed": false, "publicDisplay": false, "timing": "realtime", "delaySeconds": 0 },
+  { "id": "nasdaq", "symbol": "", "expectedName": "", "expectedExchange": "", "identityConfirmed": false, "publicDisplay": false, "timing": "delayed", "delaySeconds": 900 },
+  { "id": "sp500", "symbol": "", "expectedName": "", "expectedExchange": "", "identityConfirmed": false, "publicDisplay": false, "timing": "delayed", "delaySeconds": 900 },
+  { "id": "gold", "symbol": "XAU/USD", "expectedName": "", "expectedExchange": "", "identityConfirmed": false, "publicDisplay": false, "timing": "realtime", "delaySeconds": 0 },
+  { "id": "usdjpy", "symbol": "USD/JPY", "expectedName": "", "expectedExchange": "", "identityConfirmed": false, "publicDisplay": false, "timing": "realtime", "delaySeconds": 0 }
+]

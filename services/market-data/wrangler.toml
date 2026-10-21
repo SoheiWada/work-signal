@@ -1,0 +1,21 @@
+name = "work-signal-market-data"
+main = "worker.mjs"
+compatibility_date = "2026-10-01"
+# This is a deployment template only. There is deliberately no deploy workflow.
+workers_dev = false
+
+[triggers]
+crons = ["* * * * *"]
+# The handler skips four of five invocations for free-only feeds.
+
+[[kv_namespaces]]
+binding = "MARKET_SNAPSHOTS"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+[vars]
+ALLOWED_ORIGIN = "https://signal.amberlight.co.jp"
+PUBLIC_DISPLAY_APPROVED = "no"
+FREE_FEEDS_ENABLED = "no"
+# Enable free reference feeds only after approving publication. Every 5 min = 288 KV writes/day.
+LICENSED_INSTRUMENTS = "[]"
+# TWELVE_DATA_API_KEY must be supplied using Wrangler secrets, never [vars].

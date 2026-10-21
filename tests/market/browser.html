@@ -1,0 +1,140 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WORK SIGNAL / Local design review</title>
+<style>body{margin:0;background:#e2dfd7;color:#191918;font:13px system-ui}header{padding:18px 22px;background:#191918;color:#f2efe7}h1{font-size:17px;margin:0 0 6px;font-weight:500}p{margin:6px 0}a{color:inherit;margin-right:15px}#stage{position:relative;margin:20px auto;width:390px;min-height:870px}iframe{border:0;background:#f2efe7;width:390px;height:870px}#results{padding:20px;line-height:1.7}#results:empty{display:none}.pass{color:#175030}.fail{color:#9b231c}</style>
+<header><h1>WORK SIGNAL / W × LIVE DATA</h1><p>LOCAL DESIGN REVIEW · 架空データです。実際の市場価格ではありません。</p><a href="/?market=specimen">ヒーローを操作</a><a href="/__review?view=mobile">390px</a><a href="/__review?view=narrow">320px</a><a href="/__review?view=desktop">1440px</a><a href="/__review">動作テスト</a></header>
+<div id="stage"><iframe title="WORK SIGNAL preview"></iframe></div><div id="results" role="status"></div>
+<script type="module">
+const frame=document.querySelector('iframe'), stage=document.querySelector('#stage'), results=document.querySelector('#results');
+const params=new URLSearchParams(location.search),view=params.get('view'),live=params.get('feed')==='live',free=params.get('feed')==='free';
+if(live||free)document.querySelector('header p').textContent='LOCAL LIVE PREVIEW · 無料4指標の実データ。指数は接続条件確認待ち。';
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function load(width,query='?market=specimen') {
+  frame.style.width=width+'px';frame.style.height=width<=700?'1150px':'820px';
+  const scale=Math.min(1,(innerWidth-32)/width);frame.style.transform=`scale(${scale})`;frame.style.transformOrigin='top left';stage.style.width=width*scale+'px';stage.style.minHeight=(width<=700?1150:820)*scale+'px';
+  await new Promise(r=>{frame.onload=r;frame.src='/'+query;});
+  await until(()=>frame.contentDocument.querySelector('.market-layer'));
+  return frame.contentDocument;
+}
+async function until(fn,limit=6000){const end=Date.now()+limit;while(Date.now()<end){if(fn())return;await wait(50);}throw Error('Timed out');}
+function check(condition,label){const p=document.createElement('p');p.className=condition?'pass':'fail';p.textContent=(condition?'PASS · ':'FAIL · ')+label;results.append(p);if(!condition)throw Error(label);}
+if(view){await load(view==='desktop'?1440:view==='narrow'?320:view==='medium'?430:390,free?'':live?'?market=live':'?market=specimen');}
+else {
+ try{
+  let d=await load(1440);await until(()=>d.querySelectorAll('.market-number').length===4);
+  check(d.querySelectorAll('.market-number').length===4,'Desktop: maximum four numbers');
+  check(!d.querySelector('.market-controls')&&![...d.querySelectorAll('.market-layer>button')].length,'Hero has no external control toolbar');
+  check(d.querySelector('.orbit').getAttribute('aria-hidden')==='true'&&!d.querySelector('.art').hasAttribute('aria-hidden'),'W stays decorative; data controls remain accessible');
+  const original=d.querySelector('.orbit').outerHTML;
+  const floating=[...d.querySelectorAll('.market-number')];
+  check(floating.every(b=>/^[\d,.]+$/.test(b.textContent)),'Only numeric figures; no currency symbols or instrument names');
+  check(floating.every(b=>d.defaultView.getComputedStyle(b.firstElementChild).backgroundColor==='rgba(0, 0, 0, 0)'&&d.defaultView.getComputedStyle(b.firstElementChild).boxShadow==='none'),'Numbers have no background or shadow');
+  check(new Set(floating.map(b=>d.defaultView.getComputedStyle(b.firstElementChild).transform)).size===4,'Each number has a different orientation');
+  const trigger=floating[0];
+  trigger.dispatchEvent(new PointerEvent('pointerenter',{pointerType:'mouse'}));trigger.dispatchEvent(new PointerEvent('pointerleave',{pointerType:'mouse'}));
+  await wait(220);check(d.querySelector('.market-panel').hidden,'Passing over a number does not accidentally acquire a signal');
+  trigger.dispatchEvent(new PointerEvent('pointerenter',{pointerType:'touch'}));
+  await wait(220);check(d.querySelector('.market-panel').hidden,'Touch does not accidentally trigger the mouse-hover interaction');
+  const focusBeforeHover=d.activeElement;
+  trigger.dispatchEvent(new PointerEvent('pointerenter',{pointerType:'mouse'}));await wait(230);
+  check(!d.querySelector('.market-reception').hidden&&d.querySelector('.market-panel').hidden,'Visible reception pulse happens before the detail card');
+  check(d.activeElement===focusBeforeHover,'Mouse dwell does not steal keyboard focus');
+  check(d.querySelector('.market-reception-ring').getBoundingClientRect().width>20,'Reception pulse is large enough to see');
+  await until(()=>!d.querySelector('.market-panel').hidden);
+  const receivedTransform=d.defaultView.getComputedStyle(trigger.firstElementChild).transform;
+  check(trigger.dataset.locked==='true'&&(receivedTransform==='none'||new DOMMatrixReadOnly(receivedTransform).isIdentity),'Received number settles into an upright signal');
+  check(d.querySelector('.market-panel-index').textContent.includes('SIGNAL RECEIVED'),'Information appears as a received signal');
+  check(trigger.isConnected,'Background price refresh preserves the received hit target');
+  d.querySelector('.market-close').click();
+  check(d.querySelector('.market-panel').hidden&&!trigger.dataset.locked,'Closing releases the signal without reopening on restored focus');
+  const afterClose=floating.map(b=>d.defaultView.getComputedStyle(b.firstElementChild).transform);
+  await wait(260);
+  check(floating.every((b,i)=>d.defaultView.getComputedStyle(b.firstElementChild).transform!==afterClose[i]),'Closing the first card resumes every number even with focus restored');
+  d.querySelector('.scrollcue').focus();floating[1].focus();
+  await until(()=>!d.querySelector('.market-panel').hidden);
+  check(d.activeElement===floating[1]&&d.querySelector('#market-title').textContent==='ETHEREUM','Keyboard focus also receives the signal');
+  const otherNumbers=floating.filter(b=>b!==floating[1]);
+  const beforeSecond=otherNumbers.map(b=>d.defaultView.getComputedStyle(b.firstElementChild).transform);
+  await wait(260);
+  check(otherNumbers.every((b,i)=>d.defaultView.getComputedStyle(b.firstElementChild).transform!==beforeSecond[i]),'Receiving the second number keeps all other numbers rotating');
+  trigger.click();await until(()=>!d.querySelector('.market-panel').hidden);
+  check(!d.querySelector('.market-panel').hidden&&d.activeElement.classList.contains('market-close'),'Open detail: focus moves to close control');
+  const behindCard=floating.filter(b=>b!==trigger), beforeCard=behindCard.map(b=>d.defaultView.getComputedStyle(b.firstElementChild).transform);
+  await wait(260);
+  check(behindCard.every((b,i)=>d.defaultView.getComputedStyle(b.firstElementChild).transform!==beforeCard[i]),'Focusing the detail card does not pause unrelated numbers');
+  check(d.querySelector('.market-panel').textContent.includes('JST')&&d.querySelector('.market-panel').textContent.includes('過去24時間比'),'Timestamp, timezone and percentage basis');
+  d.querySelectorAll('.market-picker button')[1].click();
+  check(d.querySelector('#market-title').textContent==='ETHEREUM','All six indicators accessible; ETH panel works');
+  d.activeElement.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
+  check(d.querySelector('.market-panel').hidden&&d.activeElement===trigger,'Escape closes and restores focus');
+  trigger.click();await until(()=>!d.querySelector('.market-panel').hidden);
+  d.querySelector('.market-panel-tools button').click();
+  check(d.querySelector('.market-layer').dataset.paused==='true','Explicit pause control works');
+  check(d.querySelector('.orbit').outerHTML===original,'Original W DOM preserved during interaction');
+  check(d.documentElement.scrollWidth<=1440,'No desktop horizontal overflow');
+  d.querySelector('.market-close').click();trigger.click();
+  d.defaultView.dispatchEvent(new PageTransitionEvent('pagehide',{persisted:true}));
+  check(d.querySelector('.market-reception').hidden&&d.querySelector('.market-panel').hidden,'Leaving the page cancels an in-progress reception');
+  d.defaultView.dispatchEvent(new PageTransitionEvent('pageshow',{persisted:true}));
+  trigger.click();await until(()=>!d.querySelector('.market-panel').hidden);
+  check(!d.querySelector('.market-panel').hidden,'Reception still works after a restored page');
+  d=await load(390);await until(()=>d.querySelectorAll('.market-number').length===2);
+  // The mobile breakpoint is based on the viewport, not the outer desktop review window.
+  check(d.querySelectorAll('.market-number').length===2,'390px: two numbers (narrow mobile)');
+  d.querySelector('.market-number').dispatchEvent(new PointerEvent('pointerenter',{pointerType:'touch'}));
+  d.querySelector('.market-number').click();
+  check(!d.querySelector('.market-reception').hidden&&d.querySelector('.market-panel').hidden,'A single tap produces visible acknowledgement before the card');
+  await until(()=>!d.querySelector('.market-panel').hidden);
+  await wait(320); // Measure touch bounds after the card's entrance translation settles.
+  const panel=d.querySelector('.market-panel'), art=d.querySelector('.art');
+  const bounds=panel.getBoundingClientRect(),a=art.getBoundingClientRect();
+  check(bounds.left>=a.left&&bounds.right<=a.right&&bounds.bottom<=a.bottom,'Mobile panel fits inside the hero');
+  check(d.documentElement.scrollWidth<=390,'No mobile horizontal overflow');
+  const targets=[...d.querySelectorAll('.market-layer button')].filter(b=>b.getBoundingClientRect().height>0);
+  check(targets.every(b=>b.getBoundingClientRect().height>=44&&b.getBoundingClientRect().width>=44),'Mobile controls are at least 44 × 44px');
+  const mobilePicker=d.querySelectorAll('.market-picker button')[1];mobilePicker.focus();mobilePicker.click();
+  check(panel.scrollTop===0&&d.activeElement.classList.contains('market-close'),'Switching a mobile instrument returns to the price with visible keyboard focus');
+  d=await load(430);await until(()=>d.querySelectorAll('.market-number').length===3);
+  check(d.querySelectorAll('.market-number').length===3,'430px: three numbers');
+  d=await load(320);await until(()=>d.querySelectorAll('.market-number').length===2);
+  const marketBounds=d.querySelector('.market-layer').getBoundingClientRect();
+  check(marketBounds.left>=0&&marketBounds.right<=320,'320px: market layer fits the viewport');
+  const widthWithMarket=d.documentElement.scrollWidth;d.querySelector('.market-layer').remove();
+  check(d.documentElement.scrollWidth===widthWithMarket,'320px: market layer adds no horizontal overflow to the existing page');
+  d=await load(1440,'?market=specimen&scenario=mixed');await until(()=>d.querySelectorAll('.market-number').length===4);
+  d.querySelectorAll('.market-number')[2].click();await until(()=>!d.querySelector('.market-panel').hidden);
+  check(d.querySelector('.market-panel').textContent.includes('15分遅延'),'Delay metadata survives normalization');
+  d.querySelectorAll('.market-picker button')[3].click();
+  check(d.querySelector('.market-panel').textContent.includes('休場中 · 最終取引値'),'Closed market explicitly marked');
+  d=await load(1440,'?market=specimen&scenario=stale');await wait(300);
+  check(d.querySelectorAll('.market-number').length===0,'Stale prices removed from artwork');
+  check(d.querySelector('.market-note').textContent.includes('実際の市場価格ではありません'),'Stale specimen remains explicitly labelled');
+  d=await load(1440,'?market=specimen&scenario=failed');await wait(300);
+  check(d.querySelectorAll('.market-number').length===0&&d.querySelector('.market-note').textContent.includes('取得できません'),'Failure does not fabricate fallback prices');
+  d=await load(1440,'?market=specimen&scenario=partial');await until(()=>d.querySelectorAll('.market-number').length===2);
+  check(d.querySelectorAll('.market-number').length===2,'Partial response shows only valid instruments');
+  d=await load(1440,'?market=specimen&scenario=reference');await until(()=>d.querySelectorAll('.market-number').length===4);
+  check(d.querySelectorAll('.market-number').length===4,'Reference feeds float without falsely asserting an open market');
+  d.querySelector('.market-number').click();await until(()=>!d.querySelector('.market-panel').hidden);
+  check(d.querySelector('.market-panel').textContent.includes('算出準備中')&&!d.querySelector('.market-change').textContent.includes('0.00%'),'Missing change is explicit and never invented as zero');
+  check(d.querySelector('.market-panel').textContent.includes('取引状態未確認')&&d.querySelector('.market-panel').textContent.includes('遅延・休場は未確認'),'Unknown delay and session remain explicit');
+  d.querySelectorAll('.market-picker button')[5].click();
+  check(d.querySelector('.market-panel').textContent.includes('日次参考レート')&&d.querySelector('.market-panel').textContent.includes('前回公表値比'),'Daily FX uses its correct reference and comparison basis');
+  const dateRow=[...d.querySelectorAll('.market-panel dl>div')].find(row=>row.firstChild.textContent==='基準日');
+  check(dateRow&&/^\d{4}-\d{2}-\d{2}（日次）$/.test(dateRow.lastChild.textContent),'Date-only FX never gains an invented intraday quote time');
+  check(d.querySelector('.market-panel').textContent.includes('比較対象'),'Comparison observation date is visible');
+  d.querySelectorAll('.market-picker button')[2].click();
+  check(d.querySelector('.market-value').textContent==='—'&&d.querySelector('.market-panel').textContent.includes('公開表示条件を確認中'),'Pending indices remain accessible and explicitly unconnected');
+  d=await load(1440,'?market=specimen&motion=reduce');await until(()=>d.querySelectorAll('.market-number').length===4);
+  const ids=()=>[...d.querySelectorAll('.market-number')].map(b=>b.dataset.id).join();const before=ids();
+  check(d.querySelector('.market-layer').dataset.paused==='true','Reduced-motion branch starts static');
+  await wait(13000);check(ids()===before,'Reduced motion disables automatic rotation');
+  d.querySelector('.market-number').dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));check(ids()!==before,'Reduced motion offers arrow-key access without a toolbar');
+  d=await load(1440);await until(()=>d.querySelectorAll('.market-number').length===4);
+  const rotationBefore=[...d.querySelectorAll('.market-number')].map(b=>b.dataset.id).join();
+  await wait(15000);
+  check([...d.querySelectorAll('.market-number')].map(b=>b.dataset.id).join()!==rotationBefore,'Automatic rotation changes the set after 12 seconds');
+  d=await load(1440,'?market=off');await wait(300);
+  check(d.querySelectorAll('.market-number').length===0&&d.querySelector('.market-note').textContent.includes('準備中'),'Disabled market mode shows no specimen or invented live value');
+  results.dataset.complete='true';results.dataset.passed='true';const p=document.createElement('p');p.textContent='ALL BROWSER CHECKS PASSED';results.append(p);
+ }catch(e){results.dataset.complete='true';results.dataset.passed='false';const p=document.createElement('p');p.className='fail';p.textContent=e.message;results.append(p);}
+}
+</script></html>

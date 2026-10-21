@@ -327,7 +327,8 @@ def article_body(article):
         for i, part in enumerate(article['sections'], 1):
             if not isinstance(part, dict) or not part.get('title') or not part.get('body'):
                 continue
-            paragraphs = ''.join('<p>' + linked_text(p) + '</p>' for p in re.split(r'\n\s*\n', str(part['body'])) if p.strip())
+            calendar = event_calendar(article, part)
+            paragraphs = calendar if calendar is not None else ''.join('<p>' + linked_text(p) + '</p>' for p in re.split(r'\n\s*\n', str(part['body'])) if p.strip())
             stats = ''.join('<div class="stat"><strong>' + esc(stat['value']) + '</strong><span>' + esc(stat.get('label', '')) + '</span></div>' for stat in part.get('stats', []) if isinstance(stat, dict) and stat.get('value'))
             blocks += '<section class="block" id="section-' + str(i) + '"><h2>' + esc(part['title']) + '</h2>' + paragraphs + stats + '</section>'
         if article.get('quick_take'):
@@ -427,7 +428,7 @@ def article_page(article, template):
             + '<meta property="og:url" content="' + url + '">'
             + image_metadata(image_url, title)
             + '<meta name="robots" content="max-image-preview:large">'
-            + json_ld(schema) + fonts + style
+            + json_ld(schema) + fonts + style + (BTC_CALENDAR_CSS if article.get('id') == '20261021-bitcoin-ath-events' else '')
             + '<link rel="stylesheet" href="/assets/css/signal-interactions.css">'
             + '<script defer src="/assets/js/article-actions.js"></script>' + analytics
             + '<script>measurePageView();</script></head>')

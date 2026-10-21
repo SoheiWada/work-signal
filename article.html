@@ -49,6 +49,13 @@ html{scroll-behavior:smooth}
 \n.inline-source-link{overflow-wrap:anywhere;word-break:break-word;text-decoration:underline;text-underline-offset:3px}\n
 /* Wage story only: isolated, responsive data cards and calculator */
 .wage-data{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:24px 0}.wage-data>div{background:#242424;color:white;border-radius:15px;padding:20px 15px;min-width:0}.wage-data small{display:block;color:#bbb;font-size:12px;line-height:1.6}.wage-data strong{display:block;font-size:clamp(21px,2.7vw,33px);margin-top:8px}.wage-data .up{color:#21c568}.wage-calculator{margin:24px 0;padding:24px;border:1px solid #c9c4ba;border-radius:16px;background:#fffdf8}.wage-calculator h3{margin:0 0 20px;font-size:20px}.wage-calculator label{display:flex;justify-content:space-between;gap:12px;font-size:14px;margin:18px 0 6px}.wage-calculator input{width:100%;accent-color:#fa4c24;cursor:pointer}.wage-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}.wage-results>div{background:#f2efe7;border-radius:10px;padding:15px}.wage-results small{display:block;color:#68665f}.wage-results strong{display:block;font-size:clamp(18px,2.8vw,27px);margin-top:7px}.wage-calculator .wage-note,.wage-data-note{font-size:12px;line-height:1.8;color:#68665f;margin-top:12px}@media(max-width:600px){.wage-data{gap:7px}.wage-data>div{padding:13px 9px;border-radius:10px}.wage-data small{font-size:10px}.wage-data strong{font-size:19px}.wage-calculator{padding:16px}.wage-results{gap:8px}.wage-results>div{padding:10px}}
+
+/* Keep three wage metrics on one row even in narrow article viewports. */
+#article .content .wage-data{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important;align-items:stretch}
+#article .content .wage-data>div{width:auto!important;min-width:0!important;display:flex;flex-direction:column;justify-content:space-between;gap:8px;padding:14px 10px}
+#article .content .wage-data small{font-size:clamp(9px,2.3vw,12px);line-height:1.45;overflow-wrap:anywhere}
+#article .content .wage-data strong{font-size:clamp(18px,5vw,30px);line-height:1.2;white-space:nowrap;margin-top:0}
+@media(max-width:380px){#article .content .wage-data{gap:5px!important}#article .content .wage-data>div{padding:12px 7px}}
 </style>
 <link rel="stylesheet" href="/assets/css/signal-interactions.css">
 <script defer src="/assets/js/article-actions.js"></script>

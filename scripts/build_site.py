@@ -406,7 +406,7 @@ def wage_widget_script(article, template):
     """Attach the wage-specific interactive widgets to generated, crawlable article pages."""
     if article.get('id') != '20261021-wage-raise-92-percent-real-wages':
         return ''
-    match = re.search(r'function addWageWidgets\\(content\\)\\{.*?\\n\\}\\nfunction render\\(a\\)', template, re.S)
+    match = re.search(r'function addWageWidgets\(content\)\{.*?\n\}\nfunction render\(a\)', template, re.S)
     if not match:
         raise ValueError('Wage widget implementation missing from article template')
     function_source = match.group().removesuffix('function render(a)')

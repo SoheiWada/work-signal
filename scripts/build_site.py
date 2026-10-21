@@ -127,7 +127,7 @@ def published_articles(data):
         if not isinstance(article, dict) or article.get("status") != "published":
             continue
         score = article.get("score")
-        if not (article.get("format") == "special_story" or (isinstance(score, (int, float)) and not isinstance(score, bool) and score >= 80)):
+        if not (article.get("format") in ("special_story", "management_guide") or (isinstance(score, (int, float)) and not isinstance(score, bool) and score >= 80)):
             continue
         if article.get("category") not in CATEGORIES:
             raise ValueError("Unknown category in published article")
@@ -217,8 +217,8 @@ def story_link(article):
 
 def article_card(article):
     deep = article.get("format") == "deep_dive"
-    form = "SPECIAL STORY · 自社製品紹介" if article.get("format") == "special_story" else ("SIGNAL DEEP DIVE" if deep else "SIGNAL BRIEF")
-    minutes = "SPECIAL FEATURE" if article.get("format") == "special_story" else ("4–7 MIN" if deep else "1–2 MIN")
+    form = "MANAGEMENT GUIDE · 独自解説" if article.get("format") == "management_guide" else ("SPECIAL STORY · 自社製品紹介" if article.get("format") == "special_story" else ("SIGNAL DEEP DIVE" if deep else "SIGNAL BRIEF"))
+    minutes = "PRACTICAL GUIDE" if article.get("format") == "management_guide" else ("SPECIAL FEATURE" if article.get("format") == "special_story" else ("4–7 MIN" if deep else "1–2 MIN"))
     return ('<article class="story"><div class="story-head"><div class="story-top">'
             '<span class="story-category">' + esc(article["category"]) + '</span>'
             '<span class="story-format">' + story_icon(deep)
@@ -228,6 +228,25 @@ def article_card(article):
             + article_card_image(article) + '<p>' + esc(article["summary"])
             + '</p>' + story_link(article) + '</div></article>')
 
+
+
+def management_cta(article):
+    """Only management guides and the disclosed first-party service feature have a CTA."""
+    if article.get("format") == "management_guide":
+        note = article.get("note_url", "")
+        intro = BASE + "articles/20261021-manager-relight-introduction/"
+        note_label = "noteでさらに深く読む（有料記事）" if "management-stop-doing-work" in article.get("id", "") else "noteでさらに深く読む"
+        return ('<section class="block" aria-label="記事の次の一歩"><h2>この記事を、次の一歩につなげる</h2>'
+                '<p>この解説をさらに深く学びたい方へ。現場経験や実践方法をnoteで紹介しています。</p>'
+                '<p><a href="' + esc(note) + '" target="_blank" rel="noopener noreferrer">' + note_label + ' ↗</a></p>'
+                '<p>自分の状況について相談したい方へ。MANAGER reLIGHTはWORK SIGNALと同一運営元のサービスです。</p>'
+                '<p><a href="' + esc(intro) + '">もっと相談したい｜MANAGER reLIGHTについて ↗</a></p></section>')
+    if article.get("id") == "20261021-manager-relight-introduction":
+        return ('<section class="block" aria-label="MANAGER reLIGHT"><h2>MANAGER reLIGHTを知る</h2>'
+                '<p>無料のReflection、単発相談のSESSION、継続伴走のPARTNERをご案内しています。</p>'
+                '<p><a href="https://relight.amberlight.co.jp/" target="_blank" rel="noopener noreferrer">公式サイトでサービスを確認する ↗</a></p>'
+                '<p>このサービスはWORK SIGNALと同一運営元による提供です。</p></section>')
+    return ""
 
 
 def article_body(article):
@@ -248,18 +267,18 @@ def article_body(article):
     else:
         blocks = ''.join('<section class="block"><h2>' + title + '</h2><p>' + esc(article[key]) + '</p></section>' for title, key in SECTIONS if article.get(key))
         toc = ''
-    format_label = 'SPECIAL STORY · 自社製品紹介' if article.get('format') == 'special_story' else ('SIGNAL DEEP DIVE' if deep else 'SIGNAL BRIEF')
+    format_label = 'MANAGEMENT GUIDE · 独自解説' if article.get('format') == 'management_guide' else ('SPECIAL STORY · 自社製品紹介' if article.get('format') == 'special_story' else ('SIGNAL DEEP DIVE' if deep else 'SIGNAL BRIEF'))
     return ('<section class="hero"><div class="eyebrow">/ ' + esc(article["category"])
-             + (' / SPECIAL STORY · 自社製品紹介' if article.get('format') == 'special_story' else (' / DEEP DIVE' if deep else ' / EDITORIAL BRIEFING')) + '</div><h1>' + esc(article['title'])
-            + '</h1><div class="meta">' + ('' if article.get('format') == 'special_story' else '<span class="score">' + esc(article['score']) + ' / 100</span>') + '<span class="article-type">' + format_label + '</span><span>'
+             + (' / MANAGEMENT GUIDE' if article.get('format') == 'management_guide' else (' / SPECIAL STORY · 自社製品紹介' if article.get('format') == 'special_story' else (' / DEEP DIVE' if deep else ' / EDITORIAL BRIEFING'))) + '</div><h1>' + esc(article['title'])
+            + '</h1><div class="meta">' + ('' if article.get('format') in ('special_story', 'management_guide') else '<span class="score">' + esc(article['score']) + ' / 100</span>') + '<span class="article-type">' + format_label + '</span><span>'
             + esc(article['category']) + '</span><time datetime="' + esc(article['published_at'])
             + '">' + esc(article['published_at']) + '</time><span class="readtime">約'
             + str(reading) + '分で読める</span></div></section><div class="layout"><article class="content">'
             + '<p class="lead">' + esc(article['summary']) + '</p>' + blocks
-            + '</article><aside class="side"><div class="side-title">ARTICLE INTELLIGENCE</div>'
+            + management_cta(article) + '</article><aside class="side"><div class="side-title">ARTICLE INTELLIGENCE</div>'
             + '<dl><dt>FORMAT</dt><dd>' + format_label + '</dd><dt>READ TIME</dt><dd>'
             + str(reading) + ' MIN</dd><dt>CATEGORY</dt><dd>' + esc(article['category'])
-            + '</dd>' + ('' if article.get('format') == 'special_story' else '<dt>SIGNAL SCORE</dt><dd>' + esc(article['score']) + ' / 100</dd>') + '<dt>PUBLISHED</dt><dd>' + esc(article['published_at'])
+            + '</dd>' + ('' if article.get('format') in ('special_story', 'management_guide') else '<dt>SIGNAL SCORE</dt><dd>' + esc(article['score']) + ' / 100</dd>') + '<dt>PUBLISHED</dt><dd>' + esc(article['published_at'])
             + '</dd></dl>' + toc + '<div class="source"><small>/ PRIMARY SOURCE</small><a href="'
             + esc(article['source_url']) + '" target="_blank" rel="noopener noreferrer">'
             + esc(article['source_url']) + '</a></div><p class="note">'
@@ -320,7 +339,7 @@ def article_page(article, template):
     style = re.search(r'<style>.*?</style>', template, re.S).group()
     fonts = re.search(r'<link rel="preconnect".*?<style>', template, re.S).group().removesuffix('<style>')
     analytics = template.split('<!-- Google tag (gtag.js): WORK SIGNAL -->', 1)[1].split('</head>', 1)[0]
-    schema = {"@context": "https://schema.org", "@type": ("Article" if article.get("format") == "special_story" else "NewsArticle"), "headline": article["title"],
+    schema = {"@context": "https://schema.org", "@type": ("Article" if article.get("format") in ("special_story", "management_guide") else "NewsArticle"), "headline": article["title"],
               "description": article["summary"], "datePublished": article["published_at"], "image": [image_url],
               "inLanguage": "ja", "mainEntityOfPage": {"@type": "WebPage", "@id": url},
               "publisher": {"@type": "Organization", "name": "WORK SIGNAL", "url": BASE}}

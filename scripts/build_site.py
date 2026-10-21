@@ -273,286 +273,40 @@ def linked_text(value):
 
 
 def event_calendar(article, part):
-    """A compact, responsive calendar for the one approved BTC article."""
     if article.get('id') != '20261021-bitcoin-ath-events' or part.get('title') != '2026年末までのBTC重要イベントカレンダー':
         return None
     lines = str(part.get('body', '')).splitlines()
     events = []
-    pattern = re.compile(r'^【(最重要|重要|注目)】(.+?)｜(.+?)｜(.+)
-    deep = article.get('format') == 'deep_dive'
-    has_sections = isinstance(article.get('sections'), list) and bool(article['sections'])
-    reading = max(1, math.ceil((len(article.get('summary', '')) + sum(len(str(part.get('body', ''))) for part in article.get('sections', []))) / 600))
-    if has_sections:
-        blocks = ''
-        for i, part in enumerate(article['sections'], 1):
-            if not isinstance(part, dict) or not part.get('title') or not part.get('body'):
-                continue
-            calendar = event_calendar(article, part)
-            paragraphs = calendar if calendar is not None else ''.join('<p>' + linked_text(p) + '</p>' for p in re.split(r'\n\s*\n', str(part['body'])) if p.strip())
-            stats = ''.join('<div class="stat"><strong>' + esc(stat['value']) + '</strong><span>' + esc(stat.get('label', '')) + '</span></div>' for stat in part.get('stats', []) if isinstance(stat, dict) and stat.get('value'))
-            blocks += '<section class="block" id="section-' + str(i) + '"><h2>' + esc(part['title']) + '</h2>' + paragraphs + stats + '</section>'
-        if article.get('quick_take'):
-            blocks = '<section class="takeaways"><h2>30秒でわかる / THE SIGNAL</h2><p>' + esc(article['quick_take']) + '</p></section>' + blocks
-        toc = '<nav class="toc" aria-label="記事の目次"><div class="side-title">IN THIS STORY</div>' + ''.join('<a href="#section-' + str(i) + '">' + esc(part['title']) + '</a>' for i, part in enumerate(article['sections'], 1) if isinstance(part, dict) and part.get('title') and part.get('body')) + '</nav>'
-    else:
-        blocks = ''.join('<section class="block"><h2>' + title + '</h2><p>' + linked_text(article[key]) + '</p></section>' for title, key in SECTIONS if article.get(key))
-        toc = ''
-    format_label = 'MANAGEMENT GUIDE · 独自解説' if article.get('format') == 'management_guide' else ('SPECIAL STORY · 自社製品紹介' if article.get('format') == 'special_story' else ('SIGNAL DEEP DIVE' if deep else 'SIGNAL BRIEF'))
-    return ('<section class="hero"><div class="eyebrow">/ ' + esc(article["category"])
-             + (' / MANAGEMENT GUIDE' if article.get('format') == 'management_guide' else (' / SPECIAL STORY · 自社製品紹介' if article.get('format') == 'special_story' else (' / DEEP DIVE' if deep else ' / EDITORIAL BRIEFING'))) + '</div><h1>' + esc(article['title'])
-            + '</h1><div class="meta">' + ('' if article.get('format') in ('special_story', 'management_guide') else '<span class="score">' + esc(article['score']) + ' / 100</span>') + '<span class="article-type">' + format_label + '</span><span>'
-            + esc(article['category']) + '</span><time datetime="' + esc(article['published_at'])
-            + '">' + esc(article['published_at']) + '</time><span class="readtime">約'
-            + str(reading) + '分で読める</span></div></section><div class="layout"><article class="content">'
-            + '<p class="lead">' + esc(article['summary']) + '</p>' + blocks
-            + management_cta(article) + '</article><aside class="side"><div class="side-title">ARTICLE INTELLIGENCE</div>'
-            + '<dl><dt>FORMAT</dt><dd>' + format_label + '</dd><dt>READ TIME</dt><dd>'
-            + str(reading) + ' MIN</dd><dt>CATEGORY</dt><dd>' + esc(article['category'])
-            + '</dd>' + ('' if article.get('format') in ('special_story', 'management_guide') else '<dt>SIGNAL SCORE</dt><dd>' + esc(article['score']) + ' / 100</dd>') + '<dt>PUBLISHED</dt><dd>' + esc(article['published_at'])
-            + '</dd></dl>' + toc + '<div class="source"><small>/ PRIMARY SOURCE</small><a href="'
-            + esc(article['source_url']) + '" target="_blank" rel="noopener noreferrer">'
-            + esc(article['source_url']) + '</a></div><p class="note">'
-            + ('本記事はWORK SIGNALと同じ運営元による自社製品紹介・開発ストーリーです。独立した第三者レビューではありません。' if article.get('format') == 'special_story' else 'この記事は一次情報に基づく独自の要約・考察です。掲載内容は投資助言ではありません。')
-            + '</p></aside></div>')
-
-
-def article_end(article):
-    """One editorial transmission rail, then a typographic return to all signals."""
-    url = article_url(article)
-    share_options = [
-        ("X", "https://twitter.com/intent/tweet?" + urlencode({
-            "text": article["title"], "url": url,
-        })),
-        ("Threads", "https://www.threads.net/intent/post?" + urlencode({
-            "text": article["title"] + "\n" + url + "\n\n一次情報:\n" + article["source_url"],
-        })),
-        ("LINE", "https://social-plugins.line.me/lineit/share?" + urlencode({
-            "url": url,
-        })),
-    ]
-    share_links = ''.join(
-        '<a class="article-share-button" href="' + esc(href)
-        + '" target="_blank" rel="noopener noreferrer" aria-label="'
-        + esc(name) + 'でこの記事を共有する（新しいタブ）">'
-        + esc(name) + '</a>'
-        for name, href in share_options
-    )
-    return (
-        '<section class="article-end" id="article-end" aria-label="読了後のナビゲーション">'
-        '<div class="article-end-label">TRANSMISSION / AFTER THE SIGNAL</div>'
-        '<div class="article-end-intro"><h2>読んだ、その先へ。</h2>'
-        '<p>気になった変化を共有して、次のシグナルへ。</p></div>'
-        '<div class="article-end-grid">'
-        '<div class="article-share"><p class="article-share-title">SHARE THIS SIGNAL</p>'
-        '<nav class="article-share-list" aria-label="この記事を共有する">'
-        + share_links
-        + '<button type="button" class="article-share-button" data-copy-article-url="'
-        + esc(url) + '">URLをコピー</button></nav>'
-        '<span class="article-share-feedback" data-share-feedback="" '
-        'role="status" aria-live="polite"></span></div>'
-        '<a class="article-return" href="/#latest" aria-label="記事一覧のALL SIGNALSへ戻る">'
-        '<span class="article-return-sub">BACK TO THE INDEX / FIND THE NEXT SIGNAL</span>'
-        '<span class="article-return-label"><span class="article-return-name">ALL SIGNALS</span>'
-        '<span class="article-return-signal">'
-        '<svg class="article-return-svg" viewBox="0 0 200 56" '
-        'preserveAspectRatio="xMidYMid meet" aria-hidden="true">'
-        '<path class="return-line" d="M0 28 H42 C58 28 62 14 80 28 S112 42 130 28 H200"/>'
-        '<path class="return-rise" d="M0 28 H42 C58 28 62 14 80 28 S112 42 130 28 H200"/>'
-        '</svg></span></span></a></div></section>'
-    )
-
-
-def article_page(article, template):
-    url = article_url(article)
-    image_url = BASE + 'assets/og/' + article['id'] + '.png'
-    title = article["title"] + " — WORK SIGNAL"
-    style = re.search(r'<style>.*?</style>', template, re.S).group()
-    fonts = re.search(r'<link rel="preconnect".*?<style>', template, re.S).group().removesuffix('<style>')
-    analytics = template.split('<!-- Google tag (gtag.js): WORK SIGNAL -->', 1)[1].split('</head>', 1)[0]
-    schema = {"@context": "https://schema.org", "@type": ("Article" if article.get("format") in ("special_story", "management_guide") else "NewsArticle"), "headline": article["title"],
-              "description": article["summary"], "datePublished": article["published_at"], "image": [image_url],
-              "inLanguage": "ja", "mainEntityOfPage": {"@type": "WebPage", "@id": url},
-              "publisher": {"@type": "Organization", "name": "WORK SIGNAL", "url": BASE}}
-    # Do not invent a person or organization byline that the feed does not provide.
-    head = ('<!doctype html><html lang="ja"><head><meta charset="utf-8">'
-            + '<meta name="viewport" content="width=device-width,initial-scale=1">'
-            + '<meta name="theme-color" content="#f2efe7"><title>' + esc(title) + '</title>'
-            + '<meta name="description" content="' + esc(article["summary"]) + '">'
-            + '<link rel="canonical" href="' + url + '">' 
-            + '<link rel="alternate" type="application/rss+xml" title="WORK SIGNAL RSS" href="/feed.xml">'
-            + '<link rel="icon" href="/favicon.svg" type="image/svg+xml">'
-            + '<meta property="og:type" content="article"><meta property="og:locale" content="ja_JP">'
-            + '<meta property="og:site_name" content="WORK SIGNAL">'
-            + '<meta property="og:title" content="' + esc(title) + '">'
-            + '<meta property="og:description" content="' + esc(article["summary"]) + '">'
-            + '<meta property="og:url" content="' + url + '">'
-            + image_metadata(image_url, title)
-            + '<meta name="robots" content="max-image-preview:large">'
-            + json_ld(schema) + fonts + style + (BTC_CALENDAR_CSS if article.get('id') == '20261021-bitcoin-ath-events' else '')
-            + '<link rel="stylesheet" href="/assets/css/signal-interactions.css">'
-            + '<script defer src="/assets/js/article-actions.js"></script>' + analytics
-            + '<script>measurePageView();</script></head>')
-    body = ('<body><div class="top" id="page-top"></div><div class="shell"><header>'
-            + '<a class="brand" href="/">WORK<span>.</span>SIGNAL</a>'
-            + '<a class="back" href="/#latest">ALL SIGNALS</a></header>'
-            + '<main id="article">' + article_body(article) + article_end(article) + '</main></div>'
-            + '<footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong>'
-            + '<small>NEWS IS SHORT. MEANING IS DEEP. · <a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a> · <a href="/feed.xml">RSS</a></small></div></footer></body></html>')
-    return head + body
-
-
-def write_rss(output, articles):
-    """Generate an RSS 2.0 summary feed from approved published articles."""
-    rss = ET.Element('rss', {'version': '2.0'})
-    channel = ET.SubElement(rss, 'channel')
-    for tag, value in (
-        ('title', 'WORK SIGNAL'),
-        ('link', BASE),
-        ('description', 'AI・仕事・マネジメント・お金・経済・Cryptoのニュースを、一次情報と独自の視点から読み解く。'),
-        ('language', 'ja'),
-        ('generator', 'WORK SIGNAL static site builder'),
-        ('ttl', '60'),
-    ):
-        ET.SubElement(channel, tag).text = value
-    atom_ns = 'http://www.w3.org/2005/Atom'
-    ET.register_namespace('atom', atom_ns)
-    ET.SubElement(channel, '{' + atom_ns + '}link', {
-        'href': BASE + 'feed.xml', 'rel': 'self', 'type': 'application/rss+xml'
-    })
-    for article in sorted(articles, key=lambda item: (item['published_at'], item['id']), reverse=True):
-        item = ET.SubElement(channel, 'item')
-        for tag, value in (
-            ('title', article['title']),
-            ('link', article_url(article)),
-            ('guid', article_url(article)),
-            ('description', article['summary']),
-            ('category', article['category']),
-        ):
-            element = ET.SubElement(item, tag)
-            element.text = value
-            if tag == 'guid':
-                element.set('isPermaLink', 'true')
-        published = datetime.combine(date.fromisoformat(article['published_at']), datetime.min.time(), tzinfo=timezone.utc)
-        ET.SubElement(item, 'pubDate').text = published.strftime('%a, %d %b %Y %H:%M:%S +0000')
-    ET.ElementTree(rss).write(output / 'feed.xml', encoding='utf-8', xml_declaration=True)
-
-
-def build(output, feed=None):
-    if output.resolve() == ROOT.resolve() or ROOT.resolve().is_relative_to(output.resolve()):
-        raise ValueError("Output must not overwrite the source repository")
-    articles = published_articles(feed if feed is not None else json.loads((ROOT / 'data/articles.json').read_text()))
-    if output.exists():
-        shutil.rmtree(output)
-    output.mkdir(parents=True)
-    share_card(output)
-    # Shared behavior for article link copying on both static and dynamic pages.
-    shared_actions = ROOT / 'assets/js/article-actions.js'
-    output_actions = output / 'assets/js/article-actions.js'
-    output_actions.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(shared_actions, output_actions)
-    shared_style = ROOT / 'assets/css/signal-interactions.css'
-    output_style = output / 'assets/css/signal-interactions.css'
-    output_style.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(shared_style, output_style)
-    # Explicit allowlist: no server source, test specimens or credentials enter Pages.
-    for asset in ('assets/css/hero-market.css', 'assets/js/hero-market.mjs', 'assets/js/market-model.mjs',
-                  'assets/js/free-market-client.mjs', 'assets/js/free-market-feeds.mjs'):
-        destination = output / asset
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(ROOT / asset, destination)
-    # Approved NBA UI only. Local study scores and provider code stay out of Pages.
-    for asset in ('index.html', 'app.mjs', 'page.mjs', 'model.mjs', 'court-motion.mjs',
-                  'style.css', 'feed.mjs', 'data.json', 'fonts/Anton-Regular.ttf', 'fonts/OFL.txt'):
-        destination = output / 'nba' / asset
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(ROOT / 'nba' / asset, destination)
-    index = (ROOT / 'index.html').read_text()
-    cards = ''.join(article_card(article) for article in articles)
-    if not cards:
-        cards = '<div class="empty"><div><strong>THE SIGNAL IS COMING.</strong><p>公開準備中です。</p></div></div>'
-    marker = '<div class="grid" id="articles"></div>'
-    if marker not in index:
-        raise ValueError("Home page article marker is missing")
-    index = index.replace(marker, marker[:-6] + cards + '</div>', 1)
-    (output / 'index.html').write_text(index)
-    template = (ROOT / 'article.html').read_text()
-    (output / 'article.html').write_text(template)
-    # Preview is not linked or indexed; it is accessible to anyone who knows the URL.
-    # Editorial previews remain local; do not deploy draft content or preview UI.
-    (output / 'data').mkdir()
-    for page in ('about', 'privacy', 'contact'):
-        destination = output / page
-        destination.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(ROOT / page / 'index.html', destination / 'index.html')
-    (output / 'data/articles.json').write_text(json.dumps(articles, ensure_ascii=False, indent=2) + '\n')
-    for article in articles:
-        image_path = card_image_path(article)
-        if image_path:
-            source = ROOT / image_path.lstrip('/')
-            if not source.is_file():
-                raise ValueError('Missing article card image: ' + image_path)
-            destination = output / image_path.lstrip('/')
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(source, destination)
-        share_card(output, article)
-        folder = output / 'articles' / article['id']
-        folder.mkdir(parents=True)
-        (folder / 'index.html').write_text(article_page(article, template))
-    write_rss(output, articles)
-    ns = 'http://www.sitemaps.org/schemas/sitemap/0.9'
-    ET.register_namespace('', ns)
-    sitemap = ET.Element('{' + ns + '}urlset')
-    for url in [BASE, BASE + 'about/', BASE + 'privacy/', BASE + 'contact/'] + [article_url(article) for article in articles]:
-        entry = ET.SubElement(sitemap, '{' + ns + '}url')
-        ET.SubElement(entry, '{' + ns + '}loc').text = url
-    ET.ElementTree(sitemap).write(output / 'sitemap.xml', encoding='utf-8', xml_declaration=True)
-    (output / 'robots.txt').write_text('User-agent: *\nAllow: /\n\nSitemap: ' + BASE + 'sitemap.xml\n')
-    (output / '.nojekyll').touch()
-    (output / 'CNAME').write_text(BASE.removeprefix('https://').rstrip('/') + '\n')
-    (output / 'favicon.svg').write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#191918"/><text x="6" y="45" fill="#f2efe7" font-family="sans-serif" font-size="43" font-weight="bold">W</text><circle cx="55" cy="49" r="5" fill="#fa4c24"/></svg>')
-    (output / '404.html').write_text('<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>ページが見つかりません — WORK SIGNAL</title><h1>ページが見つかりません</h1><p><a href="/">WORK SIGNALのトップへ戻る</a></p></html>')
-    return articles
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--output', type=Path, default=ROOT / '_site')
-    args = parser.parse_args()
-    for item in build(args.output):
-        print(article_url(item))
-        print('Threads: ' + threads_url(item))
-)
     for line in lines:
-        match = pattern.match(line.strip())
-        if match:
-            priority, when, name, impact = match.groups()
-            events.append((priority, when, name, impact))
+        if not line.startswith('【'):
+            continue
+        pieces = line.split('｜', 2)
+        if len(pieces) != 3:
+            continue
+        prefix, name, impact = pieces
+        priority = prefix[1:prefix.find('】')]
+        when = prefix[prefix.find('】') + 1:]
+        if priority not in ('最重要', '重要', '注目'):
+            continue
+        events.append((priority, when, name, impact))
     if len(events) != 10:
         return None
-    priority_class = {'最重要': 'critical', '重要': 'important', '注目': 'watch'}
+    styles = {'最重要': 'critical', '重要': 'important', '注目': 'watch'}
     cards = []
     for priority, when, name, impact in events:
-        cards.append(
-            '<div class="btc-event btc-event--' + priority_class[priority] + '">'
-            '<div class="btc-event-top"><span class="btc-event-date">' + esc(when) + '</span>'
-            '<span class="btc-priority">' + esc(priority) + '</span></div>'
-            '<div class="btc-event-name">' + esc(name) + '</div>'
-            '<div class="btc-event-impact">' + esc(impact) + '</div></div>'
-        )
+        cards.append('<div class="btc-event btc-event--' + styles[priority] + '"><div class="btc-event-top"><strong class="btc-event-date">' + esc(when) + '</strong><span class="btc-priority">' + esc(priority) + '</span></div><div class="btc-event-name">' + esc(name) + '</div><div class="btc-event-impact">' + esc(impact) + '</div></div>')
     note = str(part['body']).split('\\n\\n', 1)[-1]
-    return ('<div class="btc-calendar" aria-label="BTC重要イベントカレンダー">'
-            + ''.join(cards) + '</div><p class="btc-calendar-note">' + linked_text(note) + '</p>')
+    return '<div class="btc-calendar">' + ''.join(cards) + '</div><p class="btc-calendar-note">' + linked_text(note) + '</p>'
 
 
-BTC_CALENDAR_CSS = """
-<style>
+BTC_CALENDAR_CSS = """<style>
 .btc-calendar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0 22px}
 .btc-event{min-width:0;border:1px solid #d8d2c6;border-left:4px solid #9a958b;border-radius:10px;background:#fffdf8;padding:16px 17px}
 .btc-event--critical{border-left-color:#e14b2a;background:#fff4ed}
 .btc-event--important{border-left-color:#b17b22;background:#fff9e9}
 .btc-event--watch{border-left-color:#647e87;background:#f2f6f6}
 .btc-event-top{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-.btc-event-date{font-size:.89rem;font-weight:750;letter-spacing:.01em;color:#242321}
+.btc-event-date{font-size:.89rem;font-weight:750;color:#242321}
 .btc-priority{display:inline-block;flex-shrink:0;padding:4px 9px;border-radius:99px;font-size:.73rem;line-height:1.3;font-weight:800}
 .btc-event--critical .btc-priority{color:#a82c12;background:#ffdfd1}
 .btc-event--important .btc-priority{color:#7e530d;background:#f8e6b6}
@@ -561,8 +315,8 @@ BTC_CALENDAR_CSS = """
 .btc-event-impact{margin-top:7px;color:#55534e;font-size:.85rem;line-height:1.65;overflow-wrap:anywhere}
 .btc-calendar-note{font-size:.84rem;line-height:1.85;overflow-wrap:anywhere}
 @media(max-width:720px){.btc-calendar{grid-template-columns:minmax(0,1fr);gap:10px}.btc-event{padding:14px 15px}.btc-event-name{font-size:1rem}}
-</style>
-"""
+</style>"""
+
 
 def article_body(article):
     deep = article.get('format') == 'deep_dive'

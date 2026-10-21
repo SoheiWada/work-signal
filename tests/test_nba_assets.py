@@ -28,7 +28,7 @@ class NbaPublishingTests(unittest.TestCase):
                 self.assertNotIn(fixture, public)
             self.assertIn('試合データは現在未接続です。', public)
             self.assertIn('noindex,nofollow', (nba / 'index.html').read_text())
-            self.assertNotIn('/nba/', (out / 'index.html').read_text())
+            self.assertIn('class="nav-nba" href="/nba/"', (out / 'index.html').read_text())
             self.assertNotIn('/nba/', (out / 'sitemap.xml').read_text())
             self.assertFalse((out / 'nba-study').exists())
             self.assertFalse((out / 'prototypes').exists())

@@ -462,7 +462,7 @@ def build(output, feed=None):
     cards = ''.join(article_card(article) for article in articles)
     if not cards:
         cards = '<div class="empty"><div><strong>THE SIGNAL IS COMING.</strong><p>公開準備中です。</p></div></div>'
-    marker = '<div class="grid" id="articles" aria-live="polite"></div>'
+    marker = '<div class="grid" id="articles"></div>'
     if marker not in index:
         raise ValueError("Home page article marker is missing")
     index = index.replace(marker, marker[:-6] + cards + '</div>', 1)

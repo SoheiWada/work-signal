@@ -319,29 +319,74 @@ BTC_CALENDAR_CSS = """<style>
 
 
 DSX_POD_DIAGRAM_CSS = """<style>
-.dsx-figure{margin:1.6rem 0 2rem;border:1px solid #c9c4ba;border-radius:16px;background:#f2efe7;padding:clamp(16px,3vw,28px);color:#191918}
-.dsx-figure *{box-sizing:border-box}.dsx-kicker{font-size:.72rem;letter-spacing:.14em;font-weight:800;color:#fa4c24}.dsx-figure h3{margin:.35rem 0 .5rem;font-size:clamp(1.1rem,2vw,1.5rem);line-height:1.45}.dsx-intro{font-size:.88rem;color:#54504a;margin:0 0 1.3rem}
-.dsx-track{border-top:1px solid #c9c4ba;padding:1rem 0}.dsx-track-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.8rem;flex-wrap:wrap}.dsx-track-head strong{font-size:1rem}.dsx-time{font-size:1.05rem;font-weight:850;color:#191918}.dsx-track:last-of-type .dsx-time{color:#b6381d}.dsx-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.dsx-step{position:relative;min-height:90px;padding:12px 10px;background:#fff;border:1px solid #e2ded5;border-radius:8px}.dsx-step small{display:block;font-size:.65rem;color:#a63a24;font-weight:800;margin-bottom:7px}.dsx-step span{display:block;font-size:.78rem;font-weight:700;line-height:1.5}.dsx-step:not(:last-child):after{content:'→';position:absolute;right:-10px;top:40%;z-index:2;background:#f2efe7;padding:0 2px;color:#fa4c24}.dsx-step--factory{border-left:4px solid #fa4c24}.dsx-step--site{border-left:4px solid #66716c}.dsx-footnote{border-top:1px solid #c9c4ba;padding-top:12px;font-size:.73rem;color:#55504a;line-height:1.7;margin:12px 0 0}
-@media(max-width:640px){.dsx-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.dsx-step{min-height:85px}.dsx-step:nth-child(2):after{content:'↓';right:47%;top:auto;bottom:-16px}.dsx-step:nth-child(3):after{content:'→'}.dsx-figure{padding:14px}}
+.dsx-figure{margin:1.6rem 0 2rem;border:1px solid #d9d4cb;border-radius:14px;background:#f2efe7;padding:clamp(12px,2vw,24px);color:#191918}
+.dsx-figure *{box-sizing:border-box}.dsx-kicker{font-size:.7rem;letter-spacing:.14em;font-weight:800;color:#fa4c24}.dsx-figure h3{margin:.4rem 0 .4rem;font-size:clamp(1.1rem,2vw,1.5rem);line-height:1.4}.dsx-intro{font-size:.82rem;color:#54504a;margin:0 0 1rem}
+.dsx-track{padding:1rem 0;border-top:1px solid #ccc5ba}.dsx-track-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:.8rem}.dsx-track-head strong{font-size:clamp(.84rem,2vw,1.05rem)}.dsx-time{font-weight:900;font-size:clamp(1rem,2.8vw,1.45rem);white-space:nowrap}.dsx-track--pod .dsx-time,.dsx-track--pod .dsx-track-head strong{color:#df4826}
+.dsx-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.dsx-step{position:relative;background:#fff;border-radius:10px;padding:10px 6px;border:1px solid #e4ded6;min-width:0;text-align:center}.dsx-step:not(:last-child):after{content:'→';position:absolute;z-index:2;right:-11px;top:50%;transform:translateY(-50%);font-weight:900;color:#fa4c24;background:#f2efe7;padding:0 2px}.dsx-step-head{display:flex;gap:4px;align-items:center;text-align:left;min-height:2.8em}.dsx-num{flex-shrink:0;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#5d686d;color:white;font-size:.72rem;font-weight:900}.dsx-track--pod .dsx-num{background:#fa4c24}.dsx-step-label{font-size:clamp(.64rem,1.35vw,.79rem);font-weight:800;line-height:1.4}.dsx-step svg{width:100%;height:clamp(72px,12vw,115px);margin-top:5px;display:block}.dsx-step svg *{vector-effect:non-scaling-stroke}.dsx-footnote{border-top:1px solid #ccc5ba;padding-top:10px;margin:10px 0 0;font-size:.71rem;line-height:1.7;color:#55504a}
+@media(max-width:650px){.dsx-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.dsx-step svg{height:98px}.dsx-step:nth-child(2):after{content:'↓';right:50%;top:auto;bottom:-17px;transform:translateX(50%)}.dsx-step:nth-child(3):after{content:'→'}.dsx-figure{padding:12px}}
 </style>"""
 
 def dsx_pod_diagram(article):
     if article.get('id') != '20261021-nvidia-dsx-pod-ai-datacenter-deployment':
         return ''
-    def step(num, label, mode):
-        return '<div class="dsx-step dsx-step--' + mode + '"><small>STEP ' + str(num) + '</small><span>' + label + '</span></div>'
-    traditional = [('敷地・電力・冷却などの準備','site'),('機器を個別搬入・設置','site'),('現地で配線・配管','site'),('統合検証・稼働','site')]
-    pod = [('工場で組立・配線','factory'),('工場で機能検証','factory'),('輸送・現地接続','site'),('最終確認・稼働','site')]
-    def track(name, time, steps):
-        return ('<div class="dsx-track"><div class="dsx-track-head"><strong>' + name + '</strong><span class="dsx-time">' + time + '</span></div><div class="dsx-steps">' +
-                ''.join(step(i, label, mode) for i, (label, mode) in enumerate(steps, 1)) + '</div></div>')
-    return ('<figure class="dsx-figure" aria-label="従来型とDSX PODの導入工程の比較">'
+    def art(kind):
+        if kind == 'site':
+            return ('<rect x="13" y="57" width="102" height="27" rx="3" fill="#e5edf0" stroke="#627783" stroke-width="2"/>'
+                    '<path d="M21 57V35L64 19L106 35V57" fill="#d8e4e9" stroke="#627783" stroke-width="2"/>'
+                    '<path d="M64 19V2M64 2L45 57M64 2L83 57M50 19H78M42 35H86M35 49H93" stroke="#627783" stroke-width="2" fill="none"/>'
+                    '<rect x="27" y="64" width="20" height="20" fill="#95a9b1"/><rect x="56" y="64" width="20" height="20" fill="#95a9b1"/>')
+        if kind == 'truck':
+            return ('<rect x="7" y="33" width="76" height="38" rx="3" fill="#c9d5db" stroke="#627783" stroke-width="2"/>'
+                    '<path d="M83 45H102L117 59V71H83Z" fill="#e7edf0" stroke="#627783" stroke-width="2"/>'
+                    '<path d="M90 49H100L109 58H90Z" fill="#8cb3c7"/>'
+                    '<circle cx="29" cy="73" r="8" fill="#405666"/><circle cx="99" cy="73" r="8" fill="#405666"/>'
+                    '<path d="M18 42H73M18 51H73M18 60H73" stroke="#91a6af" stroke-width="2"/>')
+        if kind == 'wiring':
+            return ('<rect x="12" y="12" width="42" height="70" rx="3" fill="#435d69"/><rect x="66" y="12" width="42" height="70" rx="3" fill="#435d69"/>'
+                    + ''.join('<rect x="'+str(x)+'" y="'+str(y)+'" width="27" height="8" rx="1" fill="#92b6c3"/>' for x in (20,74) for y in (22,35,48,61))
+                    + '<path d="M38 82C38 95 77 95 77 82M43 82C43 102 86 102 86 82" stroke="#fa4c24" stroke-width="3" fill="none"/>')
+        if kind == 'server':
+            return ('<rect x="16" y="12" width="25" height="72" rx="2" fill="#405765"/><rect x="47" y="12" width="25" height="72" rx="2" fill="#405765"/>'
+                    '<rect x="78" y="12" width="25" height="72" rx="2" fill="#405765"/>'
+                    + ''.join('<path d="M'+str(x)+' '+str(y)+'h13" stroke="#9fc6cf" stroke-width="3"/>' for x in (22,53,84) for y in (23,34,45,56,67))
+                    + '<circle cx="99" cy="78" r="16" fill="#e5f3e8" stroke="#468b61" stroke-width="2"/><path d="M91 78l5 5 10-12" fill="none" stroke="#468b61" stroke-width="3"/>')
+        if kind == 'factory':
+            return ('<path d="M8 80V42L38 55V42L69 55V27H111V80Z" fill="#dce5e9" stroke="#627783" stroke-width="2"/>'
+                    '<path d="M69 27V12H83V27" fill="#a8bac3" stroke="#627783" stroke-width="2"/>'
+                    '<rect x="24" y="60" width="17" height="20" fill="#91aab6"/><rect x="51" y="60" width="17" height="20" fill="#91aab6"/>'
+                    '<rect x="81" y="42" width="19" height="38" fill="#435d69"/>'
+                    '<path d="M85 50h11M85 59h11M85 68h11" stroke="#a2c4cc" stroke-width="2"/>')
+        if kind == 'testing':
+            return ('<rect x="11" y="8" width="36" height="73" rx="2" fill="#435d69"/><rect x="52" y="8" width="36" height="73" rx="2" fill="#435d69"/>'
+                    + ''.join('<path d="M'+str(x)+' '+str(y)+'h23" stroke="#a0c1c8" stroke-width="3"/>' for x in (17,58) for y in (20,33,46,59))
+                    + '<rect x="76" y="47" width="40" height="29" rx="3" fill="#c9dce4" stroke="#627783" stroke-width="2"/>'
+                    '<path d="M86 61l7 7 13-16" fill="none" stroke="#468b61" stroke-width="4"/>')
+        if kind == 'container':
+            return ('<rect x="7" y="24" width="78" height="45" rx="3" fill="#d8e3e8" stroke="#627783" stroke-width="2"/>'
+                    + ''.join('<path d="M'+str(x)+' 28V66" stroke="#9db4bf" stroke-width="2"/>' for x in (19,31,43,55,67,79))
+                    + '<path d="M85 42h18l13 16v11H85Z" fill="#e8eef0" stroke="#627783" stroke-width="2"/>'
+                    '<circle cx="31" cy="72" r="7" fill="#405666"/><circle cx="100" cy="72" r="7" fill="#405666"/>')
+        return ('<rect x="13" y="20" width="95" height="63" rx="4" fill="#d8e3e8" stroke="#627783" stroke-width="2"/>'
+                '<rect x="28" y="27" width="25" height="49" fill="#435d69"/><rect x="60" y="27" width="25" height="49" fill="#435d69"/>'
+                + ''.join('<path d="M'+str(x)+' '+str(y)+'h16" stroke="#a0c1c8" stroke-width="2"/>' for x in (32,64) for y in (35,45,55,65))
+                + '<path d="M91 45h25M91 53h25" stroke="#fa4c24" stroke-width="3"/>')
+    def step(num,label,kind):
+        return ('<div class="dsx-step"><div class="dsx-step-head"><span class="dsx-num">'+str(num)+'</span>'
+                '<span class="dsx-step-label">'+label+'</span></div>'
+                '<svg viewBox="0 0 125 95" aria-hidden="true" focusable="false">'+art(kind)+'</svg></div>')
+    traditional=[('電力・冷却などの準備','site'),('機器を個別搬入','truck'),('現地で配線・配管','wiring'),('統合検証・稼働','server')]
+    pod=[('工場で組み立て','factory'),('工場で機能検証','testing'),('コンテナで輸送','container'),('現地接続・稼働','connected')]
+    def track(name,time,steps,kind):
+        return ('<div class="dsx-track dsx-track--'+kind+'"><div class="dsx-track-head"><strong>'+name+'</strong>'
+                '<span class="dsx-time">'+time+'</span></div><div class="dsx-steps">'
+                +''.join(step(i,label,icon) for i,(label,icon) in enumerate(steps,1))+'</div></div>')
+    return ('<figure class="dsx-figure" aria-label="従来型とDSX PODの導入工程をイラストで比較">'
             '<div class="dsx-kicker">WORK SIGNAL / PROCESS COMPARISON</div>'
-            '<h3>AIデータセンターの導入工程はどう変わる？</h3>'
-            '<p class="dsx-intro">現地での統合作業を、工場での事前組立・検証へ</p>' +
-            track('従来型｜現地で統合', '約6カ月', traditional) +
-            track('DSX POD｜工場で事前統合', '最短14日', pod) +
-            '<figcaption class="dsx-footnote">※ NVIDIA公表値。電力・冷却・ネットワーク等の外部インフラが準備済みの設置場所での導入期間を比較。更地からの建設期間ではなく、最短値は全案件での実績を示すものではありません。DSX PODの工場作業と設置先の準備は並行可能です。出典：NVIDIA Newsroom（2026年10月21日）。</figcaption></figure>')
+            '<h3>AIデータセンターの導入工程を比較</h3>'
+            '<p class="dsx-intro">現地で組み立てるか、工場で検証してから運ぶか。</p>'
+            +track('従来型｜現地で統合','約6カ月',traditional,'traditional')
+            +track('DSX POD｜工場で事前統合','最短14日',pod,'pod')
+            +'<figcaption class="dsx-footnote">※ NVIDIA公表値。電力・冷却・ネットワーク等の外部インフラが準備済みの設置場所での導入期間を比較。更地からの建設期間ではなく、最短値は全案件での実績を示すものではありません。DSX PODの工場作業と設置先の準備は並行可能です。出典：NVIDIA Newsroom（2026年10月21日）。</figcaption></figure>')
 
 def article_body(article):
     deep = article.get('format') == 'deep_dive'

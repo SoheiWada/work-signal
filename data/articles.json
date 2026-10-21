@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261022-nvidia-local-ai-rtx-dgx-spark-station",
+    "title": "AIをクラウドに送らず、手元のPCで動かす。NVIDIAが示した「ローカルAI」の新しい選択肢",
+    "summary": "NVIDIAがGTC BerlinでRTX Spark、DGX Spark、DGX Station向けのローカルAI機能を発表。個人向けAIエージェント、開発者向けの最大8台構成、企業向けIT管理連携を紹介し、クラウドAIとの使い分けを考える。",
+    "category": "AI",
+    "score": 85,
+    "published_at": "2026-10-22",
+    "source_url": "https://blogs.nvidia.com/blog/local-ai-gtc-rtx-dgx-spark-station-sync/",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "NVIDIAは2026年10月21日、RTX Spark向けUnderdog Desktop Agentの提供、DGX Spark 64GBの10月23日提供予定、最大8台のDGX Spark構成、DGX Stationの企業向け管理連携を発表した。ローカルAIはデータを端末内で処理できる構成を選べる一方、セキュリティや運用費用の検討は引き続き必要だ。",
+    "sections": [
+      {
+        "title": "NVIDIAが発表した「手元で動くAI」の新展開",
+        "body": "2026年10月21日、NVIDIAはGTC Berlinに合わせて、Windows PC向けRTX Spark、開発者向けDGX Spark、企業向けDGX StationでローカルAIを活用する新機能や提供予定を発表した。ローカルAIとは、AIモデルの推論などを手元のPCや社内機器で実行する方式だ。\n\n今回の発表は、既に発表されていたハードウェアに対するソフトウェアや管理機能の拡充も含む。すべてが10月21日に初めて発表された新製品というわけではない。"
+      },
+      {
+        "title": "RTX Sparkでは個人向けAIエージェントが動く",
+        "body": "NVIDIAによると、RTX SparkはWindows PC上で個人向けAIエージェントを実行するプラットフォームだ。10月21日の発表では、Underdog Desktop AgentがRTX Spark向けに利用可能になった。Underdogはモデルの処理を端末内で行い、ユーザーデータをPCの外に送らずに実行する設計だと説明されている。\n\nただし、すべてのローカルAIアプリが外部通信しないわけではない。利用するアプリ、接続するツール、設定によってデータの流れは変わる。機密情報を扱う際は個別の確認が必要だ。"
+      },
+      {
+        "title": "DGX Sparkは開発者向け。最大8台の構成に対応",
+        "body": "DGX Sparkは、ローカルでモデルを試し、アプリケーションを開発するための小型システムだ。新たな64GB構成は2026年10月23日からパートナー企業による提供開始が予定されている。\n\nNVIDIAはNVIDIA Syncを使い、手動設定で最大8台のDGX Sparkを接続する構成をサポートすると説明した。これにより大きなモデルや長いコンテキスト、複数のAIエージェントを扱う選択肢が広がる。ただし、8台接続すれば処理速度が8倍になるという意味ではない。"
+      },
+      {
+        "title": "DGX Stationは企業のIT管理との連携を強化",
+        "body": "DGX Stationは大規模モデルを社内で扱う企業チーム向けのシステムだ。今回の発表では、Microsoft Intune、Splunkなど企業向け管理・監査ツールとの連携が紹介された。社内の既存ルールに沿って端末を導入・管理しやすくする狙いがある。\n\nWindows版DGX Stationは2026年12月の提供開始が予定されている。現時点ですべての機能が一般提供されているわけではない。"
+      },
+      {
+        "title": "クラウドAIとローカルAIはどう使い分ける？",
+        "body": "クラウドAIは高性能モデルに比較的容易にアクセスでき、利用量に応じて費用を支払える。一方、ローカルAIはデータを社内で処理する構成を選びやすく、通信環境への依存を減らせる可能性がある。\n\nただし、ローカルだから自動的に安全になるわけではない。端末の盗難対策、アクセス制御、モデル更新、ログ管理、アプリによる外部通信の確認は必要だ。機器の購入費、電力、保守、運用担当者の負担も含めて比較したい。"
+      },
+      {
+        "title": "WORK SIGNALの視点：モデル選びに「動かす場所」を加える",
+        "body": "AIの導入では、モデルの性能だけでなく、どのデータを扱い、どこで処理し、誰が管理するのかが重要になる。社外に出せない設計資料や機密文書を扱う業務と、一般的な文章の下書きでは、求められる実行環境も異なる。\n\nすべてをローカルにする必要はない。クラウドとローカルのそれぞれの利点・制約を理解し、業務に応じて選ぶことが現実的だ。今回の発表は、その選択肢が増えつつあることを示している。\n\n一次情報：NVIDIA公式ブログ（2026年10月21日） https://blogs.nvidia.com/blog/local-ai-gtc-rtx-dgx-spark-station-sync/\n関連情報：NVIDIA RTX Spark（2026年10月7日） https://blogs.nvidia.com/blog/local-ai-rtx-spark-microsoft-windows-event/\n関連情報：NVIDIA DGX Spark 64GB（2026年10月2日） https://blogs.nvidia.com/blog/local-ai-dgx-spark-64gb-sync/"
+      }
+    ]
+  },
+  {
     "id": "20261021-economy-sea-ai-adoption-monetization-gap",
     "title": "AI利用者2億4,300万人。それでも有料利用は人口の1〜2％。東南アジアが示す「AI普及と収益化」の壁",
     "summary": "Google、Temasek、Bain & Companyの「e-Conomy SEA 2026」によると、東南アジアの生成AI利用者は2億4,300万人、生産年齢人口の58％。一方、主要6カ国で有料生成AIアカウントを利用する人は人口の1〜2％にとどまる。普及と収益化の間にある課題を読み解く。",

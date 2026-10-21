@@ -295,7 +295,7 @@ def event_calendar(article, part):
     cards = []
     for priority, when, name, impact in events:
         cards.append('<div class="btc-event btc-event--' + styles[priority] + '"><div class="btc-event-top"><strong class="btc-event-date">' + esc(when) + '</strong><span class="btc-priority">' + esc(priority) + '</span></div><div class="btc-event-name">' + esc(name) + '</div><div class="btc-event-impact">' + esc(impact) + '</div></div>')
-    note = str(part['body']).split('\\n\\n', 1)[-1]
+    note = next((chunk.strip() for chunk in str(part['body']).split('\n\n') if chunk.strip() and not chunk.lstrip().startswith('【')), '')
     return '<div class="btc-calendar">' + ''.join(cards) + '</div><p class="btc-calendar-note">' + linked_text(note) + '</p>'
 
 

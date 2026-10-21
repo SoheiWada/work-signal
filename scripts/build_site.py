@@ -250,6 +250,27 @@ def management_cta(article):
     return ""
 
 
+URL_PATTERN = re.compile(r'https?://[^\\s<>"\\'\\u3000]+')
+
+
+def linked_text(value):
+    """Escape article prose and link literal URLs safely."""
+    source = str(value)
+    result = []
+    offset = 0
+    for match in URL_PATTERN.finditer(source):
+        result.append(esc(source[offset:match.start()]))
+        raw = match.group(0)
+        url = raw.rstrip('.,;:!?。、「」）)]')
+        if url:
+            safe = esc(url)
+            result.append('<a class="inline-source-link" href="' + safe + '" target="_blank" rel="noopener noreferrer">' + safe + '</a>')
+        result.append(esc(raw[len(url):]))
+        offset = match.end()
+    result.append(esc(source[offset:]))
+    return ''.join(result)
+
+
 def article_body(article):
     deep = article.get('format') == 'deep_dive'
     has_sections = isinstance(article.get('sections'), list) and bool(article['sections'])
@@ -259,14 +280,14 @@ def article_body(article):
         for i, part in enumerate(article['sections'], 1):
             if not isinstance(part, dict) or not part.get('title') or not part.get('body'):
                 continue
-            paragraphs = ''.join('<p>' + esc(p) + '</p>' for p in re.split(r'\n\s*\n', str(part['body'])) if p.strip())
+            paragraphs = ''.join('<p>' + linked_text(p) + '</p>' for p in re.split(r'\n\s*\n', str(part['body'])) if p.strip())
             stats = ''.join('<div class="stat"><strong>' + esc(stat['value']) + '</strong><span>' + esc(stat.get('label', '')) + '</span></div>' for stat in part.get('stats', []) if isinstance(stat, dict) and stat.get('value'))
             blocks += '<section class="block" id="section-' + str(i) + '"><h2>' + esc(part['title']) + '</h2>' + paragraphs + stats + '</section>'
         if article.get('quick_take'):
             blocks = '<section class="takeaways"><h2>30秒でわかる / THE SIGNAL</h2><p>' + esc(article['quick_take']) + '</p></section>' + blocks
         toc = '<nav class="toc" aria-label="記事の目次"><div class="side-title">IN THIS STORY</div>' + ''.join('<a href="#section-' + str(i) + '">' + esc(part['title']) + '</a>' for i, part in enumerate(article['sections'], 1) if isinstance(part, dict) and part.get('title') and part.get('body')) + '</nav>'
     else:
-        blocks = ''.join('<section class="block"><h2>' + title + '</h2><p>' + esc(article[key]) + '</p></section>' for title, key in SECTIONS if article.get(key))
+        blocks = ''.join('<section class="block"><h2>' + title + '</h2><p>' + linked_text(article[key]) + '</p></section>' for title, key in SECTIONS if article.get(key))
         toc = ''
     format_label = 'MANAGEMENT GUIDE · 独自解説' if article.get('format') == 'management_guide' else ('SPECIAL STORY · 自社製品紹介' if article.get('format') == 'special_story' else ('SIGNAL DEEP DIVE' if deep else 'SIGNAL BRIEF'))
     return ('<section class="hero"><div class="eyebrow">/ ' + esc(article["category"])

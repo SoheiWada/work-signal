@@ -239,6 +239,7 @@ def management_cta(article):
         return ('<section class="block" aria-label="記事の次の一歩"><h2>この記事を、次の一歩につなげる</h2>'
                 '<p>この解説をさらに深く学びたい方へ。現場経験や実践方法をnoteで紹介しています。</p>'
                 '<p><a href="' + esc(note) + '" target="_blank" rel="noopener noreferrer">' + note_label + ' ↗</a></p>'
+                '<p><a href="https://note.com/amber_light/m/m9104f843fd06" target="_blank" rel="noopener noreferrer">マガジン「リーダーの灯」でまとめて読む ↗</a></p>'
                 '<p>自分の状況について相談したい方へ。MANAGER reLIGHTはWORK SIGNALと同一運営元のサービスです。</p>'
                 '<p><a href="' + esc(intro) + '">もっと相談したい｜MANAGER reLIGHTについて ↗</a></p></section>')
     if article.get("id") == "20261021-manager-relight-introduction":

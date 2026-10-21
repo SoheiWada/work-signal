@@ -46,7 +46,10 @@ html{scroll-behavior:smooth}
  .article-return-label{font-size:19px}
  .article-return-svg{width:75px;height:38px}
 }
-\n.inline-source-link{overflow-wrap:anywhere;word-break:break-word;text-decoration:underline;text-underline-offset:3px}\n</style>
+\n.inline-source-link{overflow-wrap:anywhere;word-break:break-word;text-decoration:underline;text-underline-offset:3px}\n
+/* Wage story only: isolated, responsive data cards and calculator */
+.wage-data{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:24px 0}.wage-data>div{background:#242424;color:white;border-radius:15px;padding:20px 15px;min-width:0}.wage-data small{display:block;color:#bbb;font-size:12px;line-height:1.6}.wage-data strong{display:block;font-size:clamp(21px,2.7vw,33px);margin-top:8px}.wage-data .up{color:#21c568}.wage-calculator{margin:24px 0;padding:24px;border:1px solid #c9c4ba;border-radius:16px;background:#fffdf8}.wage-calculator h3{margin:0 0 20px;font-size:20px}.wage-calculator label{display:flex;justify-content:space-between;gap:12px;font-size:14px;margin:18px 0 6px}.wage-calculator input{width:100%;accent-color:#fa4c24;cursor:pointer}.wage-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:22px}.wage-results>div{background:#f2efe7;border-radius:10px;padding:15px}.wage-results small{display:block;color:#68665f}.wage-results strong{display:block;font-size:clamp(18px,2.8vw,27px);margin-top:7px}.wage-calculator .wage-note,.wage-data-note{font-size:12px;line-height:1.8;color:#68665f;margin-top:12px}@media(max-width:600px){.wage-data{gap:7px}.wage-data>div{padding:13px 9px;border-radius:10px}.wage-data small{font-size:10px}.wage-data strong{font-size:19px}.wage-calculator{padding:16px}.wage-results{gap:8px}.wage-results>div{padding:10px}}
+</style>
 <link rel="stylesheet" href="/assets/css/signal-interactions.css">
 <script defer src="/assets/js/article-actions.js"></script>
 <!-- Google tag (gtag.js): WORK SIGNAL -->
@@ -141,6 +144,19 @@ function articleEnd(a,isPreview){
 }
 
 function fail(){const robots=document.createElement('meta');robots.name='robots';robots.content='noindex';document.head.append(robots);root.replaceChildren();const wrap=el('section',undefined,'notfound');wrap.append(el('div','/ SIGNAL NOT FOUND','eyebrow'),el('h1','NO SIGNAL.'),el('p','記事が見つからないか、まだ公開されていません。'));const a=el('a','記事一覧へ戻る','back');a.href='./#latest';wrap.append(a);root.append(wrap);document.title='記事が見つかりません — WORK SIGNAL';measurePageView()}
+
+function addWageWidgets(content){
+ const blocks=content.querySelectorAll('section.block');if(blocks.length<3)return;
+ const cards=el('div',undefined,'wage-data');cards.setAttribute('aria-label','2026年8月の賃金統計');
+ [['名目賃金・前年比','+3.8%',false],['実質賃金・前年比','+1.5%',true],['実質賃金の連続増加','8カ月',false]].forEach(([label,value,up])=>{const box=el('div');box.append(el('small',label),el('strong',value,up?'up':''));cards.append(box)});
+ const caption=el('p','2026年8月速報。実質賃金は持家の帰属家賃を除く総合消費者物価指数による系列。','wage-data-note');blocks[1].append(cards,caption);
+ const calc=el('div',undefined,'wage-calculator');calc.append(el('h3','自分の給与で試す｜賃上げシミュレーター'));
+ const money=new Intl.NumberFormat('ja-JP');const controls=[];
+ function control(label,min,max,step,value,suffix){const wrap=el('div');const lab=el('label');const name=el('span',label);const output=el('strong');const input=document.createElement('input');input.type='range';input.min=min;input.max=max;input.step=step;input.value=value;input.setAttribute('aria-label',label);lab.append(name,output);wrap.append(lab,input);calc.append(wrap);controls.push({input,output,suffix});input.addEventListener('input',update)}
+ control('現在の月給（額面）',180000,800000,10000,300000,'円');control('仮の賃上げ率',0,10,0.1,4.4,'％');
+ const result=el('div',undefined,'wage-results');const monthly=el('strong'),annual=el('strong');for(const [name,value] of [['月額増加分',monthly],['年間増加分',annual]]){const box=el('div');box.append(el('small',name),value);result.append(box)}calc.append(result);const after=el('p',undefined,'wage-note');calc.append(after,el('p','※単純な額面試算。賞与・税・社会保険料・手当の変更は含みません。平均改定率が個人に適用されるわけではありません。','wage-note'));
+ function update(){const salary=Number(controls[0].input.value),rate=Number(controls[1].input.value),gain=Math.round(salary*rate/100);controls[0].output.textContent=money.format(salary)+'円';controls[1].output.textContent=rate.toFixed(1)+'％';monthly.textContent='+'+money.format(gain)+'円';annual.textContent='+'+money.format(gain*12)+'円';after.textContent='賃上げ後の月給（額面）：'+money.format(salary+gain)+'円'}update();blocks[2].append(calc)
+}
 function render(a){
 root.replaceChildren();const deep=a.format==='deep_dive'&&Array.isArray(a.sections)&&a.sections.length>0;
 const hero=el('section',undefined,'hero');hero.append(el('div','/ '+a.category.toUpperCase()+' / '+(deep?'DEEP DIVE':'EDITORIAL BRIEFING'),'eyebrow'),el('h1',a.title));
@@ -153,6 +169,7 @@ a.sections.forEach((part,i)=>{if(!part||!part.title||!part.body)return;const sec
 }else{
 for(const [title,key] of [['何が起きた？','what_happened'],['なぜ重要？','why_it_matters'],['仕事や暮らしへの影響','impact'],['確認しておきたいこと','caveats']]){const sec=section(title,a[key]);if(sec)content.append(sec)}
 }
+if(a.id==='20261021-wage-raise-92-percent-real-wages')addWageWidgets(content);
 const aside=el('aside',undefined,'side');aside.append(el('div','ARTICLE INTELLIGENCE','side-title'));const dl=el('dl');for(const [k,v] of [['FORMAT',deep?'DEEP DIVE':'BRIEF'],['READ TIME',readingMinutes(a)+' MIN'],['CATEGORY',a.category],['SIGNAL SCORE',a.score+' / 100'],['PUBLISHED',a.published_at]]){dl.append(el('dt',k),el('dd',v))}aside.append(dl);
 if(toc.length){const nav=el('nav',undefined,'toc');nav.setAttribute('aria-label','記事の目次');nav.append(el('div','IN THIS STORY','side-title'));toc.forEach(item=>{const l=el('a',item.title);l.href='#'+item.id;nav.append(l)});aside.append(nav)}
 const source=el('div',undefined,'source');source.append(el('small','/ PRIMARY SOURCE'));const link=el('a',a.source_url);link.href=a.source_url;link.target='_blank';link.rel='noopener noreferrer';source.append(link);aside.append(source,el('p','この記事は一次情報に基づく独自の要約・考察です。掲載内容は投資助言ではありません。','note'));layout.append(content,aside);root.append(hero,layout,articleEnd(a,false));document.title=a.title+' — WORK SIGNAL';

@@ -44,14 +44,14 @@
   {
     "id": "20261022-react-nextjs-critical-rce-security-patches",
     "title": "React・Next.jsに重大脆弱性。認証不要のコード実行リスクと修正版、確認すべきポイント",
-    "summary": "React Server ComponentsとNext.jsで重大なコード実行リスクが公表。対象バージョン、影響する機能、修正版、企業の確認事項を公式情報に基づき整理。",
+    "summary": "React Server Components、Next.js、Vite公式RSCプラグインの重大脆弱性。対象バージョン、影響機能、修正版、企業の確認事項を公式情報に基づき整理。",
     "category": "仕事",
     "score": 92,
     "published_at": "2026-10-22",
     "source_url": "https://nextjs.org/blog/nextjs-security-update-october-14-2026",
     "status": "published",
     "format": "deep_dive",
-    "quick_take": "React Server Componentsの特定パッケージとNext.jsのキャッシュ・SVG画像処理に重大な脆弱性。Reactは19.0.9／19.1.10／19.2.9／19.3.1、Next.jsは15.5.28／16.4.1が修正版。すべてのReactサイトが対象ではない。",
+    "quick_take": "React Server Componentsの特定パッケージとNext.jsのキャッシュ・SVG画像処理に重大な脆弱性。Reactは19.0.9／19.1.10／19.2.9／19.3.1、Next.jsは15.5.28／16.4.1が修正版。すべてのReactサイトが対象ではない。 Vite公式の@vitejs/plugin-rscも0.5.38未満が影響し、0.5.38以降への更新が必要。",
     "sections": [
       {
         "title": "ReactとNext.jsで何が起きたのか",
@@ -64,6 +64,10 @@
       {
         "title": "Next.jsのキャッシュ機能とSVG画像処理にも重大な問題",
         "body": "Next.js公式の10月14日付更新では、App RouterとCache Componentsを使うアプリで、use cache関数が複数のTypedArrayを返す場合の認証不要RCE（GHSA-673q-mjm6-r5xr）をCriticalとした。該当構成に対する既知の回避策はなく、公式は関数の実装が似ていなくても速やかな更新を求めている。もう1件はSVGを扱うImage Optimization APIの上流ライブラリに関する問題（CVE-2026-96889／GHSA-2464-fhr4-w9xw）。glibcベースのLinuxで動くNext.jsが条件に該当するとコード実行につながる可能性がある。暫定対策としてsharp 0.35.5以降を利用する方法が案内されているが、Next.js自体の更新が基本だ。"
+      },
+      {
+        "title": "Vite公式プラグインにも影響：更新は0.5.38以降",
+        "body": "Viteの公式React Server Componentsプラグイン「@vitejs/plugin-rsc」にも、React Server Components由来の認証不要リモートコード実行（RCE）の問題がある。開発元が2026年10月15日に公開したGHSA-59pf-q495-3c99では、深刻度はCritical（CVSS 9.5）、影響バージョンは0.5.38未満、修正版は0.5.38とされる。プラグインが脆弱なreact-server-dom-webpackのコードを内部に含むため、アプリ側のReact関連依存パッケージだけを更新しても十分とは限らない。利用者はpackage.jsonとロックファイルで@vitejs/plugin-rscの使用有無とバージョンを確認し、0.5.38以降に更新してビルド・デプロイを行いたい。これは10月23日に新たな悪用が確認されたという意味ではない。\n\n一次情報（Vite公式アドバイザリ、2026年10月15日）：https://github.com/vitejs/vite-plugin-react/security/advisories/GHSA-59pf-q495-3c99"
       },
       {
         "title": "サービス妨害の問題も同時に修正",

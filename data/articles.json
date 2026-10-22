@@ -1,5 +1,47 @@
 [
   {
+    "id": "20261022-google-confidential-g4-ga",
+    "title": "AIに機密情報を渡しても大丈夫？ Googleが「処理中のデータ」まで保護するConfidential G4を正式提供",
+    "summary": "Google CloudがNVIDIA Blackwell GPUを使うConfidential G4の一般提供を発表。AIの処理中のデータをハードウェアで保護する仕組みと、導入時に残るリスクを解説する。",
+    "category": "AI",
+    "score": 86,
+    "published_at": "2026-10-22",
+    "source_url": "https://cloud.google.com/blog/topics/ai-infrastructure/confidential-g4-gpus-are-ga",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Google Cloudは2026年10月21日、Confidential G4の一般提供を36ゾーンで開始したと発表。AIが計算している最中のデータやモデルをハードウェアで保護する一方、権限管理やアプリの安全性まで自動で保証するものではない。",
+    "sections": [
+      {
+        "title": "AIに機密情報を渡す不安はどこから来る？",
+        "body": "企業でAIを活用する際、顧客情報、社員情報、未公開の事業計画などの取り扱いは重要な課題だ。2026年10月21日、Google CloudはNVIDIA RTX PRO 6000 Blackwell Server Edition GPUを利用するConfidential G4の一般提供を発表した。Compute Engine VMとGKEノードで36ゾーンに展開する。今回の発表は、クラウド上でAIが情報を処理している間の保護を強化する技術についてのものだ。\\n一次情報：https://cloud.google.com/blog/topics/ai-infrastructure/confidential-g4-gpus-are-ga"
+      },
+      {
+        "title": "保存中・通信中・処理中――3つのデータ保護",
+        "body": "保存中の暗号化はディスクなどに記録された情報を守る。通信中の暗号化はネットワークを移動する情報を守る。今回のConfidential G4が特に重視するのは、AIが計算している『処理中』のデータだ。ハードウェアによるメモリ暗号化と隔離、実行環境を検証するリモートアテステーションを組み合わせ、ホストの管理者やハイパーバイザーからの不正な参照を防ぐ設計になっている。"
+      },
+      {
+        "title": "何が新しくなったのか",
+        "body": "Confidential G4は2026年の先行プレビューを経て一般提供になった。Google Cloudによれば、標準的なUbuntuイメージ、NVIDIAドライバー、CUDA-Xライブラリを用い、アプリケーションの大幅な書き換えなしに導入できる構成を目指している。安全な複数組織間のデータ共有を支援するConfidential Spaceの関連機能については、今後数週間で一般提供予定としており、今回のG4一般提供と同時にすべての機能が利用可能になったわけではない。"
+      },
+      {
+        "title": "人事・経営・顧客分析にどう役立つ？",
+        "body": "例えば人事部門が評価データを分析する場合、データを処理するクラウド環境に追加の隔離と暗号化を設ける選択肢になる。顧客データや未公開の経営情報を扱うAIサービスでも、処理環境を検証できることは検討材料になる。ただしこれは応用可能性の説明であり、どの業務データでも無条件に投入してよいという意味ではない。利用目的、本人への説明、委託契約、権限設定などは別途確認が必要だ。"
+      },
+      {
+        "title": "性能とコストの限界",
+        "body": "Google Cloudはg4-standard-48でのLlama 3、Llama 3.3、ResNet-50、SDXLなどを用いたベンチマークで、通常のG4に比べたスループット低下が3.5％未満だったと説明する。これは特定構成での提供元測定値であり、すべての業務で同じ性能を保証するものではない。また、Google Cloudの公式ドキュメントによると、Confidential G4のGPU利用にはNVIDIA Confidential Computingソフトウェア・サービスのライセンス料金が別途発生する。実運用の費用対効果は見積もりが必要だ。\\n参考：https://docs.cloud.google.com/confidential-computing/confidential-vm/docs/create-a-confidential-vm-instance-with-gpu"
+      },
+      {
+        "title": "暗号化だけでは解決できないリスク",
+        "body": "Confidential Computingはクラウド基盤側から処理中の情報を守る重要な技術だが、アプリケーションの脆弱性、過剰なアクセス権限、誤送信、プロンプトへの不適切な入力、法令違反まで防ぐ万能策ではない。AIに渡す情報の分類、最小権限、ログと監査、データ保持条件、運用担当者の責任分担が欠かせない。"
+      },
+      {
+        "title": "WORK SIGNALの視点｜使うか使わないかから、安全に使う設計へ",
+        "body": "AI活用の議論は『機密情報があるから使えない』と『便利だから何でも使う』の二択にしないことが大切だ。今回の発表は、保護技術が増えることで用途に応じた選択肢が広がることを示している。まず情報の機密度と処理目的を整理し、必要な保護水準、費用、責任者を決める。そのうえで技術を選ぶことが、働く人にとって現実的なAI導入の第一歩になる。\\n一次情報：https://cloud.google.com/blog/topics/ai-infrastructure/confidential-g4-gpus-are-ga"
+      }
+    ]
+  },
+  {
     "id": "20261022-teacher-license-one-year-career-training",
     "title": "教員免許が最短1年で取れる時代へ。問われるのは「資格取得の速さ」より、先生を育てる仕組みではないか",
     "summary": "文科省が、社会人経験者が大学院で学びながら最短1年で教員免許を取得できる新課程を検討。社会経験を学校に生かす可能性と、授業・生徒指導・保護者対応を担う教員をどう育てるかという課題を考える。",

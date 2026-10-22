@@ -23,6 +23,12 @@ def modifications_from_snapshots(snapshots):
                 if moment.astimezone(JST).date() >= date.fromisoformat(article['published_at']):
                     modified[identifier] = moment.astimezone(JST).isoformat(timespec='seconds')
         previous = current
+    # A later publication-date correction must not leave a historical edit
+    # timestamp earlier than the article's final first-publication date.
+    for identifier, timestamp in list(modified.items()):
+        final_article = previous.get(identifier)
+        if not final_article or datetime.fromisoformat(timestamp).astimezone(JST).date() < date.fromisoformat(final_article['published_at']):
+            del modified[identifier]
     return modified
 
 

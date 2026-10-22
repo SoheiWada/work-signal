@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261022-openai-google-cloud-model-garden",
+    "title": "OpenAIのAIがGoogle Cloudで使えるように。競争と協力が広げる企業のAI選択肢",
+    "summary": "OpenAIとGoogle Cloudが10月21日に提携。Model GardenでGPT-Astra、GPT-6.1 Sol、GPT-6 Lunaの限定プレビューを開始し、Codex連携も進める。企業のAI選定への影響と限界を解説。",
+    "category": "AI",
+    "score": 92,
+    "published_at": "2026-10-22",
+    "source_url": "https://openai.com/index/openai-models-google-cloud/",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "OpenAIの最新モデルがGoogle CloudのModel Gardenで利用可能になる。一部企業向けプレビューから開始し、一般提供は今後数週間を予定。企業のモデル選択と調達の自由度が広がる。",
+    "sections": [
+      {
+        "title": "OpenAIとGoogle Cloudの提携",
+        "body": "2026年10月21日、OpenAIとGoogle CloudはOpenAIの最新モデルとCodexワークフローをGoogle CloudのModel Gardenに統合すると発表した。GoogleはGeminiも開発しており、競争と協力が並行する。Microsoftは引き続きOpenAIの主要クラウドパートナーだ。\n一次情報：https://openai.com/index/openai-models-google-cloud/\nGoogle Cloud公式：https://cloud.google.com/blog/products/ai-machine-learning/google-cloud-brings-openai-models-to-customers"
+      },
+      {
+        "title": "対象モデルと提供時期",
+        "body": "対象はGPT-Astra、GPT-6.1 Sol、GPT-6 Luna。GPT-Astraは高度な開発・専門業務・研究、Solは性能とコストのバランスが必要な業務、Lunaは日常業務の大量処理向けと説明される。現在は一部企業向けのプライベートプレビューで、一般提供は今後数週間を予定する。"
+      },
+      {
+        "title": "企業のAI選定への影響",
+        "body": "企業は業務に応じて性能、応答速度、費用を比較してモデルを選べる可能性が広がる。Google Cloud Marketplaceを通じて調達でき、既存のGoogle Cloud支出コミットメントに充当できる。これは調達の選択肢の拡大であり、費用削減の保証ではない。"
+      },
+      {
+        "title": "Codexとの連携",
+        "body": "対象企業はAPIからモデルを利用でき、Codex CLIやDesktopのワークフローをGoogle Cloudの推論基盤につなげられる。Google AntigravityやGeminiの企業向け機能への統合は今後の予定であり、現時点の一般提供ではない。"
+      },
+      {
+        "title": "データ管理と導入の限界",
+        "body": "Google Cloudはアクセス制御、データ境界、監査ログなどの企業向け統制を説明する。一方、Zero Data Retentionの選択肢やConfidential Computeの一部機能は今後提供予定。契約条件、個人情報保護、利用コスト、モデルの実測性能を導入前に検証する必要がある。"
+      },
+      {
+        "title": "WORK SIGNALの視点",
+        "body": "重要なのは一社のAIを選ぶこと自体ではなく、業務の目的と精度、速度、費用、責任分担に応じて適切に使い分けることだ。今回の発表は選択肢の拡大を示すが、生産性改善の実績を証明するものではない。\n一次情報：https://openai.com/index/openai-models-google-cloud/\n一次情報：https://cloud.google.com/blog/products/ai-machine-learning/google-cloud-brings-openai-models-to-customers"
+      }
+    ]
+  },
+  {
     "id": "20261022-google-confidential-g4-ga",
     "title": "AIに機密情報を渡しても大丈夫？ Googleが「処理中のデータ」まで保護するConfidential G4を正式提供",
     "summary": "Google CloudがNVIDIA Blackwell GPUを使うConfidential G4の一般提供を発表。AIの処理中のデータをハードウェアで保護する仕組みと、導入時に残るリスクを解説する。",

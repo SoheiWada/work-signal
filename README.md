@@ -4,7 +4,7 @@
 
 ## 実装済み
 - `index.html`: レスポンシブなニュース一覧とカテゴリー絞り込み
-- `data/articles.json`: 公開記事データ（現在は空）
+- `data/articles.json`: 公開記事データ
 - スコア80点以上かつ`status: published`のデータのみ表示
 - 一次情報URLへのリンク
 
@@ -33,7 +33,8 @@ GitHub PagesのSourceは **GitHub Actions**。mainの更新を受けて `.github
 記事は原典と数値を確認してから公開すること。ChatGPT内の承認ボタンからの自動反映、ニュース自動収集、Threads自動投稿は**未実装**。Threads投稿文の生成と手動投稿は継続する。
 
 ## 記事詳細ページ（実装済み）
-- `article.html?id=<記事ID>` で記事詳細を表示
+- 正規URL `/articles/<記事ID>/` を公開時に静的生成
+- 旧 `article.html?id=<記事ID>` も表示互換を維持
 - `data/articles.json` の記事に任意で `what_happened`, `why_it_matters`, `impact`, `caveats` を追加可能
 - トップの記事カードから記事詳細へリンク
 - 公開済みかつ80点以上のデータのみ詳細表示。URLパラメータに不正なIDが指定された場合は非公開

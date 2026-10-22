@@ -11,6 +11,10 @@ from pathlib import Path
 from urllib.parse import urlencode, urlparse
 from xml.etree import ElementTree as ET
 from PIL import Image, ImageDraw, ImageFont
+try:
+    from .seo_metadata import article_modifications, modification_date, latest_date
+except ImportError:
+    from seo_metadata import article_modifications, modification_date, latest_date
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://signal.amberlight.co.jp/"
@@ -146,6 +150,40 @@ def published_articles(data):
             raise ValueError("Primary source must use HTTPS")
         articles.append(article)
     return articles
+
+
+def favicon_links():
+    return ('<link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">'
+            '<link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96">'
+            '<link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">'
+            '<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">'
+            '<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">')
+
+
+def write_favicons(output):
+    # Keep the existing W, orange dot and palette at stable URLs.
+    scale = 8
+    image = Image.new('RGBA', (64 * scale, 64 * scale), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(image)
+    draw.rounded_rectangle((0, 0, 64 * scale - 1, 64 * scale - 1), radius=12 * scale, fill='#191918')
+    draw.text((6 * scale, 45 * scale), 'W', font=card_font(43 * scale, 700), fill='#f2efe7', anchor='ls')
+    draw.ellipse((50 * scale, 44 * scale, 60 * scale, 54 * scale), fill='#fa4c24')
+    for size, filename in ((96, 'favicon-96.png'), (192, 'favicon-192.png'), (180, 'apple-touch-icon.png')):
+        image.resize((size, size), Image.Resampling.LANCZOS).save(output / filename)
+    image.save(output / 'favicon.ico', sizes=[(16, 16), (32, 32), (48, 48), (96, 96)])
+
+
+def related_articles(article, articles):
+    def tokens(item):
+        title = item['title'].lower()
+        terms = set(re.findall(r'[a-z][a-z0-9_-]{2,}', title))
+        terms.update(title[i:i + 2] for i in range(len(title) - 1)
+                     if all('一' <= char <= '龥' for char in title[i:i + 2]))
+        return terms
+    terms = tokens(article)
+    ranked = [(len(terms & tokens(item)), item['published_at'], item['id'], item)
+              for item in articles if item['id'] != article['id'] and item['category'] == article['category']]
+    return [item for score, _, _, item in sorted(ranked, key=lambda value: value[:3], reverse=True) if score > 0][:2]
 
 
 def article_url(article):
@@ -388,7 +426,7 @@ def dsx_pod_diagram(article):
             +track('DSX POD｜工場で事前統合','最短14日',pod,'pod')
             +'<figcaption class="dsx-footnote">※ NVIDIA公表値。電力・冷却・ネットワーク等の外部インフラが準備済みの設置場所での導入期間を比較。更地からの建設期間ではなく、最短値は全案件での実績を示すものではありません。DSX PODの工場作業と設置先の準備は並行可能です。出典：NVIDIA Newsroom（2026年10月21日）。</figcaption></figure>')
 
-def article_body(article):
+def article_body(article, modified_at=None, related=()):
     deep = article.get('format') == 'deep_dive'
     has_sections = isinstance(article.get('sections'), list) and bool(article['sections'])
     reading = max(1, math.ceil((len(article.get('summary', '')) + sum(len(str(part.get('body', ''))) for part in article.get('sections', []))) / 600))
@@ -416,14 +454,18 @@ def article_body(article):
              + (' / MANAGEMENT GUIDE' if article.get('format') == 'management_guide' else (' / SPECIAL STORY · 自社製品紹介' if article.get('format') == 'special_story' else (' / DEEP DIVE' if deep else ' / EDITORIAL BRIEFING'))) + '</div><h1>' + esc(article['title'])
             + '</h1><div class="meta">' + ('' if article.get('format') in ('special_story', 'management_guide') else '<span class="score">' + esc(article['score']) + ' / 100</span>') + '<span class="article-type">' + format_label + '</span><span>'
             + esc(article['category']) + '</span><time datetime="' + esc(article['published_at'])
-            + '">' + esc(article['published_at']) + '</time><span class="readtime">約'
+            + '">' + esc(article['published_at']) + '</time>'
+            + ('<span>更新：<time datetime="' + esc(modified_at) + '">' + esc(modified_at[:10]) + '</time></span>' if modified_at else '')
+            + '<span class="readtime">約'
             + str(reading) + '分で読める</span></div></section><div class="layout"><article class="content">'
             + '<p class="lead">' + esc(article['summary']) + '</p>' + blocks
             + management_cta(article) + '</article><aside class="side"><div class="side-title">ARTICLE INTELLIGENCE</div>'
             + '<dl><dt>FORMAT</dt><dd>' + format_label + '</dd><dt>READ TIME</dt><dd>'
             + str(reading) + ' MIN</dd><dt>CATEGORY</dt><dd>' + esc(article['category'])
             + '</dd>' + ('' if article.get('format') in ('special_story', 'management_guide') else '<dt>SIGNAL SCORE</dt><dd>' + esc(article['score']) + ' / 100</dd>') + '<dt>PUBLISHED</dt><dd>' + esc(article['published_at'])
-            + '</dd></dl>' + toc + '<div class="source"><small>/ PRIMARY SOURCE</small><a href="'
+            + '</dd></dl>' + toc
+            + ('<nav class="toc" aria-label="関連記事"><div class="side-title">RELATED SIGNALS</div>' + ''.join('<a href="' + article_url(item) + '">' + esc(item['title']) + '</a>' for item in related) + '</nav>' if related else '')
+            + '<div class="source"><small>/ PRIMARY SOURCE</small><a href="'
             + esc(article['source_url']) + '" target="_blank" rel="noopener noreferrer">'
             + esc(article['source_url']) + '</a></div><p class="note">'
             + ('本記事はWORK SIGNALと同じ運営元による自社製品紹介・開発ストーリーです。独立した第三者レビューではありません。' if article.get('format') == 'special_story' else 'この記事は一次情報に基づく独自の要約・考察です。掲載内容は投資助言ではありません。')
@@ -490,7 +532,7 @@ def wage_widget_script(article, template):
             + "addWageWidgets(document.querySelector('#article .content'));</script>")
 
 
-def article_page(article, template):
+def article_page(article, template, modified_at=None, related=()):
     url = article_url(article)
     image_url = BASE + 'assets/og/' + article['id'] + '.png'
     title = article["title"] + " — WORK SIGNAL"
@@ -501,6 +543,8 @@ def article_page(article, template):
               "description": article["summary"], "datePublished": article["published_at"], "image": [image_url],
               "inLanguage": "ja", "mainEntityOfPage": {"@type": "WebPage", "@id": url},
               "publisher": {"@type": "Organization", "name": "WORK SIGNAL", "url": BASE}}
+    if modified_at:
+        schema['dateModified'] = modified_at
     # Do not invent a person or organization byline that the feed does not provide.
     head = ('<!doctype html><html lang="ja"><head><meta charset="utf-8">'
             + '<meta name="viewport" content="width=device-width,initial-scale=1">'
@@ -508,12 +552,16 @@ def article_page(article, template):
             + '<meta name="description" content="' + esc(article["summary"]) + '">'
             + '<link rel="canonical" href="' + url + '">' 
             + '<link rel="alternate" type="application/rss+xml" title="WORK SIGNAL RSS" href="/feed.xml">'
-            + '<link rel="icon" href="/favicon.svg" type="image/svg+xml">'
+            + favicon_links()
             + '<meta property="og:type" content="article"><meta property="og:locale" content="ja_JP">'
             + '<meta property="og:site_name" content="WORK SIGNAL">'
             + '<meta property="og:title" content="' + esc(title) + '">'
             + '<meta property="og:description" content="' + esc(article["summary"]) + '">'
             + '<meta property="og:url" content="' + url + '">'
+            + '<meta name="twitter:title" content="' + esc(title) + '">'
+            + '<meta name="twitter:description" content="' + esc(article['summary']) + '">'
+            + '<meta property="article:published_time" content="' + esc(article['published_at']) + '">'
+            + ('<meta property="article:modified_time" content="' + esc(modified_at) + '">' if modified_at else '')
             + image_metadata(image_url, title)
             + '<meta name="robots" content="max-image-preview:large">'
             + json_ld(schema) + fonts + style + (BTC_CALENDAR_CSS if article.get('id') == '20261021-bitcoin-ath-events' else '') + (DSX_POD_DIAGRAM_CSS if article.get('id') == '20261021-nvidia-dsx-pod-ai-datacenter-deployment' else '')
@@ -523,7 +571,7 @@ def article_page(article, template):
     body = ('<body><div class="top" id="page-top"></div><div class="shell"><header>'
             + '<a class="brand" href="/">WORK<span>.</span>SIGNAL</a>'
             + '<a class="back" href="/#latest">ALL SIGNALS</a></header>'
-            + '<main id="article">' + article_body(article) + article_end(article) + '</main></div>'
+            + '<main id="article">' + article_body(article, modified_at, related) + article_end(article) + '</main></div>'
             + '<footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong>'
             + '<small>NEWS IS SHORT. MEANING IS DEEP. · <a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a> · <a href="/feed.xml">RSS</a></small></div></footer>'
             + wage_widget_script(article, template) + '</body></html>')
@@ -570,6 +618,8 @@ def build(output, feed=None):
     if output.resolve() == ROOT.resolve() or ROOT.resolve().is_relative_to(output.resolve()):
         raise ValueError("Output must not overwrite the source repository")
     articles = published_articles(feed if feed is not None else json.loads((ROOT / 'data/articles.json').read_text()))
+    history = article_modifications(ROOT)
+    modified = {item['id']: modification_date(item, history) for item in articles}
     if output.exists():
         shutil.rmtree(output)
     output.mkdir(parents=True)
@@ -631,18 +681,25 @@ def build(output, feed=None):
         share_card(output, article)
         folder = output / 'articles' / article['id']
         folder.mkdir(parents=True)
-        (folder / 'index.html').write_text(article_page(article, template))
+        (folder / 'index.html').write_text(article_page(article, template, modified[article['id']], related_articles(article, articles)))
     write_rss(output, articles)
     ns = 'http://www.sitemaps.org/schemas/sitemap/0.9'
     ET.register_namespace('', ns)
     sitemap = ET.Element('{' + ns + '}urlset')
+    by_url = {article_url(item): item for item in articles}
+    home_modified = latest_date([modified[item['id']] or item['published_at'] for item in articles])
     for url in [BASE, BASE + 'about/', BASE + 'privacy/', BASE + 'contact/'] + [article_url(article) for article in articles]:
         entry = ET.SubElement(sitemap, '{' + ns + '}url')
         ET.SubElement(entry, '{' + ns + '}loc').text = url
+        item = by_url.get(url)
+        lastmod = (modified[item['id']] or item['published_at']) if item else (home_modified if url == BASE else None)
+        if lastmod:
+            ET.SubElement(entry, '{' + ns + '}lastmod').text = lastmod
     ET.ElementTree(sitemap).write(output / 'sitemap.xml', encoding='utf-8', xml_declaration=True)
     (output / 'robots.txt').write_text('User-agent: *\nAllow: /\n\nSitemap: ' + BASE + 'sitemap.xml\n')
     (output / '.nojekyll').touch()
     (output / 'CNAME').write_text(BASE.removeprefix('https://').rstrip('/') + '\n')
+    write_favicons(output)
     (output / 'favicon.svg').write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#191918"/><text x="6" y="45" fill="#f2efe7" font-family="sans-serif" font-size="43" font-weight="bold">W</text><circle cx="55" cy="49" r="5" fill="#fa4c24"/></svg>')
     (output / '404.html').write_text('<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>ページが見つかりません — WORK SIGNAL</title><h1>ページが見つかりません</h1><p><a href="/">WORK SIGNALのトップへ戻る</a></p></html>')
     return articles

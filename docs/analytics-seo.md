@@ -55,3 +55,18 @@ Search Consoleでは `https://signal.amberlight.co.jp/` を使い、
 `https://signal.amberlight.co.jp/sitemap.xml` を送信する。
 所有権確認はGA4タグを利用しているため、ホームのタグを削除しない。
 検索への掲載・検索順位・構造化データの検索結果表示はGoogleの判断となる。
+
+## 2026-10-22 SEO補強
+
+- 正規URLは `/articles/<記事ID>/` を維持。旧 `article.html?id=...` も全公開形式のsectionsを表示する。
+- WebSiteのnameはWORK SIGNAL。画面にもあるWORK.SIGNALをalternateNameに指定。
+- 既存のW＋オレンジの点を維持し、SVGに加え96px・192px PNG、ICO、180px Apple用アイコンを固定URLで自動生成。
+- `scripts/seo_metadata.py` が記事本文・見出し・概要・情報源等のGit履歴から記事単位の更新日を取得。並び替え、採点、別記事追加、再デプロイで既存記事の日付は変わらない。
+- published_atは公開日。任意のupdated_atはYYYY-MM-DDまたはタイムゾーン付きISO日時を使用可能。必須フィールドの追加なし。
+- 更新日の表示、dateModified、article:modified_time、sitemapのlastmodに同じ値を使用。履歴不明なら更新日は省略し、記事のlastmodは公開日。ABOUT等の不明な日付は推測しない。
+- Actionsは全履歴を取得する。浅いcheckoutやZIP単体では更新履歴が利用できず、更新日は省略される。
+- 同じカテゴリーでタイトルの語句が共通する公開記事を最大2件、既存サイドバーの目次と同じ書式でリンク。本文データは変更しない。
+- 検証: `python3 -m unittest discover -s tests` と `node --test tests/seo/*.test.mjs`。
+- 親ドメイン、DNS、AdSense、GA4、公開承認手順は維持。
+
+Search Consoleは既存sitemapの成功・最終読み込み、トップと代表記事のURL検査でcanonical・Googlebot取得可否を確認する。WebSiteはSchema Markup Validator、ArticleはRich Results Test等で検証する。Googleによるサイト名・faviconの採用、インデックス登録は保証されない。

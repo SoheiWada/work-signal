@@ -399,6 +399,8 @@ def article_body(article):
                 continue
             calendar = event_calendar(article, part)
             paragraphs = calendar if calendar is not None else ''.join('<p>' + linked_text(p) + '</p>' for p in re.split(r'\n\s*\n', str(part['body'])) if p.strip())
+            if article.get('id') == '20261022-php2shell-critical-vulnerabilities' and part.get('title') == '図解｜何が起きるのか？':
+                paragraphs += '<figure style="margin:24px 0"><img src="/assets/infographics/php2shell-explainer.svg" alt="PHPの脆弱性が攻撃者の通信からサーバーの不正操作につながる可能性を、4つのステップで示す図" loading="lazy" style="display:block;width:100%;height:auto;border-radius:12px"><figcaption style="font-size:0.85em;color:#666;margin-top:8px">仕組みを単純化した概念図。すべての環境で攻撃が成立するわけではありません。</figcaption></figure>'
             if part.get('title') == '図解｜従来型とDSX PODの導入工程を比較':
                 paragraphs += dsx_pod_diagram(article)
             stats = ''.join('<div class="stat"><strong>' + esc(stat['value']) + '</strong><span>' + esc(stat.get('label', '')) + '</span></div>' for stat in part.get('stats', []) if isinstance(stat, dict) and stat.get('value'))
@@ -612,6 +614,11 @@ def build(output, feed=None):
         destination.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / page / 'index.html', destination / 'index.html')
     (output / 'data/articles.json').write_text(json.dumps(articles, ensure_ascii=False, indent=2) + '\n')
+    infographic = ROOT / 'assets/infographics/php2shell-explainer.svg'
+    if infographic.is_file():
+        target = output / 'assets/infographics/php2shell-explainer.svg'
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(infographic, target)
     for article in articles:
         image_path = card_image_path(article)
         if image_path:

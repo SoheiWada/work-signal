@@ -1,5 +1,47 @@
 [
   {
+    "id": "20261022-react-nextjs-critical-rce-security-patches",
+    "title": "React・Next.jsに重大脆弱性。認証不要のコード実行リスクと修正版、確認すべきポイント",
+    "summary": "React Server ComponentsとNext.jsで重大なコード実行リスクが公表。対象バージョン、影響する機能、修正版、企業の確認事項を公式情報に基づき整理。",
+    "category": "仕事",
+    "score": 92,
+    "published_at": "2026-10-22",
+    "source_url": "https://nextjs.org/blog/nextjs-security-update-october-14-2026",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "React Server Componentsの特定パッケージとNext.jsのキャッシュ・SVG画像処理に重大な脆弱性。Reactは19.0.9／19.1.10／19.2.9／19.3.1、Next.jsは15.5.28／16.4.1が修正版。すべてのReactサイトが対象ではない。",
+    "sections": [
+      {
+        "title": "ReactとNext.jsで何が起きたのか",
+        "body": "2026年10月14日、ReactとNext.jsの開発元は、サーバー側の処理に関わる重大なセキュリティ修正を公表した。中心となるのは、特別に細工されたリクエストなどによって、ログインなしでサーバー上のコード実行につながる可能性がある脆弱性だ。Next.jsでは重大なリモートコード実行（RCE）2件と、サービス妨害（DoS）1件が案内されている。脆弱性があることと、すべてのサイトで直ちに攻撃が成立することは同じではない。まずは使用製品、バージョン、対象機能を分けて確認したい。"
+      },
+      {
+        "title": "React Server Components：対象となるのはサーバー側の特定パッケージ",
+        "body": "Reactの公式アドバイザリGHSA-xqc2-xf4c-x3h3はCritical。react-server-dom-webpack、react-server-dom-parcel、react-server-dom-turbopackの19.0.0〜19.0.8、19.1.0〜19.1.9、19.2.0〜19.2.8、19.3.0が対象となる。複数のTypedArrayと攻撃者が制御できる値がレスポンスの転送に関わる非常に限定的な条件で、細工したペイロードからコード実行につながり得る。修正版は19.0.9、19.1.10、19.2.9、19.3.1。Reactを使うだけで全アプリが影響を受けるわけではない。サーバーを使わないReactアプリや、React Server Components対応の仕組みを利用しないアプリはこの問題の対象外と公式は説明する。"
+      },
+      {
+        "title": "Next.jsのキャッシュ機能とSVG画像処理にも重大な問題",
+        "body": "Next.js公式の10月14日付更新では、App RouterとCache Componentsを使うアプリで、use cache関数が複数のTypedArrayを返す場合の認証不要RCE（GHSA-673q-mjm6-r5xr）をCriticalとした。該当構成に対する既知の回避策はなく、公式は関数の実装が似ていなくても速やかな更新を求めている。もう1件はSVGを扱うImage Optimization APIの上流ライブラリに関する問題（CVE-2026-96889／GHSA-2464-fhr4-w9xw）。glibcベースのLinuxで動くNext.jsが条件に該当するとコード実行につながる可能性がある。暫定対策としてsharp 0.35.5以降を利用する方法が案内されているが、Next.js自体の更新が基本だ。"
+      },
+      {
+        "title": "サービス妨害の問題も同時に修正",
+        "body": "Next.jsはApp Routerで少なくとも1つのServer Actionを使うアプリについて、細工したリクエストによりCPU使用量が過大になり、同一プロセスで後続の処理を受け付けにくくなるDoS（GHSA-p3m5-59mp-jv5r）もHighとして公表した。Pages Routerを利用するアプリやServer Actionsを使わないアプリは、このDoSの対象外と説明されている。RCEとDoSでは影響も条件も異なるため、社内説明でひとまとめにしないことが重要だ。"
+      },
+      {
+        "title": "修正版と担当者が今すぐ確認したいこと",
+        "body": "Next.js公式の修正版は15.5.28（Maintenance LTS）と16.4.1（Active LTS）。対象となるNext.jsアプリでは、使用している系統に合う修正版への更新を優先したい。開発担当者はpackage.jsonとロックファイル、実際のデプロイ環境のバージョンを確認する。React Server Componentsの関連パッケージも依存関係を含めて点検する。更新後はビルド、主要画面、画像処理、Server Actions、キャッシュ挙動をテストし、本番反映と監視まで確認する。開発会社に委託している場合は『対象バージョンを使用しているか』『対象機能が有効か』『修正版への更新予定と完了証跡はあるか』の3点を問い合わせると判断しやすい。"
+      },
+      {
+        "title": "悪用状況をどう読むか",
+        "body": "公式アドバイザリは攻撃が成立し得る条件と修正版を説明しているが、脆弱性の存在そのものを実際の侵害確認と取り違えてはいけない。検証用コード（PoC）の公開と実環境での悪用確認も異なる。個別の被害事例を断定するには、ベンダーや公的機関などによる追加の一次情報が必要だ。公開Webサービスでは悪用報告を待たず、影響調査と更新を進めるのが妥当だ。"
+      },
+      {
+        "title": "WORK SIGNALの視点｜『React製だから危険』ではない",
+        "body": "今回の教訓は、製品名だけで安全・危険を判断しないことだ。ブラウザー側だけのReact、React Server Componentsを使う構成、Next.jsのApp RouterとCache Components、SVG画像最適化では、それぞれ条件が異なる。経営者や管理職に必要なのは専門用語を暗記することではなく、運用中のシステムを把握し、担当者が修正の要否を判断できる体制をつくること。緊急パッチを適用できるかどうかは、平時の資産管理と委託先との連絡経路にも左右される。\n\n一次情報（React）：https://github.com/react/react/security/advisories/GHSA-xqc2-xf4c-x3h3\n一次情報（Next.js）：https://nextjs.org/blog/nextjs-security-update-october-14-2026"
+      }
+    ]
+  },
+  {
     "id": "20261022-deepseek-us-government-procurement",
     "title": "米政府がDeepSeekの調達を禁止。AIを選ぶ企業に問われる「モデルの出どころ」",
     "summary": "米国DHSがDeepSeek関連製品の政府調達除外と撤去を命令。第三者製品への影響、米国の適用範囲、日本企業への示唆、AI調達で確認したい5項目を解説。",

@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261022-oracle-hr-agentic-applications",
+    "title": "人事AIは「質問に答える」から「業務を進める」へ。Oracleが7つのAIアプリを発表",
+    "summary": "Oracleが採用・人員配置・報酬・給与業務を支援する7つのAIエージェントアプリを発表。人が承認する仕組みと、実際の効果がまだ確認できない点を分けて解説する。",
+    "category": "仕事",
+    "score": 85,
+    "published_at": "2026-10-22",
+    "source_url": "https://www.oracle.com/news/announcement/oracle-introduces-claw-powered-fusion-agentic-applications-for-hr-2026-10-20/",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Oracleは10月21日、人事向けの7つのFusion Claw搭載エージェントアプリを発表。採用・配置・給与業務の情報整理から承認済みの実行まで支援する設計だが、雇用判断の責任は企業に残る。",
+    "sections": [
+      {
+        "title": "人事AIは何が変わるのか",
+        "body": "2026年10月21日、Oracleは人事管理製品Oracle Fusion Cloud HCM向けに7つのAIエージェントアプリケーションを発表した。従来の質問応答や文章生成にとどまらず、企業データを横断して計画・調整し、組織の権限や承認に従って業務を進める設計だ。これはOracleの製品発表であり、導入企業での生産性改善が実証されたという意味ではない。\\n一次情報：https://www.oracle.com/news/announcement/oracle-introduces-claw-powered-fusion-agentic-applications-for-hr-2026-10-20/"
+      },
+      {
+        "title": "7つのアプリが支援する業務",
+        "body": "人員計画（Workforce Orchestration）は採用・配置転換・育成などの選択肢を比較する。ポジション管理（Positions Command Center）は異動や組織変更による矛盾・リスクを見つける。候補者発掘（Candidate Sourcing）は候補者の整理や連絡準備を支援する。採用管理（Recruiting Command Center）は面接・評価・内定までの進捗と次の対応を整理する。報酬設計（Workforce Compensation）は企業の基準・予算に沿った報酬案を作る。給与計算管理（Payroll Command Center）は勤怠・給与データの異常と原因候補を確認する。給与分析（Payroll Activity Workspace）は過去期間との変動を比較し、確認すべき事項を整理する。いずれも企業が定めた承認・管理の仕組みの中で動く。"
+      },
+      {
+        "title": "現場では何が変わりそうか",
+        "body": "例えば欠員が生じた際、人事担当者は社内異動・採用・育成の可能性を調べ、費用や人員の条件を比較する。今回の仕組みは、そうした下調べや関係データの突き合わせ、次の手順の準備を支援する方向だ。担当者が人との対話や判断に時間を振り向けられる可能性はあるが、実際にどれほど時間を削減できるかは公表資料だけでは分からない。"
+      },
+      {
+        "title": "AIに任せる範囲と人間の責任",
+        "body": "採用・異動・給与には公平性、個人情報、労働法令、説明責任が関わる。Oracleは雇用に関する判断の責任が組織側に残り、適切な人間の監督と承認を設けられると明記している。AIが示した案をそのまま採用するのではなく、判断根拠を確認できる体制が必要だ。"
+      },
+      {
+        "title": "導入前に確認すべき限界",
+        "body": "発表は製品機能の説明であり、第三者による実測効果の証明ではない。導入費用、利用可能地域、個別機能の提供条件、既存データの品質、アクセス権限と監査の仕組みは各企業で確認したい。Oracle Fusion Cloud HCM向けの機能であり、すべての人事システムで直ちに利用できるわけではない。"
+      },
+      {
+        "title": "WORK SIGNALの視点｜人事の判断をどう設計するか",
+        "body": "AIによる業務効率化を考える際は、作業を速くするだけでなく、どの判断を人が担い、どの準備をAIに任せるかを明確にすることが重要だ。人事担当者が社員との対話に時間を使えるかどうかは、技術の導入そのものより運用設計に左右される。一次情報：https://www.oracle.com/news/announcement/oracle-introduces-claw-powered-fusion-agentic-applications-for-hr-2026-10-20/"
+      }
+    ]
+  },
+  {
     "id": "20261022-php2shell-critical-vulnerabilities",
     "title": "AIが発見したPHPの重大脆弱性「PHP2Shell」。なぜ緊急メンテナンスが必要なのか",
     "summary": "OpenAIのAIを使った研究者とWizが発見・報告したPHPの重大脆弱性。ログインなしでサーバーが不正操作されるおそれがあり、PHP開発チームは緊急修正版を公開した。図解とともに仕組み、私たちへの影響、企業が確認すべき対策を解説する。",

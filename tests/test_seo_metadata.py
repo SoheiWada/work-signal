@@ -19,7 +19,7 @@ class SEOTests(unittest.TestCase):
         cls.template=(site.ROOT/'article.html').read_text()
 
     def test_modification_dates_ignore_reordering_scoring_and_unrelated_articles(self):
-        a,b=copy.deepcopy(self.feed[:2])
+        a,b=copy.deepcopy([item for item in self.feed if item['published_at'] <= '2026-10-22'][:2])
         history=modifications_from_snapshots([
             ('2026-10-22T01:00:00Z',[a,b]),
             ('2026-10-22T02:00:00Z',[b,dict(a,score=a['score']-1)]),
@@ -52,7 +52,7 @@ class SEOTests(unittest.TestCase):
                     self.assertEqual(item['category'],article['category'])
 
     def test_visible_schema_og_sitemap_dates_and_favicon_outputs_agree(self):
-        article=self.feed[0]; modified='2026-10-22T16:00:00+09:00'
+        article=next(item for item in self.feed if item['published_at'] <= '2026-10-22'); modified='2026-10-22T16:00:00+09:00'
         page=site.article_page(article,self.template,modified)
         self.assertIn('更新：<time datetime="'+modified+'">2026-10-22</time>',page)
         self.assertIn('"dateModified": "'+modified+'"',page)
@@ -76,6 +76,6 @@ class SEOTests(unittest.TestCase):
             def git(*args,stamp='2026-10-22T01:00:00+00:00'):
                 env=dict(os.environ,GIT_AUTHOR_NAME='SEO Test',GIT_AUTHOR_EMAIL='seo@example.invalid',GIT_COMMITTER_NAME='SEO Test',GIT_COMMITTER_EMAIL='seo@example.invalid',GIT_AUTHOR_DATE=stamp,GIT_COMMITTER_DATE=stamp)
                 return subprocess.run(['git','-C',str(root),*args],check=True,capture_output=True,text=True,env=env)
-            git('init');feed=copy.deepcopy(self.feed[:2]);(root/'data/articles.json').write_text(json.dumps(feed));git('add','data/articles.json');git('commit','-m','publish')
+            git('init');feed=copy.deepcopy([item for item in self.feed if item['published_at'] <= '2026-10-22'][:2]);(root/'data/articles.json').write_text(json.dumps(feed));git('add','data/articles.json');git('commit','-m','publish')
             feed[1]['summary']+=' 更新';(root/'data/articles.json').write_text(json.dumps(feed));git('add','data/articles.json');git('commit','-m','update second',stamp='2026-10-22T02:00:00+00:00')
             self.assertEqual(article_modifications(root),{feed[1]['id']:'2026-10-22T11:00:00+09:00'})

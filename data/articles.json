@@ -2,7 +2,7 @@
   {
     "id": "20261023-bun-144-brotli-security-update",
     "title": "Node.jsだけじゃない。Bunにも重大なBrotli脆弱性、v1.4.4への更新を",
-    "summary": "JavaScript実行環境Bunが10月22日にv1.4.4を公開。Node.jsでも問題になったBrotliデコーダーの脆弱性に対応した。影響条件、修正版、運用担当者が確認したいポイントを整理する。",
+    "summary": "Bun 1.4.4がBrotliのメモリ破壊問題に加え、漏洩した認証局秘密鍵に関するTLS証明書検証問題にも対応。サーバー・開発環境での確認事項を整理する。",
     "category": "仕事",
     "score": 92,
     "published_at": "2026-10-23",
@@ -30,6 +30,10 @@
       {
         "title": "悪用状況と情報の読み方",
         "body": "公開された情報には研究環境での実証や攻撃手法の検討が含まれるが、それを直ちにBunへの実環境攻撃が確認されたことと同一視してはいけない。今回参照したBun公式リリースから、Bunに対する実際の悪用事例は確認できない。\n\n対策の優先順位は、外部由来の圧縮データを処理するサーバーを高く設定しつつ、他のBun利用環境も順次更新することが妥当だ。更新が難しい場合の通信制限は露出を減らす可能性があるものの、外部サービスから取得する圧縮レスポンスまでは防げないため、修正版の適用を基本とする。\n\nBun公式リリース：https://bun.com/blog/bun-v1.4.4\n\nBun側の問題報告：https://github.com/oven-sh/bun/issues/46352\n\nNode.js公式アドバイザリ：https://nodejs.org/en/blog/vulnerability/october-2026-security-releases\n\nBrotliのGitHub Advisory：https://github.com/advisories/GHSA-9v8h-qqgm-4m35"
+      },
+      {
+        "title": "追加情報｜BunのTLS証明書検証にも影響する認証局問題",
+        "body": "Bun開発元は、信頼済み認証局の秘密鍵が漏洩した問題について、セキュリティアドバイザリGHSA-26q8-h657-pf84を公開した。Brotliデコーダーとは別の脆弱性であり、影響するのはBun 1.4.4未満、修正版は同じく1.4.4。開発元の評価はHigh。\n\n攻撃者が通信経路を操作できる場合、漏洩した秘密鍵を悪用して正規サイトになりすますTLS証明書を提示し、HTTPS通信の信頼性を損なう恐れがある。Bunのfetch()だけでなく、bun installやbunxによるパッケージ取得にも関係するため、開発・ビルド環境も確認対象となる。\n\n対策はBun 1.4.4以降への更新。bun build --compileで生成した単体実行ファイルも、修正版を使って再ビルド・再配布する。秘密鍵の漏洩が確認されたことと、Bun利用者への実際の攻撃が確認されたことは別であり、今回参照したアドバイザリから実環境での悪用は断定できない。\n\nBun公式セキュリティアドバイザリ：https://github.com/oven-sh/bun/security/advisories/GHSA-26q8-h657-pf84"
       }
     ]
   },

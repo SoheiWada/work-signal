@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-10-22",
-  "fetchedAt": "2026-10-23T00:43:34.220Z",
-  "lastAttemptAt": "2026-10-23T00:43:34.220Z",
+  "throughDate": "2026-10-23",
+  "fetchedAt": "2026-10-23T15:11:53.254Z",
+  "lastAttemptAt": "2026-10-23T15:11:53.254Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 14,
+  "countedGames": 16,
   "standingsReason": null,
   "teams": [
     {
@@ -51,7 +51,7 @@
       "name": "Cleveland Cavaliers",
       "conference": "East",
       "wins": 0,
-      "losses": 0
+      "losses": 1
     },
     {
       "code": "DAL",
@@ -65,7 +65,7 @@
       "name": "Denver Nuggets",
       "conference": "West",
       "wins": 0,
-      "losses": 0
+      "losses": 1
     },
     {
       "code": "DET",
@@ -155,7 +155,7 @@
       "code": "OKC",
       "name": "Oklahoma City Thunder",
       "conference": "West",
-      "wins": 1,
+      "wins": 2,
       "losses": 0
     },
     {
@@ -169,7 +169,7 @@
       "code": "PHI",
       "name": "Philadelphia 76ers",
       "conference": "East",
-      "wins": 1,
+      "wins": 2,
       "losses": 0
     },
     {
@@ -223,6 +223,28 @@
     }
   ],
   "sets": [
+    [
+      {
+        "id": "21717861",
+        "date": "2026-10-22",
+        "home": "OKC",
+        "away": "DEN",
+        "homeScore": 96,
+        "awayScore": 84,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21717860",
+        "date": "2026-10-22",
+        "home": "PHI",
+        "away": "CLE",
+        "homeScore": 114,
+        "awayScore": 106,
+        "competition": "regular",
+        "countsForStandings": true
+      }
+    ],
     [
       {
         "id": "21717931",

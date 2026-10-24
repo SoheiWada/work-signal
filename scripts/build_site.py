@@ -665,7 +665,7 @@ def build(output, feed=None):
                 + '">' + severity + '</span><span class="sw-copy"><strong>' + title + '</strong>'
                 + '<span>' + esc(alert['summary']) + '</span></span><span class="sw-date">'
                 + updated_label + esc(updated[:10]) + '</span></a>')
-    security_home = '<section class="sw-section" aria-labelledby="sw-title"><div class="sw-heading"><div><span class="sw-kicker">/ VERIFIED SECURITY INTELLIGENCE</span><h2 id="sw-title">SECURITY WATCH<span>.</span></h2><p>主要Web技術の脆弱性と修正情報。重要な記事更新もここで確認できます。</p></div><a href="/security/">ALL SECURITY ALERTS</a></div><div class="sw-items">' + ''.join(security_card(row) for row in security_rows[:4]) + '</div></section>'
+    security_home = '<section class="sw-section" aria-labelledby="sw-title"><div class="sw-heading"><div><span class="sw-kicker">/ VERIFIED SECURITY INTELLIGENCE</span><h2 id="sw-title">SECURITY WATCH<span>.</span></h2><div class="sw-pulse" aria-hidden="true"><svg viewBox="0 0 480 24" preserveAspectRatio="none" focusable="false"><path class="sw-baseline" d="M0 12 H480"/><path class="sw-wave" d="M0 12 H160 L169 12 L175 8 L182 17 L190 4 L198 20 L206 12 H310 L316 9 L322 15 L328 12 H480"/></svg></div><p>主要Web技術の脆弱性と修正情報。重要な記事更新もここで確認できます。</p></div><a href="/security/">ALL SECURITY ALERTS</a></div><div class="sw-items">' + ''.join(security_card(row) for row in security_rows[:4]) + '</div></section>'
     security_styles = """<style>
 .sw-section{margin:34px 0 46px;padding:26px 28px;background:#f8f6f1;border:1px solid #dedbd3;border-radius:8px;color:#242424}
 .sw-heading{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:18px}
@@ -673,6 +673,10 @@ def build(output, feed=None):
 .sw-heading h2{font-size:clamp(22px,3vw,34px);letter-spacing:-.045em;margin:5px 0}
 .sw-heading h2 span{color:#d07a2c}.sw-heading p{font-size:12px;color:#65625d;margin:0}
 .sw-heading>a{font-size:11px;font-weight:800;letter-spacing:.08em;color:inherit;text-decoration:none;white-space:nowrap}
+.sw-pulse{height:18px;max-width:410px;margin:5px 0 9px;overflow:hidden;opacity:.78}.sw-pulse svg{display:block;width:100%;height:100%}.sw-baseline{fill:none;stroke:#b6b0a6;stroke-width:.7;opacity:.55}.sw-wave{fill:none;stroke:#b17c42;stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:520;stroke-dashoffset:520;animation:sw-reveal 1.9s cubic-bezier(.24,.7,.24,1) .25s 1 forwards}
+@keyframes sw-reveal{to{stroke-dashoffset:0}}
+.sw-item{transition:background-color .2s ease,padding-left .2s ease}.sw-item:hover,.sw-item:focus-visible{background:rgba(177,124,66,.055);padding-left:5px}.sw-item:focus-visible{outline:2px solid #b17c42;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.sw-wave{animation:none;stroke-dashoffset:0}.sw-item{transition:none}}
 .sw-items{border-top:1px solid #d9d6cf}.sw-item{display:flex;align-items:center;gap:18px;padding:15px 0;border-bottom:1px solid #d9d6cf;color:inherit;text-decoration:none}
 .sw-level{min-width:80px;text-align:center;border:1px solid #aaa;padding:5px 7px;font-size:10px;font-weight:800;letter-spacing:.06em}
 .sw-critical{border-color:#a74b3d;color:#a74b3d}.sw-high{border-color:#a46d20;color:#98631e}

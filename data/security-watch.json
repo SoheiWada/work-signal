@@ -23,7 +23,7 @@
     "severity": "HIGH",
     "date": "2026-10-24",
     "article_id": "20261024-craft-cms-twig-sandbox-security",
-    "summary": "低権限管理ユーザーから秘密鍵推測・コード実行につながる恐れ",
+    "summary": "低権限ユーザーによる秘密鍵の読み取り・書き換えとコード実行リスク",
     "status": "修正版あり"
   },
   {
@@ -66,9 +66,9 @@
     "id": "laravel",
     "product": "Laravel",
     "severity": "CRITICAL",
-    "date": "2026-10-19",
-    "article_id": null,
-    "summary": "TokenGuardの認証回避リスク",
+    "date": "2026-10-24",
+    "article_id": "20261024-laravel-tokenguard-auth-bypass",
+    "summary": "TokenGuardでAPIトークンなしの認証回避（CVSS 9.2）",
     "status": "修正版あり"
   },
   {

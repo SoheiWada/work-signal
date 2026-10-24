@@ -673,9 +673,9 @@ def build(output, feed=None):
 .sw-back{margin:12px 0 24px}.sw-back a{color:#f4e8e2;text-decoration:underline;text-underline-offset:4px}
 .sw-archive-page .sw-section{margin-top:0}
 .sw-back{margin:2px 0 16px}
-.sw-back a{position:relative;display:inline-flex;align-items:center;justify-content:center;isolation:isolate;overflow:hidden;min-height:44px;padding:0 15px;border:1px solid rgba(190,116,105,.58);border-radius:4px;background:#282426;color:#f3e9e5;text-decoration:none;font:650 11px/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.09em}
+.sw-back a{position:relative;display:inline-flex;align-items:center;justify-content:center;isolation:isolate;overflow:hidden;min-height:44px;padding:5px 15px;border:1px solid rgba(190,116,105,.58);border-radius:4px;background:#282426;color:#f3e9e5;text-decoration:none;font:650 11px/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.09em}
 .sw-back-label{position:relative;z-index:2}
-.sw-back-label{display:flex;align-items:baseline;gap:7px;white-space:nowrap}
+.sw-back-label{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:3px;white-space:nowrap}
 .sw-back-small{font:650 8px/1 ui-monospace,SFMono-Regular,monospace;letter-spacing:.11em;color:#cbb5b0}
 .sw-back-brand{font:800 16px/1 system-ui,sans-serif;letter-spacing:-.095em;color:#f3e9e5}
 .sw-back-dot{color:#d67b47}

@@ -1,5 +1,39 @@
 [
   {
+    "id": "20261024-fortinet-security-hardening-critical-updates",
+    "title": "Fortinet製品に重大な脆弱性。FortiOSなど広範囲の更新を推奨、企業が確認すべきこと",
+    "summary": "FortinetがFortiOS、FortiManager、FortiAnalyzer、FortiMail、FortiAuthenticatorのセキュリティ強化更新を発表。豪州政府も10月23日に重大警告を公表。対象製品の確認、修正版への更新、更新できない場合の暫定対策を整理する。",
+    "category": "仕事",
+    "score": 93,
+    "published_at": "2026-10-24",
+    "source_url": "https://www.fortinet.com/jp/blog/ciso-collective/fortinet-releases-security-hardening-release-for-multiple-products",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Fortinetの複数製品で重大度の高い脆弱性への対処を含む更新が公開された。企業はインターネット公開機器を優先して対象バージョンと修正版を照合し、計画的に更新したい。個別のCVE情報は11月10日公表予定で、豪州当局は現地での悪用を確認していない。",
+    "sections": [
+      {
+        "title": "企業のネットワークを守る製品に重要な更新",
+        "body": "Fortinetは2026年10月21日、FortiOS、FortiManager、FortiAnalyzerなど複数製品のセキュリティ強化更新を案内した。FortiOSなどの修正版は22日に提供予定とされ、FortiMail、FortiAuthenticatorの更新も対象となる。10月23日にはオーストラリア政府のサイバーセキュリティ機関ACSCが重大警告を公表し、利用組織に対象製品の確認と更新を優先するよう求めた。対象バージョンと修正版は製品・系列ごとに異なるため、Fortinetの公式一覧を確認する必要がある。公式一覧：https://www.fortinet.com/jp/blog/ciso-collective/fortinet-releases-security-hardening-release-for-multiple-products"
+      },
+      {
+        "title": "AIが脆弱性を発見する時代",
+        "body": "Fortinetは今回の更新に、フロンティアAIを用いたセキュリティテストで特定された脆弱性への修正が含まれると説明している。同社はAnthropic、OpenAI、Google、SpaceXとの協力にも言及した。AIは業務効率化だけでなく、ソフトウェアの安全性検証にも利用され始めている。ただし、個々の脆弱性の技術的詳細は現時点ではすべて公表されておらず、AIによって攻撃が実際に加速したと断定する根拠ではない。"
+      },
+      {
+        "title": "企業が確認したいこと",
+        "body": "まず社内で利用するFortinet製品とバージョンを棚卸しし、インターネットに公開された機器を優先して修正版への更新を計画する。更新前には設定のバックアップを取り、更新前後のログで異常な管理アクセスや不審な設定変更がないかを確認したい。すぐに更新できない場合は、管理用HTTPS・SSHへの接続元を信頼できるIPに限定し、FortiManagerの管理画面をインターネットに公開しないこと、管理者の多要素認証と強固な認証情報の使用が暫定対策となる。ただし暫定対策は更新の代替にはならない。"
+      },
+      {
+        "title": "現時点で分かっていないこと",
+        "body": "Fortinetは個別の公開セキュリティアドバイザリを2026年11月10日に公開する予定としている。オーストラリア政府ACSCは10月23日時点で、同国内で今回の脆弱性の悪用を確認していないと説明した。重大な脆弱性への更新が必要であることと、攻撃被害が既に発生していることは区別して伝える必要がある。豪州政府の一次情報：https://www.cyber.gov.au/alert/critical-vulnerabilities-in-fortinet-products"
+      },
+      {
+        "title": "WORK SIGNALの視点：更新体制もセキュリティの一部",
+        "body": "ここからは編集部の考察だ。AIによって脆弱性を見つける技術が進むほど、企業には製品の把握、更新の判断、担当者間の連絡を迅速に行う運用体制が求められる。問題が公表されてから担当を決めるのではなく、日頃から機器の一覧、更新手順、バックアップ、緊急時の判断権限を整えておくことが重要だ。今回のFortinetの発表は、AI時代の安全性が技術と運用の両方で支えられることを考える機会になる。"
+      }
+    ]
+  },
+  {
     "id": "20261024-express-body-parser-compressed-request-dos",
     "title": "Express関連のbody-parserに重大脆弱性。認証不要の1リクエストでサーバー停止の恐れ",
     "summary": "Expressなどで使われるbody-parserにHigh（CVSS 7.5）のDoS脆弱性。圧縮リクエストの末尾データが未捕捉例外を起こす可能性があり、修正版1.20.9／2.4.0への更新が必要だ。",

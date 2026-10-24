@@ -646,6 +646,53 @@ def build(output, feed=None):
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / 'nba' / asset, destination)
     index = (ROOT / 'index.html').read_text()
+    # SECURITY WATCH: independent alert feed; article publication dates remain unchanged.
+    security_feed = json.loads((ROOT / 'data/security-watch.json').read_text())
+    security_rows = []
+    for alert in security_feed:
+        article_id = alert.get('article_id')
+        article = next((item for item in articles if item['id'] == article_id), None)
+        update_date = (modified.get(article_id) if article else None) or alert['date']
+        security_rows.append((update_date, alert, article))
+    security_rows.sort(key=lambda row: (row[0], row[1]['date']), reverse=True)
+    def security_card(row):
+        updated, alert, article = row
+        severity = esc(alert['severity'])
+        title = esc(alert['product'])
+        href = '/articles/' + esc(article['id']) + '/' if article else '/security/'
+        updated_label = '<span class="sw-updated">UPDATED</span>' if updated > alert['date'] else ''
+        return ('<a class="sw-item" href="' + href + '"><span class="sw-level sw-' + severity.lower()
+                + '">' + severity + '</span><span class="sw-copy"><strong>' + title + '</strong>'
+                + '<span>' + esc(alert['summary']) + '</span></span><span class="sw-date">'
+                + updated_label + esc(updated[:10]) + '</span></a>')
+    security_home = '<section class="sw-section" aria-labelledby="sw-title"><div class="sw-heading"><div><span class="sw-kicker">/ VERIFIED SECURITY INTELLIGENCE</span><h2 id="sw-title">SECURITY WATCH<span>.</span></h2><p>主要Web技術の脆弱性と修正情報。重要な記事更新もここで確認できます。</p></div><a href="/security/">ALL SECURITY ALERTS</a></div><div class="sw-items">' + ''.join(security_card(row) for row in security_rows[:4]) + '</div></section>'
+    security_styles = """<style>
+.sw-section{margin:34px 0 46px;padding:26px 28px;background:#f8f6f1;border:1px solid #dedbd3;border-radius:8px;color:#242424}
+.sw-heading{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:18px}
+.sw-kicker{font-size:10px;letter-spacing:.16em;font-weight:700;color:#716f69}
+.sw-heading h2{font-size:clamp(22px,3vw,34px);letter-spacing:-.045em;margin:5px 0}
+.sw-heading h2 span{color:#d07a2c}.sw-heading p{font-size:12px;color:#65625d;margin:0}
+.sw-heading>a{font-size:11px;font-weight:800;letter-spacing:.08em;color:inherit;text-decoration:none;white-space:nowrap}
+.sw-items{border-top:1px solid #d9d6cf}.sw-item{display:flex;align-items:center;gap:18px;padding:15px 0;border-bottom:1px solid #d9d6cf;color:inherit;text-decoration:none}
+.sw-level{min-width:80px;text-align:center;border:1px solid #aaa;padding:5px 7px;font-size:10px;font-weight:800;letter-spacing:.06em}
+.sw-critical{border-color:#a74b3d;color:#a74b3d}.sw-high{border-color:#a46d20;color:#98631e}
+.sw-copy{display:flex;flex:1;flex-direction:column;gap:3px;min-width:0}.sw-copy strong{font-size:14px}.sw-copy>span{font-size:12px;color:#68645e}
+.sw-date{font-size:11px;color:#78736c;white-space:nowrap;text-align:right}.sw-updated{display:block;color:#aa6220;font-size:9px;font-weight:800;letter-spacing:.08em}
+@media(max-width:620px){.sw-section{padding:18px 16px;margin:20px 0 30px}.sw-heading{align-items:start;flex-direction:column}.sw-item{gap:9px}.sw-level{min-width:65px;font-size:9px}.sw-date{font-size:10px}.sw-copy>span{font-size:11px}}
+</style>"""
+    index = index.replace('</style>', '</style>' + security_styles, 1)
+    index = index.replace('<div class="shell"><section class="section" id="latest">', '<div class="shell">' + security_home + '<section class="section" id="latest">', 1)
+    security_page = ('<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+        + '<title>SECURITY WATCH | WORK SIGNAL</title><meta name="description" content="主要Web技術の脆弱性・修正版・更新情報">'
+        + security_styles + '</head><body style="margin:0;background:#f2efe7;font-family:system-ui,sans-serif">'
+        + '<main style="max-width:1050px;margin:auto;padding:24px"><p><a href="/" style="color:inherit">WORK SIGNAL / HOME</a></p>'
+        + '<section class="sw-section"><div class="sw-heading"><div><span class="sw-kicker">/ VERIFIED SECURITY INTELLIGENCE</span>'
+        + '<h2>SECURITY WATCH<span>.</span></h2><p>公式情報に基づく脆弱性アラート。更新日順に表示。</p></div></div><div class="sw-items">'
+        + ''.join(security_card(row) for row in security_rows)
+        + '</div></section></main></body></html>')
+    security_dir = output / 'security'
+    security_dir.mkdir(exist_ok=True)
+    (security_dir / 'index.html').write_text(security_page)
     cards = ''.join(article_card(article) for article in articles)
     if not cards:
         cards = '<div class="empty"><div><strong>THE SIGNAL IS COMING.</strong><p>公開準備中です。</p></div></div>'

@@ -1,5 +1,23 @@
 [
   {
+    "id": "craft-commerce-mollie-payment-reuse",
+    "product": "Craft Commerce Mollie",
+    "severity": "HIGH",
+    "date": "2026-10-24",
+    "article_id": "20261024-craft-commerce-mollie-payment-reuse",
+    "summary": "未払い注文を決済済みにできる恐れ（CVSS 8.7）",
+    "status": "修正版あり"
+  },
+  {
+    "id": "prime-mover-object-injection",
+    "product": "Prime Mover (WordPress)",
+    "severity": "CRITICAL",
+    "date": "2026-10-24",
+    "article_id": "20261024-prime-mover-wordpress-object-injection",
+    "summary": "コメント経由のPHPオブジェクトインジェクション（CVSS 9.8）",
+    "status": "2.2.2で修正表明・検証状況要確認"
+  },
+  {
     "id": "echo-websocket-auth-bypass",
     "product": "Echo (Go)",
     "severity": "CRITICAL",

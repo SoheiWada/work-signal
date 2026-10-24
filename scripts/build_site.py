@@ -674,7 +674,7 @@ def build(output, feed=None):
 .sw-heading h2 span{color:#d07a2c}.sw-heading p{font-size:12px;color:#65625d;margin:0}
 .sw-heading>a{font-size:11px;font-weight:800;letter-spacing:.08em;color:inherit;text-decoration:none;white-space:nowrap}
 .sw-pulse{height:22px;max-width:410px;margin:5px 0 9px;overflow:hidden;opacity:.9;isolation:isolate}.sw-pulse svg{display:block;width:100%;height:100%;overflow:hidden}.sw-baseline{fill:none;stroke:#b6b0a6;stroke-width:.7;opacity:.45}
-.sw-wave{fill:none;stroke-linecap:round;stroke-linejoin:round}.sw-wave-main{stroke:#bb4446;stroke-width:1.7;animation:sw-distortion 5.2s steps(1,end) 1 both}.sw-wave-echo{stroke:#e38a85;stroke-width:1.1;opacity:0;animation:sw-ghost 5.2s steps(1,end) 1 both}.sw-tear{fill:#bb4446;opacity:0;animation:sw-tearing 5.2s steps(1,end) 1 both}
+.sw-wave{fill:none;stroke-linecap:round;stroke-linejoin:round}.sw-wave-main{stroke:#bb4446;stroke-width:1.7;animation:sw-distortion 8s steps(1,end) infinite both}.sw-wave-echo{stroke:#e38a85;stroke-width:1.1;opacity:0;animation:sw-ghost 8s steps(1,end) infinite both}.sw-tear{fill:#bb4446;opacity:0;animation:sw-tearing 8s steps(1,end) infinite both}
 @keyframes sw-distortion{0%,12%,24%,38%,50%,65%,80%,100%{transform:translateX(0) skewX(0);opacity:1}14%{transform:translateX(11px) skewX(5deg)}16%{transform:translateX(-8px)}18%{transform:translateX(4px)}40%{transform:translateX(-14px) skewX(-7deg)}42%{transform:translateX(9px)}44%{transform:translateX(-3px)}67%{transform:translateX(10px);opacity:.3}69%{transform:translateX(-7px);opacity:.75}71%{transform:translateX(0);opacity:1}}
 @keyframes sw-ghost{0%,12%,24%,38%,50%,65%,80%,100%{opacity:0;transform:translateX(0)}14%,40%,67%{opacity:.55;transform:translateX(13px)}18%,44%,71%{opacity:.3;transform:translateX(-8px)}}
 @keyframes sw-tearing{0%,12%,24%,38%,50%,65%,80%,100%{opacity:0;transform:translateY(0)}14%,40%,67%{opacity:.2;transform:translateY(5px)}16%,42%,69%{opacity:.1;transform:translateY(-5px)}}
@@ -688,7 +688,28 @@ def build(output, feed=None):
 .sw-date{font-size:11px;color:#78736c;white-space:nowrap;text-align:right}.sw-updated{display:block;color:#aa6220;font-size:9px;font-weight:800;letter-spacing:.08em}
 @media(max-width:620px){.sw-section{padding:18px 16px;margin:20px 0 30px}.sw-heading{align-items:start;flex-direction:column}.sw-item{gap:9px}.sw-level{min-width:65px;font-size:9px}.sw-date{font-size:10px}.sw-copy>span{font-size:11px}}
 </style>"""
+    security_motion_script = """<script>
+(function(){
+  const pulse = document.querySelector('.sw-pulse');
+  if (!pulse) return;
+  const animations = () => pulse.querySelectorAll('.sw-wave-main, .sw-wave-echo, .sw-tear');
+  const setPlayback = (running) => {
+    animations().forEach(el => { el.style.animationPlayState = running ? 'running' : 'paused'; });
+  };
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      setPlayback(entries[0].isIntersecting && !document.hidden);
+    }, {threshold: 0});
+    observer.observe(pulse);
+  }
+  document.addEventListener('visibilitychange', () => {
+    setPlayback(!document.hidden && pulse.getBoundingClientRect().bottom > 0 && pulse.getBoundingClientRect().top < innerHeight);
+  });
+  if (pulse.getBoundingClientRect().top >= innerHeight || pulse.getBoundingClientRect().bottom <= 0) setPlayback(false);
+})();
+</script>"""
     index = index.replace('</style>', '</style>' + security_styles, 1)
+    index = index.replace('</body>', security_motion_script + '</body>', 1)
     index = index.replace('<div class="shell"><section class="section" id="latest">', '<div class="shell">' + security_home + '<section class="section" id="latest">', 1)
     security_page = ('<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
         + '<title>SECURITY WATCH | WORK SIGNAL</title><meta name="description" content="主要Web技術の脆弱性・修正版・更新情報">'

@@ -1,5 +1,14 @@
 [
   {
+    "id": "php-session-progress",
+    "product": "PHP",
+    "severity": "HIGH",
+    "date": "2026-10-23",
+    "article_id": "20261022-php2shell-critical-vulnerabilities",
+    "summary": "セッション設定の特殊な組み合わせでRCEリスク。公式が追加勧告",
+    "status": "修正版待ち（条件付き）"
+  },
+  {
     "id": "storybook",
     "product": "Storybook",
     "severity": "CRITICAL",

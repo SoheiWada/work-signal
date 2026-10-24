@@ -1,0 +1,47 @@
+[
+  {
+    "id": "storybook",
+    "product": "Storybook",
+    "severity": "CRITICAL",
+    "date": "2026-10-24",
+    "article_id": "20261024-storybook-dev-server-critical-security",
+    "summary": "開発サーバー経由のコード実行リスク",
+    "status": "修正版あり"
+  },
+  {
+    "id": "body-parser",
+    "product": "body-parser",
+    "severity": "HIGH",
+    "date": "2026-10-24",
+    "article_id": "20261024-express-body-parser-compressed-request-dos",
+    "summary": "圧縮リクエストによるサービス停止リスク",
+    "status": "修正版あり"
+  },
+  {
+    "id": "laravel",
+    "product": "Laravel",
+    "severity": "CRITICAL",
+    "date": "2026-10-19",
+    "article_id": null,
+    "summary": "TokenGuardの認証回避リスク",
+    "status": "修正版あり"
+  },
+  {
+    "id": "nodejs",
+    "product": "Node.js",
+    "severity": "HIGH",
+    "date": "2026-10-22",
+    "article_id": "20261022-nodejs-security-update-10-vulnerabilities",
+    "summary": "Brotli関連を含むセキュリティ修正",
+    "status": "修正版あり"
+  },
+  {
+    "id": "bun",
+    "product": "Bun",
+    "severity": "HIGH",
+    "date": "2026-10-23",
+    "article_id": "20261023-bun-144-brotli-security-update",
+    "summary": "BrotliとTLS証明書に関する修正",
+    "status": "修正版あり"
+  }
+]

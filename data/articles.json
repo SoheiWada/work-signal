@@ -1,5 +1,47 @@
 [
   {
+    "id": "20261024-1password-agents-passwordless-ai-login",
+    "title": "AIにパスワードを教えず、仕事を任せる。1Passwordが示したAIエージェントの新しい認証方法",
+    "summary": "1Passwordは2026年10月22日、AIエージェントがユーザーの承認を受け、パスワードをモデルに見せずにログインできる「1Password for Agents」を発表。対応状況とログイン後に残るリスクを整理する。",
+    "category": "AI",
+    "score": 90,
+    "published_at": "2026-10-24",
+    "source_url": "https://1password.com/blog/1password-for-ai-agents",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "AIがWebサービスへログインするとき、ユーザーが1Passwordで承認し、認証情報はAIモデルに渡さず直接入力する仕組み。個人・ファミリープラン向けで、ChatGPT WorkやClaudeなど一部連携は今後提供予定。ログイン後の操作権限管理は別途必要だ。",
+    "sections": [
+      {
+        "title": "AIに仕事を任せるには、ログインが必要になる",
+        "body": "AIエージェントに旅行の予約、経費精算、日々の事務作業を任せたい。しかし、実際に作業を進めるにはWebサービスへのログインが必要になる。パスワードをAIへの指示文に貼り付ければ、機密情報が意図しない場所に残るリスクがある。1Passwordが2026年10月22日に発表した「1Password for Agents」は、この課題に対する新しい仕組みだ。\n\nAIにパスワードそのものを渡すのではなく、ユーザーがログインを承認し、1Passwordが認証情報を入力する。AIが扱う情報と認証情報を分離する考え方が中心にある。"
+      },
+      {
+        "title": "ログイン時は『AIが依頼→人が承認→1Passwordが入力』",
+        "body": "対応するAIエージェントがログイン画面に到達すると、必要な認証情報の利用を要求する。ユーザーは1Password側で対象のログイン情報を確認し、許可するかどうかを決める。承認されると、1Passwordがパスワードやワンタイムコードをログイン画面に直接入力する。AIモデルに認証情報を送る必要はない。\n\n1Passwordによると、エージェントは固有のデジタルキーを使って1Passwordに自身を示し、ユーザーの端末で承認が行われる。保管庫全体をAIに渡す仕組みではなく、必要なログインごとにアクセスを管理する。"
+      },
+      {
+        "title": "ChatGPT WorkやClaudeなど、対応は段階的",
+        "body": "1PasswordはMetaのMuse、SpaceXSIのGrok Bot、AnthropicのClaude Duet、OpenAIのChatGPT Workとdots、TownのTownieなどとの連携を発表した。ただし、すべてが発表日に利用可能になったわけではない。\n\n公式ブログによると、MuseとGrok Botは数日かけて展開予定。Claude Duet、ChatGPT Workとdots、Townieの連携は今後提供予定とされている。連携先ごとに対応端末や機能、保護の仕組みが異なるため、利用前に公式の対応状況を確認する必要がある。"
+      },
+      {
+        "title": "対象アカウントと料金の注意点",
+        "body": "1Password for Agentsは、1Password.comのIndividual（個人）およびFamily（ファミリー）アカウント向けに追加料金なしで提供される。1Password.euと1Password.caのアカウントは現時点で対象外だ。地域やプラットフォーム、エージェントごとの対応状況にも制限がある。\n\n企業向けプランの全利用者がすぐ使えるという意味ではない。AIエージェントの業務利用を検討する場合、対象プラン、利用規約、連携先の安全性、社内の認証ポリシーを確認したい。"
+      },
+      {
+        "title": "パスワードを守れても、ログイン後の操作は別問題",
+        "body": "パスワードがAIに見えないことは重要な改善だが、ログイン後にAIが閲覧・変更・送信できる情報まで自動的に制限するものではない。ログイン先の権限によっては、機密情報の閲覧や外部送信、購入などの操作が可能になる。\n\nAIに任せる作業は具体的に指定し、送金、購入、データ削除、外部共有など重要な操作には別途承認を設ける。作業履歴を確認し、必要がなくなった接続は解除する。認証情報の保護と操作権限の管理を分けて考えることが大切だ。"
+      },
+      {
+        "title": "WORK SIGNALの視点｜AIに渡すのはパスワードではなく、必要な権限",
+        "body": "ここからは編集部の考察だ。AIエージェントが実務を担うようになると、便利さの条件は『AIが何でもできること』ではなく、『人が必要な範囲だけ任せられること』に変わる。\n\n1Password for Agentsは、AIが仕事を進めるための認証情報をモデルから分離し、人間の承認を組み込む具体例だ。今後は、ログイン時だけでなく、ログイン後の操作にも同様の透明性と制御を組み込めるかが問われるだろう。"
+      },
+      {
+        "title": "一次情報",
+        "body": "1Password公式ブログ（2026年10月22日）：https://1password.com/blog/1password-for-ai-agents\n1Password公式プレスリリース：https://1password.com/press/2026/october/1password-for-agents-trust-layer-personal-ai-agents\n対応状況：https://1password.com/personal-ai-agent-integrations"
+      }
+    ]
+  },
+  {
     "id": "20261024-sec-fy2027-ai-tokenization-exam-priorities",
     "title": "AIとデジタル証券を米SECが重点監視へ。2027年の検査方針が示す金融の変化",
     "summary": "米SECは2026年10月23日、2027会計年度の検査重点項目を発表。先端AI技術、証券のトークン化、サイバーセキュリティ、投資家保護を重視する。新たな規制ではなく、既存ルールの遵守状況を調べる監督方針だ。",

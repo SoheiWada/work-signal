@@ -46,7 +46,7 @@ function initMarket(art) {
   const narrow = matchMedia('(max-width: 399px)');
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
   let pending = new Set(), quotes = [], selected = null, opener = null, offset = 0, paused = false, hovering = false, visible = true, specimen = false, loading = false, lastRotation = Date.now(), timer, fadeTimer, request, acquisitionTimer, revealTimer, suppressAcquire = false;
-  const count = () => mobile.matches ? narrow.matches ? 2 : 3 : 4;
+  const count = () => mobile.matches ? 3 : 4;
   const coords = () => mobile.matches ? [[22, 30], [78, 37], [28, 73]] : [[22, 27], [78, 37], [23, 72], [78, 77]];
   const active = () => quotes.filter(q => canFloat(q));
   const frozen = () => paused || reduced.matches || selected !== null || hovering || layer.contains(document.activeElement) || !visible || document.hidden;

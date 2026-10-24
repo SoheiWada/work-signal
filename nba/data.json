@@ -3,12 +3,12 @@
   "provider": "balldontlie",
   "season": 2026,
   "throughDate": "2026-10-23",
-  "fetchedAt": "2026-10-23T15:11:53.254Z",
-  "lastAttemptAt": "2026-10-23T15:11:53.254Z",
+  "fetchedAt": "2026-10-24T00:47:58.345Z",
+  "lastAttemptAt": "2026-10-24T00:47:58.345Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 16,
+  "countedGames": 17,
   "standingsReason": null,
   "teams": [
     {
@@ -43,7 +43,7 @@
       "code": "CHI",
       "name": "Chicago Bulls",
       "conference": "East",
-      "wins": 0,
+      "wins": 1,
       "losses": 1
     },
     {
@@ -128,7 +128,7 @@
       "name": "Milwaukee Bucks",
       "conference": "East",
       "wins": 0,
-      "losses": 1
+      "losses": 2
     },
     {
       "code": "MIN",
@@ -223,6 +223,18 @@
     }
   ],
   "sets": [
+    [
+      {
+        "id": "21717941",
+        "date": "2026-10-23",
+        "home": "MIL",
+        "away": "CHI",
+        "homeScore": 125,
+        "awayScore": 132,
+        "competition": "regular",
+        "countsForStandings": true
+      }
+    ],
     [
       {
         "id": "21717861",

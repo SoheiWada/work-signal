@@ -1,5 +1,23 @@
 [
   {
+    "id": "undici-content-encoding",
+    "product": "undici",
+    "severity": "HIGH",
+    "date": "2026-10-24",
+    "article_id": "20261024-undici-content-encoding-dos",
+    "summary": "悪意あるHTTP応答でNode.jsプロセス停止の恐れ",
+    "status": "修正版あり"
+  },
+  {
+    "id": "craft-cms-twig-sandbox",
+    "product": "Craft CMS",
+    "severity": "HIGH",
+    "date": "2026-10-24",
+    "article_id": "20261024-craft-cms-twig-sandbox-security",
+    "summary": "低権限管理ユーザーから秘密鍵推測・コード実行につながる恐れ",
+    "status": "修正版あり"
+  },
+  {
     "id": "multer-async-filefilter",
     "product": "Multer",
     "severity": "HIGH",

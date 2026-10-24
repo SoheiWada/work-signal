@@ -1,5 +1,14 @@
 [
   {
+    "id": "postiz-three-critical",
+    "product": "Postiz",
+    "severity": "CRITICAL",
+    "date": "2026-10-25",
+    "article_id": "20261025-postiz-three-critical-vulnerabilities",
+    "summary": "機密ファイル流出・署名トークン偽造など重大脆弱性3件（最大CVSS 9.9）",
+    "status": "修正版あり"
+  },
+  {
     "id": "asvereinbase-auth-bypass",
     "product": "asVereinbase (WordPress)",
     "severity": "CRITICAL",
@@ -120,9 +129,9 @@
     "id": "bun",
     "product": "Bun",
     "severity": "HIGH",
-    "date": "2026-10-23",
+    "date": "2026-10-25",
     "article_id": "20261023-bun-144-brotli-security-update",
-    "summary": "BrotliとTLS証明書に関する修正",
+    "summary": "Brotli・TLS証明書に加えHTTP/3 QPACK増幅によるDoSも修正",
     "status": "修正版あり"
   }
 ]

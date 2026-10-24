@@ -667,6 +667,17 @@ def build(output, feed=None):
                 + updated_label + esc(updated[:10]) + '</span></a>')
     security_home = '<section class="sw-section" aria-labelledby="sw-title"><div class="sw-heading"><div><span class="sw-kicker">/ VERIFIED SECURITY INTELLIGENCE</span><h2 id="sw-title">SECURITY WATCH<span>.</span></h2><div class="sw-pulse" aria-hidden="true"><svg viewBox="0 0 480 24" preserveAspectRatio="none" focusable="false"><path class="sw-baseline" d="M0 12 H480"/><path class="sw-wave sw-wave-echo" d="M0 12 H160 L169 12 L175 8 L182 17 L190 4 L198 20 L206 12 H310 L316 9 L322 15 L328 12 H480"/><path class="sw-wave sw-wave-main" d="M0 12 H160 L169 12 L175 8 L182 17 L190 4 L198 20 L206 12 H310 L316 9 L322 15 L328 12 H480"/><rect class="sw-tear" x="0" y="9" width="480" height="4"/></svg></div><p>主要Web技術の脆弱性と修正情報。重要な記事更新もここで確認できます。</p></div></div><div class="sw-items">' + ''.join(security_card(row) for row in security_rows[:4]) + '</div><a class="sw-more" href="/security/"><span class="sw-more-noise" aria-hidden="true"></span><span class="sw-more-label">MORE SECURITY SIGNALS</span></a></section>'
     security_styles = """<style>
+.sw-archive-page{margin:0;min-height:100vh;background:radial-gradient(ellipse at 78% 0%,rgba(131,48,55,.30),transparent 52%),linear-gradient(145deg,#402225 0%,#261b20 46%,#17181d 100%);font-family:system-ui,sans-serif;color:#f5eee9}
+.sw-archive-page::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,transparent 0 5px,rgba(211,96,89,.13) 5px 6px,transparent 6px 12px)}
+.sw-archive-main{position:relative;max-width:1050px;margin:auto;padding:24px}
+.sw-back{margin:12px 0 24px}.sw-back a{color:#f4e8e2;text-decoration:underline;text-underline-offset:4px}
+.sw-archive-page .sw-section{margin-top:0}
+.sw-archive-heading{position:relative;isolation:isolate;overflow:hidden;min-height:148px;align-items:center;padding:24px 22px;margin:-26px -28px 20px;background:linear-gradient(110deg,#332125,#221c21 80%);border-radius:8px 8px 0 0}
+.sw-archive-heading>div{position:relative;z-index:1}.sw-archive-heading .sw-kicker{color:#d49a91}.sw-archive-heading h2{color:#f7f2ec}.sw-archive-heading h2 span{color:#d25b4f}.sw-archive-heading p{color:#d1bcba}
+.sw-archive-noise{position:absolute;inset:0;pointer-events:none;z-index:-1;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(220,85,77,.10) 3px 4px,transparent 4px 9px),linear-gradient(90deg,transparent 10%,rgba(211,75,67,.17) 32%,transparent 37% 62%,rgba(211,75,67,.14) 67%,transparent 74%);animation:sw-more-signal 8s steps(1,end) infinite}
+.sw-archive-heading::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 20%,rgba(236,99,87,.24) 22%,transparent 24% 63%,rgba(236,99,87,.17) 64%,transparent 66%);opacity:0;animation:sw-more-flash 8s steps(1,end) infinite}
+@media(max-width:620px){.sw-archive-main{padding:18px}.sw-archive-heading{margin:-18px -16px 18px;padding:26px 16px;min-height:124px}}
+@media(prefers-reduced-motion:reduce){.sw-archive-noise,.sw-archive-heading::after{animation:none!important}.sw-archive-heading::after{opacity:0!important}}
 .sw-section{margin:34px 0 46px;padding:26px 28px;background:#f8f6f1;border:1px solid #dedbd3;border-radius:8px;color:#242424}
 .sw-heading{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:18px}
 .sw-kicker{font-size:10px;letter-spacing:.16em;font-weight:700;color:#716f69}
@@ -721,9 +732,9 @@ def build(output, feed=None):
     index = index.replace('<div class="shell"><section class="section" id="latest">', '<div class="shell">' + security_home + '<section class="section" id="latest">', 1)
     security_page = ('<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
         + '<title>SECURITY WATCH | WORK SIGNAL</title><meta name="description" content="主要Web技術の脆弱性・修正版・更新情報">'
-        + security_styles + '</head><body style="margin:0;background:#f2efe7;font-family:system-ui,sans-serif">'
-        + '<main style="max-width:1050px;margin:auto;padding:24px"><p><a href="/" style="color:inherit">WORK SIGNAL / HOME</a></p>'
-        + '<section class="sw-section"><div class="sw-heading"><div><span class="sw-kicker">/ VERIFIED SECURITY INTELLIGENCE</span>'
+        + security_styles + '</head><body class="sw-archive-page">'
+        + '<main class="sw-archive-main"><p class="sw-back"><a href="/">WORK SIGNAL / HOME</a></p>'
+        + '<section class="sw-section sw-archive"><div class="sw-heading sw-archive-heading"><div><span class="sw-archive-noise" aria-hidden="true"></span><span class="sw-kicker">/ VERIFIED SECURITY INTELLIGENCE</span>'
         + '<h2>SECURITY WATCH<span>.</span></h2><p>公式情報に基づく脆弱性アラート。更新日順に表示。</p></div></div><div class="sw-items">'
         + ''.join(security_card(row) for row in security_rows)
         + '</div></section></main></body></html>')

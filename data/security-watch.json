@@ -1,5 +1,23 @@
 [
   {
+    "id": "asvereinbase-auth-bypass",
+    "product": "asVereinbase (WordPress)",
+    "severity": "CRITICAL",
+    "date": "2026-10-24",
+    "article_id": "20261024-asvereinbase-wordpress-auth-bypass",
+    "summary": "未認証で管理者を含む任意ユーザーにログインできる恐れ（CVSS 9.8）",
+    "status": "修正版あり"
+  },
+  {
+    "id": "user-profile-builder-privilege-escalation",
+    "product": "User Profile Builder (WordPress)",
+    "severity": "HIGH",
+    "date": "2026-10-24",
+    "article_id": "20261024-user-profile-builder-privilege-escalation",
+    "summary": "投稿者以上から編集者アカウント作成の恐れ（CVSS 7.1）",
+    "status": "修正版あり"
+  },
+  {
     "id": "craft-commerce-mollie-payment-reuse",
     "product": "Craft Commerce Mollie",
     "severity": "HIGH",

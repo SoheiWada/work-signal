@@ -1,5 +1,14 @@
 [
   {
+    "id": "multer-async-filefilter",
+    "product": "Multer",
+    "severity": "HIGH",
+    "date": "2026-10-24",
+    "article_id": "20261024-multer-async-filefilter-dos",
+    "summary": "非同期fileFilterで認証不要のDoSリスク。2.5.0で修正",
+    "status": "修正版あり"
+  },
+  {
     "id": "php-session-progress",
     "product": "PHP",
     "severity": "HIGH",

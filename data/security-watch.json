@@ -1,5 +1,14 @@
 [
   {
+    "id": "echo-websocket-auth-bypass",
+    "product": "Echo (Go)",
+    "severity": "CRITICAL",
+    "date": "2026-10-24",
+    "article_id": "20261024-echo-websocket-auth-bypass",
+    "summary": "Proxy経由でルート別認証・認可を回避する恐れ（CVSS 9.1）",
+    "status": "修正版あり"
+  },
+  {
     "id": "undici-content-encoding",
     "product": "undici",
     "severity": "HIGH",

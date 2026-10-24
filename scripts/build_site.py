@@ -672,6 +672,16 @@ def build(output, feed=None):
 .sw-archive-main{position:relative;max-width:1050px;margin:auto;padding:24px}
 .sw-back{margin:12px 0 24px}.sw-back a{color:#f4e8e2;text-decoration:underline;text-underline-offset:4px}
 .sw-archive-page .sw-section{margin-top:0}
+.sw-back{margin:2px 0 16px}
+.sw-back a{position:relative;display:inline-flex;align-items:center;justify-content:center;isolation:isolate;overflow:hidden;min-height:44px;padding:0 15px;border:1px solid rgba(190,116,105,.58);border-radius:4px;background:#282426;color:#f3e9e5;text-decoration:none;font:650 11px/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.09em}
+.sw-back-label{position:relative;z-index:2}
+.sw-back-noise{position:absolute;inset:0;z-index:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(228,103,80,.16) 3px 4px,transparent 4px 8px),linear-gradient(92deg,transparent 0 28%,rgba(201,65,57,.30) 32%,transparent 39% 65%,rgba(230,108,83,.24) 70%,transparent 76%);animation:sw-more-signal 8s steps(1,end) infinite}
+.sw-back a::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 15%,rgba(236,99,87,.24) 20%,transparent 26% 67%,rgba(236,99,87,.17) 72%,transparent 77%);opacity:0;animation:sw-more-flash 8s steps(1,end) infinite}
+.sw-back a:hover,.sw-back a:focus-visible{border-color:#d18b80;background:#34292a}
+.sw-back a:focus-visible{outline:2px solid #e2aa8b;outline-offset:3px}
+@media(max-width:620px){.sw-archive-page .sw-archive-heading{min-height:0;padding:20px 19px 16px;margin:-18px -16px 16px;gap:12px}.sw-archive-page .sw-archive-index{margin-bottom:15px}.sw-archive-page .sw-archive-heading h2{margin:12px 0 10px;font-size:clamp(42px,11vw,58px)}.sw-archive-page .sw-archive-monitor{position:absolute;right:14px;bottom:10px;top:auto;width:84px;height:32px;opacity:.42}.sw-archive-page .sw-archive-monitor svg{height:30px}.sw-archive-page .sw-archive-heading p{max-width:260px}.sw-archive-page .sw-section{margin-top:0}}
+@media(prefers-reduced-motion:reduce){.sw-back-noise,.sw-back a::after{animation:none!important}.sw-back a::after{opacity:0!important}}
+
 .sw-archive-heading{position:relative;isolation:isolate;overflow:hidden;min-height:148px;align-items:center;padding:24px 22px;margin:-26px -28px 20px;background:linear-gradient(110deg,#332125,#221c21 80%);border-radius:8px 8px 0 0}
 .sw-archive-heading>div{position:relative;z-index:1}.sw-archive-heading .sw-kicker{color:#d49a91}.sw-archive-heading h2{color:#f7f2ec}.sw-archive-heading h2 span{color:#d25b4f}.sw-archive-heading p{color:#d1bcba}
 .sw-archive-noise{position:absolute;inset:0;pointer-events:none;z-index:-1;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(220,85,77,.10) 3px 4px,transparent 4px 9px),linear-gradient(90deg,transparent 10%,rgba(211,75,67,.17) 32%,transparent 37% 62%,rgba(211,75,67,.14) 67%,transparent 74%);animation:sw-more-signal 8s steps(1,end) infinite}
@@ -750,7 +760,7 @@ def build(output, feed=None):
     security_page = ('<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
         + '<title>SECURITY WATCH | WORK SIGNAL</title><meta name="description" content="主要Web技術の脆弱性・修正版・更新情報">'
         + security_styles + '</head><body class="sw-archive-page">'
-        + '<main class="sw-archive-main"><p class="sw-back"><a href="/">WORK SIGNAL / HOME</a></p>'
+        + '<main class="sw-archive-main"><p class="sw-back"><a href="/"><span class="sw-back-noise" aria-hidden="true"></span><span class="sw-back-label">BACK TO WORK SIGNAL</span></a></p>'
         + '<section class="sw-section sw-archive"><div class="sw-heading sw-archive-heading"><span class="sw-archive-noise" aria-hidden="true"></span><span class="sw-archive-grid" aria-hidden="true"></span><div class="sw-archive-copy"><span class="sw-archive-index" aria-hidden="true">WS / 01 — THREAT INTELLIGENCE</span><span class="sw-kicker">/ VERIFIED SECURITY INTELLIGENCE</span>'
         + '<h2>SECURITY<br>WATCH<span>.</span></h2><p>公式情報に基づく脆弱性アラート。更新日順に表示。</p></div><div class="sw-archive-monitor" aria-hidden="true"><span class="sw-monitor-label">SIGNAL / MONITORING</span><svg viewBox="0 0 260 100" preserveAspectRatio="none"><path class="sw-monitor-axis" d="M0 50H260M0 25H260M0 75H260"/><path class="sw-monitor-trace" d="M0 50H60L68 46L74 56L82 12L91 90L100 50H148L155 43L162 62L171 50H260"/></svg><span class="sw-monitor-foot">CONTINUOUS OBSERVATION · VERIFIED SOURCES</span></div></div><div class="sw-items">'
         + ''.join(security_card(row) for row in security_rows)

@@ -1,0 +1,64 @@
+name: One-time WORK SIGNAL crosspost verification
+
+on:
+  workflow_run:
+    workflows: ["Build and deploy WORK SIGNAL"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: work-signal-social-publishing
+  cancel-in-progress: false
+
+jobs:
+  first-post:
+    # This one-time job can run ONLY after this specifically approved content commit
+    # successfully deploys the site. Other releases and historical articles are excluded.
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main' &&
+      github.event.workflow_run.head_commit.message == 'social-test-one-shot-20261024-nec'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout the exact successfully deployed commit
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Test social publishing safety checks
+        run: python -m unittest discover -s tests -p 'test_social_publish.py'
+      - name: Restrict the publisher input to precisely one approved article
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          p = Path("data/articles.json")
+          all_articles = json.loads(p.read_text(encoding="utf-8"))
+          target = "20261024-nec-ai-work-wellbeing-survey"
+          selected = [a for a in all_articles if a.get("id") == target]
+          if len(selected) != 1 or selected[0].get("social_publish") is not True or selected[0].get("status") != "published":
+              raise SystemExit("FAIL: first-post article not uniquely approved; no posting")
+          # This changes only the ephemeral checkout, NOT the repository.
+          p.write_text(json.dumps(selected, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          print("First-post safety gate passed: exactly one opted-in article")
+          PY
+      - name: Publish first approved story to Threads and Instagram
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          # One-time permission: global SOCIAL_PUBLISH_ENABLED remains OFF.
+          SOCIAL_PUBLISH_ENABLED: 'true'
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+        run: python scripts/publish_social.py --live

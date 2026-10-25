@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261025-collabora-nextcloud-code-server-exploited",
+    "title": "更新済みでも侵入の痕跡は残る。Nextcloud内蔵Collaboraに重大脆弱性、CISAが悪用確認",
+    "summary": "NextcloudのCollabora Online Built-in CODE Server（richdocumentscode）に認証不要のコマンド実行脆弱性CVE-2026-110447（CVSS 9.2）。CISAが悪用を確認。26.4.303以上への更新・アプリ削除と、既存Webシェルの調査が必要。",
+    "category": "仕事",
+    "score": 98,
+    "published_at": "2026-10-25",
+    "source_url": "https://github.com/CollaboraOnline/online/security/advisories/GHSA-g3vx-3m76-fghh",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Nextcloudの文書編集用「Collabora Online – Built-in CODE Server」に、ログイン不要でOSコマンドを実行できる重大脆弱性（CVSS 9.2）。9月から侵害が報告され、米CISAは10月23日に悪用確認済みとして登録した。内蔵アプリを26.4.303以上へ更新するか完全削除し、Webシェルの残存を調査する必要がある。",
+    "sections": [
+      {
+        "title": "文書編集アプリがサーバー侵害の入口になった",
+        "body": "ファイル共有・共同編集基盤Nextcloudのオプションアプリ「Collabora Online – Built-in CODE Server」（richdocumentscode）で、認証なしのOSコマンド実行につながるCVE-2026-110447が確認された。深刻度はCRITICAL、CVSS v4.0で9.2。米CISAは2026年10月23日、実環境での悪用を確認した脆弱性をまとめるKnown Exploited Vulnerabilities（KEV）カタログに追加した。単なる理論上のリスクではなく、管理者からWebシェル設置などの侵害報告が寄せられている。\n\n開発元の公式勧告：https://github.com/CollaboraOnline/online/security/advisories/GHSA-g3vx-3m76-fghh\nCISA KEV：https://www.cisa.gov/known-exploited-vulnerabilities-catalog?search_api_fulltext=CVE-2026-110447"
+      },
+      {
+        "title": "攻撃条件｜内蔵CODEサーバーの停止時にproxy.phpが悪用される",
+        "body": "問題は、Nextcloudに組み込んで利用するrichdocumentscodeアプリのproxy.phpにある。ローカルのCODEサーバーが稼働していない状況（再起動・更新・クラッシュ後など）で、細工した要求からWebサーバーの実行ユーザー権限でOSコマンドを動かされる恐れがある。攻撃にNextcloudのログインは必要ない。対象は内蔵CODE Serverアプリであり、独立したCollabora Onlineサーバーや通常のCollabora Dockerイメージ、RPM/DEBパッケージ、Nextcloud All-in-Oneにはこの脆弱性はないと開発元は説明している。"
+      },
+      {
+        "title": "影響バージョンと修正版｜無効化だけでは防げない",
+        "body": "影響を受けるのはCollabora Online – Built-in CODE Server（richdocumentscode）26.4.303未満。開発元は26.4.303以上への更新、またはアプリの完全削除を求めている。アプリを無効化するだけでは問題を解消できない。Nextcloud 29以前のサポート終了環境では修正版アプリを導入できないため、Nextcloud本体を更新するか、内蔵アプリを削除する必要がある。外部のCollaboraサーバーを使うNextcloud Office構成は、内蔵アプリを導入していなければ対象外だ。\n\n修正版情報：https://apps.nextcloud.com/apps/richdocumentscode"
+      },
+      {
+        "title": "修正版は9月11日、公式勧告は10月14日。約1か月の時間差",
+        "body": "Nextcloudアプリストアには修正版26.4.303が9月11日に公開されていた一方、脆弱性の公式勧告とCVEの公開は10月14日だった。攻撃の痕跡は9月10日から報告されており、公式発表より先に更新が必要な状況が生じていた。さらに10月23日にCISAが悪用確認済みとして登録した。脆弱性情報が公開されてから対応するだけでは間に合わない場合があることを示す事例だ。\n\nCVE記録：https://www.cve.org/CVERecord?id=CVE-2026-110447"
+      },
+      {
+        "title": "更新後も必要な侵害調査",
+        "body": "最優先はアプリを26.4.303以上へ更新するか、完全に削除すること。しかし、パッチ適用で既に置かれたWebシェルは消えない。管理者はNextcloudの整合性チェックを実行し、apps/richdocumentscode配下などの見覚えのないPHPファイル、proxy.phpへの不審な要求、Webサーバーの異常なコマンド実行を調査したい。ログが残っていれば9月10日以降を重点的に確認する。侵害が疑われる場合は証拠を保全し、必要に応じて隔離、認証情報・データベース資格情報・アプリシークレットの再発行を検討する。"
+      },
+      {
+        "title": "WORK SIGNALの視点｜『更新済み』と『侵害なし』は違う",
+        "body": "今回の教訓は、脆弱性修正と侵害対応を分けて考えることだ。更新はこれからの攻撃を防ぐが、過去に盗まれた秘密情報や設置された不正ファイルまでは元に戻さない。利用中のNextcloudに内蔵CODE Serverがあるかを確認し、対象なら更新履歴と侵害の痕跡の両方を点検することが重要だ。"
+      }
+    ]
+  },
+  {
     "id": "20261025-zoom-unified-context-layer-meeting-to-action",
     "title": "AI議事録の次は「会議後の仕事」へ。Zoomが発表した、決定事項を実行につなげる新しい仕組み",
     "summary": "ZoomがZoomtopia 2026でUnified Context Layerを発表。会議、電話、チャット、社内文書の文脈を結び、My Notes WorkflowsやAgentic Search、ZoomMate Agent Teamsで後続業務へ接続する。提供時期と情報管理の課題も解説。",

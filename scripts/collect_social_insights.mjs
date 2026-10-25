@@ -7,4 +7,7 @@ const articles=feed.filter(a=>a.social_publish===true&&a.status==='published').m
 const insights=await collectMetaInsights({SOCIAL_THREADS_ACCESS_TOKEN:process.env.THREADS_ACCESS_TOKEN,SOCIAL_INSTAGRAM_ACCESS_TOKEN:process.env.INSTAGRAM_ACCESS_TOKEN},articles);
 await writeFile(new URL('../work-signal-social-insights.json',import.meta.url),JSON.stringify({source:'WORK SIGNAL Social Insights',siteId:'signal',insights},null,2));
 // Public CI logs only show connection status, never credentials or private metric values.
-for(const [key,account]of Object.entries(insights.accounts))console.log(key+': '+account.status+'; followers status='+account.followersStatus+'; inspected posts='+(account.posts?.length||0));
+for(const [key,account]of Object.entries(insights.accounts)){
+ console.log(key+': '+account.status+'; followers status='+account.followersStatus+'; inspected posts='+(account.posts?.length||0));
+ for(const post of account.posts||[])console.log('post metric availability '+post.platform+': '+post.status+'; fields='+Object.keys(post.metrics||{}).join(','));
+}

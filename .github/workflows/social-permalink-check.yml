@@ -1,0 +1,114 @@
+name: Verify first WORK SIGNAL social post URLs (read-only)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/social-permalink-check.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - name: Verify published content and report direct links
+        env:
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import sys
+          from urllib.parse import urlencode, urlparse
+          from urllib.request import Request, urlopen
+
+          article_id = "20261024-nec-ai-work-wellbeing-survey"
+          ledger = json.load(open(".github/social-post-ledger.json", encoding="utf-8"))
+          record = ledger.get(article_id, {})
+          entries = [
+              ("Threads", "threads", "https://graph.threads.net/v1.0",
+               os.getenv("THREADS_ACCESS_TOKEN", "")),
+              ("Instagram", "instagram", "https://graph.instagram.com/v25.0",
+               os.getenv("INSTAGRAM_ACCESS_TOKEN", "")),
+          ]
+
+          def get_json(url, token):
+              request = Request(url, method="GET", headers={
+                  "Authorization": "Bearer " + token,
+                  "Accept": "application/json",
+                  "User-Agent": "WORK-SIGNAL-PermalinkCheck/1.0",
+              })
+              with urlopen(request, timeout=20) as response:
+                  return json.load(response)
+
+          def post_commit_status(platform, state, url=None):
+              data = {
+                  "state": state,
+                  "context": "WORK SIGNAL / " + platform + " first published post",
+                  "description": ("Published post permalink verified through Meta GET"
+                                  if state == "success" else "Post permalink not verified"),
+              }
+              if url:
+                  data["target_url"] = url
+              payload = json.dumps(data).encode()
+              status_url = ("https://api.github.com/repos/"
+                            + os.environ["GITHUB_REPOSITORY"]
+                            + "/statuses/" + os.environ["GITHUB_SHA"])
+              req = Request(status_url, data=payload, method="POST", headers={
+                  "Authorization": "Bearer " + os.environ["GITHUB_TOKEN"],
+                  "Accept": "application/vnd.github+json",
+                  "Content-Type": "application/json",
+                  "User-Agent": "WORK-SIGNAL-PermalinkCheck/1.0",
+              })
+              with urlopen(req, timeout=20) as response:
+                  if response.status != 201:
+                      raise ValueError("Status update failed")
+
+          failed = False
+          for name, platform, base, token in entries:
+              item = record.get(platform, {})
+              remote_id = str(item.get("remote_id", ""))
+              try:
+                  if item.get("status") != "published" or not remote_id.isdigit() or not token:
+                      raise ValueError("Missing published ledger state or credential")
+                  if platform == "threads":
+                      result = get_json(base + "/me/threads?"
+                                        + urlencode({"fields": "id,permalink,username", "limit": 25}), token)
+                      matches = [row for row in result.get("data", [])
+                                 if str(row.get("id", "")) == remote_id
+                                 and row.get("username", "").lower() == "work_signal_japan"]
+                      if len(matches) != 1:
+                          raise ValueError("Threads post not found among recent posts")
+                      permalink = matches[0].get("permalink", "")
+                  else:
+                      result = get_json(base + "/" + remote_id
+                                        + "?fields=id,permalink", token)
+                      if str(result.get("id", "")) != remote_id:
+                          raise ValueError("Instagram media ID mismatch")
+                      permalink = result.get("permalink", "")
+                  parsed = urlparse(permalink)
+                  if parsed.scheme != "https" or parsed.hostname not in (
+                      "www.threads.com", "threads.com", "www.threads.net", "threads.net",
+                      "www.instagram.com", "instagram.com"
+                  ):
+                      raise ValueError("Unexpected post URL")
+                  post_commit_status(name, "success", permalink)
+                  print("PASS", name, "published permalink:", permalink)
+              except Exception as exc:
+                  # Don't leak API request headers or tokens to workflow logs.
+                  post_commit_status(name, "failure")
+                  print("FAIL", name, "permalink could not be verified:", type(exc).__name__)
+                  failed = True
+          if failed:
+              sys.exit(1)
+          PY

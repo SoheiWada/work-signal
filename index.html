@@ -246,16 +246,27 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
  .manifesto .signoff-line{transition:none!important}
 }
 
-/* Official social channels: editorial links, no floating overlays. */
-.footer-brandgroup{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
-.footer-social{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
-.footer-social-label{font:700 9px var(--sans);letter-spacing:.15em;color:var(--muted)}
-.footer-social-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.footer-social-links a{display:inline-flex;align-items:center;min-height:44px;font:700 11px var(--sans);letter-spacing:.07em;text-decoration:none;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
-.footer-social-links a:hover{color:var(--orange);border-bottom-color:var(--orange)}
-.footer-social-links a:focus-visible,.mobile-social-nav a:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
-.mobile-social-nav{display:none}
-@media(max-width:700px){.mobile-social-nav{display:flex;align-items:center;gap:16px;min-height:38px;border-bottom:1px solid var(--line);font:700 10px var(--sans);letter-spacing:.09em}.mobile-social-nav span{font-size:9px;color:var(--muted)}.mobile-social-nav a{color:var(--ink);text-decoration:none;padding:9px 0}.mobile-social-nav a:hover{color:var(--orange)}.footer-brandgroup{gap:4px}.footer-social-links{gap:16px}}
+/* Official social links: consistent footer on desktop and mobile. */
+.footer-brandgroup{display:flex;flex-direction:column;align-items:flex-start;gap:13px}
+.footer-social{display:flex;flex-direction:column;align-items:flex-start;gap:11px}
+.footer-social-label{font:700 9px var(--sans);letter-spacing:.16em;color:var(--muted)}
+.footer-social-links{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.footer-social-links a{display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:2px;background:transparent;color:var(--ink);font:700 10px var(--sans);letter-spacing:.065em;text-decoration:none;transition:background .2s,border-color .2s,color .2s}
+.footer-social-links a:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.footer-social-links a:focus-visible{outline:2px solid var(--orange);outline-offset:4px}
+.social-icon{display:block;width:18px;height:18px;flex:none}
+@media(max-width:700px){.footer-brandgroup{gap:12px}.footer-social-links{gap:9px}.footer-social-links a{padding:0 11px;font-size:10px}}
+/* Progressive story listing: visible controls below the card grid. */
+.signals-navigation{display:flex;flex-direction:column;align-items:center;gap:15px;padding:38px 0 0;border-top:1px solid var(--line);margin-top:25px}
+.signals-progress{font:700 10px var(--sans);letter-spacing:.15em;color:var(--muted);font-variant-numeric:tabular-nums}
+.more-signals{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:68px;width:min(100%,480px);padding:15px 21px;border:1px solid var(--ink);border-radius:0;background:var(--ink);color:var(--paper);cursor:pointer;font:800 13px var(--sans);letter-spacing:.14em;transition:background .2s,color .2s}
+.more-signals svg{display:block;width:120px;height:27px;flex:none;stroke:var(--orange);fill:none;stroke-width:1.8}
+.more-signals:is(:hover,:focus-visible){background:var(--paper);color:var(--ink)}
+.more-signals:focus-visible,.signals-archive:focus-visible{outline:3px solid var(--orange);outline-offset:4px}
+.more-signals[hidden]{display:none!important}
+.signals-archive{display:inline-flex;align-items:center;min-height:44px;font:700 10px var(--sans);letter-spacing:.11em;text-decoration:none;border-bottom:1px solid var(--ink)}
+.signals-archive:hover{color:var(--orange);border-color:var(--orange)}
+@media(max-width:700px){.signals-navigation{padding-top:27px}.more-signals{min-height:62px;padding:13px 15px;font-size:12px}.more-signals svg{width:95px}}
 </style>
 <link rel="stylesheet" href="/assets/css/signal-interactions.css">
 <link rel="stylesheet" href="/assets/css/hero-market.css">
@@ -280,7 +291,7 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
 </head>
 <body>
 <div class="topline"></div>
-<div class="shell"><header class="masthead"><a href="./" class="brand" aria-label="WORK SIGNAL ホーム">WORK<span class="dot">.</span>SIGNAL<span class="sup">®</span></a><nav class="navlinks" aria-label="メインナビゲーション"><a href="#latest">LATEST</a><a class="nav-nba" href="/nba/"><span class="nav-ball" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54"/><path d="M6 60H114M60 6V114M22 22C55 42 55 78 22 98M98 22C65 42 65 78 98 98"/></svg></span><span class="nav-edition">別冊 / COURTSIDE</span><span class="nav-title">NBA SIGNAL</span></a><a href="#about">OUR POINT OF VIEW</a></nav><div class="issue"><span class="live" aria-hidden="true"></span> INDEPENDENT NEWS EDITION</div></header><nav class="mobile-social-nav" aria-label="公式SNS"><span>FOLLOW</span><a href="https://www.instagram.com/work_signal_japan/" target="_blank" rel="noopener noreferrer" aria-label="WORK SIGNAL公式Instagram">INSTAGRAM</a><a href="https://www.threads.com/@work_signal_japan" target="_blank" rel="noopener noreferrer" aria-label="WORK SIGNAL公式Threads">THREADS</a></nav>
+<div class="shell"><header class="masthead"><a href="./" class="brand" aria-label="WORK SIGNAL ホーム">WORK<span class="dot">.</span>SIGNAL<span class="sup">®</span></a><nav class="navlinks" aria-label="メインナビゲーション"><a href="#latest">LATEST</a><a class="nav-nba" href="/nba/"><span class="nav-ball" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54"/><path d="M6 60H114M60 6V114M22 22C55 42 55 78 22 98M98 22C65 42 65 78 98 98"/></svg></span><span class="nav-edition">別冊 / COURTSIDE</span><span class="nav-title">NBA SIGNAL</span></a><a href="#about">OUR POINT OF VIEW</a></nav><div class="issue"><span class="live" aria-hidden="true"></span> INDEPENDENT NEWS EDITION</div></header>
 <main><section class="hero" aria-label="WORK SIGNALの紹介"><div class="hero-copy"><div class="eyebrow">THE SIGNAL OVER THE NOISE</div><h1>ニュースは<br><span class="stroke">短く。</span>意味は<br><span class="accent">深く。</span></h1><div class="hero-bottom"><div class="hero-description"><strong>情報は増えた。判断する時間は減った。</strong><br>AI、仕事、マネジメント、経済。重要な変化を一次情報から読み解き、働く人に必要な視点を届けます。</div><a class="scrollcue" href="#latest">EXPLORE</a></div></div>
 <div class="art"><div class="art-label" aria-hidden="true">01 / FIND YOUR FREQUENCY</div><div class="orbit" aria-hidden="true"><div class="ring"></div><div class="signal">W<span style="color:#191918">.</span></div></div><div class="art-corner" aria-hidden="true">NO MORE NOISE.<br>JUST SIGNAL.</div></div></section></main></div>
 <div class="ticker" aria-hidden="true"><div class="ticker-track"><span>AI <b aria-hidden="true"></b> WORK <b aria-hidden="true"></b> MANAGEMENT <b aria-hidden="true"></b> ECONOMY <b aria-hidden="true"></b> MONEY <b aria-hidden="true"></b> CRYPTO <b aria-hidden="true"></b> READ BEYOND THE HEADLINE <b aria-hidden="true"></b></span><span>AI <b aria-hidden="true"></b> WORK <b aria-hidden="true"></b> MANAGEMENT <b aria-hidden="true"></b> ECONOMY <b aria-hidden="true"></b> MONEY <b aria-hidden="true"></b> CRYPTO <b aria-hidden="true"></b> READ BEYOND THE HEADLINE <b aria-hidden="true"></b></span></div></div>
@@ -297,7 +308,7 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
 <span class="guide-description">その先の意味まで、深く。</span>
 <span class="guide-visual" aria-hidden="true"><span class="guide-orbit"></span><svg class="guide-pulse" viewBox="0 0 480 130" preserveAspectRatio="none"><path class="echo-two" d="M0 65 C90 65 98 8 155 20 S225 125 270 102 S350 23 480 65"/><path class="echo" d="M0 65 C80 65 120 115 175 99 S240 13 305 35 S390 92 480 65"/><path d="M0 65 C75 65 108 36 165 48 S245 101 304 77 S393 48 480 65"/></svg></span>
 </button>
-</div><div class="guide-selection" id="guide-selection"><p role="status" aria-live="polite" aria-atomic="true"><span class="guide-selection-label" id="guide-selection-label">READING / ALL</span><span id="guide-selection-summary">すべての読み方</span></p><span class="guide-selection-hint">形式を選んで絞り込み</span><button type="button" class="guide-reset" id="guide-reset" aria-controls="articles" hidden><span class="guide-reset-label">選択を解除</span><span class="guide-reset-icon" aria-hidden="true">×</span></button></div></section><div class="grid" id="articles"></div></section></div>
+</div><div class="guide-selection" id="guide-selection"><p role="status" aria-live="polite" aria-atomic="true"><span class="guide-selection-label" id="guide-selection-label">READING / ALL</span><span id="guide-selection-summary">すべての読み方</span></p><span class="guide-selection-hint">形式を選んで絞り込み</span><button type="button" class="guide-reset" id="guide-reset" aria-controls="articles" hidden><span class="guide-reset-label">選択を解除</span><span class="guide-reset-icon" aria-hidden="true">×</span></button></div></section><div class="grid" id="articles"></div><nav class="signals-navigation" aria-label="記事一覧とアーカイブ"><span class="signals-progress" id="signals-progress" role="status" aria-live="polite">0 / 0 SIGNALS</span><button type="button" class="more-signals" id="more-signals" aria-controls="articles" hidden><span>MORE SIGNALS</span><svg viewBox="0 0 120 27" aria-hidden="true" focusable="false"><path d="M1 14H31L38 14L45 5L53 22L61 3L69 14H119"/></svg></button><a class="signals-archive" href="/archive/">THE ARCHIVE — すべての記事を見る</a></nav></section></div>
 <section class="manifesto" id="about" aria-labelledby="manifesto-title"><div class="shell"><div class="manifesto-top"><div><div class="kicker">/ OUR POINT OF VIEW</div><h2 id="manifesto-title">LESS NOISE.<br><em>MORE MEANING.</em></h2></div><div class="manifesto-intro"><span class="editorial-label">THE EDITORIAL PROCESS</span><p>ニュースを速く消費するためではなく、変化を深く理解するために。WORK SIGNALは、出来事の要約だけで終わらず、「自分の仕事や暮らしに何が関係するのか」まで考えるニュースメディアです。</p></div></div><div class="editorial-flow" aria-hidden="true"><span>INFORMATION</span><svg viewBox="0 0 1000 120" preserveAspectRatio="none"><g class="flow-noise"><path d="M0 30Q80 110 150 27T300 60T470 60H1000"/><path d="M0 100Q60 0 130 80T300 60T470 60H1000"/><path d="M0 65Q80 0 180 90T400 60H1000"/></g><path class="flow-signal" pathLength="1" d="M0 60Q45 0 90 75T170 60T240 60H450C490 60 492 26 520 60S550 94 580 60H1000"/></svg><span>MEANING</span></div><div class="principles"><div class="principle"><b>01 / SOURCE</b><div>FIRST-HAND SOURCES<small>原典を確かめる。<br>事実と解釈を分ける。</small></div></div><div class="principle"><b>02 / CONTEXT</b><div>CONTEXT OVER CLICKS<small>煽りより文脈。<br>話題性より実用性。</small></div></div><div class="principle"><b>03 / JUDGMENT</b><div>HUMAN-IN-THE-LOOP<small>AIで調査・編集を支援し、<br>公開は人が判断する。</small></div></div></div><div class="manifesto-signoff"><span>READ BEYOND THE HEADLINE.</span><a href="#latest">ALL SIGNALS<span aria-hidden="true" class="signoff-line"></span></a></div></div>
 <script>
 /* Scoped to the ABOUT section. Do not animate outside #about. */
@@ -305,7 +316,7 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
 const observer=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){about.classList.add('is-received');observer.disconnect()}},{threshold:.18});observer.observe(about)})();
 </script>
 </section>
-<div class="shell"><footer><div class="footer-row"><div class="footer-brandgroup"><div class="footer-logo">WORK<span>.</span>SIGNAL</div><nav class="footer-social" aria-label="公式SNS"><span class="footer-social-label">FOLLOW WORK SIGNAL</span><div class="footer-social-links"><a href="https://www.instagram.com/work_signal_japan/" target="_blank" rel="noopener noreferrer" aria-label="WORK SIGNAL公式Instagram">INSTAGRAM</a><a href="https://www.threads.com/@work_signal_japan" target="_blank" rel="noopener noreferrer" aria-label="WORK SIGNAL公式Threads">THREADS</a></div></nav></div><div class="footer-copy">© <span id="year"></span> WORK SIGNAL. INDEPENDENT PERSPECTIVES.<br>掲載内容は独自の解説です。投資判断を推奨するものではありません。<br><a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a> · <a href="/feed.xml" title="RSSで新着記事を購読">RSS</a><br>© Amber Light Inc.</div></div></footer></div>
+<div class="shell"><footer><div class="footer-row"><div class="footer-brandgroup"><div class="footer-logo">WORK<span>.</span>SIGNAL</div><nav class="footer-social" aria-label="公式SNS"><span class="footer-social-label">FOLLOW WORK SIGNAL</span><div class="footer-social-links"><a href="https://www.instagram.com/work_signal_japan/" target="_blank" rel="noopener noreferrer" aria-label="WORK SIGNAL公式Instagram"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.9" cy="6.4" r="1.1" fill="currentColor"/></svg><span>INSTAGRAM</span></a><a href="https://www.threads.com/@work_signal_japan" target="_blank" rel="noopener noreferrer" aria-label="WORK SIGNAL公式Threads"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.263 11.097c-.03-3.486-1.92-5.586-5.111-5.586-2.13 0-3.922.963-4.863 2.499l2.062 1.438c.535-.843 1.272-1.543 2.628-1.543 1.528 0 2.318.85 2.544 2.431a15 15 0 0 0-2.236-.173c-4.125 0-6.068 1.867-6.068 4.336s1.943 3.99 4.804 3.99c3.139 0 5.013-2.115 5.781-4.735.798.361 1.348 1.204 1.348 2.47 0 3.387-3.907 5.232-7.22 5.232-4.885 0-8.077-3.207-8.077-8.424 0-6.392 4.223-10.487 9.9-10.487 3.808 0 5.69 1.671 6.97 3.914l2.108-1.475C21.44 2.078 18.331 0 13.663 0 6.227 0 1.168 5.277 1.168 12.934c0 7 4.953 11.066 10.856 11.066 4.878 0 9.809-2.846 9.809-7.716 0-2.545-1.46-4.231-3.569-5.187m-6.33 4.855c-1.077 0-2.026-.512-2.026-1.453 0-1.483 1.822-1.934 3.606-1.934.678 0 1.34.045 1.927.173-.422 1.927-1.671 3.215-3.508 3.214Z"/></svg><span>THREADS</span></a></div></nav></div><div class="footer-copy">© <span id="year"></span> WORK SIGNAL. INDEPENDENT PERSPECTIVES.<br>掲載内容は独自の解説です。投資判断を推奨するものではありません。<br><a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a> · <a href="/feed.xml" title="RSSで新着記事を購読">RSS</a><br>© Amber Light Inc.</div></div></footer></div>
 <script>
 document.querySelector('#year').textContent=new Date().getFullYear();
 
@@ -325,12 +336,14 @@ document.querySelector('#year').textContent=new Date().getFullYear();
 
 const readingGuide=document.querySelector('#reading-guide');if('IntersectionObserver' in window){const guideObserver=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){readingGuide.classList.add('is-visible');guideObserver.disconnect();break}}},{threshold:.12});guideObserver.observe(readingGuide)}else{readingGuide.classList.add('is-visible')}
 const categories=['すべて','AI','仕事','マネジメント','お金','経済','Crypto'];
-let active='すべて',formatActive=null,items=[];
+const HOME_PAGE_SIZE=12;
+let active='すべて',formatActive=null,items=[],visibleCount=HOME_PAGE_SIZE;
 const formatButtons=[...document.querySelectorAll('.guide-item[data-format]')];
 const guideSelection=document.querySelector('#guide-selection'),guideSummary=document.querySelector('#guide-selection-summary'),guideSelectionLabel=document.querySelector('#guide-selection-label'),guideReset=document.querySelector('#guide-reset');
-formatButtons.forEach(button=>button.addEventListener('click',()=>{formatActive=formatActive===button.dataset.format?null:button.dataset.format;render()}));
-guideReset.addEventListener('click',()=>{const previous=formatActive;formatActive=null;render();formatButtons.find(button=>button.dataset.format===previous)?.focus()});
-const filters=document.querySelector('#filters'),root=document.querySelector('#articles');
+formatButtons.forEach(button=>button.addEventListener('click',()=>{formatActive=formatActive===button.dataset.format?null:button.dataset.format;visibleCount=HOME_PAGE_SIZE;render()}));
+guideReset.addEventListener('click',()=>{const previous=formatActive;formatActive=null;visibleCount=HOME_PAGE_SIZE;render();formatButtons.find(button=>button.dataset.format===previous)?.focus()});
+const filters=document.querySelector('#filters'),root=document.querySelector('#articles'),moreButton=document.querySelector('#more-signals'),signalsProgress=document.querySelector('#signals-progress');
+moreButton.addEventListener('click',()=>{const previous=visibleCount;visibleCount+=HOME_PAGE_SIZE;render();const firstAdded=root.querySelectorAll('.story-link')[previous];if(firstAdded)firstAdded.focus()});
 function node(tag,content,className){const n=document.createElement(tag);if(content!==undefined)n.textContent=content;if(className)n.className=className;return n}
 /* Same waveform geometry as the reading guide, rendered at a native icon viewBox.
    The dim base path stays visible at every animation frame. */
@@ -367,7 +380,7 @@ if(!filters.children.length)categories.forEach(category=>{
  const count=node('span','','filter-count');count.setAttribute('aria-hidden','true');
  const label=node('span',undefined,'filter-label');if(category==='マネジメント')label.append(document.createTextNode('マネジ'),document.createElement('wbr'),document.createTextNode('メント'));else label.textContent=category;
  const signal=document.createElementNS('http://www.w3.org/2000/svg','svg');signal.setAttribute('class','filter-signal');signal.setAttribute('viewBox','0 0 180 28');signal.setAttribute('preserveAspectRatio','none');signal.setAttribute('aria-hidden','true');const pulse=document.createElementNS(signal.namespaceURI,'path');pulse.setAttribute('pathLength','1');pulse.setAttribute('d','M0 14H58L68 14L75 5L83 24L93 1L103 23L111 14H180');signal.append(pulse);
- button.append(label,count,signal);button.onclick=()=>{active=category;button.classList.add('is-receiving');clearTimeout(button.receiveTimer);button.receiveTimer=setTimeout(()=>button.classList.remove('is-receiving'),1300);render()};filters.append(button);
+ button.append(label,count,signal);button.onclick=()=>{active=category;visibleCount=HOME_PAGE_SIZE;button.classList.add('is-receiving');clearTimeout(button.receiveTimer);button.receiveTimer=setTimeout(()=>button.classList.remove('is-receiving'),1300);render()};filters.append(button);
 });
 for(const button of filters.children){
  const category=button.dataset.category;button.setAttribute('aria-pressed',String(active===category));
@@ -380,8 +393,10 @@ guideSelection.classList.toggle('has-selection',Boolean(formatActive));guideRese
 guideSelectionLabel.textContent=formatActive?'FILTER / 選択中':'READING / ALL';
 const formatLabel=formatActive==='brief'?'SIGNAL BRIEF':formatActive==='deep_dive'?'SIGNAL DEEP DIVE':'すべての読み方';
 guideSummary.textContent=(active==='すべて'?'':active+' / ')+formatLabel+' · '+selected.length+'件';
+signalsProgress.textContent=Math.min(visibleCount,selected.length)+' / '+selected.length+' SIGNALS';
+moreButton.hidden=selected.length<=visibleCount;
 if(!selected.length){const box=node('div',undefined,'empty'),inner=node('div');inner.append(node('div','TRANSMISSION 001 / STANDBY','number'),node('strong',formatActive?'NO MATCHING SIGNALS.':'THE SIGNAL IS COMING.'));inner.append(node('p',formatActive?'この条件に合う記事はありません。\n読み方の選択を解除するか、カテゴリーを変えてください。':'公開準備中です。\n一次情報を検証し、承認されたニュースから掲載します。'));box.append(inner);root.append(box);return}
-selected.forEach(a=>{
+selected.slice(0,visibleCount).forEach(a=>{
  const deep=a.format==='deep_dive';
  const card=node('article',undefined,'story');
  const head=node('div',undefined,'story-head'),top=node('div',undefined,'story-top');
@@ -406,6 +421,6 @@ selected.forEach(a=>{
  const mark=node('span',undefined,'story-link-mark');mark.append(signal);link.append(copy,mark);
  body.append(link);card.append(head,body);root.append(card)
 })}
-fetch('./data/articles.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('data unavailable');return r.json()}).then(data=>{items=Array.isArray(data)?data.filter(a=>a.status==='published'&&(a.format==='special_story'||a.score>=80)&&typeof a.id==='string'&&categories.includes(a.category)&&typeof a.source_url==='string'&&/^https:\/\//.test(a.source_url)):[];render()}).catch(()=>{if(!root.children.length)render()});
+fetch('./data/articles.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('data unavailable');return r.json()}).then(data=>{items=Array.isArray(data)?data.filter(a=>a.status==='published'&&(a.format==='special_story'||a.score>=80)&&typeof a.id==='string'&&categories.includes(a.category)&&typeof a.source_url==='string'&&/^https:\/\//.test(a.source_url)):[];render()}).catch(()=>{moreButton.hidden=true});
 </script>
 </body></html>

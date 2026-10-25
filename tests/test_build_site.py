@@ -9,7 +9,7 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 from PIL import Image
 
-from scripts.build_site import BASE, ROOT, build, article_card
+from scripts.build_site import BASE, ROOT, build, article_card, archive_page, archive_url, ARCHIVE_PAGE_SIZE, HOME_PAGE_SIZE
 
 
 class Document(HTMLParser):
@@ -79,10 +79,32 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertTrue((output / 'assets/og/home.png').is_file())
             sitemap = ET.parse(output / 'sitemap.xml')
             urls = [node.text for node in sitemap.iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
-            self.assertEqual(urls, [BASE, BASE + 'about/', BASE + 'privacy/', BASE + 'contact/', BASE + path])
+            self.assertEqual(urls, [BASE, BASE + 'about/', BASE + 'privacy/', BASE + 'contact/', BASE + 'archive/', BASE + path])
             self.assertIn(BASE + path, home)
+            self.assertIn('href="/archive/"', home)
+            self.assertIn('1 / 1 SIGNALS', home)
+            self.assertIn('class="signals-navigation"', home)
+            archive = (output / 'archive/index.html').read_text()
+            self.assertIn(self.article['title'], archive)
+            self.assertIn('href="' + BASE + 'archive/"', archive)
             self.assertIn('Sitemap: ' + BASE + 'sitemap.xml', (output / 'robots.txt').read_text())
             self.assertNotIn("fetch('./data/articles.json'", page)
+
+    def test_archive_page_size_and_numbered_links(self):
+        articles = [dict(self.article, id=f'test-archive-{index:02d}', title=f'Archive story {index:02d}')
+                    for index in range(ARCHIVE_PAGE_SIZE + 3)]
+        home_template = (ROOT / 'index.html').read_text()
+        first = archive_page(articles, 1, home_template)
+        second = archive_page(articles, 2, home_template)
+        self.assertEqual(first.count('<article class="story">'), ARCHIVE_PAGE_SIZE)
+        self.assertEqual(second.count('<article class="story">'), 3)
+        self.assertIn('href="' + archive_url(2) + '"', first)
+        self.assertIn('href="' + archive_url(1) + '"', second)
+        self.assertIn('aria-current="page"', second)
+        self.assertIn('href="/#latest"', second)
+        self.assertIn('https://www.instagram.com/work_signal_japan/', second)
+        self.assertIn('https://www.threads.com/@work_signal_japan', second)
+        self.assertEqual(HOME_PAGE_SIZE, 12)
 
     def test_editorial_cards_put_article_first_and_support_optional_assets(self):
         article = copy.deepcopy(self.article)

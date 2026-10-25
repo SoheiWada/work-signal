@@ -18,6 +18,8 @@ except ImportError:
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://signal.amberlight.co.jp/"
+HOME_PAGE_SIZE = 12
+ARCHIVE_PAGE_SIZE = 24
 CATEGORIES = {"AI", "仕事", "マネジメント", "お金", "経済", "Crypto"}
 SECTIONS = [("何が起きた？", "what_happened"), ("なぜ重要？", "why_it_matters"),
             ("仕事や暮らしへの影響", "impact"), ("確認しておきたいこと", "caveats")]
@@ -574,9 +576,85 @@ def article_page(article, template, modified_at=None, related=()):
             + '<main id="article">' + article_body(article, modified_at, related) + article_end(article) + '</main></div>'
             + '<footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong>'
             + '<small>NEWS IS SHORT. MEANING IS DEEP. · <a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a> · <a href="/feed.xml">RSS</a></small>'
-            + '<nav class="footer-social-links" aria-label="公式SNS"><a href="https://www.instagram.com/work_signal_japan/" target="_blank" rel="noopener noreferrer">INSTAGRAM</a><a href="https://www.threads.com/@work_signal_japan" target="_blank" rel="noopener noreferrer">THREADS</a></nav></div></footer>'
+            + '<nav class="footer-social-links" aria-label="公式SNS"><a href="https://www.instagram.com/work_signal_japan/" target="_blank" rel="noopener noreferrer"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.9" cy="6.4" r="1.1" fill="currentColor"/></svg><span>INSTAGRAM</span></a><a href="https://www.threads.com/@work_signal_japan" target="_blank" rel="noopener noreferrer"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.263 11.097c-.03-3.486-1.92-5.586-5.111-5.586-2.13 0-3.922.963-4.863 2.499l2.062 1.438c.535-.843 1.272-1.543 2.628-1.543 1.528 0 2.318.85 2.544 2.431a15 15 0 0 0-2.236-.173c-4.125 0-6.068 1.867-6.068 4.336s1.943 3.99 4.804 3.99c3.139 0 5.013-2.115 5.781-4.735.798.361 1.348 1.204 1.348 2.47 0 3.387-3.907 5.232-7.22 5.232-4.885 0-8.077-3.207-8.077-8.424 0-6.392 4.223-10.487 9.9-10.487 3.808 0 5.69 1.671 6.97 3.914l2.108-1.475C21.44 2.078 18.331 0 13.663 0 6.227 0 1.168 5.277 1.168 12.934c0 7 4.953 11.066 10.856 11.066 4.878 0 9.809-2.846 9.809-7.716 0-2.545-1.46-4.231-3.569-5.187m-6.33 4.855c-1.077 0-2.026-.512-2.026-1.453 0-1.483 1.822-1.934 3.606-1.934.678 0 1.34.045 1.927.173-.422 1.927-1.671 3.215-3.508 3.214Z"/></svg><span>THREADS</span></a></nav></div></footer>'
             + wage_widget_script(article, template) + '</body></html>')
     return head + body
+
+
+
+def archive_url(page):
+    return BASE + ('archive/' if page == 1 else f'archive/page/{page}/')
+
+
+def archive_page(articles, page, home_html):
+    """A crawlable, numbered archive; works with JavaScript disabled."""
+    total_pages = max(1, math.ceil(len(articles) / ARCHIVE_PAGE_SIZE))
+    if not (1 <= page <= total_pages):
+        raise ValueError('Invalid archive page')
+    start = (page - 1) * ARCHIVE_PAGE_SIZE
+    subset = articles[start:start + ARCHIVE_PAGE_SIZE]
+    url = archive_url(page)
+    title = 'THE ARCHIVE — WORK SIGNAL' if page == 1 else f'THE ARCHIVE / {page} — WORK SIGNAL'
+    description = 'WORK SIGNALで公開したAI・仕事・マネジメント・経済などのニュース解説を新しい順に読むアーカイブ。'
+    style = re.search(r'<style>.*?</style>', home_html, re.S)
+    fonts = re.search(r'<link rel="preconnect".*?<style>', home_html, re.S)
+    footer = re.search(r'<div class="shell"><footer>.*?</footer></div>', home_html, re.S)
+    if not style or not fonts or not footer:
+        raise ValueError('Home design assets required for the archive are missing')
+    footer_html = footer.group().replace('<span id="year"></span>', str(datetime.now(timezone.utc).year))
+    archive_css = """<style>
+.archive-section{padding:65px 0 95px}
+.archive-return{font:700 11px var(--sans);letter-spacing:.1em;text-decoration:none;border-bottom:1px solid var(--ink);padding:8px 0}
+.archive-return:is(:hover,:focus-visible){color:var(--orange)}
+.archive-intro{display:flex;align-items:baseline;justify-content:space-between;gap:15px;flex-wrap:wrap;padding:18px 0 33px;margin:0 0 23px;border-bottom:1px solid var(--line)}
+.archive-intro p{font:500 12px/1.9 var(--jp);color:var(--muted);margin:0}
+.archive-intro small{font:700 10px var(--sans);letter-spacing:.1em;color:var(--orange)}
+.archive-pages{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px;margin-top:47px;padding:22px 0;border-top:1px solid var(--line)}
+.archive-pages a,.archive-pages span{min-width:42px;min-height:44px;padding:10px 12px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font:700 11px var(--sans);letter-spacing:.08em}
+.archive-pages a{border:1px solid var(--line)}
+.archive-pages a:is(:hover,:focus-visible){border-color:var(--orange);color:var(--orange)}
+.archive-pages a:focus-visible,.archive-return:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.archive-pages [aria-current="page"]{background:var(--ink);color:var(--paper)}
+.archive-pages .archive-gap{min-width:12px;color:var(--muted)}
+@media(max-width:700px){.archive-section{padding:38px 0 65px}.archive-intro{padding-top:12px}.archive-return{font-size:9px}.archive-pages{gap:5px}.archive-pages a,.archive-pages span{min-width:37px;padding:9px 8px}}
+</style>"""
+    numbers = []
+    previous_omitted = False
+    for number in range(1, total_pages + 1):
+        if total_pages > 7 and number not in (1, total_pages) and abs(number - page) > 2:
+            if not previous_omitted:
+                numbers.append('<span class="archive-gap" aria-hidden="true">…</span>')
+            previous_omitted = True
+            continue
+        previous_omitted = False
+        if number == page:
+            numbers.append('<span aria-current="page">' + f'{number:02d}' + '</span>')
+        else:
+            numbers.append('<a href="' + archive_url(number) + '" aria-label="アーカイブ' + str(number) + 'ページ">' + f'{number:02d}' + '</a>')
+    if page > 1:
+        numbers.insert(0, '<a href="' + archive_url(page - 1) + '">PREVIOUS</a>')
+    if page < total_pages:
+        numbers.append('<a href="' + archive_url(page + 1) + '">NEXT</a>')
+    canonical = '<link rel="canonical" href="' + url + '">'
+    result = ('<!doctype html><html lang="ja"><head><meta charset="utf-8">'
+              '<meta name="viewport" content="width=device-width,initial-scale=1">'
+              '<meta name="theme-color" content="#f2efe7">'
+              '<meta name="description" content="' + esc(description) + '">'
+              '<title>' + esc(title) + '</title>' + canonical + favicon_links()
+              + fonts.group().removesuffix('<style>') + style.group() + archive_css + '</head>'
+              '<body><div class="topline"></div><div class="shell"><header class="masthead">'
+              '<a class="brand" href="/" aria-label="WORK SIGNALホーム">WORK<span class="dot">.</span>SIGNAL<span class="sup">®</span></a>'
+              '<a class="archive-return" href="/#latest">LATEST SIGNALS</a></header>'
+              '<main><section class="section archive-section"><div class="section-heading">'
+              '<div><div class="kicker">/ THE COMPLETE EDITION</div><h1>THE ARCHIVE<span style="color:var(--orange)">.</span></h1></div>'
+              '<div class="section-aside">VERIFIED &amp; PUBLISHED<br>NEWEST FIRST</div></div>'
+              '<div class="archive-intro"><p>' + esc(description) + '</p>'
+              '<small>' + str(start + 1 if subset else 0) + '–' + str(start + len(subset))
+              + ' / ' + str(len(articles)) + ' SIGNALS</small></div>'
+              '<div class="grid">' + ''.join(article_card(item) for item in subset) + '</div>'
+              '<nav class="archive-pages" aria-label="アーカイブのページ">' + ''.join(numbers) + '</nav>'
+              '</section></main></div>' + footer_html + '</body></html>')
+    return result
 
 
 def write_rss(output, articles):
@@ -775,14 +853,25 @@ def build(output, feed=None):
     security_dir = output / 'security'
     security_dir.mkdir(exist_ok=True)
     (security_dir / 'index.html').write_text(security_page)
-    cards = ''.join(article_card(article) for article in articles)
+    cards = ''.join(article_card(article) for article in articles[:HOME_PAGE_SIZE])
     if not cards:
         cards = '<div class="empty"><div><strong>THE SIGNAL IS COMING.</strong><p>公開準備中です。</p></div></div>'
     marker = '<div class="grid" id="articles"></div>'
     if marker not in index:
         raise ValueError("Home page article marker is missing")
     index = index.replace(marker, marker[:-6] + cards + '</div>', 1)
+    progress_marker = '0 / 0 SIGNALS'
+    if progress_marker not in index:
+        raise ValueError('Home pagination progress marker is missing')
+    index = index.replace(progress_marker, f'{min(len(articles), HOME_PAGE_SIZE)} / {len(articles)} SIGNALS', 1)
     (output / 'index.html').write_text(index)
+    archive_urls = []
+    for page in range(1, max(1, math.ceil(len(articles) / ARCHIVE_PAGE_SIZE)) + 1):
+        relative = Path('archive') if page == 1 else Path('archive/page') / str(page)
+        directory = output / relative
+        directory.mkdir(parents=True, exist_ok=True)
+        (directory / 'index.html').write_text(archive_page(articles, page, index))
+        archive_urls.append(archive_url(page))
     template = (ROOT / 'article.html').read_text()
     (output / 'article.html').write_text(template)
     # Preview is not linked or indexed; it is accessible to anyone who knows the URL.
@@ -817,11 +906,11 @@ def build(output, feed=None):
     sitemap = ET.Element('{' + ns + '}urlset')
     by_url = {article_url(item): item for item in articles}
     home_modified = latest_date([modified[item['id']] or item['published_at'] for item in articles])
-    for url in [BASE, BASE + 'about/', BASE + 'privacy/', BASE + 'contact/'] + [article_url(article) for article in articles]:
+    for url in [BASE, BASE + 'about/', BASE + 'privacy/', BASE + 'contact/'] + archive_urls + [article_url(article) for article in articles]:
         entry = ET.SubElement(sitemap, '{' + ns + '}url')
         ET.SubElement(entry, '{' + ns + '}loc').text = url
         item = by_url.get(url)
-        lastmod = (modified[item['id']] or item['published_at']) if item else (home_modified if url == BASE else None)
+        lastmod = (modified[item['id']] or item['published_at']) if item else (home_modified if url == BASE or url in archive_urls else None)
         if lastmod:
             ET.SubElement(entry, '{' + ns + '}lastmod').text = lastmod
     ET.ElementTree(sitemap).write(output / 'sitemap.xml', encoding='utf-8', xml_declaration=True)

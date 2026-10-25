@@ -160,6 +160,80 @@ def instagram_share_card(output, article):
     return path
 
 
+
+def instagram_story_card(output, article):
+    """Render a purpose-built 1080x1920 Story JPEG with generous UI safe areas."""
+    width, height = 1080, 1920
+    ink, paper, orange, quiet = '#171716', '#f4f0e8', '#fa4c24', '#bdbbb3'
+    image = Image.new('RGB', (width, height), ink)
+    draw = ImageDraw.Draw(image)
+
+    # Restrained broadcast/signal treatment, distinct from the 4:5 feed card.
+    draw.rectangle((0, 0, 1080, 13), fill=orange)
+    for offset in range(0, 440, 24):
+        draw.line((width - offset, 260, width, 260 + offset),
+                  fill='#282827', width=2)
+
+    brand_font = card_font(59, 800)
+    x = 80
+    for label, color in [('WORK', paper), ('.', orange), ('SIGNAL', paper)]:
+        draw.text((x, 264), label, font=brand_font, fill=color, anchor='lt')
+        x += brand_font.getlength(label)
+    draw.text((82, 351), 'READ BEYOND THE HEADLINE',
+              font=card_font(22, 700), fill=quiet, anchor='lt')
+    draw.line((80, 412, 1000, 412), fill='#5a5954', width=2)
+
+    draw.rectangle((80, 476, 94, 527), fill=orange)
+    draw.text((114, 482), article['category'], font=card_font(31, 700),
+              fill=orange, anchor='lt')
+    draw.text((1000, 485), article['published_at'],
+              font=card_font(23, 600), fill=quiet, anchor='rt')
+
+    title = article['title'].replace('\\n', ' ').strip()
+    fitted = None
+    for size in range(79, 33, -2):
+        font = card_font(size, 800)
+        lines = wrap_title(title, font, 906)
+        leading = round(size * 1.46)
+        if len(lines) * leading <= 690 and all(font.getlength(line) <= 906 for line in lines):
+            fitted = (font, lines, leading)
+            break
+    if fitted is None:
+        raise ValueError('Instagram Story title too long: ' + article['id'])
+    font, lines, leading = fitted
+    for index, line in enumerate(lines):
+        draw.text((80, 587 + index * leading), line,
+                  font=font, fill=paper, anchor='lt')
+
+    # Signal line / divider sits safely below variable-height headlines.
+    wave_y = max(1235, 625 + len(lines) * leading + 76)
+    if wave_y > 1330:
+        raise ValueError('Instagram Story lacks space for signal footer')
+    draw.line([(80, wave_y), (345, wave_y), (375, wave_y - 46),
+               (406, wave_y + 56), (436, wave_y - 85),
+               (468, wave_y + 48), (504, wave_y),
+               (1000, wave_y)], fill=orange, width=5, joint='curve')
+
+    summary_font = card_font(27, 500)
+    summary = article['summary'].replace('\\n', ' ').strip()
+    for index, line in enumerate(wrap_title(summary, summary_font, 912)[:3]):
+        draw.text((80, wave_y + 72 + index * 44), line,
+                  font=summary_font, fill=quiet, anchor='lt')
+
+    # Leave lower controls of Instagram's Story viewer unobstructed.
+    draw.rectangle((80, 1556, 1000, 1658), outline=orange, width=2)
+    draw.text((106, 1585), '記事全文はプロフィールから',
+              font=card_font(39, 700), fill=paper, anchor='lt')
+    draw.text((80, 1700), 'signal.amberlight.co.jp',
+              font=card_font(24, 600), fill=quiet, anchor='lt')
+
+    path = output / 'assets' / 'stories' / (article['id'] + '.jpg')
+    path.parent.mkdir(parents=True, exist_ok=True)
+    image.save(path, format='JPEG', quality=92, optimize=True,
+               progressive=False, subsampling=0)
+    return path
+
+
 def image_metadata(url, alt):
     return ('<meta property="og:image" content="' + url + '">'
             + '<meta property="og:image:secure_url" content="' + url + '">'
@@ -961,6 +1035,7 @@ def build(output, feed=None):
         share_card(output, article)
         if article.get('social_publish') is True:
             instagram_share_card(output, article)
+            instagram_story_card(output, article)
         folder = output / 'articles' / article['id']
         folder.mkdir(parents=True)
         (folder / 'index.html').write_text(article_page(article, template, modified[article['id']], related_articles(article, articles)))

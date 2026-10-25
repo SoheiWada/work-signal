@@ -34,11 +34,17 @@ jobs:
         run: |
           python -m py_compile scripts/social_asset_design.py scripts/build_site.py
           python - <<'PY'
+          import importlib.util
+          import io
           import json
           import os
-          import subprocess
-          import sys
+          import unittest
           from urllib.request import Request, urlopen
+          
+          spec = importlib.util.spec_from_file_location(
+              "security_card_tests", "tests/test_social_asset_design.py")
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
 
           methods = [
               "test_explicit_tag_only_and_invalid_value_fails_closed",
@@ -48,10 +54,10 @@ jobs:
           ]
           failures = []
           for method in methods:
-              name = "tests.test_social_asset_design.SecurityAssetDesignTests." + method
-              proc = subprocess.run([sys.executable, "-m", "unittest", name],
-                                    capture_output=True, text=True, timeout=120)
-              ok = proc.returncode == 0
+              output = io.StringIO()
+              suite = unittest.TestSuite([module.SecurityAssetDesignTests(method)])
+              result = unittest.TextTestRunner(stream=output, verbosity=2).run(suite)
+              ok = result.wasSuccessful()
               payload = json.dumps({
                   "state": "success" if ok else "failure",
                   "context": "SECURITY asset / " + method,
@@ -71,10 +77,9 @@ jobs:
               if not ok:
                   failures.append(method)
                   # Test log only; no secrets are passed to any test subprocess.
-                  print(proc.stdout[-3000:])
-                  print(proc.stderr[-3000:])
+                  print(output.getvalue()[-5000:])
           if failures:
-              sys.exit(1)
+              raise SystemExit(1)
           PY
       - name: Publish check result
         if: ${{ always() }}

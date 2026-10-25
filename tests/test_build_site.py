@@ -121,9 +121,15 @@ class StaticPublishingTests(unittest.TestCase):
             with Image.open(jpeg_path) as picture:
                 self.assertEqual(picture.format, 'JPEG')
                 self.assertEqual(picture.size, (1080, 1350))
+            story_path = output / 'assets/stories/approved-instagram-test.jpg'
+            self.assertTrue(story_path.is_file())
+            with Image.open(story_path) as story_picture:
+                self.assertEqual(story_picture.format, 'JPEG')
+                self.assertEqual(story_picture.size, (1080, 1920))
             other = dict(self.article, id='unapproved-instagram-test')
             build(output, [other])
             self.assertFalse((output / 'assets/instagram/unapproved-instagram-test.jpg').exists())
+            self.assertFalse((output / 'assets/stories/unapproved-instagram-test.jpg').exists())
 
     def test_editorial_cards_put_article_first_and_support_optional_assets(self):
         article = copy.deepcopy(self.article)

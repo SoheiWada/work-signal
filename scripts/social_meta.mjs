@@ -18,7 +18,7 @@ export async function collectMetaInsights(env,articles,fetcher=fetch,now=new Dat
    const candidates=articles.flatMap(a=>Object.entries(a.platforms||{}).filter(([key,p])=>p.status==='published'&&p.remoteId&&((platform==='threads'&&key==='threads')||(platform==='instagram'&&['instagram','instagram_story'].includes(key)))).map(([kind,p])=>({articleId:a.id,title:a.title,kind,...p}))).slice(0,20);
    const inspect=async post=>{
     const row={articleId:post.articleId,title:post.title,platform:post.kind,remoteId:post.remoteId,status:'available',metrics:{}};account.posts.push(row);
-    const names=platform==='threads'?['views','likes','replies','reposts','quotes']:['views','reach','saved','shares','total_interactions'];
+    const names=platform==='threads'?['views','likes','replies','reposts','quotes']:post.kind==='instagram_story'?['views','reach','shares','replies']:['views','reach','saved','shares','total_interactions'];
     try{const d=await get('/'+post.remoteId+'/insights?metric='+names.join(','));for(const m of d.data||[]){const v=m.total_value?.value??m.values?.at(-1)?.value;if(names.includes(m.name)&&Number.isFinite(v)&&v>=0)row.metrics[m.name]=v;}if(!Object.keys(row.metrics).length)row.status='unavailable';}
     catch(e){row.status=e.state||'unavailable';account.status='partial';}
    };

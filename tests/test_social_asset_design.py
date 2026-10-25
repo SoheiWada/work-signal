@@ -15,21 +15,20 @@ from scripts.social_asset_design import (
 
 class SecurityAssetDesignTests(unittest.TestCase):
     def setUp(self):
-        self.article = {
+        import json
+        from scripts.build_site import ROOT
+        articles = json.loads((ROOT / "data/articles.json").read_text(encoding="utf-8"))
+        self.article = dict(next(a for a in articles
+                                 if a["id"] == "20261024-asvereinbase-wordpress-auth-bypass"))
+        self.article.update({
             "id": "20261026-security-card-design-check",
             "title": "認証不要の重大な脆弱性。対象製品への更新と侵害確認が必要",
             "summary": "影響範囲を確認し、修正版への更新とアクセス履歴の調査を推奨。",
-            "category": "仕事",
-            "format": "deep_dive",
-            "score": 95,
-            "status": "published",
-            "published_at": "2026-10-26",
-            "source_url": "https://example.com/security-advisory",
             "social_publish": True,
             "social_security_product": "対象ソフトウェア",
             "social_security_cve": "CVE-2026-12345",
             "social_security_action": "修正版へ更新し侵害の痕跡を確認",
-        }
+        })
 
     def test_explicit_tag_only_and_invalid_value_fails_closed(self):
         self.assertIsNone(security_style(self.article))

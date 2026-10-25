@@ -38,6 +38,10 @@ def image_url(article):
     return BASE + "assets/instagram/" + article["id"] + ".jpg"
 
 
+def story_image_url(article):
+    return BASE + "assets/stories/" + article["id"] + ".jpg"
+
+
 def approved_articles(feed):
     """Only an explicit boolean opt-in can authorize SNS delivery."""
     eligible = []
@@ -146,7 +150,7 @@ class GithubLedger:
         return rows, value["sha"]
 
     def record(self, identifier, platform, status, remote_id="", permalink=""):
-        if platform not in ("threads", "instagram") or status not in STATUSES:
+        if platform not in ("threads", "instagram", "instagram_story") or status not in STATUSES:
             raise ValueError("Invalid ledger update")
         for attempt in range(4):
             rows, sha = self.read()

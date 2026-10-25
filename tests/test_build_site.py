@@ -110,6 +110,21 @@ class StaticPublishingTests(unittest.TestCase):
         self.assertIn('https://www.threads.com/@work_signal_japan', second)
         self.assertEqual(HOME_PAGE_SIZE, 12)
 
+    def test_instagram_jpeg_requires_explicit_social_approval(self):
+        """Older published articles must never have scheduled social images."""
+        article = dict(self.article, id='approved-instagram-test', social_publish=True)
+        with tempfile.TemporaryDirectory() as temp:
+            output = Path(temp) / 'site'
+            build(output, [article])
+            jpeg_path = output / 'assets/instagram/approved-instagram-test.jpg'
+            self.assertTrue(jpeg_path.is_file())
+            with Image.open(jpeg_path) as picture:
+                self.assertEqual(picture.format, 'JPEG')
+                self.assertEqual(picture.size, (1080, 1350))
+            other = dict(self.article, id='unapproved-instagram-test')
+            build(output, [other])
+            self.assertFalse((output / 'assets/instagram/unapproved-instagram-test.jpg').exists())
+
     def test_editorial_cards_put_article_first_and_support_optional_assets(self):
         article = copy.deepcopy(self.article)
         article['format'] = 'deep_dive'

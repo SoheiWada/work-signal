@@ -1,0 +1,66 @@
+name: Validate WORK SIGNAL three-channel publisher
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/publish_social.py
+      - scripts/publish_story_once.py
+      - scripts/build_site.py
+      - tests/test_social_publish.py
+      - .github/workflows/social-publisher-ci.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Compile three-channel publishing scripts
+        id: syntax
+        run: python -m py_compile scripts/publish_social.py scripts/publish_story_once.py scripts/build_site.py
+      - name: Test publisher safeguards without calling Meta
+        id: tests
+        run: python -m unittest discover -s tests -p 'test_social_publish.py'
+      - name: Report test result to GitHub commit status
+        if: ${{ always() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_SHA: ${{ github.sha }}
+          GH_REPOSITORY: ${{ github.repository }}
+          SYNTAX_OUTCOME: ${{ steps.syntax.outcome }}
+          UNIT_OUTCOME: ${{ steps.tests.outcome }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          from urllib.request import Request, urlopen
+
+          ok = (os.getenv("SYNTAX_OUTCOME") == "success"
+                and os.getenv("UNIT_OUTCOME") == "success")
+          body = json.dumps({
+              "state": "success" if ok else "failure",
+              "context": "WORK SIGNAL / Three-channel publisher unit tests",
+              "description": ("Publisher syntax and safety tests passed"
+                              if ok else "Publisher checks require attention"),
+          }).encode()
+          url = ("https://api.github.com/repos/" + os.environ["GH_REPOSITORY"]
+                 + "/statuses/" + os.environ["GH_SHA"])
+          req = Request(url, method="POST", data=body, headers={
+              "Authorization": "Bearer " + os.environ["GH_TOKEN"],
+              "Accept": "application/vnd.github+json",
+              "Content-Type": "application/json",
+              "User-Agent": "WORK-SIGNAL-Publisher-CI/1.0",
+          })
+          with urlopen(req, timeout=20) as resp:
+              if resp.status != 201:
+                  raise RuntimeError("Could not publish GitHub CI status")
+          PY

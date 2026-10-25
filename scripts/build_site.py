@@ -542,7 +542,7 @@ def article_page(article, template, modified_at=None, related=()):
     schema = {"@context": "https://schema.org", "@type": ("Article" if article.get("format") in ("special_story", "management_guide") else "NewsArticle"), "headline": article["title"],
               "description": article["summary"], "datePublished": article["published_at"], "image": [image_url],
               "inLanguage": "ja", "mainEntityOfPage": {"@type": "WebPage", "@id": url},
-              "publisher": {"@type": "Organization", "name": "WORK SIGNAL", "url": BASE}}
+              "publisher": {"@type": "Organization", "name": "WORK SIGNAL", "url": BASE, "sameAs": ["https://www.instagram.com/work_signal_japan/","https://www.threads.com/@work_signal_japan"]}}
     if modified_at:
         schema['dateModified'] = modified_at
     # Do not invent a person or organization byline that the feed does not provide.
@@ -573,7 +573,8 @@ def article_page(article, template, modified_at=None, related=()):
             + '<a class="back" href="/#latest">ALL SIGNALS</a></header>'
             + '<main id="article">' + article_body(article, modified_at, related) + article_end(article) + '</main></div>'
             + '<footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong>'
-            + '<small>NEWS IS SHORT. MEANING IS DEEP. · <a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a> · <a href="/feed.xml">RSS</a></small></div></footer>'
+            + '<small>NEWS IS SHORT. MEANING IS DEEP. · <a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a> · <a href="/feed.xml">RSS</a></small>'
+            + '<nav class="footer-social-links" aria-label="公式SNS"><a href="https://www.instagram.com/work_signal_japan/" target="_blank" rel="noopener noreferrer">INSTAGRAM</a><a href="https://www.threads.com/@work_signal_japan" target="_blank" rel="noopener noreferrer">THREADS</a></nav></div></footer>'
             + wage_widget_script(article, template) + '</body></html>')
     return head + body
 

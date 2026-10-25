@@ -1,5 +1,48 @@
 [
   {
+    "id": "20261026-parse-server-custom-authadapter-auth-bypass",
+    "title": "独自認証の検証処理が実行されない。Parse Serverに重大な認証回避脆弱性",
+    "summary": "Node.js製バックエンドParse Serverで、AuthAdapterを継承した独自認証アダプターの検証処理が呼ばれず、任意の認証データが受け入れられる脆弱性（CVE-2026-116163、CVSS 9.1）。対象構成、修正版、緩和策を公式勧告から整理。",
+    "category": "仕事",
+    "score": 95,
+    "published_at": "2026-10-26",
+    "source_url": "https://github.com/parse-community/parse-server/security/advisories/GHSA-rq3w-5c6f-p7wr",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Parse Server",
+    "social_security_cve": "CVE-2026-116163",
+    "social_security_action": "8.6.102以降または9.10.5以降へ更新し、AuthAdapter継承型の独自認証実装を点検",
+    "quick_take": "Parse Serverのカスタム認証アダプターがAuthAdapterクラスを継承する場合、実装したvalidateSetUp・validateLogin・validateUpdateが呼び出されず、基底クラスの『任意の認証データを受け入れる』処理が使われる。既存ユーザーへのなりすましや追加認証の回避につながる恐れがある。組み込みアダプターやプレーンオブジェクト型の独自アダプターは対象外。",
+    "sections": [
+      {
+        "title": "認証チェックを書いていても、実行されていなかった",
+        "body": "Node.js向けオープンソースバックエンド「Parse Server」で、独自認証アダプターの検証処理が意図どおり実行されない脆弱性が公表された。CVE-2026-116163（GHSA-rq3w-5c6f-p7wr）、開発元の評価はCRITICAL、CVSS v4.0で9.1。攻撃者は対象構成に任意の認証データを送ることで、正規の認証情報を持たずにユーザー登録、外部IDの紐付け、既存ユーザーとしてのログイン、追加認証の回避を行える恐れがある。\n\n公式勧告：https://github.com/parse-community/parse-server/security/advisories/GHSA-rq3w-5c6f-p7wr"
+      },
+      {
+        "title": "対象はAuthAdapterを継承した独自認証実装",
+        "body": "すべてのParse Server利用環境が同じ条件で影響を受けるわけではない。問題が生じるのは、公開されたAuthAdapterクラスを継承し、ドキュメントに沿ってvalidateSetUp、validateLogin、validateUpdateを実装した独自認証アダプターを設定している場合だ。Parse Serverがこれらのメソッドを呼び出さず、認証データを無条件に受け入れる基底クラスの既定処理を使用していた。開発元によれば、組み込み認証アダプターと、クラスを継承せずプレーンオブジェクトとして定義した独自アダプターは影響を受けない。"
+      },
+      {
+        "title": "影響バージョンと公式修正版",
+        "body": "開発元が示す影響範囲は8.6.102未満の8.x系および9.0.0以上9.10.5-alpha.2未満の9.x系。修正の最小バージョンは8.6.102と9.10.5-alpha.2で、現在はより新しい安定版9.10.6および8.6.115も公開されている。運用環境では互換性を検証したうえで、保守対象系列の最新修正版への更新を優先したい。修正では、継承元の既定メソッドと独自実装を区別し、独自の検証メソッドが正しく実行されるようになった。\n\n公式リリース：https://github.com/parse-community/parse-server/releases"
+      },
+      {
+        "title": "すぐに更新できない場合の緩和策",
+        "body": "開発元は、一時的な回避策として、アダプターの状態に依存しない形でvalidateAuthDataメソッドをオーバーライドして検証処理を実装するか、独自アダプターをAuthAdapter継承クラスではなくプレーンオブジェクトで定義する方法を案内している。ただし実装変更には認証・ID連携・追加認証の回帰テストが必要だ。更新を延期する恒久的な理由にはならない。"
+      },
+      {
+        "title": "悪用確認の有無と調査ポイント",
+        "body": "2026年10月26日時点で、開発元の公式勧告から実環境での悪用は確認できない。脆弱性の成立条件と実際の侵害発生は分けて判断する必要がある。管理者はカスタム認証アダプターの定義方法を確認し、対象なら更新とともに、外部IDの紐付け、想定外のログイン、追加認証を経由しないセッションの痕跡を調査したい。公式勧告は10月10日付で、CVE番号の公開は10月25日。"
+      },
+      {
+        "title": "WORK SIGNALの視点｜コードが存在することと実行されることは違う",
+        "body": "認証処理は、コードレビューで『検証メソッドが実装されている』ことを確認するだけでは不十分だ。実際のリクエスト経路でそのメソッドが呼ばれ、誤った認証データが確実に拒否されるかをテストする必要がある。認証基盤のカスタマイズを行う組織にとって、実装方式と動作検証の両方を見直す契機となる。"
+      }
+    ]
+  },
+  {
     "id": "20261026-panasonic-hr-data-generative-ai-governance",
     "title": "「生成AIへの入力禁止」だけでは守れない。パナソニックの人事情報アップロード問題から考える、企業のAI管理",
     "summary": "パナソニックグループの人事情報システム導入で、利用禁止の外部生成AIに個人情報がアップロードされたと10月23日に公表。対象4区分の概数は計約33万4千人。学習への利用や不正利用はどう説明され、企業は何を見直すべきか。公式発表をもとに整理する。",

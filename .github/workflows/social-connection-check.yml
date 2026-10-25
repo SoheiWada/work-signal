@@ -1,0 +1,87 @@
+name: Check WORK SIGNAL social API connections (read-only)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/social-connection-check.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Verify Meta identities without posting
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: GET-only Threads and Instagram account checks
+        env:
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import sys
+          from urllib.error import HTTPError, URLError
+          from urllib.parse import urlencode
+          from urllib.request import Request, urlopen
+
+          EXPECTED_USERNAME = "work_signal_japan"
+          FIELDS = {
+              "Threads": ("https://graph.threads.net/v1.0/me", "id,username",
+                          "THREADS_ACCESS_TOKEN", "THREADS_USER_ID", "id"),
+              "Instagram": ("https://graph.instagram.com/v25.0/me",
+                            "user_id,username,account_type",
+                            "INSTAGRAM_ACCESS_TOKEN", "INSTAGRAM_USER_ID", "user_id"),
+          }
+          failed = False
+          for platform, (endpoint, fields, token_key, id_key, profile_id_key) in FIELDS.items():
+              token, expected_id = os.getenv(token_key, ""), os.getenv(id_key, "")
+              if not token or not expected_id:
+                  print(f"FAIL {platform}: required repository secret is missing or empty")
+                  failed = True
+                  continue
+              url = endpoint + "?" + urlencode({"fields": fields})
+              request = Request(url, method="GET", headers={
+                  "Authorization": "Bearer " + token,
+                  "Accept": "application/json",
+                  "User-Agent": "WORK-SIGNAL-ReadOnly-ConnectionCheck/1.0",
+              })
+              try:
+                  with urlopen(request, timeout=20) as response:
+                      profile = json.load(response)
+              except HTTPError as exc:
+                  # Never print tokens, request headers, request URLs or full API bodies.
+                  print(f"FAIL {platform}: API HTTP {exc.code}")
+                  failed = True
+                  continue
+              except (URLError, TimeoutError, ValueError, OSError):
+                  print(f"FAIL {platform}: could not fetch a valid API response")
+                  failed = True
+                  continue
+              if not isinstance(profile, dict):
+                  print(f"FAIL {platform}: unexpected API response")
+                  failed = True
+                  continue
+              username = str(profile.get("username", "")).lower()
+              actual_id = str(profile.get(profile_id_key, ""))
+              if username != EXPECTED_USERNAME or not actual_id or actual_id != expected_id:
+                  print(f"FAIL {platform}: username or account ID mismatch")
+                  failed = True
+                  continue
+              if platform == "Instagram" and str(profile.get("account_type", "")).upper() not in ("BUSINESS", "CREATOR"):
+                  print("FAIL Instagram: account is not confirmed to be professional")
+                  failed = True
+                  continue
+              print(f"PASS {platform}: GET /me authenticated; expected username and account ID match")
+          if failed:
+              print("Read-only API connection test FAILED. No posts were made.")
+              sys.exit(1)
+          print("Read-only API connection test PASSED. No posts were made.")
+          print("NOTE: Publish scopes, expiration and actual publishing remain unverified.")
+          PY

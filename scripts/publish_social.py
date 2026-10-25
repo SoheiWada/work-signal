@@ -38,6 +38,14 @@ def image_url(article):
     return BASE + "assets/instagram/" + article["id"] + ".jpg"
 
 
+def tracked_article_url(article):
+    """Attribution only: retain the canonical page and original source URL."""
+    return article_url(article) + "?" + urlencode({
+        "utm_source": "threads", "utm_medium": "social",
+        "utm_campaign": "work_signal", "utm_content": article["id"]
+    })
+
+
 def story_image_url(article):
     return BASE + "assets/stories/" + article["id"] + ".jpg"
 
@@ -64,11 +72,12 @@ def approved_articles(feed):
 
 
 def threads_text(article):
-    source, url = article["source_url"], article_url(article)
+    source, url = article["source_url"], tracked_article_url(article)
     custom = article.get("social_threads_text")
     if custom is not None:
         if not isinstance(custom, str) or not custom.strip():
             raise ValueError("Invalid custom Threads text")
+        # Preserve explicitly approved custom copy, including its URLs.
         value = custom.strip()
     else:
         end = "\n\n記事全文：\n" + url + "\n一次情報：\n" + source
@@ -81,7 +90,8 @@ def threads_text(article):
         if len(summary) > budget:
             summary = summary[:max(0, budget - 1)].rstrip() + "…"
         value = title + "\n\n" + summary + "\n" + intro + end
-    if len(value) > 500 or url not in value or not value.endswith(source):
+    required_url = article_url(article) if custom is not None else url
+    if len(value) > 500 or required_url not in value or not value.endswith(source):
         raise ValueError("Threads text must be <=500 chars, include article URL and end in original source")
     return value
 
@@ -401,3 +411,4 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+

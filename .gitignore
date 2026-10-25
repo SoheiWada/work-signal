@@ -7,3 +7,6 @@ __pycache__/
 node_modules/
 
 .cache/
+
+# Internal insights are uploaded as a private Actions artifact only.
+work-signal-social-insights.json

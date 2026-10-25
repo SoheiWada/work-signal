@@ -1,0 +1,37 @@
+name: Read WORK SIGNAL social insights
+on:
+  push:
+    branches: [main, analytics/social-dashboard]
+    paths:
+      - .github/workflows/social-insights-read.yml
+      - scripts/collect_social_insights.mjs
+      - scripts/social_meta.mjs
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Publish approved WORK SIGNAL social posts"]
+    types: [completed]
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  collect:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Collect account and post metrics with GET requests only
+        run: node scripts/collect_social_insights.mjs
+        env:
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+      - name: Keep analytics as a downloadable artifact, not on the public website
+        uses: actions/upload-artifact@v4
+        with:
+          name: work-signal-social-insights
+          path: work-signal-social-insights.json
+          retention-days: 14
+          if-no-files-found: error

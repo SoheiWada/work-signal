@@ -1,5 +1,14 @@
 [
   {
+    "id": "collabora-code-server-exploited",
+    "product": "Collabora Online Built-in CODE Server",
+    "severity": "CRITICAL",
+    "date": "2026-10-25",
+    "article_id": "20261025-collabora-nextcloud-code-server-exploited",
+    "summary": "認証不要RCE（CVSS 9.2）、CISAが実際の悪用を確認",
+    "status": "悪用確認・修正版あり"
+  },
+  {
     "id": "postiz-three-critical",
     "product": "Postiz",
     "severity": "CRITICAL",

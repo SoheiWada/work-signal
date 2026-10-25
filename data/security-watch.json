@@ -48,9 +48,9 @@
     "id": "echo-websocket-auth-bypass",
     "product": "Echo (Go)",
     "severity": "CRITICAL",
-    "date": "2026-10-24",
+    "date": "2026-10-25",
     "article_id": "20261024-echo-websocket-auth-bypass",
-    "summary": "Proxy経由でルート別認証・認可を回避する恐れ（CVSS 9.1）",
+    "summary": "Proxy経由の認証回避（CVSS 9.1）に加えWebSocket切断後のリソース残留によるDoS（CVSS 8.2）",
     "status": "修正版あり"
   },
   {

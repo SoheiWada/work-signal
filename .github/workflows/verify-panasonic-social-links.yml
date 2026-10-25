@@ -1,0 +1,119 @@
+name: Verify Panasonic article social post URLs (read-only)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/verify-panasonic-social-links.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verify-links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - name: Read Meta published URLs and attach results to commit
+        env:
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+          GH_SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import sys
+          from urllib.parse import urlencode, urlparse
+          from urllib.request import Request, urlopen
+
+          target = "20261026-panasonic-hr-data-generative-ai-governance"
+          ledger = json.load(open(".github/social-post-ledger.json", encoding="utf-8"))
+          entries = [
+              ("Threads", "threads", "https://graph.threads.net/v1.0",
+               os.getenv("THREADS_ACCESS_TOKEN", "")),
+              ("Instagram Feed", "instagram", "https://graph.instagram.com/v25.0",
+               os.getenv("INSTAGRAM_ACCESS_TOKEN", "")),
+              ("Instagram Story", "instagram_story", "https://graph.instagram.com/v25.0",
+               os.getenv("INSTAGRAM_ACCESS_TOKEN", "")),
+          ]
+
+          def get_json(url, token):
+              req = Request(url, method="GET", headers={
+                  "Authorization": "Bearer " + token,
+                  "Accept": "application/json",
+                  "User-Agent": "WORK-SIGNAL-PanasonicSocialVerify/1.0",
+              })
+              with urlopen(req, timeout=20) as response:
+                  return json.load(response)
+
+          def record_status(name, state, permalink=""):
+              payload = {
+                  "state": state,
+                  "context": "WORK SIGNAL / Panasonic " + name + " permalink",
+                  "description": ("Published media verified by Meta GET"
+                                  if state == "success" else "Meta published URL not verified"),
+              }
+              if permalink:
+                  payload["target_url"] = permalink
+              url = ("https://api.github.com/repos/" + os.environ["GH_REPOSITORY"]
+                     + "/statuses/" + os.environ["GH_SHA"])
+              req = Request(url, method="POST", data=json.dumps(payload).encode(),
+                            headers={
+                                "Authorization": "Bearer " + os.environ["GH_TOKEN"],
+                                "Content-Type": "application/json",
+                                "Accept": "application/vnd.github+json",
+                                "User-Agent": "WORK-SIGNAL-PanasonicSocialVerify/1.0",
+                            })
+              with urlopen(req, timeout=20) as response:
+                  if response.status != 201:
+                      raise RuntimeError("GitHub status update failed")
+
+          success = True
+          record = ledger.get(target, {})
+          for name, platform, base, token in entries:
+              media = record.get(platform, {})
+              remote_id = str(media.get("remote_id", ""))
+              try:
+                  if media.get("status") != "published" or not remote_id.isdigit() or not token:
+                      raise ValueError("Not published or credential absent")
+                  if platform == "threads":
+                      items = get_json(base + "/me/threads?"
+                                       + urlencode({"fields": "id,permalink,username", "limit": 50}),
+                                       token).get("data", [])
+                      found = [x for x in items if str(x.get("id", "")) == remote_id
+                               and str(x.get("username", "")).lower() == "work_signal_japan"]
+                      if len(found) != 1:
+                          raise ValueError("Threads media not found in verified account")
+                      link = str(found[0].get("permalink", ""))
+                  else:
+                      fields = "id,permalink,media_product_type"
+                      result = get_json(base + "/" + remote_id
+                                        + "?" + urlencode({"fields": fields}), token)
+                      if str(result.get("id", "")) != remote_id:
+                          raise ValueError("Instagram media ID mismatch")
+                      if platform == "instagram_story" and result.get("media_product_type") not in ("STORY", "STORIES"):
+                          raise ValueError("Media is not a Story")
+                      link = str(result.get("permalink", ""))
+                  parsed = urlparse(link)
+                  domain = parsed.hostname
+                  expected_domains = (("threads.com", "www.threads.com", "threads.net", "www.threads.net")
+                                      if platform == "threads" else
+                                      ("instagram.com", "www.instagram.com"))
+                  if parsed.scheme != "https" or domain not in expected_domains:
+                      raise ValueError("Invalid published permalink")
+                  record_status(name, "success", link)
+                  print("PUBLISHED", name, link)
+              except Exception as exc:
+                  success = False
+                  record_status(name, "failure")
+                  # No token or request data in logs.
+                  print("UNVERIFIED", name, type(exc).__name__)
+          if not success:
+              sys.exit(1)
+          PY

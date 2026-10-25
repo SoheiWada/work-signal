@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   check:
-    name: Verify Meta identities without posting
+    name: Verify Meta account identities and publishing quota (GET only)
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -81,11 +81,32 @@ jobs:
                   failed = True
                   continue
               print(f"PASS {platform}: GET /me authenticated; expected username and account ID match")
+              quota_url = (("https://graph.threads.net/v1.0/me/threads_publishing_limit"
+                            if platform == "Threads"
+                            else "https://graph.instagram.com/v25.0/" + actual_id
+                                 + "/content_publishing_limit") + "?fields=quota_usage")
+              quota_request = Request(quota_url, method="GET", headers={
+                  "Authorization": "Bearer " + token,
+                  "Accept": "application/json",
+                  "User-Agent": "WORK-SIGNAL-ReadOnly-ConnectionCheck/1.0",
+              })
+              try:
+                  with urlopen(quota_request, timeout=20) as response:
+                      quota = json.load(response)
+                  if not isinstance(quota, dict) or not isinstance(quota.get("data"), list):
+                      raise ValueError("unexpected quota response")
+                  print(f"PASS {platform}: read-only publishing quota endpoint accessible")
+              except HTTPError as exc:
+                  print(f"FAIL {platform}: publishing quota API HTTP {exc.code}; verify publish scope")
+                  failed = True
+              except (URLError, TimeoutError, ValueError, OSError):
+                  print(f"FAIL {platform}: publishing quota check did not return expected data")
+                  failed = True
           if failed:
               print("Read-only API connection test FAILED. No posts were made.")
               sys.exit(1)
           print("Read-only API connection test PASSED. No posts were made.")
-          print("NOTE: Publish scopes, expiration and actual publishing remain unverified.")
+          print("NOTE: Quota GET passed; actual posting and token expiration remain unverified.")
           PY
       - name: Report read-only test outcome on this commit
         if: ${{ always() }}
@@ -103,8 +124,8 @@ jobs:
           payload = json.dumps({
               "state": "success" if ok else "failure",
               "context": "WORK SIGNAL / Social API read-only check",
-              "description": ("Both account identity checks passed (no posts)"
-                              if ok else "One or more account checks failed (no posts)"),
+              "description": ("Both identity and publishing-quota GET checks passed (no posts)"
+                              if ok else "One or more API identity/quota checks failed (no posts)"),
           }).encode()
           url = ("https://api.github.com/repos/" + os.environ["GH_REPOSITORY"]
                  + "/statuses/" + os.environ["GH_SHA"])

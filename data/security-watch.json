@@ -1,5 +1,14 @@
 [
   {
+    "id": "parse-server-authadapter-bypass",
+    "product": "Parse Server",
+    "severity": "CRITICAL",
+    "date": "2026-10-26",
+    "article_id": "20261026-parse-server-custom-authadapter-auth-bypass",
+    "summary": "独自AuthAdapterの検証不実行による認証回避（CVE-2026-116163、CVSS 9.1）",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
     "id": "collabora-code-server-exploited",
     "product": "Collabora Online Built-in CODE Server",
     "severity": "CRITICAL",

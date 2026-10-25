@@ -223,6 +223,7 @@ def verify_account(base, token, user_id, *, instagram=False):
         raise RuntimeError("Account ID mismatch")
     if instagram and profile.get("account_type") and profile["account_type"].upper() not in ("BUSINESS", "CREATOR"):
         raise RuntimeError("Instagram must be a professional account")
+    return profile
 
 
 def publish_threads(text, token, user_id):
@@ -260,6 +261,43 @@ def publish_instagram(text, url, token, user_id):
     return str(posted["id"])
 
 
+
+def publish_instagram_story(url, token, user_id):
+    """Publish one 9:16 JPEG as an ephemeral Instagram Story (Business only)."""
+    created = request_json(IG_API + "/" + user_id + "/media",
+                           method="POST", token=token,
+                           data={"media_type": "STORIES", "image_url": url})
+    creation_id = str(created.get("id", ""))
+    if not creation_id.isdigit():
+        raise RuntimeError("Instagram Story container missing")
+    for _ in range(15):
+        time.sleep(5)
+        state = request_json(IG_API + "/" + creation_id + "?fields=status_code",
+                             token=token).get("status_code")
+        if state == "FINISHED":
+            break
+        if state in ("ERROR", "EXPIRED"):
+            raise RuntimeError("Instagram Story container failed")
+    else:
+        raise RuntimeError("Instagram Story processing timeout")
+    posted = request_json(IG_API + "/" + user_id + "/media_publish",
+                          method="POST", token=token, data={"creation_id": creation_id})
+    published_id = str(posted.get("id", ""))
+    if not published_id.isdigit():
+        raise RuntimeError("Instagram Story publish result ambiguous")
+    return published_id
+
+
+SOCIAL_PLATFORMS = ("threads", "instagram", "instagram_story")
+
+
+def remaining_platforms(existing):
+    """Do not automatically retry an attempted, published, or uncertain platform."""
+    return [platform for platform in SOCIAL_PLATFORMS
+            if existing.get(platform, {}).get("status") not in STATUSES]
+
+
+
 def run(articles, ledger, credentials):
     pending = approved_articles(articles)
     if not pending:
@@ -272,41 +310,54 @@ def run(articles, ledger, credentials):
     if any(not credentials.get(k) for k in keys):
         print("Both Meta accounts must be connected before social posting.")
         return 0
+    rows, _ = ledger.read()
+    if not any(remaining_platforms(rows.get(item["id"], {})) for item in pending):
+        print("All explicitly approved social articles are recorded; no posts.")
+        return 0
     verify_account(THREADS_API, credentials["THREADS_ACCESS_TOKEN"], credentials["THREADS_USER_ID"])
-    verify_account(IG_API, credentials["INSTAGRAM_ACCESS_TOKEN"],
-                   credentials["INSTAGRAM_USER_ID"], instagram=True)
+    ig_profile = verify_account(IG_API, credentials["INSTAGRAM_ACCESS_TOKEN"],
+                                credentials["INSTAGRAM_USER_ID"], instagram=True)
     failures, count = [], 0
     # Process oldest approved articles first. Deployed revision is pinned by workflow_run.
     for article in reversed(pending):
         identifier = article["id"]
         rows, _ = ledger.read()
-        existing = rows.get(identifier, {})
-        remaining = [kind for kind in ("threads", "instagram")
-                     if existing.get(kind, {}).get("status") not in STATUSES]
+        remaining = remaining_platforms(rows.get(identifier, {}))
         if not remaining:
             continue
         if count >= 5:
             print("5-article safety limit reached; remaining items queued.")
             break
         try:
-            text = threads_text(article)
-            ig_text = instagram_text(article)
+            text = threads_text(article) if "threads" in remaining else ""
+            ig_text = instagram_text(article) if "instagram" in remaining else ""
+            if "instagram_story" in remaining and str(ig_profile.get("account_type", "")).upper() != "BUSINESS":
+                raise ValueError("Instagram Stories require a business account")
             verify_live(article_url(article))
             if "instagram" in remaining:
                 verify_live(image_url(article), jpg=True)
+            if "instagram_story" in remaining:
+                verify_live(story_image_url(article), jpg=True)
         except (ValueError, RuntimeError) as exc:
             failures.append(identifier + ": preflight " + str(exc))
             continue
         for kind in remaining:
             try:
+                # Durable write BEFORE publishing, including ephemeral Stories.
                 ledger.record(identifier, kind, "attempting")
                 if kind == "threads":
                     remote = publish_threads(text, credentials["THREADS_ACCESS_TOKEN"],
                                              credentials["THREADS_USER_ID"])
-                else:
+                elif kind == "instagram":
                     remote = publish_instagram(ig_text, image_url(article),
                                                credentials["INSTAGRAM_ACCESS_TOKEN"],
                                                credentials["INSTAGRAM_USER_ID"])
+                elif kind == "instagram_story":
+                    remote = publish_instagram_story(story_image_url(article),
+                                                      credentials["INSTAGRAM_ACCESS_TOKEN"],
+                                                      credentials["INSTAGRAM_USER_ID"])
+                else:
+                    raise ValueError("Unsupported platform")
                 ledger.record(identifier, kind, "published", remote_id=remote)
                 print("PUBLISHED", identifier, kind, remote)
             except Exception as exc:

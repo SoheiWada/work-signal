@@ -102,6 +102,64 @@ def share_card(output, article=None):
     return path
 
 
+
+def instagram_share_card(output, article):
+    """Produce a portrait JPEG, suitable for Instagram's public image URL."""
+    paper, ink, orange, muted = '#f2efe7', '#191918', '#fa4c24', '#68665f'
+    width, height = 1080, 1350
+    image = Image.new('RGB', (width, height), paper)
+    draw = ImageDraw.Draw(image)
+    draw.rectangle((0, 0, width, 11), fill=ink)
+    x = 78
+    brand = card_font(62, 800)
+    for label, color in [('WORK', ink), ('.', orange), ('SIGNAL', ink)]:
+        draw.text((x, 68), label, font=brand, fill=color, anchor='lt')
+        x += brand.getlength(label)
+    draw.text((78, 154), 'READ BEYOND THE HEADLINE', font=card_font(19, 700),
+              fill=muted, anchor='lt')
+    draw.line((78, 202, 1002, 202), fill='#c9c4ba', width=2)
+    category = article['category']
+    badge_font = card_font(28, 700)
+    badge_width = min(460, int(badge_font.getlength(category)) + 40)
+    draw.rectangle((78, 252, 78 + badge_width, 311), fill=orange)
+    draw.text((98, 262), category, font=badge_font, fill=ink, anchor='lt')
+    draw.text((1002, 264), article['published_at'], font=card_font(24, 600),
+              fill=ink, anchor='rt')
+    title = article['title']
+    found = None
+    for font_size in range(66, 27, -2):
+        font = card_font(font_size, 800)
+        lines = wrap_title(title, font, 920)
+        leading = int(font_size * 1.42)
+        if len(lines) * leading <= 580:
+            found = (font, lines, leading)
+            break
+    if found is None:
+        raise ValueError('Instagram share card title is too long: ' + article['id'])
+    font, lines, leading = found
+    for index, line in enumerate(lines):
+        draw.text((78, 365 + leading * index), line, fill=ink, font=font, anchor='lt')
+    wave_y = 985
+    draw.line([(78, wave_y), (360, wave_y), (395, wave_y), (420, wave_y-45),
+               (445, wave_y+50), (468, wave_y-75), (493, wave_y+55),
+               (518, wave_y), (1002, wave_y)], fill=orange, width=5, joint='curve')
+    excerpt = article['summary'].replace('\n', ' ').strip()
+    excerpt_font = card_font(24, 500)
+    excerpt_lines = wrap_title(excerpt, excerpt_font, 918)[:4]
+    for index, line in enumerate(excerpt_lines):
+        draw.text((78, 1042 + index * 40), line, font=excerpt_font, fill='#403e38', anchor='lt')
+    draw.line((78, 1242, 1002, 1242), fill='#c9c4ba', width=2)
+    draw.text((78, 1275), 'signal.amberlight.co.jp', font=card_font(23, 700),
+              fill=ink, anchor='lt')
+    draw.text((1002, 1275), 'WORK SIGNAL  /  OFFICIAL', font=card_font(16, 700),
+              fill=muted, anchor='rt')
+    path = output / 'assets' / 'instagram' / (article['id'] + '.jpg')
+    path.parent.mkdir(parents=True, exist_ok=True)
+    image.save(path, format='JPEG', quality=92, optimize=True, progressive=True,
+               subsampling=0)
+    return path
+
+
 def image_metadata(url, alt):
     return ('<meta property="og:image" content="' + url + '">'
             + '<meta property="og:image:secure_url" content="' + url + '">'
@@ -901,6 +959,8 @@ def build(output, feed=None):
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(source, destination)
         share_card(output, article)
+        if article.get('social_publish') is True:
+            instagram_share_card(output, article)
         folder = output / 'articles' / article['id']
         folder.mkdir(parents=True)
         (folder / 'index.html').write_text(article_page(article, template, modified[article['id']], related_articles(article, articles)))

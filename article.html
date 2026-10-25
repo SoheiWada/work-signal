@@ -60,6 +60,13 @@ html{scroll-behavior:smooth}
 #article .content .wage-data small{font-size:clamp(9px,2.3vw,12px);line-height:1.45;overflow-wrap:anywhere}
 #article .content .wage-data strong{font-size:clamp(18px,5vw,30px);line-height:1.2;white-space:nowrap;margin-top:0}
 @media(max-width:380px){#article .content .wage-data{gap:5px!important}#article .content .wage-data>div{padding:12px 7px}}
+
+/* First-party social channels: distinct from article sharing. */
+.footer-social-links{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.footer-social-links a{display:inline-flex;min-height:44px;align-items:center;font:700 11px var(--sans);letter-spacing:.07em;text-decoration:none;border-bottom:1px solid transparent}
+.footer-social-links a:hover{color:var(--orange);border-bottom-color:var(--orange)}
+.footer-social-links a:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+@media(max-width:760px){.footer-social-links{gap:16px}}
 </style>
 <link rel="stylesheet" href="/assets/css/signal-interactions.css">
 <script defer src="/assets/js/article-actions.js"></script>
@@ -79,7 +86,7 @@ html{scroll-behavior:smooth}
     });
   }
 </script>
-</head><body><div class="top" id="page-top"></div><div class="shell"><header><a class="brand" href="/">WORK<span>.</span>SIGNAL</a><a class="back" href="/#latest">ALL SIGNALS</a></header><main id="article" aria-live="polite"><section class="notfound"><div class="eyebrow">/ LOADING THE SIGNAL</div><h1>PLEASE WAIT<span class="accent">.</span></h1></section></main></div><footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong><small>NEWS IS SHORT. MEANING IS DEEP.</small></div></footer>
+</head><body><div class="top" id="page-top"></div><div class="shell"><header><a class="brand" href="/">WORK<span>.</span>SIGNAL</a><a class="back" href="/#latest">ALL SIGNALS</a></header><main id="article" aria-live="polite"><section class="notfound"><div class="eyebrow">/ LOADING THE SIGNAL</div><h1>PLEASE WAIT<span class="accent">.</span></h1></section></main></div><footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong><small>NEWS IS SHORT. MEANING IS DEEP.</small><nav class="footer-social-links" aria-label="公式SNS"><a href="https://www.instagram.com/work_signal_japan/" target="_blank" rel="noopener noreferrer">INSTAGRAM</a><a href="https://www.threads.com/@work_signal_japan" target="_blank" rel="noopener noreferrer">THREADS</a></nav></div></footer>
 <script>
 const root=document.querySelector('#article');const params=new URLSearchParams(location.search);const id=params.get('id');
 function el(tag,txt,cls){const n=document.createElement(tag);if(txt!==undefined)n.textContent=txt;if(cls)n.className=cls;return n}

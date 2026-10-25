@@ -74,3 +74,18 @@ node --test tests/seo/*.test.mjs
 ```
 
 **公開担当への指示：** ユーザーが次回「公開」と承認したら、記事の `social_publish: true` を同じコミットで記録する。サイト公開の成功後、SNSワークフローの結果を確認し、記事・Instagram・Threadsの成否をそれぞれ区別して伝える。
+
+## 2026-10-26 Instagramストーリーズ単独テスト
+
+- 対象は公開済み記事 `20261024-nec-ai-work-wellbeing-survey` のみ。
+- 1080×1920pxのストーリーズ専用JPEGを `assets/stories/<記事ID>.jpg` に生成。
+- 先行するサイトのビルド・テスト・Pagesデプロイが成功した場合のみ、
+  一度限りの `social-story-first-post.yml` が投稿を試みる。
+- フィード投稿やThreads投稿は**一切再送しない**。
+- 投稿前に `.github/social-post-ledger.json` の `instagram_story` を
+  `attempting` として記録し、成功時に `published`、曖昧なエラー時は
+  `needs_review` として重複を防ぐ。
+- 本番の通常自動投稿変数 `SOCIAL_PUBLISH_ENABLED` は変更しない。
+- APIのStories投稿ではリンクスタンプや画面上のリンク誘導は追加できないため、
+  画像内でプロフィールのWORK SIGNALリンクを案内する。
+- このテストは通常運用へのストーリーズ自動投稿追加を意味しない。

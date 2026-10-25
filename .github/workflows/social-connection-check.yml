@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: read
+  statuses: write
 
 jobs:
   check:
@@ -17,6 +18,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: GET-only Threads and Instagram account checks
+        id: connection
         env:
           THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
           THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
@@ -84,4 +86,36 @@ jobs:
               sys.exit(1)
           print("Read-only API connection test PASSED. No posts were made.")
           print("NOTE: Publish scopes, expiration and actual publishing remain unverified.")
+          PY
+      - name: Report read-only test outcome on this commit
+        if: ${{ always() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+          GH_SHA: ${{ github.sha }}
+          TEST_OUTCOME: ${{ steps.connection.outcome }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          from urllib.request import Request, urlopen
+          ok = os.environ["TEST_OUTCOME"] == "success"
+          payload = json.dumps({
+              "state": "success" if ok else "failure",
+              "context": "WORK SIGNAL / Social API read-only check",
+              "description": ("Both account identity checks passed (no posts)"
+                              if ok else "One or more account checks failed (no posts)"),
+          }).encode()
+          url = ("https://api.github.com/repos/" + os.environ["GH_REPOSITORY"]
+                 + "/statuses/" + os.environ["GH_SHA"])
+          request = Request(url, data=payload, method="POST", headers={
+              "Authorization": "Bearer " + os.environ["GH_TOKEN"],
+              "Accept": "application/vnd.github+json",
+              "Content-Type": "application/json",
+              "User-Agent": "WORK-SIGNAL-ReadOnly-ConnectionCheck/1.0",
+          })
+          with urlopen(request, timeout=20) as response:
+              if response.status != 201:
+                  raise RuntimeError("Could not report check status")
+          print("Recorded non-secret commit status:", "PASS" if ok else "FAIL")
           PY

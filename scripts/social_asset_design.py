@@ -187,14 +187,16 @@ def security_share_card(output, article):
                   right=1002, preferred_size=100)
     title_font, lines, leading = fit_headline(
         article["title"], width=915, max_lines=6,
-        max_height=475, preferred_size=60)
+        max_height=368, preferred_size=60)
     # Dark overlay preserves legibility over the technical background.
     draw.rectangle((64, 500, 1016, 957), fill=style["panel"])
     for index, line in enumerate(lines):
         draw.text((82, 550 + index * leading), line,
                   font=title_font, fill=style["ink"], anchor="lt")
     draw.line((78, 980, 1002, 980), fill=style["glow"], width=2)
-    draw_article_info(draw, article, style, left=78, top=1010, width=924)
+    info_bottom = draw_article_info(draw, article, style, left=78, top=1010, width=924)
+    if info_bottom > 1248:
+        raise ValueError("Security feed metadata extends into footer")
     draw.line((78, 1260, 1002, 1260), fill=style["glow"], width=2)
     draw.text((78, 1288), "signal.amberlight.co.jp",
               font=font(23, 600), fill=style["quiet"], anchor="lt")
@@ -226,12 +228,14 @@ def security_story_card(output, article):
                   right=1000, preferred_size=122)
     title_font, lines, leading = fit_headline(
         article["title"], width=908, max_lines=7,
-        max_height=618, preferred_size=70)
+        max_height=474, preferred_size=70)
     draw.rectangle((68, 803, 1012, 1370), fill=style["panel"])
     for index, line in enumerate(lines):
         draw.text((85, 849 + index * leading), line,
                   font=title_font, fill=style["ink"], anchor="lt")
-    draw_article_info(draw, article, style, left=80, top=1400, width=920)
+    info_bottom = draw_article_info(draw, article, style, left=80, top=1400, width=920)
+    if info_bottom > 1660:
+        raise ValueError("Security Story metadata extends into bottom safe area")
     draw.rectangle((80, 1680, 1000, 1778), outline=style["accent"], width=3)
     draw.text((108, 1702), "記事全文はプロフィールから",
               font=font(40, 700), fill=style["ink"], anchor="lt")

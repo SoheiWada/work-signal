@@ -100,15 +100,17 @@ class SocialPublisherTests(unittest.TestCase):
             "INSTAGRAM_ACCESS_TOKEN": "ig-token",
             "INSTAGRAM_USER_ID": "1784",
         }
-        with patch("scripts.publish_social.verify_account",
-                   side_effect=[{"username": "work_signal_japan", "id": "123"},
-                                {"username": "work_signal_japan",
-                                 "user_id": "1784", "account_type": "BUSINESS"}]), \\
-             patch("scripts.publish_social.verify_live") as check_asset, \\
-             patch("scripts.publish_social.publish_threads") as threads_post, \\
-             patch("scripts.publish_social.publish_instagram") as feed_post, \\
-             patch("scripts.publish_social.publish_instagram_story",
-                   return_value="story-remote") as story_post:
+        with (
+            patch("scripts.publish_social.verify_account",
+                  side_effect=[{"username": "work_signal_japan", "id": "123"},
+                               {"username": "work_signal_japan",
+                                "user_id": "1784", "account_type": "BUSINESS"}]),
+            patch("scripts.publish_social.verify_live") as check_asset,
+            patch("scripts.publish_social.publish_threads") as threads_post,
+            patch("scripts.publish_social.publish_instagram") as feed_post,
+            patch("scripts.publish_social.publish_instagram_story",
+                  return_value="story-remote") as story_post,
+        ):
             self.assertEqual(run([article], ledger, credentials), 0)
         threads_post.assert_not_called()
         feed_post.assert_not_called()

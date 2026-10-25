@@ -27,9 +27,55 @@ jobs:
         run: python -m pip install -r requirements-build.txt
       - name: Validate image templates, one-line severity and approval routing
         id: tests
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          SHA: ${{ github.sha }}
         run: |
           python -m py_compile scripts/social_asset_design.py scripts/build_site.py
-          python -m unittest discover -s tests -p 'test_social_asset_design.py' -v
+          python - <<'PY'
+          import json
+          import os
+          import subprocess
+          import sys
+          from urllib.request import Request, urlopen
+
+          methods = [
+              "test_explicit_tag_only_and_invalid_value_fails_closed",
+              "test_critical_never_wraps_and_fits_within_image",
+              "test_feed_and_story_have_expected_distinct_dark_themes",
+              "test_build_routes_only_explicit_severity_and_keeps_standard_unchanged",
+          ]
+          failures = []
+          for method in methods:
+              name = "tests.test_social_asset_design.SecurityAssetDesignTests." + method
+              proc = subprocess.run([sys.executable, "-m", "unittest", name],
+                                    capture_output=True, text=True, timeout=120)
+              ok = proc.returncode == 0
+              payload = json.dumps({
+                  "state": "success" if ok else "failure",
+                  "context": "SECURITY asset / " + method,
+                  "description": "Design test passed" if ok else "Design test failed (no SNS publish)"
+              }).encode()
+              url = ("https://api.github.com/repos/"
+                     + os.environ["REPOSITORY"] + "/statuses/" + os.environ["SHA"])
+              req = Request(url, method="POST", data=payload, headers={
+                  "Authorization": "Bearer " + os.environ["GH_TOKEN"],
+                  "Accept": "application/vnd.github+json",
+                  "Content-Type": "application/json"
+              })
+              with urlopen(req, timeout=20) as response:
+                  if response.status != 201:
+                      raise RuntimeError("Unable to report status")
+              print(("PASS " if ok else "FAIL ") + method)
+              if not ok:
+                  failures.append(method)
+                  # Test log only; no secrets are passed to any test subprocess.
+                  print(proc.stdout[-3000:])
+                  print(proc.stderr[-3000:])
+          if failures:
+              sys.exit(1)
+          PY
       - name: Publish check result
         if: ${{ always() }}
         env:

@@ -66,5 +66,11 @@
       "updated_at": "2026-10-25T23:59:50+00:00",
       "remote_id": "18124609723930829"
     }
+  },
+  "20261026-volkswagen-copilot-330000-adoption": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-25T23:59:52+00:00"
+    }
   }
 }

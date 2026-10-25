@@ -12,6 +12,14 @@ from urllib.parse import urlencode, urlparse
 from xml.etree import ElementTree as ET
 from PIL import Image, ImageDraw, ImageFont
 try:
+    from .social_asset_design import (
+        security_style, security_share_card, security_story_card
+    )
+except ImportError:
+    from social_asset_design import (
+        security_style, security_share_card, security_story_card
+    )
+try:
     from .seo_metadata import article_modifications, modification_date, latest_date
 except ImportError:
     from seo_metadata import article_modifications, modification_date, latest_date
@@ -1034,8 +1042,12 @@ def build(output, feed=None):
             shutil.copyfile(source, destination)
         share_card(output, article)
         if article.get('social_publish') is True:
-            instagram_share_card(output, article)
-            instagram_story_card(output, article)
+            if security_style(article) is not None:
+                security_share_card(output, article)
+                security_story_card(output, article)
+            else:
+                instagram_share_card(output, article)
+                instagram_story_card(output, article)
         folder = output / 'articles' / article['id']
         folder.mkdir(parents=True)
         (folder / 'index.html').write_text(article_page(article, template, modified[article['id']], related_articles(article, articles)))

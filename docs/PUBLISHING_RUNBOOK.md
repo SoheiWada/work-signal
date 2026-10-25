@@ -13,7 +13,7 @@
 - ビルド: `python3 scripts/build_site.py`
 - テスト: `python3 -m unittest discover -s tests`
 - **GitHubへのコミット成功は公開成功ではない。buildとdeployが成功し、公開URLで記事を確認して初めて公開完了。**
-- 公開は編集者の明示的な承認後に行う。Threadsは投稿文の提示のみで、無断投稿しない。
+- 公開は編集者の明示的な承認後に行う。2026年10月25日以降の「公開」は記事と公式SNS投稿の承認を兼ねるが、`social_publish: true` を付けた記事のみSNS対象とする。
 - 記事追加の際、既存記事・デザイン・操作仕様は変更しない。変更は依頼された範囲に限定する。
 
 ## 新規記事の公開手順（毎回必須）
@@ -33,7 +33,8 @@
 7. https://github.com/SoheiWada/work-signal/actions の最新 `Build and deploy WORK SIGNAL` を確認し、**build=success と deploy=success** の両方を確認する。失敗なら `build` ジョブのログを確認し、原因を直してから再実行／再プッシュする。失敗中は「公開済み」と報告しない。
 8. https://signal.amberlight.co.jp/ のトップに新記事があり、`https://signal.amberlight.co.jp/articles/<記事ID>/` の個別記事が開くことを確認する。公開データ `/data/articles.json` も必要に応じて確認する。
 9. すべて成功したら、記事URLと公開完了を報告する。確認できない場合は、何を確認できたか・できなかったかを明示する。
-10. Threads投稿文には一次情報のプレーンな `https://...` URLを本文末尾に入れる。ユーザーの承認なくThreadsに投稿しない。
+10. 承認された新規記事には `social_publish: true` を含める。Threads投稿文には記事URLと、末尾の一次情報プレーン `https://...` URLを入れる。Instagram用に専用JPEGも生成される。
+11. SNS配信はPages公開成功後に別のGitHub Actions `Publish approved WORK SIGNAL social posts` が実施。MetaのSecrets・有効化変数が未設定なら投稿しない。**記事のサイト公開とSNSへの実投稿はそれぞれ確認・報告する。** 設定方法は `docs/SOCIAL_AUTOPUBLISH.md`。
 
 ## 2026-10-19 障害の原因と解決（再発防止）
 

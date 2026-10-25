@@ -1,9 +1,10 @@
+import json
 import unittest
 from unittest.mock import patch
 
 from scripts.publish_social import (
     approved_articles, article_url, image_url, story_image_url, threads_text,
-    instagram_text, GithubLedger, remaining_platforms, run,
+    instagram_text, GithubLedger, remaining_platforms, run, verify_account, main,
 )
 
 
@@ -134,6 +135,69 @@ class SocialPublisherTests(unittest.TestCase):
                 raise AssertionError("Disabled publishing must never touch GitHub ledger")
         credentials = {"SOCIAL_PUBLISH_ENABLED": "false"}
         self.assertEqual(run([article], NoNetworkLedger(), credentials), 0)
+
+    def test_unknown_or_malformed_history_never_becomes_a_new_post(self):
+        for existing in (None, [], {"threads": None}, {"threads": {}},
+                         {"threads": {"status": "unknown", "remote_id": "123"}}):
+            with self.subTest(existing=existing), self.assertRaises(RuntimeError):
+                remaining_platforms(existing)
+
+    def test_missing_ledger_is_not_silently_reinitialized(self):
+        with patch("scripts.publish_social.request_json", side_effect=RuntimeError("API HTTP 404")):
+            with self.assertRaisesRegex(RuntimeError, "ledger missing"):
+                GithubLedger("test/repo", "dummy-token").read()
+
+    def test_unknown_history_cannot_be_overwritten_by_a_claim(self):
+        ledger = GithubLedger("test/repo", "dummy-token")
+        with patch.object(ledger, "read", return_value=({"id": {"threads": {"status": "unknown"}}}, "sha")), \
+             patch("scripts.publish_social.urlopen") as write:
+            with self.assertRaisesRegex(RuntimeError, "Unknown publication state"):
+                ledger.record("id", "threads", "attempting")
+            write.assert_not_called()
+
+    def test_missing_credentials_fail_an_enabled_live_run_without_posts(self):
+        article = {**self.story, "social_publish": True}
+        with patch("scripts.publish_social.verify_account") as verify:
+            self.assertEqual(run([article], None, {"SOCIAL_PUBLISH_ENABLED": "true"}), 1)
+            verify.assert_not_called()
+
+    def test_live_command_with_missing_credentials_returns_failure_before_ledger_access(self):
+        with patch.dict("os.environ", {"SOCIAL_PUBLISH_ENABLED": "true"}, clear=True), \
+             patch("sys.argv", ["publish_social.py", "--live"]), \
+             patch("scripts.publish_social.Path.read_text", return_value=json.dumps([{**self.story, "social_publish": True}])), \
+             patch("scripts.publish_social.GithubLedger") as ledger:
+            self.assertEqual(main(), 1)
+            ledger.assert_not_called()
+
+    def test_missing_or_mismatched_account_id_is_rejected(self):
+        for profile in ({"username": "work_signal_japan"},
+                        {"username": "work_signal_japan", "id": "456"}):
+            with patch("scripts.publish_social.request_json", return_value=profile):
+                with self.assertRaisesRegex(RuntimeError, "Account ID mismatch"):
+                    verify_account("https://graph.threads.net/v1.0", "dummy-token", "123")
+
+    def test_safety_limit_reports_unprocessed_articles_without_exceeding_five(self):
+        articles = [{**self.story, "id": "approved-" + str(i), "social_publish": True}
+                    for i in range(6)]
+        class Ledger:
+            def __init__(self):
+                self.rows = {}
+            def read(self):
+                return self.rows, "sha"
+            def record(self, identifier, platform, status, **kwargs):
+                self.rows.setdefault(identifier, {})[platform] = {"status": status}
+        ledger = Ledger()
+        credentials = {key: "123" for key in ("THREADS_ACCESS_TOKEN", "THREADS_USER_ID",
+                       "INSTAGRAM_ACCESS_TOKEN", "INSTAGRAM_USER_ID")}
+        credentials["SOCIAL_PUBLISH_ENABLED"] = "true"
+        with patch("scripts.publish_social.verify_account", return_value={"account_type": "BUSINESS"}), \
+             patch("scripts.publish_social.verify_live"), \
+             patch("scripts.publish_social.publish_threads", return_value="1") as threads, \
+             patch("scripts.publish_social.publish_instagram", return_value="2"), \
+             patch("scripts.publish_social.publish_instagram_story", return_value="3"):
+            self.assertEqual(run(articles, ledger, credentials), 1)
+            self.assertEqual(threads.call_count, 5)
+            self.assertEqual(len(ledger.rows), 5)
 
 
 if __name__ == "__main__":

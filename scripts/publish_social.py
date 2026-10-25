@@ -152,7 +152,7 @@ class GithubLedger:
             value = request_json(self.url, token=self.token)
         except RuntimeError as exc:
             if str(exc) == "API HTTP 404":
-                return {}, None
+                raise RuntimeError("Publication ledger missing; manual recovery required") from None
             raise
         rows = json.loads(base64.b64decode(value["content"].replace("\n", "")).decode())
         if not isinstance(rows, dict):
@@ -165,6 +165,7 @@ class GithubLedger:
         for attempt in range(4):
             rows, sha = self.read()
             per_article = rows.setdefault(identifier, {})
+            remaining_platforms(per_article)  # Reject malformed or unknown history before overwriting it.
             previous = per_article.get(platform, {})
             prior = previous.get("status") if isinstance(previous, dict) else None
             if status == "attempting" and prior in STATUSES:
@@ -229,7 +230,7 @@ def verify_account(base, token, user_id, *, instagram=False):
     if str(profile.get("username", "")).lower() != HANDLE:
         raise RuntimeError("Wrong target account; social publishing stopped")
     found_id = str(profile.get("user_id") or profile.get("id") or "")
-    if found_id and found_id != user_id:
+    if not user_id.isdigit() or found_id != user_id:
         raise RuntimeError("Account ID mismatch")
     if instagram and profile.get("account_type") and profile["account_type"].upper() not in ("BUSINESS", "CREATOR"):
         raise RuntimeError("Instagram must be a professional account")
@@ -303,8 +304,15 @@ SOCIAL_PLATFORMS = ("threads", "instagram", "instagram_story")
 
 def remaining_platforms(existing):
     """Do not automatically retry an attempted, published, or uncertain platform."""
-    return [platform for platform in SOCIAL_PLATFORMS
-            if existing.get(platform, {}).get("status") not in STATUSES]
+    if not isinstance(existing, dict):
+        raise RuntimeError("Invalid publication history; manual review required")
+    for platform in SOCIAL_PLATFORMS:
+        if platform in existing:
+            entry = existing[platform]
+            if not isinstance(entry, dict) or entry.get("status") not in STATUSES:
+                raise RuntimeError("Unknown publication state; manual review required")
+    return [platform for platform in SOCIAL_PLATFORMS if platform not in existing]
+
 
 
 
@@ -318,8 +326,8 @@ def run(articles, ledger, credentials):
         return 0
     keys = ("THREADS_ACCESS_TOKEN", "THREADS_USER_ID", "INSTAGRAM_ACCESS_TOKEN", "INSTAGRAM_USER_ID")
     if any(not credentials.get(k) for k in keys):
-        print("Both Meta accounts must be connected before social posting.")
-        return 0
+        print("Both Meta accounts must be connected before social posting.", file=sys.stderr)
+        return 1
     rows, _ = ledger.read()
     if not any(remaining_platforms(rows.get(item["id"], {})) for item in pending):
         print("All explicitly approved social articles are recorded; no posts.")
@@ -336,7 +344,7 @@ def run(articles, ledger, credentials):
         if not remaining:
             continue
         if count >= 5:
-            print("5-article safety limit reached; remaining items queued.")
+            failures.append("5-article safety limit reached; remaining articles require a later verified run")
             break
         try:
             text = threads_text(article) if "threads" in remaining else ""
@@ -403,8 +411,8 @@ def main():
         return 0
     required = ("THREADS_ACCESS_TOKEN", "THREADS_USER_ID", "INSTAGRAM_ACCESS_TOKEN", "INSTAGRAM_USER_ID")
     if any(not os.getenv(k) for k in required):
-        print("Meta credentials incomplete. No posts.")
-        return 0
+        print("Meta credentials incomplete. No posts.", file=sys.stderr)
+        return 1
     ledger = GithubLedger(os.getenv("GITHUB_REPOSITORY", ""), os.getenv("GITHUB_TOKEN", ""))
     return run(articles, ledger, dict(os.environ))
 

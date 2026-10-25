@@ -131,3 +131,14 @@ SECURITY WATCHを公開する編集部スレッドのみ、確認した深刻度
 - **CRITICAL / HIGHラベルは1行固定。単語途中での改行禁止。** ラベル全体が収まるサイズを計測して描画する。
 - フィード1080×1350、ストーリーズ1080×1920。通常のサイト画面・SEO・OG画像は変更しない。
 - 過去記事へのフラグ一括追加禁止。新規記事への公開承認後のみ各媒体へ配信する。
+
+
+## SNSダッシュボード連携（2026-10-26）
+
+Threadsの標準紹介文の記事リンクには、媒体・記事IDを識別するUTMを追加します。canonicalと一次情報URLは変更しません。承認済みのカスタム原稿は自動で書き換えず、必要な場合は原稿に計測URLを含めます。既存記事の投稿承認フラグや投稿台帳は変更しません。
+
+Instagramのプロフィールリンクには `https://signal.amberlight.co.jp/?utm_source=instagram&utm_medium=social&utm_campaign=profile&utm_content=bio` を設定できます。共通プロフィールリンクから元のフィード/ストーリーズ記事を識別することはできません。
+
+`Read WORK SIGNAL social insights` は既存のGitHub Secretsを使うGET専用の読み取りテストです。Metaアカウントを検証し、可能なフォロワー数・投稿指標を取得。新規の投稿、予約投稿、台帳更新は行いません。SNS投稿成功後とワークフロー手動実行で取得できます。結果は14日保存のActions artifact `work-signal-social-insights` に保存し、公開サイトやコミットには保存しません。ダッシュボードの「SNS」→「インサイトJSONを開く」で取り込めます。
+
+投稿権限と分析権限は別です。`threads_manage_insights`、`instagram_business_manage_insights` がなければ要認証/未取得を記録します。現在値の未取得を0に変換しません。投稿指標は投稿以来の累計で、指定期間内の増分ではありません。内部指標やトークンを公開ログに出力しません。

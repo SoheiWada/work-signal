@@ -2,12 +2,13 @@ name: Validate WORK SIGNAL three-channel publisher
 
 on:
   push:
-    branches: [main]
+    branches: [main, analytics/social-dashboard]
     paths:
       - scripts/publish_social.py
       - scripts/publish_story_once.py
       - scripts/build_site.py
       - tests/test_social_publish.py
+      - tests/test_social_attribution.py
       - .github/workflows/social-publisher-ci.yml
   workflow_dispatch:
 
@@ -29,7 +30,9 @@ jobs:
         run: python -m py_compile scripts/publish_social.py scripts/publish_story_once.py scripts/build_site.py
       - name: Test publisher safeguards without calling Meta
         id: tests
-        run: python -m unittest discover -s tests -p 'test_social_publish.py'
+        run: |
+          python -m unittest discover -s tests -p 'test_social_publish.py'
+          python -m unittest discover -s tests -p 'test_social_attribution.py'
       - name: Report test result to GitHub commit status
         if: ${{ always() }}
         env:

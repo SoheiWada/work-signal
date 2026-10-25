@@ -32,5 +32,11 @@
       "updated_at": "2026-10-25T18:46:13+00:00",
       "remote_id": "18025110731948045"
     }
+  },
+  "20261026-parse-server-custom-authadapter-auth-bypass": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-25T22:33:21+00:00"
+    }
   }
 }

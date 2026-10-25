@@ -540,7 +540,7 @@
   {
     "id": "20261024-echo-websocket-auth-bypass",
     "title": "認証を設定しても突破される？WebフレームワークEchoに重大脆弱性、修正版公開",
-    "summary": "Go製WebフレームワークEchoのProxyミドルウェアにCVSS 9.1の重大脆弱性。WebSocket切り替え拒否後のHTTP通信がルーターや認証ミドルウェアを迂回する条件、影響バージョン、修正版と対処を一次情報から整理。",
+    "summary": "Go製WebフレームワークEchoのProxyミドルウェアに認証回避（CVSS 9.1）とWebSocket切断後のリソース残留によるサービス停止（CVSS 8.2）の脆弱性。共通の修正版v4.16.1／v5.4.1と対処を整理。",
     "category": "仕事",
     "score": 95,
     "published_at": "2026-10-24",
@@ -560,6 +560,10 @@
       {
         "title": "影響バージョンと修正版",
         "body": "影響するのはgithub.com/labstack/echo/v4のv4.0.0以上v4.16.1未満、およびgithub.com/labstack/echo/v5のv5.0.0以上v5.4.1未満。最初の修正版はv4.16.1とv5.4.1だ。利用中のメジャー系列でこれら以上の修正版に更新する。修正後は、上流の有効なアップグレード応答を確認してからトンネルへ移行する。\n\n公式v4リリース：https://github.com/labstack/echo/releases/tag/v4.16.1\n公式v5リリース：https://github.com/labstack/echo/releases/tag/v5.4.1"
+      },
+      {
+        "title": "【10月25日追記】WebSocket接続切断後のリソース残留によるサービス停止リスク",
+        "body": "EchoのProxyミドルウェアでは、認証回避とは別に、WebSocketクライアントが切断した後も上流サーバーが接続を開いたままにすると、ハンドラー・データ転送用goroutine・ネットワーク接続が解放されない問題が報告された（GHSA-9969-6676-49h5）。攻撃者が接続と切断を繰り返すことでリソースが蓄積し、サービス停止（DoS）につながる可能性がある。影響はProxyルートへのアクセス可否、上流の接続動作、接続期限設定によって変わる。機密性や完全性への影響はこの勧告では主張されていない。\n\n影響するのはEcho v4.15.0以上v4.16.1未満、v5.0.0以上v5.4.1未満。GitHub Advisory Databaseの評価はHIGH（CVSS v4.0 8.2）だが、開発元の説明はリソース残留問題としてMedium相当。修正版はv4.16.1／v5.4.1で、認証回避のGHSA-cxf3-9h37-7rr8と同じ更新で対処できる。更新までの間はWebSocketプロキシ経路の停止、フロントエンドと上流双方での接続寿命・リソース制限を検討する。通常のHTTPサーバーのアイドルタイムアウトだけでは、乗っ取られたWebSocket接続を制限できない場合がある。実環境での悪用は確認できていない。\n\n一次情報：https://github.com/labstack/echo/security/advisories/GHSA-9969-6676-49h5"
       },
       {
         "title": "今すぐ確認したい対策",

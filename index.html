@@ -31,6 +31,7 @@
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"WORK SIGNAL","alternateName":"WORK.SIGNAL","url":"https://signal.amberlight.co.jp/","inLanguage":"ja","description":"AI・仕事・マネジメント・経済の変化を一次情報から読み解くニュース解説メディア。"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"WORK SIGNAL","url":"https://signal.amberlight.co.jp/","sameAs":["https://www.instagram.com/work_signal_japan/","https://www.threads.com/@work_signal_japan"]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -244,6 +245,17 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
  .manifesto.is-received .flow-signal{animation:none!important}
  .manifesto .signoff-line{transition:none!important}
 }
+
+/* Official social channels: editorial links, no floating overlays. */
+.footer-brandgroup{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.footer-social{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.footer-social-label{font:700 9px var(--sans);letter-spacing:.15em;color:var(--muted)}
+.footer-social-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.footer-social-links a{display:inline-flex;align-items:center;min-height:44px;font:700 11px var(--sans);letter-spacing:.07em;text-decoration:none;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.footer-social-links a:hover{color:var(--orange);border-bottom-color:var(--orange)}
+.footer-social-links a:focus-visible,.mobile-social-nav a:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.mobile-social-nav{display:none}
+@media(max-width:700px){.mobile-social-nav{display:flex;align-items:center;gap:16px;min-height:38px;border-bottom:1px solid var(--line);font:700 10px var(--sans);letter-spacing:.09em}.mobile-social-nav span{font-size:9px;color:var(--muted)}.mobile-social-nav a{color:var(--ink);text-decoration:none;padding:9px 0}.mobile-social-nav a:hover{color:var(--orange)}.footer-brandgroup{gap:4px}.footer-social-links{gap:16px}}
 </style>
 <link rel="stylesheet" href="/assets/css/signal-interactions.css">
 <link rel="stylesheet" href="/assets/css/hero-market.css">
@@ -268,7 +280,7 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
 </head>
 <body>
 <div class="topline"></div>
-<div class="shell"><header class="masthead"><a href="./" class="brand" aria-label="WORK SIGNAL ホーム">WORK<span class="dot">.</span>SIGNAL<span class="sup">®</span></a><nav class="navlinks" aria-label="メインナビゲーション"><a href="#latest">LATEST</a><a class="nav-nba" href="/nba/"><span class="nav-ball" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54"/><path d="M6 60H114M60 6V114M22 22C55 42 55 78 22 98M98 22C65 42 65 78 98 98"/></svg></span><span class="nav-edition">別冊 / COURTSIDE</span><span class="nav-title">NBA SIGNAL</span></a><a href="#about">OUR POINT OF VIEW</a></nav><div class="issue"><span class="live" aria-hidden="true"></span> INDEPENDENT NEWS EDITION</div></header>
+<div class="shell"><header class="masthead"><a href="./" class="brand" aria-label="WORK SIGNAL ホーム">WORK<span class="dot">.</span>SIGNAL<span class="sup">®</span></a><nav class="navlinks" aria-label="メインナビゲーション"><a href="#latest">LATEST</a><a class="nav-nba" href="/nba/"><span class="nav-ball" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54"/><path d="M6 60H114M60 6V114M22 22C55 42 55 78 22 98M98 22C65 42 65 78 98 98"/></svg></span><span class="nav-edition">別冊 / COURTSIDE</span><span class="nav-title">NBA SIGNAL</span></a><a href="#about">OUR POINT OF VIEW</a></nav><div class="issue"><span class="live" aria-hidden="true"></span> INDEPENDENT NEWS EDITION</div></header><nav class="mobile-social-nav" aria-label="公式SNS"><span>FOLLOW</span><a href="https://www.instagram.com/work_signal_japan/" target="_blank" rel="noopener noreferrer" aria-label="WORK SIGNAL公式Instagram">INSTAGRAM</a><a href="https://www.threads.com/@work_signal_japan" target="_blank" rel="noopener noreferrer" aria-label="WORK SIGNAL公式Threads">THREADS</a></nav>
 <main><section class="hero" aria-label="WORK SIGNALの紹介"><div class="hero-copy"><div class="eyebrow">THE SIGNAL OVER THE NOISE</div><h1>ニュースは<br><span class="stroke">短く。</span>意味は<br><span class="accent">深く。</span></h1><div class="hero-bottom"><div class="hero-description"><strong>情報は増えた。判断する時間は減った。</strong><br>AI、仕事、マネジメント、経済。重要な変化を一次情報から読み解き、働く人に必要な視点を届けます。</div><a class="scrollcue" href="#latest">EXPLORE</a></div></div>
 <div class="art"><div class="art-label" aria-hidden="true">01 / FIND YOUR FREQUENCY</div><div class="orbit" aria-hidden="true"><div class="ring"></div><div class="signal">W<span style="color:#191918">.</span></div></div><div class="art-corner" aria-hidden="true">NO MORE NOISE.<br>JUST SIGNAL.</div></div></section></main></div>
 <div class="ticker" aria-hidden="true"><div class="ticker-track"><span>AI <b aria-hidden="true"></b> WORK <b aria-hidden="true"></b> MANAGEMENT <b aria-hidden="true"></b> ECONOMY <b aria-hidden="true"></b> MONEY <b aria-hidden="true"></b> CRYPTO <b aria-hidden="true"></b> READ BEYOND THE HEADLINE <b aria-hidden="true"></b></span><span>AI <b aria-hidden="true"></b> WORK <b aria-hidden="true"></b> MANAGEMENT <b aria-hidden="true"></b> ECONOMY <b aria-hidden="true"></b> MONEY <b aria-hidden="true"></b> CRYPTO <b aria-hidden="true"></b> READ BEYOND THE HEADLINE <b aria-hidden="true"></b></span></div></div>
@@ -293,7 +305,7 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
 const observer=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){about.classList.add('is-received');observer.disconnect()}},{threshold:.18});observer.observe(about)})();
 </script>
 </section>
-<div class="shell"><footer><div class="footer-row"><div class="footer-logo">WORK<span>.</span>SIGNAL</div><div class="footer-copy">© <span id="year"></span> WORK SIGNAL. INDEPENDENT PERSPECTIVES.<br>掲載内容は独自の解説です。投資判断を推奨するものではありません。<br><a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a> · <a href="/feed.xml" title="RSSで新着記事を購読">RSS</a><br>© Amber Light Inc.</div></div></footer></div>
+<div class="shell"><footer><div class="footer-row"><div class="footer-brandgroup"><div class="footer-logo">WORK<span>.</span>SIGNAL</div><nav class="footer-social" aria-label="公式SNS"><span class="footer-social-label">FOLLOW WORK SIGNAL</span><div class="footer-social-links"><a href="https://www.instagram.com/work_signal_japan/" target="_blank" rel="noopener noreferrer" aria-label="WORK SIGNAL公式Instagram">INSTAGRAM</a><a href="https://www.threads.com/@work_signal_japan" target="_blank" rel="noopener noreferrer" aria-label="WORK SIGNAL公式Threads">THREADS</a></div></nav></div><div class="footer-copy">© <span id="year"></span> WORK SIGNAL. INDEPENDENT PERSPECTIVES.<br>掲載内容は独自の解説です。投資判断を推奨するものではありません。<br><a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a> · <a href="/feed.xml" title="RSSで新着記事を購読">RSS</a><br>© Amber Light Inc.</div></div></footer></div>
 <script>
 document.querySelector('#year').textContent=new Date().getFullYear();
 

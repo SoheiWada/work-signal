@@ -1,0 +1,45 @@
+name: One-time Instagram Story publish verification
+
+on:
+  workflow_run:
+    workflows: ["Build and deploy WORK SIGNAL"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: work-signal-social-publishing
+  cancel-in-progress: false
+
+jobs:
+  story:
+    # Runs only after the successful deployment for this exact one-time test commit.
+    # Normal posts and all other history are excluded.
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main' &&
+      github.event.workflow_run.head_commit.message == 'social-story-test-one-shot-20261024-nec'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout precisely the successfully deployed revision
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Verify social safety tests
+        run: python -m unittest discover -s tests -p 'test_social_publish.py'
+      - name: Publish exactly one NEC Instagram Story, no feed or Threads
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          STORY_ONE_SHOT_ENABLED: 'true'
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+        run: python -m scripts.publish_story_once

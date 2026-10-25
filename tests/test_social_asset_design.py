@@ -65,7 +65,7 @@ class SecurityAssetDesignTests(unittest.TestCase):
                 with Image.open(feed_path) as feed:
                     self.assertEqual(feed.size, (1080, 1350))
                     self.assertEqual(feed.format, "JPEG")
-                    for left, top in ((14, 14), (1060, 1100)):
+                    for left, top in ((20, 120), (1060, 1110)):
                         color = feed.getpixel((left, top))
                         self.assertTrue(all(abs(a-b) < 4 for a, b in zip(color, bg)))
                 with Image.open(story_path) as story:

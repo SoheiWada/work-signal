@@ -1,0 +1,81 @@
+name: Verify published Instagram Story URL (read-only)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/social-story-permalink-check.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - name: Verify the published Story by Meta GET and record status
+        env:
+          IG_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+          GH_SHA: ${{ github.sha }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import sys
+          from urllib.parse import urlencode, urlparse
+          from urllib.request import Request, urlopen
+
+          ledger = json.load(open(".github/social-post-ledger.json", encoding="utf-8"))
+          post = ledger.get("20261024-nec-ai-work-wellbeing-survey", {}).get("instagram_story", {})
+          token = os.getenv("IG_TOKEN", "")
+          media_id = str(post.get("remote_id", ""))
+          status = "failure"
+          permalink = ""
+          if post.get("status") == "published" and media_id.isdigit() and token:
+              endpoint = "https://graph.instagram.com/v25.0/" + media_id
+              for fields in ("id,media_product_type,permalink", "id,media_product_type"):
+                  req = Request(endpoint + "?" + urlencode({"fields": fields}), method="GET",
+                                headers={"Authorization": "Bearer " + token,
+                                         "Accept": "application/json",
+                                         "User-Agent": "WORK-SIGNAL-Story-Verify/1.0"})
+                  try:
+                      with urlopen(req, timeout=20) as response:
+                          profile = json.load(response)
+                      if str(profile.get("id", "")) == media_id and profile.get("media_product_type") in ("STORY", "STORIES"):
+                          status = "success"
+                          candidate = str(profile.get("permalink", ""))
+                          parsed = urlparse(candidate)
+                          if parsed.scheme == "https" and parsed.hostname in ("instagram.com", "www.instagram.com"):
+                              permalink = candidate
+                          break
+                  except Exception:
+                      pass
+          payload = {
+              "state": status,
+              "context": "WORK SIGNAL / Instagram Story GET verification",
+              "description": ("Published Story verified through Meta GET" if status == "success"
+                              else "Published Story not yet verified through Meta GET"),
+          }
+          if permalink:
+              payload["target_url"] = permalink
+          request = Request("https://api.github.com/repos/" + os.environ["GH_REPOSITORY"]
+                            + "/statuses/" + os.environ["GH_SHA"],
+                            method="POST", data=json.dumps(payload).encode(),
+                            headers={"Authorization": "Bearer " + os.environ["GH_TOKEN"],
+                                     "Content-Type": "application/json",
+                                     "Accept": "application/vnd.github+json",
+                                     "User-Agent": "WORK-SIGNAL-Story-Verify/1.0"})
+          with urlopen(request, timeout=20) as response:
+              if response.status != 201:
+                  raise RuntimeError("Could not record Story verification")
+          print("Story Meta GET:", status.upper())
+          print("Permalink:", permalink or "(not provided by Instagram)")
+          if status != "success":
+              sys.exit(1)
+          PY

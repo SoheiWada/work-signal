@@ -18,8 +18,9 @@
   },
   "20261026-panasonic-hr-data-generative-ai-governance": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-25T18:45:16+00:00"
+      "status": "published",
+      "updated_at": "2026-10-25T18:45:43+00:00",
+      "remote_id": "18002961423034077"
     }
   }
 }

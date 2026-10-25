@@ -61,6 +61,10 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertFalse((output / 'articles/unapproved').exists())
             self.assertFalse((output / 'assets/og/unapproved.png').exists())
             self.assertEqual(len(json.loads((output / 'data/articles.json').read_text())), 1)
+            listing = json.loads((output / 'data/index.json').read_text())
+            self.assertEqual(len(listing), 1)
+            self.assertNotIn('sections', listing[0])
+            self.assertNotIn('what_happened', listing[0])
             doc = Document(page)
             canonicals = [attrs['href'] for tag, attrs in doc.tags
                           if tag == 'link' and attrs.get('rel') == 'canonical']

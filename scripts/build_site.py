@@ -604,6 +604,7 @@ def archive_page(articles, page, home_html):
     footer_html = footer.group().replace('<span id="year"></span>', str(datetime.now(timezone.utc).year))
     archive_css = """<style>
 .archive-section{padding:65px 0 95px}
+.archive-section .section-heading h1{margin:8px 0 0;font:800 clamp(40px,6vw,78px)/1 var(--sans);letter-spacing:-.075em}
 .archive-return{font:700 11px var(--sans);letter-spacing:.1em;text-decoration:none;border-bottom:1px solid var(--ink);padding:8px 0}
 .archive-return:is(:hover,:focus-visible){color:var(--orange)}
 .archive-intro{display:flex;align-items:baseline;justify-content:space-between;gap:15px;flex-wrap:wrap;padding:18px 0 33px;margin:0 0 23px;border-bottom:1px solid var(--line)}
@@ -882,6 +883,9 @@ def build(output, feed=None):
         destination.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / page / 'index.html', destination / 'index.html')
     (output / 'data/articles.json').write_text(json.dumps(articles, ensure_ascii=False, indent=2) + '\n')
+    listing_fields = ('id', 'title', 'summary', 'category', 'format', 'score', 'status', 'source_url', 'card_image', 'card_image_alt')
+    listing = [{key: article[key] for key in listing_fields if key in article} for article in articles]
+    (output / 'data/index.json').write_text(json.dumps(listing, ensure_ascii=False, separators=(',', ':')) + '\n')
     infographic = ROOT / 'assets/infographics/php2shell-explainer.svg'
     if infographic.is_file():
         target = output / 'assets/infographics/php2shell-explainer.svg'

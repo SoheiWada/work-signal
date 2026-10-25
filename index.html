@@ -421,6 +421,6 @@ selected.slice(0,visibleCount).forEach(a=>{
  const mark=node('span',undefined,'story-link-mark');mark.append(signal);link.append(copy,mark);
  body.append(link);card.append(head,body);root.append(card)
 })}
-fetch('./data/articles.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('data unavailable');return r.json()}).then(data=>{items=Array.isArray(data)?data.filter(a=>a.status==='published'&&(a.format==='special_story'||a.score>=80)&&typeof a.id==='string'&&categories.includes(a.category)&&typeof a.source_url==='string'&&/^https:\/\//.test(a.source_url)):[];render()}).catch(()=>{moreButton.hidden=true});
+fetch('./data/index.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('data unavailable');return r.json()}).then(data=>{items=Array.isArray(data)?data.filter(a=>a.status==='published'&&(a.format==='special_story'||a.format==='management_guide'||a.score>=80)&&typeof a.id==='string'&&categories.includes(a.category)&&typeof a.source_url==='string'&&/^https:\/\//.test(a.source_url)):[];render()}).catch(()=>{moreButton.hidden=true});
 </script>
 </body></html>

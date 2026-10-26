@@ -11,9 +11,9 @@
     "format": "deep_dive",
     "social_publish": true,
     "social_security_severity": "CRITICAL",
-    "social_security_product": "Brotli / Node.js / Python / Envoy / Istio",
+    "social_security_product": "Brotli / Web基盤",
     "social_security_cve": "CVE-2026-111497",
-    "social_security_action": "Brotli圧縮データの展開箇所を調査し、Node.js、Bun、Pythonパッケージ、Envoy、Istioをそれぞれ公式修正版へ更新。コンテナ・組み込み成果物も再構築して稼働版を確認する。",
+    "social_security_action": "Brotli展開箇所を確認し、各製品を修正版へ更新。",
     "quick_take": "Brotliの範囲外書き込み脆弱性CVE-2026-111497はNode.js固有の問題ではない。BunやPythonの圧縮ライブラリ、Envoy、Istioにも修正が必要な構成がある。外部由来の圧縮データをどこで展開するかを確認し、製品ごとの修正版を適用したい。",
     "sections": [
       {

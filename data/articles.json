@@ -12,7 +12,7 @@
     "social_publish": true,
     "social_security_severity": "HIGH",
     "social_security_product": "Bandit (Elixir HTTP server)",
-    "social_security_cve": "CVE-2026-108525 / CVE-2026-109584 / CVE-2026-111101 / CVE-2026-111103 / CVE-2026-114213",
+    "social_security_cve": "CVE-2026-108525 ほか（詳細は記事本文）",
     "social_security_action": "Bandit 1.14.0以降へ更新し、HTTP/2・WebSocket公開構成と稼働バージョンを確認。",
     "quick_take": "Elixir製HTTPサーバーBanditの1.14.0に、HTTP/2・HTTP/1.1・WebSocketのリソース枯渇など複数の脆弱性修正が含まれる。影響開始バージョンはCVEごとに異なる。公開構成を点検し、修正版への更新を優先したい。",
     "sections": [

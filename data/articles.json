@@ -1,5 +1,46 @@
 [
   {
+    "id": "20261026-ymirlink-cuenote-data-exposure-second-report",
+    "title": "ユミルリンクの情報流出リスク、延べ5,162万件超に。メール配信の委託先管理で何を確認するか",
+    "summary": "ユミルリンクが10月26日に不正アクセスの第二報を公表。Cuenote FCの49システムでデータ出力を確認し、延べ5,162万8,280件の情報流出の可能性を報告。利用企業への波及と実務対応を整理する。",
+    "category": "仕事",
+    "score": 94,
+    "published_at": "2026-10-26",
+    "source_url": "https://www.cuenote.jp/information/news/unauthorizedaccess.html",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "quick_take": "10月26日の第二報で、ユミルリンクのCuenote FCから流出した可能性がある情報は延べ5,162万8,280件に。延べ件数は実人数ではなく、調査中の環境も残る。利用企業は影響範囲の確認と不審メールへの備えが必要だ。",
+    "sections": [
+      {
+        "title": "第二報で約900万件から延べ5,162万件超へ",
+        "body": "ユミルリンクは2026年10月19日の第一報で、Cuenote FCの5システムから延べ約900万件の情報が出力されたと説明した。10月26日17時の第二報では49システムでデータ出力を確認し、流出の可能性がある情報を延べ51,628,280件と報告した。16システムは件数を調査中とされる。延べ件数は実人数ではない。\n第一報：https://www.cuenote.jp/information/news/unauthorizedaccess.html\n第二報（適時開示文書案内）：https://ufocatch.com/document/TD2026102600158"
+      },
+      {
+        "title": "侵入経路と確認された事実",
+        "body": "開発元の第一報によると、10月16日に不正アクセスを確認。プログラムの脆弱性を利用した担当者の認証情報取得、不正プログラム設置、データベースからの出力、別システムへの認証試行が確認された。同社はサーバー切り離し、脆弱性修正、認証情報削除などを実施した。原因となった公開CVEや製品名は確認できず、推測しない。"
+      },
+      {
+        "title": "利用企業や自治体にも波及",
+        "body": "アスマークは10月26日、Cuenote FCに登録していたアンケート案内やメール配信先の氏名・メールアドレス等が流出した可能性を発表。項目と件数は調査中だ。埼玉県も10月20日、委託事業のメールマガジンに関連する669者の情報が流出した可能性を公表した。\nアスマーク公式：https://www.asmarq.co.jp/news/external_service_20261026/\n埼玉県公式：https://www.pref.saitama.lg.jp/a0903/news/page/news2026102001.html"
+      },
+      {
+        "title": "なりすましメールへの注意と因果関係の区別",
+        "body": "ユミルリンクは10月20日、同社ドメインを利用してクレジットカード会社などを装う不審なメールを確認したと注意喚起した。ただし、これらが今回流出した情報を利用したものとは確認されていない。差出人表示だけで判断せず、メールのリンク・QRコードを操作しないで公式アプリやブックマークから確認したい。\n公式注意喚起：https://www.ymir.co.jp/info/ymir-information20261020.html"
+      },
+      {
+        "title": "企業担当者が確認すべきこと",
+        "body": "まず自社や委託先のCuenote利用有無と影響通知を確認する。次に登録情報の項目、保管期間、対象者への連絡・法令に基づく報告の必要性を整理する。管理者権限、認証情報、操作ログ、アクセス制限も点検する。不審メールへの問い合わせ窓口を設け、顧客に公式経路で案内する。漏えい可能性と実際の不正利用を混同しない。"
+      },
+      {
+        "title": "WORK SIGNALの視点｜委託先の侵害は自社の顧客対応に直結する",
+        "body": "外部メール配信サービスに預けたデータも企業の顧客対応と信用に関わる。導入時の審査だけでなく、事故発生時の連絡経路、情報の所在、影響範囲の確認方法、顧客への通知基準を平時から決めておく必要がある。今回の数字は継続調査中であり、実人数や二次被害の確定数と読み替えてはならない。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH】ユミルリンクの不正アクセス、10月26日の第二報でCuenote FCの流出可能性が延べ5,162万8,280件に。これは実人数ではありません。利用企業にも影響が広がる中、委託先管理・顧客通知・不審メール対策で何を確認すべきか整理しました。\nhttps://signal.amberlight.co.jp/articles/20261026-ymirlink-cuenote-data-exposure-second-report/\n\n一次情報：https://www.cuenote.jp/information/news/unauthorizedaccess.html",
+    "social_instagram_caption": "【SECURITY WATCH】Cuenote FCへの不正アクセス。10月26日の第二報で流出の可能性がある情報は延べ5,162万8,280件と公表。これは実人数ではなく調査も継続中です。委託先管理、利用企業への波及、なりすましメール対策をWORK SIGNALで解説。#SECURITYWATCH #情報漏えい #サイバーセキュリティ #Cuenote"
+  },
+  {
     "id": "20261026-perl-starman-plack-http-security",
     "title": "Perl系Webサーバーに2件の脆弱性。Starmanの応答混同とPlackのサービス停止リスク",
     "summary": "StarmanのHTTP応答混同（CVE-2026-115823）と、PlackのHTTP::Server::PSGIにおける巨大Content-Lengthによるサービス停止（CVE-2026-115825）が10月25日に公表。修正版、成立条件と運用上の確認事項を整理する。",

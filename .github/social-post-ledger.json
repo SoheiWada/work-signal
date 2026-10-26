@@ -111,6 +111,10 @@
       "status": "published",
       "updated_at": "2026-10-26T05:23:50+00:00",
       "remote_id": "18349196911264745"
+    },
+    "instagram_story": {
+      "status": "attempting",
+      "updated_at": "2026-10-26T05:23:51+00:00"
     }
   }
 }

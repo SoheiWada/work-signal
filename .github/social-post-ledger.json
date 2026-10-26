@@ -134,5 +134,11 @@
       "updated_at": "2026-10-26T06:29:39+00:00",
       "remote_id": "18231729661328133"
     }
+  },
+  "20261026-yeswiki-bazar-sqli-cve-2026-116207": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-26T09:01:39+00:00"
+    }
   }
 }

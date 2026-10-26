@@ -239,8 +239,9 @@
   },
   "20261027-hackney-private-ca-tls-cve-2026-115693": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-26T23:35:11+00:00"
+      "status": "published",
+      "updated_at": "2026-10-26T23:35:34+00:00",
+      "remote_id": "18136966909635967"
     }
   }
 }

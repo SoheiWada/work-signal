@@ -1,5 +1,50 @@
 [
   {
+    "id": "20261026-apache-tomcat-auth-bypass-http2-mixup",
+    "title": "Apache Tomcatに認証回避とHTTP/2の混同リスク。10月20日公表の2件を点検",
+    "summary": "Apache Tomcatで、特定のJNDIRealm構成における認証回避（CVE-2026-101296）と、非同期ServletのHTTP/2処理における利用者間のリクエスト・レスポンス混同（CVE-2026-101356）が公表された。影響条件、修正版、確認事項を整理する。",
+    "category": "仕事",
+    "score": 91,
+    "published_at": "2026-10-26",
+    "source_url": "https://tomcat.apache.org/security-11",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "HIGH",
+    "social_security_product": "Apache Tomcat",
+    "social_security_cve": "CVE-2026-101296 / CVE-2026-101356",
+    "social_security_action": "Tomcat 11.0.27／10.1.61／9.0.123以降に更新し、JNDIRealmのSASL構成とHTTP/2非同期処理を点検。",
+    "quick_take": "Apache Tomcatの認証回避とHTTP/2のリクエスト・レスポンス混同に関する2件は、2026年10月20日に公表された既知の脆弱性だ。すべての環境で無条件に悪用できるわけではないが、該当する構成では認証や情報の分離に影響する。修正版への更新を優先したい。",
+    "sections": [
+      {
+        "title": "10月20日公表。速報ではなく、対応を確認するための注意喚起",
+        "body": "Apache Tomcat開発元は2026年10月20日、CVE-2026-101296とCVE-2026-101356を公表した。修正はTomcat 11.0.27、10.1.61、9.0.123に含まれる。公表から数日経過しているため、本記事は『本日発覚』という速報ではない。該当する認証構成やHTTP/2処理を利用する運用者向けに、確認事項を整理する。開発元は両件をImportantと分類している。"
+      },
+      {
+        "title": "CVE-2026-101296：特定のJNDIRealm構成で認証を回避",
+        "body": "JNDIRealmがGSSAPI以外のSASL認証方式を使用するよう設定されている場合、資格情報の検証で必要な処理が欠け、正しいパスワードを提示せずに認証できる脆弱性がある。対象となる認証構成を利用しているかが重要で、Tomcatを使うすべてのサービスで同じ条件が成立するわけではない。Tomcat 11系は11.0.26まで、10.1系は10.1.60まで、9.0系は9.0.122までが影響対象として示されている。各系列の公式勧告で詳細な開始バージョンと利用構成を確認したい。"
+      },
+      {
+        "title": "CVE-2026-101356：HTTP/2の非同期処理で別利用者の通信が混同される恐れ",
+        "body": "HTTP/2で非同期Servletを処理する際、エラー後のオブジェクト再利用が適切でないため、利用者間でリクエストやレスポンスが混同される可能性がある。影響範囲は11.0.22～11.0.26、10.1.55～10.1.60、9.0.118～9.0.122。通信内容が利用者間で取り違えられる恐れがあるが、具体的な被害発生や広範な悪用が確認されたと断定する情報ではない。"
+      },
+      {
+        "title": "修正版と運用担当者の対応",
+        "body": "Tomcat 11系は11.0.27、10.1系は10.1.61、9.0系は9.0.123以降の修正版へ更新する。まず稼働バージョンを確認し、JNDIRealmのSASL認証方式、HTTP/2の有効化、非同期Servletの利用を点検する。更新後は認証テストとHTTP/2経由のアプリケーション動作を検証する。更新がすぐにできない場合は該当機能や公開経路を制限する暫定策を検討するが、設定変更だけで修正済みと判断しない。"
+      },
+      {
+        "title": "悪用状況と深刻度は分けて読む",
+        "body": "2026年10月26日時点で確認した開発元の一次情報では、実環境での悪用が確認されたとは断定できない。開発元の表現は両件ともImportantであり、SECURITY WATCHでは認証回避と利用者間情報混同の影響を踏まえHIGHの注意喚起として扱う。悪用可能性と悪用確認は別であり、後日新たな証拠が出た場合は更新情報として評価する。"
+      },
+      {
+        "title": "WORK SIGNALの視点：バージョンだけでなく設定も棚卸しする",
+        "body": "脆弱性への対応では『製品を使っているか』に加え、『どの認証方式・通信方式を有効にしているか』が重要になる。JNDIRealmの認証設定とHTTP/2の非同期処理は別の攻撃面であり、同じTomcatでも運用環境によって影響が異なる。更新担当者とアプリケーション担当者が設定を照合し、修正適用後の動作まで確認したい。\n\nApache Tomcat 11公式：https://tomcat.apache.org/security-11\nApache Tomcat 10公式：https://tomcat.apache.org/security-10\nApache Tomcat 9公式：https://tomcat.apache.org/security-9"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜HIGH】Apache Tomcatで、特定のJNDIRealm構成における認証回避（CVE-2026-101296）とHTTP/2非同期処理での通信混同（CVE-2026-101356）が10月20日に公表。修正版は11.0.27／10.1.61／9.0.123。該当構成と更新状況を確認してください。\nhttps://signal.amberlight.co.jp/articles/20261026-apache-tomcat-auth-bypass-http2-mixup/\n\n一次情報：https://tomcat.apache.org/security-11",
+    "social_instagram_caption": "【SECURITY WATCH｜HIGH】Apache Tomcatの認証回避とHTTP/2の通信混同リスク。10月20日公表のCVE-2026-101296／CVE-2026-101356について、影響する構成・バージョンと修正版を整理。JNDIRealmの認証設定とHTTP/2非同期処理を点検し、修正版への更新を。詳細はWORK SIGNALで。#ApacheTomcat #セキュリティ #脆弱性 #SECURITYWATCH"
+  },
+  {
     "id": "20261026-ntt-docomo-voice-ai-eq-human-conversation",
     "title": "AIの会話は「速さ」から「気遣い」へ。NTTとドコモが示す接客の次の競争軸",
     "summary": "NTTは平均0.43秒で応答する双方向型音声AI、ドコモは相手の状況や感情に配慮する高EQ音声対話技術を同日発表。顧客対応で重要になるのは応答速度だけでなく、安心して話せる体験だ。",

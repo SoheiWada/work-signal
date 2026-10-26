@@ -1,5 +1,50 @@
 [
   {
+    "id": "20261027-bandit-http2-websocket-multiple-vulnerabilities",
+    "title": "HTTP/2やWebSocketでサービス停止の恐れ。Elixir製WebサーバーBanditに複数の重大脆弱性",
+    "summary": "Bandit 1.14.0でHTTP/2の受信制御・ヘッダー展開、HTTP/1.1のチャンク処理、WebSocketの断片化など複数のリソース枯渇問題が修正された。主要CVEと実務対応を整理する。",
+    "category": "仕事",
+    "score": 93,
+    "published_at": "2026-10-27",
+    "source_url": "https://github.com/mtrudel/bandit/blob/main/CHANGELOG.md",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "HIGH",
+    "social_security_product": "Bandit (Elixir HTTP server)",
+    "social_security_cve": "CVE-2026-108525 / CVE-2026-109584 / CVE-2026-111101 / CVE-2026-111103 / CVE-2026-114213",
+    "social_security_action": "Bandit 1.14.0以降へ更新し、HTTP/2・WebSocket公開構成と稼働バージョンを確認。",
+    "quick_take": "Elixir製HTTPサーバーBanditの1.14.0に、HTTP/2・HTTP/1.1・WebSocketのリソース枯渇など複数の脆弱性修正が含まれる。影響開始バージョンはCVEごとに異なる。公開構成を点検し、修正版への更新を優先したい。",
+    "sections": [
+      {
+        "title": "10月26日のBandit 1.14.0で複数のセキュリティ修正",
+        "body": "Elixir/Phoenixなどで利用されるHTTPサーバーBanditは、2026年10月26日付のバージョン1.14.0変更履歴で、HTTP/2、HTTP/1.1、WebSocketのリソース枯渇・プロトコル処理問題に対する複数の修正を公表した。個々のCVEの影響開始バージョンは異なるため、全ての旧版が一律に全CVEの影響を受けると断定しない。\n開発元変更履歴：https://github.com/mtrudel/bandit/blob/main/CHANGELOG.md"
+      },
+      {
+        "title": "HTTP/2のメモリ枯渇と接続制限回避",
+        "body": "CVE-2026-108525は受信ウィンドウの制御不備によりDATAフレームを無制限にキューへ積める問題。CVE-2026-109584は圧縮ヘッダー展開後のサイズ制限が不十分な問題。CVE-2026-111103はストリームエラーの途中処理で接続状態が失われ、接続単位の制限を適切に適用できなくなる問題だ。Bandit 1.14.0ではウィンドウ制御、ヘッダー上限、接続状態の維持などを修正した。"
+      },
+      {
+        "title": "HTTP/1.1の小さなチャンクとWebSocketの細分化",
+        "body": "CVE-2026-111101では多数の小さなチャンクからなるHTTP/1.1リクエスト本文が、実データ量を大きく上回るメモリとCPUを消費する恐れがある。CVE-2026-114213ではWebSocketメッセージの細分化によって、設定した最大メッセージサイズに比べ過大なメモリを使う問題がある。1.14.0では小さな断片をまとめて保持する処理へ変更した。"
+      },
+      {
+        "title": "同時に修正されたその他の問題",
+        "body": "変更履歴にはHTTP/2の無内容フレームによる読み取り期限延長（CVE-2026-115269）、SETTINGS処理（CVE-2026-108529）、HPACKテーブル上限（CVE-2026-110499）、数値パース負荷（CVE-2026-113436）、WebSocket終了後の処理（CVE-2026-110314）、HTTP/1.1のチャンク拡張検証に関わるリクエストスマグリング（CVE-2026-114216）も記載されている。個々の攻撃成立条件や深刻度は同一ではない。"
+      },
+      {
+        "title": "推奨対応と悪用状況",
+        "body": "稼働中のBanditバージョンと、HTTP/2・HTTP/1.1・WebSocketの公開構成を確認し、開発元の修正版1.14.0以降への更新を優先する。依存関係を更新後、アプリケーションを再ビルドし、デプロイ済み実行環境が修正版を使うことを検証する。2026年10月27日時点で、参照した開発元変更履歴から実環境での悪用が確認されたとは断定できない。"
+      },
+      {
+        "title": "WORK SIGNALの視点｜HTTPサーバーのリソース制限は重要な防御線",
+        "body": "認証やアプリケーションコードに問題がなくても、HTTP/2のフロー制御や圧縮ヘッダー、WebSocketの断片化といった通信基盤の実装がサービス可用性を左右する。更新に加え、同時接続数・メモリ・タイムアウト・監視アラートの設定を運用担当者と点検したい。\n一次情報：https://github.com/mtrudel/bandit/blob/main/CHANGELOG.md"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜HIGH】Elixir製WebサーバーBanditでHTTP/2、HTTP/1.1、WebSocketのリソース枯渇など複数の脆弱性が修正されました。CVE-2026-108525／109584／111101／111103／114213ほか。修正版1.14.0への更新と公開構成の確認を。\nhttps://signal.amberlight.co.jp/articles/20261027-bandit-http2-websocket-multiple-vulnerabilities/\n\n一次情報：https://github.com/mtrudel/bandit/blob/main/CHANGELOG.md",
+    "social_instagram_caption": "【SECURITY WATCH｜HIGH】Elixir製HTTPサーバーBanditに複数の重大脆弱性。HTTP/2の受信制御・ヘッダー処理、HTTP/1.1のチャンク、WebSocketの断片化に起因するサービス停止リスクなどを修正。Bandit 1.14.0以降への更新を推奨。詳細はWORK SIGNALで。#SECURITYWATCH #Bandit #Elixir #脆弱性 #Webセキュリティ"
+  },
+  {
     "id": "20261026-ymirlink-cuenote-data-exposure-second-report",
     "title": "ユミルリンクの情報流出リスク、延べ5,162万件超に。メール配信の委託先管理で何を確認するか",
     "summary": "ユミルリンクが10月26日に不正アクセスの第二報を公表。Cuenote FCの49システムでデータ出力を確認し、延べ5,162万8,280件の情報流出の可能性を報告。利用企業への波及と実務対応を整理する。",

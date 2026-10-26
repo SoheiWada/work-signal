@@ -1,5 +1,50 @@
 [
   {
+    "id": "20261026-perl-starman-plack-http-security",
+    "title": "Perl系Webサーバーに2件の脆弱性。Starmanの応答混同とPlackのサービス停止リスク",
+    "summary": "StarmanのHTTP応答混同（CVE-2026-115823）と、PlackのHTTP::Server::PSGIにおける巨大Content-Lengthによるサービス停止（CVE-2026-115825）が10月25日に公表。修正版、成立条件と運用上の確認事項を整理する。",
+    "category": "仕事",
+    "score": 88,
+    "published_at": "2026-10-26",
+    "source_url": "https://github.com/advisories/GHSA-4q75-5w63-6hx7",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "HIGH",
+    "social_security_product": "Starman / Plack HTTP::Server::PSGI",
+    "social_security_cve": "CVE-2026-115823 / CVE-2026-115825",
+    "social_security_action": "Starman 0.4019、Plack 1.0056以降へ更新し、プロキシ接続再利用とContent-Lengthの扱いを確認。",
+    "quick_take": "PerlのWebサーバーで2件の脆弱性が公表された。Starmanでは特定の応答で本文が誤送信され、接続を再利用するプロキシ環境で応答混同の恐れがある。PlackのHTTP::Server::PSGIでは過大なContent-Lengthを宣言した単一リクエストでメモリ不足による停止が起こり得る。実際の悪用は確認できていない。",
+    "sections": [
+      {
+        "title": "10月25日公表：異なる仕組みの2件",
+        "body": "GitHub Advisory Databaseに2026年10月25日、StarmanのCVE-2026-115823とHTTP::Server::PSGIのCVE-2026-115825が掲載された。どちらもPerlのWebサーバー関連だが、前者はHTTP応答の境界が曖昧になる問題、後者はメモリ確保によるサービス停止の問題であり、影響条件も対処するパッケージも異なる。公式の深刻度は未評価のため、本記事のHIGHはSECURITY WATCH編集部による暫定的な注意喚起区分だ。"
+      },
+      {
+        "title": "Starman：HEADなどの応答本文が接続上に残る",
+        "body": "Starman 0.4019未満では、HEADリクエストに対してアプリケーションが返した本文を送信してしまう。1xx、204、304のように本文を送るべきでない応答でも同様の問題がある。keep-aliveやパイプライン接続では余分なバイト列が次の応答の先頭と誤解され、上流接続を再利用するリバースプロキシなどで別リクエストとの応答混同につながる恐れがある。修正はStarman 0.4019に含まれる。\n\nGitHub Advisory：https://github.com/advisories/GHSA-4q75-5w63-6hx7\n開発元修正：https://github.com/miyagawa/Starman/commit/91c47c529cd1e100f938486896ea9083ec3ec7bf"
+      },
+      {
+        "title": "HTTP::Server::PSGI：Content-Lengthの宣言値で過大なメモリ確保",
+        "body": "Plackに含まれるHTTP::Server::PSGIの1.0056未満では、HTTPリクエストのContent-Lengthに極端に大きな値が設定されると、実際の本文が届く前に大きな読み取りバッファを確保しようとしてメモリ不足になる恐れがある。アプリケーション処理に到達する前にプロセスが終了し、単一プロセスで稼働するサーバーが再起動まで停止する可能性がある。Plack 1.0056への更新を確認したい。\n\nGitHub Advisory：https://github.com/advisories/GHSA-jmh5-fmfv-h6f8\n開発元修正：https://github.com/plack/Plack/commit/11545871cadc5df1b744cebb429cfeb4ebc1069a"
+      },
+      {
+        "title": "利用者が優先して確認すること",
+        "body": "まずStarmanとPlackの導入有無、実際に稼働しているバージョン、前段のプロキシやロードバランサーによる接続再利用の有無を棚卸しする。Starmanは0.4019以降、Plackは1.0056以降へ更新する。更新後はHEAD、204などの応答、keep-alive接続、リクエストサイズの扱いを確認する。更新までの暫定策としてリクエストサイズの上限や外部公開範囲の見直しを検討できるが、これだけで修正済みとはみなさない。"
+      },
+      {
+        "title": "悪用状況と編集部評価",
+        "body": "2026年10月26日時点で確認したGitHub Advisoryと開発元の修正情報からは、実環境での悪用が確認されたとは断定できない。両件のGitHub AdvisoryはUnreviewedで深刻度もUnknown。したがって編集部はHIGHを暫定評価とし、CVSS値や悪用件数を推測しない。幅広いWebアプリ全体への一律の影響ではなく、該当するPerlサーバーを使う環境に向けた技術的注意喚起である。"
+      },
+      {
+        "title": "WORK SIGNALの視点：HTTPの境界と資源制限を再点検",
+        "body": "HTTPサーバーの安全性はアプリケーションの認証や入力検証だけで決まらない。レスポンス本文を送ってよい条件、接続再利用時の境界、宣言された本文長に応じたメモリ確保など、通信の土台も重要だ。開発・運用担当者はパッケージの更新とともに、前段のプロキシ構成と資源制限を確認したい。\n\n一次情報（Starman）：https://github.com/advisories/GHSA-4q75-5w63-6hx7\n一次情報（Plack）：https://github.com/advisories/GHSA-jmh5-fmfv-h6f8"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜HIGH・暫定】Perl系Webサーバーの脆弱性2件。StarmanはHTTP応答混同（CVE-2026-115823）、PlackのHTTP::Server::PSGIは巨大Content-Lengthによる停止（CVE-2026-115825）の恐れ。Starman 0.4019／Plack 1.0056以降へ更新を。\nhttps://signal.amberlight.co.jp/articles/20261026-perl-starman-plack-http-security/\n\n一次情報：https://github.com/advisories/GHSA-4q75-5w63-6hx7",
+    "social_instagram_caption": "【SECURITY WATCH｜HIGH・暫定】Perl系Webサーバーに2件の脆弱性。StarmanではHTTP応答混同、PlackのHTTP::Server::PSGIでは過大なContent-Lengthによるサービス停止の恐れ。修正版はStarman 0.4019、Plack 1.0056。影響する構成と更新状況を確認してください。詳細はWORK SIGNALで。#SECURITYWATCH #Starman #Plack #脆弱性 #Webセキュリティ"
+  },
+  {
     "id": "20261026-apache-tomcat-auth-bypass-http2-mixup",
     "title": "Apache Tomcatに認証回避とHTTP/2の混同リスク。10月20日公表の2件を点検",
     "summary": "Apache Tomcatで、特定のJNDIRealm構成における認証回避（CVE-2026-101296）と、非同期ServletのHTTP/2処理における利用者間のリクエスト・レスポンス混同（CVE-2026-101356）が公表された。影響条件、修正版、確認事項を整理する。",

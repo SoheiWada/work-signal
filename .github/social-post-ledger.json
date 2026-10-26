@@ -103,8 +103,9 @@
   },
   "20261026-aspnetcore-linux-tarball-ownership-cve-2026-114148": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-26T05:23:11+00:00"
+      "status": "published",
+      "updated_at": "2026-10-26T05:23:35+00:00",
+      "remote_id": "17915418117506880"
     }
   }
 }

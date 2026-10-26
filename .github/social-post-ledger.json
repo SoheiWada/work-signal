@@ -283,8 +283,9 @@
       "remote_id": "18129346336833688"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-26T23:55:23+00:00"
+      "status": "published",
+      "updated_at": "2026-10-26T23:55:37+00:00",
+      "remote_id": "18102242525529276"
     }
   }
 }

@@ -69,8 +69,9 @@
   },
   "20261026-volkswagen-copilot-330000-adoption": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-25T23:59:52+00:00"
+      "status": "published",
+      "updated_at": "2026-10-26T00:00:17+00:00",
+      "remote_id": "17873911902636765"
     }
   }
 }

@@ -1,5 +1,14 @@
 [
   {
+    "id": "netty-tcnative-tls-cve-2026-116539-116540-116541",
+    "product": "Netty tcnative",
+    "severity": "HIGH",
+    "date": "2026-10-27",
+    "article_id": "20261027-netty-tcnative-tls-cve-2026-116539-116540-116541",
+    "summary": "TLS処理のメモリ破損・接続障害（CVE-2026-116539／116540／116541）。2.0.84.Finalで修正",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
     "id": "bandit-http2-websocket-cve-2026-108525",
     "product": "Bandit (Elixir HTTP server)",
     "severity": "HIGH",

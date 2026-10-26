@@ -83,5 +83,11 @@
       "updated_at": "2026-10-26T00:00:45+00:00",
       "remote_id": "18118569325800680"
     }
+  },
+  "20261026-marathon-fusion-mercury-gold-transmutation": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-26T03:47:31+00:00"
+    }
   }
 }

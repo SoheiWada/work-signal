@@ -1,5 +1,54 @@
 [
   {
+    "id": "20261026-aspnetcore-linux-tarball-ownership-cve-2026-114148",
+    "title": "更新しても直らない？ASP.NET CoreのLinux配布物に権限昇格の脆弱性",
+    "summary": "MicrosoftがCVE-2026-114148（HIGH・CVSS 7.8）を公表。Linux向けASP.NET Core 8・9の一部tarballと.NET 8～11のソースビルド配布物に不適切な所有権情報が含まれる。影響条件、修正版、上書き更新では解消しない理由を解説する。",
+    "category": "仕事",
+    "score": 94,
+    "published_at": "2026-10-26",
+    "source_url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-r6pf-x897-gm86",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "HIGH",
+    "social_security_product": "ASP.NET Core / .NET（Linux）",
+    "social_security_cve": "CVE-2026-114148",
+    "social_security_action": "8系は8.0.33、9系は9.0.22へ。対象tarballは新規ディレクトリへ安全に再展開",
+    "quick_take": "2026年10月25日、MicrosoftはLinux向け.NET配布アーカイブのファイル所有権に関する脆弱性を公表した。条件がそろうと、ローカルの低権限ユーザーが高権限のプロセスで利用されるファイルを書き換え、権限昇格につながる恐れがある。一般的な.NET利用環境すべてが対象ではない。影響を受けるtarballを使ったインストールでは、新版への上書きだけでなく、所有権を適切に設定したクリーンな再インストールが必要だ。",
+    "sections": [
+      {
+        "title": "Linux向け配布アーカイブの「所有権」に問題",
+        "body": "Microsoftは2026年10月25日、CVE-2026-114148（GHSA-r6pf-x897-gm86）を公表した。深刻度はHIGH、CVSS v3.1は7.8。対象のLinux向け.NET tarballには不適切なファイル所有権情報が含まれ、アーカイブの展開時にその所有権が引き継がれる構成では、ローカルの低権限ユーザーがインストール済みファイルを変更できる可能性がある。より高い権限で動くアプリケーションがそのファイルを利用すると、権限昇格につながり得る。これはローカル権限昇格の問題であり、未認証の外部攻撃者がネットワーク越しに直ちに侵入できるという勧告ではない。\n\nMicrosoft公式勧告：https://github.com/dotnet/aspnetcore/security/advisories/GHSA-r6pf-x897-gm86"
+      },
+      {
+        "title": "ASP.NET Core 8・9の影響範囲と修正版",
+        "body": "Microsoftが配布するLinux向けASP.NET Core 8の通常・composite runtime tarballとtargeting-pack tarballは、8.0.0以上8.0.33未満が対象で、修正版は8.0.33。ASP.NET Core 9の対応するtarballは、9.0.0以上9.0.22未満が対象で、修正版は9.0.22だ。通常のMicrosoft配布物については、他の.NET runtime・SDK tarballが同じ範囲に含まれるわけではない。NuGetパッケージを復元すること自体がこのtarball所有権の欠陥を導入するわけでもない。ただし、影響のあるtarballからインストールした共有ランタイムをアプリケーションが利用している場合は確認が必要だ。"
+      },
+      {
+        "title": "ソースビルド配布物は.NET 8～11も対象",
+        "body": "ソースコードからビルドされたLinux向け.NET配布アーカイブにも別の影響範囲がある。修正版は.NET 8が8.0.133、.NET 9が9.0.123、.NET 10の1xx系列が10.0.114-servicing.26522.126、4xx系列が10.0.403-servicing.26523.112、.NET 11プレビュー系列が11.0.100-rc.3.26522.148。各系列の詳細な影響開始・終了バージョンは公式勧告の表で確認したい。これらは主にビルド・エンジニアリング工程で使用するアーカイブであり、対象のソースビルドアーカイブを使用しただけで本番サーバーが侵害されている、または本番共有ランタイムが必ず対象になる、という意味ではない。"
+      },
+      {
+        "title": "なぜ最新版を上書きするだけでは直らないのか",
+        "body": "この問題で確認すべきなのはバージョン番号だけではなく、展開後のファイルとディレクトリの実際の所有者・書き込み権限だ。Microsoftは、影響を受けた既存のインストールディレクトリに修正版アーカイブをそのまま上書き展開する方法では、問題が解消しないと明記している。影響のあるサービスを停止し、発行元から修正版を入手してチェックサムを検証したうえで、信頼できる管理者が管理する新しい空のディレクトリへ展開する必要がある。GNU tarでは`--no-same-owner`と`--no-same-permissions`による所有権・権限の制御が案内されている。移行後はサービス設定・参照するランタイム・親ディレクトリの書き込み権限を確認し、旧環境を利用し続けていないか点検する。"
+      },
+      {
+        "title": "コンテナやビルドパイプラインも再点検",
+        "body": "影響のある配布アーカイブを材料に独自コンテナイメージを構築した場合は、修正版を用いてイメージを作り直し、再デプロイする必要がある。稼働中コンテナだけを変更しても、元イメージに残る問題は解消しない。ソースビルドを利用している組織も、修正済みの入力アーカイブから信頼できる作業ディレクトリを作成し直し、必要に応じて下流のパッケージやイメージを再構築する。Microsoftは同日の定例外更新で.NET 8.0.33、9.0.22、10.0.14、11 RC3を公開している。ただし今回のCVEで.NET 10・11のMicrosoft配布ランタイム全般が対象なのではなく、ソースビルドtarballに関する問題である点は区別したい。\n\nMicrosoft公式更新案内：https://devblogs.microsoft.com/dotnet/dotnet-october-2026-oob-security-updates/"
+      },
+      {
+        "title": "悪用は確認されたのか",
+        "body": "2026年10月26日時点のMicrosoft公式勧告には、実環境での悪用確認を示す記載は見当たらない。したがって『攻撃が広がっている』と断定する根拠はない。一方、脆弱性の成立条件が公開され、修正版も案内されている以上、該当するインストール方法を使った組織は更新を検討すべきだ。利用中の.NETバージョン表示だけで安全と判断せず、元になったアーカイブ、展開方法、所有権、利用中のコンテナイメージを確認する必要がある。"
+      },
+      {
+        "title": "WORK SIGNALの視点｜更新作業の品質は「展開後」で決まる",
+        "body": "ここからは編集部の実務上の考察だ。セキュリティ対策を『修正版に更新したか』だけで管理すると、今回のように古いディレクトリの所有権や、サービスが参照する実体が残るケースを見落としうる。管理職・運用担当者は、①どの配布形式で導入したか、②修正版をどの場所へ展開したか、③起動中のサービスやコンテナがどのファイルを使っているか、④更新後の権限を誰が検証したか、まで変更管理に含めたい。ソフトウェア更新はダウンロードの完了ではなく、安全な状態で運用再開できた時点で評価すべきだ。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜HIGH】ASP.NET Core/.NETのLinux向け配布アーカイブに所有権の脆弱性（CVE-2026-114148）。条件次第でローカル権限昇格の恐れ。ASP.NET Core 8は8.0.33、9は9.0.22へ。ただし既存環境への上書き展開だけでは不十分です。影響する配布形式と安全な再インストール手順を整理しました。\n記事：https://signal.amberlight.co.jp/articles/20261026-aspnetcore-linux-tarball-ownership-cve-2026-114148/\n一次情報：https://github.com/dotnet/aspnetcore/security/advisories/GHSA-r6pf-x897-gm86",
+    "social_instagram_caption": "【SECURITY WATCH｜HIGH】\nASP.NET Core / .NETのLinux向け配布アーカイブに権限昇格の脆弱性。\n\nCVE-2026-114148／CVSS 7.8\nASP.NET Core 8：8.0.33\nASP.NET Core 9：9.0.22\n\n重要なのは、単に最新版を上書きするだけでは不十分という点。対象となるtarballと展開時の所有権を確認し、新しい安全なディレクトリへ再インストールする必要があります。\n\n詳細はプロフィールのWORK SIGNALへ。\n#WORKSIGNAL #SECURITYWATCH #ASPNetCore #DotNet #脆弱性"
+  },
+  {
     "id": "20261026-marathon-fusion-mercury-gold-transmutation",
     "title": "現代の「錬金術」は金市場を変えるのか。核融合で水銀を金に変える技術、その可能性と限界",
     "summary": "Marathon Fusionは2026年10月、水銀から安定した金を生成したと主張。核反応の原理とCERNの実績は確認できる一方、同社の最新実験は独立検証が未完了。核融合による電力と希少金属の同時生産という構想を、実証と試算を分けて読み解く。",

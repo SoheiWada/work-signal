@@ -128,6 +128,10 @@
       "status": "published",
       "updated_at": "2026-10-26T06:29:27+00:00",
       "remote_id": "17879094594564190"
+    },
+    "instagram_story": {
+      "status": "attempting",
+      "updated_at": "2026-10-26T06:29:28+00:00"
     }
   }
 }

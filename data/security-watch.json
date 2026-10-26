@@ -1,5 +1,14 @@
 [
   {
+    "id": "bandit-http2-websocket-cve-2026-108525",
+    "product": "Bandit (Elixir HTTP server)",
+    "severity": "HIGH",
+    "date": "2026-10-27",
+    "article_id": "20261027-bandit-http2-websocket-multiple-vulnerabilities",
+    "summary": "HTTP/2・HTTP/1.1・WebSocketのリソース枯渇など複数の脆弱性をBandit 1.14.0で修正（CVE-2026-108525ほか）",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
     "id": "mcp-toolbox-cloud-storage-cve-2026-93328",
     "product": "Google Cloud MCP Toolbox for Databases",
     "severity": "CRITICAL",

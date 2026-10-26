@@ -168,5 +168,11 @@
       "updated_at": "2026-10-26T09:36:00+00:00",
       "remote_id": "18118752083063982"
     }
+  },
+  "20261026-apache-tomcat-auth-bypass-http2-mixup": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-26T10:00:53+00:00"
+    }
   }
 }

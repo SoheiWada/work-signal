@@ -253,5 +253,11 @@
       "updated_at": "2026-10-26T23:36:13+00:00",
       "remote_id": "17955259797272321"
     }
+  },
+  "20261027-mcp-toolbox-cloud-storage-cve-2026-93328": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-26T23:36:14+00:00"
+    }
   }
 }

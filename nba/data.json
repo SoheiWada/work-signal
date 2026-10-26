@@ -3,12 +3,12 @@
   "provider": "balldontlie",
   "season": 2026,
   "throughDate": "2026-10-25",
-  "fetchedAt": "2026-10-25T14:26:42.429Z",
-  "lastAttemptAt": "2026-10-25T14:26:42.429Z",
+  "fetchedAt": "2026-10-26T00:27:49.097Z",
+  "lastAttemptAt": "2026-10-26T00:27:49.097Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 36,
+  "countedGames": 37,
   "standingsReason": null,
   "teams": [
     {
@@ -106,7 +106,7 @@
       "code": "LAL",
       "name": "Los Angeles Lakers",
       "conference": "West",
-      "wins": 2,
+      "wins": 3,
       "losses": 0
     },
     {
@@ -212,7 +212,7 @@
       "name": "Utah Jazz",
       "conference": "West",
       "wins": 1,
-      "losses": 1
+      "losses": 2
     },
     {
       "code": "WAS",
@@ -223,6 +223,18 @@
     }
   ],
   "sets": [
+    [
+      {
+        "id": "21717955",
+        "date": "2026-10-25",
+        "home": "UTA",
+        "away": "LAL",
+        "homeScore": 123,
+        "awayScore": 132,
+        "competition": "regular",
+        "countsForStandings": true
+      }
+    ],
     [
       {
         "id": "21717954",

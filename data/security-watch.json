@@ -1,5 +1,23 @@
 [
   {
+    "id": "mcp-toolbox-cloud-storage-cve-2026-93328",
+    "product": "Google Cloud MCP Toolbox for Databases",
+    "severity": "CRITICAL",
+    "date": "2026-10-27",
+    "article_id": "20261027-mcp-toolbox-cloud-storage-cve-2026-93328",
+    "summary": "Cloud Storage連携の認可不備・パストラバーサル（CVE-2026-93328、CVSS 9.3）。1.5.0で修正",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
+    "id": "hackney-private-ca-tls-cve-2026-115693",
+    "product": "hackney (Erlang HTTP client)",
+    "severity": "CRITICAL",
+    "date": "2026-10-27",
+    "article_id": "20261027-hackney-private-ca-tls-cve-2026-115693",
+    "summary": "独自CA指定時のTLS証明書検証不備（CVE-2026-115693、CVSS 9.1）。4.9.0で修正",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
     "id": "parse-server-authadapter-bypass",
     "product": "Parse Server",
     "severity": "CRITICAL",

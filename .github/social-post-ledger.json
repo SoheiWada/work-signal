@@ -151,5 +151,11 @@
       "updated_at": "2026-10-26T09:02:34+00:00",
       "remote_id": "18141257155625309"
     }
+  },
+  "20261026-ntt-docomo-voice-ai-eq-human-conversation": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-26T09:35:07+00:00"
+    }
   }
 }

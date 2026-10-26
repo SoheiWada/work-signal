@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-10-25",
-  "fetchedAt": "2026-10-26T00:27:49.097Z",
-  "lastAttemptAt": "2026-10-26T00:27:49.097Z",
+  "throughDate": "2026-10-26",
+  "fetchedAt": "2026-10-26T16:49:35.744Z",
+  "lastAttemptAt": "2026-10-26T16:49:35.744Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 37,
+  "countedGames": 43,
   "standingsReason": null,
   "teams": [
     {
@@ -30,7 +30,7 @@
       "name": "Brooklyn Nets",
       "conference": "East",
       "wins": 0,
-      "losses": 2
+      "losses": 3
     },
     {
       "code": "CHA",
@@ -71,7 +71,7 @@
       "code": "DET",
       "name": "Detroit Pistons",
       "conference": "East",
-      "wins": 2,
+      "wins": 3,
       "losses": 0
     },
     {
@@ -92,7 +92,7 @@
       "code": "IND",
       "name": "Indiana Pacers",
       "conference": "East",
-      "wins": 1,
+      "wins": 2,
       "losses": 1
     },
     {
@@ -100,7 +100,7 @@
       "name": "LA Clippers",
       "conference": "West",
       "wins": 1,
-      "losses": 1
+      "losses": 2
     },
     {
       "code": "LAL",
@@ -113,7 +113,7 @@
       "code": "MEM",
       "name": "Memphis Grizzlies",
       "conference": "West",
-      "wins": 2,
+      "wins": 3,
       "losses": 0
     },
     {
@@ -134,7 +134,7 @@
       "code": "MIN",
       "name": "Minnesota Timberwolves",
       "conference": "West",
-      "wins": 2,
+      "wins": 3,
       "losses": 0
     },
     {
@@ -149,20 +149,20 @@
       "name": "New York Knicks",
       "conference": "East",
       "wins": 0,
-      "losses": 2
+      "losses": 3
     },
     {
       "code": "OKC",
       "name": "Oklahoma City Thunder",
       "conference": "West",
-      "wins": 2,
+      "wins": 3,
       "losses": 0
     },
     {
       "code": "ORL",
       "name": "Orlando Magic",
       "conference": "East",
-      "wins": 0,
+      "wins": 1,
       "losses": 2
     },
     {
@@ -170,7 +170,7 @@
       "name": "Philadelphia 76ers",
       "conference": "East",
       "wins": 3,
-      "losses": 0
+      "losses": 1
     },
     {
       "code": "PHX",
@@ -191,7 +191,7 @@
       "name": "Sacramento Kings",
       "conference": "West",
       "wins": 0,
-      "losses": 2
+      "losses": 3
     },
     {
       "code": "SAS",
@@ -205,7 +205,7 @@
       "name": "Toronto Raptors",
       "conference": "East",
       "wins": 2,
-      "losses": 0
+      "losses": 1
     },
     {
       "code": "UTA",
@@ -224,6 +224,66 @@
   ],
   "sets": [
     [
+      {
+        "id": "21717961",
+        "date": "2026-10-25",
+        "home": "SAC",
+        "away": "MEM",
+        "homeScore": 112,
+        "awayScore": 123,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21717960",
+        "date": "2026-10-25",
+        "home": "PHI",
+        "away": "DET",
+        "homeScore": 93,
+        "awayScore": 106,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21717959",
+        "date": "2026-10-25",
+        "home": "OKC",
+        "away": "LAC",
+        "homeScore": 108,
+        "awayScore": 101,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21717958",
+        "date": "2026-10-25",
+        "home": "MIN",
+        "away": "TOR",
+        "homeScore": 117,
+        "awayScore": 94,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21717957",
+        "date": "2026-10-25",
+        "home": "NYK",
+        "away": "ORL",
+        "homeScore": 102,
+        "awayScore": 111,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21717956",
+        "date": "2026-10-25",
+        "home": "BKN",
+        "away": "IND",
+        "homeScore": 109,
+        "awayScore": 136,
+        "competition": "regular",
+        "countsForStandings": true
+      },
       {
         "id": "21717955",
         "date": "2026-10-25",

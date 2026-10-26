@@ -1,5 +1,83 @@
 [
   {
+    "id": "20261027-mcp-toolbox-cloud-storage-cve-2026-93328",
+    "title": "Google Cloud MCP Toolboxに重大脆弱性。認証なしでサーバーファイル流出・上書きの恐れ",
+    "summary": "Google Cloud MCP Toolbox for Databasesのcloud-storage連携にパストラバーサルと認可不備（CVE-2026-93328、CVSS 9.3）。影響範囲と1.5.0以降への更新、アクセス制限設定を解説。",
+    "category": "仕事",
+    "score": 95,
+    "published_at": "2026-10-27",
+    "source_url": "https://github.com/advisories/GHSA-2gc9-c85v-5vwr",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Google Cloud MCP Toolbox for Databases",
+    "social_security_cve": "CVE-2026-93328",
+    "social_security_action": "1.5.0以降へ更新し、allowedLocalRootsとallowedBucketsを最小権限で設定。",
+    "quick_take": "cloud-storage連携のツール引数を悪用し、認証なしでホスト内ファイルを外部バケットへ送信したり、ローカルファイルを上書きしたりする恐れ。1.5.0以降へ更新し、許可するディレクトリとバケットを明示的に制限する。",
+    "sections": [
+      {
+        "title": "何が公表されたか",
+        "body": "2026年10月26日公表のCVE-2026-93328は、Google Cloud MCP Toolbox for Databasesのcloud-storage sourceにおけるパストラバーサルと認可不備。CVSS v4.0は9.3（Critical）。細工したツール呼び出し引数によって、認証されていない遠隔の攻撃者がホスト内ファイルを外部Google Cloud Storageバケットへ送信し、任意のローカルファイルを上書きする恐れがある。一次情報：https://github.com/advisories/GHSA-2gc9-c85v-5vwr"
+      },
+      {
+        "title": "影響するバージョンと条件",
+        "body": "影響するのはMCP Toolbox for Databases 1.2.0以上1.5.0未満（1.2.0～1.4.0）。cloud-storage sourceの利用状況、ツール呼び出し権限、サービスがアクセスできるローカルファイルとクラウドバケットの範囲によって実際の被害可能性は変わる。すべてのMCPサーバーに共通する欠陥ではない。"
+      },
+      {
+        "title": "修正と推奨対応",
+        "body": "開発元の修正は1.5.0以降。更新とともにallowedLocalRootsでアクセス可能なローカルディレクトリ、allowedBucketsで利用可能なCloud Storageバケットを明示的に限定する。実行OSユーザーとGoogle Cloud IAMも最小権限とし、外部公開・認証・ツール呼び出しログを確認する。修正PR：https://github.com/googleapis/mcp-toolbox/pull/3454"
+      },
+      {
+        "title": "悪用状況とWORK SIGNALの視点",
+        "body": "2026年10月27日の確認時点で参照した一次情報から実環境での悪用が確認されたとは断定できない。AIエージェントのツール接続では、モデルの指示制御だけでなく、ツール自体のファイル・クラウドアクセス権限を限定することが重要だ。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜CRITICAL】Google Cloud MCP Toolboxのcloud-storage連携に認証不要のファイル流出・上書きリスク（CVE-2026-93328、CVSS 9.3）。1.2.0～1.4.0が対象。1.5.0以降へ更新し、アクセス可能なディレクトリとバケットを制限してください。\nhttps://signal.amberlight.co.jp/articles/20261027-mcp-toolbox-cloud-storage-cve-2026-93328/\n\n一次情報：https://github.com/advisories/GHSA-2gc9-c85v-5vwr",
+    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】Google Cloud MCP Toolbox for Databasesのcloud-storage連携に重大脆弱性。認証不要でサーバーファイルの流出・上書きにつながる恐れ。CVE-2026-93328、CVSS 9.3。1.5.0以降への更新とallowedLocalRoots／allowedBucketsによるアクセス制限を。記事全文はプロフィールから。#SECURITYWATCH #MCP #GoogleCloud #脆弱性"
+  },
+  {
+    "id": "20261027-hackney-private-ca-tls-cve-2026-115693",
+    "title": "Erlang HTTPクライアントhackneyに重大脆弱性。独自CAのTLS検証を回避される恐れ",
+    "summary": "hackneyの独自CA指定時に公開CAの証明書チェーンを受け入れる不備（CVE-2026-115693、CVSS 9.1）。影響バージョン、攻撃成立条件、4.9.0への更新を整理。",
+    "category": "仕事",
+    "score": 83,
+    "published_at": "2026-10-27",
+    "source_url": "https://cna.erlef.org/cves/CVE-2026-115693.html",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "hackney (Erlang HTTP client)",
+    "social_security_cve": "CVE-2026-115693",
+    "social_security_action": "hackney 4.9.0以降に更新し、独自CA指定時のTLS検証を点検。",
+    "quick_take": "独自CAを指定したhackney接続でも、公開CAの証明書チェーンが信頼され得る問題。攻撃者が通信経路上にいて、対象ホスト名の有効な公開CA証明書を保有する場合にサーバーを偽装できる恐れがある。",
+    "sections": [
+      {
+        "title": "何が公表されたか",
+        "body": "2026年10月26日にErlang Ecosystem FoundationのCNAがCVE-2026-115693を公表。hackney_sslの証明書検証不備で、CVSS 9.1（Critical）。独自CAのみに信頼を限定したつもりの通信でも、公開CAを信頼するpartial_chainコールバックが残る場合がある。一次情報：https://cna.erlef.org/cves/CVE-2026-115693.html"
+      },
+      {
+        "title": "影響バージョンと攻撃条件",
+        "body": "影響するのはhackney 1.24.0以上4.9.0未満。呼び出し側がssl_optionsでcacertsまたはcacertfileを指定して独自CAに信頼を限定し、独自のpartial_chainを指定していない構成が対象。既定のcertifi信頼ストアを使う接続はこの問題の対象外。ホスト名検証は維持されるため、攻撃者は通信経路上の位置に加え、対象ホスト名に対する公開CA発行の有効な証明書を必要とする。"
+      },
+      {
+        "title": "原因と修正",
+        "body": "hackneyはTLS verify_peer設定にcertifiの公開ルート証明書を認めるpartial_chainを追加する。呼び出し側がcacerts/cacertfileを上書きしても、このコールバックが残り、指定した独自CAより先に公開ルートが信頼される可能性があった。修正版は4.9.0。公式リリース：https://github.com/benoitc/hackney/releases/tag/4.9.0"
+      },
+      {
+        "title": "推奨対応と悪用状況",
+        "body": "hackney 4.9.0以降へ更新し、独自CAを利用する接続の証明書検証を再確認する。更新できない場合は、独自のpartial_chainコールバックでunknown_caを返して指定したCAストアで検証する回避策が公式CNAに記載されている。2026年10月27日時点で一次情報から実環境での悪用が確認されたとは断定できない。"
+      },
+      {
+        "title": "WORK SIGNALの視点",
+        "body": "TLSの『独自CAのみ信頼する』という設定意図が、ライブラリの既定コールバックによって崩れる例。依存ライブラリの更新に加え、実際の接続先証明書で検証境界をテストすることが重要だ。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜CRITICAL】Erlang HTTPクライアントhackneyのTLS証明書検証に不備（CVE-2026-115693、CVSS 9.1）。独自CAに信頼を限定した構成でも公開CA証明書を受け入れる恐れ。対象は1.24.0以上4.9.0未満。4.9.0へ更新し設定を点検。\nhttps://signal.amberlight.co.jp/articles/20261027-hackney-private-ca-tls-cve-2026-115693/\n\n一次情報：https://cna.erlef.org/cves/CVE-2026-115693.html",
+    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】Erlang HTTPクライアントhackneyで独自CAのTLS検証に不備。CVE-2026-115693、CVSS 9.1。対象は1.24.0以上4.9.0未満。4.9.0以降への更新と独自CA設定の再確認を。詳細はプロフィールのWORK SIGNALから。#SECURITYWATCH #Erlang #TLS #脆弱性"
+  },
+  {
     "id": "20261027-bandit-http2-websocket-multiple-vulnerabilities",
     "title": "HTTP/2やWebSocketでサービス停止の恐れ。Elixir製WebサーバーBanditに複数の重大脆弱性",
     "summary": "Bandit 1.14.0でHTTP/2の受信制御・ヘッダー展開、HTTP/1.1のチャンク処理、WebSocketの断片化など複数のリソース枯渇問題が修正された。主要CVEと実務対応を整理する。",

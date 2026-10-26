@@ -273,8 +273,9 @@
   },
   "20261027-netty-tcnative-tls-cve-2026-116539-116540-116541": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-26T23:54:35+00:00"
+      "status": "published",
+      "updated_at": "2026-10-26T23:55:01+00:00",
+      "remote_id": "17938342344402749"
     }
   }
 }

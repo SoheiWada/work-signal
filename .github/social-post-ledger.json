@@ -219,5 +219,11 @@
       "updated_at": "2026-10-26T11:34:15+00:00",
       "remote_id": "18401014168203144"
     }
+  },
+  "20261027-bandit-http2-websocket-multiple-vulnerabilities": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-26T23:22:41+00:00"
+    }
   }
 }

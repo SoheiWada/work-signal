@@ -1,5 +1,50 @@
 [
   {
+    "id": "20261026-yeswiki-bazar-sqli-cve-2026-116207",
+    "title": "ログイン不要で管理者乗っ取りも。YesWikiの公開APIに重大なSQLインジェクション",
+    "summary": "YesWikiのBazar公開APIに認証不要のSQLインジェクション（CVE-2026-116207）。情報窃取やパスワード再設定キーの悪用による管理者アカウント乗っ取りの恐れ。影響版と修正版、確認事項を解説。",
+    "category": "仕事",
+    "score": 92,
+    "published_at": "2026-10-26",
+    "source_url": "https://github.com/YesWiki/yeswiki/security/advisories/GHSA-hgxv-w4r8-8877",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "YesWiki",
+    "social_security_cve": "CVE-2026-116207",
+    "social_security_action": "YesWiki 4.7.0以降へ更新。公開APIを確認。",
+    "quick_take": "YesWiki 4.6.0～4.6.7と5.0.0-alpha1～alpha3には、公開Bazar APIを介した認証不要のSQLインジェクションが存在する。管理者アカウント乗っ取りにつながる恐れもあり、4.7.0または5.0.0-alpha4以降への更新を急ぎたい。",
+    "sections": [
+      {
+        "title": "何が起きた？ ログイン不要の公開APIが入口",
+        "body": "オープンソースのWikiシステムYesWikiに、認証不要で悪用できるSQLインジェクションCVE-2026-116207が報告された。対象はBazar機能の公開エントリー一覧API。検索パラメーターqueryやsearchfieldsで指定されたフィールド名の検証が不十分で、データベースに送るSQL文の構造を攻撃者が操作できる場合がある。\n\n開発元の勧告は2026年10月9日付。CVEは10月25日に登録された。今回の新しさは脆弱性の発見日ではなく、CVE登録により広く参照できるようになった点にある。\n\n公式勧告：https://github.com/YesWiki/yeswiki/security/advisories/GHSA-hgxv-w4r8-8877"
+      },
+      {
+        "title": "影響バージョンと深刻度",
+        "body": "影響するのはYesWiki 4.6.0以上4.7.0未満（4.6.0～4.6.7）、および5.0.0-alpha1以上5.0.0-alpha4未満。修正版は4.7.0と5.0.0-alpha4。\n\n開発元の該当セキュリティ勧告GHSA-hgxv-w4r8-8877はCritical、CVSS 9.4と評価。一方、CVE-2026-116207の登録データではCVSS v4.0で8.8（High）、v3.1で9.1（Critical）という評価もあり、評価主体とCVSSの版を区別する必要がある。"
+      },
+      {
+        "title": "どのような被害が考えられる？",
+        "body": "攻撃者は、データベースの権限で読み取れるアカウント名、メールアドレス、パスワードハッシュ、非公開データなどを抽出できる恐れがある。開発元勧告では、パスワード再設定キーを取得して管理者アカウントを乗っ取る経路も説明されている。\n\n繰り返し処理を遅延させることで、データベースやPHPの処理能力を消費し、サービスの応答性を低下させる可能性もある。\n\nただし、脆弱なBazarフォームが地図・位置情報のような構造化フィールドを公開していることなど、具体的な悪用には条件がある。すべてのYesWikiサイトで無条件に同じ攻撃が成立するとは限らない。"
+      },
+      {
+        "title": "管理者が優先して確認する3点",
+        "body": "第一にYesWikiの利用有無とバージョンを確認する。対象版であれば4.7.0または5.0.0-alpha4以降へ更新する。\n\n第二に、Bazarの公開フォームやAPIを利用しているか、特に構造化フィールドを含むフォームを公開しているか確認する。更新が直ちにできない場合は、該当APIの外部公開を一時的に制限するなどの緩和策を検討する。\n\n第三に、公開APIへの不審なアクセス、異常な応答遅延、パスワード再設定の履歴、管理者アカウントの変更を点検する。ログの確認は被害を断定するものではないが、事後調査の重要な手掛かりになる。"
+      },
+      {
+        "title": "実際の攻撃は確認されている？",
+        "body": "開発元の勧告には検証環境での再現と、情報抽出・管理者乗っ取りに至る攻撃経路の説明がある。一方、2026年10月26日時点で確認した一次情報からは、実環境での悪用事例が確認されたとは断定できない。\n\n再現手順が公開されていることと、実際の被害発生は分けて判断したい。"
+      },
+      {
+        "title": "WORK SIGNALの視点｜公開機能は認証の外側にある",
+        "body": "今回の問題は、ログインが必要な管理画面ではなく、誰でも利用できる検索APIから始まる。Webシステムの安全性を考えるときは、管理者画面の認証だけでなく、公開フォームや検索機能がどのデータにアクセスできるかまで確認する必要がある。\n\n管理者は利用製品、影響バージョン、公開API、更新状況を整理し、担当者と対応期限を明確にしたい。\n\nYesWiki開発元の一次情報：https://github.com/YesWiki/yeswiki/security/advisories/GHSA-hgxv-w4r8-8877\n\nCVE登録情報：https://github.com/advisories/GHSA-7f6m-6c75-cf96"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜CRITICAL】YesWikiの公開Bazar APIに認証不要のSQLインジェクション（CVE-2026-116207）。データ窃取に加え、パスワード再設定キーの悪用で管理者アカウント乗っ取りにつながる恐れ。4.6.0～4.6.7などが対象で、4.7.0以降への更新が必要です。\nhttps://signal.amberlight.co.jp/articles/20261026-yeswiki-bazar-sqli-cve-2026-116207/\n\n一次情報：https://github.com/YesWiki/yeswiki/security/advisories/GHSA-hgxv-w4r8-8877",
+    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】ログイン不要で管理者乗っ取りも。YesWikiの公開Bazar APIに重大なSQLインジェクション（CVE-2026-116207）。対象は4.6.0～4.6.7、5.0.0-alpha1～alpha3。修正版4.7.0／5.0.0-alpha4への更新と、公開API・不審なアクセスの確認を。詳細はWORK SIGNALで。#セキュリティ #脆弱性 #YesWiki #SQLインジェクション #SECURITYWATCH"
+  },
+  {
     "id": "20261026-brotli-cross-stack-cve-2026-111497",
     "title": "Node.jsだけではなかった。Brotliの重大脆弱性、PythonやWeb基盤にも影響",
     "summary": "CVE-2026-111497はNode.jsだけでなく、Bun、Python向けBrotli、Envoy、IstioなどのWeb基盤に影響。製品別の修正版と、圧縮データの受信・取得・中継に潜む攻撃経路、担当者が確認すべき項目を整理する。",

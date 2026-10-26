@@ -1,5 +1,50 @@
 [
   {
+    "id": "20261026-brotli-cross-stack-cve-2026-111497",
+    "title": "Node.jsだけではなかった。Brotliの重大脆弱性、PythonやWeb基盤にも影響",
+    "summary": "CVE-2026-111497はNode.jsだけでなく、Bun、Python向けBrotli、Envoy、IstioなどのWeb基盤に影響。製品別の修正版と、圧縮データの受信・取得・中継に潜む攻撃経路、担当者が確認すべき項目を整理する。",
+    "category": "仕事",
+    "score": 94,
+    "published_at": "2026-10-26",
+    "source_url": "https://github.com/envoyproxy/envoy/security/advisories/GHSA-3wvj-j6qm-62mr",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Brotli / Node.js / Python / Envoy / Istio",
+    "social_security_cve": "CVE-2026-111497",
+    "social_security_action": "Brotli圧縮データの展開箇所を調査し、Node.js、Bun、Pythonパッケージ、Envoy、Istioをそれぞれ公式修正版へ更新。コンテナ・組み込み成果物も再構築して稼働版を確認する。",
+    "quick_take": "Brotliの範囲外書き込み脆弱性CVE-2026-111497はNode.js固有の問題ではない。BunやPythonの圧縮ライブラリ、Envoy、Istioにも修正が必要な構成がある。外部由来の圧縮データをどこで展開するかを確認し、製品ごとの修正版を適用したい。",
+    "sections": [
+      {
+        "title": "何が起きた？ 圧縮の共通部品が複数のWeb基盤に影響",
+        "body": "Web通信で使われる圧縮技術Brotliのデコーダーに、細工された圧縮データを展開するとメモリ領域の外側に書き込む脆弱性CVE-2026-111497が見つかった。影響はサービス停止やメモリ情報の漏洩、条件によっては任意コード実行に及び得る。\n\n10月21日のNode.jsセキュリティ更新に続き、Bun、Python向けパッケージ、Envoy Proxy、Istioなどの対応が確認されている。Brotliを利用しているだけで直ちに攻撃が成立するわけではなく、攻撃者が制御できる圧縮データを脆弱なデコーダーが展開する経路の有無が重要だ。\n\nBrotli共通ライブラリのGitHub AdvisoryではCVSS v4.0 9.2（Critical）。各製品では独自の深刻度評価が行われる場合がある。"
+      },
+      {
+        "title": "製品別に異なる修正版と確認先",
+        "body": "主な修正版は、Node.js 22.23.4／24.22.1／26.12.1、Bun 1.4.4、Python Brotli 1.2.1、Python brotlicffi 1.2.1.0。Envoy Proxyは1.36.12／1.37.8／1.38.6／1.39.3／1.40.0で修正された。Envoy公式勧告が列挙する影響リリースは1.36.11／1.37.7／1.38.5／1.39.2で、Brotli展開機能を設定した環境が対象だ。\n\nIstioは公式勧告ISTIO-SECURITY-2026-007でBrotliの問題に言及し、1.31系は1.31.2、1.30系は1.30.6、1.29系は1.29.9への更新を案内している。1.29系はサポート終了のため、新しいサポート系列への移行も検討したい。\n\nDebian 13（trixie）のbrotliは1.1.0-2+deb13u1で修正されている。OSベンダーのバックポートでは上流の最新バージョンと番号が異なるため、番号だけで未修正と判断しない。\n\nNode.js公式：https://nodejs.org/en/blog/vulnerability/october-2026-security-releases\nBun公式：https://bun.com/blog/bun-v1.4.4\nEnvoy公式：https://github.com/envoyproxy/envoy/security/advisories/GHSA-3wvj-j6qm-62mr\nIstio公式：https://istio.io/latest/news/security/istio-security-2026-007/\nDebian公式：https://lists.debian.org/debian-security-announce/2026/msg00498.html"
+      },
+      {
+        "title": "見落としやすい3つの入口",
+        "body": "第一は、WebアプリやAPIが外部から受け取るBrotli圧縮リクエストを展開する処理。第二は、サーバーが外部APIやWebサイトから取得するBrotli圧縮レスポンス。第三は、EnvoyやIstioなどのプロキシ・サービスメッシュでの展開処理だ。\n\n外部公開サーバーの受信通信だけを調べても、外部サービスからの取得処理や中継基盤は見落とし得る。PythonではHTTPクライアントがBrotliパッケージを利用して自動展開する構成にも注意が必要だ。"
+      },
+      {
+        "title": "実証と実際の攻撃は区別する",
+        "body": "研究者による脆弱なNode.js環境でのコード実行の実証が報じられている。一方、2026年10月26日時点で確認した公式情報から、広範な実環境での悪用を確認したとは断定できない。\n\nコード実行が実証された特定の環境と、すべての製品で同じ攻撃が成功することは別だ。脆弱性の存在、攻撃成立条件、実際の被害を区別して判断したい。"
+      },
+      {
+        "title": "企業の担当者が確認すべきこと",
+        "body": "まずNode.jsやBun、Pythonの実行環境だけでなく、APIゲートウェイ、リバースプロキシ、サービスメッシュ、コンテナイメージ、組み込み実行ファイルを棚卸しする。次に外部由来のBrotliデータを展開する箇所を洗い出す。\n\nそのうえで各製品の公式修正版を適用し、必要に応じてコンテナや配布済み成果物を再ビルド・再デプロイする。最後に、実際に稼働するプロセスやイメージが修正版を使っていることを確認する。\n\n更新が難しい場合は、信頼できない相手からのBrotliデータを展開しない構成への変更やネットワーク上の制限を検討する。ただし暫定策は修正版の適用に代わらない。"
+      },
+      {
+        "title": "WORK SIGNALの視点｜共通部品の更新を誰が確認するか",
+        "body": "今回の問題は、ひとつの共通ライブラリが複数のWeb技術に組み込まれている現実を示した。『Node.jsを更新した』という報告だけでは、Pythonの依存パッケージやプロキシ、コンテナまで修正されたことにはならない。\n\n何を使っているか、どこで圧縮データを展開しているか、誰が更新結果を確認するか。この3点を明確にすることが、重大脆弱性への対応力を高める。\n\nBrotli GitHub Advisory：https://github.com/advisories/GHSA-9v8h-qqgm-4m35\nEnvoy公式：https://github.com/envoyproxy/envoy/security/advisories/GHSA-3wvj-j6qm-62mr\nIstio公式：https://istio.io/latest/news/security/istio-security-2026-007/\nDebian公式：https://lists.debian.org/debian-security-announce/2026/msg00498.html"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜CRITICAL】Brotliの重大脆弱性CVE-2026-111497は、Node.jsだけの問題ではありません。Pythonの圧縮ライブラリ、Bun、Envoy、Istioなどにも影響。外部から受け取る圧縮データだけでなく、外部APIの応答やプロキシでの展開も確認が必要です。製品別の修正版と対策を整理しました。\nhttps://signal.amberlight.co.jp/articles/20261026-brotli-cross-stack-cve-2026-111497/\n\n一次情報：https://github.com/envoyproxy/envoy/security/advisories/GHSA-3wvj-j6qm-62mr",
+    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】Node.jsだけではなかった。Brotliの重大脆弱性CVE-2026-111497は、Python、Bun、Envoy、Istioなど幅広いWeb基盤にも影響します。攻撃者が制御する圧縮データを展開する構成が焦点。製品別の修正版、3つの攻撃経路、企業の確認事項を整理しました。記事はWORK SIGNALで公開。#セキュリティ #脆弱性 #Brotli #Nodejs #Python #Envoy #SECURITYWATCH"
+  },
+  {
     "id": "20261026-aspnetcore-linux-tarball-ownership-cve-2026-114148",
     "title": "更新しても直らない？ASP.NET CoreのLinux配布物に権限昇格の脆弱性",
     "summary": "MicrosoftがCVE-2026-114148（HIGH・CVSS 7.8）を公表。Linux向けASP.NET Core 8・9の一部tarballと.NET 8～11のソースビルド配布物に不適切な所有権情報が含まれる。影響条件、修正版、上書き更新では解消しない理由を解説する。",

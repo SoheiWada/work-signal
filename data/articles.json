@@ -1,5 +1,46 @@
 [
   {
+    "id": "20261027-netty-tcnative-tls-cve-2026-116539-116540-116541",
+    "title": "TLS通信でJavaサーバーが停止する恐れ。Netty tcnativeに脆弱性3件",
+    "summary": "Netty tcnativeのTLS処理にCVE-2026-116539、CVE-2026-116540、CVE-2026-116541が公表。ネイティブTLSのメモリ破損や接続障害のリスクと2.0.84.Finalへの更新を整理。",
+    "category": "仕事",
+    "score": 90,
+    "published_at": "2026-10-27",
+    "source_url": "https://github.com/netty/netty-tcnative/security/advisories/GHSA-gf9q-9mg7-g5qh",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "HIGH",
+    "social_security_product": "Netty tcnative",
+    "social_security_cve": "CVE-2026-116539 ほか2件",
+    "social_security_action": "2.0.84.Final以降へ更新し、実稼働のネイティブTLSライブラリを確認。",
+    "quick_take": "JavaのTLS通信基盤Netty tcnativeにメモリ破損・接続障害など3件の脆弱性が公表された。影響はTLS実装やバージョンに依存する。修正版2.0.84.Finalへの更新とネイティブライブラリの確認が重要だ。",
+    "sections": [
+      {
+        "title": "何が公表されたか",
+        "body": "2026年10月26日にNetty tcnativeのTLS処理に関するCVE-2026-116539、CVE-2026-116540、CVE-2026-116541の3件が公表された。CVE登録情報のCVSS v4.0評価は各8.2だが、CVE-2026-116540はGitHub Security AdvisoryでModerateの評価もあり、スコアと運用上の影響条件を分けて読む必要がある。一次情報：https://github.com/netty/netty-tcnative/security/advisories/GHSA-gf9q-9mg7-g5qh"
+      },
+      {
+        "title": "3件の影響と攻撃条件",
+        "body": "CVE-2026-116539はTLS処理時のヒープバッファオーバーフローによるJVM異常終了の恐れ。CVE-2026-116540はOpenSSL 3.x利用時のTLSセッションチケット鍵更新処理におけるUse-After-Free。CVE-2026-116541はTLS書き込み済みバイト数の報告不備によるハンドシェイク破損、接続障害などの恐れがある。すべてのNettyアプリケーションで一律に攻撃が成立するとは限らない。\nCVE-2026-116540：https://github.com/netty/netty-tcnative/security/advisories/GHSA-mmc8-vg2v-fvvw\nCVE-2026-116541：https://github.com/netty/netty-tcnative/security/advisories/GHSA-9xr3-jwv4-r489"
+      },
+      {
+        "title": "影響バージョンと修正版",
+        "body": "CVE-2026-116539とCVE-2026-116541は、対象となるnetty-tcnativeおよびnetty-tcnative-boringssl-staticの2.0.84.Final未満のバージョンに影響する。CVE-2026-116540はOpenSSL 3.xを利用する構成が条件で、CVE登録情報では2.0.66.Final以上2.0.84.Final未満とされる一方、開発元GHSAの影響開始バージョン表記に差異があるため、対象環境では双方を照合する。修正版2.0.84.Finalの公開は2026年9月7日付であり、脆弱性の新規公表日と混同しない。\n修正版：https://github.com/netty/netty-tcnative/releases/tag/netty-tcnative-parent-2.0.84.Final"
+      },
+      {
+        "title": "管理者が確認すべき対応",
+        "body": "依存関係と稼働環境を調査し、netty-tcnative系ライブラリを2.0.84.Final以降へ更新する。Java依存関係の解決結果に加え、コンテナイメージや実行環境で読み込まれるネイティブTLSライブラリのバージョンとOpenSSLの構成を確認する。更新後はTLS接続試験と監視ログの確認を実施したい。影響の有無をライブラリ名だけで判断せず、使用中のTLSプロバイダーも確認する。"
+      },
+      {
+        "title": "悪用状況とWORK SIGNALの視点",
+        "body": "2026年10月27日時点で参照した開発元GHSAとCVE情報から、実環境での悪用が確認されたとは断定できない。KEV未登録は悪用が存在しない証明ではない。TLSのネイティブ処理はアプリケーション層の対策だけでは守れないため、修正版を実際の本番環境まで反映できているかが重要となる。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜HIGH】JavaのTLS通信基盤Netty tcnativeに脆弱性3件。メモリ破損によるJVM停止やTLS接続障害の恐れがあります。CVE-2026-116539／116540／116541。2.0.84.Final以降へ更新し、実稼働のネイティブTLSライブラリを確認してください。\nhttps://signal.amberlight.co.jp/articles/20261027-netty-tcnative-tls-cve-2026-116539-116540-116541/\n\n一次情報：https://github.com/netty/netty-tcnative/security/advisories/GHSA-gf9q-9mg7-g5qh",
+    "social_instagram_caption": "【SECURITY WATCH｜HIGH】JavaのTLS通信基盤Netty tcnativeに脆弱性3件。TLS処理のメモリ破損や接続障害などのリスクが公表されました。CVE-2026-116539／116540／116541。2.0.84.Final以降への更新と、実際に使用するネイティブTLSライブラリの確認を。詳細はプロフィールのWORK SIGNALから。#SECURITYWATCH #Netty #Java #TLS #脆弱性"
+  },
+  {
     "id": "20261027-mcp-toolbox-cloud-storage-cve-2026-93328",
     "title": "Google Cloud MCP Toolboxに重大脆弱性。認証なしでサーバーファイル流出・上書きの恐れ",
     "summary": "Google Cloud MCP Toolbox for Databasesのcloud-storage連携にパストラバーサルと認可不備（CVE-2026-93328、CVSS 9.3）。影響範囲と1.5.0以降への更新、アクセス制限設定を解説。",

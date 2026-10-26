@@ -120,8 +120,9 @@
   },
   "20261026-brotli-cross-stack-cve-2026-111497": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-26T06:28:50+00:00"
+      "status": "published",
+      "updated_at": "2026-10-26T06:29:12+00:00",
+      "remote_id": "18113788889061499"
     }
   }
 }

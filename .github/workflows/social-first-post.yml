@@ -1,10 +1,11 @@
 name: One-time WORK SIGNAL crosspost verification
 
+# RETIRED ONE-TIME VERIFICATION (2026-10-26).
+# This historic workflow must not compete with the live publisher's concurrency
+# group on every deployment. Manual dispatch remains inert: the existing job
+# guard requires a workflow_run event with the original one-time commit message.
 on:
-  workflow_run:
-    workflows: ["Build and deploy WORK SIGNAL"]
-    types: [completed]
-    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: write

@@ -1,5 +1,46 @@
 [
   {
+    "id": "20261027-oracle-fusion-companion-agentic-home",
+    "title": "ChatGPTから企業の基幹業務を動かす時代へ。Oracleが「Fusion Companion」を発表",
+    "summary": "OracleがFusion CompanionとFusion Agentic Homeを発表。ChatGPTなどの対応AIツールから企業の権限・承認フローを維持しながら業務を連携させる構想を解説。",
+    "category": "AI",
+    "score": 91,
+    "published_at": "2026-10-27",
+    "source_url": "https://www.oracle.com/latam/news/announcement/ai-world-oracle-introduces-new-ai-powered-ways-to-execute-work-across-oracle-fusion-applications-2026-10-26/",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "quick_take": "OracleがFusion CompanionとFusion Agentic Homeを発表。ChatGPTなどの対応AIツールから業務の目的を伝え、企業の権限・承認ルールを維持して処理を連携させる構想だ。",
+    "sections": [
+      {
+        "title": "AIに質問するだけでなく、仕事を依頼する",
+        "body": "Oracleは2026年10月26日、Oracle Fusion Cloud Applicationsの新機能「Fusion Companion」と「Fusion Agentic Home」を発表した。Fusion Companionは業務目的を理解し、必要な処理、ワークフロー、承認、AIエージェントを選択・連携する。ChatGPTなどの対応AIツールからも利用する構想を示した。一次情報：https://www.oracle.com/latam/news/announcement/ai-world-oracle-introduces-new-ai-powered-ways-to-execute-work-across-oracle-fusion-applications-2026-10-26/"
+      },
+      {
+        "title": "企業のルールを守りながら実行する",
+        "body": "業務システムをAIが操作する際には、データ閲覧権限や承認フローが重要だ。OracleによるとFusion Companionは企業の業務データと利用者の権限を利用し、許可された範囲で処理を連携する。他の企業向けシステムのデータやサービスとも連携できる設計だ。すべての操作が無条件に自動化されるわけではない。"
+      },
+      {
+        "title": "Fusion Agentic Homeは仕事の進行状況を確認する場所",
+        "body": "Fusion Agentic Homeは、従業員が業務上の目標を設定し、AIエージェントに作業を委任し、完了までの進行状況を確認できるAI操作環境だ。業務上の例外について原因を調べ、許可された修正を実行し、人間の判断が必要な場合は担当者に確認を求める構想が示された。"
+      },
+      {
+        "title": "25の業務AIアプリとの関係",
+        "body": "Oracleは、Fusion Clawを利用した25の業務AIアプリケーションが利用可能になったと発表した。経理、人事、サプライチェーン、営業、顧客サービスなどで、会計データの照合、要員計画、給与差異の確認、調達支出の分析などを支援する。Fusion Claw自体は2026年9月29日に先行発表されており、今回の新規発表の中心はFusion CompanionとFusion Agentic Homeを含む操作・連携体験である。関連発表：https://www.oracle.com/news/announcement/ai-world-oracle-advances-outcome-driven-ai-across-fusion-applications-2026-10-26/"
+      },
+      {
+        "title": "管理職に求められるのは、操作の管理から権限の設計へ",
+        "body": "ここからはWORK SIGNALの考察だ。AIが業務システムを操作するようになると、管理職は誰が何を実行するかだけでなく、AIにどの業務を任せ、どこで人間の承認を必要とし、どの結果を確認するかを設計する必要がある。経費精算の照合をAIが支援しても、高額支出の承認は人間が担う、といった役割分担が考えられる。"
+      },
+      {
+        "title": "WORK SIGNALの視点｜AI導入より先に仕事のルールを整理する",
+        "body": "今回の発表はAIの役割が情報提供から業務実行へ広がる方向性を示す。ただし、実際の生産性改善率や導入効果は発表だけでは確認できない。Fusion CompanionとFusion Agentic Homeの全機能の一般提供日や料金も明示されていない。企業は対応AIツール、権限、監査記録、データの取り扱い、契約条件を個別に確認したい。AIが仕事を実行する時代だからこそ、人間が何を決め、何に責任を持つかが重要になる。"
+      }
+    ],
+    "social_threads_text": "ChatGPTから企業の経理や人事などの仕事を動かす。そんな方向へ、業務AIが進化しています。\n\nOracleが新機能「Fusion Companion」を発表しました。\n\nChatGPTなどの対応AIツールから仕事の目的を伝えると、必要な業務処理や承認フロー、AIエージェントを連携させる仕組みです。\n\n注目したいのは、AIに仕事を任せても、企業の権限や承認ルールを維持するという考え方。\n\nこれから管理職に求められるのは、何をAIに任せ、どこで人間が判断するかを設計することかもしれません。\n記事全文：https://signal.amberlight.co.jp/articles/20261027-oracle-fusion-companion-agentic-home/\n一次情報：https://www.oracle.com/latam/news/announcement/ai-world-oracle-introduces-new-ai-powered-ways-to-execute-work-across-oracle-fusion-applications-2026-10-26/",
+    "social_instagram_caption": "ChatGPTから企業の基幹業務を動かす時代へ。OracleがFusion CompanionとFusion Agentic Homeを発表しました。AIに仕事を任せながら、企業の権限や承認ルールを維持する仕組みです。管理職が設計すべき役割分担とは？詳しくはプロフィールのWORK SIGNALから。#WORKSIGNAL #Oracle #生成AI #AIエージェント #マネジメント"
+  },
+  {
     "id": "20261027-openhands-agent-sdk-unauthenticated-rce-cve-2026-112346",
     "title": "OpenHands Agent SDKに認証不要RCE。公開されたサンドボックスに重大リスク",
     "summary": "OpenHands Software Agent SDK 1.52.0未満で、DockerWorkspaceなどのサンドボックスエージェントサーバーが外部到達可能な場合に認証不要のコマンド実行につながるCVE-2026-112346（CVSS 9.3）。",

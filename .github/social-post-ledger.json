@@ -673,5 +673,11 @@
       "updated_at": "2026-10-27T15:06:04+00:00",
       "remote_id": "18498318733097397"
     }
+  },
+  "20261028-adobe-commerce-magento-cve-2026-48356-kev": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-27T22:59:35+00:00"
+    }
   }
 }

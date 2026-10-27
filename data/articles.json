@@ -1,5 +1,141 @@
 [
   {
+    "id": "20261027-kirki-privilege-escalation-cve-2026-75891",
+    "title": "WordPressのKirkiに管理者権限奪取の恐れ。購読者権限から悪用可能なCVE-2026-75891",
+    "summary": "Kirki 6.2.5以前にPHPオブジェクトインジェクション（CVSS 8.8）。購読者以上の権限で特定条件下に管理者パスワードが変更される可能性。最新版へ更新。",
+    "category": "仕事",
+    "score": 89,
+    "published_at": "2026-10-27",
+    "source_url": "https://github.com/advisories/GHSA-ppv3-rhmr-8mqr",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "HIGH",
+    "social_security_product": "Kirki (WordPress)",
+    "social_security_cve": "CVE-2026-75891",
+    "social_security_action": "Kirkiを6.4.0などの修正済み最新版へ更新し、管理者アカウントを確認",
+    "quick_take": "Kirki 6.2.5以前にPHPオブジェクトインジェクション（CVSS 8.8）。購読者以上の権限で特定条件下に管理者パスワードが変更される可能性。最新版へ更新。",
+    "sections": [
+      {
+        "title": "影響と攻撃条件",
+        "body": "WordPressプラグインKirkiの6.2.5以前には、kirki_post_apis()のAJAX処理で権限確認が不足し、信頼できないデータのデシリアライズに起因するPHPオブジェクトインジェクションがある。購読者以上のログイン済み攻撃者が対象で、利用可能なPOPチェーンがある場合、管理者パスワードを変更できる可能性がある。認証不要の攻撃と誤解してはいけない。CVSS v3.1は8.8。"
+      },
+      {
+        "title": "対策と悪用状況",
+        "body": "プラグインを修正済み最新版へ更新する。管理者アカウントのパスワード変更や不審なログイン履歴を点検する。公開勧告から実環境での悪用は確認できない。一次情報：https://github.com/advisories/GHSA-ppv3-rhmr-8mqr"
+      },
+      {
+        "title": "WORK SIGNALの視点",
+        "body": "テーマのカスタマイズを支えるプラグインでも、低権限ユーザーを起点に管理者権限へ影響する可能性がある。WordPress本体だけでなく導入済みプラグインの更新状況を管理したい。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜HIGH】Kirki (WordPress)：CVE-2026-75891。Kirki 6.2.5以前にPHPオブジェクトインジェクション（CVSS 8.8）。購読者以上の権限で特定条件下に管理者パスワードが変更される可能性。最新版へ更新。\n記事：https://signal.amberlight.co.jp/articles/20261027-kirki-privilege-escalation-cve-2026-75891/\n一次情報：https://github.com/advisories/GHSA-ppv3-rhmr-8mqr",
+    "social_instagram_caption": "【SECURITY WATCH｜HIGH】WordPressのKirkiに管理者権限奪取の恐れ。購読者権限から悪用可能なCVE-2026-75891\n\nKirki 6.2.5以前にPHPオブジェクトインジェクション（CVSS 8.8）。購読者以上の権限で特定条件下に管理者パスワードが変更される可能性。最新版へ更新。\n\n詳しくはWORK SIGNALで。\n#SECURITYWATCH #脆弱性 #セキュリティ"
+  },
+  {
+    "id": "20261027-qode-membership-auth-bypass-cve-2026-92885",
+    "title": "Qode Membershipに認証回避の重大脆弱性。Facebookログイン経由で管理者になりすます恐れ",
+    "summary": "WordPressのQode Membership 2.0.6.2以前でFacebook認証処理の検証不備（CVE-2026-92885、CVSS 9.8）。未認証の攻撃者が既存ユーザーになりすます恐れ。2.0.6.3へ更新。",
+    "category": "仕事",
+    "score": 94,
+    "published_at": "2026-10-27",
+    "source_url": "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/qode-membership/qode-membership-2062-authentication-bypass-via-social-login",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Qode Membership (WordPress)",
+    "social_security_cve": "CVE-2026-92885",
+    "social_security_action": "Qode Membership 2.0.6.3以降に更新し、管理者ログイン履歴を調査",
+    "quick_take": "WordPressのQode Membership 2.0.6.2以前でFacebook認証処理の検証不備（CVE-2026-92885、CVSS 9.8）。未認証の攻撃者が既存ユーザーになりすます恐れ。2.0.6.3へ更新。",
+    "sections": [
+      {
+        "title": "Facebook認証の検証不備",
+        "body": "Qode Membershipの2.0.6.2以前ではソーシャルログイン処理に認証検証不備があり、未認証の攻撃者が管理者を含む既存ユーザーとしてログインできる可能性が報告された。CVE-2026-92885のCVSSは9.8（CRITICAL）。WordPress全体の一般的なFacebookログイン機能に一律の影響があるという意味ではない。"
+      },
+      {
+        "title": "対応",
+        "body": "開発元の修正版2.0.6.3以降へ更新し、管理者権限のアカウント、ログイン履歴、不審な設定変更を点検する。現時点で実際の悪用確認はない。一次情報：https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/qode-membership/qode-membership-2062-authentication-bypass-via-social-login"
+      },
+      {
+        "title": "WORK SIGNALの視点",
+        "body": "外部ID連携では本人確認結果の検証が必須となる。便利なソーシャルログインの実装不備がサイト全体の管理権限に波及する事例として注意したい。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜CRITICAL】Qode Membership (WordPress)：CVE-2026-92885。WordPressのQode Membership 2.0.6.2以前でFacebook認証処理の検証不備（CVE-2026-92885、CVSS 9.8）。未認証の攻撃者が既存ユーザーになりすます恐れ。2.0.6.3へ更新。\n記事：https://signal.amberlight.co.jp/articles/20261027-qode-membership-auth-bypass-cve-2026-92885/\n一次情報：https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/qode-membership/qode-membership-2062-authentication-bypass-via-social-login",
+    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】Qode Membershipに認証回避の重大脆弱性。Facebookログイン経由で管理者になりすます恐れ\n\nWordPressのQode Membership 2.0.6.2以前でFacebook認証処理の検証不備（CVE-2026-92885、CVSS 9.8）。未認証の攻撃者が既存ユーザーになりすます恐れ。2.0.6.3へ更新。\n\n詳しくはWORK SIGNALで。\n#SECURITYWATCH #脆弱性 #セキュリティ"
+  },
+  {
+    "id": "20261027-analytics-insights-stored-xss-cve-2026-111820",
+    "title": "Analytics Insightsに未認証の蓄積型XSS。GA4のリアルタイムページタイトルが攻撃経路に",
+    "summary": "Analytics Insights 6.3.12以前に未認証の蓄積型XSS（CVE-2026-111820、CVSS 7.2）。GA4のリアルタイムページタイトルを経由して悪意あるスクリプトが表示される恐れ。6.4へ更新。",
+    "category": "仕事",
+    "score": 81,
+    "published_at": "2026-10-27",
+    "source_url": "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/analytics-insights/analytics-insights-6312-unauthenticated-stored-cross-site-scripting-via-ga4-realtime-page-title",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "HIGH",
+    "social_security_product": "Analytics Insights (WordPress)",
+    "social_security_cve": "CVE-2026-111820",
+    "social_security_action": "Analytics Insights 6.4以降へ更新",
+    "quick_take": "Analytics Insights 6.3.12以前に未認証の蓄積型XSS（CVE-2026-111820、CVSS 7.2）。GA4のリアルタイムページタイトルを経由して悪意あるスクリプトが表示される恐れ。6.4へ更新。",
+    "sections": [
+      {
+        "title": "未認証の蓄積型XSS",
+        "body": "WordPressプラグインAnalytics Insightsの6.3.12以前で、Google Analytics 4のリアルタイムページタイトルの扱いに起因する蓄積型クロスサイトスクリプティング（XSS）が報告された。CVE-2026-111820、CVSS 7.2（HIGH）。"
+      },
+      {
+        "title": "対策と確認事項",
+        "body": "修正版6.4以降へ更新し、管理画面で表示される外部データの扱いを点検する。悪用された場合、閲覧者のブラウザー上で意図しないスクリプトが動作する可能性がある。実環境での悪用は未確認。一次情報：https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/analytics-insights/analytics-insights-6312-unauthenticated-stored-cross-site-scripting-via-ga4-realtime-page-title"
+      },
+      {
+        "title": "WORK SIGNALの視点",
+        "body": "分析ツールが受け取るページタイトルも信頼できる入力とは限らない。外部サービスから取り込むデータの表示時エスケープが重要になる。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜HIGH】Analytics Insights (WordPress)：CVE-2026-111820。Analytics Insights 6.3.12以前に未認証の蓄積型XSS（CVE-2026-111820、CVSS 7.2）。GA4のリアルタイムページタイトルを経由して悪意あるスクリプトが表示される恐れ。6.4へ更新。\n記事：https://signal.amberlight.co.jp/articles/20261027-analytics-insights-stored-xss-cve-2026-111820/\n一次情報：https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/analytics-insights/analytics-insights-6312-unauthenticated-stored-cross-site-scripting-via-ga4-realtime-page-title",
+    "social_instagram_caption": "【SECURITY WATCH｜HIGH】Analytics Insightsに未認証の蓄積型XSS。GA4のリアルタイムページタイトルが攻撃経路に\n\nAnalytics Insights 6.3.12以前に未認証の蓄積型XSS（CVE-2026-111820、CVSS 7.2）。GA4のリアルタイムページタイトルを経由して悪意あるスクリプトが表示される恐れ。6.4へ更新。\n\n詳しくはWORK SIGNALで。\n#SECURITYWATCH #脆弱性 #セキュリティ"
+  },
+  {
+    "id": "20261027-gridbox-two-unauthenticated-sql-injection-cves",
+    "title": "Joomla拡張Gridboxに認証不要の重大脆弱性2件。SQLインジェクションを修正",
+    "summary": "Gridbox 2.20.4.2未満でCVE-2026-102788／102789（いずれもCVSS v4 9.3）。URLのソート指定と編集タスクの認可不足が問題。開発元は10月27日に2.20.4.2を公開。",
+    "category": "仕事",
+    "score": 95,
+    "published_at": "2026-10-27",
+    "source_url": "https://www.balbooa.com/docs/gridbox/overview/changelog/2-x",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Gridbox (Joomla)",
+    "social_security_cve": "CVE-2026-102788 / CVE-2026-102789",
+    "social_security_action": "Gridbox 2.20.4.2以降へ更新し、アクセスログとDB操作を確認",
+    "quick_take": "Gridbox 2.20.4.2未満でCVE-2026-102788／102789（いずれもCVSS v4 9.3）。URLのソート指定と編集タスクの認可不足が問題。開発元は10月27日に2.20.4.2を公開。",
+    "sections": [
+      {
+        "title": "2件の重大な脆弱性",
+        "body": "Joomla拡張Gridbox 2.20.4.2未満に、CVE-2026-102788（ストアの商品一覧のsort-by URLパラメータ経由のSQLインジェクション）とCVE-2026-102789（EditorController::getBlogPosts()の権限チェック欠落）がある。GitHub Advisory DatabaseではともにCVSS v4 9.3（CRITICAL）。認証不要で悪用される可能性がある。"
+      },
+      {
+        "title": "10月27日付の修正版",
+        "body": "開発元Balbooaは2026年10月27日、Gridbox 2.20.4.2を公開し、ソート指定パラメータのSQLインジェクションと編集タスクへの不正アクセスを修正した。管理者は更新後に不審なリクエストとデータベース操作を点検したい。実際の悪用は未確認。公式：https://www.balbooa.com/docs/gridbox/overview/changelog/2-x"
+      },
+      {
+        "title": "個別の脆弱性情報",
+        "body": "CVE-2026-102788：https://github.com/advisories/GHSA-hqjq-crc6-5fp3\nCVE-2026-102789：https://github.com/advisories/GHSA-rhxp-7mw6-3gpp"
+      },
+      {
+        "title": "WORK SIGNALの視点",
+        "body": "CMS拡張機能の入力値検証と権限チェックの両方が欠けると、認証前のアクセスがデータベースに波及する。Joomla運用者は拡張機能まで更新対象に含めたい。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜CRITICAL】Gridbox (Joomla)：CVE-2026-102788 / CVE-2026-102789。Gridbox 2.20.4.2未満でCVE-2026-102788／102789（いずれもCVSS v4 9.3）。URLのソート指定と編集タスクの認可不足が問題。開発元は10月27日に2.20.4.2を公開。\n記事：https://signal.amberlight.co.jp/articles/20261027-gridbox-two-unauthenticated-sql-injection-cves/\n一次情報：https://www.balbooa.com/docs/gridbox/overview/changelog/2-x",
+    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】Joomla拡張Gridboxに認証不要の重大脆弱性2件。SQLインジェクションを修正\n\nGridbox 2.20.4.2未満でCVE-2026-102788／102789（いずれもCVSS v4 9.3）。URLのソート指定と編集タスクの認可不足が問題。開発元は10月27日に2.20.4.2を公開。\n\n詳しくはWORK SIGNALで。\n#SECURITYWATCH #脆弱性 #セキュリティ"
+  },
+  {
     "id": "20261027-openai-gpt61-terra-computer-use-cost",
     "title": "AIがPCを操作するコストが半減。GPT-6.1 Terraで変わる「仕事を完了する価格」",
     "summary": "OpenAIがGPT-6.1 Terraを発表。標準API価格はGPT-5.6 Terra比50%低く、PC操作を伴う専門業務ベンチマークでは15ポイント改善。導入時に重視すべき『タスク完了単価』を考える。",
@@ -1161,6 +1297,10 @@
       {
         "title": "WORK SIGNALの視点｜共通部品の更新を誰が確認するか",
         "body": "今回の問題は、ひとつの共通ライブラリが複数のWeb技術に組み込まれている現実を示した。『Node.jsを更新した』という報告だけでは、Pythonの依存パッケージやプロキシ、コンテナまで修正されたことにはならない。\n\n何を使っているか、どこで圧縮データを展開しているか、誰が更新結果を確認するか。この3点を明確にすることが、重大脆弱性への対応力を高める。\n\nBrotli GitHub Advisory：https://github.com/advisories/GHSA-9v8h-qqgm-4m35\nEnvoy公式：https://github.com/envoyproxy/envoy/security/advisories/GHSA-3wvj-j6qm-62mr\nIstio公式：https://istio.io/latest/news/security/istio-security-2026-007/\nDebian公式：https://lists.debian.org/debian-security-announce/2026/msg00498.html"
+      },
+      {
+        "title": "【10月27日追記】PHP Windows版の追加修正ビルド",
+        "body": "PHP開発チームは2026年10月26日、Brotli 1.2.1を組み込んだWindows用ビルド8.2.35-1／8.3.36-1／8.4.27-1／8.5.12-1を公開した。cURL拡張でHTTPレスポンスの自動展開が有効な場合にCVE-2026-111497の影響を受ける可能性がある。自動展開はcURLでデフォルト無効だが、アプリケーション側で有効化されることがある。末尾の-1は依存ライブラリを更新したWindowsパッケージの再ビルドを示し、PHP本体のソース版は同じ。公式：https://www.php.net/archive/2026.php#2026-10-26-1"
       }
     ],
     "social_threads_text": "【SECURITY WATCH｜CRITICAL】Brotliの重大脆弱性CVE-2026-111497は、Node.jsだけの問題ではありません。Pythonの圧縮ライブラリ、Bun、Envoy、Istioなどにも影響。外部から受け取る圧縮データだけでなく、外部APIの応答やプロキシでの展開も確認が必要です。製品別の修正版と対策を整理しました。\nhttps://signal.amberlight.co.jp/articles/20261026-brotli-cross-stack-cve-2026-111497/\n\n一次情報：https://github.com/envoyproxy/envoy/security/advisories/GHSA-3wvj-j6qm-62mr",
@@ -3666,6 +3806,10 @@
       {
         "title": "WORK SIGNALの視点｜AIが見つける時代、守る側の速度も問われる",
         "body": "今回の出来事は、AIがセキュリティ研究者の脆弱性発見を支援し、開発・保守チームと協力して修正につなげた事例だ。同時に、同種の能力が攻撃側に利用される可能性も示している。\n\n企業に必要なのは、脆弱性の技術的な仕組みをすべて理解することではない。『自社のシステムを誰が管理し、緊急更新の連絡を誰が受け、いつまでに対応できるか』という体制を整えることだ。ホームページを作ったまま放置しない。今回の緊急更新は、その基本を見直すきっかけになる。\n\n一次情報：OpenAI https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities/\n一次情報：PHP https://www.php.net/archive/2026.php#2026-10-21-5"
+      },
+      {
+        "title": "【10月27日追記】JPCERT/CCの10月26日更新とCVE-2026-115560",
+        "body": "JPCERT/CCは2026年10月26日、CVE-2026-109618／109619を悪用しようとする通信の観測報告が相次いでいると注意喚起を更新した。攻撃の成功がすべて確認されたという意味ではない。またPHP Groupは10月23日、特定の設定とアプリケーションコードの組み合わせでRCEに至る可能性のあるCVE-2026-115560を公表した。修正版が提供されるまでsession.upload_progress.enabled=0に設定し、全ワーカーを再起動することを推奨。既存のPHP2Shell修正版への更新と侵害調査も引き続き必要。公式：https://www.jpcert.or.jp/at/2026/at260033.html ／ https://www.php.net/archive/2026.php#2026-10-23-1"
       }
     ]
   },

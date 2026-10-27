@@ -1,0 +1,21 @@
+name: Diagnose Instagram publishing quota
+on:
+  push:
+    paths:
+      - .github/workflows/instagram-quota-diagnostic.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  quota:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Query Meta actual publishing quota (read only)
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+        run: python scripts/diagnose_instagram.py

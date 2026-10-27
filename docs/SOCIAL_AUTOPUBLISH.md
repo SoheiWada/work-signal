@@ -155,3 +155,12 @@ Instagramのプロフィールリンクには `https://signal.amberlight.co.jp/?
 - 投稿APIの権限とインサイトの読み取り権限は別です。Workerの直接取得が未接続の場合も、既存のActionsインサイトJSONを利用できます。指標は取得日時の値として報告し、現在値や指定期間内の増分と混同しないでください。
 
 今回の監査で記事本文、承認フラグ、投稿履歴、既存の画像・OG画像、通常/SECURITY WATCHのデザイン、深刻度の判定基準は変更していません。
+
+## 2026-10-27 OpenPanel Threads再送の検証済み運用
+
+- 事例：記事 `20261027-openpanel-two-security-advisories`。通常SNSワークフローではThreadsのコンテナ作成後、公開APIがHTTP 400となり、Threadsのみ `needs_review`、Instagramフィードとストーリーズは `published` になった。3媒体同時実行が原因と断定しない。
+- まず媒体別の投稿台帳、GitHub Actionsのジョブログ、実投稿履歴を確認する。投稿がないことを所有者が確認した場合に限り、Threads単独の復旧を行う。
+- 復旧に成功した実装は `scripts/recover_openpanel_threads.py` と `.github/workflows/recover-openpanel-threads.yml`。復旧ワークフローは対象記事IDを固定し、Instagramには触れず、既存台帳のSHAを使ってThreadsの状態だけを `attempting` に確保してからAPIに送信する。成功時は `published` とremote_idを記録する。
+- 実績：復旧ワークフロー #40470376153 は成功し、Threads remote_id `17870054637658838` を台帳に記録した。Instagramフィード `17976332022172032`、ストーリーズ `17977957820931518` は再送せず保持した。
+- **次回以降**：失敗記事ごとに固定IDの復旧スクリプトをそのまま再利用してはいけない。共通の安全な単一媒体・単一記事復旧手順を用い、所有者による未投稿確認、対象ID・媒体の限定、台帳状態の検証、送信前の耐久記録、単発API送信、投稿結果の確認を必須とする。 `needs_review` を単純に削除・初期化して通常ワークフローを再起動しない。3媒体を同時に手動起動しない。
+- HTTP 400の具体的なAPI理由は未確定。通常ワークフローの再試行や固定待機時間の変更だけで解決したと判断しない。

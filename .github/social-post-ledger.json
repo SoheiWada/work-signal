@@ -716,5 +716,11 @@
       "updated_at": "2026-10-27T23:59:28+00:00",
       "remote_id": "18090445403247448"
     }
+  },
+  "20261028-apple-m6-macbook-imac-local-ai": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-27T23:59:29+00:00"
+    }
   }
 }

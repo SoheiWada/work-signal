@@ -34,7 +34,7 @@ def main():
     if profile: print('Account verified:', profile.get('username')=='work_signal_japan', 'type:',profile.get('account_type'))
     quota=get(uid+'/content_publishing_limit?'+urlencode({'fields':'config,quota_usage'}),token)
     if quota:
-        print('PUBLISHING_QUOTA',json.dumps({'quota_usage':quota.get('quota_usage'),'config':quota.get('config')},ensure_ascii=False))
+        print('PUBLISHING_QUOTA',json.dumps(quota,ensure_ascii=False))
     else:
         print('PUBLISHING_QUOTA unavailable')
     media=get(uid+'/media?'+urlencode({'fields':'id,caption,media_type,timestamp,permalink','limit':'100'}),token)

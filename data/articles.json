@@ -1,5 +1,79 @@
 [
   {
+    "id": "20261027-consul-k8s-cross-namespace-acl-cve-2026-110720",
+    "title": "Consul-k8sに重大なnamespace間の権限回避。コンポーネントACLの乗っ取りリスク",
+    "summary": "HashiCorp consul-k8sで別namespaceのServiceAccountを使ってConsulコンポーネントのACL権限を取得できる恐れ（CVE-2026-110720、CVSS 9.9）。該当設定と修正版を解説。",
+    "category": "仕事",
+    "score": 96,
+    "published_at": "2026-10-27",
+    "source_url": "https://discuss.hashicorp.com/t/hcsec-2026-50-consul-k8s-vulnerable-to-a-cross-namespace-authorization-bypass-in-component-acl-binding-rules/77915",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "HashiCorp consul-k8s",
+    "social_security_cve": "CVE-2026-110720",
+    "social_security_action": "consul-k8s 2.1.0または1.8.18へ更新し、system ACL管理とKubernetes ServiceAccount権限を点検。",
+    "quick_take": "HashiCorp consul-k8sで別namespaceのServiceAccountを使ってConsulコンポーネントのACL権限を取得できる恐れ（CVE-2026-110720、CVSS 9.9）。該当設定と修正版を解説。",
+    "sections": [
+      {
+        "title": "何が公表されたか",
+        "body": "HashiCorpは2026年10月26日、HCSEC-2026-50としてCVE-2026-110720を公表した。consul-k8sのコンポーネントACLバインディングルールがConsulの導入namespaceを一貫して制限せず、別namespaceのServiceAccountを利用した権限回避につながる。CVSS 9.9（Critical）。"
+      },
+      {
+        "title": "影響バージョンと成立条件",
+        "body": "consul-k8s 0.42.0以降の該当バージョン（2.0.4まで）に影響する。global.acls.manageSystemACLs=trueの環境で、攻撃者が別namespaceにServiceAccountを作成してトークンを取得でき、Consul APIに到達できることが条件。system ACL管理を無効にした環境は対象外。"
+      },
+      {
+        "title": "推奨対応",
+        "body": "consul-k8s 2.1.0または1.8.18へ更新する。Kubernetes側のServiceAccount作成・トークン取得権限とConsul APIへの到達範囲を点検し、コンポーネント用ACLバインディングルールを確認する。公式勧告：https://discuss.hashicorp.com/t/hcsec-2026-50-consul-k8s-vulnerable-to-a-cross-namespace-authorization-bypass-in-component-acl-binding-rules/77915"
+      },
+      {
+        "title": "悪用状況と編集部の視点",
+        "body": "2026年10月27日時点で参照した公式勧告から実環境での悪用確認は断定できない。既報のConsul本体の脆弱性とは別の、Kubernetes認証とConsul権限の境界に関わる問題だ。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜CRITICAL】Consul-k8sに重大なnamespace間の権限回避。コンポーネントACLの乗っ取りリスク\nconsul-k8s 2.1.0または1.8.18へ更新し、system ACL管理とKubernetes ServiceAccount権限を点検。\n記事全文：https://signal.amberlight.co.jp/articles/20261027-consul-k8s-cross-namespace-acl-cve-2026-110720/\n一次情報：https://discuss.hashicorp.com/t/hcsec-2026-50-consul-k8s-vulnerable-to-a-cross-namespace-authorization-bypass-in-component-acl-binding-rules/77915",
+    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】Consul-k8sに重大なnamespace間の権限回避。コンポーネントACLの乗っ取りリスク\n\nHashiCorp consul-k8sで別namespaceのServiceAccountを使ってConsulコンポーネントのACL権限を取得できる恐れ（CVE-2026-110720、CVSS 9.9）。該当設定と修正版を解説。\n\n推奨対応：consul-k8s 2.1.0または1.8.18へ更新し、system ACL管理とKubernetes ServiceAccount権限を点検。\n詳細はプロフィールのWORK SIGNALから。\n#SECURITYWATCH #脆弱性 #セキュリティ"
+  },
+  {
+    "id": "20261027-kener-fallback-jwt-secret-cve-2026-116747",
+    "title": "ステータス監視Kenerに管理者認証回避。固定JWT秘密鍵が原因",
+    "summary": "Kener 3.0.0以上4.1.10未満で秘密鍵が未設定の場合、固定のフォールバック鍵によってセッショントークンを偽造できる脆弱性（CVE-2026-116747、CVSS 9.2）。",
+    "category": "仕事",
+    "score": 89,
+    "published_at": "2026-10-27",
+    "source_url": "https://github.com/rajnandan1/kener/releases/tag/v4.1.10",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Kener",
+    "social_security_cve": "CVE-2026-116747",
+    "social_security_action": "Kener 4.1.10以降へ更新し、強力なKENER_SECRET_KEYを設定して既存セッションを点検。",
+    "quick_take": "Kener 3.0.0以上4.1.10未満で秘密鍵が未設定の場合、固定のフォールバック鍵によってセッショントークンを偽造できる脆弱性（CVE-2026-116747、CVSS 9.2）。",
+    "sections": [
+      {
+        "title": "何が公表されたか",
+        "body": "Kener 3.0.0以上4.1.10未満には、KENER_SECRET_KEYが未設定または空の際に固定のDUMMY_SECRETへフォールバックする問題がある。CVE-2026-116747、CVSS v4.0 9.2（Critical）。"
+      },
+      {
+        "title": "攻撃の成立条件と影響",
+        "body": "管理者のメールアドレスを知る攻撃者が、既知の固定鍵を使ってkener-userセッションクッキーやパスワード再設定トークンを偽造し、/manage/apiに管理者としてアクセスする恐れがある。独自の強力な秘密鍵が適切に設定されている構成まで一律に影響するとは限らない。"
+      },
+      {
+        "title": "修正版と推奨対応",
+        "body": "4.1.10以降に更新し、十分に強い固有のKENER_SECRET_KEYを必ず設定する。固定鍵を利用していた可能性がある環境では既存セッションの無効化、認証・管理APIログの確認、管理者メールアドレスの露出状況の点検を行う。公式リリース：https://github.com/rajnandan1/kener/releases/tag/v4.1.10　開発元の説明：https://github.com/rajnandan1/kener/issues/871"
+      },
+      {
+        "title": "悪用状況と編集部の視点",
+        "body": "2026年10月27日時点、確認した開発元資料から実環境での悪用確認は断定できない。監視・ステータスページ自体の管理者認証が崩れるため、設定ミスとアプリの安全な既定値の双方が重要になる。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜CRITICAL】ステータス監視Kenerに管理者認証回避。固定JWT秘密鍵が原因\nKener 4.1.10以降へ更新し、強力なKENER_SECRET_KEYを設定して既存セッションを点検。\n記事全文：https://signal.amberlight.co.jp/articles/20261027-kener-fallback-jwt-secret-cve-2026-116747/\n一次情報：https://github.com/rajnandan1/kener/releases/tag/v4.1.10",
+    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】ステータス監視Kenerに管理者認証回避。固定JWT秘密鍵が原因\n\nKener 3.0.0以上4.1.10未満で秘密鍵が未設定の場合、固定のフォールバック鍵によってセッショントークンを偽造できる脆弱性（CVE-2026-116747、CVSS 9.2）。\n\n推奨対応：Kener 4.1.10以降へ更新し、強力なKENER_SECRET_KEYを設定して既存セッションを点検。\n詳細はプロフィールのWORK SIGNALから。\n#SECURITYWATCH #脆弱性 #セキュリティ"
+  },
+  {
     "id": "20261027-oracle-fusion-companion-agentic-home",
     "title": "ChatGPTから企業の基幹業務を動かす時代へ。Oracleが「Fusion Companion」を発表",
     "summary": "OracleがFusion CompanionとFusion Agentic Homeを発表。ChatGPTなどの対応AIツールから企業の権限・承認フローを維持しながら業務を連携させる構想を解説。",

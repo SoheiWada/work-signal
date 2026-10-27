@@ -36,9 +36,26 @@ def main():
     if not isinstance(media,dict):return
     items=media.get('data',[])
     print('Instagram media inspected:',len(items))
-    for article_id in IDS:
-        hits=[m for m in items if article_id in (m.get('caption') or '')]
-        print('Article ID matches in recent media:',article_id,len(hits))
+    articles=json.loads((ROOT/'data/articles.json').read_text())
+    index={a['id']:a for a in articles}
+    targets=[k for k in ledger if k.startswith('20261027-') and any(t in k for t in ('arcgis-server','oracle-deep-trust','gridbox','analytics-insights','qode-membership','kirki'))]
+    for article_id in targets:
+        a=index.get(article_id,{})
+        title=a.get('title','')
+        caption=a.get('social_instagram_caption','')
+        expected=(caption[:65] if caption else title[:65])
+        matches=[m for m in items if expected and expected in (m.get('caption') or '')]
+        state=ledger.get(article_id,{})
+        print('VERIFY',article_id,'caption_matches',len(matches))
+        for m in matches:
+            print('MATCH',article_id,m.get('id'),m.get('media_type'),m.get('permalink',''))
+        for kind in ('instagram','instagram_story'):
+            remote=str(state.get(kind,{}).get('remote_id',''))
+            if not remote: continue
+            direct=get(remote+'?'+urlencode({'fields':'id,media_type,media_product_type,timestamp,permalink,caption'}),token)
+            if direct:
+                print('DIRECT',article_id,kind,'exists',direct.get('id')==remote,'type',direct.get('media_type'),'product',direct.get('media_product_type'),'permalink',direct.get('permalink',''))
+            else: print('DIRECT',article_id,kind,'not_verifiable')
     print('Read-only diagnostic completed; no posts attempted')
 
 if __name__=='__main__':main()

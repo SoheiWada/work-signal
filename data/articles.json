@@ -1,5 +1,83 @@
 [
   {
+    "id": "20261027-consul-service-mesh-auth-bypass-cve-2026-105608",
+    "title": "Consulのサービスメッシュ登録に権限回避の脆弱性。Envoy設定の改変リスク",
+    "summary": "HashiCorp Consulのサービスメッシュ登録処理で権限を回避できるCVE-2026-105608（CVSS 8.8）。service write権限からmesh write権限が必要な設定操作に及ぶ条件と修正版を解説。",
+    "category": "仕事",
+    "score": 89,
+    "published_at": "2026-10-27",
+    "source_url": "https://discuss.hashicorp.com/t/hcsec-2026-47-consul-vulnerable-to-an-authorization-bypass-in-service-mesh-registration/77912",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "HIGH",
+    "social_security_product": "HashiCorp Consul",
+    "social_security_cve": "CVE-2026-105608",
+    "social_security_action": "Community 2.1.0、Enterprise 2.1.0または1.21.19へ更新し、ACLを点検。",
+    "quick_take": "Consulのサービスメッシュ登録時の権限検証に不備があり、service write権限を持つ利用者がmesh write権限なしでEnvoy関連設定を変更できる恐れがある。修正版への更新とACL点検が重要だ。",
+    "sections": [
+      {
+        "title": "何が公表されたか",
+        "body": "HashiCorpは2026年10月26日、HCSEC-2026-47でConsulのサービスメッシュ登録処理における権限回避（CVE-2026-105608、CVSS v3.1 8.8）を公表した。service write権限を持つ主体が、本来必要なmesh write権限なしにEnvoy関連設定を変更できる恐れがある。一次情報：https://discuss.hashicorp.com/t/hcsec-2026-47-consul-vulnerable-to-an-authorization-bypass-in-service-mesh-registration/77912"
+      },
+      {
+        "title": "成立条件と想定される影響",
+        "body": "ACLが有効で、service write権限を持つ一方でmesh write権限は付与されていない主体が存在する構成が問題となる。権限境界を越えたサービスメッシュ設定の変更により、通信の参照・改変やセキュリティ制御の回避につながる恐れがある。すべてのConsul環境で無認証の遠隔攻撃が成立するという意味ではない。"
+      },
+      {
+        "title": "影響バージョンと修正版",
+        "body": "開発元が影響版として明示したのはConsul Community 2.0.4、Consul Enterprise 2.0.4・1.22.12・1.21.18。修正版はCommunity 2.1.0、Enterprise 2.1.0または1.21.19。運用している系列とエディションごとに開発元の勧告とリリース情報を確認する。"
+      },
+      {
+        "title": "管理者の推奨対応",
+        "body": "該当系列を修正版へ更新し、service write・mesh write権限を持つトークンとACLポリシーを棚卸しする。Envoy設定、サービスメッシュ登録の変更履歴、監査ログを点検し、不審な設定変更がないか確認する。"
+      },
+      {
+        "title": "悪用状況と編集部の視点",
+        "body": "2026年10月27日時点で確認した一次情報から、実環境での悪用が確認されたとは断定できない。既報のConsul脆弱性とは別のCVEであり、サービスメッシュの権限分離という観点から独立して把握する価値がある。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜HIGH】Consulのサービスメッシュ登録に権限回避の脆弱性。Envoy設定の改変リスク。Consulのサービスメッシュ登録時の権限検証に不備があり、service write権限を持つ利用者がmesh write権限なしでEnvoy関連設定を変更できる恐れがある。修正版への更新とACL点検が重要だ。\nhttps://signal.amberlight.co.jp/articles/20261027-consul-service-mesh-auth-bypass-cve-2026-105608/\n\n一次情報：https://discuss.hashicorp.com/t/hcsec-2026-47-consul-vulnerable-to-an-authorization-bypass-in-service-mesh-registration/77912",
+    "social_instagram_caption": "【SECURITY WATCH｜HIGH】Consulのサービスメッシュ登録に権限回避の脆弱性。Envoy設定の改変リスク。Consulのサービスメッシュ登録時の権限検証に不備があり、service write権限を持つ利用者がmesh write権限なしでEnvoy関連設定を変更できる恐れがある。修正版への更新とACL点検が重要だ。 詳細はプロフィールのWORK SIGNALから。#SECURITYWATCH #脆弱性 #セキュリティ"
+  },
+  {
+    "id": "20261027-google-cloud-run-mcp-bucket-ownership-cve-2026-85297",
+    "title": "Google Cloud Run MCPに重大脆弱性。デプロイ用ソースコード流出の恐れ",
+    "summary": "Cloud Run MCPのバケット所有者検証不備（CVE-2026-85297）により、デプロイ時のソースコードが攻撃者管理のCloud Storageバケットに送られる恐れ。修正版1.11.0と運用対策を整理。",
+    "category": "仕事",
+    "score": 92,
+    "published_at": "2026-10-27",
+    "source_url": "https://github.com/GoogleCloudPlatform/cloud-run-mcp/releases/tag/v1.11.0",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "HIGH",
+    "social_security_product": "Google Cloud Run MCP",
+    "social_security_cve": "CVE-2026-85297",
+    "social_security_action": "1.11.0以降へ更新し、デプロイ用バケットの所有者とIAM権限を点検。",
+    "quick_take": "Cloud Run MCPのデプロイ処理でCloud Storageバケットの所有者確認が不十分な場合、ソースコードが意図しないバケットへ送られる恐れがある。1.11.0以降への更新とバケットの権限確認を優先する。",
+    "sections": [
+      {
+        "title": "何が公表されたか",
+        "body": "2026年10月26日にCVE-2026-85297が公表された。Google Cloud Run MCPのデプロイに使うCloud Storageバケットの所有者確認が不十分な問題で、攻撃者が事前に管理するバケットへソースコードが送信される恐れがある。CVSS v4.0は7.7。脆弱性情報：https://www.cve.org/CVERecord?id=CVE-2026-85297"
+      },
+      {
+        "title": "影響バージョンと成立条件",
+        "body": "影響するのはCloud Run MCP 1.11.0未満。バケットの作成・選択やデプロイのワークフローが攻撃者管理バケットに誘導される条件下で、アプリケーションのソースコードや含まれる秘密情報が流出する恐れがある。ソースコード流出と、流出後の情報悪用・コード実行の可能性は区別する必要がある。"
+      },
+      {
+        "title": "修正版と推奨対応",
+        "body": "修正版は1.11.0以降。開発元の2026年9月28日付リリースノートにはバケット所有者の確認を追加する修正PR #300が記載されている。公開日とCVEの公表日は異なる。バージョンを更新し、デプロイ用Cloud Storageバケットの所有者、IAM権限、関連する操作ログを点検する。修正PR：https://github.com/GoogleCloudPlatform/cloud-run-mcp/pull/300"
+      },
+      {
+        "title": "悪用状況と実務上の論点",
+        "body": "2026年10月27日時点で確認した一次情報から、実環境での悪用が確認されたとは断定できない。AIエージェントによるデプロイでも、利用するストレージ資源の所有者検証と最小権限が重要だ。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜HIGH】Google Cloud Run MCPに重大脆弱性。デプロイ用ソースコード流出の恐れ。Cloud Run MCPのデプロイ処理でCloud Storageバケットの所有者確認が不十分な場合、ソースコードが意図しないバケットへ送られる恐れがある。1.11.0以降への更新とバケットの権限確認を優先する。\nhttps://signal.amberlight.co.jp/articles/20261027-google-cloud-run-mcp-bucket-ownership-cve-2026-85297/\n\n一次情報：https://github.com/GoogleCloudPlatform/cloud-run-mcp/releases/tag/v1.11.0",
+    "social_instagram_caption": "【SECURITY WATCH｜HIGH】Google Cloud Run MCPに重大脆弱性。デプロイ用ソースコード流出の恐れ。Cloud Run MCPのデプロイ処理でCloud Storageバケットの所有者確認が不十分な場合、ソースコードが意図しないバケットへ送られる恐れがある。1.11.0以降への更新とバケットの権限確認を優先する。 詳細はプロフィールのWORK SIGNALから。#SECURITYWATCH #脆弱性 #セキュリティ"
+  },
+  {
     "id": "20261027-anthropic-ipo-s1-nasdaq-ant",
     "title": "Anthropicが米国でIPO申請。Claudeの成長を「収益と投資」で測る時代へ",
     "summary": "Anthropicが米SECへForm S-1を提出。NASDAQで「ANT」として上場する意向を表明したが、募集株数・価格は未定。AI企業の急成長を収益構造と巨額投資の両面から読む。",

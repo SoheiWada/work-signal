@@ -120,6 +120,7 @@ jobs:
           from urllib.request import Request, urlopen
           token, uid = os.getenv("THREADS_ACCESS_TOKEN", ""), os.getenv("THREADS_USER_ID", "")
           article = "20261027-anthropic-broadcom-63b-ai-compute-financing"
+          print("Threads recovery reconciliation: searching for manually published Anthropic post")
           if not token or not uid:
               print("FAIL Threads history: missing credentials"); sys.exit(1)
           endpoint = "https://graph.threads.net/v1.0/" + uid + "/threads?" + urlencode({

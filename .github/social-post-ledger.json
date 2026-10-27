@@ -545,8 +545,9 @@
   },
   "20261027-openpanel-two-security-advisories": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-27T07:58:34+00:00"
+      "status": "published",
+      "updated_at": "2026-10-27T07:58:57+00:00",
+      "remote_id": "17870054637658838"
     },
     "instagram": {
       "status": "published",

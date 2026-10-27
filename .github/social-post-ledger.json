@@ -525,5 +525,11 @@
       "updated_at": "2026-10-27T04:34:43+00:00",
       "remote_id": "18014139641760977"
     }
+  },
+  "20261027-dotnet-out-of-band-corrected-security-fixes": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-27T07:41:17+00:00"
+    }
   }
 }

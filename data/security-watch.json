@@ -1,5 +1,14 @@
 [
   {
+    "id": "nest-admin-jwt-auth-bypass-cve-2026-117564",
+    "product": "nest-admin",
+    "severity": "CRITICAL",
+    "date": "2026-10-28",
+    "article_id": "20261028-nest-admin-jwt-auth-bypass-cve-2026-117564",
+    "summary": "CVE-2026-117564（CVSS 9.3）：固定JWT署名鍵により管理者トークンを偽造できる恐れ。v1.0.1へ更新し署名鍵を変更。",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
     "id": "adobe-commerce-magento-cve-2026-48356-kev",
     "product": "Adobe Commerce / Magento Open Source",
     "severity": "CRITICAL",

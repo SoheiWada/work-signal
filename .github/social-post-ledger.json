@@ -510,8 +510,8 @@
   },
   "20261027-anthropic-broadcom-63b-ai-compute-financing": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-27T04:33:54+00:00"
+      "status": "needs_review",
+      "updated_at": "2026-10-27T04:34:15+00:00"
     }
   }
 }

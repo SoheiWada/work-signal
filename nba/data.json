@@ -3,12 +3,12 @@
   "provider": "balldontlie",
   "season": 2026,
   "throughDate": "2026-10-26",
-  "fetchedAt": "2026-10-26T16:49:35.744Z",
-  "lastAttemptAt": "2026-10-26T16:49:35.744Z",
+  "fetchedAt": "2026-10-27T01:31:34.067Z",
+  "lastAttemptAt": "2026-10-27T01:31:34.067Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 43,
+  "countedGames": 44,
   "standingsReason": null,
   "teams": [
     {
@@ -36,7 +36,7 @@
       "code": "CHA",
       "name": "Charlotte Hornets",
       "conference": "East",
-      "wins": 2,
+      "wins": 3,
       "losses": 1
     },
     {
@@ -219,10 +219,22 @@
       "name": "Washington Wizards",
       "conference": "East",
       "wins": 2,
-      "losses": 1
+      "losses": 2
     }
   ],
   "sets": [
+    [
+      {
+        "id": "21717962",
+        "date": "2026-10-26",
+        "home": "CHA",
+        "away": "WAS",
+        "homeScore": 110,
+        "awayScore": 103,
+        "competition": "regular",
+        "countsForStandings": true
+      }
+    ],
     [
       {
         "id": "21717961",

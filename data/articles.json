@@ -1,5 +1,38 @@
 [
   {
+    "id": "20261027-openpanel-two-security-advisories",
+    "title": "OpenPanelに重大な脆弱性2件。実行制御と認証情報保護に不備",
+    "summary": "OpenPanelのWebhook実行制御と通知ルールに関する2件の重大なセキュリティ勧告を整理。",
+    "category": "仕事",
+    "score": 92,
+    "published_at": "2026-10-27",
+    "source_url": "https://github.com/Openpanel-dev/openpanel/security/advisories/GHSA-mc99-9jf5-22cq",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "OpenPanel",
+    "social_security_cve": "CVE-2026-116811 / CVE-2026-116819",
+    "social_security_action": "3.0.0以降への更新と修正反映確認。アクセス権限と連携認証情報を点検。",
+    "quick_take": "OpenPanelのWebhook実行制御と通知ルールの機密情報秘匿に問題が報告された。",
+    "sections": [
+      {
+        "title": "公開された2件",
+        "body": "2026年10月11日に開発元は2件の勧告を公表した。CVE-2026-116811はWebhookのJavaScript検証不備で、書き込み権限を持つ利用者がワーカー内でコードを実行する恐れがある。CVE-2026-116819は閲覧権限を持つ利用者にSlackトークン等が露出する恐れがある。"
+      },
+      {
+        "title": "影響バージョンと対応",
+        "body": "CVE登録情報ではOpenPanel 3.0.0未満が影響対象、3.0.0は非影響とされる。一方、開発元GHSAの修正版欄は未指定のため、導入するリリースに修正が含まれることを確認する。権限を見直し、露出が疑われる連携認証情報を必要に応じ更新する。"
+      },
+      {
+        "title": "悪用状況と一次情報",
+        "body": "実環境での悪用は確認できていない。開発元勧告：https://github.com/Openpanel-dev/openpanel/security/advisories/GHSA-mc99-9jf5-22cq および https://github.com/Openpanel-dev/openpanel/security/advisories/GHSA-wfrw-rm3f-52x8"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH】OpenPanelの重大な脆弱性2件を解説。CVE-2026-116811／116819。\nhttps://signal.amberlight.co.jp/articles/20261027-openpanel-two-security-advisories/\n一次情報：https://github.com/Openpanel-dev/openpanel/security/advisories/GHSA-mc99-9jf5-22cq",
+    "social_instagram_caption": "【SECURITY WATCH】OpenPanelの重大な脆弱性2件。影響範囲と対策をWORK SIGNALで解説。#OpenPanel #セキュリティ"
+  },
+  {
     "id": "20261027-dotnet-out-of-band-corrected-security-fixes",
     "title": ".NETが定例外の緊急更新。10月の修正不十分だった2件を再修正",
     "summary": "Microsoftが.NET 8／9／10と11 RC3の定例外セキュリティ更新を公開。CVE-2026-70197とCVE-2026-102870は10月13日の修正が不十分で、再修正が必要。",

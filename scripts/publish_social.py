@@ -336,6 +336,13 @@ def publish_instagram_story(url, token, user_id):
 SOCIAL_PLATFORMS = ("threads", "instagram", "instagram_story")
 
 
+def requested_platforms(article):
+    selected = article.get("social_platforms", list(SOCIAL_PLATFORMS))
+    if not isinstance(selected, list) or not selected or any(p not in SOCIAL_PLATFORMS for p in selected) or len(set(selected)) != len(selected):
+        raise ValueError("Invalid explicit social platform selection")
+    return selected
+
+
 def remaining_platforms(existing):
     """Do not automatically retry an attempted, published, or uncertain platform."""
     if not isinstance(existing, dict):
@@ -363,7 +370,7 @@ def run(articles, ledger, credentials):
         print("Both Meta accounts must be connected before social posting.", file=sys.stderr)
         return 1
     rows, _ = ledger.read()
-    if not any(remaining_platforms(rows.get(item["id"], {})) for item in pending):
+    if not any(set(remaining_platforms(rows.get(item["id"], {}))) & set(requested_platforms(item)) for item in pending):
         print("All explicitly approved social articles are recorded; no posts.")
         return 0
     verify_account(THREADS_API, credentials["THREADS_ACCESS_TOKEN"], credentials["THREADS_USER_ID"])
@@ -374,7 +381,7 @@ def run(articles, ledger, credentials):
     for article in reversed(pending):
         identifier = article["id"]
         rows, _ = ledger.read()
-        remaining = remaining_platforms(rows.get(identifier, {}))
+        remaining = [p for p in remaining_platforms(rows.get(identifier, {})) if p in requested_platforms(article)]
         if not remaining:
             continue
         if count >= 5:

@@ -1,5 +1,77 @@
 [
   {
+    "id": "20261027-traefik-forwardauth-connection-pool-ghsa-hrpp-p4fc-wwf8",
+    "title": "Traefik ForwardAuthに認証混同の脆弱性。別ユーザーの接続で権限を引き継ぐ恐れ",
+    "summary": "Traefik ForwardAuthがNTLMやKerberosの接続単位認証を共有プールで処理する際、他ユーザーの認証済み接続を再利用する問題（GHSA-hrpp-p4fc-wwf8、HIGH・CVSS 7.0）。",
+    "category": "仕事",
+    "score": 90,
+    "published_at": "2026-10-27",
+    "source_url": "https://github.com/traefik/traefik/security/advisories/GHSA-hrpp-p4fc-wwf8",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "HIGH",
+    "social_security_product": "Traefik",
+    "social_security_action": "Traefik v2.11.60またはv3.7.16へ更新し、ForwardAuthで接続単位認証を使用しているか確認。",
+    "quick_take": "Traefik ForwardAuthがNTLMやKerberosの接続単位認証を共有プールで処理する際、他ユーザーの認証済み接続を再利用する問題（GHSA-hrpp-p4fc-wwf8、HIGH・CVSS 7.0）。",
+    "sections": [
+      {
+        "title": "公表された問題",
+        "body": "TraefikのForwardAuthミドルウェアは、NTLMやSPNEGO/Kerberos Negotiateなど接続単位の認証を使う認証サーバーに対し、クライアント間で共有される接続プールから認証要求を送る。このため、別の利用者が認証した接続が未認証クライアントの要求に再利用され、認証済みユーザーのIDがバックエンドへ伝播する恐れがある。GHSA-hrpp-p4fc-wwf8、CVSS v4.0 7.0（High）。"
+      },
+      {
+        "title": "影響バージョンと成立条件",
+        "body": "Traefik v2.11.59以前の該当系列、およびv3.0.0からv3.7.15が影響する。ForwardAuthとNTLM/Kerberosなど接続単位認証の組み合わせが成立条件。v3.7のKubernetes Ingress NGINX providerのauth-url注釈にも同様の問題がある。すべてのForwardAuth構成が一律に影響するわけではない。"
+      },
+      {
+        "title": "修正版と管理者の対応",
+        "body": "v2.11.60またはv3.7.16へ更新する。v3.0〜v3.6はサポート終了で系列内修正版が提供されないため、サポート対象の修正版へ移行する。認証サーバーの方式、authResponseHeaders、接続再利用の影響を点検する。公式勧告：https://github.com/traefik/traefik/security/advisories/GHSA-hrpp-p4fc-wwf8"
+      },
+      {
+        "title": "悪用状況と編集部の視点",
+        "body": "2026年10月27日時点、開発元の勧告に実環境での悪用確認は明示されていない。リバースプロキシの認証処理ではHTTP要求単位と接続単位の境界を混同しない設計が重要になる。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜HIGH】Traefik ForwardAuthに認証混同の脆弱性。別ユーザーの接続で権限を引き継ぐ恐れ\nTraefik v2.11.60またはv3.7.16へ更新し、ForwardAuthで接続単位認証を使用しているか確認。\n記事全文：https://signal.amberlight.co.jp/articles/20261027-traefik-forwardauth-connection-pool-ghsa-hrpp-p4fc-wwf8/\n一次情報：https://github.com/traefik/traefik/security/advisories/GHSA-hrpp-p4fc-wwf8",
+    "social_instagram_caption": "【SECURITY WATCH｜HIGH】Traefik ForwardAuthに認証混同の脆弱性。別ユーザーの接続で権限を引き継ぐ恐れ\n\nTraefik ForwardAuthがNTLMやKerberosの接続単位認証を共有プールで処理する際、他ユーザーの認証済み接続を再利用する問題（GHSA-hrpp-p4fc-wwf8、HIGH・CVSS 7.0）。\n\n推奨対応：Traefik v2.11.60またはv3.7.16へ更新し、ForwardAuthで接続単位認証を使用しているか確認。\n詳細はプロフィールのWORK SIGNALから。\n#SECURITYWATCH #脆弱性 #セキュリティ"
+  },
+  {
+    "id": "20261027-traefik-ingress-mtls-bypass-ghsa-p8wx-ph99-xgcr",
+    "title": "TraefikのIngressでmTLS認証が無効化。異なる設定のIngress混在に注意",
+    "summary": "Traefik v3.7系のKubernetes Ingress NGINX providerで、同一ホストのIngress間でmTLS設定が競合するとクライアント証明書認証が無効化される問題（GHSA-p8wx-ph99-xgcr、HIGH・CVSS 7.0）。",
+    "category": "仕事",
+    "score": 86,
+    "published_at": "2026-10-27",
+    "source_url": "https://github.com/traefik/traefik/security/advisories/GHSA-p8wx-ph99-xgcr",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "HIGH",
+    "social_security_product": "Traefik",
+    "social_security_action": "Traefik v3.7.15以降へ更新し、同一ホストのIngress間のauth-tls設定とcore.strictTLSOptionsを確認。",
+    "quick_take": "Traefik v3.7系のKubernetes Ingress NGINX providerで、同一ホストのIngress間でmTLS設定が競合するとクライアント証明書認証が無効化される問題（GHSA-p8wx-ph99-xgcr、HIGH・CVSS 7.0）。",
+    "sections": [
+      {
+        "title": "公表された問題",
+        "body": "TraefikのKubernetes Ingress NGINX providerで、nginx.ingress.kubernetes.io/auth-tls-secret注釈によるmTLSクライアント認証が、同一ホストの別Ingressで同じ認証設定を指定していない場合に無効化される恐れがある。TLSオプション競合時に既定設定へフォールバックし、証明書を要求しない場合がある。GHSA-p8wx-ph99-xgcr、CVSS v4.0 7.0（High）。"
+      },
+      {
+        "title": "影響バージョンと条件",
+        "body": "v3.7.0-ea.1からv3.7.14が影響する。対象はKubernetes Ingress NGINX providerを使用し、同一ホスト上のIngressに異なるmTLS設定があり、core.strictTLSOptionsが有効でない構成。Traefik v2とv3.7以前のv3は当該注釈に対応しておらず、この問題の影響を受けない。"
+      },
+      {
+        "title": "修正版と管理者の対応",
+        "body": "v3.7.15以降へ更新する。現在の最新系列へ移行する場合も修正が含まれるバージョンか確認する。同一ホストのIngress間のauth-tls-secret注釈、TLSオプションの整合性、core.strictTLSOptionsを点検する。公式勧告：https://github.com/traefik/traefik/security/advisories/GHSA-p8wx-ph99-xgcr"
+      },
+      {
+        "title": "悪用状況と編集部の視点",
+        "body": "2026年10月27日時点、開発元の勧告に実環境での悪用確認は明示されていない。認証必須のはずの経路が設定競合で認証不要になるという、クラウドネイティブ運用上の重要なリスクを示す。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜HIGH】TraefikのIngressでmTLS認証が無効化。異なる設定のIngress混在に注意\nTraefik v3.7.15以降へ更新し、同一ホストのIngress間のauth-tls設定とcore.strictTLSOptionsを確認。\n記事全文：https://signal.amberlight.co.jp/articles/20261027-traefik-ingress-mtls-bypass-ghsa-p8wx-ph99-xgcr/\n一次情報：https://github.com/traefik/traefik/security/advisories/GHSA-p8wx-ph99-xgcr",
+    "social_instagram_caption": "【SECURITY WATCH｜HIGH】TraefikのIngressでmTLS認証が無効化。異なる設定のIngress混在に注意\n\nTraefik v3.7系のKubernetes Ingress NGINX providerで、同一ホストのIngress間でmTLS設定が競合するとクライアント証明書認証が無効化される問題（GHSA-p8wx-ph99-xgcr、HIGH・CVSS 7.0）。\n\n推奨対応：Traefik v3.7.15以降へ更新し、同一ホストのIngress間のauth-tls設定とcore.strictTLSOptionsを確認。\n詳細はプロフィールのWORK SIGNALから。\n#SECURITYWATCH #脆弱性 #セキュリティ"
+  },
+  {
     "id": "20261027-consul-k8s-cross-namespace-acl-cve-2026-110720",
     "title": "Consul-k8sに重大なnamespace間の権限回避。コンポーネントACLの乗っ取りリスク",
     "summary": "HashiCorp consul-k8sで別namespaceのServiceAccountを使ってConsulコンポーネントのACL権限を取得できる恐れ（CVE-2026-110720、CVSS 9.9）。該当設定と修正版を解説。",

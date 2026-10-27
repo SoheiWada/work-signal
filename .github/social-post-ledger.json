@@ -501,6 +501,10 @@
       "status": "published",
       "updated_at": "2026-10-27T04:22:00+00:00",
       "remote_id": "17953061079299956"
+    },
+    "instagram_story": {
+      "status": "attempting",
+      "updated_at": "2026-10-27T04:22:01+00:00"
     }
   }
 }

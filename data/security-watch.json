@@ -1,5 +1,41 @@
 [
   {
+    "id": "kirki-privilege-escalation-cve-2026-75891",
+    "product": "Kirki (WordPress)",
+    "severity": "HIGH",
+    "date": "2026-10-27",
+    "article_id": "20261027-kirki-privilege-escalation-cve-2026-75891",
+    "summary": "Kirki 6.2.5以前にPHPオブジェクトインジェクション（CVSS 8.8）。購読者以上の権限で特定条件下に管理者パスワードが変更される可能性。最新版へ更新。",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
+    "id": "qode-membership-auth-bypass-cve-2026-92885",
+    "product": "Qode Membership (WordPress)",
+    "severity": "CRITICAL",
+    "date": "2026-10-27",
+    "article_id": "20261027-qode-membership-auth-bypass-cve-2026-92885",
+    "summary": "WordPressのQode Membership 2.0.6.2以前でFacebook認証処理の検証不備（CVE-2026-92885、CVSS 9.8）。未認証の攻撃者が既存ユーザーになりすます恐れ。2.0.6.3へ更新。",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
+    "id": "analytics-insights-stored-xss-cve-2026-111820",
+    "product": "Analytics Insights (WordPress)",
+    "severity": "HIGH",
+    "date": "2026-10-27",
+    "article_id": "20261027-analytics-insights-stored-xss-cve-2026-111820",
+    "summary": "Analytics Insights 6.3.12以前に未認証の蓄積型XSS（CVE-2026-111820、CVSS 7.2）。GA4のリアルタイムページタイトルを経由して悪意あるスクリプトが表示される恐れ。6.4へ更新。",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
+    "id": "gridbox-two-unauthenticated-sql-injection-cves",
+    "product": "Gridbox (Joomla)",
+    "severity": "CRITICAL",
+    "date": "2026-10-27",
+    "article_id": "20261027-gridbox-two-unauthenticated-sql-injection-cves",
+    "summary": "Gridbox 2.20.4.2未満でCVE-2026-102788／102789（いずれもCVSS v4 9.3）。URLのソート指定と編集タスクの認可不足が問題。開発元は10月27日に2.20.4.2を公開。",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
     "id": "arcgis-server-sql-injection-cve-2026-10757",
     "product": "ArcGIS Server",
     "severity": "CRITICAL",

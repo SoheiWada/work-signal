@@ -28,6 +28,18 @@ def main():
     # Confirm missing Instagram captions via current API before any write.
     ig=social.request_json(social.IG_API+"/"+os.environ["INSTAGRAM_USER_ID"]+"/media?fields=id,caption,media_type,timestamp,permalink&limit=100",token=os.environ["INSTAGRAM_ACCESS_TOKEN"])
     media=ig.get("data",[])
+    # Meta reports 100 total but refused publishing at 50/100 with 2207042.
+    # Enforce a conservative 50-post safety ceiling until Meta reconciles its quota.
+    quota=social.request_json(social.IG_API+"/"+os.environ["INSTAGRAM_USER_ID"]+"/content_publishing_limit?fields=config,quota_usage",token=os.environ["INSTAGRAM_ACCESS_TOKEN"])
+    row=(quota.get("data") or [{}])[0]
+    usage=row.get("quota_usage")
+    total=(row.get("config") or {}).get("quota_total")
+    if not isinstance(usage,int) or not isinstance(total,int):
+        raise RuntimeError("Instagram quota unreadable; no writes permitted")
+    print("Instagram quota",usage,"/",total,"conservative ceiling",min(50,total))
+    if usage>=min(50,total):
+        print("STOP: Meta currently blocks publishing at 50/100; no duplicate attempts")
+        return 0
     failures=0
     for aid,kinds in TARGETS.items():
         a=articles[aid]

@@ -665,6 +665,10 @@
       "status": "published",
       "updated_at": "2026-10-27T15:05:50+00:00",
       "remote_id": "18128549450296819"
+    },
+    "instagram_story": {
+      "status": "attempting",
+      "updated_at": "2026-10-27T15:05:52+00:00"
     }
   }
 }

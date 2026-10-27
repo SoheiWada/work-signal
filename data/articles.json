@@ -1,5 +1,116 @@
 [
   {
+    "id": "20261027-openhands-agent-sdk-unauthenticated-rce-cve-2026-112346",
+    "title": "OpenHands Agent SDKに認証不要RCE。公開されたサンドボックスに重大リスク",
+    "summary": "OpenHands Software Agent SDK 1.52.0未満で、DockerWorkspaceなどのサンドボックスエージェントサーバーが外部到達可能な場合に認証不要のコマンド実行につながるCVE-2026-112346（CVSS 9.3）。",
+    "category": "仕事",
+    "score": 95,
+    "published_at": "2026-10-27",
+    "source_url": "https://github.com/OpenHands/software-agent-sdk/releases/tag/v1.52.0",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "OpenHands Software Agent SDK",
+    "social_security_cve": "CVE-2026-112346",
+    "social_security_action": "1.52.0以降に更新し、サンドボックスの公開ポートと認証設定を確認。",
+    "quick_take": "OpenHands Software Agent SDK 1.52.0未満で、DockerWorkspaceなどのサンドボックスエージェントサーバーが外部到達可能な場合に認証不要のコマンド実行につながるCVE-2026-112346（CVSS 9.3）。",
+    "sections": [
+      {
+        "title": "何が起きたか",
+        "body": "OpenHands Software Agent SDKのサンドボックスエージェントサーバーで、外部インターフェース（0.0.0.0）へのバインドと空のsession_api_keysにより、到達可能な攻撃者が認証なしにHTTPやWebSocketでコマンドを実行できる恐れがある。CVE-2026-112346、CVSS v4.0 9.3。"
+      },
+      {
+        "title": "影響範囲と条件",
+        "body": "1.52.0未満が影響する。DockerWorkspaceやApptainerのエージェントサーバーへネットワークから到達できる場合、サンドボックス内でのコマンド実行やワークスペース・秘密情報へのアクセスにつながり得る。外部到達できない構成で同じ攻撃が成立するとは限らない。"
+      },
+      {
+        "title": "修正版と対処",
+        "body": "1.52.0以降へ更新する。エージェントサーバーを外部公開しない構成を基本とし、認証用APIキーの有効化、公開ポート、コンテナのマウント範囲、秘密情報の扱いを点検する。公式リリース：https://github.com/OpenHands/software-agent-sdk/releases/tag/v1.52.0"
+      },
+      {
+        "title": "悪用状況と編集部の視点",
+        "body": "2026年10月27日時点、確認した情報から実環境での悪用を断定できない。AIエージェントの安全性はモデルの指示だけでなく、実行基盤のネットワーク境界と権限分離にも依存する。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜CRITICAL】OpenHands Agent SDKに認証不要RCE。公開されたサンドボックスに重大リスク\n1.52.0以降に更新し、サンドボックスの公開ポートと認証設定を確認。\n記事全文：https://signal.amberlight.co.jp/articles/20261027-openhands-agent-sdk-unauthenticated-rce-cve-2026-112346/\n一次情報：https://github.com/OpenHands/software-agent-sdk/releases/tag/v1.52.0",
+    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】OpenHands Agent SDKに認証不要RCE。公開されたサンドボックスに重大リスク\n\nOpenHands Software Agent SDK 1.52.0未満で、DockerWorkspaceなどのサンドボックスエージェントサーバーが外部到達可能な場合に認証不要のコマンド実行につながるCVE-2026-112346（CVSS 9.3）。\n\n推奨対応：1.52.0以降に更新し、サンドボックスの公開ポートと認証設定を確認。\n詳細はプロフィールのWORK SIGNALから。\n#SECURITYWATCH #脆弱性 #セキュリティ"
+  },
+  {
+    "id": "20261027-consul-leaf-certificate-acl-bypass-cve-2026-105765",
+    "title": "ConsulのmTLS証明書APIに認可回避。秘密鍵取得となりすましの恐れ",
+    "summary": "HashiCorp Consulのサービスメッシュ証明書APIで、ACLトークンなしにキャッシュ済み証明書と秘密鍵を取得できるCVE-2026-105765。サービスのなりすましリスクと修正版を解説。",
+    "category": "仕事",
+    "score": 90,
+    "published_at": "2026-10-27",
+    "source_url": "https://discuss.hashicorp.com/t/hcsec-2026-46-consul-vulnerable-to-an-authorization-bypass-in-the-agents-service-mesh-leaf-certificate-api/77911",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "HIGH",
+    "social_security_product": "HashiCorp Consul",
+    "social_security_cve": "CVE-2026-105765",
+    "social_security_action": "Community 2.1.0、Enterprise 2.1.0または1.21.19に更新し、agent HTTP APIを制限。",
+    "quick_take": "HashiCorp Consulのサービスメッシュ証明書APIで、ACLトークンなしにキャッシュ済み証明書と秘密鍵を取得できるCVE-2026-105765。サービスのなりすましリスクと修正版を解説。",
+    "sections": [
+      {
+        "title": "何が起きたか",
+        "body": "HashiCorpが2026年10月26日に公開したHCSEC-2026-46（CVE-2026-105765）は、Consul agentのサービスメッシュleaf証明書APIの認可回避。ACL有効環境でキャッシュ済み証明書と秘密鍵を有効なACLトークンなしに取得される恐れがある。"
+      },
+      {
+        "title": "成立条件と影響",
+        "body": "Consul/Consul Enterprise 1.17.0から2.0.4が対象。ACLが有効で、攻撃者がagent HTTP APIにネットワーク到達でき、対象サービスのleaf証明書が当該agentにキャッシュされていることが条件。取得した秘密鍵でサービスを偽装し、メッシュの許可された通信先へアクセスされる可能性がある。HTTP APIの既定リッスン先はループバックであり、外部から到達できるとは限らない。"
+      },
+      {
+        "title": "修正版と対処",
+        "body": "Consul Community 2.1.0、Consul Enterprise 2.1.0または1.21.19に更新する。更新できない場合はagent HTTP APIへのアクセスを制限し、依存するConnect-nativeアプリケーション等がない場合に限りhttp_config.block_endpointsでleaf証明書APIを遮断する方法を検討する。一次情報：https://discuss.hashicorp.com/t/hcsec-2026-46-consul-vulnerable-to-an-authorization-bypass-in-the-agents-service-mesh-leaf-certificate-api/77911"
+      },
+      {
+        "title": "悪用状況と編集部の視点",
+        "body": "2026年10月27日時点、公式勧告で実環境の悪用確認は示されていない。既報のCVE-2026-105608はサービスメッシュ登録権限の問題であり、今回の秘密鍵漏えいリスクとは別の脆弱性だ。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜HIGH】ConsulのmTLS証明書APIに認可回避。秘密鍵取得となりすましの恐れ\nCommunity 2.1.0、Enterprise 2.1.0または1.21.19に更新し、agent HTTP APIを制限。\n記事全文：https://signal.amberlight.co.jp/articles/20261027-consul-leaf-certificate-acl-bypass-cve-2026-105765/\n一次情報：https://discuss.hashicorp.com/t/hcsec-2026-46-consul-vulnerable-to-an-authorization-bypass-in-the-agents-service-mesh-leaf-certificate-api/77911",
+    "social_instagram_caption": "【SECURITY WATCH｜HIGH】ConsulのmTLS証明書APIに認可回避。秘密鍵取得となりすましの恐れ\n\nHashiCorp Consulのサービスメッシュ証明書APIで、ACLトークンなしにキャッシュ済み証明書と秘密鍵を取得できるCVE-2026-105765。サービスのなりすましリスクと修正版を解説。\n\n推奨対応：Community 2.1.0、Enterprise 2.1.0または1.21.19に更新し、agent HTTP APIを制限。\n詳細はプロフィールのWORK SIGNALから。\n#SECURITYWATCH #脆弱性 #セキュリティ"
+  },
+  {
+    "id": "20261027-consul-http-api-memory-dos-cve-2026-105626",
+    "title": "ConsulのHTTP APIに認証不要DoS。巨大リクエストでメモリ枯渇の恐れ",
+    "summary": "HashiCorp ConsulのHTTP APIで、認証確認前に大きなリクエストを読み込みメモリ枯渇を招くCVE-2026-105626。対象環境と修正版を解説。",
+    "category": "仕事",
+    "score": 84,
+    "published_at": "2026-10-27",
+    "source_url": "https://discuss.hashicorp.com/t/hcsec-2026-48-consul-vulnerable-to-a-denial-of-service-in-http-apis/77913",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "HIGH",
+    "social_security_product": "HashiCorp Consul",
+    "social_security_cve": "CVE-2026-105626",
+    "social_security_action": "Community 2.1.0、Enterprise 2.1.0または1.21.19に更新し、agent HTTP APIを制限。",
+    "quick_take": "HashiCorp ConsulのHTTP APIで、認証確認前に大きなリクエストを読み込みメモリ枯渇を招くCVE-2026-105626。対象環境と修正版を解説。",
+    "sections": [
+      {
+        "title": "何が起きたか",
+        "body": "HashiCorpが2026年10月26日に公開したHCSEC-2026-48（CVE-2026-105626）は、Consul agentのHTTP APIにおけるサービス拒否（DoS）脆弱性。複数のエンドポイントがACL権限確認前にサイズ制限なくリクエスト本文をメモリに読み込む。"
+      },
+      {
+        "title": "影響と成立条件",
+        "body": "ConsulおよびConsul Enterpriseの2.0.4以前の該当バージョンが対象。攻撃者がagent HTTP APIへ到達できる場合、ACLトークンがなくても巨大または並列のリクエストでメモリを消費させ、サービス低下やOSによるプロセス終了を引き起こす恐れがある。APIが外部公開されていない構成では到達性が異なる。"
+      },
+      {
+        "title": "修正版と対処",
+        "body": "Consul Community 2.1.0、Enterprise 2.1.0または1.21.19に更新する。修正版では多くのHTTP API書き込みエンドポイントが512KiB超の本文を拒否するため、大きな設定エントリを扱う運用では互換性も確認する。agent HTTP APIへのアクセスを制限する。一次情報：https://discuss.hashicorp.com/t/hcsec-2026-48-consul-vulnerable-to-a-denial-of-service-in-http-apis/77913"
+      },
+      {
+        "title": "悪用状況と編集部の視点",
+        "body": "2026年10月27日時点、公式勧告で実環境の悪用確認は示されていない。同日に公開されたConsulの認可回避とは異なる攻撃経路であり、APIの公開範囲と更新計画をまとめて点検する価値がある。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜HIGH】ConsulのHTTP APIに認証不要DoS。巨大リクエストでメモリ枯渇の恐れ\nCommunity 2.1.0、Enterprise 2.1.0または1.21.19に更新し、agent HTTP APIを制限。\n記事全文：https://signal.amberlight.co.jp/articles/20261027-consul-http-api-memory-dos-cve-2026-105626/\n一次情報：https://discuss.hashicorp.com/t/hcsec-2026-48-consul-vulnerable-to-a-denial-of-service-in-http-apis/77913",
+    "social_instagram_caption": "【SECURITY WATCH｜HIGH】ConsulのHTTP APIに認証不要DoS。巨大リクエストでメモリ枯渇の恐れ\n\nHashiCorp ConsulのHTTP APIで、認証確認前に大きなリクエストを読み込みメモリ枯渇を招くCVE-2026-105626。対象環境と修正版を解説。\n\n推奨対応：Community 2.1.0、Enterprise 2.1.0または1.21.19に更新し、agent HTTP APIを制限。\n詳細はプロフィールのWORK SIGNALから。\n#SECURITYWATCH #脆弱性 #セキュリティ"
+  },
+  {
     "id": "20261027-cadence-maestro-domain-ai-chip-design",
     "title": "半導体設計にも「専門AI」の時代。Cadence「Maestro」が示す仕事の変化",
     "summary": "Cadenceが半導体・システム設計向けAIモデル群「Maestro」を発表。初期評価で設計品質最大30％改善、トークン効率最大5倍。専門ツールでAIの成果を検証する仕組みを解説。",

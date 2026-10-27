@@ -1,5 +1,42 @@
 [
   {
+    "id": "20261028-adobe-commerce-magento-cve-2026-48356-kev",
+    "title": "Adobe Commerce／Magentoの重大脆弱性CVE-2026-48356、CISAが悪用確認済みリストに追加",
+    "summary": "Adobe CommerceとMagento Open Sourceの危険なファイルアップロード制限不備（CVE-2026-48356、CVSS 9.6）がCISA KEVに追加。Adobeの2026年7月修正更新を適用し、不審なアップロードや権限変更を調査する。",
+    "category": "仕事",
+    "score": 95,
+    "published_at": "2026-10-28",
+    "source_url": "https://www.adobe.com/trust/security/products/commerce/apsb26-73.html",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Adobe Commerce / Magento Open Source",
+    "social_security_cve": "CVE-2026-48356",
+    "social_security_action": "Adobe APSB26-73の2026-jul修正更新を適用し、不審なアップロードと権限変更を調査",
+    "quick_take": "Adobe CommerceとMagento Open Sourceの危険なファイルアップロード制限不備（CVE-2026-48356、CVSS 9.6）がCISA KEVに追加。Adobeの2026年7月修正更新を適用し、不審なアップロードや権限変更を調査する。",
+    "sections": [
+      {
+        "title": "CISAが悪用を確認した重大脆弱性",
+        "body": "CVE-2026-48356は危険なファイル形式のアップロード制限不備（CWE-434）。Adobeの評価はCVSS v3.1 9.6（Critical）。認証は不要だが、悪用には利用者が細工されたURLにアクセスするなどの操作が必要となる。権限昇格につながる恐れがある。CISA KEVへの登録は実際の悪用が確認されたことを意味するが、攻撃者や被害規模を特定するものではない。一次情報：https://www.adobe.com/trust/security/products/commerce/apsb26-73.html / https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      },
+      {
+        "title": "影響するバージョン",
+        "body": "Adobe Commerceは2.4.9、2.4.8-p5以前、2.4.7-p10以前、2.4.6-p15以前、2.4.5-p17以前、2.4.4-p18以前。Magento Open Sourceは2.4.9、2.4.8-p5以前、2.4.7-p10以前、2.4.6-p15以前。Adobe Commerce B2BやAdobe Commerce EventsにもAPSB26-73で対象範囲が示されている。詳細は公式勧告で利用中の構成を確認する。"
+      },
+      {
+        "title": "修正版と推奨対応",
+        "body": "Adobe CommerceおよびMagento Open Sourceは、利用系列に対応する2.4.x-2026-julの修正更新、または修正を含む後続版を適用する。Adobe Commerce B2Bは該当する1.x-2026-jul更新、Adobe Commerce Eventsは1.21.0を確認する。公開ECサイトを優先し、アップロード履歴、権限変更、ログイン履歴など不審な兆候を調査する。"
+      },
+      {
+        "title": "WORK SIGNALの視点",
+        "body": "決済・顧客情報を扱うEC基盤では、修正が公開されてから実際の悪用が確認されるまでの期間にもリスクが残る。パッチ適用状況と侵害兆候の両方を確認することが重要だ。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜CRITICAL】Adobe Commerce／MagentoのCVE-2026-48356（CVSS 9.6）がCISAの悪用確認済みリストに追加。Adobe APSB26-73の修正更新を適用し、不審なアップロードや権限変更を確認してください。\n記事：https://signal.amberlight.co.jp/articles/20261028-adobe-commerce-magento-cve-2026-48356-kev/\n一次情報：https://www.adobe.com/trust/security/products/commerce/apsb26-73.html",
+    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】Adobe Commerce／Magentoの重大脆弱性CVE-2026-48356、CISAが悪用確認済みリストに追加\n\nAdobe CommerceとMagento Open Sourceの危険なファイルアップロード制限不備（CVE-2026-48356、CVSS 9.6）がCISA KEVに追加。Adobeの2026年7月修正更新を適用し、不審なアップロードや権限変更を調査する。\n\n詳しくはWORK SIGNALで。\n#SECURITYWATCH #脆弱性 #AdobeCommerce #Magento"
+  },
+  {
     "id": "20261027-kirki-privilege-escalation-cve-2026-75891",
     "title": "WordPressのKirkiに管理者権限奪取の恐れ。購読者権限から悪用可能なCVE-2026-75891",
     "summary": "Kirki 6.2.5以前にPHPオブジェクトインジェクション（CVSS 8.8）。購読者以上の権限で特定条件下に管理者パスワードが変更される可能性。最新版へ更新。",

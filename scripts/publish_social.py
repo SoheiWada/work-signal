@@ -131,7 +131,14 @@ def request_json(url, *, token="", data=None, method="GET"):
             obj = json.loads(response.read(1_000_000))
     except HTTPError as exc:
         # Do not print tokens or request bodies in CI logs.
-        raise RuntimeError("API HTTP " + str(exc.code)) from None
+        detail = "API HTTP " + str(exc.code)
+        try:
+            err = json.loads(exc.read(8192)).get("error", {})
+            # Meta's structured code/subcode/type only; never include raw message or tokens.
+            detail += " code=" + str(err.get("code", "?")) + " subcode=" + str(err.get("error_subcode", "?")) + " type=" + str(err.get("type", "?"))
+        except (ValueError, TypeError, AttributeError):
+            pass
+        raise RuntimeError(detail) from None
     except (URLError, TimeoutError, ValueError) as exc:
         raise RuntimeError("API transport/response error: " + type(exc).__name__) from None
     if not isinstance(obj, dict):

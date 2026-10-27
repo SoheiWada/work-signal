@@ -1,5 +1,42 @@
 [
   {
+    "id": "20261027-oracle-deep-trust-ai-architecture",
+    "title": "AIに「ルールを守って」と頼むだけでは足りない。Oracleが企業AIの新しい安全設計を発表",
+    "summary": "OracleがDeep Trust AI Architectureを発表。AIの権限や業務ルールをモデルの判断だけに任せず、データベースや実行基盤でも制御する設計を提示した。",
+    "category": "仕事",
+    "score": 88,
+    "published_at": "2026-10-27",
+    "source_url": "https://www.oracle.com/news/announcement/ai-world-oracle-announces-deep-trust-ai-architecture-to-help-enterprises-innovate-with-confidence-2026-10-26/",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "quick_take": "AIに業務を任せる際は、指示文だけでなくデータアクセス権限、承認範囲、操作記録を基盤側で管理することが重要になる。",
+    "sections": [
+      {
+        "title": "AIが会社のデータを操作する時代、安全性はどこで守るのか",
+        "body": "AIが資料の要約だけでなく、発注、経費処理、人事情報の検索などを担うようになると、重要なのは回答の正確さだけではない。そのAIにどこまでの操作を許可するのかという問題がある。Oracleが2026年10月26日に発表したDeep Trust AI Architectureは、AIモデルの判断だけに依存しない企業向け設計を提示した。"
+      },
+      {
+        "title": "AIの外側に守るべきルールを置く",
+        "body": "例えば社員がAIに経費の承認を指示する場合、アプリケーションの指示だけではなく、データベース側でも金額上限や利用者の権限を強制するという考え方だ。Oracleが紹介するSQL Assertionsは、操作元が人間かAIかを問わず、定めた業務制約を適用する設計として説明されている。"
+      },
+      {
+        "title": "安全性を支える複数の層",
+        "body": "Oracleはソフトウェア基盤、データ、データアクセス、アプリケーション開発の各層で安全性を組み込む方針を示す。AIが生成したアプリケーションの定義を、管理されたOracle APEXの実行環境で扱う設計も紹介した。AIに自由なコード生成と実行をすべて委ねない点が特徴だ。"
+      },
+      {
+        "title": "管理職にとっての意味",
+        "body": "人事AIなら社員情報の検索と給与情報の変更、経費AIなら申請書の作成と支払いの確定は別の権限だ。AI導入時には機能の多さだけでなく、操作権限、承認者、例外処理、操作記録を設計する必要がある。AIに仕事を任せることと、無制限の権限を与えることは違う。"
+      },
+      {
+        "title": "発表の限界",
+        "body": "今回の発表はOracleによる設計方針と製品機能の説明であり、すべての構成要素の一般提供や、導入企業での事故率低下を実証したものではない。基盤側の制御があっても、誤った権限設定や不適切な業務ルールが自動的に解決するわけではない。一次情報：https://www.oracle.com/news/announcement/ai-world-oracle-announces-deep-trust-ai-architecture-to-help-enterprises-innovate-with-confidence-2026-10-26/"
+      }
+    ],
+    "social_threads_text": "AIに仕事を任せる時代。大切なのは「AIが賢いか」だけではありません。\n\nOracleが企業AIの新しい安全設計を発表しました。経費処理なら、AIが「上限を守ります」と判断するだけでなく、データベース側でも上限を超える操作を防ぐ考え方です。\n\nAIを信頼するために、AIだけに頼らない。\n\n人事、経理、営業でも、誰が何を承認し、どこまで任せるかが重要になります。\n\n記事：https://signal.amberlight.co.jp/articles/20261027-oracle-deep-trust-ai-architecture/\n一次情報：https://www.oracle.com/news/announcement/ai-world-oracle-announces-deep-trust-ai-architecture-to-help-enterprises-innovate-with-confidence-2026-10-26/",
+    "social_instagram_caption": "AIを信頼するために、AIだけに頼らない。Oracleが企業AIの新しい安全設計「Deep Trust AI Architecture」を発表。AIの権限や業務ルールを基盤側でも制御する考え方を解説しました。記事全文はプロフィールのWORK SIGNALから。#WORKSIGNAL #企業AI #マネジメント #Oracle"
+  },
+  {
     "id": "20261027-arcgis-server-sql-injection-cve-2026-10757",
     "title": "ArcGIS ServerにCVSS 9.8のSQLインジェクション。自治体・企業の地理情報基盤に緊急パッチ",
     "summary": "ArcGIS ServerのCVE-2026-10757はCVSS 9.8の重大なSQLインジェクション。Windows／Linuxの12.1、12.0、11.5、11.3、11.1に影響。Esriの累積セキュリティパッチを至急適用。",

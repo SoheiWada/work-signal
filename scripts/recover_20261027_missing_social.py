@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""One-time owner-confirmed missing social posts recovery, fail closed."""
+"""One-time owner-confirmed missing social posts recovery, fail closed.\nRecheck Meta structured errors before any further remediation.\n"""
 import base64,json,os,sys
 from urllib.request import Request,urlopen
 import publish_social as social

@@ -559,5 +559,11 @@
       "updated_at": "2026-10-27T07:49:50+00:00",
       "remote_id": "17977957820931518"
     }
+  },
+  "20261027-arcgis-server-sql-injection-cve-2026-10757": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-27T08:50:14+00:00"
+    }
   }
 }

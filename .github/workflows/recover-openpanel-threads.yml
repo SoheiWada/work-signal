@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - .github/workflows/recover-openpanel-threads.yml
+      - scripts/recover_openpanel_threads.py
 permissions:
   contents: write
 concurrency:

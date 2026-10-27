@@ -1,5 +1,46 @@
 [
   {
+    "id": "20261027-cadence-maestro-domain-ai-chip-design",
+    "title": "半導体設計にも「専門AI」の時代。Cadence「Maestro」が示す仕事の変化",
+    "summary": "Cadenceが半導体・システム設計向けAIモデル群「Maestro」を発表。初期評価で設計品質最大30％改善、トークン効率最大5倍。専門ツールでAIの成果を検証する仕組みを解説。",
+    "category": "AI",
+    "score": 84,
+    "published_at": "2026-10-27",
+    "source_url": "https://www.cadence.com/zh_TW/home/company/newsroom/press-releases/pr/2026/cadence-introduces-maestro-a-domain-specialized-ai-model.html",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "quick_take": "Cadenceが設計に特化したAIモデル群Maestroを発表。初期評価の改善率は最大値で、2026年第4四半期から一部顧客向けに提供。AIの出力を専門ツールで検証する仕組みが重要だ。",
+    "sections": [
+      {
+        "title": "Cadenceが半導体設計向けAIモデル群を発表",
+        "body": "Cadenceは2026年10月26日、半導体・電子システム設計向けの専門AIモデル群「Maestro AI Model Portfolio」を発表した。大規模言語モデル、学習済み意思決定モデル、エージェントのスキルを組み合わせ、既存のEDA（電子設計自動化）・SDA（システム設計解析）ツールと連携させる。一次情報：https://www.cadence.com/zh_TW/home/company/newsroom/press-releases/pr/2026/cadence-introduces-maestro-a-domain-specialized-ai-model.html"
+      },
+      {
+        "title": "初期評価で設計品質が最大30％改善",
+        "body": "Cadenceの初期設計ワークフロー評価では、汎用基盤モデルとの比較で結果品質が最大30％改善し、トークン効率は最大5倍だった。同社による初期評価であり、すべての設計・企業で再現されると保証するものではない。トークン効率5倍は作業時間5分の1や費用80％削減を意味しない。"
+      },
+      {
+        "title": "AIの出力を専門ツールで検証する",
+        "body": "MaestroはCadenceのAI Super Agentsと設計ツール、強化学習のフィードバックを組み合わせる。設計内容の生成に加え、設計上の目標や制約に照らして結果を評価し、改善に利用する仕組みだ。NVIDIA Nemotronとの連携やOpenShellによるエージェントのセキュリティ技術も発表されている。"
+      },
+      {
+        "title": "データ管理と提供範囲",
+        "body": "同社のクラウド、パブリッククラウド、顧客管理のオンプレミス環境での運用構成を示している。最初のMaestroモデルは2026年第4四半期に一部の先行顧客向けに提供される。一般企業が直ちに利用できる状態とは限らない。"
+      },
+      {
+        "title": "働く人への意味｜成果の検証までがAI活用",
+        "body": "ここからはWORK SIGNALの考察だ。専門業務でAIを活用するときは、モデルの回答速度だけでなく、成果物の品質、検証工数、データ保護、運用費を測る必要がある。半導体設計ではEDAツールによる検証が重要になるが、他の職場でもソフトウェア開発の自動テストや財務数値の照合など、仕事に合った検証手順を設計することが有用だ。"
+      },
+      {
+        "title": "専門AIの可能性と限界",
+        "body": "専門領域のモデルと検証ツールを組み合わせる考え方は、複雑な業務のAI活用を考える材料になる。一方、Maestroの実運用での生産性や費用対効果は企業や設計条件で異なり、AIが設計判断の責任を全面的に代替できると証明されたわけではない。"
+      }
+    ],
+    "social_threads_text": "半導体設計にも「専門AI」の時代がやってきました。\n\nCadenceが設計向けAIモデル群「Maestro」を発表。初期評価では汎用AIと比べて設計品質が最大30％改善、トークン効率が最大5倍になったとしています。\n\n注目したいのは、AIに設計を任せるだけでなく、専門ツールで結果を検証する仕組み。仕事でAIを使うときも、成果をどう確かめるかが大切です。\n\nただし数値は同社の初期評価で、提供も一部顧客向けから始まります。\n記事全文：https://signal.amberlight.co.jp/articles/20261027-cadence-maestro-domain-ai-chip-design/\n一次情報：https://www.cadence.com/zh_TW/home/company/newsroom/press-releases/pr/2026/cadence-introduces-maestro-a-domain-specialized-ai-model.html",
+    "social_instagram_caption": "半導体設計にも専門AIの時代。Cadenceが「Maestro」を発表しました。初期評価では設計品質が最大30％改善、トークン効率が最大5倍。AIの成果を専門ツールで検証する考え方に注目です。記事全文はプロフィールのWORK SIGNALから。#WORKSIGNAL #AI #半導体 #Cadence #Maestro"
+  },
+  {
     "id": "20261027-consul-service-mesh-auth-bypass-cve-2026-105608",
     "title": "Consulのサービスメッシュ登録に権限回避の脆弱性。Envoy設定の改変リスク",
     "summary": "HashiCorp Consulのサービスメッシュ登録処理で権限を回避できるCVE-2026-105608（CVSS 8.8）。service write権限からmesh write権限が必要な設定操作に及ぶ条件と修正版を解説。",

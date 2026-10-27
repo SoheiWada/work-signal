@@ -1,7 +1,5 @@
 name: Recover owner-confirmed missing social posts
 on:
-  schedule:
-    - cron: '17 */4 * * *'
   push:
     paths:
       - scripts/recover_20261027_missing_social.py

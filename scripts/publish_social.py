@@ -246,7 +246,27 @@ def publish_threads(text, token, user_id):
         raise RuntimeError("Threads create-container: " + str(exc)) from None
     if not created.get("id"):
         raise RuntimeError("Threads create-container: missing container ID")
-    time.sleep(15)
+    # Meta containers are asynchronous. Publish only after the official FINISHED state.
+    # A failed/unknown status is not proof that publishing is safe to retry.
+    status = None
+    for attempt in range(5):
+        try:
+            info = request_json(
+                THREADS_API + "/" + str(created["id"]) + "?fields=status,error_message",
+                token=token)
+        except RuntimeError as exc:
+            raise RuntimeError("Threads container-status: " + str(exc)) from None
+        status = info.get("status")
+        if status == "FINISHED":
+            break
+        if status in ("ERROR", "EXPIRED", "PUBLISHED"):
+            raise RuntimeError("Threads container-status: " + status)
+        if status != "IN_PROGRESS":
+            raise RuntimeError("Threads container-status: unknown status")
+        if attempt < 4:
+            time.sleep(60)
+    if status != "FINISHED":
+        raise RuntimeError("Threads container-status: not ready after 5 checks")
     try:
         posted = request_json(THREADS_API + "/" + user_id + "/threads_publish",
                               method="POST", token=token, data={"creation_id": created["id"]})

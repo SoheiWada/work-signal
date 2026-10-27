@@ -688,5 +688,11 @@
       "status": "needs_review",
       "updated_at": "2026-10-27T23:01:12+00:00"
     }
+  },
+  "20261028-nest-admin-jwt-auth-bypass-cve-2026-117564": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-27T23:33:09+00:00"
+    }
   }
 }

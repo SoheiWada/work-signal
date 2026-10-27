@@ -1,0 +1,26 @@
+name: Recover OpenPanel Threads post (one-time)
+on:
+  push:
+    paths:
+      - .github/workflows/recover-openpanel-threads.yml
+permissions:
+  contents: write
+concurrency:
+  group: work-signal-social-publishing
+  cancel-in-progress: false
+jobs:
+  recover:
+    if: github.ref == 'refs/heads/main' && vars.SOCIAL_PUBLISH_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Recover only confirmed-unposted OpenPanel Threads
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+        run: python scripts/recover_openpanel_threads.py

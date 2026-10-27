@@ -108,6 +108,53 @@ jobs:
           print("Read-only API connection test PASSED. No posts were made.")
           print("NOTE: Quota GET passed; actual posting and token expiration remain unverified.")
           PY
+      - name: Inspect recent Threads posts for the approved Anthropic article (GET only)
+        env:
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+        run: |
+          python3 - <<'PY'
+          import json, os, sys
+          from urllib.error import HTTPError, URLError
+          from urllib.parse import urlencode
+          from urllib.request import Request, urlopen
+          token, uid = os.getenv("THREADS_ACCESS_TOKEN", ""), os.getenv("THREADS_USER_ID", "")
+          article = "20261027-anthropic-broadcom-63b-ai-compute-financing"
+          if not token or not uid:
+              print("FAIL Threads history: missing credentials"); sys.exit(1)
+          endpoint = "https://graph.threads.net/v1.0/" + uid + "/threads?" + urlencode({
+              "fields": "id,text,timestamp,permalink", "limit": "100"})
+          found, checked = [], 0
+          try:
+              for page in range(3):
+                  req = Request(endpoint, headers={"Authorization": "Bearer " + token,
+                      "Accept": "application/json", "User-Agent": "WORK-SIGNAL-Threads-Audit/1.0"})
+                  with urlopen(req, timeout=20) as response:
+                      data = json.load(response)
+                  if not isinstance(data, dict) or not isinstance(data.get("data"), list):
+                      raise ValueError("invalid response")
+                  for post in data["data"]:
+                      checked += 1
+                      if article in str(post.get("text", "")) or (
+                          "Anthropic" in str(post.get("text", "")) and
+                          "630億" in str(post.get("text", ""))):
+                          found.append((str(post.get("id", "")), str(post.get("timestamp", "")),
+                                        str(post.get("permalink", ""))))
+                  endpoint = data.get("paging", {}).get("next")
+                  if not endpoint: break
+          except HTTPError as exc:
+              print("FAIL Threads history: API HTTP", exc.code); sys.exit(1)
+          except (URLError, TimeoutError, ValueError, OSError, KeyError):
+              print("FAIL Threads history: transport or response error"); sys.exit(1)
+          print("Threads history checked:", checked, "posts (maximum three pages)")
+          if found:
+              for identifier, timestamp, permalink in found:
+                  print("MATCH Threads post ID:", identifier, "timestamp:", timestamp,
+                        "permalink:", permalink)
+          else:
+              print("NO MATCH in inspected Threads history; this does not prove no pending container exists")
+          print("GET-only check; no publishing and no ledger modification")
+          PY
       - name: Report read-only test outcome on this commit
         if: ${{ always() }}
         env:

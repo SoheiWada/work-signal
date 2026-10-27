@@ -1,5 +1,14 @@
 [
   {
+    "id": "openpanel-20261027",
+    "product": "OpenPanel",
+    "severity": "CRITICAL",
+    "date": "2026-10-27",
+    "article_id": "20261027-openpanel-two-security-advisories",
+    "summary": "Webhook実行制御と通知ルールに関する重大なセキュリティ問題",
+    "status": "修正版の適用確認を推奨"
+  },
+  {
     "id": "dotnet-oob-corrected-fixes-20261027",
     "product": ".NET / ASP.NET Core",
     "severity": "HIGH",

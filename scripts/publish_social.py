@@ -412,7 +412,7 @@ def run(articles, ledger, credentials):
                 except Exception:
                     print("IMPORTANT: ledger state requires manual inspection for", identifier, kind)
                 # Emit only our sanitized, stage-scoped errors; never print raw Meta responses.
-                detail = str(exc) if kind == "threads" and isinstance(exc, RuntimeError) else type(exc).__name__
+                detail = str(exc) if isinstance(exc, RuntimeError) else type(exc).__name__
                 failures.append(identifier + ": " + kind + " " + detail)
         count += 1
     if failures:

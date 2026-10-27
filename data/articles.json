@@ -1,5 +1,46 @@
 [
   {
+    "id": "20261027-dotnet-out-of-band-corrected-security-fixes",
+    "title": ".NETが定例外の緊急更新。10月の修正不十分だった2件を再修正",
+    "summary": "Microsoftが.NET 8／9／10と11 RC3の定例外セキュリティ更新を公開。CVE-2026-70197とCVE-2026-102870は10月13日の修正が不十分で、再修正が必要。",
+    "category": "仕事",
+    "score": 91,
+    "published_at": "2026-10-27",
+    "source_url": "https://github.com/dotnet/announcements/issues/496",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "HIGH",
+    "social_security_product": ".NET / ASP.NET Core",
+    "social_security_cve": "CVE-2026-70197 / CVE-2026-102870",
+    "social_security_action": ".NET 8.0.33／9.0.22／10.0.14、11 RC3へ更新。Blazor Server/DevServer参照も確認。",
+    "quick_take": "Microsoftが.NET 8／9／10と11 RC3の定例外セキュリティ更新を公開。CVE-2026-70197とCVE-2026-102870は10月13日の修正が不十分で、再修正が必要。",
+    "sections": [
+      {
+        "title": "10月25日、Microsoftが定例外の修正版を公開",
+        "body": "Microsoftは2026年10月25日、.NET 8.0.33、9.0.22、10.0.14、11 Release Candidate 3を公開した。通常の月例更新とは別のセキュリティ対応で、影響を受けるアプリケーションとビルド環境の迅速な更新を推奨している。一次情報：https://github.com/dotnet/announcements/issues/496"
+      },
+      {
+        "title": "一度の更新では解消していなかった2件",
+        "body": "10月13日に公開された修正では、CVE-2026-70197（WindowsのSocketAsyncEventArgsに関連するメモリ破損）とCVE-2026-102870（スタンドアロンBlazor WebAssemblyデバッガーパッケージ）が十分に修正されていなかった。今回の更新で修正を補完した。すべての.NETアプリが同じ条件で影響を受けるわけではない。CVE-2026-70197はIPv4とIPv6のデータグラムソケットでSocketAsyncEventArgsを再利用する条件が重要だ。"
+      },
+      {
+        "title": "修正版とアプリ運用への注意",
+        "body": "更新先は.NET 8.0.33、9.0.22、10.0.14、11.0.0-rc.3。対応SDKも適用し、アプリケーションを再起動する。自己完結型（self-contained）で配布したアプリは更新後の再ビルドと再デプロイが必要。CVE-2026-102870は共有ランタイム更新だけで済まず、影響するスタンドアロンServer／DevServerパッケージ参照の更新が必要だ。公式：https://github.com/dotnet/announcements/issues/496"
+      },
+      {
+        "title": "ほかの修正と適用範囲",
+        "body": "今回の定例外更新にはCVE-2026-111497（Brotliデコーダー）およびCVE-2026-114148（Linux .NET tarballのファイル所有権）への対応も含まれる。後者は配布物・導入方法によって対応が異なり、更新アーカイブの取得だけでは既存の不適切な所有権が自動的に修復されない。既報の各記事も参照したい。"
+      },
+      {
+        "title": "WORK SIGNALの視点｜修正済みという表示だけで安心しない",
+        "body": "セキュリティ更新では『更新を実行した』だけでなく、対象ランタイム、パッケージ参照、配布済みアプリ、再起動・再デプロイの各段階まで確認する必要がある。今回は修正が不十分だったという公式な再告知があり、パッチ適用状況を再点検する価値が高い。実環境での悪用が確認されたとは今回の公式発表から断定できない。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH】.NETが10月25日に定例外セキュリティ更新。10月13日の修正が不十分だった2件（CVE-2026-70197／CVE-2026-102870）を再修正しました。\n.NET 8.0.33／9.0.22／10.0.14などへの更新と、Blazorのパッケージ参照・再デプロイを確認してください。\n記事全文：https://signal.amberlight.co.jp/articles/20261027-dotnet-out-of-band-corrected-security-fixes/\n一次情報：https://github.com/dotnet/announcements/issues/496",
+    "social_instagram_caption": "【SECURITY WATCH】.NETが定例外のセキュリティ更新。10月13日の修正が不十分だった2件を再修正しました。\n\n更新先：.NET 8.0.33／9.0.22／10.0.14／11 RC3。\n自己完結型アプリの再ビルドやBlazorパッケージ参照も確認。\n\n詳しくはプロフィールのWORK SIGNALから。#SECURITYWATCH #dotnet #脆弱性"
+  },
+  {
     "id": "20261027-anthropic-broadcom-63b-ai-compute-financing",
     "title": "AI開発に630億ドルの新たな資金調達スキーム。Anthropicの計算基盤を銀行と投資会社が支える",
     "summary": "銀行4社がAnthropic向けAI計算基盤のため630億ドル規模の資金調達スキームを発表。Broadcom製AI半導体をSPVが取得しリースする仕組みを解説。",
@@ -3417,7 +3458,7 @@
   {
     "id": "20261022-php2shell-critical-vulnerabilities",
     "title": "AIが発見したPHPの重大脆弱性「PHP2Shell」。なぜ緊急メンテナンスが必要なのか",
-    "summary": "PHP2Shell（CVE-2026-109618／109619）の重大な遠隔コード実行脆弱性と緊急修正版を解説。10月25日追記：Unit 42が欧州政府機関での侵害とAIエージェント型攻撃を示唆する挙動を報告。",
+    "summary": "PHP2Shell（CVE-2026-109618／109619）の認証不要RCE。10月27日更新：CISAが両件をKEVに追加し実際の悪用を公式認定。修正版への更新と侵害調査を急ぐ。",
     "category": "仕事",
     "score": 97,
     "published_at": "2026-10-22",
@@ -3429,6 +3470,10 @@
       {
         "title": "なぜ今、緊急メンテナンスが必要なのか",
         "body": "2026年10月21日、PHP開発チームは、ログインしていない攻撃者によるリモートコード実行につながり得る重大な脆弱性2件を公表し、緊急修正版を公開した。PHPはWordPressなど多くのWebサイトや業務システムの裏側で使われているため、管理者は自社環境の確認と更新を急ぐ必要がある。\n\n問題はWebページの見た目ではなく、PHP本体の内部処理にある。サイトが普段どおり表示されていても、未修正のPHPが動いている可能性がある。PHP開発チームは完全な緩和策はなく、更新が安全な対応だとしている。\n\nなお、世界中のすべてのサイトで緊急メンテナンスが実施されているという意味ではない。影響を受ける環境の運営者や提供会社が、それぞれ更新・点検を進める必要がある。"
+      },
+      {
+        "title": "【10月27日更新】CISAが2件をKEVに追加、悪用確認を公式認定",
+        "body": "米国CISAは2026年10月26日、PHP2ShellのCVE-2026-109618とCVE-2026-109619をKnown Exploited Vulnerabilities（KEV）カタログに追加した。これは、従来の民間企業による攻撃観測・侵害報告に加え、米政府機関が『実際に悪用されている脆弱性』として扱うことになった重要な更新だ。米連邦政府機関向けの対応期限は10月29日。民間組織にも迅速な更新と侵害調査が望まれる。PHP 8.2.35／8.3.36／8.4.27／8.5.12、または提供元が修正したパッケージを適用し、PHPワーカーの不審な子プロセス、異常なHTTPリクエスト、認証情報へのアクセスを調査する。更新しても過去の侵害が自動的に解消されるわけではない。一次情報：CISA KEV公式データ https://github.com/cisagov/kev-data/blob/develop/known_exploited_vulnerabilities.json ／ PHP https://www.php.net/archive/2026.php#2026-10-21-5"
       },
       {
         "title": "【10月25日追記】欧州政府機関で侵害確認。AIエージェント型攻撃の兆候も",

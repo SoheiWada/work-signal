@@ -608,8 +608,9 @@
   },
   "20261027-gridbox-two-unauthenticated-sql-injection-cves": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-27T15:01:39+00:00"
+      "status": "published",
+      "updated_at": "2026-10-27T15:02:48+00:00",
+      "remote_id": "17909811933568952"
     }
   }
 }

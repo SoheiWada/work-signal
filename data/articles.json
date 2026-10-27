@@ -1,5 +1,87 @@
 [
   {
+    "id": "20261027-anthropic-ipo-s1-nasdaq-ant",
+    "title": "Anthropicが米国でIPO申請。Claudeの成長を「収益と投資」で測る時代へ",
+    "summary": "Anthropicが米SECへForm S-1を提出。NASDAQで「ANT」として上場する意向を表明したが、募集株数・価格は未定。AI企業の急成長を収益構造と巨額投資の両面から読む。",
+    "category": "経済",
+    "score": 96,
+    "published_at": "2026-10-27",
+    "source_url": "https://www.anthropic.com/news/s1-sec",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "quick_take": "Anthropicが米SECへForm S-1を提出。NASDAQで「ANT」として上場する意向を表明したが、募集株数・価格は未定。AI企業の急成長を収益構造と巨額投資の両面から読む。",
+    "sections": [
+      {
+        "title": "AnthropicがS-1を提出。上場完了ではない",
+        "body": "Anthropicは2026年10月26日、クラスA普通株式の新規株式公開（IPO）に向けた登録届出書Form S-1を米証券取引委員会（SEC）へ提出したと発表した。NASDAQ Global Select Marketへの上場を予定し、銘柄コードは「ANT」とする方針だ。ただし募集株数と価格帯は現時点で決まっていない。登録届出書はまだ効力を生じておらず、株式の販売開始や上場完了を意味しない。\n\n一次情報：https://www.anthropic.com/news/s1-sec\n関連資料：https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm"
+      },
+      {
+        "title": "技術の競争から、財務と統治を含む評価へ",
+        "body": "生成AIの競争力はモデル性能だけでは測れない。計算資源の調達、開発費、販売網、継続課金の収益など、長期的な事業の持続性が問われる。上場準備によって事業とリスクの開示が進むことで、投資家がAI企業の成長の質を評価する材料が増える。"
+      },
+      {
+        "title": "IPO申請と資金調達完了は別の出来事",
+        "body": "Form S-1の提出後も、規制上の手続き、条件決定、市況などを経る必要がある。実際の上場時期、株価、調達額は未確定であり、『Anthropicが上場した』『調達額が決まった』と表現するのは正確ではない。"
+      },
+      {
+        "title": "成長の持続性をどう測るか",
+        "body": "売上の伸びだけでなく、計算資源を確保するための契約や資本支出、顧客の継続利用、利益率、研究開発費への負担を併せて見る必要がある。成長投資を加速できても、その投資に見合う収益を長期にわたり生み出せるかは別の問いだ。"
+      },
+      {
+        "title": "WORK SIGNALの視点｜利用企業にとっての意味",
+        "body": "ここからは編集部の分析だ。外部AIを業務基盤に組み込む企業には、価格体系、サービス継続性、データ保護、契約変更への備えが重要だ。AI提供企業の資金調達と事業の持続可能性は利用企業にも関係する。重要業務では他社サービスへの移行可能性も考えておきたい。"
+      },
+      {
+        "title": "一次情報と今後の注目点",
+        "body": "今後は正式な公募条件、上場時期、事業リスク、財務情報、資金使途などの追加開示に注目したい。上場が実現するかは現時点で確定していない。"
+      }
+    ],
+    "social_threads_text": "Anthropicが米SECにIPO申請。NASDAQの銘柄コードは「ANT」を予定。ただし募集株数・価格・上場時期は未定です。AI企業をモデル性能だけでなく、収益、計算資源への投資、経営統治から評価する転換点を解説。\n記事全文：https://signal.amberlight.co.jp/articles/20261027-anthropic-ipo-s1-nasdaq-ant/\n一次情報：https://www.anthropic.com/news/s1-sec",
+    "social_instagram_caption": "AnthropicがIPOに向けてForm S-1を提出。\n\nClaudeの開発企業が、公開市場で事業の持続可能性を問われる段階へ。NASDAQで「ANT」を予定していますが、募集条件は未定です。\n\nWORK SIGNALで解説。\n#WORKSIGNAL #Anthropic #Claude #IPO #AIビジネス"
+  },
+  {
+    "id": "20261027-meta-ai-financing-95-billion-plan",
+    "title": "MetaがAI投資へ最大950億ドル規模の株式調達構想。350億ドルの募集と将来計画を分けて読む",
+    "summary": "Metaが約350億ドルの株式関連募集を開始し、将来約600億ドルの追加売却プログラムを計画。最大950億ドル規模という見出しの裏にある資金調達の確度とAI投資の採算を整理する。",
+    "category": "経済",
+    "score": 95,
+    "published_at": "2026-10-27",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000119312526431036/d116268dfwp.htm",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "quick_take": "Metaが約350億ドルの株式関連募集を開始し、将来約600億ドルの追加売却プログラムを計画。最大950億ドル規模という見出しの裏にある資金調達の確度とAI投資の採算を整理する。",
+    "sections": [
+      {
+        "title": "350億ドルの募集と600億ドルの将来計画",
+        "body": "Meta Platformsは2026年10月26日、普通株のフォワード売却契約に関連する約225億ドルの募集と、強制転換型優先株に関連する預託株約125億ドルの募集を開始した。合計は約350億ドル。これとは別に、将来約600億ドルのATM（市場売却）プログラムを始める計画を示したが、契約は未成立であり実施や売却額は確定していない。\n\n一次情報：https://www.sec.gov/Archives/edgar/data/1326801/000119312526431036/d116268dfwp.htm\n関連資料：https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Announces-Launch-of-Offering-of-Depositary-Shares-Representing-Series-A-Mandatory-Convertible-Preferred-Stock-and-Offering-of-Class-A-Common-Stock-in-Connection-with-Forward-Sale-Agreements/default.aspx"
+      },
+      {
+        "title": "950億ドルは調達済みの金額ではない",
+        "body": "約350億ドルは募集開始時点の想定規模であり、全額の資金受領が完了したわけではない。普通株のフォワード売却では、Metaが将来の決済時に代金を受け取る設計を採る。約600億ドルのATMは将来計画であり、実際に売却するかも未定だ。見出しの合計額を現金調達済みと受け取るのは誤りだ。"
+      },
+      {
+        "title": "2026年の設備投資は1,350億〜1,450億ドルを想定",
+        "body": "MetaはAI向けデータセンターや計算資源への支出を支えるため、営業キャッシュフロー、社債、提携、株式資本を組み合わせる。会社発表によると2026年1〜9月の営業キャッシュフローは970億ドル、9月末時点の現金・現金同等物・市場性有価証券は約820億ドル。"
+      },
+      {
+        "title": "既存事業の収益と新領域への投資",
+        "body": "Metaは広告配信やコンテンツ推薦のAI改善が既存事業の収益に寄与していると説明する。一方、個人向けAI、企業向けエージェント、AIグラスなどの新領域で投資をどう回収するかには不確実性がある。株式による調達には既存株主の持分希薄化などの論点も生じ得る。"
+      },
+      {
+        "title": "WORK SIGNALの視点｜AI競争は投資回収力の競争へ",
+        "body": "ここからは編集部の分析だ。AIの競争力をモデル性能だけで測るのは難しい。長期の設備投資を支える資金力、既存事業での収益化、計算資源の稼働率、顧客に届くサービスへの転換が一体となって競争力を決める。企業がAIサービスを選ぶ際にも提供元の事業継続性を評価したい。"
+      },
+      {
+        "title": "今後の確認点",
+        "body": "今回の募集条件の確定、実際の調達・決済額、将来のATMプログラムの設立有無、AI設備投資の回収状況が注目点だ。最大950億ドルの実現は確定していない。"
+      }
+    ],
+    "social_threads_text": "MetaがAI投資のため約350億ドルの株式関連募集を開始。さらに将来約600億ドルの売却プログラムを計画。ただし950億ドルを調達済みではありません。2026年の設備投資見通しは1,350億〜1,450億ドル。資金調達と投資回収の両面から分析。\n記事全文：https://signal.amberlight.co.jp/articles/20261027-meta-ai-financing-95-billion-plan/\n一次情報：https://www.sec.gov/Archives/edgar/data/1326801/000119312526431036/d116268dfwp.htm",
+    "social_instagram_caption": "Metaが示した最大950億ドル規模のAI資金調達構想。\n\n約350億ドルの募集開始と、約600億ドルの将来計画。すでに950億ドルを調達したわけではありません。\n\nAI競争は資金力と投資回収力の競争へ。\nWORK SIGNALで解説。\n#WORKSIGNAL #Meta #AI投資 #経済ニュース"
+  },
+  {
     "id": "20261027-netty-tcnative-tls-cve-2026-116539-116540-116541",
     "title": "TLS通信でJavaサーバーが停止する恐れ。Netty tcnativeに脆弱性3件",
     "summary": "Netty tcnativeのTLS処理にCVE-2026-116539、CVE-2026-116540、CVE-2026-116541が公表。ネイティブTLSのメモリ破損や接続障害のリスクと2.0.84.Finalへの更新を整理。",

@@ -1,5 +1,14 @@
 [
   {
+    "id": "dotnet-oob-corrected-fixes-20261027",
+    "product": ".NET / ASP.NET Core",
+    "severity": "HIGH",
+    "date": "2026-10-27",
+    "article_id": "20261027-dotnet-out-of-band-corrected-security-fixes",
+    "summary": "CVE-2026-70197／CVE-2026-102870の修正不十分を受け、Microsoftが.NET定例外更新を公開",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
     "id": "traefik-forwardauth-connection-pool-ghsa-hrpp-p4fc-wwf8",
     "product": "Traefik",
     "severity": "HIGH",

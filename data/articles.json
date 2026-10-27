@@ -1,5 +1,149 @@
 [
   {
+    "id": "20261028-boj-september-services-price-index",
+    "title": "企業向けサービス価格、9月は前年比3.7％上昇。ホテルと広告で明暗",
+    "summary": "日本銀行の2026年9月企業向けサービス価格指数は前年比3.7％上昇。ホテルは9.7％上昇、テレビ・ラジオ広告は11.7％下落と分野ごとの差が目立つ。",
+    "category": "経済",
+    "score": 89,
+    "published_at": "2026-10-28",
+    "source_url": "https://www.boj.or.jp/en/statistics/pi/cspi_release/sppi2609.pdf",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_platforms": [
+      "threads"
+    ],
+    "quick_take": "日本銀行の2026年9月企業向けサービス価格指数は前年比3.7％上昇。ホテルは9.7％上昇、テレビ・ラジオ広告は11.7％下落と分野ごとの差が目立つ。",
+    "sections": [
+      {
+        "title": "サービス価格は一律に上がっていない",
+        "body": "日本銀行が10月27日に公表した2026年9月の企業向けサービス価格指数は、前年同月比3.7％上昇した。企業が購入するサービスの価格動向を示す統計であり、消費者物価指数とは異なる。"
+      },
+      {
+        "title": "ホテルと広告の対照的な動き",
+        "body": "公表資料ではホテルが前年同月比9.7％上昇する一方、テレビ・ラジオ広告は11.7％下落した。サービス産業全体の平均だけでは、個別業種の収益環境を把握できない。"
+      },
+      {
+        "title": "値上がりと利益増は別",
+        "body": "価格指数は取引価格の変化を示すものであり、各企業の利益率や賃金上昇を直接表すものではない。人件費や需要、稼働率の変化と合わせて読む必要がある。"
+      },
+      {
+        "title": "WORK SIGNALの視点",
+        "body": "サービス業の経営者や管理職には、業界平均の物価上昇率ではなく、自社が提供するサービスの価格転嫁力と顧客の需要を分けて分析する視点が重要になる。"
+      }
+    ],
+    "social_threads_text": "企業向けサービス価格、9月は前年比3.7％上昇。ホテルと広告で明暗\n\n日本銀行の2026年9月企業向けサービス価格指数は前年比3.7％上昇。ホテルは9.7％上昇、テレビ・ラジオ広告は11.7％下落と分野ごとの差が目立つ。\n\nWORK SIGNALでは、発表内容と仕事・経営への影響を整理しました。\n\n記事：https://signal.amberlight.co.jp/articles/20261028-boj-september-services-price-index/\n一次情報：https://www.boj.or.jp/en/statistics/pi/cspi_release/sppi2609.pdf",
+    "social_instagram_caption": ""
+  },
+  {
+    "id": "20261028-apple-m6-macbook-imac-local-ai",
+    "title": "Apple、M6搭載MacBook ProとiMacを発表。ローカルAI時代の端末選びはどう変わるか",
+    "summary": "AppleがM6搭載14インチMacBook ProとiMacを発表。MacBook ProはM5比でAIワークロード最大25％高速。国内予約は10月29日、発売は11月6日。",
+    "category": "テクノロジー",
+    "score": 91,
+    "published_at": "2026-10-28",
+    "source_url": "https://www.apple.com/jp/newsroom/2026/10/apple-introduces-the-new-14-inch-macbook-pro-with-m6/",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_platforms": [
+      "threads"
+    ],
+    "quick_take": "AppleがM6搭載14インチMacBook ProとiMacを発表。MacBook ProはM5比でAIワークロード最大25％高速。国内予約は10月29日、発売は11月6日。",
+    "sections": [
+      {
+        "title": "M6搭載Macが登場",
+        "body": "Appleは10月27日、M6搭載14インチMacBook Proと新iMacを発表した。14インチMacBook Proは12コアCPUと12コアGPUを搭載し、M5比でAIワークロード最大25％高速と説明する。"
+      },
+      {
+        "title": "価格と発売日",
+        "body": "国内の14インチMacBook Proは税込339,800円から。10月29日予約開始、11月6日発売。最大24時間のバッテリー駆動、Wi-Fi 7、Bluetooth 6なども特徴だ。iMacも同日に発表されている。"
+      },
+      {
+        "title": "ベンチマークの読み方",
+        "body": "性能向上はAppleが示す特定条件での測定結果であり、すべてのローカルAIモデルや業務で同率の高速化が得られるわけではない。メモリ容量や使用するソフトウェア、モデルの規模も実用性を左右する。"
+      },
+      {
+        "title": "WORK SIGNALの視点",
+        "body": "機密情報を外部送信せず処理するローカルAIの選択肢が広がるほど、端末価格だけでなく処理時間、電力、セキュリティ要件を含む総保有コストで判断する必要がある。"
+      }
+    ],
+    "social_threads_text": "Apple、M6搭載MacBook ProとiMacを発表。ローカルAI時代の端末選びはどう変わるか\n\nAppleがM6搭載14インチMacBook ProとiMacを発表。MacBook ProはM5比でAIワークロード最大25％高速。国内予約は10月29日、発売は11月6日。\n\nWORK SIGNALでは、発表内容と仕事・経営への影響を整理しました。\n\n記事：https://signal.amberlight.co.jp/articles/20261028-apple-m6-macbook-imac-local-ai/\n一次情報：https://www.apple.com/jp/newsroom/2026/10/apple-introduces-the-new-14-inch-macbook-pro-with-m6/",
+    "social_instagram_caption": ""
+  },
+  {
+    "id": "20261028-deepmind-genie4-world-simulation",
+    "title": "Google DeepMind「Genie 4」発表。AIは動画生成から操作できる世界のシミュレーションへ",
+    "summary": "Google DeepMindが音声や対話を含むリアルタイム世界シミュレーションモデルGenie 4を発表。研究プレビュー段階で、物理的一貫性などに制約も残る。",
+    "category": "AI",
+    "score": 94,
+    "published_at": "2026-10-28",
+    "source_url": "https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_platforms": [
+      "threads"
+    ],
+    "quick_take": "Google DeepMindが音声や対話を含むリアルタイム世界シミュレーションモデルGenie 4を発表。研究プレビュー段階で、物理的一貫性などに制約も残る。",
+    "sections": [
+      {
+        "title": "操作できる世界をリアルタイム生成",
+        "body": "Google DeepMindは10月27日、世界モデルGenie 4を発表した。ユーザーはキーボード操作や文章による指示で場面を動かし、映像と環境音、会話を伴うシミュレーションを体験できる。"
+      },
+      {
+        "title": "ロボットや制作への応用可能性",
+        "body": "開発元はロボットやAIエージェントの訓練環境、インタラクティブな体験の制作などへの活用可能性を挙げる。ただし、こうした応用が既に広く商用化されたという発表ではない。"
+      },
+      {
+        "title": "まだ研究プレビュー",
+        "body": "現在は信頼できるテスター向けの研究プレビュー。長時間の一貫性、物体の永続性、複雑な物理相互作用、空間精度などに限界がある。今後Google AI UltraやAPIパートナーなどへ展開する予定だ。"
+      },
+      {
+        "title": "WORK SIGNALの視点",
+        "body": "動画生成は完成した映像を受け取る体験だが、世界モデルは場面の中で行動し、反応を確かめられる。制作、教育、訓練において試作のコスト構造を変える可能性がある一方、現実世界の正確な再現には検証が欠かせない。"
+      }
+    ],
+    "social_threads_text": "Google DeepMind「Genie 4」発表。AIは動画生成から操作できる世界のシミュレーションへ\n\nGoogle DeepMindが音声や対話を含むリアルタイム世界シミュレーションモデルGenie 4を発表。研究プレビュー段階で、物理的一貫性などに制約も残る。\n\nWORK SIGNALでは、発表内容と仕事・経営への影響を整理しました。\n\n記事：https://signal.amberlight.co.jp/articles/20261028-deepmind-genie4-world-simulation/\n一次情報：https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/",
+    "social_instagram_caption": ""
+  },
+  {
+    "id": "20261028-apple-creator-studio-ai-mcp",
+    "title": "Apple Creator StudioにAIアシスタントとMCP連携。Keynote・Pages・Numbersの仕事が変わる",
+    "summary": "AppleがCreator Studioの更新を発表。文書の文脈を理解するAIアシスタントとMCPによるワークフロー自動化を導入。11月提供予定で一部機能はベータ版。",
+    "category": "AI",
+    "score": 95,
+    "published_at": "2026-10-28",
+    "source_url": "https://www.apple.com/jp/newsroom/2026/10/apple-creator-studio-adds-powerful-new-ai-features-and-even-more-creative-tools/",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_platforms": [
+      "threads"
+    ],
+    "quick_take": "AppleがCreator Studioの更新を発表。文書の文脈を理解するAIアシスタントとMCPによるワークフロー自動化を導入。11月提供予定で一部機能はベータ版。",
+    "sections": [
+      {
+        "title": "文書を理解するアシスタント",
+        "body": "Appleは10月27日、Apple Creator Studioの大型更新を発表した。Keynote、Pages、Numbersには文書の内容を踏まえて作業を支援するAIアシスタントをベータ版で導入。Keynoteのスライド改善、Pagesの文章構成、Numbersの計算・可視化などに対応する。"
+      },
+      {
+        "title": "MCPが意味すること",
+        "body": "Mac向けにはModel Context Protocol（MCP）をサポートし、外部ツールやAIエージェントによるワークフロー自動化の道を広げる。KeynoteはAIエージェントなどが扱いやすい新たな.keyx形式にも対応する。"
+      },
+      {
+        "title": "提供時期と制約",
+        "body": "アップデートは2026年11月に提供予定。アシスタントのベータ版はApple Intelligence対応機器と新しいOSが必要で、当初は米国英語のみ。日本語で直ちに全機能が使えると解釈してはいけない。"
+      },
+      {
+        "title": "WORK SIGNALの視点",
+        "body": "AIの競争はチャット画面から日常の作業アプリへ移りつつある。管理職や制作現場にとっては、文書の下書き時間だけでなく、資料作成から確認・修正までの工程をどう再設計するかが焦点になる。"
+      }
+    ],
+    "social_threads_text": "Apple Creator StudioにAIアシスタントとMCP連携。Keynote・Pages・Numbersの仕事が変わる\n\nAppleがCreator Studioの更新を発表。文書の文脈を理解するAIアシスタントとMCPによるワークフロー自動化を導入。11月提供予定で一部機能はベータ版。\n\nWORK SIGNALでは、発表内容と仕事・経営への影響を整理しました。\n\n記事：https://signal.amberlight.co.jp/articles/20261028-apple-creator-studio-ai-mcp/\n一次情報：https://www.apple.com/jp/newsroom/2026/10/apple-creator-studio-adds-powerful-new-ai-features-and-even-more-creative-tools/",
+    "social_instagram_caption": ""
+  },
+  {
     "id": "20261028-fujitsu-copilot-100k-service-desk-ai",
     "title": "富士通、Copilotを約10万人規模へ。利用率90％超、社内問い合わせの初期対応75％をAI化",
     "summary": "富士通はMicrosoft 365 Copilotを約10万ライセンス展開。2026年6月時点の利用率は90％超、社内サービスデスクの初期回答・振り分け業務の約75％をAIエージェントが自動化。研修と業務設計の重要性を考える。",

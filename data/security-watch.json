@@ -1,5 +1,23 @@
 [
   {
+    "id": "consul-k8s-cross-namespace-acl-cve-2026-110720",
+    "product": "HashiCorp consul-k8s",
+    "severity": "CRITICAL",
+    "date": "2026-10-27",
+    "article_id": "20261027-consul-k8s-cross-namespace-acl-cve-2026-110720",
+    "summary": "CVE-2026-110720： HashiCorp consul-k8sで別namespaceのServiceAccountを使ってConsulコンポーネントのACL権限を取得",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
+    "id": "kener-fallback-jwt-secret-cve-2026-116747",
+    "product": "Kener",
+    "severity": "CRITICAL",
+    "date": "2026-10-27",
+    "article_id": "20261027-kener-fallback-jwt-secret-cve-2026-116747",
+    "summary": "CVE-2026-116747： Kener 3.0.0以上4.1.10未満で秘密鍵が未設定の場合、固定のフォールバック鍵によってセッショントークンを偽造できる脆弱性（CVE-2",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
     "id": "openhands-agent-sdk-unauthenticated-rce-cve-2026-112346",
     "product": "OpenHands Software Agent SDK",
     "severity": "CRITICAL",

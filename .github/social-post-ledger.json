@@ -341,8 +341,9 @@
   },
   "20261027-consul-service-mesh-auth-bypass-cve-2026-105608": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-27T00:48:28+00:00"
+      "status": "published",
+      "updated_at": "2026-10-27T00:48:52+00:00",
+      "remote_id": "18120865372979519"
     }
   }
 }

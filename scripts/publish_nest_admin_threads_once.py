@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Publish only the explicitly approved nest-admin article to Threads once."""
+"""Publish only the explicitly approved nest-admin article to Threads once.
+Triggered after the dedicated workflow was registered.
+"""
 import json,os,sys
 import publish_social as social
 ID="20261028-nest-admin-jwt-auth-bypass-cve-2026-117564"

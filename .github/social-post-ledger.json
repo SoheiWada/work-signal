@@ -592,8 +592,8 @@
   },
   "20261027-openai-gpt61-terra-computer-use-cost": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-27T14:29:59+00:00"
+      "status": "needs_review",
+      "updated_at": "2026-10-27T14:30:04+00:00"
     }
   }
 }

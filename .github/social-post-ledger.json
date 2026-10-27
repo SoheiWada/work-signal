@@ -638,5 +638,11 @@
       "updated_at": "2026-10-27T15:03:50+00:00",
       "remote_id": "18055840277660479"
     }
+  },
+  "20261027-qode-membership-auth-bypass-cve-2026-92885": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-27T15:03:53+00:00"
+    }
   }
 }

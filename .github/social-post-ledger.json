@@ -490,5 +490,11 @@
       "updated_at": "2026-10-27T04:21:23+00:00",
       "remote_id": "17906091300351865"
     }
+  },
+  "20261027-traefik-forwardauth-connection-pool-ghsa-hrpp-p4fc-wwf8": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-27T04:21:24+00:00"
+    }
   }
 }

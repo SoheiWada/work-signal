@@ -507,5 +507,11 @@
       "updated_at": "2026-10-27T04:22:12+00:00",
       "remote_id": "17883312804626544"
     }
+  },
+  "20261027-anthropic-broadcom-63b-ai-compute-financing": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-27T04:33:54+00:00"
+    }
   }
 }

@@ -1,5 +1,32 @@
 [
   {
+    "id": "openhands-agent-sdk-unauthenticated-rce-cve-2026-112346",
+    "product": "OpenHands Software Agent SDK",
+    "severity": "CRITICAL",
+    "date": "2026-10-27",
+    "article_id": "20261027-openhands-agent-sdk-unauthenticated-rce-cve-2026-112346",
+    "summary": "CVE-2026-112346：OpenHands Software Agent SDK 1.52.0未満で、DockerWorkspaceなどのサンドボックスエージェントサーバーが外部到達可能な場",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
+    "id": "consul-leaf-certificate-acl-bypass-cve-2026-105765",
+    "product": "HashiCorp Consul",
+    "severity": "HIGH",
+    "date": "2026-10-27",
+    "article_id": "20261027-consul-leaf-certificate-acl-bypass-cve-2026-105765",
+    "summary": "CVE-2026-105765：HashiCorp Consulのサービスメッシュ証明書APIで、ACLトークンなしにキャッシュ済み証明書と秘密鍵を取得できるCVE-2026-105765。サービス",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
+    "id": "consul-http-api-memory-dos-cve-2026-105626",
+    "product": "HashiCorp Consul",
+    "severity": "HIGH",
+    "date": "2026-10-27",
+    "article_id": "20261027-consul-http-api-memory-dos-cve-2026-105626",
+    "summary": "CVE-2026-105626：HashiCorp ConsulのHTTP APIで、認証確認前に大きなリクエストを読み込みメモリ枯渇を招くCVE-2026-105626。対象環境と修正版を解説。",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
     "id": "consul-mesh-auth-bypass-cve-2026-105608",
     "product": "HashiCorp Consul",
     "severity": "HIGH",

@@ -238,15 +238,22 @@ def verify_account(base, token, user_id, *, instagram=False):
 
 
 def publish_threads(text, token, user_id):
-    created = request_json(THREADS_API + "/" + user_id + "/threads",
-                           method="POST", token=token, data={"media_type": "TEXT", "text": text})
+    # Stage labels and HTTP status are safe to log; never log token, text, URLs or API bodies.
+    try:
+        created = request_json(THREADS_API + "/" + user_id + "/threads",
+                               method="POST", token=token, data={"media_type": "TEXT", "text": text})
+    except RuntimeError as exc:
+        raise RuntimeError("Threads create-container: " + str(exc)) from None
     if not created.get("id"):
-        raise RuntimeError("Threads container missing")
+        raise RuntimeError("Threads create-container: missing container ID")
     time.sleep(15)
-    posted = request_json(THREADS_API + "/" + user_id + "/threads_publish",
-                          method="POST", token=token, data={"creation_id": created["id"]})
+    try:
+        posted = request_json(THREADS_API + "/" + user_id + "/threads_publish",
+                              method="POST", token=token, data={"creation_id": created["id"]})
+    except RuntimeError as exc:
+        raise RuntimeError("Threads publish-container: " + str(exc)) from None
     if not posted.get("id"):
-        raise RuntimeError("Threads publish result ambiguous")
+        raise RuntimeError("Threads publish-container: ambiguous response")
     return str(posted["id"])
 
 
@@ -384,7 +391,9 @@ def run(articles, ledger, credentials):
                     ledger.record(identifier, kind, "needs_review")
                 except Exception:
                     print("IMPORTANT: ledger state requires manual inspection for", identifier, kind)
-                failures.append(identifier + ": " + kind + " " + type(exc).__name__)
+                # Emit only our sanitized, stage-scoped errors; never print raw Meta responses.
+                detail = str(exc) if kind == "threads" and isinstance(exc, RuntimeError) else type(exc).__name__
+                failures.append(identifier + ": " + kind + " " + detail)
         count += 1
     if failures:
         for item in failures:

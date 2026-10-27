@@ -1,0 +1,26 @@
+name: Publish nest-admin to Threads only
+on:
+  push:
+    paths:
+      - scripts/publish_nest_admin_threads_once.py
+permissions:
+  contents: write
+concurrency:
+  group: work-signal-social-publishing
+  cancel-in-progress: false
+jobs:
+  threads:
+    if: github.ref == 'refs/heads/main' && vars.SOCIAL_PUBLISH_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Publish approved nest-admin article to Threads only
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+        run: python scripts/publish_nest_admin_threads_once.py

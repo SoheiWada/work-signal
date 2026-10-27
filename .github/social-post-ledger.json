@@ -400,6 +400,10 @@
       "status": "published",
       "updated_at": "2026-10-27T01:20:42+00:00",
       "remote_id": "17914899234469606"
+    },
+    "instagram_story": {
+      "status": "attempting",
+      "updated_at": "2026-10-27T01:20:44+00:00"
     }
   }
 }

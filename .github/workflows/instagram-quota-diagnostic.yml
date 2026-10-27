@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - .github/workflows/instagram-quota-diagnostic.yml
+      - scripts/diagnose_instagram.py
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,5 +1,14 @@
 [
   {
+    "id": "adobe-commerce-magento-cve-2026-48356-kev",
+    "product": "Adobe Commerce / Magento Open Source",
+    "severity": "CRITICAL",
+    "date": "2026-10-28",
+    "article_id": "20261028-adobe-commerce-magento-cve-2026-48356-kev",
+    "summary": "CVE-2026-48356（CVSS 9.6）：危険なファイル形式のアップロード制限不備。CISA KEV登録で悪用確認。Adobe APSB26-73の修正更新を適用。",
+    "status": "悪用確認・修正版あり"
+  },
+  {
     "id": "kirki-privilege-escalation-cve-2026-75891",
     "product": "Kirki (WordPress)",
     "severity": "HIGH",

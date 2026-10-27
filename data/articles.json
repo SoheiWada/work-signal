@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261028-nest-admin-jwt-auth-bypass-cve-2026-117564",
+    "title": "nest-adminに管理者認証回避の重大脆弱性。固定JWT署名鍵を修正したv1.0.1を公開",
+    "summary": "nest-adminの固定JWT署名鍵により管理者トークンを偽造できる恐れ。CVE-2026-117564（CVSS 9.3）。v1.0.1への更新とJWT署名鍵のローテーションを推奨。",
+    "category": "仕事",
+    "score": 91,
+    "published_at": "2026-10-28",
+    "source_url": "https://github.com/buqiyuan/nest-admin/issues/92",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": false,
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "nest-admin",
+    "social_security_cve": "CVE-2026-117564",
+    "social_security_action": "v1.0.1へ更新しJWT_SECRETとREFRESH_TOKEN_SECRETをローテーション",
+    "quick_take": "nest-admin 1.0.1未満では固定JWT署名鍵により管理者権限を偽装される恐れがある。修正版v1.0.1へ更新し、JWT署名鍵を変更する。NestJS本体の脆弱性ではない。",
+    "sections": [
+      {
+        "title": "固定JWT署名鍵による認証回避",
+        "body": "CVE-2026-117564はbuqiyuan/nest-adminの1.0.1未満に影響する重大な認証回避の問題。リポジトリに含まれていた固定のJWT署名鍵を利用すると管理者トークンを偽造できる恐れがある。CVSS 9.3（CRITICAL）。NestJSフレームワーク本体の問題ではない。"
+      },
+      {
+        "title": "修正版と運用上の対応",
+        "body": "開発元は修正コミットf2cec8cを取り込んだv1.0.1を公開した。更新後、JWT_SECRETとREFRESH_TOKEN_SECRETをそれぞれ十分に長いランダム値へ変更し、Docker環境ではイメージを再構築して再デプロイする。公開済みの認証情報があれば併せて変更し、管理者ログイン履歴を確認する。"
+      },
+      {
+        "title": "悪用状況と一次情報",
+        "body": "現時点で実環境での悪用は確認できていない。開発元の報告：https://github.com/buqiyuan/nest-admin/issues/92　修正コミット：https://github.com/buqiyuan/nest-admin/commit/f2cec8cb776cbf113115b33164dac69a46d24097　公式リリース：https://github.com/buqiyuan/nest-admin/releases/tag/v1.0.1"
+      },
+      {
+        "title": "WORK SIGNALの視点",
+        "body": "認証基盤の秘密鍵がコードに固定されていると、パスワードが漏えいしていなくても管理者権限が侵害される。更新だけでなく鍵のローテーションまでを一体の復旧手順としたい。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜CRITICAL】nest-adminに認証回避の重大脆弱性（CVE-2026-117564／CVSS 9.3）。固定JWT署名鍵により管理者トークンを偽造される恐れ。修正版v1.0.1へ更新し、JWT署名鍵を変更してください。\n記事：https://signal.amberlight.co.jp/articles/20261028-nest-admin-jwt-auth-bypass-cve-2026-117564/\n一次情報：https://github.com/buqiyuan/nest-admin/issues/92"
+  },
+  {
     "id": "20261028-adobe-commerce-magento-cve-2026-48356-kev",
     "title": "Adobe Commerce／Magentoの重大脆弱性CVE-2026-48356、CISAが悪用確認済みリストに追加",
     "summary": "Adobe CommerceとMagento Open Sourceの危険なファイルアップロード制限不備（CVE-2026-48356、CVSS 9.6）がCISA KEVに追加。Adobeの2026年7月修正更新を適用し、不審なアップロードや権限変更を調査する。",

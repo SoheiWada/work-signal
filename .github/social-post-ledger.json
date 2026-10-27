@@ -474,5 +474,11 @@
       "updated_at": "2026-10-27T04:05:54+00:00",
       "remote_id": "18129654958874351"
     }
+  },
+  "20261027-traefik-ingress-mtls-bypass-ghsa-p8wx-ph99-xgcr": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-27T04:20:37+00:00"
+    }
   }
 }

@@ -547,6 +547,10 @@
     "threads": {
       "status": "needs_review",
       "updated_at": "2026-10-27T07:49:22+00:00"
+    },
+    "instagram": {
+      "status": "attempting",
+      "updated_at": "2026-10-27T07:49:23+00:00"
     }
   }
 }

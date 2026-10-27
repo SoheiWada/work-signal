@@ -1,5 +1,42 @@
 [
   {
+    "id": "20261027-arcgis-server-sql-injection-cve-2026-10757",
+    "title": "ArcGIS ServerにCVSS 9.8のSQLインジェクション。自治体・企業の地理情報基盤に緊急パッチ",
+    "summary": "ArcGIS ServerのCVE-2026-10757はCVSS 9.8の重大なSQLインジェクション。Windows／Linuxの12.1、12.0、11.5、11.3、11.1に影響。Esriの累積セキュリティパッチを至急適用。",
+    "category": "仕事",
+    "score": 92,
+    "published_at": "2026-10-27",
+    "source_url": "https://www.esri.com/arcgis-blog/products/trust-arcgis/administration/october-2026-arcgis-security-bulletin",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "ArcGIS Server",
+    "social_security_cve": "CVE-2026-10757",
+    "social_security_action": "ArcGIS Server Security 2026 Update 3 Patchを適用",
+    "quick_take": "地理情報を扱う組織はArcGIS Serverの対象バージョンを確認し、Esriの累積セキュリティパッチを速やかに適用したい。",
+    "sections": [
+      {
+        "title": "ArcGIS Serverに重大なSQLインジェクション",
+        "body": "Esriが2026年10月14日に公表したセキュリティ速報によると、ArcGIS ServerにSQLインジェクション（CWE-89）のCVE-2026-10757が存在する。CVSS v3.1基本値は9.8で、深刻度はCRITICAL。脆弱性を悪用すると、構成によっては認証なしにデータベースへの不正な操作が可能になるおそれがある。実際の悪用が確認されたという公式発表は現時点で確認できない。一次情報：https://www.esri.com/arcgis-blog/products/trust-arcgis/administration/october-2026-arcgis-security-bulletin"
+      },
+      {
+        "title": "影響を受けるバージョン",
+        "body": "Esriの公式勧告に記載された対象はWindows／Linux版のArcGIS Server 12.1、12.0、11.5、11.3、11.1。サポート対象外の旧版については保守・移行状況も確認したい。ArcGIS製品全体が一律に影響を受けるわけではない。"
+      },
+      {
+        "title": "修正版と対応方法",
+        "body": "ArcGIS Server Security 2026 Update 3 Patchは2026年10月13日に公開された。複数の脆弱性をまとめて修正する累積パッチであり、以前のセキュリティパッチを先に適用する必要はない。Esriは速やかな適用を強く推奨している。Patch Notification Utilityで適用状況を確認し、WAFやArcGIS Hardeningガイドによる防御も併用する。ただしWAFはパッチの代替にはならない。パッチ：https://support.esri.com/en-us/patches-updates/2026/arcgis-server-security-2026-update-3-patch"
+      },
+      {
+        "title": "WORK SIGNALの視点",
+        "body": "地理情報基盤は自治体、防災、インフラ、物流など多くの現場を支える。一般利用者の目に触れにくいサーバーの更新遅れが重要なデータや業務のリスクにつながる。管理者は利用バージョン、公開範囲、パッチ適用状況を確認したい。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜CRITICAL】ArcGIS ServerにCVSS 9.8のSQLインジェクション（CVE-2026-10757）。Esriが累積セキュリティパッチを公開。対象はWindows／Linux版12.1、12.0、11.5、11.3、11.1。早急な更新を。\n記事：https://signal.amberlight.co.jp/articles/20261027-arcgis-server-sql-injection-cve-2026-10757/\n一次情報：https://www.esri.com/arcgis-blog/products/trust-arcgis/administration/october-2026-arcgis-security-bulletin",
+    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】ArcGIS ServerにCVSS 9.8のSQLインジェクション（CVE-2026-10757）。Windows／Linuxの対象バージョンは12.1、12.0、11.5、11.3、11.1。Esriの累積セキュリティパッチを至急適用してください。詳しくはプロフィールのWORK SIGNALから。#SECURITYWATCH #ArcGIS #脆弱性"
+  },
+  {
     "id": "20261027-openpanel-two-security-advisories",
     "title": "OpenPanelに重大な脆弱性2件。実行制御と認証情報保護に不備",
     "summary": "OpenPanelのWebhook実行制御と通知ルールに関する2件の重大なセキュリティ勧告を整理。",

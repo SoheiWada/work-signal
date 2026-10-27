@@ -317,8 +317,9 @@
       "remote_id": "18108715883254714"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-27T00:04:38+00:00"
+      "status": "published",
+      "updated_at": "2026-10-27T00:04:49+00:00",
+      "remote_id": "17875807221594178"
     }
   }
 }

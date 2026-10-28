@@ -720,16 +720,10 @@
       "remote_id": "17910965244481334"
     },
     "instagram": {
-      "status": "deferred",
-      "updated_at": "2026-10-28T00:54:08+00:00",
-      "next_attempt_at": "2026-10-28T00:54:08+00:00",
-      "reason": "freshness_reviewed_and_live_absence_verified",
-      "reconciled_at": "2026-10-28T00:54:08+00:00",
+      "status": "attempting",
+      "updated_at": "2026-10-28T00:55:21+00:00",
       "recovery_review_id": "freshness-reviewed-recovery-20261028",
-      "previous_attempt": {
-        "status": "needs_review",
-        "updated_at": "2026-10-27T23:00:59+00:00"
-      }
+      "reconciled_at": "2026-10-28T00:54:08+00:00"
     },
     "instagram_story": {
       "status": "deferred",

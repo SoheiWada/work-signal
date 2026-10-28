@@ -1,5 +1,85 @@
 [
   {
+    "id": "20261028-better-auth-magic-link-oauth-account-takeover",
+    "title": "Better Authに認証不要のアカウント乗っ取り脆弱性。Magic LinkとOAuthの組み合わせに注意",
+    "summary": "Better AuthのCVE-2026-114607（CVSS 9.1）。特定のMagic Link・OAuth・状態保存設定の併用時に、メールアドレスを知る攻撃者が他人のセッションを取得する恐れ。1.7.7へ更新。",
+    "category": "仕事",
+    "score": 93,
+    "published_at": "2026-10-28",
+    "source_url": "https://github.com/better-auth/better-auth/security/advisories/GHSA-965c-763c-88jm",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_platforms": [
+      "threads"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Better Auth",
+    "social_security_cve": "CVE-2026-114607",
+    "social_security_action": "Better Auth 1.7.7へ更新し、関連プラグインも揃えて更新。既存Magic Link・進行中のOAuthフローを再発行",
+    "quick_take": "Better AuthのCVE-2026-114607（CVSS 9.1）。特定のMagic Link・OAuth・状態保存設定の併用時に、メールアドレスを知る攻撃者が他人のセッションを取得する恐れ。1.7.7へ更新。",
+    "sections": [
+      {
+        "title": "Magic LinkとOAuth状態の衝突",
+        "body": "CVE-2026-114607はOAuth認証用のstate値をMagic Linkトークンとして受け付ける不備。攻撃者が被害者のメールアドレスを知っているだけで、メール受信箱へアクセスせずセッションを取得できる可能性がある。CVSS v3.1 9.1（CRITICAL）。"
+      },
+      {
+        "title": "影響する構成とバージョン",
+        "body": "Better Auth 1.4.0-beta.18以上1.7.7未満。Magic LinkとソーシャルログインまたはGeneric OAuthを併用し、Magic Linkのトークン保存方法とOAuth stateのデータベース保存が勧告記載の条件に一致する構成が対象。すべての利用環境が影響するわけではない。一次情報：https://github.com/better-auth/better-auth/security/advisories/GHSA-965c-763c-88jm"
+      },
+      {
+        "title": "修正版と緩和策",
+        "body": "Better Auth 1.7.7が公開されている。関連アダプターやプラグインも同時更新し、共有ストレージを使うサーバーは同時に切り替える。既存Magic Linkを再発行し、進行中のOAuth/SAMLフローを再開始する。更新までの緩和策はOAuth stateのcookie保存（OAuth Proxyとのsecret設定に注意）、Magic Link保存設定の変更、または該当ログイン方式の一時停止。詳細は公式勧告を参照。修正版：https://github.com/better-auth/better-auth/releases/tag/v1.7.7"
+      },
+      {
+        "title": "悪用状況と編集部の視点",
+        "body": "実環境での悪用確認は一次情報から確認できない。開発元は9月30日に勧告を公開し、GitHub Advisory Databaseは10月27日に更新した。新規発見の速報ではなく、認証基盤の設定点検を促す注意喚起。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜CRITICAL】Better Authに認証不要のアカウント乗っ取り脆弱性。Magic LinkとOAuthの組み合わせに注意\nBetter AuthのCVE-2026-114607（CVSS 9.1）。特定のMagic Link・OAuth・状態保存設定の併用時に、メールアドレスを知る攻撃者が他人のセッションを取得する恐れ。1.7.7へ更新。\n記事：https://signal.amberlight.co.jp/articles/20261028-better-auth-magic-link-oauth-account-takeover/\n一次情報：https://github.com/better-auth/better-auth/security/advisories/GHSA-965c-763c-88jm",
+    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】Better Authに認証不要のアカウント乗っ取り脆弱性。Magic LinkとOAuthの組み合わせに注意\n\nBetter AuthのCVE-2026-114607（CVSS 9.1）。特定のMagic Link・OAuth・状態保存設定の併用時に、メールアドレスを知る攻撃者が他人のセッションを取得する恐れ。1.7.7へ更新。\n#SECURITYWATCH #脆弱性 #セキュリティ"
+  },
+  {
+    "id": "20261028-undici-three-high-security-advisories",
+    "title": "Node.jsのHTTP基盤undiciに重大脆弱性3件。キャッシュ汚染・TLS検証回避・DoSを修正",
+    "summary": "undiciのCVE-2026-109829（7.4）、CVE-2026-109383（7.4）、CVE-2026-87018（7.5）。影響する設定を確認し、6.29.1／7.30.1／8.12.2の該当修正版へ更新。",
+    "category": "仕事",
+    "score": 90,
+    "published_at": "2026-10-28",
+    "source_url": "https://github.com/nodejs/undici/security/advisories/GHSA-4w7w-5xrc-9h26",
+    "status": "published",
+    "format": "deep_dive",
+    "social_publish": true,
+    "social_platforms": [
+      "threads"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "undici (Node.js)",
+    "social_security_cve": "CVE-2026-109829 / CVE-2026-109383 / CVE-2026-87018",
+    "social_security_action": "undici 6.29.1、7.30.1、8.12.2の該当系列の修正版へ更新",
+    "quick_take": "undiciのCVE-2026-109829（7.4）、CVE-2026-109383（7.4）、CVE-2026-87018（7.5）。影響する設定を確認し、6.29.1／7.30.1／8.12.2の該当修正版へ更新。",
+    "sections": [
+      {
+        "title": "共有キャッシュとリダイレクト：CVE-2026-109829",
+        "body": "undici 7.0.0以上7.30.1未満、8.0.0以上8.12.2未満。オリジンに紐づかないAgentで共有キャッシュとredirect()/cache()インターセプターを特定の順序で組み合わせた場合、異なるオリジンの応答を誤ってキャッシュし、キャッシュ汚染やユーザー間の情報漏洩につながる。修正版は7.30.1／8.12.2。一次情報：https://github.com/nodejs/undici/security/advisories/GHSA-4w7w-5xrc-9h26"
+      },
+      {
+        "title": "独自TLS証明書検証の回避：CVE-2026-109383",
+        "body": "undici AgentがTLSオプションをJSON複製する際にcheckServerIdentityなどの関数を落とし、カスタム証明書検証が適用されない問題。影響は4.0.0以上6.29.1未満、7.0.0以上7.30.1未満、8.0.0以上8.12.2未満。修正版は6.29.1／7.30.1／8.12.2。独自の検証関数を使うアプリが対象。一次情報：https://github.com/nodejs/undici/security/advisories/GHSA-2m5v-pch6-74hx"
+      },
+      {
+        "title": "TLS 1.2再ネゴシエーションによるDoS：CVE-2026-87018",
+        "body": "悪意あるTLS 1.2サーバーが接続後に証明書を切り替えると、undiciの未捕捉AssertionErrorによりNode.jsプロセスが終了する可能性。影響は4.2.1以上6.29.1未満、7.0.0以上7.30.1未満、8.0.0以上8.12.2未満。修正版は6.29.1／7.30.1／8.12.2。一次情報：https://github.com/nodejs/undici/security/advisories/GHSA-qrxm-fqhp-jwvm"
+      },
+      {
+        "title": "推奨対応と悪用状況",
+        "body": "利用中のundici系列を修正版へ更新。共有キャッシュとリダイレクトの組み合わせ、独自TLS検証、外部HTTPS通信を重点点検する。開発元勧告は2026年10月15日公開、GitHub Advisory Databaseへの審査反映は10月27日。実際の悪用確認は一次情報から確認できない。"
+      }
+    ],
+    "social_threads_text": "【SECURITY WATCH｜HIGH】Node.jsのHTTP基盤undiciに重大脆弱性3件。キャッシュ汚染・TLS検証回避・DoSを修正\nundiciのCVE-2026-109829（7.4）、CVE-2026-109383（7.4）、CVE-2026-87018（7.5）。影響する設定を確認し、6.29.1／7.30.1／8.12.2の該当修正版へ更新。\n記事：https://signal.amberlight.co.jp/articles/20261028-undici-three-high-security-advisories/\n一次情報：https://github.com/nodejs/undici/security/advisories/GHSA-4w7w-5xrc-9h26",
+    "social_instagram_caption": "【SECURITY WATCH｜HIGH】Node.jsのHTTP基盤undiciに重大脆弱性3件。キャッシュ汚染・TLS検証回避・DoSを修正\n\nundiciのCVE-2026-109829（7.4）、CVE-2026-109383（7.4）、CVE-2026-87018（7.5）。影響する設定を確認し、6.29.1／7.30.1／8.12.2の該当修正版へ更新。\n#SECURITYWATCH #脆弱性 #セキュリティ"
+  },
+  {
     "id": "20261028-boj-september-services-price-index",
     "title": "企業向けサービス価格、9月は前年比3.7％上昇。ホテルと広告で明暗",
     "summary": "日本銀行の2026年9月企業向けサービス価格指数は前年比3.7％上昇。ホテルは9.7％上昇、テレビ・ラジオ広告は11.7％下落と分野ごとの差が目立つ。",

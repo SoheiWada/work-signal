@@ -720,12 +720,18 @@
       "remote_id": "17910965244481334"
     },
     "instagram": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T00:55:34+00:00",
+      "status": "needs_review",
+      "updated_at": "2026-10-28T00:55:38+00:00",
       "recovery_review_id": "freshness-reviewed-recovery-20261028",
       "reconciled_at": "2026-10-28T00:54:08+00:00",
       "stage": "publish_requested",
-      "container_id": "18156105730488337"
+      "container_id": "18156105730488337",
+      "error": {
+        "http_status": 403,
+        "code": 4,
+        "subcode": 2207051,
+        "type": "OAuthException"
+      }
     },
     "instagram_story": {
       "status": "deferred",

@@ -581,12 +581,13 @@
       "remote_id": "17962353609246453"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T00:55:16+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T00:55:19+00:00",
       "recovery_review_id": "freshness-reviewed-recovery-20261028",
       "reconciled_at": "2026-10-28T00:54:21+00:00",
       "stage": "publish_requested",
-      "container_id": "18156105694488337"
+      "container_id": "18156105694488337",
+      "remote_id": "17992816467026749"
     }
   },
   "20261027-oracle-deep-trust-ai-architecture": {

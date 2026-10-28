@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-10-27",
-  "fetchedAt": "2026-10-28T01:28:06.939Z",
-  "lastAttemptAt": "2026-10-28T01:28:06.939Z",
+  "throughDate": "2026-10-28",
+  "fetchedAt": "2026-10-28T16:42:50.872Z",
+  "lastAttemptAt": "2026-10-28T16:42:50.872Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 52,
+  "countedGames": 56,
   "standingsReason": null,
   "teams": [
     {
@@ -22,7 +22,7 @@
       "code": "BOS",
       "name": "Boston Celtics",
       "conference": "East",
-      "wins": 2,
+      "wins": 3,
       "losses": 1
     },
     {
@@ -30,7 +30,7 @@
       "name": "Brooklyn Nets",
       "conference": "East",
       "wins": 0,
-      "losses": 3
+      "losses": 4
     },
     {
       "code": "CHA",
@@ -72,7 +72,7 @@
       "name": "Detroit Pistons",
       "conference": "East",
       "wins": 3,
-      "losses": 0
+      "losses": 1
     },
     {
       "code": "GSW",
@@ -107,7 +107,7 @@
       "name": "Los Angeles Lakers",
       "conference": "West",
       "wins": 3,
-      "losses": 0
+      "losses": 1
     },
     {
       "code": "MEM",
@@ -148,7 +148,7 @@
       "code": "NYK",
       "name": "New York Knicks",
       "conference": "East",
-      "wins": 0,
+      "wins": 1,
       "losses": 3
     },
     {
@@ -183,7 +183,7 @@
       "code": "POR",
       "name": "Portland Trail Blazers",
       "conference": "West",
-      "wins": 2,
+      "wins": 3,
       "losses": 0
     },
     {
@@ -191,13 +191,13 @@
       "name": "Sacramento Kings",
       "conference": "West",
       "wins": 0,
-      "losses": 3
+      "losses": 4
     },
     {
       "code": "SAS",
       "name": "San Antonio Spurs",
       "conference": "West",
-      "wins": 1,
+      "wins": 2,
       "losses": 2
     },
     {
@@ -223,6 +223,48 @@
     }
   ],
   "sets": [
+    [
+      {
+        "id": "21717974",
+        "date": "2026-10-27",
+        "home": "LAL",
+        "away": "POR",
+        "homeScore": 129,
+        "awayScore": 136,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21717973",
+        "date": "2026-10-27",
+        "home": "SAS",
+        "away": "SAC",
+        "homeScore": 130,
+        "awayScore": 103,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21717972",
+        "date": "2026-10-27",
+        "home": "NYK",
+        "away": "DET",
+        "homeScore": 111,
+        "awayScore": 97,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21717971",
+        "date": "2026-10-27",
+        "home": "BOS",
+        "away": "BKN",
+        "homeScore": 125,
+        "awayScore": 124,
+        "competition": "regular",
+        "countsForStandings": true
+      }
+    ],
     [
       {
         "id": "21717970",
@@ -721,38 +763,6 @@
         "away": "MIN",
         "homeScore": 106,
         "awayScore": 131,
-        "competition": "regular",
-        "countsForStandings": true
-      }
-    ],
-    [
-      {
-        "id": "21717857",
-        "date": "2026-10-20",
-        "home": "SAS",
-        "away": "OKC",
-        "homeScore": 104,
-        "awayScore": 116,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717856",
-        "date": "2026-10-20",
-        "home": "NYK",
-        "away": "PHI",
-        "homeScore": 100,
-        "awayScore": 106,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717855",
-        "date": "2026-10-20",
-        "home": "DET",
-        "away": "BOS",
-        "homeScore": 121,
-        "awayScore": 113,
         "competition": "regular",
         "countsForStandings": true
       }

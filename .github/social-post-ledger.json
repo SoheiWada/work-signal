@@ -929,17 +929,12 @@
   },
   "20261028-bun-http3-qpack-memory-cpu-dos": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T13:35:38+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T13:35:45+00:00",
       "recovery_review_id": "threads-verified-absent-20261028-run-40697302960",
-      "previous_attempt": {
-        "status": "needs_review",
-        "updated_at": "2026-10-28T08:25:37+00:00",
-        "stage": "publish_requested",
-        "container_id": "18132920314690068"
-      },
       "stage": "publish_requested",
-      "container_id": "18132957439690068"
+      "container_id": "18132957439690068",
+      "remote_id": "17914418463550266"
     },
     "instagram_story": {
       "status": "published",

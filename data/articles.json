@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261029-linux-kernel-fragnesia-kev-cve-2026-46300",
+    "title": "Linuxカーネル「Fragnesia」がCISA KEV入り。PHP2Shellとの攻撃連鎖に注意",
+    "summary": "Linuxカーネルの権限昇格脆弱性「Fragnesia」（CVE-2026-46300）が、10月28日付で米CISAの悪用確認済み脆弱性リストに追加された。CISAは既報のPHP脆弱性2件との攻撃連鎖にも言及。Webサーバー管理者はPHPだけでなく、ホストOSのカーネル更新状況も確認する必要がある。",
+    "category": "仕事",
+    "score": 92,
+    "published_at": "2026-10-29",
+    "source_url": "https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Linuxカーネルの権限昇格脆弱性「Fragnesia」（CVE-2026-46300）が、10月28日付で米CISAの悪用確認済み脆弱性リストに追加された。CISAは既報のPHP脆弱性2件との攻撃連鎖にも言及。Webサーバー管理者はPHPだけでなく、ホストOSのカーネル更新状況も確認する必要がある。",
+    "sections": [
+      {
+        "title": "既知のLinux脆弱性に、新たな「悪用確認」",
+        "body": "米国CISAが公開するKnown Exploited Vulnerabilities（KEV）カタログの2026年10月28日版に、Linux kernelのCVE-2026-46300が追加された。KEV掲載はCISAの登録基準に照らして実際の悪用証拠があることを示す。一方、今回の登録だけで攻撃件数、被害組織数、すべての攻撃経路が判明したわけではない。CISAは同日版でこの脆弱性に対し、米連邦機関向けの対処期限を10月31日とした。\n\nこの問題は2026年5月に公表済みで、新たに発見されたゼロデイではない。Linuxカーネルのネットワーク処理で共有フラグメント情報が適切に引き継がれないことに起因し、ESP-in-TCPの処理を通じてページキャッシュのデータが意図せず書き換えられる恐れがある。Ubuntuはローカル攻撃者による権限昇格、場合によってはコンテナからの脱出の可能性を記載し、CVSS v3.1を7.8（HIGH）としている。"
+      },
+      {
+        "title": "PHP2Shellと組み合わせる攻撃連鎖に注意",
+        "body": "CISAのKEVカタログはCVE-2026-46300について、PHPのCVE-2026-109618およびCVE-2026-109619と組み合わせ、PHP Webシェルを設置してroot権限でコマンドを実行する攻撃連鎖が可能だと説明している。これはCISAが示すリスク説明であり、実際にその連鎖が何件成功したかまではカタログから判断できない。\n\n既報のPHP緊急修正を適用していても、別の脆弱性でLinuxホストに足場を得た攻撃者によるローカル権限昇格リスクを減らすには、カーネル側の修正状況を独立して確認する必要がある。"
+      },
+      {
+        "title": "修正はOSごとに確認。カーネルの更新と再起動を",
+        "body": "対象はLinuxカーネルであり、Node.js、React、Next.jsなどのパッケージ更新だけでは対処できない。Ubuntu公式のCVEページは、標準のlinuxパッケージについてUbuntu 22.04 LTSを5.15.0-181.191、24.04 LTSを6.8.0-124.124、26.04 LTSを7.0.0-22.22で修正済みとしている。HWEやクラウド専用カーネルは別のパッケージを使用する場合があるため、公式のOS別ステータスを確認する。\n\nRed HatはRHEL 8・9・10およびそれらのカーネルを使う製品への影響を説明し、対象製品向けの修正提供を公表している。Debianもリリース別に修正パッケージを掲載している。自社のディストリビューションが提供するセキュリティ更新を適用し、必要な再起動を実施する。緊急の暫定対応としてRed HatはESP/IPsecモジュールの制限を案内するが、IPsec通信に影響するため運用条件を確認してから適用する。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ]
+  },
+  {
     "id": "20261029-microsoft-fy27q1-azure-cloud-investment",
     "title": "MicrosoftのAzure売上48％増。AIクラウド拡大の裏で設備投資は約2倍に",
     "summary": "Microsoftが2026年10月28日に公表した7〜9月期決算で、Azure売上高は前年同期比48％増、Microsoft Cloud全体の売上高は30％増となった。同時に有形固定資産への追加投資は前年同期の約194億ドルから約394億ドルに増加。AI時代のクラウド事業が成長する一方、それを支えるインフラ投資も急拡大している。",

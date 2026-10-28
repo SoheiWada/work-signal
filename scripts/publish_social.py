@@ -443,8 +443,9 @@ def instagram_budget(credentials):
 def active_instagram_action_block(entry):
     """Do not treat a Meta protective action block as a replenishable quota."""
     error = entry.get("error", {})
-    return (entry.get("status") == "needs_review" and error.get("code") == 4
-            and error.get("subcode") == 2207051
+    observed = (entry.get("status") == "needs_review" and error.get("code") == 4
+                and error.get("subcode") == 2207051)
+    return ((observed or entry.get("action_block_hold") is True)
             and not entry.get("action_block_cleared_at"))
 
 

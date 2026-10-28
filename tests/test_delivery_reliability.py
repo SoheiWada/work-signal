@@ -4,7 +4,7 @@ from unittest.mock import patch
 from scripts import publish_social as p
 from scripts.security_watch import security_feed
 from scripts.verify_deployed_revision import safe_drift
-from scripts.reconcile_social_recovery import may_retry_story, save_verified
+from scripts.reconcile_social_recovery import may_retry_story, save_verified, recovery_update
 from datetime import datetime, timezone
 
 
@@ -138,6 +138,20 @@ class DeliveryReliabilityTests(unittest.TestCase):
         ledger = MemoryLedger({"a": {"threads": {"status": "published", "remote_id": "1"}}})
         with self.assertRaises(RuntimeError):
             save_verified(ledger, "a", "threads", {"status": "needs_review"}, {"status": "deferred"})
+
+    def test_live_publication_after_403_repairs_ledger_without_clearing_write_hold(self):
+        old = {"status": "needs_review", "error": {"code": 4, "subcode": 2207051}, "recovery_review_id": "same"}
+        fixed = recovery_update(old, [{"id": "123", "permalink": "https://www.instagram.com/p/example/"}], "same", "instagram")
+        self.assertEqual(fixed["status"], "published")
+        self.assertEqual(fixed["remote_id"], "123")
+        self.assertTrue(p.active_instagram_action_block(fixed))
+        self.assertIsNone(recovery_update(old, [], "new", "instagram"))
+        self.assertIsNone(recovery_update(old, [{"id": "1"}, {"id": "2"}], "new", "instagram"))
+
+    def test_same_review_can_confirm_a_late_post_but_cannot_rearm_absence_twice(self):
+        old = {"status": "needs_review", "recovery_review_id": "same"}
+        self.assertIsNone(recovery_update(old, [], "same", "threads"))
+        self.assertEqual(recovery_update(old, [{"id": "456"}], "same", "threads")["status"], "published")
 
 
 if __name__ == "__main__":

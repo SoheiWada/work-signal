@@ -37,6 +37,25 @@ def may_retry_story(entry, visual, current=None):
             and visual.get("absence_verified") is True and not visual.get("matching_ids"))
 
 
+def recovery_update(old, found, review_id, kind, visual=None):
+    # Positive evidence repairs history even after an API error or a prior review.
+    # It does not grant permission for another write after a protective response.
+    if len(found) == 1:
+        result = {"status": "published", "updated_at": social.now(),
+                  "remote_id": str(found[0]["id"]), "permalink": found[0].get("permalink", ""),
+                  "reconciled_at": social.now(), "recovery_review_id": review_id}
+        if social.active_instagram_action_block(old):
+            result["action_block_hold"] = True
+        return result
+    if found or social.active_instagram_action_block(old) or old.get("recovery_review_id") == review_id:
+        return None
+    if kind == "instagram_story" and not may_retry_story(old, visual or {}):
+        return None
+    return {"status": "deferred", "updated_at": social.now(), "next_attempt_at": social.now(),
+            "reason": "freshness_reviewed_and_live_absence_verified", "reconciled_at": social.now(),
+            "recovery_review_id": review_id}
+
+
 def main():
     path = social.ROOT / ".github/social-recovery-review.json"
     if not path.is_file():
@@ -58,9 +77,7 @@ def main():
     ):
         targets = [item for item in plan["items"] if item["decision"] == "deliver_missing_platforms_only"
                    and kind in item.get("platforms", [])
-                   and rows.get(item["article_id"], {}).get(kind, {}).get("status") == "needs_review"
-                   and not social.active_instagram_action_block(rows.get(item["article_id"], {}).get(kind, {}))
-                   and rows.get(item["article_id"], {}).get(kind, {}).get("recovery_review_id") != plan["review_id"]]
+                   and rows.get(item["article_id"], {}).get(kind, {}).get("status") == "needs_review"]
         if not targets:
             continue
         try:
@@ -80,21 +97,10 @@ def main():
                 continue
             old = rows[aid][kind]
             found = matches(a, kind, media) if kind != "instagram_story" else [m for m in media if m.get("id") in visual.get(aid, {}).get("matching_ids", [])]
-            if len(found) == 1:
-                replacement = {"status": "published", "updated_at": social.now(), "remote_id": str(found[0]["id"]),
-                               "permalink": found[0].get("permalink", ""), "reconciled_at": social.now()}
-            elif found:
-                print("RECOVERY HOLD", aid, kind, "multiple matching posts")
+            replacement = recovery_update(old, found, plan["review_id"], kind, visual.get(aid, {}))
+            if replacement is None:
+                print("RECOVERY HOLD", aid, kind, "No unique positive evidence and retry not authorized")
                 continue
-            else:
-                if kind == "instagram_story":
-                    if not may_retry_story(old, visual.get(aid, {})):
-                        print("RECOVERY HOLD", aid, kind, "Story absence cannot be established")
-                        continue
-                replacement = {"status": "deferred", "updated_at": social.now(),
-                               "next_attempt_at": social.now(), "reason": "freshness_reviewed_and_live_absence_verified",
-                               "reconciled_at": social.now()}
-            replacement["recovery_review_id"] = plan["review_id"]
             save_verified(ledger, aid, kind, old, replacement)
             print("RECONCILED", aid, kind, replacement["status"])
     print("Reconciliation finished. No Meta publishing calls made.")

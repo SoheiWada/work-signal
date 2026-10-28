@@ -990,10 +990,11 @@
   },
   "20261028-fastify-express-absolute-form-middleware-bypass": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T12:50:21+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T12:50:28+00:00",
       "stage": "publish_requested",
-      "container_id": "18132950299690068"
+      "container_id": "18132950299690068",
+      "remote_id": "18640760995014688"
     }
   }
 }

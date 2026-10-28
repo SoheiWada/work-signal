@@ -478,10 +478,10 @@
   "20261027-traefik-ingress-mtls-bypass-ghsa-p8wx-ph99-xgcr": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-28T00:54:35+00:00",
+      "updated_at": "2026-10-28T00:54:37+00:00",
       "recovery_review_id": "freshness-reviewed-recovery-20261028",
       "reconciled_at": "2026-10-28T00:54:06+00:00",
-      "stage": "container_created",
+      "stage": "publish_requested",
       "container_id": "18132873307690068"
     },
     "instagram": {

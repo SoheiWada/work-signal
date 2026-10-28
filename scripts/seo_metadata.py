@@ -1,8 +1,9 @@
-"""Article-specific modification dates from approved Git content history."""
+"""Article-specific substantive content modification dates from Git history."""
+# Category-only reclassification is metadata, not a substantive content edit.
 import json
 import subprocess
 from datetime import date, datetime, timedelta, timezone
-EDITORIAL_FIELDS = ('title','summary','category','source_url','format','quick_take','sections','what_happened','why_it_matters','impact','caveats','note_url','relight_article_id','card_image','card_image_alt')
+EDITORIAL_FIELDS = ('title','summary','source_url','format','quick_take','sections','what_happened','why_it_matters','impact','caveats','note_url','relight_article_id','card_image','card_image_alt')
 JST = timezone(timedelta(hours=9))
 
 

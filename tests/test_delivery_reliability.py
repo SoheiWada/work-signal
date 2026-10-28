@@ -1,0 +1,99 @@
+import copy
+import unittest
+from unittest.mock import patch
+from scripts import publish_social as p
+from scripts.security_watch import security_feed
+from scripts.verify_deployed_revision import safe_drift
+
+
+class MemoryLedger:
+    def __init__(self, rows=None):
+        self.rows = copy.deepcopy(rows or {})
+    def read(self):
+        return self.rows, "sha"
+    def record(self, aid, kind, status, **metadata):
+        self.rows.setdefault(aid, {})[kind] = {"status": status, **metadata}
+
+
+class DeliveryReliabilityTests(unittest.TestCase):
+    def setUp(self):
+        self.article = {"id": "fresh-test", "title": "Reviewed news", "summary": "Reviewed facts",
+                        "status": "published", "score": 90, "social_publish": True,
+                        "source_url": "https://example.com/official", "published_at": "2026-10-28"}
+        self.credentials = {"SOCIAL_PUBLISH_ENABLED": "true", "THREADS_ACCESS_TOKEN": "t", "THREADS_USER_ID": "1",
+                            "INSTAGRAM_ACCESS_TOKEN": "i", "INSTAGRAM_USER_ID": "2"}
+
+    def test_threads_only_ignores_missing_instagram_credentials(self):
+        a = {**self.article, "social_platforms": ["threads"]}
+        c = {k: v for k, v in self.credentials.items() if not k.startswith("INSTAGRAM")}
+        with patch.object(p, "verify_account", return_value={}) as account, patch.object(p, "verify_live"), \
+             patch.object(p, "publish_threads", return_value="123"), patch.object(p, "instagram_budget") as quota:
+            self.assertEqual(p.run([a], MemoryLedger(), c), 0)
+        self.assertEqual(account.call_count, 1)
+        quota.assert_not_called()
+
+    def test_instagram_failure_does_not_stop_threads(self):
+        with patch.object(p, "verify_account", side_effect=[{}, RuntimeError("Instagram authentication unavailable")]), \
+             patch.object(p, "verify_live"), patch.object(p, "publish_threads", return_value="123") as publish:
+            ledger = MemoryLedger()
+            self.assertEqual(p.run([self.article], ledger, self.credentials), 1)
+            self.assertEqual(ledger.rows["fresh-test"]["threads"]["status"], "published")
+            publish.assert_called_once()
+
+    def test_existing_review_is_reported_as_incomplete_without_retry(self):
+        a = {**self.article, "social_platforms": ["threads"]}
+        with patch.object(p, "verify_account") as account, patch.object(p, "publish_threads") as publish:
+            self.assertEqual(p.run([a], MemoryLedger({a["id"]: {"threads": {"status": "needs_review"}}}), self.credentials), 1)
+        account.assert_not_called()
+        publish.assert_not_called()
+
+    def test_quota_reserves_each_instagram_medium_and_keeps_threads_moving(self):
+        ledger = MemoryLedger()
+        with patch.object(p, "verify_account", return_value={"account_type": "BUSINESS"}), patch.object(p, "verify_live"), \
+             patch.object(p, "instagram_budget", return_value=1), patch.object(p, "publish_threads", return_value="11"), \
+             patch.object(p, "publish_instagram", return_value="22") as feed, patch.object(p, "publish_instagram_story") as story:
+            self.assertEqual(p.run([self.article], ledger, self.credentials), 1)
+        feed.assert_called_once()
+        story.assert_not_called()
+        self.assertEqual(ledger.rows["fresh-test"]["instagram_story"]["status"], "deferred")
+
+    def test_2207042_is_deferred_but_ambiguous_publish_is_never_retried(self):
+        for error, expected in ((p.MetaAPIError(400, {"code": 9, "error_subcode": 2207042}), "deferred"),
+                                (RuntimeError("API transport timeout"), "needs_review")):
+            with self.subTest(expected=expected), patch.object(p, "verify_account", return_value={"account_type": "BUSINESS"}), \
+                 patch.object(p, "verify_live"), patch.object(p, "instagram_budget", return_value=10), \
+                 patch.object(p, "publish_instagram", side_effect=error):
+                a = {**self.article, "social_platforms": ["instagram"]}
+                ledger = MemoryLedger()
+                self.assertEqual(p.run([a], ledger, self.credentials), 1)
+                self.assertEqual(ledger.rows[a["id"]]["instagram"]["status"], expected)
+                self.assertNotIn("instagram", p.remaining_platforms(ledger.rows[a["id"]]))
+
+    def test_only_due_deferred_work_is_eligible(self):
+        for date, included in (("2000-01-01T00:00:00+00:00", True), ("2099-01-01T00:00:00+00:00", False)):
+            self.assertEqual("instagram" in p.remaining_platforms({"instagram": {"status": "deferred", "next_attempt_at": date}}), included)
+        with self.assertRaises(RuntimeError):
+            p.remaining_platforms({"instagram": {"status": "deferred"}})
+
+    def test_only_ledger_changes_can_drift_from_deployed_revision(self):
+        self.assertTrue(safe_drift([".github/social-post-ledger.json"]))
+        self.assertFalse(safe_drift(["data/articles.json"]))
+        self.assertFalse(safe_drift(["scripts/publish_social.py"]))
+
+    def test_reviewed_security_article_registers_itself_once(self):
+        a = {**self.article, "social_security_severity": "HIGH", "social_security_product": "Reviewed product"}
+        result = security_feed([a], [])
+        self.assertEqual(result[0]["article_id"], a["id"])
+        self.assertEqual(len(security_feed([a], result)), 1)
+        with self.assertRaises(ValueError):
+            security_feed([{**a, "social_security_product": ""}], [])
+
+    def test_security_exclusion_requires_reason(self):
+        a = {**self.article, "security_watch": False}
+        with self.assertRaises(ValueError):
+            security_feed([a], [])
+        self.assertEqual(security_feed([{**a, "security_watch_exclusion_reason": "Duplicate coverage"}], []), [])
+
+
+if __name__ == "__main__":
+    unittest.main()

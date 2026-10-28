@@ -10,3 +10,6 @@ node_modules/
 
 # Internal insights are uploaded as a private Actions artifact only.
 work-signal-social-insights.json
+
+social-delivery-status.json
+social-delivery-audit.json

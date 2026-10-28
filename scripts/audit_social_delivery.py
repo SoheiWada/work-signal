@@ -4,7 +4,10 @@ import json
 import os
 from datetime import datetime, timezone
 from urllib.parse import urlencode
-import publish_social as social
+try:
+    from . import publish_social as social
+except ImportError:
+    import publish_social as social
 
 
 def collect(base, path, token, fields, *, pages=8):

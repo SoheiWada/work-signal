@@ -12,6 +12,10 @@ from urllib.parse import urlencode, urlparse
 from xml.etree import ElementTree as ET
 from PIL import Image, ImageDraw, ImageFont
 try:
+    from .security_watch import security_feed as merged_security_feed
+except ImportError:
+    from security_watch import security_feed as merged_security_feed
+try:
     from .social_asset_design import (
         security_style, security_share_card, security_story_card
     )
@@ -867,7 +871,7 @@ def build(output, feed=None):
         shutil.copyfile(ROOT / 'nba' / asset, destination)
     index = (ROOT / 'index.html').read_text()
     # SECURITY WATCH: independent alert feed; article publication dates remain unchanged.
-    security_feed = json.loads((ROOT / 'data/security-watch.json').read_text())
+    security_feed = merged_security_feed(articles, json.loads((ROOT / 'data/security-watch.json').read_text()))
     security_rows = []
     for alert in security_feed:
         article_id = alert.get('article_id')

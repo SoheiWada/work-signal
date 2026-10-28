@@ -1,10 +1,6 @@
-name: Recover owner-confirmed missing social posts
+name: Archived fixed-article recovery (superseded by social queue)
 on:
-  schedule:
-    - cron: '17 */4 * * *'
-  push:
-    paths:
-      - scripts/recover_20261027_missing_social.py
+  workflow_dispatch:
 permissions:
   contents: write
 concurrency:
@@ -12,7 +8,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   recover:
-    if: github.ref == 'refs/heads/main' && vars.SOCIAL_PUBLISH_ENABLED == 'true'
+    if: false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -28,3 +24,4 @@ jobs:
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
           INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
         run: python scripts/recover_20261027_missing_social.py
+

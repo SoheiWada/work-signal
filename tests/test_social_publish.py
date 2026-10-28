@@ -103,10 +103,9 @@ class SocialPublisherTests(unittest.TestCase):
         }
         with (
             patch("scripts.publish_social.verify_account",
-                  side_effect=[{"username": "work_signal_japan", "id": "123"},
-                               {"username": "work_signal_japan",
-                                "user_id": "1784", "account_type": "BUSINESS"}]),
+                  return_value={"username": "work_signal_japan", "user_id": "1784", "account_type": "BUSINESS"}),
             patch("scripts.publish_social.verify_live") as check_asset,
+            patch("scripts.publish_social.instagram_budget", return_value=10),
             patch("scripts.publish_social.publish_threads") as threads_post,
             patch("scripts.publish_social.publish_instagram") as feed_post,
             patch("scripts.publish_social.publish_instagram_story",
@@ -191,6 +190,7 @@ class SocialPublisherTests(unittest.TestCase):
                        "INSTAGRAM_ACCESS_TOKEN", "INSTAGRAM_USER_ID")}
         credentials["SOCIAL_PUBLISH_ENABLED"] = "true"
         with patch("scripts.publish_social.verify_account", return_value={"account_type": "BUSINESS"}), \
+             patch("scripts.publish_social.instagram_budget", return_value=50), \
              patch("scripts.publish_social.verify_live"), \
              patch("scripts.publish_social.publish_threads", return_value="1") as threads, \
              patch("scripts.publish_social.publish_instagram", return_value="2"), \
@@ -202,3 +202,4 @@ class SocialPublisherTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

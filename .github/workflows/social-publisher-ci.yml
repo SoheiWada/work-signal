@@ -2,11 +2,14 @@ name: Validate WORK SIGNAL three-channel publisher
 
 on:
   push:
-    branches: [main, analytics/social-dashboard]
+    branches: [main, analytics/social-dashboard, 'fix/**']
     paths:
       - scripts/publish_social.py
       - scripts/publish_story_once.py
       - scripts/build_site.py
+      - scripts/security_watch.py
+      - scripts/verify_deployed_revision.py
+      - tests/test_delivery_reliability.py
       - tests/test_social_publish.py
       - tests/test_social_attribution.py
       - .github/workflows/social-publisher-ci.yml
@@ -33,6 +36,7 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_social_publish.py'
           python -m unittest discover -s tests -p 'test_social_attribution.py'
+          python -m unittest discover -s tests -p 'test_delivery_reliability.py'
       - name: Report test result to GitHub commit status
         if: ${{ always() }}
         env:
@@ -67,3 +71,4 @@ jobs:
               if resp.status != 201:
                   raise RuntimeError("Could not publish GitHub CI status")
           PY
+

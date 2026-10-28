@@ -927,8 +927,8 @@
   },
   "20261028-bun-http3-qpack-memory-cpu-dos": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T08:25:32+00:00",
+      "status": "needs_review",
+      "updated_at": "2026-10-28T08:25:37+00:00",
       "stage": "publish_requested",
       "container_id": "18132920314690068"
     }

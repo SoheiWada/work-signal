@@ -6,6 +6,7 @@ social-publisher-ci.yml and must never prevent an approved article from
 reaching the website.
 """
 import json
+from html import escape
 from pathlib import Path
 
 from scripts.build_site import ROOT, published_articles
@@ -45,6 +46,17 @@ def main():
               ('href="/articles/' + row["article_id"] + '/"') not in watch_html]
     if broken:
         raise RuntimeError("SECURITY WATCH missing linked article pages: " + ", ".join(broken[:10]))
+    lookup = {article["id"]: article for article in articles}
+    wrongly_classified = [aid for aid in (row["article_id"] for row in expected_security)
+                          if lookup[aid]["category"] != "SECURITY"]
+    if wrongly_classified:
+        raise RuntimeError("SECURITY WATCH articles must have category SECURITY: " + ", ".join(wrongly_classified[:10]))
+    missing_headlines = [row["article_id"] for row in expected_security
+                         if escape(row.get("headline") or lookup[row["article_id"]]["title"], quote=True) not in watch_html]
+    if missing_headlines:
+        raise RuntimeError("SECURITY WATCH article headlines not rendered: " + ", ".join(missing_headlines[:10]))
+    if 'data-category="SECURITY"' not in home_html and "const categories=['すべて','AI','SECURITY'" not in home_html:
+        raise RuntimeError("SECURITY category filter not available on the homepage")
     print(f"SITE_OUTPUT_OK articles={len(articles)} security_alerts={len(expected_security)}")
     return 0
 

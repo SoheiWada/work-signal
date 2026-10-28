@@ -965,10 +965,11 @@
       "remote_id": "17949143967068446"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T11:02:52+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T11:02:55+00:00",
       "stage": "publish_requested",
-      "container_id": "18156245689488337"
+      "container_id": "18156245689488337",
+      "remote_id": "18110747953908596"
     }
   }
 }

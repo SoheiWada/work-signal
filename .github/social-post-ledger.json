@@ -782,6 +782,10 @@
         "subcode": 2207051,
         "type": "OAuthException"
       }
+    },
+    "instagram_story": {
+      "status": "attempting",
+      "updated_at": "2026-10-28T00:57:42+00:00"
     }
   },
   "20261028-apple-creator-studio-ai-mcp": {

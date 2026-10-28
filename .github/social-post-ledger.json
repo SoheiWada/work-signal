@@ -598,9 +598,11 @@
     },
     "instagram": {
       "status": "attempting",
-      "updated_at": "2026-10-28T00:56:32+00:00",
+      "updated_at": "2026-10-28T00:56:40+00:00",
       "recovery_review_id": "freshness-reviewed-recovery-20261028",
-      "reconciled_at": "2026-10-28T00:54:10+00:00"
+      "reconciled_at": "2026-10-28T00:54:10+00:00",
+      "stage": "container_created",
+      "container_id": "18156105970488337"
     },
     "instagram_story": {
       "status": "deferred",

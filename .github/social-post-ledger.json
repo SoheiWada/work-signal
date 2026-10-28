@@ -904,14 +904,16 @@
   "20261028-gemini-4-argon-nasa-80000-files": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-28T13:35:17+00:00",
+      "updated_at": "2026-10-28T13:35:21+00:00",
       "recovery_review_id": "threads-verified-absent-20261028-run-40697302960",
       "previous_attempt": {
         "status": "needs_review",
         "updated_at": "2026-10-28T02:01:48+00:00",
         "stage": "publish_requested",
         "container_id": "18132881209690068"
-      }
+      },
+      "stage": "container_created",
+      "container_id": "18132957424690068"
     }
   },
   "20261028-truist-ai-agents-45day-inactivity-governance": {

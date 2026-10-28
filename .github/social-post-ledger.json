@@ -971,5 +971,11 @@
       "container_id": "18156245689488337",
       "remote_id": "18110747953908596"
     }
+  },
+  "20261028-mcp-typescript-sdk-http-batch-dos": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-28T12:49:41+00:00"
+    }
   }
 }

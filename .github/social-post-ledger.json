@@ -735,9 +735,11 @@
     },
     "instagram_story": {
       "status": "attempting",
-      "updated_at": "2026-10-28T00:55:40+00:00",
+      "updated_at": "2026-10-28T00:55:44+00:00",
       "recovery_review_id": "freshness-reviewed-recovery-20261028",
-      "reconciled_at": "2026-10-28T00:54:18+00:00"
+      "reconciled_at": "2026-10-28T00:54:18+00:00",
+      "stage": "container_created",
+      "container_id": "18156105814488337"
     }
   },
   "20261028-nest-admin-jwt-auth-bypass-cve-2026-117564": {

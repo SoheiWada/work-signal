@@ -1140,8 +1140,8 @@
   "20261028-akamai-agent-sandbox-inference-isolation": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-28T14:30:07+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-10-28T14:30:09+00:00",
+      "stage": "publish_requested",
       "container_id": "18132964678690068"
     }
   }

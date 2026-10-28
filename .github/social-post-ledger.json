@@ -1094,6 +1094,10 @@
       "stage": "publish_requested",
       "container_id": "18132958201690068",
       "remote_id": "17955649491038155"
+    },
+    "instagram_story": {
+      "status": "attempting",
+      "updated_at": "2026-10-28T13:38:58+00:00"
     }
   }
 }

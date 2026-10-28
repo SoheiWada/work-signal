@@ -784,10 +784,11 @@
       }
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T00:57:53+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T00:57:57+00:00",
       "stage": "publish_requested",
-      "container_id": "18156106117488337"
+      "container_id": "18156106117488337",
+      "remote_id": "18140604853547627"
     }
   },
   "20261028-apple-creator-studio-ai-mcp": {

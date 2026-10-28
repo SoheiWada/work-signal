@@ -958,10 +958,11 @@
   },
   "20261028-symfony-three-high-dos-cves": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T11:02:30+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T11:02:37+00:00",
       "stage": "publish_requested",
-      "container_id": "18132936211690068"
+      "container_id": "18132936211690068",
+      "remote_id": "17949143967068446"
     }
   }
 }

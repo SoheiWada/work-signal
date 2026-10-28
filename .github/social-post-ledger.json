@@ -750,10 +750,16 @@
       "remote_id": "17993720337060378"
     },
     "instagram": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T00:56:08+00:00",
+      "status": "needs_review",
+      "updated_at": "2026-10-28T00:56:12+00:00",
       "stage": "publish_requested",
-      "container_id": "18156105889488337"
+      "container_id": "18156105889488337",
+      "error": {
+        "http_status": 403,
+        "code": 4,
+        "subcode": 2207051,
+        "type": "OAuthException"
+      }
     }
   },
   "20261028-fujitsu-copilot-100k-service-desk-ai": {

@@ -1147,10 +1147,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfCpntekcPR"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T14:30:32+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T14:30:36+00:00",
       "stage": "publish_requested",
-      "container_id": "18156311503488337"
+      "container_id": "18156311503488337",
+      "remote_id": "18146312470581184"
     }
   }
 }

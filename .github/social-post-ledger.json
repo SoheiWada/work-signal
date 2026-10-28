@@ -772,10 +772,16 @@
       "remote_id": "17952668979272774"
     },
     "instagram": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T00:57:36+00:00",
+      "status": "needs_review",
+      "updated_at": "2026-10-28T00:57:40+00:00",
       "stage": "publish_requested",
-      "container_id": "18156106063488337"
+      "container_id": "18156106063488337",
+      "error": {
+        "http_status": 403,
+        "code": 4,
+        "subcode": 2207051,
+        "type": "OAuthException"
+      }
     }
   },
   "20261028-apple-creator-studio-ai-mcp": {

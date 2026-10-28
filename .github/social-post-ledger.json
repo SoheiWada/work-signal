@@ -1007,8 +1007,8 @@
   "20261028-mhlw-work-accidents-october-flash": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-28T12:51:01+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-10-28T12:51:04+00:00",
+      "stage": "publish_requested",
       "container_id": "18132950356690068"
     }
   }

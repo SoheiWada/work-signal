@@ -30,6 +30,15 @@ class SEOTests(unittest.TestCase):
             with self.assertRaises(ValueError): modification_date(dict(a,updated_at=invalid),{})
         self.assertEqual(latest_date(['2026-10-22T14:00:00+09:00','2026-10-22T06:00:00Z']),'2026-10-22T06:00:00Z')
 
+    def test_category_only_reclassification_preserves_original_content_modification_time(self):
+        security = next(item for item in self.feed if item['category'] == 'SECURITY')
+        old = dict(security, category='仕事')
+        history = modifications_from_snapshots([
+            ('2026-10-28T01:00:00Z', [old]),
+            ('2026-10-28T15:00:00Z', [security]),
+        ])
+        self.assertEqual(history, {})
+
     def test_all_published_articles_have_unique_canonical_and_complete_metadata(self):
         for article in site.published_articles(self.feed):
             with self.subTest(id=article['id']):

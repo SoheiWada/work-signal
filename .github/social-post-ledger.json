@@ -975,7 +975,9 @@
   "20261028-mcp-typescript-sdk-http-batch-dos": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-28T12:49:41+00:00"
+      "updated_at": "2026-10-28T12:49:45+00:00",
+      "stage": "container_created",
+      "container_id": "18132950185690068"
     }
   }
 }

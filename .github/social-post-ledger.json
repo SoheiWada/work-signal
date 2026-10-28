@@ -997,10 +997,11 @@
       "remote_id": "18640760995014688"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T12:50:42+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T12:50:46+00:00",
       "stage": "publish_requested",
-      "container_id": "18156278470488337"
+      "container_id": "18156278470488337",
+      "remote_id": "17952395496323046"
     }
   }
 }

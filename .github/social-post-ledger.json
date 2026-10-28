@@ -597,17 +597,26 @@
       "remote_id": "18129152750488340"
     },
     "instagram": {
-      "status": "needs_review",
-      "updated_at": "2026-10-28T00:56:51+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T01:13:27+00:00",
+      "remote_id": "17873433126641207",
+      "permalink": "https://www.instagram.com/p/DfBMhegANi3/",
+      "reconciled_at": "2026-10-28T01:13:27+00:00",
       "recovery_review_id": "freshness-reviewed-recovery-20261028",
-      "reconciled_at": "2026-10-28T00:54:10+00:00",
-      "stage": "publish_requested",
-      "container_id": "18156105970488337",
-      "error": {
-        "http_status": 403,
-        "code": 4,
-        "subcode": 2207051,
-        "type": "OAuthException"
+      "action_block_hold": true,
+      "previous_attempt": {
+        "status": "needs_review",
+        "updated_at": "2026-10-28T00:56:51+00:00",
+        "recovery_review_id": "freshness-reviewed-recovery-20261028",
+        "reconciled_at": "2026-10-28T00:54:10+00:00",
+        "stage": "publish_requested",
+        "container_id": "18156105970488337",
+        "error": {
+          "http_status": 403,
+          "code": 4,
+          "subcode": 2207051,
+          "type": "OAuthException"
+        }
       }
     },
     "instagram_story": {

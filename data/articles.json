@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261028-symfony-three-high-dos-cves",
+    "title": "SymfonyにHIGH脆弱性3件、HTTPヘッダー・YAML・式パーサーでDoSの恐れ",
+    "summary": "Symfonyの公式セキュリティ勧告で、HTTPヘッダー解析、YAMLのインライン構造解析、式言語の構文解析にそれぞれサービス停止につながるHIGH脆弱性が確認された。影響条件は異なるが、外部入力を処理するWebサービスでは利用コンポーネントと修正版を照合する必要がある。",
+    "category": "仕事",
+    "score": 91,
+    "published_at": "2026-10-28",
+    "source_url": "https://symfony.com/blog/cve-2026-108082-redos-in-headerutils-split-reachable-through-the-cache-control-request-header",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Symfonyの公式セキュリティ勧告で、HTTPヘッダー解析、YAMLのインライン構造解析、式言語の構文解析にそれぞれサービス停止につながるHIGH脆弱性が確認された。影響条件は異なるが、外部入力を処理するWebサービスでは利用コンポーネントと修正版を照合する必要がある。",
+    "sections": [
+      {
+        "title": "HTTPのCache-ControlヘッダーでCPUを消費：CVE-2026-108082",
+        "body": "Symfony HTTP Foundationの`HeaderUtils::split()`で正規表現の過剰なバックトラッキングが起きる。HTTP Request生成時の`Cache-Control`処理から到達可能で、認証なしのリクエストでも影響する。公式勧告はPHP 8.5環境で8KBヘッダーに17個の空白を含むケースが813ミリ秒を要したと説明。影響は5.4.54未満、6.4.46未満、7.4.19未満、8.1.7未満の対象系列。修正初版では空白を区切り文字にする処理に回帰があり、6.4.48、7.4.21、8.1.9で後続修正された。\n\n一次情報：https://symfony.com/blog/cve-2026-108082-redos-in-headerutils-split-reachable-through-the-cache-control-request-header"
+      },
+      {
+        "title": "YAMLの深いネストでプロセス停止：CVE-2026-109413",
+        "body": "Symfony YAMLのインライン字句解析器がネスト上限を適用せず再帰し、深い配列・マッピング構造でスタックを枯渇させる。信頼できないYAMLを解析するアプリが影響し、`#[MapRequestPayload]`がYAML入力を受け付ける構成では未認証のHTTPリクエストで到達し得る。影響は5.4.54未満、6.4.45未満、7.4.18未満、8.1.6未満の対象系列。修正は5.4.54／6.4.45／7.4.18／8.1.6。\n\n一次情報：https://symfony.com/blog/cve-2026-109413-unbounded-recursion-in-the-yaml-inline-lexer-lets-a-single-document-crash-the-process"
+      },
+      {
+        "title": "式言語の深い構文木でプロセス停止：CVE-2026-109449",
+        "body": "Symfony ExpressionLanguageで深くネストした式を解析すると、構文木の深さに上限がなくPHPプロセスが異常終了する恐れがある。`#[Assert\\ExpressionSyntax]`を介してユーザー入力の式を検証するアプリも対象となる。影響は5.4.54未満、6.4.48未満、7.4.21未満、8.1.9未満の対象系列。初回修正が二項演算子などの一部の深さを見逃したため、公式は6.4.48／7.4.21／8.1.9での追加修正を説明している。\n\n一次情報：https://symfony.com/blog/cve-2026-109449-unbounded-nesting-in-the-expression-parser-lets-untrusted-expressions-crash-the-process"
+      },
+      {
+        "title": "対応と悪用状況",
+        "body": "使用している`symfony/http-foundation`、`symfony/yaml`、`symfony/expression-language`の導入状況とバージョンを点検し、各系列の後続修正版に更新する。外部からのYAMLや式入力を受け付けるか、HTTPヘッダー処理を通るかを確認する。公式勧告に実環境での悪用確認の記載はなく、悪用状況は未確認。発表は10月15日であり、10月28日に新規発見されたものではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ]
+  },
+  {
     "id": "20261028-oracle-openai-four-enterprise-ai-products",
     "title": "Oracle×OpenAI、企業AIを「回答」から「実行」へ。4製品で業務・開発・安全管理をつなぐ",
     "summary": "生成AIで文章を作り、情報を整理する仕事は広がっています。一方、実際の会社の仕事には、顧客情報の確認、承認、システムへの登録、アプリの運用など、複数の工程があります。2026年10月27日、OracleとOpenAIは、ChatGPTやCodexをOracleの企業向けアプリケーション、データ、クラウドと組み合わせる新たな協業を発表しました。ポイントは、AIが答えを返すだけでなく、会社が認めた範囲で仕事を進めるための仕組みです。",

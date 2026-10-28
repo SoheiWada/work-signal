@@ -1792,12 +1792,12 @@
   },
   {
     "id": "20261026-brotli-cross-stack-cve-2026-111497",
-    "title": "Node.jsだけではなかった。Brotliの重大脆弱性、PythonやWeb基盤にも影響",
-    "summary": "CVE-2026-111497はNode.jsだけでなく、Bun、Python向けBrotli、Envoy、IstioなどのWeb基盤に影響。製品別の修正版と、圧縮データの受信・取得・中継に潜む攻撃経路、担当者が確認すべき項目を整理する。",
+    "title": "【10月28日更新】Brotliの重大脆弱性、CISAが悪用確認。Node.js・Python・Web基盤の修正状況を再点検",
+    "summary": "2026年10月27日、米国CISAがGoogle BrotliのCVE-2026-111497を既知の悪用確認済み脆弱性（KEV）に登録した。10月26日時点では実環境での悪用は確認できないと記載していたが、最新の一次情報では状況が変化している。Brotliの圧縮データを扱うNode.js、Bun、Python、プロキシなどの担当者は、各製品の修正版を優先して確認したい。",
     "category": "仕事",
-    "score": 94,
+    "score": 96,
     "published_at": "2026-10-26",
-    "source_url": "https://github.com/envoyproxy/envoy/security/advisories/GHSA-3wvj-j6qm-62mr",
+    "source_url": "https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json",
     "status": "published",
     "format": "deep_dive",
     "social_publish": true,
@@ -1805,8 +1805,12 @@
     "social_security_product": "Brotli / Web基盤",
     "social_security_cve": "CVE-2026-111497",
     "social_security_action": "Brotli展開箇所を確認し、各製品を修正版へ更新。",
-    "quick_take": "Brotliの範囲外書き込み脆弱性CVE-2026-111497はNode.js固有の問題ではない。BunやPythonの圧縮ライブラリ、Envoy、Istioにも修正が必要な構成がある。外部由来の圧縮データをどこで展開するかを確認し、製品ごとの修正版を適用したい。",
+    "quick_take": "2026年10月27日、米国CISAがGoogle BrotliのCVE-2026-111497を既知の悪用確認済み脆弱性（KEV）に登録した。10月26日時点では実環境での悪用は確認できないと記載していたが、最新の一次情報では状況が変化している。Brotliの圧縮データを扱うNode.js、Bun、Python、プロキシなどの担当者は、各製品の修正版を優先して確認したい。",
     "sections": [
+      {
+        "title": "【10月28日更新】CISAが悪用を確認、KEVに追加",
+        "body": "CISAが2026年10月27日、CVE-2026-111497（Google Brotli）をKnown Exploited Vulnerabilities（KEV）に追加した。CISA公式カタログはGoogle Brotliの未チェック戻り値脆弱性として記載し、米連邦民間機関向けの対応期限を11月10日としている。これは悪用が確認されたことを示すが、Node.jsやBunなど特定の製品ごとの侵害実績・被害規模を証明するものではない。\n\n本記事は10月26日に初公開した内容を10月28日に更新した。Google Brotli共通部品のGitHub AdvisoryはCritical（CVSS v4.0 9.2）、一方Node.js公式はHighと評価しており、各製品で深刻度が同一とは限らない。確認したいのは、外部由来の細工されたBrotli圧縮データを展開する構成かどうか、各製品で修正版が適用済みかどうかだ。\n\nCISA KEV公式：https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json\nGoogle Brotli GitHub Advisory：https://github.com/advisories/GHSA-9v8h-qqgm-4m35\nNode.js公式：https://nodejs.org/en/blog/vulnerability/october-2026-security-releases"
+      },
       {
         "title": "何が起きた？ 圧縮の共通部品が複数のWeb基盤に影響",
         "body": "Web通信で使われる圧縮技術Brotliのデコーダーに、細工された圧縮データを展開するとメモリ領域の外側に書き込む脆弱性CVE-2026-111497が見つかった。影響はサービス停止やメモリ情報の漏洩、条件によっては任意コード実行に及び得る。\n\n10月21日のNode.jsセキュリティ更新に続き、Bun、Python向けパッケージ、Envoy Proxy、Istioなどの対応が確認されている。Brotliを利用しているだけで直ちに攻撃が成立するわけではなく、攻撃者が制御できる圧縮データを脆弱なデコーダーが展開する経路の有無が重要だ。\n\nBrotli共通ライブラリのGitHub AdvisoryではCVSS v4.0 9.2（Critical）。各製品では独自の深刻度評価が行われる場合がある。"
@@ -1821,7 +1825,7 @@
       },
       {
         "title": "実証と実際の攻撃は区別する",
-        "body": "研究者による脆弱なNode.js環境でのコード実行の実証が報じられている。一方、2026年10月26日時点で確認した公式情報から、広範な実環境での悪用を確認したとは断定できない。\n\nコード実行が実証された特定の環境と、すべての製品で同じ攻撃が成功することは別だ。脆弱性の存在、攻撃成立条件、実際の被害を区別して判断したい。"
+        "body": "研究者による脆弱なNode.js環境でのコード実行の実証が報じられている。一方、10月26日時点の公式情報では広範な実環境での悪用は未確認だった。その後、10月27日にCISAがKEVに登録して悪用確認済みとした。情報の更新日時を分け、特定の製品での被害や全環境での攻撃成功と混同しないことが重要だ。\n\nコード実行が実証された特定の環境と、すべての製品で同じ攻撃が成功することは別だ。脆弱性の存在、攻撃成立条件、実際の被害を区別して判断したい。"
       },
       {
         "title": "企業の担当者が確認すべきこと",

@@ -1,5 +1,23 @@
 [
   {
+    "id": "undici-three-high-security-advisories",
+    "product": "undici (Node.js)",
+    "severity": "HIGH",
+    "date": "2026-10-28",
+    "article_id": "20261028-undici-three-high-security-advisories",
+    "summary": "CVE-2026-109829／109383／87018：共有キャッシュ汚染、TLS証明書検証回避、TLS 1.2 DoS。該当系列を修正版へ更新。",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
+    "id": "better-auth-magic-link-oauth-cve-2026-114607",
+    "product": "Better Auth",
+    "severity": "CRITICAL",
+    "date": "2026-10-28",
+    "article_id": "20261028-better-auth-magic-link-oauth-account-takeover",
+    "summary": "CVE-2026-114607（CVSS 9.1）：Magic LinkとOAuthの特定設定併用で認証不要のアカウント乗っ取り。1.7.7へ更新。",
+    "status": "修正版あり・悪用未確認"
+  },
+  {
     "id": "nest-admin-jwt-auth-bypass-cve-2026-117564",
     "product": "nest-admin",
     "severity": "CRITICAL",

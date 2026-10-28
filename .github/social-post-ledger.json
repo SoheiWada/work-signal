@@ -955,5 +955,11 @@
       "container_id": "18156209293488337",
       "remote_id": "18132773500766272"
     }
+  },
+  "20261028-symfony-three-high-dos-cves": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-28T11:02:24+00:00"
+    }
   }
 }

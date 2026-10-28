@@ -32,7 +32,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://signal.amberlight.co.jp/"
 HOME_PAGE_SIZE = 12
 ARCHIVE_PAGE_SIZE = 24
-CATEGORIES = {"AI", "仕事", "マネジメント", "お金", "経済", "Crypto"}
+CATEGORIES = {"AI", "仕事", "マネジメント", "お金", "経済", "Crypto", "SECURITY"}
 SECTIONS = [("何が起きた？", "what_happened"), ("なぜ重要？", "why_it_matters"),
             ("仕事や暮らしへの影響", "impact"), ("確認しておきたいこと", "caveats")]
 CARD_SIZE = (1200, 630)
@@ -884,13 +884,22 @@ def build(output, feed=None):
     def security_card(row):
         updated, alert, article = row
         severity = esc(alert['severity'])
-        title = esc(alert['product'])
+        product = esc(alert['product'])
+        # Prefer the canonical article headline. A concise, editorially reviewed
+        # security_headline can override it without changing the article title.
+        raw_headline = (article.get('security_headline') or article['title']) if article else alert['product']
+        headline = esc(raw_headline)
+        summary = esc(article['summary'] if article else alert['summary'])
+        status = alert.get('status', '')
+        status_line = ('<span class="sw-status">' + esc(status) + '</span>') if status and status != '対応・影響条件は記事を参照' else ''
         href = '/articles/' + esc(article['id']) + '/' if article else '/security/'
         updated_label = '<span class="sw-updated">UPDATED</span>' if updated > alert['date'] else ''
         return ('<a class="sw-item" href="' + href + '"><span class="sw-level sw-' + severity.lower()
-                + '">' + severity + '</span><span class="sw-copy"><strong>' + title + '</strong>'
-                + '<span>' + esc(alert['summary']) + '</span></span><span class="sw-date">'
-                + updated_label + esc(updated[:10]) + '</span></a>')
+                + '">' + severity + '</span><span class="sw-copy">'
+                + '<span class="sw-product">' + product + '</span>'
+                + '<strong class="sw-headline">' + headline + '</strong>'
+                + '<span class="sw-summary">' + summary + '</span>' + status_line
+                + '</span><span class="sw-date">' + updated_label + esc(updated[:10]) + '</span></a>')
     security_home = '<section class="sw-section" aria-labelledby="sw-title"><div class="sw-heading"><div><span class="sw-kicker">/ VERIFIED SECURITY INTELLIGENCE</span><h2 id="sw-title">SECURITY WATCH<span>.</span></h2><div class="sw-pulse" aria-hidden="true"><svg viewBox="0 0 480 24" preserveAspectRatio="none" focusable="false"><path class="sw-baseline" d="M0 12 H480"/><path class="sw-wave sw-wave-echo" d="M0 12 H160 L169 12 L175 8 L182 17 L190 4 L198 20 L206 12 H310 L316 9 L322 15 L328 12 H480"/><path class="sw-wave sw-wave-main" d="M0 12 H160 L169 12 L175 8 L182 17 L190 4 L198 20 L206 12 H310 L316 9 L322 15 L328 12 H480"/><rect class="sw-tear" x="0" y="9" width="480" height="4"/></svg></div><p>主要Web技術の脆弱性と修正情報。重要な記事更新もここで確認できます。</p></div></div><div class="sw-items">' + ''.join(security_card(row) for row in security_rows[:4]) + '</div><a class="sw-more" href="/security/"><span class="sw-more-noise" aria-hidden="true"></span><span class="sw-more-label">MORE SECURITY SIGNALS</span></a></section>'
     security_styles = """<style>
 .sw-archive-page{margin:0;min-height:100vh;background:radial-gradient(ellipse at 78% 0%,rgba(131,48,55,.30),transparent 52%),linear-gradient(145deg,#402225 0%,#261b20 46%,#17181d 100%);font-family:system-ui,sans-serif;color:#f5eee9}
@@ -965,6 +974,29 @@ def build(output, feed=None):
 .sw-copy{display:flex;flex:1;flex-direction:column;gap:3px;min-width:0}.sw-copy strong{font-size:14px}.sw-copy>span{font-size:12px;color:#68645e}
 .sw-date{font-size:11px;color:#78736c;white-space:nowrap;text-align:right}.sw-updated{display:block;color:#aa6220;font-size:9px;font-weight:800;letter-spacing:.08em}
 @media(max-width:620px){.sw-section{padding:18px 16px;margin:20px 0 30px}.sw-heading{align-items:start;flex-direction:column}.sw-item{gap:9px}.sw-level{min-width:65px;font-size:9px}.sw-date{font-size:10px}.sw-copy>span{font-size:11px}}
+/* Editorial-first security cards: urgency, consequence, action. */
+.sw-item{display:grid;grid-template-columns:94px minmax(0,1fr) 88px;align-items:start;gap:14px;padding:19px 0}
+.sw-level{min-width:0;justify-self:start;padding:8px 10px;margin-top:3px}
+.sw-copy{display:flex;flex-direction:column;gap:7px;min-width:0}
+.sw-copy .sw-product{font:750 10px/1.45 system-ui,sans-serif;letter-spacing:.07em;color:#645d57}
+.sw-copy .sw-headline{font:800 clamp(15px,1.5vw,18px)/1.45 system-ui,sans-serif;color:#191918;letter-spacing:-.025em;overflow-wrap:anywhere}
+.sw-copy .sw-summary{font:400 12px/1.62 system-ui,sans-serif;color:#68645e;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sw-copy .sw-status{align-self:flex-start;padding:3px 8px;border-radius:2px;background:#ebe5dc;color:#51433a;font:700 10px/1.45 system-ui,sans-serif}
+.sw-date{margin-top:7px;line-height:1.6}
+.sw-archive-page .sw-copy .sw-headline{color:#f5eee9}
+.sw-archive-page .sw-copy .sw-product{color:#cbb9b1}
+.sw-archive-page .sw-copy .sw-summary{color:#d5c5be}
+.sw-archive-page .sw-copy .sw-status{background:rgba(247,224,197,.12);color:#e5d2c4}
+@media(max-width:620px){
+  .sw-item{grid-template-columns:minmax(0,1fr) auto;column-gap:12px;row-gap:9px;padding:18px 0 20px}
+  .sw-level{grid-column:1;grid-row:1;min-width:76px;justify-self:start;margin:0;padding:7px 11px}
+  .sw-date{grid-column:2;grid-row:1;text-align:right;margin:0;padding-top:2px;font-size:10px}
+  .sw-copy{grid-column:1/-1;grid-row:2;gap:6px}
+  .sw-copy .sw-product{font-size:10px}
+  .sw-copy .sw-headline{font-size:16px;line-height:1.48}
+  .sw-copy .sw-summary{font-size:12px;line-height:1.6}
+  .sw-copy .sw-status{font-size:10px}
+}
 </style>"""
     security_motion_script = """<script>
 (function(){

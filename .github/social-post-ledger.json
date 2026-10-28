@@ -911,10 +911,11 @@
   },
   "20261028-truist-ai-agents-45day-inactivity-governance": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T06:56:16+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T06:56:23+00:00",
       "stage": "publish_requested",
-      "container_id": "18132913534690068"
+      "container_id": "18132913534690068",
+      "remote_id": "17962414677232630"
     }
   }
 }

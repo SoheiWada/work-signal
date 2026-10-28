@@ -933,10 +933,11 @@
       "container_id": "18132920314690068"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T08:25:50+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T08:25:55+00:00",
       "stage": "publish_requested",
-      "container_id": "18156209032488337"
+      "container_id": "18156209032488337",
+      "remote_id": "18130687633832219"
     }
   }
 }

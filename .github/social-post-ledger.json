@@ -885,10 +885,11 @@
   },
   "20261028-undici-three-high-security-advisories": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T01:56:22+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T01:56:27+00:00",
       "stage": "publish_requested",
-      "container_id": "18132880714690068"
+      "container_id": "18132880714690068",
+      "remote_id": "18012289337995163"
     }
   }
 }

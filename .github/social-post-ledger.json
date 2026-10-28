@@ -1157,7 +1157,9 @@
   "20261029-fomc-hold-two-hike-dissents": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-28T22:39:27+00:00"
+      "updated_at": "2026-10-28T22:39:32+00:00",
+      "stage": "container_created",
+      "container_id": "18133026865690068"
     }
   }
 }

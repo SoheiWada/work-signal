@@ -912,7 +912,9 @@
   "20261028-truist-ai-agents-45day-inactivity-governance": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-28T06:56:10+00:00"
+      "updated_at": "2026-10-28T06:56:14+00:00",
+      "stage": "container_created",
+      "container_id": "18132913534690068"
     }
   }
 }

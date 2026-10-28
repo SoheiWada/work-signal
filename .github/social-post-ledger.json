@@ -1062,6 +1062,10 @@
       "updated_at": "2026-10-28T13:38:05+00:00",
       "stage": "publish_requested",
       "container_id": "18132957964690068"
+    },
+    "instagram_story": {
+      "status": "attempting",
+      "updated_at": "2026-10-28T13:38:06+00:00"
     }
   }
 }

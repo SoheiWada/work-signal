@@ -891,5 +891,11 @@
       "container_id": "18132880714690068",
       "remote_id": "18012289337995163"
     }
+  },
+  "20261028-better-auth-magic-link-oauth-account-takeover": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-28T01:56:29+00:00"
+    }
   }
 }

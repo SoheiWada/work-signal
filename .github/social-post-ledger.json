@@ -812,10 +812,11 @@
       "remote_id": "18090445403247448"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T01:06:29+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T01:06:33+00:00",
       "stage": "publish_requested",
-      "container_id": "18156108133488337"
+      "container_id": "18156108133488337",
+      "remote_id": "18398170015161502"
     }
   },
   "20261028-apple-m6-macbook-imac-local-ai": {

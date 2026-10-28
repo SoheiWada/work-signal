@@ -1070,5 +1070,11 @@
       "container_id": "18156294148488337",
       "remote_id": "17982990389907944"
     }
+  },
+  "20261028-oracle-google-tpu-multichip-ai-cloud": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-28T13:38:21+00:00"
+    }
   }
 }

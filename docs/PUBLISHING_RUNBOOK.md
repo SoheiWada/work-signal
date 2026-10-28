@@ -1,5 +1,21 @@
 # WORK SIGNAL 公開運用マニュアル
 
+## 2026-10-28 現行の公開・配信手順（以下の旧記録より優先）
+
+ユーザーの「公開」はサイト・対象SECURITY WATCH・指定SNSの公開を一度に進める指示。新記事の承認済みデータを一つのコミットにまとめ、媒体別の最終状態まで確認する。
+
+- SECURITY WATCHは、記事に明示された `social_security_severity` と `social_security_product`、承認済みsummaryから自動登録する。深刻度や製品をタイトルから推定しない。既存 `data/security-watch.json` は過去のアラートアーカイブとして保持。新記事ごとの二重登録は不要。掲載除外は `security_watch:false` と `security_watch_exclusion_reason` を明示する。専用の短いsummary等が必要なときは記事の `security_watch` オブジェクトに設定する。
+- SNSは `social_publish:true` が前提。`social_platforms` は指定媒体だけを配信する恒久的な選択。API不調の一時回避でThreads限定にして放置しない。空文字のカスタム投稿文は無効。未指定なら承認済みタイトル・summaryの定型文を使用する。
+- ThreadsとInstagramのアカウント検証・投稿枠は独立。1媒体の停止だけで他媒体を止めない。投稿自体は共通ロック内で直列に実施する。
+- Instagramは投稿前に実際の枠を確認する。フィードとストーリーズの両方を計上。50/100で2207042を観測したため、暫定運用上限はmin(50,API上限)。これはMeta公式仕様の固定値を意味しない。
+- 台帳の `deferred` は送信前の枠待ち、または明示的な2207042拒否。指定時刻後の定期処理で再開する。`attempting` / `needs_review` は結果不明のため自動再送しない。後者の復旧には実アカウントとの照合と、鮮度レビュー済みの対象限定プランが必要。既存台帳を削除・初期化しない。
+- サイト公開成功後と毎時13分・43分（UTC、JSTでも分は同じ）に配信を継続。各アカウント1回5記事まで。残件は次の実行へ回す。GitHub側のスケジュール遅延はあり得る。
+- 投稿台帳だけがmainで変わった場合は継続できるが、記事・画像・スクリプト等が公開版から変わっていれば停止する。公開成功の確認を省略しない。
+- ActionsのSummaryと `work-signal-social-delivery-status` artifactで、記事・媒体別のpublished / deferred / needs_review / pendingを確認する。未処理が残っていればワークフローは未完了として失敗を返す。成功表示だけで全媒体の投稿完了と報告しない。
+- 投稿失敗時は安全なHTTP/code/subcode、コンテナID、API工程を保存する。トークン・生のエラーメッセージを公開しない。
+- 2026-10-28の既存未投稿復旧は `.github/social-recovery-review.json` に判断と有効期限を記録。期限切れは再評価する。新しい記事をこの固定プランに継ぎ足して承認済み扱いしない。
+
+
 最終更新: 2026-10-19
 
 ## 公開環境と原則
@@ -58,3 +74,4 @@
 ## SEO対応後の投稿確認（2026-10-22）
 
 記事JSONと承認・公開手順は継続。新しい必須項目はない。更新日は記事単位のGit履歴から自動判定する。投稿担当への引継ぎは `docs/SEO_EDITOR_HANDOFF.md` を参照。旧記事URLの回帰検証として `node --test tests/seo/*.test.mjs` が公開ワークフローに追加されている。
+

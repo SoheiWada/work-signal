@@ -11,7 +11,9 @@
     "format": "deep_dive",
     "social_publish": true,
     "social_platforms": [
-      "threads"
+      "threads",
+      "instagram",
+      "instagram_story"
     ],
     "quick_take": "日本銀行の2026年9月企業向けサービス価格指数は前年比3.7％上昇。ホテルは9.7％上昇、テレビ・ラジオ広告は11.7％下落と分野ごとの差が目立つ。",
     "sections": [
@@ -33,7 +35,8 @@
       }
     ],
     "social_threads_text": "企業向けサービス価格、9月は前年比3.7％上昇。ホテルと広告で明暗\n\n日本銀行の2026年9月企業向けサービス価格指数は前年比3.7％上昇。ホテルは9.7％上昇、テレビ・ラジオ広告は11.7％下落と分野ごとの差が目立つ。\n\nWORK SIGNALでは、発表内容と仕事・経営への影響を整理しました。\n\n記事：https://signal.amberlight.co.jp/articles/20261028-boj-september-services-price-index/\n一次情報：https://www.boj.or.jp/en/statistics/pi/cspi_release/sppi2609.pdf",
-    "social_instagram_caption": ""
+    "social_instagram_caption": "企業向けサービス価格、9月は前年比3.7％上昇。ホテルと広告で明暗\n\n日本銀行の2026年9月企業向けサービス価格指数は前年比3.7％上昇。ホテルは9.7％上昇、テレビ・ラジオ広告は11.7％下落と分野ごとの差が目立つ。\n\n詳しくはプロフィールのWORK SIGNALリンクから。\n#WORKSIGNAL #ニュース解説",
+    "social_review_valid_until": "2026-10-30T00:00:00+09:00"
   },
   {
     "id": "20261028-apple-m6-macbook-imac-local-ai",
@@ -47,7 +50,9 @@
     "format": "deep_dive",
     "social_publish": true,
     "social_platforms": [
-      "threads"
+      "threads",
+      "instagram",
+      "instagram_story"
     ],
     "quick_take": "AppleがM6搭載14インチMacBook ProとiMacを発表。MacBook ProはM5比でAIワークロード最大25％高速。国内予約は10月29日、発売は11月6日。",
     "sections": [
@@ -69,7 +74,8 @@
       }
     ],
     "social_threads_text": "Apple、M6搭載MacBook ProとiMacを発表。ローカルAI時代の端末選びはどう変わるか\n\nAppleがM6搭載14インチMacBook ProとiMacを発表。MacBook ProはM5比でAIワークロード最大25％高速。国内予約は10月29日、発売は11月6日。\n\nWORK SIGNALでは、発表内容と仕事・経営への影響を整理しました。\n\n記事：https://signal.amberlight.co.jp/articles/20261028-apple-m6-macbook-imac-local-ai/\n一次情報：https://www.apple.com/jp/newsroom/2026/10/apple-introduces-the-new-14-inch-macbook-pro-with-m6/",
-    "social_instagram_caption": ""
+    "social_instagram_caption": "Apple、M6搭載MacBook ProとiMacを発表。ローカルAI時代の端末選びはどう変わるか\n\nAppleがM6搭載14インチMacBook ProとiMacを発表。MacBook ProはM5比でAIワークロード最大25％高速。国内予約は10月29日、発売は11月6日。\n\n詳しくはプロフィールのWORK SIGNALリンクから。\n#WORKSIGNAL #ニュース解説",
+    "social_review_valid_until": "2026-10-30T00:00:00+09:00"
   },
   {
     "id": "20261028-deepmind-genie4-world-simulation",
@@ -83,7 +89,9 @@
     "format": "deep_dive",
     "social_publish": true,
     "social_platforms": [
-      "threads"
+      "threads",
+      "instagram",
+      "instagram_story"
     ],
     "quick_take": "Google DeepMindが音声や対話を含むリアルタイム世界シミュレーションモデルGenie 4を発表。研究プレビュー段階で、物理的一貫性などに制約も残る。",
     "sections": [
@@ -105,7 +113,8 @@
       }
     ],
     "social_threads_text": "Google DeepMind「Genie 4」発表。AIは動画生成から操作できる世界のシミュレーションへ\n\nGoogle DeepMindが音声や対話を含むリアルタイム世界シミュレーションモデルGenie 4を発表。研究プレビュー段階で、物理的一貫性などに制約も残る。\n\nWORK SIGNALでは、発表内容と仕事・経営への影響を整理しました。\n\n記事：https://signal.amberlight.co.jp/articles/20261028-deepmind-genie4-world-simulation/\n一次情報：https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/",
-    "social_instagram_caption": ""
+    "social_instagram_caption": "Google DeepMind「Genie 4」発表。AIは動画生成から操作できる世界のシミュレーションへ\n\nGoogle DeepMindが音声や対話を含むリアルタイム世界シミュレーションモデルGenie 4を発表。研究プレビュー段階で、物理的一貫性などに制約も残る。\n\n詳しくはプロフィールのWORK SIGNALリンクから。\n#WORKSIGNAL #ニュース解説",
+    "social_review_valid_until": "2026-10-30T00:00:00+09:00"
   },
   {
     "id": "20261028-apple-creator-studio-ai-mcp",
@@ -119,7 +128,9 @@
     "format": "deep_dive",
     "social_publish": true,
     "social_platforms": [
-      "threads"
+      "threads",
+      "instagram",
+      "instagram_story"
     ],
     "quick_take": "AppleがCreator Studioの更新を発表。文書の文脈を理解するAIアシスタントとMCPによるワークフロー自動化を導入。11月提供予定で一部機能はベータ版。",
     "sections": [
@@ -141,7 +152,8 @@
       }
     ],
     "social_threads_text": "Apple Creator StudioにAIアシスタントとMCP連携。Keynote・Pages・Numbersの仕事が変わる\n\nAppleがCreator Studioの更新を発表。文書の文脈を理解するAIアシスタントとMCPによるワークフロー自動化を導入。11月提供予定で一部機能はベータ版。\n\nWORK SIGNALでは、発表内容と仕事・経営への影響を整理しました。\n\n記事：https://signal.amberlight.co.jp/articles/20261028-apple-creator-studio-ai-mcp/\n一次情報：https://www.apple.com/jp/newsroom/2026/10/apple-creator-studio-adds-powerful-new-ai-features-and-even-more-creative-tools/",
-    "social_instagram_caption": ""
+    "social_instagram_caption": "Apple Creator StudioにAIアシスタントとMCP連携。Keynote・Pages・Numbersの仕事が変わる\n\nAppleがCreator Studioの更新を発表。文書の文脈を理解するAIアシスタントとMCPによるワークフロー自動化を導入。11月提供予定で一部機能はベータ版。\n\n詳しくはプロフィールのWORK SIGNALリンクから。\n#WORKSIGNAL #ニュース解説",
+    "social_review_valid_until": "2026-10-30T00:00:00+09:00"
   },
   {
     "id": "20261028-fujitsu-copilot-100k-service-desk-ai",
@@ -155,7 +167,9 @@
     "format": "deep_dive",
     "social_publish": true,
     "social_platforms": [
-      "threads"
+      "threads",
+      "instagram",
+      "instagram_story"
     ],
     "quick_take": "AIの全社導入では配布数だけでなく、現場研修、業務工程の分解、空いた時間の使い道を設計することが重要。",
     "sections": [
@@ -185,7 +199,8 @@
       }
     ],
     "social_threads_text": "AIを社員に配るだけでは、仕事は変わりません。\n\n富士通がMicrosoft 365 Copilotを約10万人規模に展開。利用可能な社員の90％超が利用し、社内サービスデスクでは初期回答・振り分け業務の約75％をAI化しています。\n\n興味深いのは、ツールの導入だけでなく、研修や活用事例の共有にも力を入れていること。\n\n管理職にとって大切なのは「AIを何人が使ったか」だけでなく、「AIによって人がどんな仕事に集中できるようになったか」。\n\n仕事の工程を見直す、良いきっかけになりそうですね。\n\n記事：https://signal.amberlight.co.jp/articles/20261028-fujitsu-copilot-100k-service-desk-ai/\n一次情報：https://www.microsoft.com/en/customers/story/27449-fujitsu-limited-microsoft-365-copilot",
-    "social_instagram_caption": ""
+    "social_instagram_caption": "【事例解説｜2026年10月9日公開の公式事例】\n富士通、Copilotを約10万人規模へ。利用率90％超、社内問い合わせの初期対応75％をAI化\n\n富士通はMicrosoft 365 Copilotを約10万ライセンス展開。2026年6月時点の利用率は90％超、社内サービスデスクの初期回答・振り分け業務の約75％をAIエージェントが自動化。研修と業務設計の重要性を考える。\n\n詳しくはプロフィールのWORK SIGNALリンクから。\n#WORKSIGNAL #ニュース解説",
+    "social_review_valid_until": "2026-10-30T00:00:00+09:00"
   },
   {
     "id": "20261028-nest-admin-jwt-auth-bypass-cve-2026-117564",
@@ -197,7 +212,7 @@
     "source_url": "https://github.com/buqiyuan/nest-admin/issues/92",
     "status": "published",
     "format": "deep_dive",
-    "social_publish": false,
+    "social_publish": true,
     "social_security_severity": "CRITICAL",
     "social_security_product": "nest-admin",
     "social_security_cve": "CVE-2026-117564",
@@ -221,7 +236,8 @@
         "body": "認証基盤の秘密鍵がコードに固定されていると、パスワードが漏えいしていなくても管理者権限が侵害される。更新だけでなく鍵のローテーションまでを一体の復旧手順としたい。"
       }
     ],
-    "social_threads_text": "【SECURITY WATCH｜CRITICAL】nest-adminに認証回避の重大脆弱性（CVE-2026-117564／CVSS 9.3）。固定JWT署名鍵により管理者トークンを偽造される恐れ。修正版v1.0.1へ更新し、JWT署名鍵を変更してください。\n記事：https://signal.amberlight.co.jp/articles/20261028-nest-admin-jwt-auth-bypass-cve-2026-117564/\n一次情報：https://github.com/buqiyuan/nest-admin/issues/92"
+    "social_threads_text": "【SECURITY WATCH｜CRITICAL】nest-adminに認証回避の重大脆弱性（CVE-2026-117564／CVSS 9.3）。固定JWT署名鍵により管理者トークンを偽造される恐れ。修正版v1.0.1へ更新し、JWT署名鍵を変更してください。\n記事：https://signal.amberlight.co.jp/articles/20261028-nest-admin-jwt-auth-bypass-cve-2026-117564/\n一次情報：https://github.com/buqiyuan/nest-admin/issues/92",
+    "social_review_valid_until": "2026-10-30T00:00:00+09:00"
   },
   {
     "id": "20261028-adobe-commerce-magento-cve-2026-48356-kev",
@@ -258,7 +274,8 @@
       }
     ],
     "social_threads_text": "【SECURITY WATCH｜CRITICAL】Adobe Commerce／MagentoのCVE-2026-48356（CVSS 9.6）がCISAの悪用確認済みリストに追加。Adobe APSB26-73の修正更新を適用し、不審なアップロードや権限変更を確認してください。\n記事：https://signal.amberlight.co.jp/articles/20261028-adobe-commerce-magento-cve-2026-48356-kev/\n一次情報：https://www.adobe.com/trust/security/products/commerce/apsb26-73.html",
-    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】Adobe Commerce／Magentoの重大脆弱性CVE-2026-48356、CISAが悪用確認済みリストに追加\n\nAdobe CommerceとMagento Open Sourceの危険なファイルアップロード制限不備（CVE-2026-48356、CVSS 9.6）がCISA KEVに追加。Adobeの2026年7月修正更新を適用し、不審なアップロードや権限変更を調査する。\n\n詳しくはWORK SIGNALで。\n#SECURITYWATCH #脆弱性 #AdobeCommerce #Magento"
+    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】Adobe Commerce／Magentoの重大脆弱性CVE-2026-48356、CISAが悪用確認済みリストに追加\n\nAdobe CommerceとMagento Open Sourceの危険なファイルアップロード制限不備（CVE-2026-48356、CVSS 9.6）がCISA KEVに追加。Adobeの2026年7月修正更新を適用し、不審なアップロードや権限変更を調査する。\n\n詳しくはWORK SIGNALで。\n#SECURITYWATCH #脆弱性 #AdobeCommerce #Magento",
+    "social_review_valid_until": "2026-10-30T00:00:00+09:00"
   },
   {
     "id": "20261027-kirki-privilege-escalation-cve-2026-75891",
@@ -443,7 +460,8 @@
       }
     ],
     "social_threads_text": "AIがPCを操作する時代、「回答の賢さ」だけでなく「仕事を完了する費用」が重要になります。OpenAIのGPT-6.1 Terraは標準API単価が旧Terra比50%減、専門業務ベンチマークでは15ポイント改善。ただしモデル単価の半減＝業務費用の半減ではありません。\n記事全文：https://signal.amberlight.co.jp/articles/20261027-openai-gpt61-terra-computer-use-cost/\n一次情報：https://openai.com/index/introducing-gpt-6-1-terra/",
-    "social_instagram_caption": "AIの価値は、回答の賢さから「仕事を完了するコスト」へ。\n\nOpenAIがGPT-6.1 Terraを発表。標準API単価は旧Terra比50%減。PC操作を伴う業務ベンチマークでも改善が報告されています。\n\nただし、業務での実際の費用は確認・修正・操作ツールの料金も含めて判断する必要があります。\n\nWORK SIGNALで解説。\n#WORKSIGNAL #OpenAI #GPT61Terra #AI活用 #業務自動化"
+    "social_instagram_caption": "AIの価値は、回答の賢さから「仕事を完了するコスト」へ。\n\nOpenAIがGPT-6.1 Terraを発表。標準API単価は旧Terra比50%減。PC操作を伴う業務ベンチマークでも改善が報告されています。\n\nただし、業務での実際の費用は確認・修正・操作ツールの料金も含めて判断する必要があります。\n\nWORK SIGNALで解説。\n#WORKSIGNAL #OpenAI #GPT61Terra #AI活用 #業務自動化",
+    "social_review_valid_until": "2026-10-30T00:00:00+09:00"
   },
   {
     "id": "20261027-oracle-deep-trust-ai-architecture",
@@ -480,7 +498,8 @@
       }
     ],
     "social_threads_text": "AIに仕事を任せる時代。大切なのは「AIが賢いか」だけではありません。\n\nOracleが企業AIの新しい安全設計を発表しました。経費処理なら、AIが「上限を守ります」と判断するだけでなく、データベース側でも上限を超える操作を防ぐ考え方です。\n\nAIを信頼するために、AIだけに頼らない。\n\n人事、経理、営業でも、誰が何を承認し、どこまで任せるかが重要になります。\n\n記事：https://signal.amberlight.co.jp/articles/20261027-oracle-deep-trust-ai-architecture/\n一次情報：https://www.oracle.com/news/announcement/ai-world-oracle-announces-deep-trust-ai-architecture-to-help-enterprises-innovate-with-confidence-2026-10-26/",
-    "social_instagram_caption": "AIを信頼するために、AIだけに頼らない。Oracleが企業AIの新しい安全設計「Deep Trust AI Architecture」を発表。AIの権限や業務ルールを基盤側でも制御する考え方を解説しました。記事全文はプロフィールのWORK SIGNALから。#WORKSIGNAL #企業AI #マネジメント #Oracle"
+    "social_instagram_caption": "AIを信頼するために、AIだけに頼らない。Oracleが企業AIの新しい安全設計「Deep Trust AI Architecture」を発表。AIの権限や業務ルールを基盤側でも制御する考え方を解説しました。記事全文はプロフィールのWORK SIGNALから。#WORKSIGNAL #企業AI #マネジメント #Oracle",
+    "social_review_valid_until": "2026-10-30T00:00:00+09:00"
   },
   {
     "id": "20261027-arcgis-server-sql-injection-cve-2026-10757",
@@ -517,7 +536,8 @@
       }
     ],
     "social_threads_text": "【SECURITY WATCH｜CRITICAL】ArcGIS ServerにCVSS 9.8のSQLインジェクション（CVE-2026-10757）。Esriが累積セキュリティパッチを公開。対象はWindows／Linux版12.1、12.0、11.5、11.3、11.1。早急な更新を。\n記事：https://signal.amberlight.co.jp/articles/20261027-arcgis-server-sql-injection-cve-2026-10757/\n一次情報：https://www.esri.com/arcgis-blog/products/trust-arcgis/administration/october-2026-arcgis-security-bulletin",
-    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】ArcGIS ServerにCVSS 9.8のSQLインジェクション（CVE-2026-10757）。Windows／Linuxの対象バージョンは12.1、12.0、11.5、11.3、11.1。Esriの累積セキュリティパッチを至急適用してください。詳しくはプロフィールのWORK SIGNALから。#SECURITYWATCH #ArcGIS #脆弱性"
+    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】ArcGIS ServerにCVSS 9.8のSQLインジェクション（CVE-2026-10757）。Windows／Linuxの対象バージョンは12.1、12.0、11.5、11.3、11.1。Esriの累積セキュリティパッチを至急適用してください。詳しくはプロフィールのWORK SIGNALから。#SECURITYWATCH #ArcGIS #脆弱性",
+    "social_review_valid_until": "2026-10-30T00:00:00+09:00"
   },
   {
     "id": "20261027-openpanel-two-security-advisories",
@@ -704,7 +724,8 @@
       }
     ],
     "social_threads_text": "【SECURITY WATCH｜HIGH】TraefikのIngressでmTLS認証が無効化。異なる設定のIngress混在に注意\nTraefik v3.7.15以降へ更新し、同一ホストのIngress間のauth-tls設定とcore.strictTLSOptionsを確認。\n記事全文：https://signal.amberlight.co.jp/articles/20261027-traefik-ingress-mtls-bypass-ghsa-p8wx-ph99-xgcr/\n一次情報：https://github.com/traefik/traefik/security/advisories/GHSA-p8wx-ph99-xgcr",
-    "social_instagram_caption": "【SECURITY WATCH｜HIGH】TraefikのIngressでmTLS認証が無効化。異なる設定のIngress混在に注意\n\nTraefik v3.7系のKubernetes Ingress NGINX providerで、同一ホストのIngress間でmTLS設定が競合するとクライアント証明書認証が無効化される問題（GHSA-p8wx-ph99-xgcr、HIGH・CVSS 7.0）。\n\n推奨対応：Traefik v3.7.15以降へ更新し、同一ホストのIngress間のauth-tls設定とcore.strictTLSOptionsを確認。\n詳細はプロフィールのWORK SIGNALから。\n#SECURITYWATCH #脆弱性 #セキュリティ"
+    "social_instagram_caption": "【SECURITY WATCH｜HIGH】TraefikのIngressでmTLS認証が無効化。異なる設定のIngress混在に注意\n\nTraefik v3.7系のKubernetes Ingress NGINX providerで、同一ホストのIngress間でmTLS設定が競合するとクライアント証明書認証が無効化される問題（GHSA-p8wx-ph99-xgcr、HIGH・CVSS 7.0）。\n\n推奨対応：Traefik v3.7.15以降へ更新し、同一ホストのIngress間のauth-tls設定とcore.strictTLSOptionsを確認。\n詳細はプロフィールのWORK SIGNALから。\n#SECURITYWATCH #脆弱性 #セキュリティ",
+    "social_review_valid_until": "2026-10-30T00:00:00+09:00"
   },
   {
     "id": "20261027-consul-k8s-cross-namespace-acl-cve-2026-110720",

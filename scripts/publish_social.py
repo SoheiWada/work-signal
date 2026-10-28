@@ -460,8 +460,9 @@ def delivery_report(articles, rows, failures=()):
     summary = {"checked_at": now(), "published": published, "pending": pending,
                "needs_review": review, "failures": list(failures), "articles": details}
     print("DELIVERY_SUMMARY", json.dumps({k: v for k, v in summary.items() if k != "articles"}))
-    (ROOT / "social-delivery-status.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n")
-    if os.getenv("GITHUB_STEP_SUMMARY"):
+    if os.getenv("SOCIAL_REPORT_ENABLED") == "true":
+        (ROOT / "social-delivery-status.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n")
+    if os.getenv("SOCIAL_REPORT_ENABLED") == "true" and os.getenv("GITHUB_STEP_SUMMARY"):
         with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as report:
             report.write("\n## WORK SIGNAL delivery\n\n" + f"Published: {published}; pending: {pending}; needs review: {review}\n\n" + "\n".join(table) + "\n")
     return pending + review
@@ -504,6 +505,11 @@ def run(articles, ledger, credentials):
     processed = {"threads": set(), "instagram": set()}
     for _, article in ordered:
         identifier = article["id"]
+        if article.get("social_review_valid_until"):
+            limit = datetime.fromisoformat(article["social_review_valid_until"])
+            if limit.tzinfo is None or limit <= datetime.now(timezone.utc):
+                failures.append(identifier + ": freshness review expired; delivery held")
+                continue
         rows, _ = ledger.read()
         remaining = [p for p in remaining_platforms(rows.get(identifier, {})) if p in requested_platforms(article)]
         if not remaining:

@@ -30,7 +30,7 @@ GitHub PagesのSourceは **GitHub Actions**。mainの更新を受けて `.github
 独自ドメインは https://signal.amberlight.co.jp/ 。SEO・Threads計測の運用は `docs/analytics-seo.md` を参照。
 
 ## 注意
-記事は原典と数値を確認してから公開すること。公式Instagram・Threadsの投稿機構は `docs/SOCIAL_AUTOPUBLISH.md` を参照。`social_publish: true` を明示した承認済み新規記事のみ、Pagesデプロイ成功後に公式APIで投稿する。アカウントのGitHub Secretsと有効化変数が未設定なら**外部投稿は行われない**。
+記事は原典と数値を確認してから公開すること。公式Instagram・Threadsの投稿機構は `docs/SOCIAL_AUTOPUBLISH.md` を参照。`social_publish: true` を明示した承認済み新規記事のみ、Pagesデプロイ成功後に公式APIで投稿する。要求された媒体のGitHub Secretsと有効化変数が必要。媒体別の枠待ちは定期処理が継続し、結果不明の投稿は実照合後に復旧する。SECURITY WATCHは承認済みの明示メタデータから連動掲載する。
 
 ## 記事詳細ページ（実装済み）
 - 正規URL `/articles/<記事ID>/` を公開時に静的生成
@@ -51,3 +51,4 @@ GitHub PagesのSourceは **GitHub Actions**。mainの更新を受けて `.github
 ```
 
 Threads／Instagram用投稿文は、承認記事に `social_threads_text` と `social_instagram_caption` として任意で保存できます。未指定なら承認済みのタイトル・概要を用いた定型文を生成します。`social_publish` がない過去の記事は自動投稿されません。
+

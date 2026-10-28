@@ -4,6 +4,8 @@ from unittest.mock import patch
 from scripts import publish_social as p
 from scripts.security_watch import security_feed
 from scripts.verify_deployed_revision import safe_drift
+from scripts.reconcile_social_recovery import may_retry_story, save_verified
+from datetime import datetime, timezone
 
 
 class MemoryLedger:
@@ -93,6 +95,19 @@ class DeliveryReliabilityTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             security_feed([a], [])
         self.assertEqual(security_feed([{**a, "security_watch_exclusion_reason": "Duplicate coverage"}], []), [])
+
+    def test_story_recovery_requires_recent_attempt_and_verified_image_absence(self):
+        current = datetime(2026, 10, 28, 0, 0, tzinfo=timezone.utc)
+        proof = {"absence_verified": True, "matching_ids": []}
+        self.assertTrue(may_retry_story({"updated_at": "2026-10-27T23:00:00+00:00"}, proof, current))
+        self.assertFalse(may_retry_story({"updated_at": "2026-10-26T23:00:00+00:00"}, proof, current))
+        self.assertFalse(may_retry_story({"updated_at": "2026-10-27T23:00:00+00:00"}, {}, current))
+        self.assertFalse(may_retry_story({"updated_at": "2026-10-28T01:00:00+00:00"}, proof, current))
+
+    def test_reconciliation_cannot_overwrite_published_or_changed_history(self):
+        ledger = MemoryLedger({"a": {"threads": {"status": "published", "remote_id": "1"}}})
+        with self.assertRaises(RuntimeError):
+            save_verified(ledger, "a", "threads", {"status": "needs_review"}, {"status": "deferred"})
 
 
 if __name__ == "__main__":

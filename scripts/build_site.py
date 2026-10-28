@@ -872,6 +872,8 @@ def build(output, feed=None):
     index = (ROOT / 'index.html').read_text()
     # SECURITY WATCH: independent alert feed; article publication dates remain unchanged.
     security_feed = merged_security_feed(articles, json.loads((ROOT / 'data/security-watch.json').read_text()))
+    (output / 'data').mkdir(exist_ok=True)
+    (output / 'data/security-watch.json').write_text(json.dumps(security_feed, ensure_ascii=False, indent=2) + '\n')
     security_rows = []
     for alert in security_feed:
         article_id = alert.get('article_id')

@@ -1156,10 +1156,12 @@
   },
   "20261029-fomc-hold-two-hike-dissents": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T22:39:33+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T22:39:42+00:00",
       "stage": "publish_requested",
-      "container_id": "18133026865690068"
+      "container_id": "18133026865690068",
+      "remote_id": "18130114507879797",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfDhoLQn0CY"
     }
   }
 }

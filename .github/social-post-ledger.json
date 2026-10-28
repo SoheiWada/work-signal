@@ -773,8 +773,8 @@
     },
     "instagram": {
       "status": "attempting",
-      "updated_at": "2026-10-28T00:57:30+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-10-28T00:57:36+00:00",
+      "stage": "publish_requested",
       "container_id": "18156106063488337"
     }
   },

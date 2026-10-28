@@ -200,6 +200,7 @@ class GithubLedger:
                 raise ValueError("Unsupported ledger metadata")
             per_article[platform] = {
                 "status": status, "updated_at": now(),
+                **{key: previous[key] for key in ("recovery_review_id", "reconciled_at") if key in previous},
                 **({key: previous[key] for key in ("stage", "container_id") if key in previous}
                    if status != "attempting" else {}),
                 **({"remote_id": remote_id} if remote_id else {}),

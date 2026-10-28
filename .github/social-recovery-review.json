@@ -158,5 +158,6 @@
       "source_url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-r6pf-x897-gm86"
     }
   ],
-  "valid_until": "2026-10-30T00:00:00+09:00"
+  "valid_until": "2026-10-30T00:00:00+09:00",
+  "review_id": "freshness-reviewed-recovery-20261028"
 }

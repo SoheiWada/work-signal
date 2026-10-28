@@ -58,7 +58,8 @@ def main():
     ):
         targets = [item for item in plan["items"] if item["decision"] == "deliver_missing_platforms_only"
                    and kind in item.get("platforms", [])
-                   and rows.get(item["article_id"], {}).get(kind, {}).get("status") == "needs_review"]
+                   and rows.get(item["article_id"], {}).get(kind, {}).get("status") == "needs_review"
+                   and rows.get(item["article_id"], {}).get(kind, {}).get("recovery_review_id") != plan["review_id"]]
         if not targets:
             continue
         try:
@@ -92,6 +93,7 @@ def main():
                 replacement = {"status": "deferred", "updated_at": social.now(),
                                "next_attempt_at": social.now(), "reason": "freshness_reviewed_and_live_absence_verified",
                                "reconciled_at": social.now()}
+            replacement["recovery_review_id"] = plan["review_id"]
             save_verified(ledger, aid, kind, old, replacement)
             print("RECONCILED", aid, kind, replacement["status"])
     print("Reconciliation finished. No Meta publishing calls made.")

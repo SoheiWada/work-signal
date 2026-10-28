@@ -981,10 +981,11 @@
       "remote_id": "18046229984834789"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T12:50:08+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T12:50:12+00:00",
       "stage": "publish_requested",
-      "container_id": "18156278347488337"
+      "container_id": "18156278347488337",
+      "remote_id": "18121827265946498"
     }
   }
 }

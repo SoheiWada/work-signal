@@ -943,7 +943,9 @@
   "20261028-oracle-openai-four-enterprise-ai-products": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-28T08:26:02+00:00"
+      "updated_at": "2026-10-28T08:26:06+00:00",
+      "stage": "container_created",
+      "container_id": "18132920458690068"
     }
   }
 }

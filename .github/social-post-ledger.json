@@ -612,9 +612,11 @@
     },
     "instagram_story": {
       "status": "attempting",
-      "updated_at": "2026-10-28T00:56:52+00:00",
+      "updated_at": "2026-10-28T00:56:57+00:00",
       "recovery_review_id": "freshness-reviewed-recovery-20261028",
-      "reconciled_at": "2026-10-28T00:54:20+00:00"
+      "reconciled_at": "2026-10-28T00:54:20+00:00",
+      "stage": "container_created",
+      "container_id": "18156106006488337"
     }
   },
   "20261027-openai-gpt61-terra-computer-use-cost": {

@@ -746,15 +746,24 @@
       "remote_id": "17993720337060378"
     },
     "instagram": {
-      "status": "needs_review",
-      "updated_at": "2026-10-28T00:56:12+00:00",
-      "stage": "publish_requested",
-      "container_id": "18156105889488337",
-      "error": {
-        "http_status": 403,
-        "code": 4,
-        "subcode": 2207051,
-        "type": "OAuthException"
+      "status": "published",
+      "updated_at": "2026-10-28T01:13:24+00:00",
+      "remote_id": "17956235082055143",
+      "permalink": "https://www.instagram.com/p/DfBMdAVAO_-/",
+      "reconciled_at": "2026-10-28T01:13:24+00:00",
+      "recovery_review_id": "freshness-reviewed-recovery-20261028",
+      "action_block_hold": true,
+      "previous_attempt": {
+        "status": "needs_review",
+        "updated_at": "2026-10-28T00:56:12+00:00",
+        "stage": "publish_requested",
+        "container_id": "18156105889488337",
+        "error": {
+          "http_status": 403,
+          "code": 4,
+          "subcode": 2207051,
+          "type": "OAuthException"
+        }
       }
     },
     "instagram_story": {

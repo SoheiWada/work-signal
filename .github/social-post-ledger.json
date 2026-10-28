@@ -1136,5 +1136,11 @@
       "container_id": "18156294880488337",
       "remote_id": "18575594530078043"
     }
+  },
+  "20261028-akamai-agent-sandbox-inference-isolation": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-28T14:30:03+00:00"
+    }
   }
 }

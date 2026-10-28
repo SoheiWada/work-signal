@@ -359,12 +359,12 @@
   },
   {
     "id": "20261028-undici-three-high-security-advisories",
-    "title": "Node.jsのHTTP基盤undiciに重大脆弱性3件。キャッシュ汚染・TLS検証回避・DoSを修正",
-    "summary": "undiciのCVE-2026-109829（7.4）、CVE-2026-109383（7.4）、CVE-2026-87018（7.5）。影響する設定を確認し、6.29.1／7.30.1／8.12.2の該当修正版へ更新。",
+    "title": "Node.jsのHTTP基盤undiciにHIGH脆弱性4件。HTTP/2 WebSocketのDoSを追記",
+    "summary": "undiciのCVE-2026-109829（7.4）、CVE-2026-109383（7.4）、CVE-2026-87018（7.5）。影響する設定を確認し、6.29.1／7.30.1／8.12.2の該当修正版へ更新。 Node.jsのHTTPクライアントundiciに、HTTP/2経由のWebSocket接続で悪意ある接続先がNode.jsプロセスを停止させ得るHIGH脆弱性がある。8.11.0と8.11.1が対象で、8.11.2で修正された。",
     "category": "仕事",
-    "score": 90,
+    "score": 84,
     "published_at": "2026-10-28",
-    "source_url": "https://github.com/nodejs/undici/security/advisories/GHSA-4w7w-5xrc-9h26",
+    "source_url": "https://github.com/nodejs/undici/security/advisories/GHSA-qq8j-7v2v-3rwp",
     "status": "published",
     "format": "deep_dive",
     "social_publish": true,
@@ -373,9 +373,9 @@
     ],
     "social_security_severity": "HIGH",
     "social_security_product": "undici (Node.js)",
-    "social_security_cve": "CVE-2026-109829 / CVE-2026-109383 / CVE-2026-87018",
-    "social_security_action": "undici 6.29.1、7.30.1、8.12.2の該当系列の修正版へ更新",
-    "quick_take": "undiciのCVE-2026-109829（7.4）、CVE-2026-109383（7.4）、CVE-2026-87018（7.5）。影響する設定を確認し、6.29.1／7.30.1／8.12.2の該当修正版へ更新。",
+    "social_security_cve": "CVE-2026-109829 / CVE-2026-109383 / CVE-2026-87018 / CVE-2026-109855",
+    "social_security_action": "undici 6.29.1、7.30.1、8.12.2の該当系列の修正版へ更新 / undici 8.11.2以降へ更新。更新までallowH2:false、または信頼できないWebSocketサーバーへの接続回避。",
+    "quick_take": "undiciのCVE-2026-109829（7.4）、CVE-2026-109383（7.4）、CVE-2026-87018（7.5）。影響する設定を確認し、6.29.1／7.30.1／8.12.2の該当修正版へ更新。 Node.jsのHTTPクライアントundiciに、HTTP/2経由のWebSocket接続で悪意ある接続先がNode.jsプロセスを停止させ得るHIGH脆弱性がある。8.11.0と8.11.1が対象で、8.11.2で修正された。",
     "sections": [
       {
         "title": "共有キャッシュとリダイレクト：CVE-2026-109829",
@@ -392,6 +392,14 @@
       {
         "title": "推奨対応と悪用状況",
         "body": "利用中のundici系列を修正版へ更新。共有キャッシュとリダイレクトの組み合わせ、独自TLS検証、外部HTTPS通信を重点点検する。開発元勧告は2026年10月15日公開、GitHub Advisory Databaseへの審査反映は10月27日。実際の悪用確認は一次情報から確認できない。"
+      },
+      {
+        "title": "影響条件と攻撃の仕組み",
+        "body": "undiciの実験的WebSocketクライアントでHTTP/2（allowH2:true）を使い、接続先がWebSocketハンドシェイク検証に失敗する応答を返した後に接続を破棄すると、未処理のClientHttp2Streamエラーが発生しNode.jsプロセスが終了する可能性がある。対象はundici 8.11.0以上8.11.2未満。攻撃者は悪意ある接続先サーバーを制御する必要があり、任意の外部クライアントから一般のWebサーバーを直接停止できると断定しない。"
+      },
+      {
+        "title": "修正版と暫定策",
+        "body": "開発元は8.11.2への更新を推奨。更新までWebSocket接続のallowH2をfalseにするか、信頼できないサーバーへのWebSocket接続を避ける。CVSS v3.1は7.5（HIGH）。実環境での悪用は開発元勧告に確認記載がない。"
       }
     ],
     "social_threads_text": "【SECURITY WATCH｜HIGH】Node.jsのHTTP基盤undiciに重大脆弱性3件。キャッシュ汚染・TLS検証回避・DoSを修正\nundiciのCVE-2026-109829（7.4）、CVE-2026-109383（7.4）、CVE-2026-87018（7.5）。影響する設定を確認し、6.29.1／7.30.1／8.12.2の該当修正版へ更新。\n記事：https://signal.amberlight.co.jp/articles/20261028-undici-three-high-security-advisories/\n一次情報：https://github.com/nodejs/undici/security/advisories/GHSA-4w7w-5xrc-9h26",

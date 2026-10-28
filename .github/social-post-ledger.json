@@ -903,8 +903,8 @@
   },
   "20261028-gemini-4-argon-nasa-80000-files": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T02:01:44+00:00",
+      "status": "needs_review",
+      "updated_at": "2026-10-28T02:01:48+00:00",
       "stage": "publish_requested",
       "container_id": "18132881209690068"
     }

@@ -1,5 +1,44 @@
 [
   {
+    "id": "20261028-bun-http3-qpack-memory-cpu-dos",
+    "title": "BunのHTTP/3にHIGH脆弱性、少量の通信からメモリ枯渇・CPU停止のおそれ。v1.4.4で修正",
+    "summary": "BunのHTTP/3（QPACK）ヘッダー展開処理に、遠隔の相手が少ない通信量で大量のメモリ消費やCPU停止を引き起こせるHighのDoS脆弱性が見つかりました。対象はHTTP/3を明示的に使う構成で、修正版はBun 1.4.4です。既存のBrotli脆弱性とは別の問題として、影響条件と更新時の注意点を整理します。",
+    "category": "仕事",
+    "score": 88,
+    "published_at": "2026-10-28",
+    "source_url": "https://github.com/oven-sh/bun/security/advisories/GHSA-cf8x-9m69-3gg3",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "BunのHTTP/3（QPACK）ヘッダー展開処理に、遠隔の相手が少ない通信量で大量のメモリ消費やCPU停止を引き起こせるHighのDoS脆弱性が見つかりました。対象はHTTP/3を明示的に使う構成で、修正版はBun 1.4.4です。既存のBrotli脆弱性とは別の問題として、影響条件と更新時の注意点を整理します。",
+    "sections": [
+      {
+        "title": "HTTP/3のヘッダー圧縮QPACKを悪用",
+        "body": "Bun開発元の公式セキュリティ勧告GHSA-cf8x-9m69-3gg3によると、HTTP/3で使うQPACKヘッダー圧縮を利用して、少量のリクエストから大量のヘッダーを展開させる攻撃が成立する。Bun 1.4.3以前では、個々のヘッダーサイズを確認していた一方、ヘッダー全体の展開後サイズと数を十分に制限していなかった。遠隔の認証されていない相手が、メモリ枯渇やCPU処理停止を引き起こす恐れがある。"
+      },
+      {
+        "title": "影響する構成とバージョン",
+        "body": "公式勧告で影響範囲はBun 1.3.14以上1.4.4未満、修正は1.4.4とされる。Bun.serveで `http3: true` を指定したサーバー、また `fetch(url, { protocol: \"http3\" })` や `--experimental-http3-fetch` でHTTP/3を利用するクライアントが対象。BunではHTTP/3は標準で無効であり、この問題はHTTP/1.1およびHTTP/2には該当しない。『Bunを使っているだけで全サービスが危険』という読み方は正確ではない。"
+      },
+      {
+        "title": "開発元が示した実証結果と対策",
+        "body": "開発元はBun 1.4.3で約6MBの通信により2GBメモリ制限のサーバープロセスが停止した例、約20KBのリクエストで1分超の応答停止を起こした例、約530KBのリクエストでCPU使用率が100%になった例を示している。これらは開発元の試験結果であり、実環境での攻撃件数・被害範囲を示すものではない。対策はBun 1.4.4への更新と、`bun build --compile` で生成した実行ファイルの再ビルド。更新が難しい場合は不特定の相手が到達できるHTTP/3サーバー利用や、信頼できないサーバーへのHTTP/3クライアント通信を停止・制限する。"
+      },
+      {
+        "title": "WORK SIGNALの視点｜同じv1.4.4でもBrotliとは別の脆弱性",
+        "body": "今回のQPACKヘッダー増幅は、別途報じられているBrotliデコーダーの範囲外書き込みとは原因も影響条件も異なる。Bun 1.4.4は両方の修正を含むが、更新理由を区別して運用者に説明したい。必要なのは、Bunの利用有無だけでなく、HTTP/3が実際に有効か、コンパイル済み実行ファイルが旧ランタイムを含んでいないかを確認することだ。公式情報：https://github.com/oven-sh/bun/security/advisories/GHSA-cf8x-9m69-3gg3"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "Bun / HTTP/3 QPACK",
+    "social_security_action": "Bun 1.4.4以降へ更新。コンパイル済み実行ファイルは再ビルド。更新までHTTP/3の利用を検討"
+  },
+  {
     "id": "20261028-truist-ai-agents-45day-inactivity-governance",
     "title": "AIエージェントは作って終わりではない。米金融大手が導入した「45日使われなければ停止」の運用ルール",
     "summary": "Microsoftが2026年10月27日に紹介した米金融大手Truistの事例では、1万3,000超のAIエージェントに責任者を設定し、45日間利用されなければ自動停止する運用が示されました。AI導入を「作る」から「管理する」へ進めるための実務を考えます。",

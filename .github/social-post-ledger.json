@@ -772,15 +772,24 @@
       "remote_id": "17952668979272774"
     },
     "instagram": {
-      "status": "needs_review",
-      "updated_at": "2026-10-28T00:57:40+00:00",
-      "stage": "publish_requested",
-      "container_id": "18156106063488337",
-      "error": {
-        "http_status": 403,
-        "code": 4,
-        "subcode": 2207051,
-        "type": "OAuthException"
+      "status": "published",
+      "updated_at": "2026-10-28T01:13:23+00:00",
+      "remote_id": "17966661360196662",
+      "permalink": "https://www.instagram.com/p/DfBMnu_ADRA/",
+      "reconciled_at": "2026-10-28T01:13:23+00:00",
+      "recovery_review_id": "freshness-reviewed-recovery-20261028",
+      "action_block_hold": true,
+      "previous_attempt": {
+        "status": "needs_review",
+        "updated_at": "2026-10-28T00:57:40+00:00",
+        "stage": "publish_requested",
+        "container_id": "18156106063488337",
+        "error": {
+          "http_status": 403,
+          "code": 4,
+          "subcode": 2207051,
+          "type": "OAuthException"
+        }
       }
     },
     "instagram_story": {

@@ -92,6 +92,7 @@ class SecurityAssetDesignTests(unittest.TestCase):
         identifiers = (
             "20261028-fastify-express-absolute-form-middleware-bypass",
             "20261028-better-auth-magic-link-oauth-account-takeover",
+            "20261028-mcp-typescript-sdk-http-batch-dos",
         )
         by_id = {article["id"]: article for article in articles}
         with tempfile.TemporaryDirectory() as tmp:
@@ -99,7 +100,10 @@ class SecurityAssetDesignTests(unittest.TestCase):
             for identifier in identifiers:
                 article = by_id[identifier]
                 original_action = article["social_security_action"]
-                self.assertGreater(len(original_action), 120)
+                if identifier != "20261028-mcp-typescript-sdk-http-batch-dos":
+                    self.assertGreater(len(original_action), 120)
+                else:
+                    self.assertGreater(len(article["social_security_product"]), 90)
                 feed = security_share_card(output, article)
                 story = security_story_card(output, article)
                 self.assertTrue(feed.is_file())

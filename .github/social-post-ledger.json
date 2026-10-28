@@ -1191,8 +1191,8 @@
   "20261029-linux-kernel-fragnesia-kev-cve-2026-46300": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-28T23:32:56+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-10-28T23:32:57+00:00",
+      "stage": "publish_requested",
       "container_id": "18133031191690068"
     }
   }

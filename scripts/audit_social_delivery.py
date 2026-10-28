@@ -148,6 +148,29 @@ def main():
                     row["assets"][name] = "visible"
                 except RuntimeError as exc:
                     row["assets"][name] = str(exc)
+        # Read-only delivery evidence for dashboard and incident triage.
+        # An API published response is not equivalent to live visibility.
+        row["delivery_evidence"] = {}
+        for kind in ("threads", "instagram_story"):
+            entry = state.get(kind, {})
+            remote_id = str(entry.get("remote_id", ""))
+            items = streams.get(kind, [])
+            found = next((x for x in items if remote_id and str(x.get("id")) == remote_id), None)
+            evidence = {
+                "ledger_status": entry.get("status", "untracked"),
+                "remote_id": remote_id or None,
+                "live_verified": bool(found),
+                "collection_complete": result["collections"].get(kind, {}).get("complete", False),
+                "checked_at": result["checked_at"],
+                "published_at": found.get("timestamp") if found else None,
+                "permalink": found.get("permalink") if found else None,
+            }
+            if kind == "instagram_story":
+                # Active-story API only exposes currently available stories.
+                # Absence after expiry is NOT evidence of a failed publication.
+                evidence["verification_scope"] = "currently_active_stories_only"
+                evidence["historical_visibility_unknown"] = not bool(found)
+            row["delivery_evidence"][kind] = evidence
         result["articles"].append(row)
         if review or not row["approved"] or article.get("social_platforms") or aid in reviewed_ids:
             print("RECONCILE", json.dumps(row, ensure_ascii=False))

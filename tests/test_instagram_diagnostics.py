@@ -43,5 +43,15 @@ class DiagnosticsTests(unittest.TestCase):
                 open_url.assert_not_called()
 
 
+class PublisherErrorMetadataTests(unittest.TestCase):
+    def test_preserve_trace_without_raw_error_text(self):
+        from scripts.publish_social import MetaAPIError
+        result = MetaAPIError(403, {"code":4, "error_subcode":2207051, "type":"OAuthException",
+            "fbtrace_id":"trace_12345", "is_transient":False, "message":"SECRET"}).metadata()
+        self.assertEqual(result["fbtrace_id"], "trace_12345")
+        self.assertFalse(result["is_transient"])
+        self.assertNotIn("SECRET", json.dumps(result))
+
+
 if __name__ == "__main__":
     unittest.main()

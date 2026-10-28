@@ -121,11 +121,16 @@ class MetaAPIError(RuntimeError):
         self.code = error.get("code")
         self.subcode = error.get("error_subcode")
         self.error_type = str(error.get("type", "?"))[:80]
+        trace = error.get("fbtrace_id", "")
+        self.trace_id = trace if isinstance(trace, str) and re.fullmatch(r"[A-Za-z0-9_-]{5,128}", trace) else None
+        self.is_transient = error.get("is_transient") if type(error.get("is_transient")) is bool else None
         super().__init__(f"API HTTP {http_status} code={self.code} subcode={self.subcode} type={self.error_type}")
 
     def metadata(self):
         return {"http_status": self.http_status, "code": self.code,
-                "subcode": self.subcode, "type": self.error_type}
+                "subcode": self.subcode, "type": self.error_type,
+                **({"fbtrace_id": self.trace_id} if self.trace_id else {}),
+                **({"is_transient": self.is_transient} if self.is_transient is not None else {})}
 
 
 def request_json(url, *, token="", data=None, method="GET"):

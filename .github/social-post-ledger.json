@@ -1038,10 +1038,11 @@
   },
   "20261028-sme-cybersecurity-free-consultation": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T12:52:08+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T12:52:13+00:00",
       "stage": "publish_requested",
-      "container_id": "18132950539690068"
+      "container_id": "18132950539690068",
+      "remote_id": "18105025016285883"
     }
   }
 }

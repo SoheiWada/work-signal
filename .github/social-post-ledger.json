@@ -1080,10 +1080,11 @@
       "remote_id": "17973371178155540"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T13:38:43+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T13:38:45+00:00",
       "stage": "publish_requested",
-      "container_id": "18156294292488337"
+      "container_id": "18156294292488337",
+      "remote_id": "18638699839035911"
     }
   }
 }

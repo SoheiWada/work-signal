@@ -572,12 +572,13 @@
       "remote_id": "17964030603234386"
     },
     "instagram": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T00:54:59+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T00:55:03+00:00",
       "recovery_review_id": "freshness-reviewed-recovery-20261028",
       "reconciled_at": "2026-10-28T00:54:11+00:00",
       "stage": "publish_requested",
-      "container_id": "18156105655488337"
+      "container_id": "18156105655488337",
+      "remote_id": "17962353609246453"
     },
     "instagram_story": {
       "status": "deferred",

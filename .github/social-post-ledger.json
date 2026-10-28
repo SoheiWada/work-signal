@@ -798,10 +798,11 @@
       "remote_id": "18128141596861960"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T01:06:10+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T01:06:14+00:00",
       "stage": "publish_requested",
-      "container_id": "18156107983488337"
+      "container_id": "18156107983488337",
+      "remote_id": "17908689924591922"
     }
   },
   "20261028-deepmind-genie4-world-simulation": {

@@ -25,6 +25,12 @@ class DeliveryReliabilityTests(unittest.TestCase):
         self.credentials = {"SOCIAL_PUBLISH_ENABLED": "true", "THREADS_ACCESS_TOKEN": "t", "THREADS_USER_ID": "1",
                             "INSTAGRAM_ACCESS_TOKEN": "i", "INSTAGRAM_USER_ID": "2"}
 
+        # All test publisher writes are mocked: mock live Meta readback too.
+        readback = patch.object(p, "verify_threads_delivery",
+                                return_value={"id": "123", "permalink": "https://www.threads.com/t/test"})
+        readback.start()
+        self.addCleanup(readback.stop)
+
     def test_threads_only_ignores_missing_instagram_credentials(self):
         a = {**self.article, "social_platforms": ["threads"]}
         c = {k: v for k, v in self.credentials.items() if not k.startswith("INSTAGRAM")}
@@ -33,6 +39,16 @@ class DeliveryReliabilityTests(unittest.TestCase):
             self.assertEqual(p.run([a], MemoryLedger(), c), 0)
         self.assertEqual(account.call_count, 1)
         quota.assert_not_called()
+
+    def test_unconfirmed_threads_post_is_not_reported_published(self):
+        a = {**self.article, "social_platforms": ["threads"]}
+        ledger = MemoryLedger()
+        with (patch.object(p, "verify_account", return_value={}),
+              patch.object(p, "verify_live"),
+              patch.object(p, "publish_threads", return_value="123"),
+              patch.object(p, "verify_threads_delivery", return_value=None)):
+            self.assertEqual(p.run([a], ledger, self.credentials), 1)
+        self.assertEqual(ledger.rows[a["id"]]["threads"]["status"], "needs_review")
 
     def test_instagram_failure_does_not_stop_threads(self):
         with patch.object(p, "verify_account", side_effect=[{}, RuntimeError("Instagram authentication unavailable")]), \

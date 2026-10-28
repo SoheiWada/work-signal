@@ -28,7 +28,10 @@ def matches(article, kind, items):
     if kind == "threads":
         needle = social.article_url(article)
         return [x for x in items if needle in (x.get("text") or "")]
-    caption = social.instagram_text(article).strip()
+    try:
+        caption = social.instagram_text(article).strip()
+    except ValueError:
+        return []
     # Full approved caption is compared; no fuzzy title matching authorizes a retry.
     return [x for x in items if (x.get("caption") or "").strip() == caption]
 

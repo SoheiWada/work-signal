@@ -167,10 +167,11 @@ def draw_severity(draw, article, *, style, left, top, right, preferred_size):
 
 
 def draw_article_info(draw, article, style, *, left, top, width):
-    product = text_field(article, "social_security_product", 90)
-    cve = text_field(article, "social_security_cve", 80)
-    # The published mitigation can legitimately exceed the card's two-line
-    # visual budget; keep the full source string and truncate only the display.
+    # Published product lists, multiple CVEs, and complete remediation
+    # steps may be longer than the two-line visual space. Keep their entire
+    # source strings in the article and compact only this image's excerpts.
+    product = text_field(article, "social_security_product", 4000)
+    cve = text_field(article, "social_security_cve", 4000)
     action = text_field(article, "social_security_action", 4000)
     # Do not invent a CVE or remedial action; only display checked editorial fields.
     lines = []

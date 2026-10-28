@@ -1,5 +1,36 @@
 [
   {
+    "id": "20261028-fastify-express-absolute-form-middleware-bypass",
+    "title": "@fastify/expressにCritical認証回避、特定設定で管理画面の保護を迂回",
+    "summary": "FastifyとExpressを連携させる`@fastify/express`で、特定のURL正規化設定により管理画面などの認証・認可ミドルウェアを迂回できる重大な脆弱性が公表された。開発元はCritical（CVSS 9.1）と評価し、修正版4.0.9への更新を求めている。",
+    "category": "仕事",
+    "score": 95,
+    "published_at": "2026-10-28",
+    "source_url": "https://github.com/fastify/fastify-express/security/advisories/GHSA-6h42-57hq-9746",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "FastifyとExpressを連携させる`@fastify/express`で、特定のURL正規化設定により管理画面などの認証・認可ミドルウェアを迂回できる重大な脆弱性が公表された。開発元はCritical（CVSS 9.1）と評価し、修正版4.0.9への更新を求めている。",
+    "sections": [
+      {
+        "title": "FastifyとExpressでURLの解釈が食い違う",
+        "body": "開発元が2026年10月27日に公開したGHSA-6h42-57hq-9746（CVE-2026-112362）は、`@fastify/express`の4.0.5以上4.0.9未満に影響する。Fastifyの`routerOptions.ignoreDuplicateSlashes: true`を有効にした場合、絶対形式のリクエストターゲットに含まれる二重スラッシュの扱いがFastifyルーターとExpressミドルウェアの間で食い違う。\n\nその結果、ルーターは保護対象のパスへリクエストを配送する一方、パス限定のExpressミドルウェアは一致しないと判断し、認証・認可やレート制限を適用しない場合がある。開発元は、`/admin`に適用した認証ミドルウェアが迂回され得る例を挙げている。"
+      },
+      {
+        "title": "修正版4.0.9へ更新。暫定策は設定と認証処理の見直し",
+        "body": "公式勧告では修正版`@fastify/express` 4.0.9以降への更新を推奨している。直ちに更新できない場合は、`ignoreDuplicateSlashes`を既定値のoffに戻すか、ルーティング後に動くFastifyの`preHandler`フックなどで認証を強制する。\n\nこの問題は非既定設定を使う環境に限定される。すべてのFastify/Express利用者が影響するわけではない。また、公式勧告から実環境での悪用確認までは読み取れない。導入パッケージのバージョンとルーター設定を優先して点検したい。\n\n一次情報: https://github.com/fastify/fastify-express/security/advisories/GHSA-6h42-57hq-9746"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "@fastify/express",
+    "social_security_action": "@fastify/expressを4.0.9以降に更新。更新まで`routerOptions.ignoreDuplicateSlashes`を既定値のoffに戻すか、ルーターがパスを解決した後に動くFastify `preHandler`などで認証を強制する。"
+  },
+  {
     "id": "20261028-sap-teched-joule-ai-agent-governance",
     "title": "SAP、70超のAIモデルから業務エージェントを構築へ。企業システムをつなぐ「権限と監査」の設計",
     "summary": "SAPは2026年10月27日、企業向けAI開発環境「Joule Studio」などの機能拡張を発表した。70を超えるAIモデルの選択肢に加え、社内外のAIエージェントをつなぐ仕組みと、権限・利用状況・監査を管理する機能を打ち出した。業務AIの導入で、機能だけでなく運用責任をどう設計するかが問われる。",

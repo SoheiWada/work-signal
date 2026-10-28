@@ -735,10 +735,10 @@
     },
     "instagram_story": {
       "status": "attempting",
-      "updated_at": "2026-10-28T00:55:44+00:00",
+      "updated_at": "2026-10-28T00:55:51+00:00",
       "recovery_review_id": "freshness-reviewed-recovery-20261028",
       "reconciled_at": "2026-10-28T00:54:18+00:00",
-      "stage": "container_created",
+      "stage": "publish_requested",
       "container_id": "18156105814488337"
     }
   },

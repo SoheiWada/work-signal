@@ -1122,8 +1122,8 @@
   "20261028-legora-ai-nda-legal-workflow": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-28T13:39:42+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-10-28T13:39:44+00:00",
+      "stage": "publish_requested",
       "container_id": "18132958357690068"
     }
   }

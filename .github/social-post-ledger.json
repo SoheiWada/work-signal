@@ -900,5 +900,11 @@
       "container_id": "18132880732690068",
       "remote_id": "18122326484470347"
     }
+  },
+  "20261028-gemini-4-argon-nasa-80000-files": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-28T02:01:38+00:00"
+    }
   }
 }

@@ -491,16 +491,16 @@ def run(articles, ledger, credentials):
                        if p in requested_platforms(a)] for a in approved}
     needed = set(p for kinds in work.values() for p in kinds)
     failures, profiles = [], {}
-    ig_action_blocked = any(active_instagram_action_block(entry) for item in rows.values()
-                            for kind, entry in item.items() if kind in ("instagram", "instagram_story"))
+    blocked_ig_platforms = {kind for item in rows.values() for kind, entry in item.items()
+                            if kind in ("instagram", "instagram_story") and active_instagram_action_block(entry)}
     for group, kinds, base, token_key, user_key in (
         ("threads", {"threads"}, THREADS_API, "THREADS_ACCESS_TOKEN", "THREADS_USER_ID"),
         ("instagram", {"instagram", "instagram_story"}, IG_API, "INSTAGRAM_ACCESS_TOKEN", "INSTAGRAM_USER_ID"),
     ):
         if not needed & kinds:
             continue
-        if group == "instagram" and ig_action_blocked:
-            failures.append("Instagram protective action block 4/2207051 requires account-status review; no further Instagram writes")
+        if group == "instagram" and needed & kinds <= blocked_ig_platforms:
+            failures.append("Requested Instagram media are action-blocked (4/2207051); no further writes to those media")
             continue
         try:
             if not credentials.get(token_key) or not credentials.get(user_key):
@@ -530,6 +530,11 @@ def run(articles, ledger, credentials):
                 continue
         for kind in remaining:
             group = "threads" if kind == "threads" else "instagram"
+            if kind in blocked_ig_platforms:
+                message = kind + " protective action block 4/2207051; delivery held pending review"
+                if message not in failures:
+                    failures.append(message)
+                continue
             if group not in profiles:
                 continue
             if identifier not in processed[group] and len(processed[group]) >= 5:
@@ -577,8 +582,7 @@ def run(articles, ledger, credentials):
                 action_block = (kind != "threads" and isinstance(exc, MetaAPIError)
                                 and exc.code == 4 and exc.subcode == 2207051)
                 if action_block:
-                    profiles.pop("instagram", None)
-                    budget = 0
+                    blocked_ig_platforms.add(kind)
                 if claimed:
                     try:
                         if kind != "threads" and isinstance(exc, MetaAPIError) and exc.http_status == 400 and exc.subcode == 2207042:

@@ -21,12 +21,21 @@ def security_feed(articles, legacy):
             continue
         if explicit is not None and not isinstance(explicit, dict):
             raise ValueError("Invalid article SECURITY WATCH metadata")
+        if article["id"] in alerts and explicit is None:
+            # Legacy records retain reviewed IDs, initial dates and response
+            # status. Display headline and summary always come from the
+            # canonical published article, so updated findings cannot drift.
+            existing = alerts[article["id"]]
+            existing["headline"] = article.get("security_headline") or article["title"]
+            existing["summary"] = article["summary"]
+            if level in ("HIGH", "CRITICAL"):
+                existing["severity"] = level
+                existing["product"] = article.get("social_security_product") or existing["product"]
+            continue
         if not level and explicit is None:
             continue
         if level not in ("HIGH", "CRITICAL"):
             raise ValueError("Explicit reviewed security severity is required")
-        if article["id"] in alerts and explicit is None:
-            continue
         metadata = explicit or {}
         product = metadata.get("product", article.get("social_security_product"))
         summary = metadata.get("summary", article.get("summary"))
@@ -36,6 +45,7 @@ def security_feed(articles, legacy):
             "id": article["id"], "article_id": article["id"],
             "date": article["published_at"], "severity": level,
             "product": product.strip(), "summary": summary.strip(),
+            "headline": article.get("security_headline") or article["title"],
             "status": metadata.get("status", "対応・影響条件は記事を参照"),
         }
     return list(alerts.values())

@@ -1128,10 +1128,11 @@
       "remote_id": "17906000964667964"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T13:40:00+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T13:40:03+00:00",
       "stage": "publish_requested",
-      "container_id": "18156294880488337"
+      "container_id": "18156294880488337",
+      "remote_id": "18575594530078043"
     }
   }
 }

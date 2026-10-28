@@ -94,6 +94,20 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertIn('Sitemap: ' + BASE + 'sitemap.xml', (output / 'robots.txt').read_text())
             self.assertNotIn("fetch('./data/articles.json'", page)
 
+    def test_security_watch_archive_card_contrast(self):
+        # Archive cards have a pale surface; text must not inherit
+        # the light foreground used by the surrounding dark shell.
+        source = (ROOT / 'scripts/build_site.py').read_text()
+        for rule in (
+            '.sw-archive-page .sw-copy .sw-headline{color:#191918}',
+            '.sw-archive-page .sw-copy .sw-product{color:#514a43}',
+            '.sw-archive-page .sw-copy .sw-summary{color:#504a45}',
+            '.sw-archive-page .sw-copy .sw-status{background:#ebe5dc;color:#40372d}',
+        ):
+            with self.subTest(rule=rule):
+                self.assertIn(rule, source)
+        self.assertNotIn('.sw-archive-page .sw-copy .sw-headline{color:#f5eee9}', source)
+
     def test_archive_page_size_and_numbered_links(self):
         articles = [dict(self.article, id=f'test-archive-{index:02d}', title=f'Archive story {index:02d}')
                     for index in range(ARCHIVE_PAGE_SIZE + 3)]

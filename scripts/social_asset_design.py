@@ -100,6 +100,32 @@ def text_field(article, name, max_chars):
     return " ".join(text.split())
 
 
+def fit_metadata_lines(value, face, max_width, max_lines=2):
+    """Fit a short, explicitly sourced excerpt into the social card.
+
+    A full patch/mitigation description belongs in the article record.
+    Long descriptions must never break the entire site build; the card
+    visibly directs the reader to the complete checked instructions.
+    """
+    lines = wrap_words(value, face, max_width, max_lines)
+    if lines is not None:
+        return lines
+    suffix = "…詳細は記事本文"
+    low, high = 0, len(value)
+    while low < high:
+        mid = (low + high + 1) // 2
+        sample = value[:mid].rstrip() + suffix
+        if wrap_words(sample, face, max_width, max_lines) is not None:
+            low = mid
+        else:
+            high = mid - 1
+    excerpt = value[:low].rstrip() + suffix
+    lines = wrap_words(excerpt, face, max_width, max_lines)
+    if not lines or not low:
+        raise ValueError("Required social card metadata cannot fit")
+    return lines
+
+
 def draw_signal(draw, *, width, height, style, top=0):
     # Quiet architectural grid and a single purposeful alert/signal trajectory.
     ink = style["wave"]
@@ -143,7 +169,9 @@ def draw_severity(draw, article, *, style, left, top, right, preferred_size):
 def draw_article_info(draw, article, style, *, left, top, width):
     product = text_field(article, "social_security_product", 90)
     cve = text_field(article, "social_security_cve", 80)
-    action = text_field(article, "social_security_action", 120)
+    # The published mitigation can legitimately exceed the card's two-line
+    # visual budget; keep the full source string and truncate only the display.
+    action = text_field(article, "social_security_action", 4000)
     # Do not invent a CVE or remedial action; only display checked editorial fields.
     lines = []
     if product:
@@ -159,9 +187,7 @@ def draw_article_info(draw, article, style, *, left, top, width):
         draw.text((left, cursor), key, font=font(22, 700),
                   fill=style["accent"], anchor="lt")
         small = font(25, 600)
-        candidate = wrap_words(value, small, width - 110, 2)
-        if candidate is None:
-            raise ValueError("Security metadata too long for social card")
+        candidate = fit_metadata_lines(value, small, width - 110, 2)
         for i, line in enumerate(candidate):
             draw.text((left + 110, cursor + i * 36), line,
                       font=small, fill=style["ink"], anchor="lt")

@@ -762,10 +762,11 @@
       }
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T00:56:25+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T00:56:28+00:00",
       "stage": "publish_requested",
-      "container_id": "18156105922488337"
+      "container_id": "18156105922488337",
+      "remote_id": "18099215588355011"
     }
   },
   "20261028-fujitsu-copilot-100k-service-desk-ai": {

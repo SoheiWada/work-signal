@@ -13,7 +13,7 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://graph.instagram.com/v25.0/"
 STATES = {"FINISHED", "IN_PROGRESS", "ERROR", "EXPIRED", "PUBLISHED"}
-USAGE_KEYS = {"call_count", "total_cputime", "total_time", "estimated_time_to_regain_access"}
+USAGE_KEYS = {"call_count", "total_cputime", "total_time", "estimated_time_to_regain_access", "acc_id_util_pct"}
 
 
 def timestamp():
@@ -127,6 +127,7 @@ def main():
         k: r.get("config", {}).get(k) for k in ("quota_total", "quota_duration")}}
         for r in quota.get("data", []) if isinstance(r, dict)]
     permissions = reader.get("me/permissions", "permissions")
+    report["permission_query_state"] = "available" if permissions is not None else "unsupported_or_denied"
     report["permissions"] = [{"permission": r["permission"], "status": r.get("status")}
         for r in (permissions or {}).get("data", []) if isinstance(r, dict)
         and re.fullmatch(r"instagram_[a-z_]+", str(r.get("permission", "")))
@@ -144,10 +145,17 @@ def main():
             if not container.isdigit():
                 continue
             live = reader.get(container + "?fields=status_code,status", "container:" + aid) or {}
+            remote_id = str(entry.get("remote_id", ""))
+            remote = reader.get(remote_id + "?fields=id,media_type,media_product_type,timestamp,permalink",
+                                "published_media:" + aid) if remote_id.isdigit() else None
             report["containers"].append({"article_id": aid, "platform": kind,
                 "ledger_status": entry.get("status"), "container_id": container,
                 "container_status": live.get("status_code") if live.get("status_code") in STATES else "unavailable",
                 "prior_error": {k: prior.get("error", {}).get(k) for k in ("http_status", "code", "subcode")},
+                "container_error_summary": safe_error({"message": live.get("status", "")}),
+                "container_error_codes": sorted(set(re.findall(r"\b(?:220[0-9]{4}|190|368)\b", str(live.get("status", ""))))),
+                "published_media_verified": bool(remote and str(remote.get("id")) == remote_id),
+                "published_media_product": (remote or {}).get("media_product_type"),
                 "hold": entry.get("action_block_hold") is True, "permalink": entry.get("permalink", "")})
     for a in articles:
         if a.get("social_publish") is True and "instagram" in a.get("social_platforms", ["instagram"]):

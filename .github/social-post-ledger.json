@@ -799,7 +799,9 @@
     },
     "instagram_story": {
       "status": "attempting",
-      "updated_at": "2026-10-28T01:05:58+00:00"
+      "updated_at": "2026-10-28T01:06:04+00:00",
+      "stage": "container_created",
+      "container_id": "18156107983488337"
     }
   },
   "20261028-deepmind-genie4-world-simulation": {

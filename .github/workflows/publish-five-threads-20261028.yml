@@ -1,0 +1,29 @@
+name: Publish five pending WORK SIGNAL Threads posts (one-time)
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/publish-five-threads-20261028.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: work-signal-social-publishing
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main' && vars.SOCIAL_PUBLISH_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Publish only five pending Threads posts
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+        run: python scripts/publish_five_threads_20261028.py

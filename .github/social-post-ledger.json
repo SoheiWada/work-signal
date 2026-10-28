@@ -1023,7 +1023,9 @@
   "20261028-sap-teched-joule-ai-agent-governance": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-28T12:51:30+00:00"
+      "updated_at": "2026-10-28T12:51:34+00:00",
+      "stage": "container_created",
+      "container_id": "18132950488690068"
     }
   }
 }

@@ -983,10 +983,10 @@ def build(output, feed=None):
 .sw-copy .sw-summary{font:400 12px/1.62 system-ui,sans-serif;color:#68645e;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .sw-copy .sw-status{align-self:flex-start;padding:3px 8px;border-radius:2px;background:#ebe5dc;color:#51433a;font:700 10px/1.45 system-ui,sans-serif}
 .sw-date{margin-top:7px;line-height:1.6}
-.sw-archive-page .sw-copy .sw-headline{color:#f5eee9}
-.sw-archive-page .sw-copy .sw-product{color:#cbb9b1}
-.sw-archive-page .sw-copy .sw-summary{color:#d5c5be}
-.sw-archive-page .sw-copy .sw-status{background:rgba(247,224,197,.12);color:#e5d2c4}
+.sw-archive-page .sw-copy .sw-headline{color:#191918}
+.sw-archive-page .sw-copy .sw-product{color:#514a43}
+.sw-archive-page .sw-copy .sw-summary{color:#504a45}
+.sw-archive-page .sw-copy .sw-status{background:#ebe5dc;color:#40372d}
 @media(max-width:620px){
   .sw-item{grid-template-columns:minmax(0,1fr) auto;column-gap:12px;row-gap:9px;padding:18px 0 20px}
   .sw-level{grid-column:1;grid-row:1;min-width:76px;justify-self:start;margin:0;padding:7px 11px}

@@ -506,15 +506,15 @@ def run(articles, ledger, credentials):
     processed = {"threads": set(), "instagram": set()}
     for _, article in ordered:
         identifier = article["id"]
+        rows, _ = ledger.read()
+        remaining = [p for p in remaining_platforms(rows.get(identifier, {})) if p in requested_platforms(article)]
+        if not remaining:
+            continue
         if article.get("social_review_valid_until"):
             limit = datetime.fromisoformat(article["social_review_valid_until"])
             if limit.tzinfo is None or limit <= datetime.now(timezone.utc):
                 failures.append(identifier + ": freshness review expired; delivery held")
                 continue
-        rows, _ = ledger.read()
-        remaining = [p for p in remaining_platforms(rows.get(identifier, {})) if p in requested_platforms(article)]
-        if not remaining:
-            continue
         for kind in remaining:
             group = "threads" if kind == "threads" else "instagram"
             if group not in profiles:

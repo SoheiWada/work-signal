@@ -49,6 +49,13 @@ class DeliveryReliabilityTests(unittest.TestCase):
         account.assert_not_called()
         publish.assert_not_called()
 
+    def test_expired_review_does_not_invalidate_completed_posts(self):
+        a = {**self.article, "social_platforms": ["threads"], "social_review_valid_until": "2000-01-01T00:00:00+00:00"}
+        ledger = MemoryLedger({a["id"]: {"threads": {"status": "published", "remote_id": "1"}}})
+        with patch.object(p, "verify_account") as account:
+            self.assertEqual(p.run([a], ledger, self.credentials), 0)
+        account.assert_not_called()
+
     def test_quota_reserves_each_instagram_medium_and_keeps_threads_moving(self):
         ledger = MemoryLedger()
         with patch.object(p, "verify_account", return_value={"account_type": "BUSINESS"}), patch.object(p, "verify_live"), \

@@ -1173,10 +1173,12 @@
   },
   "20261029-microsoft-fy27q1-azure-cloud-investment": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T23:32:25+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T23:32:32+00:00",
       "stage": "publish_requested",
-      "container_id": "18133031140690068"
+      "container_id": "18133031140690068",
+      "remote_id": "18109802375579346",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfDnrVhn3_m"
     }
   }
 }

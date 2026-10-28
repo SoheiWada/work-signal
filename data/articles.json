@@ -1,5 +1,42 @@
 [
   {
+    "id": "20261028-oracle-google-tpu-multichip-ai-cloud",
+    "title": "OracleがGoogle TPUをクラウドに導入へ。NVIDIA一強からAI計算基盤の選択競争へ",
+    "summary": "OracleとGoogleが、GoogleのTPUをOracle Cloud Infrastructure（OCI）で提供する計画を2026年10月27日に発表した。提供開始は2027年予定。NVIDIAのGPUに加えてGoogle、Cerebrasなど複数の計算方式を取り込む動きは、AIの学習・推論コストを用途別に最適化する競争が広がることを示している。",
+    "category": "AI",
+    "score": 92,
+    "published_at": "2026-10-28",
+    "source_url": "https://www.oracle.com/news/announcement/ai-world-oracle-brings-google-tpus-to-oracle-cloud-infrastructure-2026-10-27/",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "OracleとGoogleが、GoogleのTPUをOracle Cloud Infrastructure（OCI）で提供する計画を2026年10月27日に発表した。提供開始は2027年予定。NVIDIAのGPUに加えてGoogle、Cerebrasなど複数の計算方式を取り込む動きは、AIの学習・推論コストを用途別に最適化する競争が広がることを示している。",
+    "sections": [
+      {
+        "title": "Google TPUがOCIへ、2027年から提供予定",
+        "body": "OracleとGoogleは2026年10月27日、GoogleのTensor Processing Unit（TPU）をOracle Cloud Infrastructureで提供すると共同発表した。Google以外のハイパースケールクラウドでGoogle TPUが利用可能になるのは初めてだという。提供は2027年に始まり、複数年をかけて拡大する予定。現時点でOCIで一般提供済みと誤認してはいけない。"
+      },
+      {
+        "title": "学習と推論、エージェントで求められる計算は違う",
+        "body": "公式発表は第8世代TPUの学習向け「TPU 8t」と推論向け「TPU 8i」を紹介。Oracleの同日発表ではNVIDIA Vera Rubinの一般提供、Cerebrasの高速推論の2027年提供計画、SambaNova SN50導入計画にも言及した。AIの用途ごとに異なるチップを組み合わせる設計思想が読み取れる。"
+      },
+      {
+        "title": "『3倍』をそのままOCIの優位性と解釈しない",
+        "body": "OracleとGoogleはTPU 8tについて前世代比でポッド当たりの計算性能が約3倍と説明する。ただしこれは製品の公表比較であり、OCI上の実運用コストや全AIタスクの処理速度が3倍になることを示していない。価格、地域、利用条件の詳細は今後の公表を待つ必要がある。"
+      },
+      {
+        "title": "WORK SIGNALの分析｜AIのコスト競争はチップ選択にも広がる",
+        "body": "企業がAIを業務に組み込む際は、モデルの賢さだけでなく、推論の遅延、電力消費、供給安定性、チップのソフトウェア互換性が総コストを左右する。複数の計算基盤を選べることは調達交渉力を高め得る一方、移植コストやベンダー固有の最適化も無視できない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "AIのコスト競争はモデルから計算基盤へ。OracleとGoogleが、Google TPUをOCIで提供する計画を発表しました。2027年開始予定で、Google以外のハイパースケールクラウドでは初。NVIDIAに加えCerebrasなども選択肢となり、学習・推論・エージェントで使うチップを選ぶ時代が進みます。\n記事：https://signal.amberlight.co.jp/articles/20261028-oracle-google-tpu-multichip-ai-cloud/\n一次情報：https://www.oracle.com/news/announcement/ai-world-oracle-brings-google-tpus-to-oracle-cloud-infrastructure-2026-10-27/"
+  },
+  {
     "id": "20261028-skhynix-q3-ai-memory-supply-2030",
     "title": "SK hynix、四半期売上104.6兆ウォン・営業利益83.3兆ウォン。AIメモリー不足は2030年まで続く見通し",
     "summary": "SK hynixが2026年7～9月期の過去最高決算を公表した。売上高は104.6155兆ウォン、営業利益は83.3338兆ウォン。AI向けHBM4とサーバー向け製品の需要が追い風となる一方、同社はメモリーの需給逼迫が2030年まで続くとの見通しを示している。",

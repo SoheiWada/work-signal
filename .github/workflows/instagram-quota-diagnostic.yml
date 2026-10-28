@@ -15,8 +15,16 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+      - name: Test safe read-only diagnostics
+        run: python -m unittest discover -s tests -p test_instagram_diagnostics.py
       - name: Query Meta actual publishing quota (read only)
         env:
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
           INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
         run: python scripts/diagnose_instagram.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: instagram-health-diagnostic
+          path: instagram-health-diagnostic.json
+          retention-days: 14

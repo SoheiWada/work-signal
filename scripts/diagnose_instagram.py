@@ -1,66 +1,165 @@
 #!/usr/bin/env python3
-"""Read-only Instagram API diagnostics. No posting and no ledger mutation."""
-import json, os
+"""GET-only Instagram health diagnostic. Never post or change the ledger."""
+import hashlib
+import json
+import os
+import re
+from datetime import datetime, timezone
 from pathlib import Path
-from urllib.request import Request, urlopen
-from urllib.parse import urlencode
 from urllib.error import HTTPError, URLError
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
-IDS = ('20261027-arcgis-server-sql-injection-cve-2026-10757', '20261027-oracle-deep-trust-ai-architecture')
+BASE = "https://graph.instagram.com/v25.0/"
+STATES = {"FINISHED", "IN_PROGRESS", "ERROR", "EXPIRED", "PUBLISHED"}
+USAGE_KEYS = {"call_count", "total_cputime", "total_time", "estimated_time_to_regain_access"}
 
-def get(path, token):
-    url = 'https://graph.instagram.com/v25.0/' + path
-    req = Request(url, headers={'Authorization': 'Bearer ' + token, 'Accept': 'application/json'})
-    try:
-        with urlopen(req, timeout=20) as response:
-            return json.load(response)
-    except HTTPError as e:
-        # Never print raw Meta responses or tokens; code and stage only.
-        print('IG API HTTP', e.code, 'for', path.split('?')[0]); return None
-    except (URLError, TimeoutError, ValueError) as e:
-        print('IG API transport error', type(e).__name__); return None
+
+def timestamp():
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+def safe_usage(value):
+    if not isinstance(value, dict):
+        return {}
+    return {k: v for k, v in value.items() if k in USAGE_KEYS and type(v) in (int, float)}
+
+
+def safe_headers(headers):
+    result = {}
+    for name in ("x-app-usage", "x-business-use-case-usage"):
+        raw = headers.get(name)
+        if not raw:
+            continue
+        try:
+            value = json.loads(raw)
+            if name == "x-app-usage":
+                result[name] = safe_usage(value)
+            elif isinstance(value, dict):
+                # Discard account/app keys, URLs, tokens, and unrecognised fields.
+                result[name] = [safe_usage(row) for rows in value.values()
+                                if isinstance(rows, list) for row in rows if isinstance(row, dict)]
+        except (ValueError, TypeError):
+            result[name] = "unreadable"
+    retry = headers.get("retry-after", "")
+    if retry.isdigit():
+        result["retry-after-seconds"] = int(retry)
+    for name in ("x-fb-trace-id", "x-fb-request-id"):
+        value = headers.get(name, "")
+        if re.fullmatch(r"[A-Za-z0-9_-]{5,128}", value):
+            result[name] = value
+    return result
+
+
+def safe_error(value):
+    value = value if isinstance(value, dict) else {}
+    result = {k: value[k] for k in ("code", "error_subcode") if type(value.get(k)) is int}
+    if type(value.get("is_transient")) is bool:
+        result["is_transient"] = value["is_transient"]
+    error_type = value.get("type", "")
+    if re.fullmatch(r"[A-Za-z0-9_]{1,80}", error_type):
+        result["type"] = error_type
+    trace = value.get("fbtrace_id", "")
+    if re.fullmatch(r"[A-Za-z0-9_-]{5,128}", trace):
+        result["fbtrace_id"] = trace
+    # Classify in memory; never output the raw error, user text, or an embedded token.
+    message = " ".join(str(value.get(k, "")) for k in ("message", "error_user_title", "error_user_msg")).lower()
+    patterns = {"spam_or_protective": ("spam", "protect", "restrict", "block"),
+                "rate_limit": ("rate limit", "too many", "maximum number", "limit reached"),
+                "permission": ("permission", "scope"), "authentication": ("expired", "access token", "oauth")}
+    result["message_categories"] = [name for name, words in patterns.items() if any(w in message for w in words)]
+    if message.strip():
+        result["message_sha256"] = hashlib.sha256(message.encode()).hexdigest()
+    return result
+
+
+class Reader:
+    def __init__(self, token):
+        self.token = token
+        self.calls = []
+
+    def get(self, path, stage):
+        if not re.fullmatch(r"(?:me|[0-9]+)(?:/(?:permissions|content_publishing_limit|media|stories))?(?:\?[^\r\n]*)?", path):
+            raise ValueError("Unapproved diagnostic path")
+        request = Request(BASE + path, method="GET", headers={"Authorization": "Bearer " + self.token,
+                          "Accept": "application/json", "User-Agent": "WORK-SIGNAL-Diagnostic/2.0"})
+        call = {"stage": stage, "checked_at": timestamp()}
+        try:
+            with urlopen(request, timeout=25) as response:
+                value = json.loads(response.read(1_000_000))
+                call.update(http_status=response.status, usage_headers=safe_headers(response.headers))
+        except HTTPError as exc:
+            try:
+                value = json.loads(exc.read(16_384))
+            except (ValueError, TypeError):
+                value = {}
+            call.update(http_status=exc.code, usage_headers=safe_headers(exc.headers),
+                        error=safe_error(value.get("error") if isinstance(value, dict) else {}))
+            value = None
+        except (URLError, TimeoutError, ValueError) as exc:
+            call["transport_error"] = type(exc).__name__
+            value = None
+        self.calls.append(call)
+        return value if isinstance(value, dict) else None
+
+
+def prior_attempt(entry):
+    previous = entry.get("previous_attempt", {})
+    return entry if entry.get("error") else previous
+
 
 def main():
-    token=os.environ.get('INSTAGRAM_ACCESS_TOKEN','')
-    uid=os.environ.get('INSTAGRAM_USER_ID','')
+    token, uid = os.getenv("INSTAGRAM_ACCESS_TOKEN", ""), os.getenv("INSTAGRAM_USER_ID", "")
     if not token or not uid.isdigit():
-        print('Instagram credentials unavailable');return
-    ledger=json.loads((ROOT/'.github/social-post-ledger.json').read_text())
-    for article_id in IDS:
-        state=ledger.get(article_id,{})
-        print('Review', article_id, {k:state.get(k,{}).get('status') for k in ('instagram','instagram_story')})
-    profile=get('me?'+urlencode({'fields':'user_id,username,account_type'}),token)
-    if profile: print('Account verified:', profile.get('username')=='work_signal_japan', 'type:',profile.get('account_type'))
-    quota=get(uid+'/content_publishing_limit?'+urlencode({'fields':'config,quota_usage'}),token)
-    if quota:
-        print('PUBLISHING_QUOTA',json.dumps(quota,ensure_ascii=False))
-    else:
-        print('PUBLISHING_QUOTA unavailable')
-    media=get(uid+'/media?'+urlencode({'fields':'id,caption,media_type,timestamp,permalink','limit':'100'}),token)
-    if not isinstance(media,dict):return
-    items=media.get('data',[])
-    print('Instagram media inspected:',len(items))
-    articles=json.loads((ROOT/'data/articles.json').read_text())
-    index={a['id']:a for a in articles}
-    targets=[k for k in ledger if k.startswith('20261027-') and any(t in k for t in ('arcgis-server','oracle-deep-trust','gridbox','analytics-insights','qode-membership','kirki'))]
-    for article_id in targets:
-        a=index.get(article_id,{})
-        title=a.get('title','')
-        caption=a.get('social_instagram_caption','')
-        expected=(caption[:65] if caption else title[:65])
-        matches=[m for m in items if expected and expected in (m.get('caption') or '')]
-        state=ledger.get(article_id,{})
-        print('VERIFY',article_id,'caption_matches',len(matches))
-        for m in matches:
-            print('MATCH',article_id,m.get('id'),m.get('media_type'),m.get('permalink',''))
-        for kind in ('instagram','instagram_story'):
-            remote=str(state.get(kind,{}).get('remote_id',''))
-            if not remote: continue
-            direct=get(remote+'?'+urlencode({'fields':'id,media_type,media_product_type,timestamp,permalink,caption'}),token)
-            if direct:
-                print('DIRECT',article_id,kind,'exists',direct.get('id')==remote,'type',direct.get('media_type'),'product',direct.get('media_product_type'),'permalink',direct.get('permalink',''))
-            else: print('DIRECT',article_id,kind,'not_verifiable')
-    print('Read-only diagnostic completed; no posts attempted')
+        raise SystemExit("Instagram credentials unavailable")
+    reader = Reader(token)
+    report = {"checked_at": timestamp(), "method": "GET only", "containers": [], "pending_feeds": []}
+    profile = reader.get("me?fields=user_id,username,account_type", "account") or {}
+    verified = profile.get("username") == "work_signal_japan" and str(profile.get("user_id") or profile.get("id")) == uid
+    report["account"] = {"verified": verified, "type": profile.get("account_type")}
+    if not verified:
+        report["calls"] = reader.calls
+        print("IG_HEALTH", json.dumps(report))
+        raise SystemExit("Account could not be verified; diagnostics stopped")
+    quota = reader.get(uid + "/content_publishing_limit?fields=config,quota_usage", "quota") or {}
+    report["quota"] = [{"quota_usage": r.get("quota_usage"), "config": {
+        k: r.get("config", {}).get(k) for k in ("quota_total", "quota_duration")}}
+        for r in quota.get("data", []) if isinstance(r, dict)]
+    permissions = reader.get("me/permissions", "permissions")
+    report["permissions"] = [{"permission": r["permission"], "status": r.get("status")}
+        for r in (permissions or {}).get("data", []) if isinstance(r, dict)
+        and re.fullmatch(r"instagram_[a-z_]+", str(r.get("permission", "")))
+        and r.get("status") in ("granted", "declined", "expired")]
+    rows = json.loads((ROOT / ".github/social-post-ledger.json").read_text())
+    articles = json.loads((ROOT / "data/articles.json").read_text())
+    # Read every currently held container, including posts reconciled after an error.
+    for aid, per_article in rows.items():
+        for kind in ("instagram", "instagram_story"):
+            entry = per_article.get(kind, {})
+            prior = prior_attempt(entry)
+            if not (entry.get("action_block_hold") or prior.get("error")):
+                continue
+            container = str(prior.get("container_id") or entry.get("container_id") or "")
+            if not container.isdigit():
+                continue
+            live = reader.get(container + "?fields=status_code,status", "container:" + aid) or {}
+            report["containers"].append({"article_id": aid, "platform": kind,
+                "ledger_status": entry.get("status"), "container_id": container,
+                "container_status": live.get("status_code") if live.get("status_code") in STATES else "unavailable",
+                "prior_error": {k: prior.get("error", {}).get(k) for k in ("http_status", "code", "subcode")},
+                "hold": entry.get("action_block_hold") is True, "permalink": entry.get("permalink", "")})
+    for a in articles:
+        if a.get("social_publish") is True and "instagram" in a.get("social_platforms", ["instagram"]):
+            entry = rows.get(a["id"], {}).get("instagram", {})
+            if entry.get("status") != "published":
+                report["pending_feeds"].append({"article_id": a["id"], "state": entry.get("status", "pending"),
+                                               "freshness_expires": a.get("social_review_valid_until")})
+    report["calls"] = reader.calls
+    (ROOT / "instagram-health-diagnostic.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+    print("IG_HEALTH", json.dumps(report, ensure_ascii=False))
+    print("Read-only diagnostic completed; no posts or ledger changes")
 
-if __name__=='__main__':main()
+
+if __name__ == "__main__":
+    main()

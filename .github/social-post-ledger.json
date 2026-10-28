@@ -924,5 +924,11 @@
       "container_id": "18156191299488337",
       "remote_id": "17908644705568329"
     }
+  },
+  "20261028-bun-http3-qpack-memory-cpu-dos": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-28T08:25:27+00:00"
+    }
   }
 }

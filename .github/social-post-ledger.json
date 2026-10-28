@@ -1058,17 +1058,12 @@
   },
   "20261028-skhynix-q3-ai-memory-supply-2030": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T13:44:46+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T13:44:51+00:00",
       "recovery_review_id": "threads-verified-absent-20261028-run-40699015844",
-      "previous_attempt": {
-        "status": "needs_review",
-        "updated_at": "2026-10-28T13:38:05+00:00",
-        "stage": "publish_requested",
-        "container_id": "18132957964690068"
-      },
       "stage": "publish_requested",
-      "container_id": "18132959026690068"
+      "container_id": "18132959026690068",
+      "remote_id": "18116846392839814"
     },
     "instagram_story": {
       "status": "published",

@@ -1019,5 +1019,11 @@
       "container_id": "18156279055488337",
       "remote_id": "17906513106598654"
     }
+  },
+  "20261028-sap-teched-joule-ai-agent-governance": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-28T12:51:30+00:00"
+    }
   }
 }

@@ -1105,10 +1105,11 @@
   },
   "20261028-enveda-claude-pharma-quality-record-review": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T13:39:19+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T13:39:24+00:00",
       "stage": "publish_requested",
-      "container_id": "18132958333690068"
+      "container_id": "18132958333690068",
+      "remote_id": "18572262043074411"
     }
   }
 }

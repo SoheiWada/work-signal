@@ -66,6 +66,27 @@ class DeliveryReliabilityTests(unittest.TestCase):
         story.assert_not_called()
         self.assertEqual(ledger.rows["fresh-test"]["instagram_story"]["status"], "deferred")
 
+    def test_action_block_stops_all_further_instagram_writes_in_the_run(self):
+        ledger = MemoryLedger()
+        error = p.MetaAPIError(403, {"code": 4, "error_subcode": 2207051})
+        with patch.object(p, "verify_account", return_value={"account_type": "BUSINESS"}), patch.object(p, "verify_live"), \
+             patch.object(p, "instagram_budget", return_value=10), patch.object(p, "publish_threads", return_value="11"), \
+             patch.object(p, "publish_instagram", side_effect=error) as feed, patch.object(p, "publish_instagram_story") as story:
+            self.assertEqual(p.run([self.article, {**self.article, "id": "second"}], ledger, self.credentials), 1)
+        self.assertEqual(feed.call_count, 1)
+        story.assert_not_called()
+        self.assertEqual(ledger.rows["fresh-test"]["threads"]["status"], "published")
+
+    def test_existing_action_block_keeps_instagram_paused_but_allows_threads(self):
+        ledger = MemoryLedger({"old": {"instagram": {"status": "needs_review", "error": {"code": 4, "subcode": 2207051}}}})
+        with patch.object(p, "verify_account", return_value={}) as account, patch.object(p, "verify_live"), \
+             patch.object(p, "publish_threads", return_value="11"), patch.object(p, "publish_instagram") as feed, \
+             patch.object(p, "instagram_budget") as budget:
+            self.assertEqual(p.run([self.article], ledger, self.credentials), 1)
+        self.assertEqual(account.call_count, 1)
+        budget.assert_not_called()
+        feed.assert_not_called()
+
     def test_2207042_is_deferred_but_ambiguous_publish_is_never_retried(self):
         for error, expected in ((p.MetaAPIError(400, {"code": 9, "error_subcode": 2207042}), "deferred"),
                                 (RuntimeError("API transport timeout"), "needs_review")):

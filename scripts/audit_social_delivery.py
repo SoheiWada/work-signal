@@ -82,7 +82,25 @@ def main():
     ledger = social.GithubLedger(os.environ["GITHUB_REPOSITORY"], os.environ["GITHUB_TOKEN"])
     rows, _ = ledger.read()
     result = {"checked_at": social.now(), "accounts": {}, "quota": None, "collections": {}, "articles": []}
+    try:
+        def public_json(path):
+            with urlopen(Request(social.BASE + path, headers={"Cache-Control": "no-cache", "User-Agent": "WORK-SIGNAL-Audit/1.0"}), timeout=30) as response:
+                return json.load(response)
+        public_articles = public_json("data/articles.json")
+        public_watch = public_json("data/security-watch.json")
+        expected_watch = {a["id"] for a in articles if a.get("social_security_severity") and a.get("security_watch") is not False}
+        visible_watch = {x["article_id"] for x in public_watch}
+        result["site"] = {"article_count": len(public_articles), "watch_count": len(public_watch),
+                          "missing_security_articles": sorted(expected_watch - visible_watch),
+                          "source_article_ids_match": {x["id"] for x in public_articles} == {x["id"] for x in articles}}
+        print("LIVE_SITE_CHECK", json.dumps(result["site"]))
+    except Exception as exc:
+        result["site"] = {"error": type(exc).__name__}
+        print("LIVE_SITE_CHECK", json.dumps(result["site"]))
     streams = {}
+    review_file = social.ROOT / ".github/social-recovery-review.json"
+    reviewed_ids = ({x["article_id"] for x in json.loads(review_file.read_text()).get("items", [])}
+                    if review_file.is_file() else set())
     for key, base, token_name, uid_name, path, fields in (
         ("threads", social.THREADS_API, "THREADS_ACCESS_TOKEN", "THREADS_USER_ID", "threads", "id,text,timestamp,permalink"),
         ("instagram", social.IG_API, "INSTAGRAM_ACCESS_TOKEN", "INSTAGRAM_USER_ID", "media", "id,caption,media_type,media_product_type,timestamp,permalink"),
@@ -115,6 +133,9 @@ def main():
         if not (article.get("social_publish") is True or article.get("social_security_severity")):
             continue
         row = {"id": aid, "approved": article.get("social_publish") is True, "platforms": article.get("social_platforms", list(social.SOCIAL_PLATFORMS)), "ledger": state, "matches": {}}
+        row["remote_id_seen"] = {kind: bool(state.get(kind, {}).get("remote_id")
+                                     and state[kind]["remote_id"] in {str(x.get("id")) for x in items})
+                                 for kind, items in streams.items()}
         for kind, items in streams.items():
             found = matches(article, kind, items)
             row["matches"][kind] = [{k: x.get(k) for k in ("id", "permalink", "timestamp")} for x in found]
@@ -128,7 +149,7 @@ def main():
                 except RuntimeError as exc:
                     row["assets"][name] = str(exc)
         result["articles"].append(row)
-        if review or not row["approved"] or article.get("social_platforms"):
+        if review or not row["approved"] or article.get("social_platforms") or aid in reviewed_ids:
             print("RECONCILE", json.dumps(row, ensure_ascii=False))
     out = social.ROOT / "social-delivery-audit.json"
     out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")

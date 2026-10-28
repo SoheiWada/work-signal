@@ -477,8 +477,13 @@
   },
   "20261027-traefik-ingress-mtls-bypass-ghsa-p8wx-ph99-xgcr": {
     "threads": {
-      "status": "needs_review",
-      "updated_at": "2026-10-27T04:20:57+00:00"
+      "status": "published",
+      "updated_at": "2026-10-28T00:54:44+00:00",
+      "recovery_review_id": "freshness-reviewed-recovery-20261028",
+      "reconciled_at": "2026-10-28T00:54:06+00:00",
+      "stage": "publish_requested",
+      "container_id": "18132873307690068",
+      "remote_id": "17954100321273989"
     },
     "instagram": {
       "status": "published",
@@ -567,12 +572,22 @@
       "remote_id": "17964030603234386"
     },
     "instagram": {
-      "status": "needs_review",
-      "updated_at": "2026-10-27T15:55:55+00:00"
+      "status": "published",
+      "updated_at": "2026-10-28T00:55:03+00:00",
+      "recovery_review_id": "freshness-reviewed-recovery-20261028",
+      "reconciled_at": "2026-10-28T00:54:11+00:00",
+      "stage": "publish_requested",
+      "container_id": "18156105655488337",
+      "remote_id": "17962353609246453"
     },
     "instagram_story": {
-      "status": "needs_review",
-      "updated_at": "2026-10-27T15:56:06+00:00"
+      "status": "published",
+      "updated_at": "2026-10-28T00:55:19+00:00",
+      "recovery_review_id": "freshness-reviewed-recovery-20261028",
+      "reconciled_at": "2026-10-28T00:54:21+00:00",
+      "stage": "publish_requested",
+      "container_id": "18156105694488337",
+      "remote_id": "17992816467026749"
     }
   },
   "20261027-oracle-deep-trust-ai-architecture": {
@@ -583,17 +598,37 @@
     },
     "instagram": {
       "status": "needs_review",
-      "updated_at": "2026-10-27T15:56:18+00:00"
+      "updated_at": "2026-10-28T00:56:51+00:00",
+      "recovery_review_id": "freshness-reviewed-recovery-20261028",
+      "reconciled_at": "2026-10-28T00:54:10+00:00",
+      "stage": "publish_requested",
+      "container_id": "18156105970488337",
+      "error": {
+        "http_status": 403,
+        "code": 4,
+        "subcode": 2207051,
+        "type": "OAuthException"
+      }
     },
     "instagram_story": {
-      "status": "needs_review",
-      "updated_at": "2026-10-27T15:56:30+00:00"
+      "status": "published",
+      "updated_at": "2026-10-28T00:57:07+00:00",
+      "recovery_review_id": "freshness-reviewed-recovery-20261028",
+      "reconciled_at": "2026-10-28T00:54:20+00:00",
+      "stage": "publish_requested",
+      "container_id": "18156106006488337",
+      "remote_id": "17939728239382007"
     }
   },
   "20261027-openai-gpt61-terra-computer-use-cost": {
     "threads": {
-      "status": "needs_review",
-      "updated_at": "2026-10-27T14:30:04+00:00"
+      "status": "published",
+      "updated_at": "2026-10-28T00:57:22+00:00",
+      "recovery_review_id": "freshness-reviewed-recovery-20261028",
+      "reconciled_at": "2026-10-28T00:54:05+00:00",
+      "stage": "publish_requested",
+      "container_id": "18132873562690068",
+      "remote_id": "18117669770104841"
     },
     "instagram": {
       "status": "published",
@@ -682,11 +717,26 @@
     },
     "instagram": {
       "status": "needs_review",
-      "updated_at": "2026-10-27T23:00:59+00:00"
+      "updated_at": "2026-10-28T00:55:38+00:00",
+      "recovery_review_id": "freshness-reviewed-recovery-20261028",
+      "reconciled_at": "2026-10-28T00:54:08+00:00",
+      "stage": "publish_requested",
+      "container_id": "18156105730488337",
+      "error": {
+        "http_status": 403,
+        "code": 4,
+        "subcode": 2207051,
+        "type": "OAuthException"
+      }
     },
     "instagram_story": {
-      "status": "needs_review",
-      "updated_at": "2026-10-27T23:01:12+00:00"
+      "status": "published",
+      "updated_at": "2026-10-28T00:55:54+00:00",
+      "recovery_review_id": "freshness-reviewed-recovery-20261028",
+      "reconciled_at": "2026-10-28T00:54:18+00:00",
+      "stage": "publish_requested",
+      "container_id": "18156105814488337",
+      "remote_id": "18466922122189245"
     }
   },
   "20261028-nest-admin-jwt-auth-bypass-cve-2026-117564": {
@@ -694,6 +744,25 @@
       "status": "published",
       "updated_at": "2026-10-27T23:34:16+00:00",
       "remote_id": "17993720337060378"
+    },
+    "instagram": {
+      "status": "needs_review",
+      "updated_at": "2026-10-28T00:56:12+00:00",
+      "stage": "publish_requested",
+      "container_id": "18156105889488337",
+      "error": {
+        "http_status": 403,
+        "code": 4,
+        "subcode": 2207051,
+        "type": "OAuthException"
+      }
+    },
+    "instagram_story": {
+      "status": "published",
+      "updated_at": "2026-10-28T00:56:28+00:00",
+      "stage": "publish_requested",
+      "container_id": "18156105922488337",
+      "remote_id": "18099215588355011"
     }
   },
   "20261028-fujitsu-copilot-100k-service-desk-ai": {
@@ -701,6 +770,25 @@
       "status": "published",
       "updated_at": "2026-10-27T23:47:04+00:00",
       "remote_id": "17952668979272774"
+    },
+    "instagram": {
+      "status": "needs_review",
+      "updated_at": "2026-10-28T00:57:40+00:00",
+      "stage": "publish_requested",
+      "container_id": "18156106063488337",
+      "error": {
+        "http_status": 403,
+        "code": 4,
+        "subcode": 2207051,
+        "type": "OAuthException"
+      }
+    },
+    "instagram_story": {
+      "status": "published",
+      "updated_at": "2026-10-28T00:57:57+00:00",
+      "stage": "publish_requested",
+      "container_id": "18156106117488337",
+      "remote_id": "18140604853547627"
     }
   },
   "20261028-apple-creator-studio-ai-mcp": {

@@ -59,6 +59,7 @@ def main():
         targets = [item for item in plan["items"] if item["decision"] == "deliver_missing_platforms_only"
                    and kind in item.get("platforms", [])
                    and rows.get(item["article_id"], {}).get(kind, {}).get("status") == "needs_review"
+                   and not social.active_instagram_action_block(rows.get(item["article_id"], {}).get(kind, {}))
                    and rows.get(item["article_id"], {}).get(kind, {}).get("recovery_review_id") != plan["review_id"]]
         if not targets:
             continue

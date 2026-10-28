@@ -440,6 +440,14 @@ def instagram_budget(credentials):
     return max(0, ceiling - usage)
 
 
+def active_instagram_action_block(entry):
+    """Do not treat a Meta protective action block as a replenishable quota."""
+    error = entry.get("error", {})
+    return (entry.get("status") == "needs_review" and error.get("code") == 4
+            and error.get("subcode") == 2207051
+            and not entry.get("action_block_cleared_at"))
+
+
 def delivery_report(articles, rows, failures=()):
     pending, review, published = 0, 0, 0
     table = ["| Article | Threads | Feed | Story |", "|---|---|---|---|"]
@@ -483,11 +491,16 @@ def run(articles, ledger, credentials):
                        if p in requested_platforms(a)] for a in approved}
     needed = set(p for kinds in work.values() for p in kinds)
     failures, profiles = [], {}
+    ig_action_blocked = any(active_instagram_action_block(entry) for item in rows.values()
+                            for kind, entry in item.items() if kind in ("instagram", "instagram_story"))
     for group, kinds, base, token_key, user_key in (
         ("threads", {"threads"}, THREADS_API, "THREADS_ACCESS_TOKEN", "THREADS_USER_ID"),
         ("instagram", {"instagram", "instagram_story"}, IG_API, "INSTAGRAM_ACCESS_TOKEN", "INSTAGRAM_USER_ID"),
     ):
         if not needed & kinds:
+            continue
+        if group == "instagram" and ig_action_blocked:
+            failures.append("Instagram protective action block 4/2207051 requires account-status review; no further Instagram writes")
             continue
         try:
             if not credentials.get(token_key) or not credentials.get(user_key):
@@ -561,6 +574,11 @@ def run(articles, ledger, credentials):
                     budget -= 1
                 print("PUBLISHED", identifier, kind, remote)
             except Exception as exc:
+                action_block = (kind != "threads" and isinstance(exc, MetaAPIError)
+                                and exc.code == 4 and exc.subcode == 2207051)
+                if action_block:
+                    profiles.pop("instagram", None)
+                    budget = 0
                 if claimed:
                     try:
                         if kind != "threads" and isinstance(exc, MetaAPIError) and exc.http_status == 400 and exc.subcode == 2207042:
@@ -569,6 +587,8 @@ def run(articles, ledger, credentials):
                                           next_attempt_at=(datetime.now(timezone.utc) + timedelta(hours=1)).isoformat(timespec="seconds"))
                         else:
                             metadata = {"error": exc.metadata()} if isinstance(exc, MetaAPIError) else {}
+                            if action_block:
+                                metadata["reason"] = "instagram_protective_action_block"
                             ledger.record(identifier, kind, "needs_review", **metadata)
                     except Exception:
                         print("IMPORTANT: ledger state requires manual inspection for", identifier, kind)

@@ -1090,7 +1090,9 @@
   "20261028-bis-central-banks-ai-readiness-governance-survey": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-28T13:38:47+00:00"
+      "updated_at": "2026-10-28T13:38:50+00:00",
+      "stage": "container_created",
+      "container_id": "18132958201690068"
     }
   }
 }

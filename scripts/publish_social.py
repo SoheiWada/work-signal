@@ -336,6 +336,17 @@ def publish_threads(text, token, user_id, progress=None):
     return str(posted["id"])
 
 
+def verify_threads_delivery(article, token, user_id, expected_id='', attempts=4):
+    needle = article_url(article)
+    for attempt in range(attempts):
+        response = request_json(THREADS_API + '/' + user_id + '/threads?' + urlencode({'fields':'id,text,permalink,timestamp','limit':100}), token=token)
+        for item in response.get('data', []):
+            if needle in (item.get('text') or '') and (not expected_id or str(item.get('id')) == str(expected_id)):
+                return item
+        if attempt < attempts - 1:
+            time.sleep(5)
+    return None
+
 def publish_instagram(text, url, token, user_id, progress=None):
     created = request_json(IG_API + "/" + user_id + "/media",
                            method="POST", token=token, data={"image_url": url, "caption": text})
@@ -580,7 +591,13 @@ def run(articles, ledger, credentials):
                     remote = publish_instagram(text, image_url(article), credentials["INSTAGRAM_ACCESS_TOKEN"], credentials["INSTAGRAM_USER_ID"], **options)
                 else:
                     remote = publish_instagram_story(story_image_url(article), credentials["INSTAGRAM_ACCESS_TOKEN"], credentials["INSTAGRAM_USER_ID"], **options)
-                ledger.record(identifier, kind, "published", remote_id=remote)
+                if kind == "threads":
+                    live = verify_threads_delivery(article, credentials["THREADS_ACCESS_TOKEN"], credentials["THREADS_USER_ID"], expected_id=remote)
+                    if not live:
+                        raise RuntimeError("Threads live confirmation unavailable")
+                    ledger.record(identifier, kind, "published", remote_id=remote, permalink=live.get("permalink", ""))
+                else:
+                    ledger.record(identifier, kind, "published", remote_id=remote)
                 if kind != "threads":
                     budget -= 1
                 print("PUBLISHED", identifier, kind, remote)

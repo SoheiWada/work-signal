@@ -319,12 +319,12 @@
   },
   {
     "id": "20261028-better-auth-magic-link-oauth-account-takeover",
-    "title": "Better Authに認証不要のアカウント乗っ取り脆弱性。Magic LinkとOAuthの組み合わせに注意",
-    "summary": "Better AuthのCVE-2026-114607（CVSS 9.1）。特定のMagic Link・OAuth・状態保存設定の併用時に、メールアドレスを知る攻撃者が他人のセッションを取得する恐れ。1.7.7へ更新。",
+    "title": "Better Authにアカウント乗っ取り脆弱性2件。Magic LinkとOAuth Proxyの異なる攻撃条件を解説",
+    "summary": "Better AuthのCVE-2026-114607（CVSS 9.1）。特定のMagic Link・OAuth・状態保存設定の併用時に、メールアドレスを知る攻撃者が他人のセッションを取得する恐れ。1.7.7へ更新。 Better AuthのOAuth Proxyプラグインに、特定のsecret共有とcookie保存設定を組み合わせると、攻撃者が他人のメールアドレスを使ってそのアカウントへログインできるHIGH脆弱性がある。Magic Linkの既報とは別の経路で、同じ1.7.7で修正される。",
     "category": "仕事",
-    "score": 93,
+    "score": 89,
     "published_at": "2026-10-28",
-    "source_url": "https://github.com/better-auth/better-auth/security/advisories/GHSA-965c-763c-88jm",
+    "source_url": "https://github.com/better-auth/better-auth/security/advisories/GHSA-r4xp-prcw-77qf",
     "status": "published",
     "format": "deep_dive",
     "social_publish": true,
@@ -334,8 +334,8 @@
     "social_security_severity": "CRITICAL",
     "social_security_product": "Better Auth",
     "social_security_cve": "CVE-2026-114607",
-    "social_security_action": "Better Auth 1.7.7へ更新し、関連プラグインも揃えて更新。既存Magic Link・進行中のOAuthフローを再発行",
-    "quick_take": "Better AuthのCVE-2026-114607（CVSS 9.1）。特定のMagic Link・OAuth・状態保存設定の併用時に、メールアドレスを知る攻撃者が他人のセッションを取得する恐れ。1.7.7へ更新。",
+    "social_security_action": "Better Auth 1.7.7へ更新し、関連プラグインも揃えて更新。既存Magic Link・進行中のOAuthフローを再発行 / Better Auth 1.7.7へ更新し、OAuth Proxyの参加環境・同一stateを扱うノードを同時更新。暫定策は専用の異なるsecret設定、stateのDB保存、またはOAuth Proxyプラグイン停止。",
+    "quick_take": "Better AuthのCVE-2026-114607（CVSS 9.1）。特定のMagic Link・OAuth・状態保存設定の併用時に、メールアドレスを知る攻撃者が他人のセッションを取得する恐れ。1.7.7へ更新。 Better AuthのOAuth Proxyプラグインに、特定のsecret共有とcookie保存設定を組み合わせると、攻撃者が他人のメールアドレスを使ってそのアカウントへログインできるHIGH脆弱性がある。Magic Linkの既報とは別の経路で、同じ1.7.7で修正される。",
     "sections": [
       {
         "title": "Magic LinkとOAuth状態の衝突",
@@ -352,10 +352,26 @@
       {
         "title": "悪用状況と編集部の視点",
         "body": "実環境での悪用確認は一次情報から確認できない。開発元は9月30日に勧告を公開し、GitHub Advisory Databaseは10月27日に更新した。新規発見の速報ではなく、認証基盤の設定点検を促す注意喚起。"
+      },
+      {
+        "title": "OAuth Proxy固有の攻撃条件",
+        "body": "Better Auth 1.5.0-beta.12以上1.7.7未満でOAuth Proxy pluginを使用し、プロキシ専用secretが未設定または環境のグローバルsecretと同じ、account.storeStateStrategyがcookie、暗黙のアカウントリンクが有効という条件がそろう場合に影響する。暗号化されたログイン状態をプロフィールとして信頼する問題により、攻撃者が他人の検証済みメールアドレスを知っていれば、被害者の操作やプロバイダーへのログインなしで被害者の権限を得る可能性がある。"
+      },
+      {
+        "title": "修正と既報との関係",
+        "body": "修正版はbetter-auth 1.7.7。OAuth Proxy参加環境と同じcookieベースのOAuth/SAML状態を扱うノードを揃えて更新し、進行中の認証・アカウントリンクを再開始する。暫定策はOAuth Proxy専用secretをグローバルsecretから分離する、OAuth stateをdatabase保存にする、またはプラグインを取り外すこと。ただしdatabase保存への変更時は、Magic Linkを併用する場合の別脆弱性に注意し、公式勧告の識別子分離条件も確認する。CVSS 7.4（HIGH）。実環境での悪用は開発元勧告で確認されていない。"
       }
     ],
     "social_threads_text": "【SECURITY WATCH｜CRITICAL】Better Authに認証不要のアカウント乗っ取り脆弱性。Magic LinkとOAuthの組み合わせに注意\nBetter AuthのCVE-2026-114607（CVSS 9.1）。特定のMagic Link・OAuth・状態保存設定の併用時に、メールアドレスを知る攻撃者が他人のセッションを取得する恐れ。1.7.7へ更新。\n記事：https://signal.amberlight.co.jp/articles/20261028-better-auth-magic-link-oauth-account-takeover/\n一次情報：https://github.com/better-auth/better-auth/security/advisories/GHSA-965c-763c-88jm",
-    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】Better Authに認証不要のアカウント乗っ取り脆弱性。Magic LinkとOAuthの組み合わせに注意\n\nBetter AuthのCVE-2026-114607（CVSS 9.1）。特定のMagic Link・OAuth・状態保存設定の併用時に、メールアドレスを知る攻撃者が他人のセッションを取得する恐れ。1.7.7へ更新。\n#SECURITYWATCH #脆弱性 #セキュリティ"
+    "social_instagram_caption": "【SECURITY WATCH｜CRITICAL】Better Authに認証不要のアカウント乗っ取り脆弱性。Magic LinkとOAuthの組み合わせに注意\n\nBetter AuthのCVE-2026-114607（CVSS 9.1）。特定のMagic Link・OAuth・状態保存設定の併用時に、メールアドレスを知る攻撃者が他人のセッションを取得する恐れ。1.7.7へ更新。\n#SECURITYWATCH #脆弱性 #セキュリティ",
+    "social_security_additional_findings": [
+      {
+        "id": "GHSA-R4XP-PRCW-77QF",
+        "severity": "HIGH",
+        "cvss_score": 7.4,
+        "source_url": "https://github.com/better-auth/better-auth/security/advisories/GHSA-r4xp-prcw-77qf"
+      }
+    ]
   },
   {
     "id": "20261028-undici-three-high-security-advisories",

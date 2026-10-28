@@ -1118,5 +1118,11 @@
       "container_id": "18156294679488337",
       "remote_id": "18137007406659756"
     }
+  },
+  "20261028-legora-ai-nda-legal-workflow": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-28T13:39:39+00:00"
+    }
   }
 }

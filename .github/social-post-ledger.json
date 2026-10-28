@@ -1074,8 +1074,8 @@
   "20261028-oracle-google-tpu-multichip-ai-cloud": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-28T13:38:24+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-10-28T13:38:25+00:00",
+      "stage": "publish_requested",
       "container_id": "18132958069690068"
     }
   }

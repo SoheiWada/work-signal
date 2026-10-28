@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261028-mcp-typescript-sdk-http-batch-dos",
+    "title": "MCP TypeScript SDKのHTTPサーバーにHIGH DoS脆弱性、4製品で修正",
+    "summary": "Model Context Protocol（MCP）のTypeScript SDKに、HTTPサーバーが受け付けるPOST本文のサイズとJSON-RPCバッチ数を制限しない脆弱性が見つかった。信頼できないクライアントが到達可能なサーバーではメモリ枯渇や処理停滞につながり得るため、SDKの利用形態と修正版を確認したい。",
+    "category": "AI",
+    "score": 90,
+    "published_at": "2026-10-28",
+    "source_url": "https://github.com/modelcontextprotocol/typescript-sdk/security/advisories/GHSA-f897-62hf-6gxq",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Model Context Protocol（MCP）のTypeScript SDKに、HTTPサーバーが受け付けるPOST本文のサイズとJSON-RPCバッチ数を制限しない脆弱性が見つかった。信頼できないクライアントが到達可能なサーバーではメモリ枯渇や処理停滞につながり得るため、SDKの利用形態と修正版を確認したい。",
+    "sections": [
+      {
+        "title": "HTTPで公開したMCPサーバーにDoSリスク",
+        "body": "開発元のGHSA-f897-62hf-6gxqによると、影響バージョンはStreamable HTTPで受け付けるPOST本文サイズとJSON-RPCバッチ内メッセージ数に上限を設けていなかった。大きなリクエストでメモリが枯渇し、長いバッチで他のクライアントへの応答が妨げられる恐れがある。アプリケーション側で認証を実施していなければ認証不要で到達可能。stdio専用サーバーは対象外。Expressの`express.json()`による本文サイズ制限だけではバッチ件数の制限にはならない。"
+      },
+      {
+        "title": "影響バージョンと修正版",
+        "body": "`@modelcontextprotocol/sdk` 1.10.0以上1.30.1未満は1.30.1へ、`@modelcontextprotocol/server` 2.0.0は2.1.0へ、`@modelcontextprotocol/node` 2.0.0は2.1.0へ、`@modelcontextprotocol/hono` 2.0.0は2.0.1へ更新する。修正版では4MiBを超える本文はHTTP 413、100件を超えるバッチはHTTP 400となる。必要に応じて`maxRequestBodySize`を設定できる。"
+      },
+      {
+        "title": "運用上の確認点",
+        "body": "インターネットや信頼できないクライアントからHTTPで到達可能なMCPサーバーを優先点検する。更新までの暫定策としてリバースプロキシでPOST本文サイズを制限する。開発元勧告は10月15日に公開され、GitHub Advisory Databaseへの登録は10月27日。実環境での悪用は一次情報から確認できない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "@modelcontextprotocol/sdk / @modelcontextprotocol/server / @modelcontextprotocol/node / @modelcontextprotocol/hono",
+    "social_security_action": "SDK 1.30.1、server 2.1.0、node 2.1.0、hono 2.0.1以降の該当修正版へ更新。更新できない場合はリバースプロキシでPOSTボディサイズを制限。"
+  },
+  {
     "id": "20261028-symfony-three-high-dos-cves",
     "title": "SymfonyにHIGH脆弱性3件、HTTPヘッダー・YAML・式パーサーでDoSの恐れ",
     "summary": "Symfonyの公式セキュリティ勧告で、HTTPヘッダー解析、YAMLのインライン構造解析、式言語の構文解析にそれぞれサービス停止につながるHIGH脆弱性が確認された。影響条件は異なるが、外部入力を処理するWebサービスでは利用コンポーネントと修正版を照合する必要がある。",

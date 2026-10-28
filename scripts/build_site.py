@@ -1023,7 +1023,7 @@ def build(output, feed=None):
     (output / 'article.html').write_text(template)
     # Preview is not linked or indexed; it is accessible to anyone who knows the URL.
     # Editorial previews remain local; do not deploy draft content or preview UI.
-    (output / 'data').mkdir()
+    (output / 'data').mkdir(exist_ok=True)
     for page in ('about', 'privacy', 'contact'):
         destination = output / page
         destination.mkdir(parents=True, exist_ok=True)

@@ -886,7 +886,9 @@
   "20261028-undici-three-high-security-advisories": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-28T01:56:16+00:00"
+      "updated_at": "2026-10-28T01:56:20+00:00",
+      "stage": "container_created",
+      "container_id": "18132880714690068"
     }
   }
 }

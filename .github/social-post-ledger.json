@@ -949,10 +949,11 @@
       "remote_id": "17895296943614770"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T08:26:27+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T08:26:32+00:00",
       "stage": "publish_requested",
-      "container_id": "18156209293488337"
+      "container_id": "18156209293488337",
+      "remote_id": "18132773500766272"
     }
   }
 }

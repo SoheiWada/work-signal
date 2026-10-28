@@ -1,0 +1,29 @@
+name: Recover two verified missing WORK SIGNAL Threads posts (one-time)
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/recover-two-threads-20261028.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: work-signal-social-publishing
+  cancel-in-progress: false
+jobs:
+  recover:
+    if: github.ref == 'refs/heads/main' && vars.SOCIAL_PUBLISH_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Verify absence and recover only Gemini and Bun Threads
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+        run: python scripts/recover_two_threads_20261028.py

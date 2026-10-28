@@ -8,8 +8,8 @@ from PIL import Image, ImageDraw
 
 from scripts.build_site import build
 from scripts.social_asset_design import (
-    fit_one_line, font, security_style, security_share_card,
-    security_story_card,
+    fit_one_line, font, fit_metadata_lines, wrap_words,
+    security_style, security_share_card, security_story_card,
 )
 
 
@@ -71,6 +71,40 @@ class SecurityAssetDesignTests(unittest.TestCase):
                 with Image.open(story_path) as story:
                     self.assertEqual(story.size, (1080, 1920))
                     self.assertEqual(story.format, "JPEG")
+
+    def test_long_mitigation_is_visibly_shortened_only_on_image(self):
+        full = ("Better Auth 1.7.7へ更新し、関連プラグインも揃えて更新。"
+                "既存Magic Link・進行中のOAuthフローを再発行 / "
+                "Better Auth 1.7.7へ更新し、OAuth Proxyの参加環境・"
+                "同一stateを扱うノードを同時更新。")
+        face = font(25, 600)
+        clipped = fit_metadata_lines(full, face, 814, 2)
+        self.assertLessEqual(len(clipped), 2)
+        self.assertTrue(clipped[-1].endswith("…詳細は記事本文"))
+        self.assertTrue("".join(clipped).startswith("Better Auth 1.7.7へ更新"))
+        self.assertIsNone(wrap_words(full, face, 814, 2))
+        self.assertEqual(fit_metadata_lines("最新版へ更新", face, 814, 2), ["最新版へ更新"])
+
+    def test_long_security_actions_in_real_published_articles_do_not_break_assets(self):
+        import json
+        from scripts.build_site import ROOT
+        articles = json.loads((ROOT / "data/articles.json").read_text(encoding="utf-8"))
+        identifiers = (
+            "20261028-fastify-express-absolute-form-middleware-bypass",
+            "20261028-better-auth-magic-link-oauth-account-takeover",
+        )
+        by_id = {article["id"]: article for article in articles}
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp)
+            for identifier in identifiers:
+                article = by_id[identifier]
+                original_action = article["social_security_action"]
+                self.assertGreater(len(original_action), 120)
+                feed = security_share_card(output, article)
+                story = security_story_card(output, article)
+                self.assertTrue(feed.is_file())
+                self.assertTrue(story.is_file())
+                self.assertEqual(article["social_security_action"], original_action)
 
     def test_build_routes_only_explicit_severity_and_keeps_standard_unchanged(self):
         from scripts.build_site import instagram_share_card, instagram_story_card

@@ -826,10 +826,11 @@
       "remote_id": "18644980849019424"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-28T01:06:46+00:00",
+      "status": "published",
+      "updated_at": "2026-10-28T01:06:50+00:00",
       "stage": "publish_requested",
-      "container_id": "18156108166488337"
+      "container_id": "18156108166488337",
+      "remote_id": "18119750390054107"
     }
   },
   "20261028-boj-september-services-price-index": {

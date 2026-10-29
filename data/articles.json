@@ -1,5 +1,38 @@
 [
   {
+    "id": "20261029-openai-servicenow-chatgpt-workflows",
+    "title": "ChatGPTからServiceNowの業務記録を更新へ。OpenAIとServiceNowが連携を拡大",
+    "summary": "OpenAIとServiceNowは2026年10月28日、企業向けAI連携の拡大を発表した。ChatGPTからServiceNowのIT対応情報を調べ、権限に応じて記録を更新できるMCPプラグインを提供する。AIの回答を実務につなぐ一方、操作権限や承認は企業の既存ルールで管理する仕組みだ。",
+    "category": "AI",
+    "score": 91,
+    "published_at": "2026-10-29",
+    "published_at_time": "2026-10-29T07:52:54.329Z",
+    "source_url": "https://openai.com/index/openai-servicenow-partnership-expansion/",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "OpenAIとServiceNowは2026年10月28日、企業向けAI連携の拡大を発表した。ChatGPTからServiceNowのIT対応情報を調べ、権限に応じて記録を更新できるMCPプラグインを提供する。AIの回答を実務につなぐ一方、操作権限や承認は企業の既存ルールで管理する仕組みだ。",
+    "sections": [
+      {
+        "title": "ChatGPTの会話から、業務システムの操作へ",
+        "body": "OpenAIとServiceNowは10月28日、2026年1月に発表した協業をさらに拡大すると公表した。今回の中心は、ServiceNowのMCPプラグインによって、ChatGPTと企業のServiceNow環境を結ぶことだ。OpenAI公式発表では、IT担当者がChatGPT内で過去の類似インシデントを探し、変更作業のリスクを評価し、ServiceNowの記録を更新する例を挙げている。\n\n重要なのは、ChatGPTが社内データへ無条件にアクセスできるわけではない点だ。利用企業が自社のServiceNowインスタンスを接続し、使わせる機能を選択する。操作はServiceNowのAction Fabricを介し、既存の業務ルールやアクセス権限が適用される。処理と統制の基盤は引き続きServiceNow側にある。"
+      },
+      {
+        "title": "セキュリティ、開発、音声入力へ広がる計画",
+        "body": "両社は今後、ServiceNowの資産・ID・業務情報とOpenAIのサイバーセキュリティ能力を組み合わせ、脆弱性調査や優先順位付け、対処の連携を支援する構想を示した。また、ServiceNowのAI Workflow FactoryにCodexを組み込み、業務文脈を活用したアプリ開発を支援する計画も発表した。\n\n音声によるAI利用リスク評価の構想では、担当者が用途を話すと、システムが評価項目の入力を補助し、不足情報を質問する。これらは今回すべて一般提供されたわけではない。OpenAIとServiceNowの公式発表によると、MCPプラグインは2026年10月28日時点で提供中、機能拡張は2026年末までを予定。セキュリティ機能の早期アクセスは2027年1月、一般提供は2027年第2四半期、音声機能は2027年第1四半期、AI Workflow FactoryへのCodex統合は2027年を予定している。"
+      },
+      {
+        "title": "働く人と管理職が確認したいこと",
+        "body": "今回の発表が示す方向性は、AIを単独の相談相手として導入する段階から、既存の業務システムに結びつけて作業を進める段階への移行だ。例えば情報システム部門では、調査、判断、記録更新を別々の画面で行う負担を減らせる可能性がある。\n\nただし、発表資料には導入企業全体の実測削減時間や費用対効果の数値は示されていない。導入を検討する企業は、接続対象の権限、更新操作の承認手順、監査記録、誤操作時の復旧方法、利用対象者を事前に整理する必要がある。実務への効果は、自社の業務設計と提供機能の範囲によって変わる。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ]
+  },
+  {
     "id": "20261029-highcharts-xss-prototype-pollution",
     "title": "HighchartsにHIGH脆弱性複数、XSSとプロトタイプ汚染",
     "summary": "Highcharts Coreだけでなく、Grid Lite／Grid ProとDashboardsにも複数のHIGH脆弱性がある。開発元は2026年9月29日に勧告を公開し、10月28日にGitHub Advisory Databaseで審査登録された。XSSやプロトタイプ汚染が問題となり、CoreとGrid／Dashboardsでは修正版が異なる。各製品の導入バージョンと外部設定の入力経路を確認したい。",

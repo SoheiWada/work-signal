@@ -42,6 +42,7 @@ jobs:
         run: |
           python3 -m unittest discover -s tests -p 'test_build_site.py'
           python3 -m unittest discover -s tests -p 'test_seo_metadata.py'
+          python3 -m unittest discover -s tests -p 'test_publication_timeline.py'
           python3 -m unittest discover -s tests -p 'test_market_assets.py'
           python3 -m unittest discover -s tests -p 'test_market_preview.py'
           python3 -m unittest discover -s tests -p 'test_nba_assets.py'

@@ -1723,5 +1723,11 @@
       "container_id": "18156664924488337",
       "remote_id": "18133621882816678"
     }
+  },
+  "20261029-smart-pos-register-subsidy-details": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T13:51:35+00:00"
+    }
   }
 }

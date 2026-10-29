@@ -1405,8 +1405,8 @@
   },
   "20261029-re2js-lookbehinds-quadratic-dos": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T05:12:55+00:00",
+      "status": "needs_review",
+      "updated_at": "2026-10-29T05:12:59+00:00",
       "stage": "publish_requested",
       "container_id": "18133066927690068"
     }

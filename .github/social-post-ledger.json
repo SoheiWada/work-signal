@@ -1306,5 +1306,11 @@
       "container_id": "18156485704488337",
       "remote_id": "17975472087176655"
     }
+  },
+  "20261029-vue-i18n-srcdoc-xss": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T02:07:54+00:00"
+    }
   }
 }

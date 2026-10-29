@@ -1,0 +1,59 @@
+name: Audit FUXA Threads link and Meta crawler accessibility (read only)
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/audit-fuxa-link-20261029.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Inspect site links and actual Threads publication without writes
+        env:
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+        run: |
+          python - <<'PY'
+          import json, os, sys
+          from urllib.request import Request, urlopen
+          from urllib.error import HTTPError, URLError
+          sys.path.insert(0, 'scripts')
+          import publish_social as social
+          from audit_social_delivery import collect, matches
+          feed=json.load(open('data/articles.json'))
+          target=next(a for a in feed if a['id']=='20261029-fuxa-nodered-auth-bypass-rce')
+          control=next(a for a in feed if a['id']=='20261029-datadog-dd-trace-query-redos')
+          for a in (target,control):
+              url=social.article_url(a)
+              for agent in ('WORK-SIGNAL-Audit/1.0',
+                            'facebookexternalhit/1.1',
+                            'meta-externalagent/1.1',
+                            'Googlebot/2.1'):
+                  try:
+                      with urlopen(Request(url,headers={'User-Agent':agent,
+                          'Accept':'text/html'}),timeout=20) as response:
+                          blob=response.read(240000).decode('utf-8','replace')
+                          print('LINK_ACCESS',json.dumps({'id':a['id'],'agent':agent,
+                              'http':response.status,'final_url':response.url,'content_type':response.headers.get('content-type'),
+                              'canonical_match':('<link rel="canonical" href="'+url+'">') in blob,
+                              'og_url_match':('property="og:url" content="'+url+'"') in blob,
+                              'cloudflare_ray':bool(response.headers.get('cf-ray'))}))
+                  except HTTPError as exc:
+                      print('LINK_ACCESS',json.dumps({'id':a['id'],'agent':agent,
+                          'http':exc.code,'cloudflare_ray':bool(exc.headers.get('cf-ray'))}))
+                  except Exception as exc:
+                      print('LINK_ACCESS',json.dumps({'id':a['id'],'agent':agent,'error':type(exc).__name__}))
+          social.verify_account(social.THREADS_API,os.environ['THREADS_ACCESS_TOKEN'],os.environ['THREADS_USER_ID'])
+          posts,complete=collect(social.THREADS_API,os.environ['THREADS_USER_ID']+'/threads',
+                                 os.environ['THREADS_ACCESS_TOKEN'],'id,text,timestamp,permalink',pages=8)
+          print('THREADS_HISTORY',json.dumps({'complete':complete,'count':len(posts),
+               'fuxa_matches':[{'id':x['id'],'permalink':x.get('permalink')} for x in matches(target,'threads',posts)]}))
+          PY

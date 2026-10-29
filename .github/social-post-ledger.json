@@ -1829,7 +1829,9 @@
   "20261030-sophos-utm-preauth-root-rce": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T23:57:06+00:00"
+      "updated_at": "2026-10-29T23:57:17+00:00",
+      "stage": "publish_requested",
+      "container_id": "18094689971675173"
     }
   }
 }

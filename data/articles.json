@@ -1,5 +1,57 @@
 [
   {
+    "id": "20261029-highcharts-xss-prototype-pollution",
+    "title": "HighchartsにHIGH脆弱性複数、XSSとプロトタイプ汚染",
+    "summary": "Highcharts Coreだけでなく、Grid Lite／Grid ProとDashboardsにも複数のHIGH脆弱性がある。開発元は2026年9月29日に勧告を公開し、10月28日にGitHub Advisory Databaseで審査登録された。XSSやプロトタイプ汚染が問題となり、CoreとGrid／Dashboardsでは修正版が異なる。各製品の導入バージョンと外部設定の入力経路を確認したい。",
+    "category": "SECURITY",
+    "score": 89,
+    "published_at": "2026-10-29",
+    "published_at_time": "2026-10-29T07:52:17.714Z",
+    "source_url": "https://github.com/highcharts/highcharts/security/advisories/GHSA-rmqc-xvr3-v46c",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Highcharts Coreだけでなく、Grid Lite／Grid ProとDashboardsにも複数のHIGH脆弱性がある。開発元は2026年9月29日に勧告を公開し、10月28日にGitHub Advisory Databaseで審査登録された。XSSやプロトタイプ汚染が問題となり、CoreとGrid／Dashboardsでは修正版が異なる。各製品の導入バージョンと外部設定の入力経路を確認したい。",
+    "sections": [
+      {
+        "title": "プロトタイプ汚染：チャート描画が他のJavaScriptへ影響",
+        "body": "CVE-2026-118250（GHSA-rmqc-xvr3-v46c、CVSS 7.2）は、`series.keys`のドット区切りパスを検査せずたどることで、攻撃者が設定とポイントデータを操作できる場合に`Object.prototype`へプロパティを追加できる問題。影響範囲は6.1.0以上11.4.9未満、12.0.0以上12.6.1未満、13.0.0以上13.1.0未満。CVE-2026-118249（GHSA-gfvx-2c2g-38wq、CVSS 7.1）は、ポイントオブジェクトのキーを列IDに利用する処理が`Object.prototype`等に書き込む問題で、公式影響範囲は13.0.0〜13.0.2。いずれも不正な入力が該当処理に渡ることが前提で、結果は呼び出し元アプリケーションに依存する。"
+      },
+      {
+        "title": "XSS：リンク・パンくず・印刷処理などに条件付きリスク",
+        "body": "CVE-2026-118251（GHSA-5793-x2q3-c3q7、CVSS 8.4）は、攻撃者が`credits.href`に`javascript:`スキームを指定でき、利用者がクレジットをクリックした場合にスクリプトが動作する問題。CVE-2026-118246（GHSA-35rr-xwfh-x789、CVSS 8.4）は、`breadcrumbs.style`の属性名がSVGイベントハンドラとして反映される問題で、パンくず表示とユーザー操作が必要。CVE-2026-118244（GHSA-65hg-cf3f-5m39、CVSS 7.2）はChromiumの印刷時にHTMLテキストのパーサーが非サニタイズ`innerHTML`へフォールバックする条件付きXSS。CVE-2026-116796（GHSA-mw4f-gj5x-6xr4、CVSS 7.2）はSVGの`xlink:href`属性のURL検査不足により、出力SVGの再読み込みとリンク操作を経てスクリプトが動作し得る。いずれも無条件に任意サイトで実行できると断定しない。"
+      },
+      {
+        "title": "修正版と運用上の確認",
+        "body": "各勧告に記載された修正版は系列・CVEによって異なる。今回照合した6件をまとめて回避するには、13系は13.1.1以上、12系は12.6.2以上、11系は11.4.9以上が目安。特にCVE-2026-116796では13.1.0と12.6.1も影響範囲なので、13.1.0への更新だけでは6件すべてに対応できない。npmだけでなくCDNの固定バージョンを使用する場合も実際に読み込むファイルを確認する。外部入力をチャートの設定、HTMLテキスト、シリーズデータ、エクスポートへ渡す箇所を点検する。"
+      },
+      {
+        "title": "Grid Lite／Grid Pro：言語文字列とSVG・入力属性のXSS",
+        "body": "CVE-2026-118254（GHSA-r5wg-q8fc-p6w2、CVSS 8.6）は、ページ送りの言語文字列をHTMLとして描画する問題。攻撃者がGridの言語設定に入力でき、ページ送りが有効な場合にXSSが成立し得る。Grid Lite／Grid Proの2.0.0～3.1.0が対象で、3.2.0で修正された。CVE-2026-118242（GHSA-6g3c-p4fg-xv47、CVSS 8.5）はカスタムSVGアイコン定義の属性名を無検査で設定する問題で、両製品の2.3.0～3.1.0が対象。アイコンへのホバーやクリック等の操作が成立条件となる。CVE-2026-116797（GHSA-5ghw-9mgr-jvx2、CVSS 8.5）はGrid Proのセル描画用attributesにイベントハンドラ属性を指定できる問題。Grid Pro 2.0.0～3.1.0と、旧Dashboardsパッケージ3.6.0が公式影響範囲に含まれる。修正版はGrid Pro 3.2.0、該当Dashboardsは4.0.0。信頼できない設定が入力欄の描画・編集操作に渡る条件を要する。"
+      },
+      {
+        "title": "Grid／Dashboards：リンク・言語ラベル経由のXSS",
+        "body": "CVE-2026-118255（GHSA-6hgp-fmhr-mrg4、CVSS 8.4）はGridのcredits.hrefにjavascript:形式のURLを許し、利用者がリンクをクリックするとスクリプトが動作し得る。Grid Pro 2.0.0～3.1.0（修正3.2.0）と旧Dashboards 3.2.0～3.6.0（修正4.0.0）が公式影響範囲。CVE-2026-118253（GHSA-58g7-7f52-h92c、CVSS 8.4）はDashboardsの編集モードの全画面表示ラベル、CVE-2026-118252（GHSA-rcqf-f6h2-ccg9、CVSS 8.4）は編集サイドバーの言語ラベルをHTMLとして解釈する問題。両件とも攻撃者が言語設定に入力でき、対象UIが表示される条件でXSSが成立し得る。Dashboards 4.2.3以上への更新で両方に対応できる。"
+      },
+      {
+        "title": "Dashboards：チャート生成関数の選択に不正な値",
+        "body": "CVE-2026-118245（GHSA-grj7-r4jv-pw9j、CVSS 8.6）は、DashboardsのchartConstructorがHighcharts名前空間の関数を無検査で参照する問題。攻撃者がDashboardsのコンポーネント設定を制御できる場合、想定外の関数にchartOptionsを渡し、画面上の要素へイベントハンドラ等を設定できる。公式影響範囲はDashboards 1.0.0～4.2.1、修正版は4.2.2。今回のDashboards関連HIGH案件をまとめて回避するには4.2.3以上を推奨する。外部入力が設定に入らない通常利用まで無条件にXSSが起きるという意味ではない。"
+      },
+      {
+        "title": "更新時の注意：CoreとGrid／Dashboardsは別パッケージ",
+        "body": "Core向けの13.1.1／12.6.2／11.4.9という修正版は、Grid／Dashboardsにはそのまま当てはまらない。Grid Lite／Grid Proは3.2.0以上、Dashboardsは4.2.3以上をそれぞれ確認する。npmのロックファイルとCDNの固定URL、旧Dashboardsに同梱されていたGrid機能の有無を調べる。攻撃成立には設定値・言語文字列などへ信頼できない入力が入ることや、特定UIの表示・操作が必要な案件が多い。開発元の公式GHSAと導入構成を突き合わせ、影響範囲を個別に判断する。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "Highcharts Core（Stock / Maps / Ganttを含む該当構成）、Highcharts Grid Lite／Grid Pro、Highcharts Dashboards",
+    "social_security_action": "Highcharts Coreは13系13.1.1以上／12系12.6.2以上／11系11.4.9以上、Grid Lite／Grid Proは3.2.0以上、Dashboardsは4.2.3以上を各パッケージごとに確認して更新。信頼できないチャート／Grid／Dashboards設定や言語文字列、HTML・SVG属性、series.keysを点検。"
+  },
+  {
     "id": "20261029-ovenmediaengine-ovt-relay-dos",
     "title": "OvenMediaEngineのOVT中継にHIGH DoS、CVE-2026-118689（修正版未公表）",
     "summary": "動画配信基盤OvenMediaEngineのOVT中継で、認証なしに接続を占有し続けることで配信を妨害できる可能性が指摘された。CVE-2026-118689はHIGHと評価されるが、公開のCVSS値は未レビューのGitHub Advisoryによるもの。開発元は修正を含むOVT2変更の統合を報告した一方、正式な修正版のリリースは確認されていない。",

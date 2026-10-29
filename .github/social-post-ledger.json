@@ -1846,7 +1846,9 @@
   "20261030-wordpress-plugin-rce-account-takeover": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T23:57:46+00:00"
+      "updated_at": "2026-10-29T23:57:56+00:00",
+      "stage": "publish_requested",
+      "container_id": "18136833820677342"
     }
   }
 }

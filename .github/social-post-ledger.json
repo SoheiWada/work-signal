@@ -1828,10 +1828,12 @@
   },
   "20261030-sophos-utm-preauth-root-rce": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T23:57:17+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T23:57:23+00:00",
       "stage": "publish_requested",
-      "container_id": "18094689971675173"
+      "container_id": "18094689971675173",
+      "remote_id": "18094689971675173",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfGPT1KEZ6S"
     }
   }
 }

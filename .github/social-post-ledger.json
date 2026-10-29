@@ -1454,10 +1454,12 @@
   },
   "20261029-google-connected-apps-mcp-platform-preview": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T06:38:23+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T06:38:31+00:00",
       "stage": "publish_requested",
-      "container_id": "18133075054690068"
+      "container_id": "18133075054690068",
+      "remote_id": "18222495175345714",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfEYbLGnI9N"
     }
   }
 }

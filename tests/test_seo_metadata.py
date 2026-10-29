@@ -10,7 +10,7 @@ from unittest.mock import patch
 from xml.etree import ElementTree as ET
 from PIL import Image
 from scripts import build_site as site
-from scripts.seo_metadata import modifications_from_snapshots, modification_date, article_modifications, latest_date
+from scripts.seo_metadata import modifications_from_snapshots, publications_from_snapshots, modification_date, article_modifications, latest_date
 
 class SEOTests(unittest.TestCase):
     @classmethod
@@ -29,6 +29,20 @@ class SEOTests(unittest.TestCase):
         for invalid in ['2020-01-01','2026-10-22T12:00:00','invalid']:
             with self.assertRaises(ValueError): modification_date(dict(a,updated_at=invalid),{})
         self.assertEqual(latest_date(['2026-10-22T14:00:00+09:00','2026-10-22T06:00:00Z']),'2026-10-22T06:00:00Z')
+
+    def test_first_git_registration_times_use_local_date_and_skip_backdates(self):
+        snapshots = [
+            ('2026-10-28T23:10:00Z', [
+                {'id':'new-today','published_at':'2026-10-29','status':'published'},
+                {'id':'old-backdated','published_at':'2026-10-27','status':'published'}
+            ]),
+            ('2026-10-29T02:11:00Z', [
+                {'id':'new-today','published_at':'2026-10-29','status':'published'},
+                {'id':'old-backdated','published_at':'2026-10-27','status':'published'}
+            ])
+        ]
+        first = publications_from_snapshots(snapshots)
+        self.assertEqual(first, {'new-today':'2026-10-29T08:10:00+09:00'})
 
     def test_category_only_reclassification_preserves_original_content_modification_time(self):
         security = next(item for item in self.feed if item['category'] == 'SECURITY')

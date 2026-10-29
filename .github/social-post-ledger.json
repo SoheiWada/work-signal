@@ -1853,10 +1853,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfGPYtHkWe1"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T23:58:17+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T23:58:21+00:00",
       "stage": "publish_requested",
-      "container_id": "18156849997488337"
+      "container_id": "18156849997488337",
+      "remote_id": "18032081609879565"
     }
   }
 }

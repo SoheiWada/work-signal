@@ -53,6 +53,42 @@ class DeliveryReliabilityTests(unittest.TestCase):
         self.assertEqual(ledger.rows[a["id"]]["threads"]["status"], "published")
         self.assertEqual(ledger.rows[a["id"]]["threads"]["remote_id"], "123")
 
+    def test_invalid_link_preview_falls_back_once_to_verified_primary_source(self):
+        a = {**self.article, "social_platforms": ["threads"]}
+        ledger = MemoryLedger()
+        link_error = p.MetaAPIError(400, {"code": -1, "error_subcode": 4279047,
+                                          "type": "OAuthException"})
+        with (patch.object(p, "verify_account", return_value={}),
+              patch.object(p, "verify_live"),
+              patch.object(p, "publish_threads", side_effect=[link_error, "123"]) as publish,
+              patch.object(p, "threads_live_history_matches", return_value=[]) as history,
+              patch.object(p, "verify_threads_source_preview") as source,
+              patch.object(p.time, "sleep")):
+            self.assertEqual(p.run([a], ledger, self.credentials), 0)
+        self.assertEqual(publish.call_count, 2)
+        self.assertEqual(history.call_count, 2)
+        source.assert_called_once_with(a["source_url"])
+        self.assertEqual(publish.call_args_list[0].kwargs["link_attachment"], p.article_url(a))
+        self.assertEqual(publish.call_args_list[1].kwargs["link_attachment"], a["source_url"])
+        self.assertEqual(publish.call_args_list[1].kwargs["approved_source_url"], a["source_url"])
+        self.assertEqual(ledger.rows[a["id"]]["threads"]["status"], "published")
+
+    def test_unverified_history_prevents_link_fallback(self):
+        a = {**self.article, "social_platforms": ["threads"]}
+        ledger = MemoryLedger()
+        link_error = p.MetaAPIError(400, {"code": -1, "error_subcode": 4279047,
+                                          "type": "OAuthException"})
+        with (patch.object(p, "verify_account", return_value={}),
+              patch.object(p, "verify_live"),
+              patch.object(p, "publish_threads", side_effect=link_error) as publish,
+              patch.object(p, "threads_live_history_matches",
+                           side_effect=RuntimeError("Incomplete timeline")),
+              patch.object(p, "verify_threads_source_preview") as source):
+            self.assertEqual(p.run([a], ledger, self.credentials), 1)
+        publish.assert_called_once()
+        source.assert_not_called()
+        self.assertEqual(ledger.rows[a["id"]]["threads"]["status"], "needs_review")
+
     def test_unconfirmed_threads_post_is_not_reported_published(self):
         a = {**self.article, "social_platforms": ["threads"]}
         ledger = MemoryLedger()

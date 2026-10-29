@@ -1701,10 +1701,12 @@
   },
   "20261029-datadog-dd-trace-query-redos": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T13:22:56+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T13:22:58+00:00",
       "stage": "publish_requested",
-      "container_id": "18571490428079597"
+      "container_id": "18571490428079597",
+      "remote_id": "18571490428079597",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfFGt5UDk-k"
     }
   }
 }

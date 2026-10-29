@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261030-twisted-http2-rapid-reset-dos",
+    "title": "Twisted HTTP/2サーバーにHIGHのRapid Reset型DoS（GHSA-vpp8-g58w-m8mp）",
+    "summary": "Python製の非同期ネットワーク基盤TwistedのHTTP/2サーバーに、認証不要の遠隔サービス拒否脆弱性が確認された。ストリームを直後にリセットする要求を繰り返すことで、同時ストリーム数の制限を回避してCPU処理を増幅できる。開発元はHIGH／CVSS 7.5と評価し、修正を含む26.10.0rc1を公開している。",
+    "category": "SECURITY",
+    "score": 82,
+    "published_at": "2026-10-30",
+    "published_at_time": "2026-10-29T23:46:46.305Z",
+    "source_url": "https://github.com/twisted/twisted/security/advisories/GHSA-vpp8-g58w-m8mp",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Python製の非同期ネットワーク基盤TwistedのHTTP/2サーバーに、認証不要の遠隔サービス拒否脆弱性が確認された。ストリームを直後にリセットする要求を繰り返すことで、同時ストリーム数の制限を回避してCPU処理を増幅できる。開発元はHIGH／CVSS 7.5と評価し、修正を含む26.10.0rc1を公開している。",
+    "sections": [
+      {
+        "title": "HTTP/2のリセットが要求処理より後に扱われる",
+        "body": "Twistedの公式セキュリティ勧告GHSA-vpp8-g58w-m8mpによると、twisted.webのHTTP/2サーバーでは、要求ヘッダーでストリームの終了を宣言した直後にRST_STREAMを送ると、リセット処理より先に要求がルーティングされ、レンダリングされる。要求はキャンセルされているにもかかわらず、サーバー側では処理負荷が発生する。"
+      },
+      {
+        "title": "同時ストリーム数制限を回避する仕組み",
+        "body": "リセットされたストリームは解放されるため、サーバーが設けた同時ストリーム数の上限に蓄積されない。公式勧告は、単一接続からこの操作を繰り返すだけでCPUコアを飽和させ得ると説明する。認証は不要で、機密情報の窃取や任意コード実行ではなく、可用性を狙うサービス拒否の問題だ。過去のHTTP/2 Rapid Reset問題CVE-2023-44487と同じ攻撃類型に属するが、本件のGHSAを同CVEと同一視してはならない。"
+      },
+      {
+        "title": "影響範囲と修正の公開状況",
+        "body": "公式勧告はTwisted 26.4.0以前を影響範囲とし、26.4.0での確認を記載している。修正版として挙げられる26.10.0rc1は2026年10月22日公開のプレリリースで、リリースノートにもGHSA-vpp8-g58w-m8mpの修正が明記されている。通常の安定版とは異なるため、導入時は環境での互換性・運用方針を確認し、正式版の公開状況も継続確認する必要がある。"
+      },
+      {
+        "title": "運用上の対策と留保",
+        "body": "TwistedでHTTP/2を受け付ける環境は利用版を確認し、修正済みリリースへの移行計画を立てる。すぐにプレリリースを適用できない場合、HTTP/2公開経路の必要性やフロントプロキシ側の接続・要求制御を点検することが暫定的なリスク低減策となるが、公式修正の代替として保証されたものではない。開発元の深刻度はHIGH、CVSS v3.1 7.5。実環境での悪用は公式勧告では確認されておらず、未確認とする。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "Twisted（twisted.web HTTP/2 server）",
+    "social_security_action": "公式修正を含む26.10.0rc1の採用可否を検証し、安定版が必要な環境では後続の正式リリースを監視する。更新までHTTP/2公開面とレート制御を点検する（後者は一般的な暫定運用提案であり公式修正と同等ではない）"
+  },
+  {
     "id": "20261030-decode-uri-component-cve-2026-118664-dos",
     "title": "decode-uri-componentにHIGH DoS、0.5.0でも残った二次計算量問題（CVE-2026-118664）",
     "summary": "Node.js向けnpmライブラリ「decode-uri-component」に、細工した入力のデコードで処理時間が二次的に増え、Webサーバーのイベントループを停止させ得る脆弱性が確認された。CVE-2026-118664はCVSS 8.2（HIGH）。先行する別のDoS問題を修正した0.5.0にも残っており、0.5.1への更新が必要だ。",

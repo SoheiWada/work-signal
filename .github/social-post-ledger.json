@@ -1740,5 +1740,11 @@
       "container_id": "18156674965488337",
       "remote_id": "18078179642440752"
     }
+  },
+  "20261029-wordpress-telegram-plugin-account-takeover": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T23:03:56+00:00"
+    }
   }
 }

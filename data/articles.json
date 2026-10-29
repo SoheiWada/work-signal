@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261029-happy-dom-html-parser-ssrf",
+    "title": "Happy DOMのHTML解析でSSRF、HIGH脆弱性を21.0.0で修正",
+    "summary": "Node.js向けDOM実装Happy DOMで、信頼できないHTMLに含まれるiframeや外部CSSを読み込むと、サーバーから攻撃者指定先へHTTP通信するSSRFが起こり得る。21.0.0では外部リソースの自動ロードが無効化された。",
+    "category": "SECURITY",
+    "score": 86,
+    "published_at": "2026-10-29",
+    "published_at_time": "2026-10-29T02:05:07.620Z",
+    "source_url": "https://github.com/capricorn86/happy-dom/security/advisories/GHSA-c8p4-j97h-3vg8",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Node.js向けDOM実装Happy DOMで、信頼できないHTMLに含まれるiframeや外部CSSを読み込むと、サーバーから攻撃者指定先へHTTP通信するSSRFが起こり得る。21.0.0では外部リソースの自動ロードが無効化された。",
+    "sections": [
+      {
+        "title": "HTMLの解析がサーバーからのHTTPアクセスにつながる",
+        "body": "開発元のGHSA-c8p4-j97h-3vg8によると、Happy DOMの旧版はHTML内の`iframe`や`link rel=\"stylesheet\"`を解析する際、既定で指定URLへのHTTPアクセスを実行する。サーバー側で利用者提供のHTMLを処理する場合、内部ネットワークやクラウドメタデータのURLを指定され、意図しない通信が発生する可能性がある。勧告には検証用HTTPサーバーへのアクセスを再現した記録があるが、実環境での侵害・認証情報流出を確認したものではない。"
+      },
+      {
+        "title": "0.0では外部ロードを既定で停止",
+        "body": "影響範囲は開発元勧告のバージョン欄で20.14.6以下。修正版21.0.0のリリースノートは、CSSとiframeの読み込みを既定で無効化し、新たに`enableCSSFileLoading`と`enableIframePageLoading`を導入したと明記している。旧版利用者は更新を優先し、必要な外部ロードを許可する場合も送信先を制限する。公式の評価はHIGH、CVSS 8.6。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "happy-dom",
+    "social_security_action": "21.0.0以上へ更新し、外部HTML解析時のiframe・CSS外部ロードを無効化。サーバーから内部・メタデータアドレスへのアクセスを制限。"
+  },
+  {
     "id": "20261029-vue-i18n-srcdoc-xss",
     "title": "Vue I18nのHTML翻訳にXSS回避漏れ、HIGH脆弱性の修正版を確認",
     "summary": "Vue I18nのHTML翻訳処理に、iframeのsrcdoc属性を経由してXSS対策を回避できるHIGH脆弱性がある。翻訳をv-htmlで表示し、信頼できない内容が入る構成が対象で、11.4.14などで修正済みだ。",

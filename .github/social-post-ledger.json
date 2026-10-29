@@ -1376,7 +1376,9 @@
   "20261029-graphql-scalars-phonenumber-redos": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T05:11:52+00:00"
+      "updated_at": "2026-10-29T05:11:56+00:00",
+      "stage": "container_created",
+      "container_id": "18133066891690068"
     }
   }
 }

@@ -1238,5 +1238,11 @@
       "container_id": "18156462769488337",
       "remote_id": "17906769165598472"
     }
+  },
+  "20261029-microsoft-copilot-harness-foundry-preview": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T00:17:13+00:00"
+    }
   }
 }

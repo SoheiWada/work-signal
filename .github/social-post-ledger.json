@@ -1571,10 +1571,12 @@
   },
   "20261029-amazon-alexaplus-japan-early-access": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T10:56:46+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T10:56:54+00:00",
       "stage": "publish_requested",
-      "container_id": "18133101760690068"
+      "container_id": "18133101760690068",
+      "remote_id": "18080932940443788",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfE1_tlIETP"
     }
   }
 }

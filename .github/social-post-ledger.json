@@ -1523,8 +1523,8 @@
   "20261029-highcharts-xss-prototype-pollution": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T07:56:39+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-10-29T07:56:41+00:00",
+      "stage": "publish_requested",
       "container_id": "18133082743690068"
     }
   }

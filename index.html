@@ -397,10 +397,11 @@ function dateTimeJst(value){
 function timelineNode(a){
  const wrap=node('div',undefined,'story-timeline');
  const published=typeof a.published_at==='string'?a.published_at:'';
- const recorded=dateTimeJst(a.published_at_time);
+ const recording=a.published_at_time||a.first_registered_at;
+ const recorded=dateTimeJst(recording);
  const validRecorded=recorded&&recorded.slice(0,10)===published;
  const pub=node('time',(validRecorded?'公開登録 ':'公開 ')+(validRecorded?recorded+' JST':published),'timeline-published');
- pub.dateTime=validRecorded?a.published_at_time:published;wrap.append(pub);
+ pub.dateTime=validRecorded?recording:published;wrap.append(pub);
  const updated=dateTimeJst(a.updated_at);
  const updatedText=updated||(/^\\d{4}-\\d{2}-\\d{2}$/.test(a.updated_at||'')?a.updated_at:null);
  if(updatedText&&(!validRecorded||updatedText!==recorded)){

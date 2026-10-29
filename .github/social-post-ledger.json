@@ -1651,5 +1651,11 @@
       "container_id": "18156630253488337",
       "remote_id": "18045261644828179"
     }
+  },
+  "20261029-anthropic-claude-legal-artifacts-workflows": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T12:28:32+00:00"
+    }
   }
 }

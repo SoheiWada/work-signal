@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261030-sophos-utm-preauth-root-rce",
+    "title": "Sophos UTMにCRITICAL 9.2、認証不要のroot権限RCEとEOL製品への手動パッチ要請",
+    "summary": "Sophosは2026年10月28日、サポートを終了した統合セキュリティ製品「Sophos UTM」に、認証不要でroot権限の任意コマンド実行につながる重大な脆弱性CVE-2026-118633があると公表した。メールプロキシのスキャン機能を使う環境が対象で、同社は手動パッチの早急な適用を要請している。",
+    "category": "SECURITY",
+    "score": 92,
+    "published_at": "2026-10-30",
+    "published_at_time": "2026-10-29T23:47:57.917Z",
+    "source_url": "https://www.sophos.com/en-us/security-advisories/sophos-sa-20261028-utm-rce",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Sophosは2026年10月28日、サポートを終了した統合セキュリティ製品「Sophos UTM」に、認証不要でroot権限の任意コマンド実行につながる重大な脆弱性CVE-2026-118633があると公表した。メールプロキシのスキャン機能を使う環境が対象で、同社は手動パッチの早急な適用を要請している。",
+    "sections": [
+      {
+        "title": "認証不要の攻撃がroot権限に到達する恐れ",
+        "body": "Sophosの2026年10月28日付公式勧告によると、Sophos UTMのパストラバーサル脆弱性CVE-2026-118633では、認証されていない遠隔の攻撃者が任意コマンドをroot権限で実行できる恐れがある。ただし攻撃は無条件に成功するものではなく、メールプロキシでスキャンが有効になっていることに加え、数分間にわたる繰り返しの攻撃で競合状態を成立させる必要がある。これはSophos UTMに固有の問題であり、Node.jsやReact本体の脆弱性ではない。"
+      },
+      {
+        "title": "公式の深刻度はCRITICAL、CVSSの版で数値が異なる",
+        "body": "Sophosの公式勧告は深刻度をCriticalとする。SophosがCNAとして登録したCVE Programの構造化レコードでは、CVSS v4.0は9.2（CRITICAL）、CVSS v3.1は8.1（HIGH）。同一CVEでも評価体系が異なるため、9.2と8.1を混同しない。Sophosの勧告は影響範囲を「Sophos UTM（全バージョン）」と記載し、CNAのaffected欄は「SG UTM 9.724以前」としている。いずれの表記も併記して確認する必要がある。"
+      },
+      {
+        "title": "EOL製品のため自動更新ではなく手動パッチが必要",
+        "body": "Sophosは修正済みと明記する一方、Sophos UTMはサポート終了製品であり、修正の適用には手動作業が必要だとしている。メール保護機能を利用している顧客に緊急対応を求め、公式サポート記事KBA-000049692を案内している。さらに長期的には、サポート対象のSophos Firewallへの移行を推奨する。手動パッチの具体的操作は公式サポート手順を実際に開いて確認し、変更管理・バックアップ・適用確認を経て実施したい。"
+      },
+      {
+        "title": "運用担当者が確認すべきこと",
+        "body": "対象のSophos UTMが稼働しているか、Email Protectionとメールプロキシのスキャン機能を使っているか、外部から到達可能かを棚卸しする。該当環境ではSophos公式手順に沿って修正を優先し、アクセス記録や不審なコマンド実行の痕跡も調査対象とする。ただし今回の公式勧告は、実環境で悪用が確認されたとは述べていない。「悪用可能」と「悪用確認済み」を混同しないことが重要だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Sophos UTM / SG UTM",
+    "social_security_action": "メールプロキシでスキャン機能を利用する残存UTMへSophos公式手順による手動パッチを至急適用し、サポート対象のSophos Firewallへの移行を計画する"
+  },
+  {
     "id": "20261030-gemini-in-chat-file-editing",
     "title": "Google Gemini、チャット内でPDF・文書・表計算を直接編集。全ユーザーに提供開始",
     "summary": "Googleは2026年10月29日、Geminiアプリのチャット内でPDFや文書、表計算、プレゼン資料などを作成・プレビュー・編集できる機能を発表した。PDFはWebとモバイル、その他の対応形式はWebで利用でき、Geminiアプリが提供される言語・地域の全ユーザーが対象となる。資料作成と修正を一つの画面で進める新しい選択肢だ。",

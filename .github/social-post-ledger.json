@@ -1606,8 +1606,8 @@
   "20261029-stmicro-rf-optical-communications-q3": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T11:01:06+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-10-29T11:01:08+00:00",
+      "stage": "publish_requested",
       "container_id": "18133102519690068"
     }
   }

@@ -720,8 +720,11 @@ def article_page(article, template, modified_at=None, related=()):
     style = re.search(r'<style>.*?</style>', template, re.S).group()
     fonts = re.search(r'<link rel="preconnect".*?<style>', template, re.S).group().removesuffix('<style>')
     analytics = template.split('<!-- Google tag (gtag.js): WORK SIGNAL -->', 1)[1].split('</head>', 1)[0]
+    recorded = article.get('published_at_time')
+    published_schema = (recorded if (_clock_text(recorded) or '')[:10] == article['published_at']
+                        else article['published_at'])
     schema = {"@context": "https://schema.org", "@type": ("Article" if article.get("format") in ("special_story", "management_guide") else "NewsArticle"), "headline": article["title"],
-              "description": article["summary"], "datePublished": article["published_at"], "image": [image_url],
+              "description": article["summary"], "datePublished": published_schema, "image": [image_url],
               "inLanguage": "ja", "mainEntityOfPage": {"@type": "WebPage", "@id": url},
               "publisher": {"@type": "Organization", "name": "WORK SIGNAL", "url": BASE, "sameAs": ["https://www.instagram.com/work_signal_japan/","https://www.threads.com/@work_signal_japan"]}}
     if modified_at:
@@ -741,7 +744,7 @@ def article_page(article, template, modified_at=None, related=()):
             + '<meta property="og:url" content="' + url + '">'
             + '<meta name="twitter:title" content="' + esc(title) + '">'
             + '<meta name="twitter:description" content="' + esc(article['summary']) + '">'
-            + '<meta property="article:published_time" content="' + esc(article['published_at']) + '">'
+            + '<meta property="article:published_time" content="' + esc(published_schema) + '">'
             + ('<meta property="article:modified_time" content="' + esc(modified_at) + '">' if modified_at else '')
             + image_metadata(image_url, title)
             + '<meta name="robots" content="max-image-preview:large">'

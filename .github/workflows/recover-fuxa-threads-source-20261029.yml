@@ -1,0 +1,29 @@
+name: Recover one verified-absent FUXA Threads post (official source card)
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/recover-fuxa-threads-source-20261029.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: work-signal-social-publishing
+  cancel-in-progress: false
+jobs:
+  recover:
+    if: github.ref == 'refs/heads/main' && vars.SOCIAL_PUBLISH_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Publish at most one already-approved and verified-absent FUXA Threads post
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+        run: python scripts/recover_fuxa_threads_source_preview_20261029.py

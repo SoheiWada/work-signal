@@ -1519,5 +1519,11 @@
       "container_id": "18156569182488337",
       "remote_id": "17924172942450045"
     }
+  },
+  "20261029-highcharts-xss-prototype-pollution": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T07:56:35+00:00"
+    }
   }
 }

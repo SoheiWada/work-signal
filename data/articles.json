@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261030-langflow-oss-auth-bypass-rce-security-bulletin",
+    "title": "Langflow OSSにCRITICAL脆弱性2件、認証回避と遠隔コード実行の恐れ",
+    "summary": "AIワークフロー基盤「Langflow OSS」に、認証回避と任意コード実行を含む複数の脆弱性が判明した。IBMは2026年10月28日に公式勧告を公表し、29日に更新。CVSS 9.8のCRITICALが2件、8.8のHIGHが1件含まれ、影響する1.0.0〜1.12.8から修正版1.13.0への更新を求めている。",
+    "category": "SECURITY",
+    "score": 94,
+    "published_at": "2026-10-30",
+    "published_at_time": "2026-10-29T23:51:53.459Z",
+    "source_url": "https://www.ibm.com/support/pages/node/7294467",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "AIワークフロー基盤「Langflow OSS」に、認証回避と任意コード実行を含む複数の脆弱性が判明した。IBMは2026年10月28日に公式勧告を公表し、29日に更新。CVSS 9.8のCRITICALが2件、8.8のHIGHが1件含まれ、影響する1.0.0〜1.12.8から修正版1.13.0への更新を求めている。",
+    "sections": [
+      {
+        "title": "Langflow OSSに複数の脆弱性、IBMが公式勧告",
+        "body": "IBMは10月28日付のセキュリティ情報で、Langflow OSSに複数の脆弱性があると発表した。29日の改訂では概要、修正版の案内、インストール手順などを明確化した。主な問題は認証制御の不備、AIエージェントによるコード生成・実行の制御不備、認証された利用者からのAPI認証情報の漏えいリスクなどだ。これはLangflow OSSに関する勧告であり、Node.js本体の脆弱性を意味するものではない。"
+      },
+      {
+        "title": "CRITICAL 2件とHIGH 1件の内容",
+        "body": "CVE-2026-93680は不適切な認証により、遠隔の攻撃者がセキュリティ制限を回避し得る問題で、IBMのCVSS v3.1基本値は9.8。CVE-2026-110186はコード生成の制御不備による遠隔からの任意コード実行の恐れがあり、同じく9.8。CVE-2026-110193は低権限の認証済み利用者がAgentic Assistantに特定パターンを含むコンポーネントコードを生成・送信させ、サーバー上でOSコマンドを実行させ得る問題で、8.8と評価されている。いずれもIBMの勧告に記載された影響であり、実環境での攻撃成功事例が公表されたという意味ではない。"
+      },
+      {
+        "title": "影響は1.0.0〜1.12.8、修正版は1.13.0",
+        "body": "IBMが影響製品として示すのはLangflow OSS 1.0.0〜1.12.8。修正版は1.13.0で、開発元のGitHubリリースも確認できる。Pythonパッケージ利用時は `pip install --upgrade \"langflow==1.13.0\"`、Dockerでは `langflowai/langflow:1.13.0` の利用が案内されている。IBMの勧告にはHono依存コンポーネントの脆弱性も含まれるが、ここで示したCRITICAL/HIGHの採点はLangflow OSSの上記3件に限定している。"
+      },
+      {
+        "title": "更新時の注意と運用上の優先順位",
+        "body": "IBMはアップグレード前にデータベース、secret key、アップロード済みファイルをバックアップするよう案内する。自動ログインを利用する構成では、既存アカウントのパスワード認証への移行準備も必要だ。IBMは本件について別途の暫定回避策を提示していない。インターネット公開中のLangflowサーバーや外部ユーザーが利用する環境では、導入バージョンと認証構成を確認し、修正版への更新を優先したい。実際の悪用の有無や被害件数は現時点で確認できていない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Langflow OSS",
+    "social_security_action": "Langflow OSS 1.13.0へ更新。DB・secret key・アップロードファイルを事前バックアップし、自動ログイン利用環境はパスワードログインへの移行を準備する。IBMは別途の暫定回避策を提示していない。"
+  },
+  {
     "id": "20261030-amazon-q3-aws-growth-ai-capex-fcf",
     "title": "Amazon決算、AWS売上39％増でも年間FCFは424億ドル流出。AI投資回収の時間差",
     "summary": "Amazonの2026年7〜9月期決算で、AWS売上高は前年同期比39％増の460億ドル、営業利益は178億ドルに拡大した。一方、全社の直近12カ月のフリーキャッシュフローは424億ドルの流出に転じた。AI需要の成長と設備投資の資金負担を、異なる期間の指標を区別して読み解く。",

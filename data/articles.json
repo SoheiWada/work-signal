@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261029-signalk-server-ziplogs-jwt-admin-takeover",
+    "title": "Signal K ServerにCRITICAL認証回避、ログZIPからJWT秘密鍵が漏えいし管理者権限奪取の恐れ",
+    "summary": "船舶向けデータサーバーSignal K Serverで、認証なしで取得できるログZIPにJWT署名鍵が含まれ、管理者権限の奪取につながるCRITICAL脆弱性が確認された。開発元は2.33.0で修正済み。インターネットに公開された該当サーバーは優先して更新と設定確認が必要だ。",
+    "category": "SECURITY",
+    "score": 87,
+    "published_at": "2026-10-29",
+    "published_at_time": "2026-10-29T05:08:15.443Z",
+    "source_url": "https://github.com/SignalK/signalk-server/security/advisories/GHSA-4w32-qx5g-cpwv",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "船舶向けデータサーバーSignal K Serverで、認証なしで取得できるログZIPにJWT署名鍵が含まれ、管理者権限の奪取につながるCRITICAL脆弱性が確認された。開発元は2.33.0で修正済み。インターネットに公開された該当サーバーは優先して更新と設定確認が必要だ。",
+    "sections": [
+      {
+        "title": "認証不要のログZIPが管理者トークン偽造につながる",
+        "body": "開発元のGHSA-4w32-qx5g-cpwvによると、Signal K Serverの `/skServer/ziplogs` エンドポイントは、問題のあるバージョンでは認証なしでアクセスでき、構成によってはダウンロードしたZIPに `security.json` が含まれる。そこに保存されたHS256方式のJWT署名鍵 `secretKey` が漏えいすると、攻撃者は管理者トークンを偽造して管理者アカウントを作成できる。開発元は管理者権限の完全な乗っ取りにつながると説明し、CVSS v3.1を9.8（CRITICAL）としている。船舶ではNMEA経路設定、プラグイン、アラームの管理が影響し得る。"
+      },
+      {
+        "title": "修正版2.33.0、公開サーバーは優先更新",
+        "body": "2026年9月21日の開発元リリース2.33.0は、同GHSAを修正したと明記し、インターネット公開サーバーには直ちに更新するかData Logging Directoryの設定を見直すよう案内している。修正版の `src/interfaces/logfiles.js` では `/skServer/ziplogs` に管理者認証ミドルウェアが追加されたことをソースコードで確認できる。更新できない間は管理機能の公開範囲を制限し、侵害の疑いがある場合は署名鍵の更新や不審な管理者アカウントの確認を検討したい。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Signal K Server（signalk-server）",
+    "social_security_action": "インターネット公開のSignal K Serverを2.33.0以上に更新。直ちに更新できない場合は管理画面の公開を制限し、開発元リリースが案内するData Logging Directoryの設定を確認。秘密鍵漏えいの疑いがある場合はJWT署名鍵と認証情報の更新、管理者アカウント・アクセスログを調査。"
+  },
+  {
     "id": "20261029-google-connected-apps-mcp-platform-preview",
     "title": "Google、Geminiと検索にアプリをつなぐ共通基盤を公開。MCP連携の開発窓口を一本化",
     "summary": "Googleは2026年10月28日、GeminiアプリとGoogle検索に外部サービスを連携させる開発者向け「Connected Apps Platform」のプレビューを発表した。クラウドMCPサーバーやAndroidのAppFunctionsを利用し、共通コンソールから登録・テスト・審査申請ができる。参加は段階的で、すべての開発者や地域に一斉提供されるわけではない。",

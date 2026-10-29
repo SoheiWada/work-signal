@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261030-gitlab-cve-2026-97229-cisa-kev",
+    "title": "GitLabのCRITICAL RCE（CVE-2026-97229）をCISA KEVに追加、実悪用確認",
+    "summary": "GitLabのCI/CD正規表現処理に存在するCVSS 10.0の遠隔コード実行脆弱性「CVE-2026-97229」が、米CISAの実悪用確認リスト（KEV）に2026年10月29日付で追加された。対象はGitLab CE/EEの一部19.2〜19.4系列。10月12日に修正版が提供されているが、別の重大な正規表現処理の問題にも対応するため、自己管理環境では後続のセキュリティパッチへの更新が重要となる。",
+    "category": "SECURITY",
+    "score": 96,
+    "published_at": "2026-10-30",
+    "published_at_time": "2026-10-29T23:49:09.826Z",
+    "source_url": "https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "GitLabのCI/CD正規表現処理に存在するCVSS 10.0の遠隔コード実行脆弱性「CVE-2026-97229」が、米CISAの実悪用確認リスト（KEV）に2026年10月29日付で追加された。対象はGitLab CE/EEの一部19.2〜19.4系列。10月12日に修正版が提供されているが、別の重大な正規表現処理の問題にも対応するため、自己管理環境では後続のセキュリティパッチへの更新が重要となる。",
+    "sections": [
+      {
+        "title": "CISAが10月29日に実悪用確認リストへ追加",
+        "body": "米サイバーセキュリティ・インフラセキュリティ庁（CISA）のKnown Exploited Vulnerabilities（KEV）公式データは、2026年10月29日版で1,764件となり、CVE-2026-97229を同日付の追加案件として掲載した。前回の10月28日版1,762件から2件増えたうちの1件である。KEV登録は、単に攻撃可能性が示されたという意味ではなく、実環境での悪用が確認された脆弱性として扱うべき新事実である。一方、個別の攻撃主体、被害組織、侵入手順はCISAの当該データには記載されていない。ランサムウェアキャンペーンでの利用欄は「Unknown」となっている。"
+      },
+      {
+        "title": "CI/CD設定内の正規表現からサーバー上のコード実行につながる恐れ",
+        "body": "GitLabが10月12日に公表した公式勧告によると、GitLab Community EditionとEnterprise Editionで、CI/CD設定内の細工された正規表現の処理に起因し、特定条件下で認証されていない攻撃者がGitLabサーバー上で任意コードを実行し得る。脆弱性の識別子はCVE-2026-97229で、CVSS v3.1の基本スコアは10.0（CRITICAL）。GitLabが示した影響版は19.2系列の19.2.8未満、19.3系列の19.3.5未満、19.4系列の19.4.2未満で、これらの修正版は10月12日に公開された。攻撃成立の詳細条件は公式勧告の範囲を超えて断定しない。"
+      },
+      {
+        "title": "10月21日の後続パッチも確認し、更新版を選ぶ",
+        "body": "GitLabは10月21日にも重要なセキュリティ更新を公開し、19.5.1、19.4.3、19.3.6、19.2.9などを提供した。この更新は、別の正規表現コンパイラーの整数オーバーフローCVE-2026-110264（同じくCVSS 10.0）にも対応する。したがって、CVE-2026-97229の初回修正版19.4.2などにとどまらず、サポート対象の系列で利用できるより新しいセキュリティパッチを適用することが実務上重要だ。GitLabは自己管理型インスタンスへの速やかな更新を勧告しており、GitLab.comとGitLab Dedicatedは修正済みと説明している。"
+      },
+      {
+        "title": "Rubyの共通原因と悪用痕跡の確認",
+        "body": "Ruby開発元は10月23日、GitLabが報告した複数の正規表現コンパイル問題の根本原因がRubyのOnigmoにあり、Ruby 4.0.9、3.4.12、3.3.13に修正を含むと説明した。影響が問題になるのは、攻撃者が制御できる文字列から正規表現をコンパイルするアプリケーションであり、Ruby利用全般を一律に脆弱とみなすものではない。GitLabはCVE-2026-97229について、自己管理型環境向けに複数の脅威検知ルールを公式勧告に掲載している。管理者は更新状況の確認と併せて、関連する異常や侵害痕跡の調査を検討したい。CISA KEVに記された2026年11月1日の対応期限は米国連邦政府の対象機関に関するもので、一般企業すべてに同じ法的期限が適用されるわけではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "GitLab Community Edition (CE) / Enterprise Edition (EE)",
+    "social_security_action": "Self-managed GitLabはサポート対象の最新セキュリティパッチへ速やかに更新し、GitLab公開の検知ルールで悪用痕跡を調査する。GitLab.comとGitLab Dedicatedは公式に修正済みと説明されている。Rubyを独自運用し信頼できない正規表現をコンパイルするアプリはRuby公式勧告も参照。"
+  },
+  {
     "id": "20261030-wordpress-plugin-rce-account-takeover",
     "title": "WordPressプラグイン2件にCRITICAL 9.8、認証不要のRCEと管理者アカウント奪取",
     "summary": "WordPress向けの「Chat AI with Dispatcher」と「LogixFast Auth」に、認証不要の攻撃でサイトを侵害する恐れがある別々の脆弱性が公表された。前者はPHPファイルの不正アップロードによるコード実行、後者はパスワードリセット用コードの誤送信による管理者アカウント奪取が問題となる。両件のCISA ADP評価はCVSS 9.8だ。",

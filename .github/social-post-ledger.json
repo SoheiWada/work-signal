@@ -1791,5 +1791,11 @@
       "container_id": "18156839938488337",
       "remote_id": "18061801274538393"
     }
+  },
+  "20261030-decode-uri-component-cve-2026-118664-dos": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T23:55:51+00:00"
+    }
   }
 }

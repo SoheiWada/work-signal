@@ -1845,10 +1845,12 @@
   },
   "20261030-wordpress-plugin-rce-account-takeover": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T23:57:56+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T23:58:03+00:00",
       "stage": "publish_requested",
-      "container_id": "18136833820677342"
+      "container_id": "18136833820677342",
+      "remote_id": "18136833820677342",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfGPYtHkWe1"
     }
   }
 }

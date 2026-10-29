@@ -38,6 +38,27 @@ class SocialPublisherTests(unittest.TestCase):
         self.assertIn("プロフィール", instagram_text(approved))
         self.assertTrue(image_url(approved).endswith(".jpg"))
 
+    def test_one_request_threads_text_publishing_has_explicit_canonical_link(self):
+        from scripts.publish_social import publish_threads
+        article = {**self.story, "social_publish": True}
+        permalink = article_url(article)
+        observed = []
+        with patch("scripts.publish_social.request_json", return_value={"id": "18123456789000000"}) as api:
+            posted = publish_threads(threads_text(article), "test-token", "12345",
+                                     progress=lambda stage, value: observed.append((stage, value)),
+                                     link_attachment=permalink)
+        self.assertEqual(posted, "18123456789000000")
+        api.assert_called_once()
+        args, kwargs = api.call_args
+        self.assertTrue(args[0].endswith("/12345/threads"))
+        self.assertEqual(kwargs["method"], "POST")
+        self.assertEqual(kwargs["data"]["link_attachment"], permalink)
+        self.assertEqual(kwargs["data"]["auto_publish_text"], "true")
+        self.assertEqual(kwargs["data"]["media_type"], "TEXT")
+        self.assertEqual(observed, [("publish_requested", posted)])
+        with self.assertRaises(ValueError):
+            publish_threads("x", "test-token", "12345", link_attachment="https://other.example/test")
+
     def test_manual_copy_requires_primary_source_at_end(self):
         article = {**self.story, "social_publish": True}
         copy = "公式発表を解説しました。\n" + article_url(article) + "\n" + article["source_url"]

@@ -1396,10 +1396,17 @@
   },
   "20261029-systeminformation-windows-services-command-injection": {
     "threads": {
-      "status": "needs_review",
-      "updated_at": "2026-10-29T05:12:30+00:00",
+      "status": "attempting",
+      "updated_at": "2026-10-29T11:59:54+00:00",
+      "recovery_review_id": "threads-20261029-audit-40868867744-link-attachment-canonical",
       "stage": "publish_requested",
-      "container_id": "18133066906690068"
+      "container_id": "18133066906690068",
+      "previous_attempt": {
+        "status": "needs_review",
+        "updated_at": "2026-10-29T05:12:30+00:00",
+        "stage": "publish_requested",
+        "container_id": "18133066906690068"
+      }
     },
     "instagram_story": {
       "status": "published",

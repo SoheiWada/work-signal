@@ -1207,10 +1207,12 @@
   },
   "20261029-alphabet-q3-cloud-growth-ai-economics": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T00:07:10+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T00:07:19+00:00",
       "stage": "publish_requested",
-      "container_id": "18133034635690068"
+      "container_id": "18133034635690068",
+      "remote_id": "18017797490744937",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfDrpyimVwJ"
     }
   }
 }

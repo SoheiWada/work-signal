@@ -293,7 +293,7 @@ def article_timeline(article, modified_at=None, *, compact=False):
     created_text = recorded or published
     updated = modified_at or article.get('updated_at')
     update_text = _clock_text(updated) or (updated if isinstance(updated, str) and
-                                          re.fullmatch(r'\\d{4}-\\d{2}-\\d{2}', updated) else None)
+                                          re.fullmatch(r'\d{4}-\d{2}-\d{2}', updated) else None)
     created_label = ('公開登録 ' if recorded else '公開 ') + created_text + (' JST' if recorded else '')
     first = '<time class="timeline-published" datetime="' + esc(record and recorded or published) + '">' + esc(created_label) + '</time>'
     if update_text and (not recorded or update_text != recorded):

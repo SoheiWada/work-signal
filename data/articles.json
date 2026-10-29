@@ -1,5 +1,49 @@
 [
   {
+    "id": "20261029-fuxa-nodered-auth-bypass-rce",
+    "title": "FUXAのNode-RED連携にCRITICAL認証回避、未認証RCEの恐れ",
+    "summary": "産業向けWeb HMI「FUXA」のNode-RED連携で、認証を回避して遠隔からコードを実行できる恐れがある脆弱性CVE-2026-42922が、2026年10月29日にCisco Talosから公表された。重大度はCVSS 9.8のCRITICAL。開発元はFUXA v1.3.3で対処したと回答しており、Node-RED連携を有効化した運用環境ではバージョンとアクセス制御の確認が急がれる。",
+    "category": "SECURITY",
+    "score": 91,
+    "published_at": "2026-10-29",
+    "published_at_time": "2026-10-29T13:02:26.665Z",
+    "source_url": "https://www.talosintelligence.com/vulnerability_reports/TALOS-2026-2419",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "産業向けWeb HMI「FUXA」のNode-RED連携で、認証を回避して遠隔からコードを実行できる恐れがある脆弱性CVE-2026-42922が、2026年10月29日にCisco Talosから公表された。重大度はCVSS 9.8のCRITICAL。開発元はFUXA v1.3.3で対処したと回答しており、Node-RED連携を有効化した運用環境ではバージョンとアクセス制御の確認が急がれる。",
+    "sections": [
+      {
+        "title": "FUXAのNode-RED統合で認証を回避できる問題",
+        "body": "Cisco Talosは2026年10月29日、Webベースの産業向けHMIソフトウェアFUXAについて、CVE-2026-42922（TALOS-2026-2419）を公開した。Talosが脆弱性を確認したバージョンは1.3.2-2809。CVSS v3.1基本値は9.8で、認証情報を持たない遠隔の攻撃者による任意コード実行につながる可能性があると説明している。問題の対象はFUXAに組み込めるNode-RED連携の認可処理であり、Node-RED本体やすべてのNode.jsアプリケーションが同じ脆弱性を持つという意味ではない。"
+      },
+      {
+        "title": "署名付きトークンでも権限の確認が不十分",
+        "body": "Talosの技術説明によると、FUXAのNode-RED連携では、リクエストに付いたJWTの署名が正しければ、利用者の権限レベルを十分に確認しないまま管理側の処理へ進める実装になっていた。さらに、認証していない利用者がゲスト用トークンを得られる仕組みと組み合わさることで、Node-REDの管理操作に到達し、悪意のあるフローを配備してサーバー側でコードを実行できる恐れがある。実際のリスクはNode-RED連携の有効化や外部からの到達性など、導入構成に依存する。"
+      },
+      {
+        "title": "開発元はv1.3.3で認可処理を修正",
+        "body": "Talosが掲載した開発元回答では、CVE-2026-42922はFUXA v1.3.3で対処済みとされている。ゲストJWTやリフレッシュトークンをNode-REDの認可に利用できないようにし、認証済みの非ゲスト利用者または有効なAPIキーを要求する修正だ。開発元のv1.3.3公式リリースにも「Enforce Node-RED authorization」（#2393）がセキュリティ修正として記載されている。つまり10月29日は脆弱性の公開日であり、修正版がこの日に初めて登場したわけではない。主対象の修正はv1.3.3で確認できるが、同時公表された別のスクリプト認可回避はv1.3.4公式リリースで修正が明記されている。2026年10月29日時点の公式最新リリースはv1.3.5であり、複数の問題に対処する観点では最新版への更新を優先したい。不要な連携を無効化し、必要なNode-RED管理画面へのアクセスを信頼できるネットワークに制限する。"
+      },
+      {
+        "title": "同日公表の関連2件と修正版の違い",
+        "body": "Cisco Talosは同じ2026年10月29日、FUXA 1.3.2-2809で確認した別の2件も公表した。CVE-2026-40063（CVSS 5.3、TALOS-2026-2418）は、Node-RED連携を有効化した構成で、スクリプト名とIDが適切に権限制御されず漏えいする問題。CVE-2026-42949（CVSS 5.6、TALOS-2026-2417）は、`/api/runscript`がスクリプトIDで認可した後にクライアント指定の名前で実行する不整合により、権限外のスクリプトを実行し得る問題だ。いずれもCVSS上はMEDIUMで、今回のCRITICAL（CVE-2026-42922）とは区別する。\n\nTALOS-2026-2417の開発元回答には「次のホットフィックスで対応」とあるが、すでに公開されているFUXA v1.3.4の公式リリースには、認可されたスクリプトIDに実行を紐付ける修正（#2429）が明記されている。v1.3.5は10月19日公開の現行最新リリースで、認証とNode-RED認可の強化も記載されている。CVE-2026-40063についてはv1.3.3でゲストトークンによる経路の露出が減るとの開発元回答だが、単独で完全修正済みと断定する資料は確認できない。\n\n一次情報: https://www.talosintelligence.com/vulnerability_reports/TALOS-2026-2417 ／ https://www.talosintelligence.com/vulnerability_reports/TALOS-2026-2418 ／ https://github.com/frangoteam/FUXA/releases/tag/v1.3.4 ／ https://github.com/frangoteam/FUXA/releases/tag/v1.3.5"
+      },
+      {
+        "title": "悪用状況と影響範囲には留保がある",
+        "body": "今回のTalos報告に実際の攻撃で悪用されたとの記述はなく、確認したCISA KEVの2026年10月28日版にも本CVEは掲載されていない。ただし、これは悪用がないことの証明ではない。Talosが検証済みとした版は1.3.2-2809であり、これ以外のすべての旧版が同条件で影響を受けると断定する根拠はない。FUXAは産業設備の状態表示や操作に利用されるため、Webアプリの認証回避を現場システムのアクセス制御として点検する必要がある。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "frangoteam FUXA（Node-RED連携を有効化した構成）",
+    "social_security_action": "FUXA公式最新のv1.3.5への更新を推奨。v1.3.3は主対象CVE-2026-42922を修正するが、同時公表のCVE-2026-42949の修正はv1.3.4リリースに記載されている。不要なNode-RED連携を無効化し、必要な連携は信頼できる内部ネットワークに限定して認証・スクリプト実行権限を点検する"
+  },
+  {
     "id": "20261029-anthropic-claude-legal-artifacts-workflows",
     "title": "Claudeが法務の確認作業を「共有できるツール」に。契約・規制・社内相談をつなぐ新機能",
     "summary": "Anthropicは2026年10月28日、Claude for Legal向けに契約確認、規制動向の整理、法務相談の受付などに使えるArtifactsのギャラリーを発表した。AIが一次確認した結果を担当者が検証し、部署をまたいで共有する業務設計を支援する。日本法への適合性や時間削減効果は今回の発表だけでは確認できない。",

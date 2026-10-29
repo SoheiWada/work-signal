@@ -1387,5 +1387,11 @@
       "container_id": "18156531952488337",
       "remote_id": "18132801076833520"
     }
+  },
+  "20261029-systeminformation-windows-services-command-injection": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T05:12:21+00:00"
+    }
   }
 }

@@ -1414,10 +1414,17 @@
   },
   "20261029-re2js-lookbehinds-quadratic-dos": {
     "threads": {
-      "status": "needs_review",
-      "updated_at": "2026-10-29T05:12:59+00:00",
+      "status": "attempting",
+      "updated_at": "2026-10-29T12:00:19+00:00",
+      "recovery_review_id": "threads-20261029-audit-40868867744-link-attachment-canonical",
       "stage": "publish_requested",
-      "container_id": "18133066927690068"
+      "container_id": "18133066927690068",
+      "previous_attempt": {
+        "status": "needs_review",
+        "updated_at": "2026-10-29T05:12:59+00:00",
+        "stage": "publish_requested",
+        "container_id": "18133066927690068"
+      }
     },
     "instagram_story": {
       "status": "published",

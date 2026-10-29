@@ -1360,17 +1360,13 @@
   },
   "20261029-nodejs-whisper-audio-path-command-injection": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T11:59:12+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T11:59:21+00:00",
       "recovery_review_id": "threads-20261029-audit-40868867744-link-attachment-canonical",
       "stage": "publish_requested",
       "container_id": "18133066864690068",
-      "previous_attempt": {
-        "status": "needs_review",
-        "updated_at": "2026-10-29T05:11:33+00:00",
-        "stage": "publish_requested",
-        "container_id": "18133066864690068"
-      }
+      "remote_id": "18400638637205834",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfE9JrXEeLM"
     },
     "instagram_story": {
       "status": "published",

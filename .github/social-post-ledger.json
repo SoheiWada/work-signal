@@ -1225,7 +1225,9 @@
   "20261029-google-gemini4-carbon-long-horizon-agent": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T00:15:16+00:00"
+      "updated_at": "2026-10-29T00:15:20+00:00",
+      "stage": "container_created",
+      "container_id": "18133035142690068"
     }
   }
 }

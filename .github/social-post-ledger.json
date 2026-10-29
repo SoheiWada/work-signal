@@ -1344,7 +1344,9 @@
   "20261029-seroval-three-high-deserialization": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T05:10:51+00:00"
+      "updated_at": "2026-10-29T05:10:55+00:00",
+      "stage": "container_created",
+      "container_id": "18133066855690068"
     }
   }
 }

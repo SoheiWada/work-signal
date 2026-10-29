@@ -1420,10 +1420,12 @@
   },
   "20261029-signalk-server-ziplogs-jwt-admin-takeover": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T06:36:56+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T06:37:04+00:00",
       "stage": "publish_requested",
-      "container_id": "18133074742690068"
+      "container_id": "18133074742690068",
+      "remote_id": "18204323371326388",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfEYQjXnD8i"
     }
   }
 }

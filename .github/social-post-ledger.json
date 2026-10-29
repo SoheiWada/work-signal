@@ -1551,5 +1551,11 @@
       "container_id": "18156569518488337",
       "remote_id": "18182070307437922"
     }
+  },
+  "20261029-servicenow-ai-acv-target-production-usage": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T10:56:04+00:00"
+    }
   }
 }

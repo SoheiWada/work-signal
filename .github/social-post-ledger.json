@@ -1255,5 +1255,11 @@
       "container_id": "18156463237488337",
       "remote_id": "18399994189160089"
     }
+  },
+  "20261029-n8n-code-nodes-graphicsmagick-rce": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T00:56:41+00:00"
+    }
   }
 }

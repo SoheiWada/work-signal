@@ -15,7 +15,7 @@ import time
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlsplit
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -294,13 +294,20 @@ def verify_account(base, token, user_id, *, instagram=False):
     return profile
 
 
-def publish_threads(text, token, user_id, progress=None, *, link_attachment=None):
+def publish_threads(text, token, user_id, progress=None, *, link_attachment=None,
+                    approved_source_url=None):
     if link_attachment is not None:
-        # Meta's official one-request publication path for TEXT avoids the
-        # async creation_id boundary. Explicit link preview targets the short,
-        # canonical URL rather than an implicit UTM link in post text.
-        if not re.fullmatch(re.escape(BASE) + r"articles/[A-Za-z0-9_-]+/", link_attachment):
-            raise ValueError("Invalid canonical Threads link attachment")
+        # Default card: canonical WORK SIGNAL URL. On a validated Meta
+        # 4279047 error the ONLY alternate is the editor-approved HTTPS
+        # primary source, with the original article URL still in the text.
+        canonical = bool(re.fullmatch(re.escape(BASE) + r"articles/[A-Za-z0-9_-]+/", link_attachment))
+        source = (approved_source_url is not None
+                  and link_attachment == approved_source_url
+                  and urlsplit(link_attachment).scheme == "https"
+                  and bool(urlsplit(link_attachment).netloc)
+                  and text.endswith(approved_source_url))
+        if not canonical and not source:
+            raise ValueError("Invalid approved Threads link attachment")
         if link_attachment not in text:
             raise ValueError("Threads link attachment absent from caption")
         try:
@@ -309,6 +316,9 @@ def publish_threads(text, token, user_id, progress=None, *, link_attachment=None
                 method="POST", token=token,
                 data={"media_type": "TEXT", "text": text,
                       "link_attachment": link_attachment, "auto_publish_text": "true"})
+        except MetaAPIError:
+            # Keep structured code/subcode for a narrowly guarded fallback.
+            raise
         except RuntimeError as exc:
             raise RuntimeError("Threads auto-publish: " + str(exc)) from None
         identifier = str(posted.get("id", ""))
@@ -361,6 +371,46 @@ def publish_threads(text, token, user_id, progress=None, *, link_attachment=None
     if not posted.get("id"):
         raise RuntimeError("Threads publish-container: ambiguous response")
     return str(posted["id"])
+
+
+def threads_live_history_matches(article, token, user_id):
+    """Read the full Threads timeline and stop if any page is unavailable."""
+    after = None
+    found = []
+    for _ in range(8):
+        args = {"fields":"id,text,timestamp,permalink", "limit":100}
+        if after:
+            args["after"] = after
+        response = request_json(THREADS_API + "/" + user_id +
+                                "/threads?" + urlencode(args), token=token)
+        items = response.get("data")
+        if not isinstance(items, list):
+            raise RuntimeError("Threads history invalid, fallback withheld")
+        needle = article_url(article)
+        found.extend(x for x in items if needle in (x.get("text") or ""))
+        paging = response.get("paging", {})
+        if not paging.get("next"):
+            if len(found) > 1:
+                raise RuntimeError("Duplicate Threads posts found, manual review")
+            return found
+        after = paging.get("cursors", {}).get("after")
+        if not after:
+            break
+    raise RuntimeError("Threads history incomplete, fallback withheld")
+
+
+def verify_threads_source_preview(source_url):
+    """Require the editor-approved HTTPS HTML primary source to be accessible."""
+    if not isinstance(source_url, str) or not source_url.startswith("https://"):
+        raise RuntimeError("Threads primary source must be HTTPS")
+    try:
+        with urlopen(Request(source_url,headers={
+            "User-Agent":"WORK-SIGNAL-Social/1.0",
+            "Accept":"text/html"}),timeout=20) as response:
+            if response.status != 200 or not response.headers.get("Content-Type","").lower().startswith("text/html"):
+                raise RuntimeError("Threads primary source is not public HTML")
+    except (HTTPError, URLError, TimeoutError) as exc:
+        raise RuntimeError("Threads source link preflight failed: " + type(exc).__name__) from None
 
 
 def verify_threads_delivery(article, token, user_id, expected_id='', attempts=4):
@@ -613,8 +663,32 @@ def run(articles, ledger, credentials):
                 if hasattr(ledger, "progress"):
                     options["progress"] = lambda stage, cid: ledger.progress(identifier, kind, stage, cid)
                 if kind == "threads":
-                    remote = publish_threads(text, credentials["THREADS_ACCESS_TOKEN"], credentials["THREADS_USER_ID"],
-                                             link_attachment=article_url(article), **options)
+                    token, uid = credentials["THREADS_ACCESS_TOKEN"], credentials["THREADS_USER_ID"]
+                    try:
+                        remote = publish_threads(text, token, uid,
+                                                 link_attachment=article_url(article), **options)
+                    except MetaAPIError as exc:
+                        # Meta explicitly rejected the original link preview.
+                        # Two complete read-only history checks precede the
+                        # single approved-source alternative. No blind retry.
+                        if exc.http_status != 400 or exc.subcode != 4279047:
+                            raise
+                        previous = threads_live_history_matches(article, token, uid)
+                        if previous:
+                            remote = str(previous[0]["id"])
+                            print("RECONCILED_THREADS", identifier, remote)
+                        else:
+                            time.sleep(8)
+                            previous = threads_live_history_matches(article, token, uid)
+                            if previous:
+                                remote = str(previous[0]["id"])
+                                print("RECONCILED_THREADS", identifier, remote)
+                            else:
+                                verify_threads_source_preview(article["source_url"])
+                                remote = publish_threads(text, token, uid,
+                                                         link_attachment=article["source_url"],
+                                                         approved_source_url=article["source_url"], **options)
+                                print("THREADS_SOURCE_PREVIEW_FALLBACK", identifier)
                 elif kind == "instagram":
                     remote = publish_instagram(text, image_url(article), credentials["INSTAGRAM_ACCESS_TOKEN"], credentials["INSTAGRAM_USER_ID"], **options)
                 else:

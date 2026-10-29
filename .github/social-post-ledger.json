@@ -1859,5 +1859,11 @@
       "container_id": "18156849997488337",
       "remote_id": "18032081609879565"
     }
+  },
+  "20261030-gitlab-cve-2026-97229-cisa-kev": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T23:58:23+00:00"
+    }
   }
 }

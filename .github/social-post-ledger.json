@@ -1622,10 +1622,12 @@
   },
   "20261029-openequella-rce-xxe-advisories": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T11:35:22+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T11:35:32+00:00",
       "stage": "publish_requested",
-      "container_id": "18133105738690068"
+      "container_id": "18133105738690068",
+      "remote_id": "17966511498230483",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfE6aiUETvU"
     }
   }
 }

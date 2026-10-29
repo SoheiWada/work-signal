@@ -1811,10 +1811,12 @@
   },
   "20261030-twisted-http2-rapid-reset-dos": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T23:56:38+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T23:56:43+00:00",
       "stage": "publish_requested",
-      "container_id": "18098797394644271"
+      "container_id": "18098797394644271",
+      "remote_id": "18098797394644271",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfGPPFgESEf"
     }
   }
 }

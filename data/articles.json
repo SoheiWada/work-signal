@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261029-nvm-version-pattern-command-injection",
+    "title": "nvmのバージョン指定処理にコマンド注入の脆弱性（CVE-2026-118905）",
+    "summary": "Node.jsのバージョン管理ツール「nvm」に、外部から影響を受けたバージョン指定を通じてシェルコマンドを実行され得る脆弱性が確認された。開発元が2026年10月29日に公表したCVE-2026-118905はCVSS 7.0（HIGH）。影響範囲はnvm 0.31.2〜0.40.5で、0.40.6への更新が推奨されている。",
+    "category": "SECURITY",
+    "score": 86,
+    "published_at": "2026-10-30",
+    "published_at_time": "2026-10-29T23:50:49.208Z",
+    "source_url": "https://github.com/nvm-sh/nvm/security/advisories/GHSA-vgqf-vc3m-4wv3",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Node.jsのバージョン管理ツール「nvm」に、外部から影響を受けたバージョン指定を通じてシェルコマンドを実行され得る脆弱性が確認された。開発元が2026年10月29日に公表したCVE-2026-118905はCVSS 7.0（HIGH）。影響範囲はnvm 0.31.2〜0.40.5で、0.40.6への更新が推奨されている。",
+    "sections": [
+      {
+        "title": "バージョン指定がsedの命令として解釈される",
+        "body": "nvmの内部関数 `nvm_ls` は、インストール済みNode.jsのバージョンを絞り込むためにsedを利用する。修正前はバージョン指定文字列のバックスラッシュの扱いが不十分で、特殊な文字列によってsedのアドレスを途中で閉じ、その後の入力をsedコマンドとして解釈させることが可能だった。公式勧告によると、GNU sedではシェルコマンド実行につながる命令、BSD sedではファイル読み書きにつながる命令が問題になる。"
+      },
+      {
+        "title": "悪意ある.nvmrcと自動切替フックが攻撃経路になり得る",
+        "body": "影響するのは、少なくとも1つのNode.jsバージョンがインストールされ、攻撃者が影響を与えたバージョン指定を `nvm_ls` 経由で処理する場合だ。公式勧告は `nvm use`、`nvm ls`、`nvm version`、`nvm run` などを挙げる。一方、通常の `nvm use` 単体はnvm独自の.nvmrcパーサーでコメントを除去するため、この経路の影響を受けない。READMEに記載されたbashの `cdnvm` やzshの `load-nvmrc` のような自動切替フックを導入している場合は、悪意ある `.nvmrc` を含むディレクトリへ移動することが実行の契機になり得る。"
+      },
+      {
+        "title": "影響版と修正版",
+        "body": "開発元が示した影響バージョンはnvm 0.31.2以上0.40.5以下。修正版0.40.6では、`#` または改行を含むパターンを.nvmrc用パーサーに通して問題となる文字列を除去する。公式勧告は0.40.6以降へのアップグレード以外に追加の対応は必要ないとしている。これはNode.js本体の脆弱性ではなく、開発者環境のバージョン管理ツールに関する問題である。"
+      },
+      {
+        "title": "重大度と悪用状況",
+        "body": "開発元はCVE-2026-118905／GHSA-vgqf-vc3m-4wv3をHIGH、CVSS v3.1基本スコア7.0と評価している。ベクトルはローカル、攻撃の複雑性は高、ユーザー操作が必要とされる。公表された公式勧告には実環境での悪用確認は記載されておらず、悪用状況は未確認とする。開発チームは、nvmの更新状況と自動切替フックの利用有無を確認することが重要だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "nvm-sh/nvm（Node Version Manager）",
+    "social_security_action": "nvmを0.40.6以降へ更新する。公式勧告は更新以外の追加対策を必要としていない"
+  },
+  {
     "id": "20261030-flat-unflatten-sparse-array-dos",
     "title": "npm flatのunflatten()にHIGH DoS、巨大数値キーでNode.js停止の恐れ",
     "summary": "Node.jsのデータ変換ライブラリ「flat」に、短い入力から巨大な配列を作り、サーバーの処理を停止させる恐れがある脆弱性CVE-2026-119051が公表された。6.0.1以前が対象で、深刻度はHIGH、CVSS 8.2。外部入力をunflatten()で復元し、その結果を配列として走査するアプリケーションでは、暫定的な入力制限などが必要となる。",

@@ -1391,8 +1391,8 @@
   "20261029-systeminformation-windows-services-command-injection": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T05:12:25+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-10-29T05:12:27+00:00",
+      "stage": "publish_requested",
       "container_id": "18133066906690068"
     }
   }

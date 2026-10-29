@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261029-systeminformation-windows-services-command-injection",
+    "title": "systeminformationのWindowsサービス取得にコマンド注入、HIGH脆弱性を修正",
+    "summary": "Node.jsのシステム情報取得ライブラリsysteminformationで、Windows環境のservices()に細工したサービス名を渡すとPowerShellコマンドが実行され得るHIGH脆弱性が確認された。影響は呼び出し元が信頼できない入力を渡す構成に依存し、修正版5.33.16が公開されている。",
+    "category": "SECURITY",
+    "score": 82,
+    "published_at": "2026-10-29",
+    "published_at_time": "2026-10-29T05:06:00.046Z",
+    "source_url": "https://github.com/sebhildebrandt/systeminformation/security/advisories/GHSA-3f7j-7jwc-fxfj",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Node.jsのシステム情報取得ライブラリsysteminformationで、Windows環境のservices()に細工したサービス名を渡すとPowerShellコマンドが実行され得るHIGH脆弱性が確認された。影響は呼び出し元が信頼できない入力を渡す構成に依存し、修正版5.33.16が公開されている。",
+    "sections": [
+      {
+        "title": "Unicode引用符を使ったPowerShellへのコマンド注入",
+        "body": "開発元のGHSA-3f7j-7jwc-fxfjによると、systeminformationのWindows向けservices()処理は、サービス名をPowerShellコマンドに組み込む際に一部のUnicode引用符を適切に除去できなかった。勧告の検証では5.33.15でコマンド実行が再現され、実行権限はNode.jsプロセスのアカウントに依存する。これはWindows上の該当APIへ攻撃者が制御できる文字列が渡る場合の問題であり、パッケージ単体に公開HTTPエンドポイントが存在することや、無条件の遠隔侵入を意味しない。"
+      },
+      {
+        "title": "33.16への更新と入力経路の監査",
+        "body": "開発元の勧告は影響バージョンを5.33.16未満、修正版を5.33.16と記載している。ただし再現試験の対象は5.33.15で、他の旧版すべてを個別に実証したわけではないと明記されている。Windowsでservices()を利用するアプリケーションは依存関係を更新し、利用者入力やAPIパラメータをそのままサービス名に渡していないか確認する。重大度はHIGH、CVSS 7.8で、CVSSの攻撃経路はLocalと評価されている。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "systeminformation（npm、Windows上のservices()）",
+    "social_security_action": "systeminformation 5.33.16以上へ更新。Windowsでservices()に利用者入力を渡す経路がないか監査し、外部入力をコマンド引数へ直結しない。"
+  },
+  {
     "id": "20261029-graphql-scalars-phonenumber-redos",
     "title": "graphql-scalarsの電話番号検証にHIGH脆弱性、短い入力で認証前DoSの恐れ",
     "summary": "GraphQL向けライブラリgraphql-scalarsの電話番号検証処理に、短い不正入力だけでNode.jsのイベントループを長時間停止させ得るHIGH脆弱性が確認された。GraphQLPhoneNumberを公開入力に使うサーバーでは、認証前の検証段階でサービス停止が起こる恐れがある。修正版は2.0.1。",

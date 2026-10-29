@@ -14,7 +14,8 @@ class AttributionTests(unittest.TestCase):
         self.assertEqual(parse_qs(urlparse(url).query)['utm_content'],[self.article['id']])
         self.assertEqual(social.article_url(self.article),'https://signal.amberlight.co.jp/articles/20261026-example/')
         text=social.threads_text(self.article)
-        self.assertIn(url,text)
+        self.assertIn(social.article_url(self.article), text)
+        self.assertNotIn('?utm_source=', text)
         self.assertTrue(text.endswith(self.article['source_url']))
         self.assertLessEqual(len(text),500)
     def test_custom_approved_copy_is_not_rewritten_and_can_include_tracking(self):

@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261029-nodejs-whisper-audio-path-command-injection",
+    "title": "nodejs-whisperにCRITICALコマンド注入、音声ファイル名からOSコマンド実行の恐れ",
+    "summary": "音声文字起こし用Node.jsライブラリnodejs-whisperに、音声ファイル名を介してOSコマンドが実行され得るCRITICAL脆弱性がある。影響するのは0.4.0未満で、ユーザーが指定できるファイルパスを処理するアプリケーションが主な懸念対象。GitHubの審査済み勧告と修正版コードを照合した。",
+    "category": "SECURITY",
+    "score": 84,
+    "published_at": "2026-10-29",
+    "published_at_time": "2026-10-29T05:04:39.713Z",
+    "source_url": "https://github.com/advisories/GHSA-2f48-3555-fpx6",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "音声文字起こし用Node.jsライブラリnodejs-whisperに、音声ファイル名を介してOSコマンドが実行され得るCRITICAL脆弱性がある。影響するのは0.4.0未満で、ユーザーが指定できるファイルパスを処理するアプリケーションが主な懸念対象。GitHubの審査済み勧告と修正版コードを照合した。",
+    "sections": [
+      {
+        "title": "音声ファイルパスがシェルコマンドに組み込まれる",
+        "body": "GitHub Advisory DatabaseのGHSA-2f48-3555-fpx6によると、nodejs-whisper 0.3.1以前の音声変換関数 `convertToWavType()` は、入力ファイルパスを `ffmpeg` コマンド文字列に埋め込み `shelljs.exec()` で実行していた。ユーザーが制御できるファイル名にシェルの特殊文字が含まれると、Node.jsプロセスの権限でOSコマンドが実行される恐れがある。開発元リポジトリの旧版 `src/utils.ts` でも該当する実装を確認した。CVSS v4ベーススコアは9.3（CRITICAL）。攻撃成立にはアプリケーションが攻撃者由来のファイルパスをそのままこの処理に渡す条件がある。"
+      },
+      {
+        "title": "4.0の修正コードと利用側の確認点",
+        "body": "GitHubの審査済み勧告は修正版を0.4.0と記載している。実際に開発元のv0.4.0タグの `src/utils.ts` と `src/process.ts` を読むと、`ffmpeg` は `spawn(command, args)` で引数配列として呼び出され、シェルコマンド文字列の連結がなくなっている。利用者は0.4.0以上へ更新し、外部からアップロードされた音声ファイル名の正規化・内部名への置換と、音声変換処理の権限分離を確認したい。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "nodejs-whisper（npm）",
+    "social_security_action": "nodejs-whisperを0.4.0以上へ更新し、ユーザー制御のファイル名をそのまま音声変換処理に渡す経路を監査。サーバーではアップロードファイル名を安全な内部名に置き換え、最小権限で変換処理を実行。"
+  },
+  {
     "id": "20261029-seroval-three-high-deserialization",
     "title": "SerovalにHIGH脆弱性3件、WebサーバーのDoSと不正な関数呼び出し",
     "summary": "Webアプリケーションで利用されるシリアライズライブラリ「seroval」に、HIGH評価の脆弱性3件が確認されました。信頼できないJSONをデシリアライズする構成では、サービス停止やアプリケーション内の関数の意図しない呼び出しにつながる恐れがあります。3件の修正版は1.6.8です。",

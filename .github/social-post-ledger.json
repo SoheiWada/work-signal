@@ -1259,8 +1259,8 @@
   "20261029-n8n-code-nodes-graphicsmagick-rce": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T00:56:45+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-10-29T00:56:47+00:00",
+      "stage": "publish_requested",
       "container_id": "18133039429690068"
     }
   }

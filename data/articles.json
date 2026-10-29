@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261029-re2js-lookbehinds-quadratic-dos",
+    "title": "re2jsのLOOKBEHINDS処理にHIGH脆弱性、反復マッチングでCPU停止の恐れ",
+    "summary": "Node.js向け正規表現ライブラリre2jsで、明示的にLOOKBEHINDSを有効化した反復マッチングがCPUを過剰消費するHIGH脆弱性が確認された。影響は2.2.0以上2.8.7未満。開発元は2.8.7で修正し、外部入力を処理するサーバーでの更新と利用箇所の点検が求められる。",
+    "category": "SECURITY",
+    "score": 83,
+    "published_at": "2026-10-29",
+    "published_at_time": "2026-10-29T05:06:39.054Z",
+    "source_url": "https://github.com/le0pard/re2js/security/advisories/GHSA-gg6h-894w-4m9c",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Node.js向け正規表現ライブラリre2jsで、明示的にLOOKBEHINDSを有効化した反復マッチングがCPUを過剰消費するHIGH脆弱性が確認された。影響は2.2.0以上2.8.7未満。開発元は2.8.7で修正し、外部入力を処理するサーバーでの更新と利用箇所の点検が求められる。",
+    "sections": [
+      {
+        "title": "線形時間を期待した正規表現処理が二次時間に",
+        "body": "開発元のGHSA-gg6h-894w-4m9cによると、re2jsでオプトインの`LOOKBEHINDS`フラグを有効化し、`matcher().find()`のループ、`matchAll()`、`split()`、`matcher().replaceAll()`などの反復マッチングAPIを使うと、検索開始位置を適切に引き継げず、入力全体の再走査が繰り返される。結果として処理時間が入力長に対して二次的に増加し、外部から与えられたテキストを解析するNode.jsサーバーではサービス拒否につながる可能性がある。開発元勧告が掲載したベンチマークでは、16,000文字の入力で36.7〜38.7秒のCPU時間を要した。ただしこの数値は勧告の検証環境での結果であり、あらゆるシステムで同じ秒数になるとは限らない。"
+      },
+      {
+        "title": "修正版2.8.7と運用上の対策",
+        "body": "開発元勧告の影響範囲はre2js 2.2.0以上2.8.7未満で、修正版は2.8.7。公式リリースノートでも反復マッチング時のLOOKBEHINDS問題を修正したと明記している。該当ライブラリを利用するアプリケーションは2.8.7以上へ更新し、LOOKBEHINDSを有効化して利用者入力・アップロードログ・外部取得テキストを反復処理する経路を優先的に確認する。入力サイズ制限やCPU負荷の監視は補助的対策となる。公式重大度はHIGH、CVSS 7.5。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "re2js（npm）",
+    "social_security_action": "re2jsを2.8.7以上へ更新。LOOKBEHINDSとmatcher().find()反復・matchAll()・split()・matcher().replaceAll()の併用箇所を監査し、信頼できないテキストの入力サイズと処理時間を制限する。"
+  },
+  {
     "id": "20261029-systeminformation-windows-services-command-injection",
     "title": "systeminformationのWindowsサービス取得にコマンド注入、HIGH脆弱性を修正",
     "summary": "Node.jsのシステム情報取得ライブラリsysteminformationで、Windows環境のservices()に細工したサービス名を渡すとPowerShellコマンドが実行され得るHIGH脆弱性が確認された。影響は呼び出し元が信頼できない入力を渡す構成に依存し、修正版5.33.16が公開されている。",

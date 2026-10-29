@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261029-n8n-code-nodes-graphicsmagick-rce",
+    "title": "n8nでコード実行リスク2件、旧ノードと画像処理のHIGH脆弱性",
+    "summary": "ワークフロー自動化基盤n8nの開発元は10月28日、任意コード実行につながり得るHIGHの脆弱性2件を公表した。旧コード実行ノードの隔離回避と、公式Dockerイメージに含まれるGraphicsMagickの画像処理が対象だ。利用中のバージョンとワークフロー構成を確認し、修正版への更新が必要となる。",
+    "category": "SECURITY",
+    "score": 90,
+    "published_at": "2026-10-29",
+    "published_at_time": "2026-10-29T00:40:22.451Z",
+    "source_url": "https://github.com/n8n-io/n8n/security/advisories/GHSA-9p7v-45m2-wxgj",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "ワークフロー自動化基盤n8nの開発元は10月28日、任意コード実行につながり得るHIGHの脆弱性2件を公表した。旧コード実行ノードの隔離回避と、公式Dockerイメージに含まれるGraphicsMagickの画像処理が対象だ。利用中のバージョンとワークフロー構成を確認し、修正版への更新が必要となる。",
+    "sections": [
+      {
+        "title": "旧コード実行ノードがn8nのメインプロセスでコードを実行する問題",
+        "body": "開発元のGHSA-9p7v-45m2-wxgjはCVSS v4.0で8.7（HIGH）。FunctionとFunction Itemノードはvm2サンドボックス内でユーザーコードを実行し、LangChain Codeノードはn8nのメインプロセスでユーザーコードを実行する。ワークフローを作成・変更できる認証済みユーザーがこれらを使うと、通常のCodeノードに適用されるタスクランナーの隔離の外で任意コードを実行できる。\n\n開発元は2.42.6、2.43.3、2.44.0、3.0.1で旧ノードを非推奨とし、デフォルトで新規追加・変更の保存をブロックした。ただし**保存済みワークフローに含まれる旧ノードは引き続き実行される**ため、更新後も既存フローの監査とCodeノードへの置換が必要だ。設定 `N8N_DEPRECATED_NODES_BLOCK=false` は危険な旧動作を復活させる。アップグレードできない場合は、開発元が案内する `NODES_EXCLUDE` に旧ノードを追加し、ワークフロー編集権限を信頼できる利用者に限定する。"
+      },
+      {
+        "title": "公式Dockerイメージの画像処理にリモートコード実行の危険",
+        "body": "GHSA-f2cw-9483-7vcpはCVSS v4.0で7.7（HIGH）。n8n公式Dockerイメージに同梱されるGraphicsMagickの一部コンポーネントに既知の脆弱性があり、Edit Imageノードが信頼できない画像を処理するとn8nインスタンス上でリモートコード実行につながる恐れがある。\n\n開発元は修正版として1.123.89、2.45.5、2.46.1、3.0.1を挙げている。すぐに更新できない場合、未認証WebhookからEdit Imageにつながるワークフローの停止・監査、Webhook経路へのネットワーク制限、不要なEdit Imageノードの除外などを暫定策として案内している。ただし暫定策は完全な修正ではない。"
+      },
+      {
+        "title": "管理者が確認すべきこと",
+        "body": "まず稼働中のn8nの系列とバージョンを確認し、開発元の各勧告に記載された修正版への更新を計画する。次に、Function・Function Item・LangChain Codeの既存ワークフローが残っていないか、Edit Imageが外部から届く画像を処理していないかを点検する。2件とも開発元勧告に実悪用の確認は記載されていない。CISA KEV最新版との直接照合はこの調査では完了していないため、悪用の不存在までは断定できない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "n8n",
+    "social_security_action": "使用中のn8n系列に応じた修正版へ更新し、旧Function/Function Item/LangChain Codeノードの利用状況と、未認証WebhookからEdit Imageへ至るフローを点検する。更新前の一時対策として開発元が挙げるNODES_EXCLUDE、権限制限、Webhook経路制限を検討する。"
+  },
+  {
     "id": "20261029-microsoft-copilot-harness-foundry-preview",
     "title": "Microsoft、AIエージェントの共通基盤を公開プレビュー。モデル選択と実行管理を一つに",
     "summary": "Microsoftは2026年10月28日、AIエージェントの指示・ツール・作業環境・実行制御をまとめる「Microsoft Copilot harness」をFoundry Agent Serviceで公開プレビューした。複数の対応AIモデルを使い分けながら、業務に合わせたエージェントを構築するための共通基盤だ。日本東部リージョンも対象だが、プレビュー特有の制限や今後の利用料金には注意が必要となる。",

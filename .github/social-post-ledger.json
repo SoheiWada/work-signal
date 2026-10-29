@@ -1819,10 +1819,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfGPPFgESEf"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T23:56:59+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T23:57:04+00:00",
       "stage": "publish_requested",
-      "container_id": "18156849607488337"
+      "container_id": "18156849607488337",
+      "remote_id": "18002342501812707"
     }
   }
 }

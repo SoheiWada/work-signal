@@ -24,9 +24,9 @@ except ImportError:
         security_style, security_share_card, security_story_card
     )
 try:
-    from .seo_metadata import article_modifications, modification_date, latest_date
+    from .seo_metadata import article_modifications, article_publication_times, modification_date, latest_date
 except ImportError:
-    from seo_metadata import article_modifications, modification_date, latest_date
+    from seo_metadata import article_modifications, article_publication_times, modification_date, latest_date
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://signal.amberlight.co.jp/"
@@ -285,7 +285,8 @@ def _clock_text(value):
 def article_timeline(article, modified_at=None, *, compact=False):
     """Accessible publication/actual-content-update labels for cards and alerts."""
     published = article['published_at']
-    recorded = _clock_text(article.get('published_at_time'))
+    record = article.get('published_at_time') or article.get('first_registered_at')
+    recorded = _clock_text(record)
     # A commit timestamp is a recording time, not the exact Pages availability.
     if recorded and recorded[:10] != published:
         recorded = None
@@ -294,7 +295,7 @@ def article_timeline(article, modified_at=None, *, compact=False):
     update_text = _clock_text(updated) or (updated if isinstance(updated, str) and
                                           re.fullmatch(r'\\d{4}-\\d{2}-\\d{2}', updated) else None)
     created_label = ('公開登録 ' if recorded else '公開 ') + created_text + (' JST' if recorded else '')
-    first = '<time class="timeline-published" datetime="' + esc(recorded and article['published_at_time'] or published) + '">' + esc(created_label) + '</time>'
+    first = '<time class="timeline-published" datetime="' + esc(record and recorded or published) + '">' + esc(created_label) + '</time>'
     if update_text and (not recorded or update_text != recorded):
         second = '<time class="timeline-updated" datetime="' + esc(updated) + '">更新 ' + esc(update_text) + (' JST' if _clock_text(updated) else '') + '</time>'
     else:
@@ -881,11 +882,14 @@ def build(output, feed=None):
         raise ValueError("Output must not overwrite the source repository")
     articles = [dict(a) for a in published_articles(feed if feed is not None else json.loads((ROOT / 'data/articles.json').read_text()))]
     history = article_modifications(ROOT)
+    registered = article_publication_times(ROOT)
     modified = {item['id']: modification_date(item, history) for item in articles}
     # Derive update times from substantive Git history without mutating approved source.
     for item in articles:
         if modified[item['id']]:
             item['updated_at'] = modified[item['id']]
+        if not item.get('published_at_time') and item['id'] in registered:
+            item['first_registered_at'] = registered[item['id']]
     if output.exists():
         shutil.rmtree(output)
     output.mkdir(parents=True)
@@ -1106,7 +1110,7 @@ def build(output, feed=None):
         destination.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / page / 'index.html', destination / 'index.html')
     (output / 'data/articles.json').write_text(json.dumps(articles, ensure_ascii=False, indent=2) + '\n')
-    listing_fields = ('id', 'title', 'summary', 'category', 'format', 'score', 'status', 'source_url', 'published_at', 'published_at_time', 'updated_at', 'card_image', 'card_image_alt')
+    listing_fields = ('id', 'title', 'summary', 'category', 'format', 'score', 'status', 'source_url', 'published_at', 'published_at_time', 'first_registered_at', 'updated_at', 'card_image', 'card_image_alt')
     listing = [{key: article[key] for key in listing_fields if key in article} for article in articles]
     (output / 'data/index.json').write_text(json.dumps(listing, ensure_ascii=False, separators=(',', ':')) + '\n')
     infographic = ROOT / 'assets/infographics/php2shell-explainer.svg'

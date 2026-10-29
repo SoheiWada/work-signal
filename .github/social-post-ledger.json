@@ -1743,10 +1743,12 @@
   },
   "20261029-wordpress-telegram-plugin-account-takeover": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T23:04:04+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T23:04:06+00:00",
       "stage": "publish_requested",
-      "container_id": "18014462987763773"
+      "container_id": "18014462987763773",
+      "remote_id": "18014462987763773",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfGJOVMFrUh"
     }
   }
 }

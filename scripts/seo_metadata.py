@@ -95,7 +95,7 @@ def article_publication_times(root):
                       '--', 'data/articles.json').splitlines()
         snapshots = []
         for record in records:
-            revision, timestamp = record.split('\\t', 1)
+            revision, timestamp = record.split('\t', 1)
             try:
                 feed = json.loads(git('show', revision + ':data/articles.json'))
             except (subprocess.CalledProcessError, json.JSONDecodeError):

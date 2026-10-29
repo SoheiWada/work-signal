@@ -1323,5 +1323,11 @@
       "container_id": "18156485929488337",
       "remote_id": "17955515490036409"
     }
+  },
+  "20261029-happy-dom-html-parser-ssrf": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T02:08:28+00:00"
+    }
   }
 }

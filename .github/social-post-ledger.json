@@ -1489,8 +1489,8 @@
   "20261029-bricks-query-result-disclosure": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T07:33:19+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-10-29T07:33:21+00:00",
+      "stage": "publish_requested",
       "container_id": "18133080940690068"
     }
   }

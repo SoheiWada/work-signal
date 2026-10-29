@@ -1760,10 +1760,12 @@
   },
   "20261030-wordpress-auth-plugin-two-high-bypasses": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T23:04:30+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T23:04:32+00:00",
       "stage": "publish_requested",
-      "container_id": "18108065948262804"
+      "container_id": "18108065948262804",
+      "remote_id": "18108065948262804",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfGJRsXFm7i"
     }
   }
 }

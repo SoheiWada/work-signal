@@ -1488,10 +1488,12 @@
   },
   "20261029-bricks-query-result-disclosure": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T07:33:21+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T07:33:28+00:00",
       "stage": "publish_requested",
-      "container_id": "18133080940690068"
+      "container_id": "18133080940690068",
+      "remote_id": "17891824161685444",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfEetvSFW_r"
     }
   }
 }

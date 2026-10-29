@@ -1572,8 +1572,8 @@
   "20261029-amazon-alexaplus-japan-early-access": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T10:56:44+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-10-29T10:56:46+00:00",
+      "stage": "publish_requested",
       "container_id": "18133101760690068"
     }
   }

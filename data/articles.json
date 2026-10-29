@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261029-graphql-scalars-phonenumber-redos",
+    "title": "graphql-scalarsの電話番号検証にHIGH脆弱性、短い入力で認証前DoSの恐れ",
+    "summary": "GraphQL向けライブラリgraphql-scalarsの電話番号検証処理に、短い不正入力だけでNode.jsのイベントループを長時間停止させ得るHIGH脆弱性が確認された。GraphQLPhoneNumberを公開入力に使うサーバーでは、認証前の検証段階でサービス停止が起こる恐れがある。修正版は2.0.1。",
+    "category": "SECURITY",
+    "score": 87,
+    "published_at": "2026-10-29",
+    "published_at_time": "2026-10-29T05:05:26.506Z",
+    "source_url": "https://github.com/graphql-hive/graphql-scalars/security/advisories/GHSA-x8rm-f576-gq67",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "GraphQL向けライブラリgraphql-scalarsの電話番号検証処理に、短い不正入力だけでNode.jsのイベントループを長時間停止させ得るHIGH脆弱性が確認された。GraphQLPhoneNumberを公開入力に使うサーバーでは、認証前の検証段階でサービス停止が起こる恐れがある。修正版は2.0.1。",
+    "sections": [
+      {
+        "title": "電話番号スカラーの正規表現がCPUを占有",
+        "body": "開発元のGHSA-x8rm-f576-gq67によると、GraphQLPhoneNumberに採用された正規表現は、特定の数字列に不正な末尾文字が続く場合にバックトラックが指数的に増える。GraphQLの文書検証や変数の値変換は通常、リゾルバー側の認証・認可より先に実行されるため、対象スカラーを外部入力に公開したサーバーでは未認証の要求が処理を妨げる可能性がある。開発元勧告にはNode.js上の再現計測とGraphQL Yogaでの検証結果が記載されているが、実環境の攻撃被害を確認した報告ではない。"
+      },
+      {
+        "title": "修正版2.0.1へ更新し、スキーマの使用箇所を点検",
+        "body": "開発元は影響する実装をgraphql-scalars 1.24.1から2.0.0までと説明し、2.0.1で正規表現の計算量を改善した。リリースノートでもPhoneNumberの正規表現を線形時間で評価できる形へ変更したと明記する。利用者は依存関係の実バージョンと公開GraphQLスキーマのPhoneNumber使用箇所を確認し、2.0.1以上への更新を優先する。脆弱性の重大度はHIGH、CVSS 7.5。特定のスカラーを使っていないアプリケーションに同じ影響があると断定すべきではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "graphql-scalars（GraphQLPhoneNumber）",
+    "social_security_action": "graphql-scalars 2.0.1以上へ更新。公開GraphQLスキーマでPhoneNumberスカラーを使っている箇所を確認し、入力長制限・リクエストレート制限を追加検討する。"
+  },
+  {
     "id": "20261029-nodejs-whisper-audio-path-command-injection",
     "title": "nodejs-whisperにCRITICALコマンド注入、音声ファイル名からOSコマンド実行の恐れ",
     "summary": "音声文字起こし用Node.jsライブラリnodejs-whisperに、音声ファイル名を介してOSコマンドが実行され得るCRITICAL脆弱性がある。影響するのは0.4.0未満で、ユーザーが指定できるファイルパスを処理するアプリケーションが主な懸念対象。GitHubの審査済み勧告と修正版コードを照合した。",

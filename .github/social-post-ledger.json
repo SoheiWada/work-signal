@@ -1555,7 +1555,9 @@
   "20261029-servicenow-ai-acv-target-production-usage": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T10:56:04+00:00"
+      "updated_at": "2026-10-29T10:56:09+00:00",
+      "stage": "container_created",
+      "container_id": "18133101724690068"
     }
   }
 }

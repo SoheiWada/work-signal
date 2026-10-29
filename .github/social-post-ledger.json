@@ -1417,5 +1417,11 @@
       "container_id": "18156532081488337",
       "remote_id": "18435671998195443"
     }
+  },
+  "20261029-signalk-server-ziplogs-jwt-admin-takeover": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T06:36:49+00:00"
+    }
   }
 }

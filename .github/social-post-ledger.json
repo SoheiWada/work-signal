@@ -1293,7 +1293,9 @@
   "20261029-graphql-tools-legacy-ws-auth-state-leak": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T02:07:18+00:00"
+      "updated_at": "2026-10-29T02:07:24+00:00",
+      "stage": "container_created",
+      "container_id": "18133046923690068"
     }
   }
 }

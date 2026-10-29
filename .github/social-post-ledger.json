@@ -1522,10 +1522,12 @@
   },
   "20261029-highcharts-xss-prototype-pollution": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T07:56:41+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T07:56:48+00:00",
       "stage": "publish_requested",
-      "container_id": "18133082743690068"
+      "container_id": "18133082743690068",
+      "remote_id": "18143932465610071",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfEhYxFFV-G"
     }
   }
 }

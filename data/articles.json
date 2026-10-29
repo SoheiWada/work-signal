@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261029-vue-i18n-srcdoc-xss",
+    "title": "Vue I18nのHTML翻訳にXSS回避漏れ、HIGH脆弱性の修正版を確認",
+    "summary": "Vue I18nのHTML翻訳処理に、iframeのsrcdoc属性を経由してXSS対策を回避できるHIGH脆弱性がある。翻訳をv-htmlで表示し、信頼できない内容が入る構成が対象で、11.4.14などで修正済みだ。",
+    "category": "SECURITY",
+    "score": 85,
+    "published_at": "2026-10-29",
+    "published_at_time": "2026-10-29T02:04:28.751Z",
+    "source_url": "https://github.com/intlify/vue-i18n/security/advisories/GHSA-83rm-6c8r-g728",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Vue I18nのHTML翻訳処理に、iframeのsrcdoc属性を経由してXSS対策を回避できるHIGH脆弱性がある。翻訳をv-htmlで表示し、信頼できない内容が入る構成が対象で、11.4.14などで修正済みだ。",
+    "sections": [
+      {
+        "title": "エスケープ設定だけでは防げない条件",
+        "body": "開発元のGHSA-83rm-6c8r-g728は、`escapeParameter`を有効にしたVue I18nでも、`<iframe>`の`srcdoc`属性内の文字参照がブラウザーで再解釈され、翻訳HTML中の危険な内容が実行され得ると説明する。影響は翻訳を`v-html`などでHTMLとして表示し、翻訳文または補間値に信頼できない内容が入る構成に限られる。コンポーネント補間の`<i18n-t>`はこの問題の対象外だ。"
+      },
+      {
+        "title": "対応版と運用上の注意",
+        "body": "開発元は`vue-i18n`や`@intlify/core`などの11.4.14と12.0.0-alpha.5で`srcdoc`属性を無害化した。v9とv10はサポート終了で追加修正されないため、v11への移行が必要。暫定的には信頼できない翻訳を`v-html`で描画せず、`<i18n-t>`を使い、翻訳文の`srcdoc`を避ける。公式勧告はHIGH、CVSS 7.2。実環境での悪用確認は記載されていない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "Vue I18n（vue-i18n、@intlify/core等の関連パッケージ）",
+    "social_security_action": "11.4.14以上の対応系へ更新し、信頼できない翻訳をv-htmlで描画せずi18n-tを使う。翻訳文のsrcdoc利用を避ける。"
+  },
+  {
     "id": "20261029-graphql-tools-legacy-ws-auth-state-leak",
     "title": "GraphQL ToolsでWebSocket認証情報が別ユーザーへ引き継がれるHIGH脆弱性",
     "summary": "GraphQL ToolsのWebSocket実行ライブラリで、前の利用者の認証情報が次の利用者の接続に残るHIGH脆弱性が確認された。共有executorを使うゲートウェイなどが対象で、1.1.36への更新が推奨される。",

@@ -1671,14 +1671,16 @@
   },
   "20261029-fuxa-nodered-auth-bypass-rce": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T13:34:59+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T13:35:11+00:00",
       "stage": "publish_requested",
       "recovery_review_id": "fuxa-read-only-audit-40882728528-source-preview-20261029",
       "previous_attempt": {
         "status": "needs_review",
         "updated_at": "2026-10-29T13:05:34+00:00"
-      }
+      },
+      "remote_id": "17975555784157542",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfFIHPIEVZl"
     },
     "instagram_story": {
       "status": "published",

@@ -1438,8 +1438,8 @@
   "20261029-nvidia-nemotron35-transcribe-multilingual-local-ai": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T06:37:45+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-10-29T06:37:47+00:00",
+      "stage": "publish_requested",
       "container_id": "18133074958690068"
     }
   }

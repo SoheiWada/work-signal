@@ -1,5 +1,46 @@
 [
   {
+    "id": "20261029-anthropic-claude-legal-artifacts-workflows",
+    "title": "Claudeが法務の確認作業を「共有できるツール」に。契約・規制・社内相談をつなぐ新機能",
+    "summary": "Anthropicは2026年10月28日、Claude for Legal向けに契約確認、規制動向の整理、法務相談の受付などに使えるArtifactsのギャラリーを発表した。AIが一次確認した結果を担当者が検証し、部署をまたいで共有する業務設計を支援する。日本法への適合性や時間削減効果は今回の発表だけでは確認できない。",
+    "category": "AI",
+    "score": 87,
+    "published_at": "2026-10-29",
+    "published_at_time": "2026-10-29T12:25:45.685Z",
+    "source_url": "https://claude.com/ja/resources/articles/introducing-artifacts-for-legal-work",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Anthropicは2026年10月28日、Claude for Legal向けに契約確認、規制動向の整理、法務相談の受付などに使えるArtifactsのギャラリーを発表した。AIが一次確認した結果を担当者が検証し、部署をまたいで共有する業務設計を支援する。日本法への適合性や時間削減効果は今回の発表だけでは確認できない。",
+    "sections": [
+      {
+        "title": "法務AIが「回答」から業務の画面へ",
+        "body": "Anthropicは2026年10月28日、Claude for Legal向けに、法務担当者が自社の資料や接続先に合わせて調整し、同僚と共有できるArtifactsのギャラリーを発表した。ArtifactsはClaude内で使う対話型のツールやダッシュボードで、各ツールには使い方を把握できる例が用意され、回答や出力から根拠にたどれるリンクも付くという。これは新しい法律判断をAIに丸投げする機能というより、既存の確認作業を画面と手順に落とし込む取り組みだ。"
+      },
+      {
+        "title": "契約、規制、問い合わせの6つの仕事を具体化",
+        "body": "公式発表では、文書中の引用やページ番号を原典と照合する「Cite check」、国・地域ごとの規制を比較する「Jurisdiction survey matrix」、案件の担当者と期限をまとめる「Matter board」、契約条項を社内標準と比べる「Playbook deviation board」、規制変更を時系列で整理する「Regulatory horizon scan」、複数契約から必要な条件を表にする「Tabular review」が紹介された。さらにGoodwinのAI Governance Benchmark、Harveyの相談受付、Foley & Lardnerの契約上の義務確認、PwCの文書作成支援など、外部パートナーが開発したツールも掲載する。"
+      },
+      {
+        "title": "60超の法務コネクタと権限設計",
+        "body": "Anthropicによると、Claude for Legalの提供開始以降、Bloomberg Law、Filevine、Ivo、Legora、Patlyticsなどを含む60超の法務向けコネクタが追加された。接続により、担当者は毎回ファイルを手動でアップロードするのではなく、既存システムの資料や業務手順を参照する構成を取れる。共有設定は、社内外の協業に際してプライバシーや情報隔壁（ethical walls）を維持する設計だと説明されている。ただし、具体的に使える接続先・権限・契約条件は利用環境ごとに確認が必要だ。"
+      },
+      {
+        "title": "営業・人事・管理職にも関係する理由",
+        "body": "ここからはWORK SIGNALの考察だ。契約書の承認は法務部だけでは完結しない。営業は納期や支払条件、人事は雇用・秘密保持、経営企画は取引先リスクを確認する。たとえば契約条件の標準との差分をAIが一覧化し、例外だけ担当者へ回す設計なら、判断を担う人と事前確認を担う仕組みを分けられる。導入時には、①参照してよい資料、②AIが変更できる記録、③根拠の原文を確認する人、④例外承認者、⑤誤りがあった場合の訂正手順を定めたい。これは編集部の実務提案であり、今回の発表で効果が実証された手順ではない。"
+      },
+      {
+        "title": "日本での利用と効果についての留保",
+        "body": "今回確認できたのは、ギャラリーの発表、紹介された用途、60超の法務コネクタ、共同作業と権限設定の考え方である。日本法・日本語の個別業務への適合性、すべてのプランでの利用可否、削減時間や誤判定率の独立した測定値は、当該発表だけでは確定できない。とくに法的助言や契約の最終判断は、AIの出力を根拠資料と照合し、権限を持つ専門家が行う必要がある。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ]
+  },
+  {
     "id": "20261029-openequella-rce-xxe-advisories",
     "title": "openEQUELLAにCRITICAL含む4件、認証済み利用者からのRCEとXXEを開発元が公表",
     "summary": "教育・学習コンテンツ管理基盤openEQUELLAで、OSコマンド実行、FreeMarkerテンプレート注入、Javaデシリアライズ、XML外部実体参照（XXE）の脆弱性4件が開発元から公表された。いずれも2026.1.0未満が対象で、同版への更新が推奨される。攻撃に必要な権限は脆弱性ごとに異なり、無条件に認証不要で攻撃できるわけではない。",

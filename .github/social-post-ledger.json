@@ -1343,10 +1343,12 @@
   },
   "20261029-seroval-three-high-deserialization": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T05:10:57+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T05:11:04+00:00",
       "stage": "publish_requested",
-      "container_id": "18133066855690068"
+      "container_id": "18133066855690068",
+      "remote_id": "17914556964539639",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfEOa7gnOa4"
     }
   }
 }

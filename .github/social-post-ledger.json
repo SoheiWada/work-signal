@@ -1242,7 +1242,9 @@
   "20261029-microsoft-copilot-harness-foundry-preview": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T00:17:13+00:00"
+      "updated_at": "2026-10-29T00:17:18+00:00",
+      "stage": "container_created",
+      "container_id": "18133035427690068"
     }
   }
 }

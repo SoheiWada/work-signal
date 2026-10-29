@@ -1434,5 +1434,11 @@
       "container_id": "18156552082488337",
       "remote_id": "18080246420549351"
     }
+  },
+  "20261029-nvidia-nemotron35-transcribe-multilingual-local-ai": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T06:37:40+00:00"
+    }
   }
 }

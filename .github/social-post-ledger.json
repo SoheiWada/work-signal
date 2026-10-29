@@ -1802,10 +1802,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfGPKoNEUet"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T23:56:21+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T23:56:25+00:00",
       "stage": "publish_requested",
-      "container_id": "18156849556488337"
+      "container_id": "18156849556488337",
+      "remote_id": "18072704990774904"
     }
   }
 }

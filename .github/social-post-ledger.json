@@ -1485,5 +1485,11 @@
       "container_id": "18156553090488337",
       "remote_id": "18119591591601417"
     }
+  },
+  "20261029-bricks-query-result-disclosure": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T07:33:14+00:00"
+    }
   }
 }

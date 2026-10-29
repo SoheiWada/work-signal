@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261030-flat-unflatten-sparse-array-dos",
+    "title": "npm flatのunflatten()にHIGH DoS、巨大数値キーでNode.js停止の恐れ",
+    "summary": "Node.jsのデータ変換ライブラリ「flat」に、短い入力から巨大な配列を作り、サーバーの処理を停止させる恐れがある脆弱性CVE-2026-119051が公表された。6.0.1以前が対象で、深刻度はHIGH、CVSS 8.2。外部入力をunflatten()で復元し、その結果を配列として走査するアプリケーションでは、暫定的な入力制限などが必要となる。",
+    "category": "SECURITY",
+    "score": 85,
+    "published_at": "2026-10-30",
+    "published_at_time": "2026-10-29T23:50:17.700Z",
+    "source_url": "https://www.vulncheck.com/advisories/flat-through-6.0.1-denial-of-service-via-unflatten-numeric-array-index-keys",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Node.jsのデータ変換ライブラリ「flat」に、短い入力から巨大な配列を作り、サーバーの処理を停止させる恐れがある脆弱性CVE-2026-119051が公表された。6.0.1以前が対象で、深刻度はHIGH、CVSS 8.2。外部入力をunflatten()で復元し、その結果を配列として走査するアプリケーションでは、暫定的な入力制限などが必要となる。",
+    "sections": [
+      {
+        "title": "flatのunflatten()で巨大な疎配列を生成できる",
+        "body": "VulnCheckは2026年10月29日、Node.js向けnpmライブラリflatのCVE-2026-119051を公表した。対象はflat 6.0.1以前、CVSS v4.0基本値は8.2（HIGH）。オブジェクトの階層をドット区切りのキーから復元するunflatten()で、入力中の大きな数値キーが配列インデックスとして解釈される問題がある。これにより、実際の要素数が少なくても、見かけ上の長さが極端に大きい疎配列が生成され得る。"
+      },
+      {
+        "title": "後続の配列走査がNode.jsのイベントループを占有",
+        "body": "発見者が開発元リポジトリのIssue #195で公開した再現報告によると、flat 6.0.1を利用するサンプルのHTTPサーバーに短いJSON入力を送信すると、unflatten()が非常に長い配列を作り、後続のforEachによる走査でCPU使用率が高止まりし、別のヘルスチェック要求もタイムアウトした。問題の本体は必ずしも配列生成時のメモリ枯渇ではなく、後段の配列反復によるイベントループの占有にある。ただし、すべてのflat利用サイトが自動的に脆弱になるわけではない。外部入力がこの処理に届き、生成した配列を走査する経路が必要だ。"
+      },
+      {
+        "title": "修正版未確認、暫定的に数値キーを制限",
+        "body": "2026年10月30日時点で、今回参照した開発元リポジトリのIssueとCNA勧告からは、正式な修正版番号を確認できない。発見者は、信頼できない入力に対してunflatten()を使う際に{ object: true }を指定し、数値キーが配列インデックスへ変換されないようにする暫定回避策を提示している。実装側では外部由来のキーや配列長の上限も検証し、入力値をそのまま内部のデータ構造へ展開しない設計が必要だ。正式な更新版が確認できるまでは、修正済みと断定しない。"
+      },
+      {
+        "title": "WORK SIGNALの視点：小さな入力でも大きな処理コスト",
+        "body": "この問題は、HTTPリクエストのサイズが小さいからといってサーバー負荷も小さいとは限らないことを示している。アプリケーションが外部入力から巨大なデータ構造を構成し、通常の配列処理に渡せば、単一のNode.jsプロセスの応答性が損なわれ得る。外部入力の検証は文字数やリクエスト容量だけでなく、展開後の要素数・配列インデックス・処理量にも目を向ける必要がある。CVE公表は10月29日だが、発見者の報告は9月16日から公開されており、新たな悪用確認や修正版公開を意味しない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "flat（npm、hughsk/flat）",
+    "social_security_action": "未信頼入力をunflatten()に直接渡さない。外部由来の数値キーを制限し、必要なら発見者の提案する{object:true}を適用。公式修正版の公開を継続確認"
+  },
+  {
     "id": "20261030-node-open-mcp-inspector-powershell-injection",
     "title": "npm openにPowerShellコマンド注入（HIGH）、MCP InspectorのOAuth経路にも影響",
     "summary": "Node.js向けURL起動ライブラリ「open」で、WindowsやWSL上のPowerShellコマンド注入につながる脆弱性CVE-2026-119025が公表された。影響は7.2.0以上11.0.0未満で、修正版は11.0.0。悪意あるMCPサーバーのOAuth認可URLを開く経路にも関係し、MCP Inspectorでは2.12.0への更新が推奨される。",

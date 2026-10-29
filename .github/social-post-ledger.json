@@ -1539,8 +1539,8 @@
   },
   "20261029-openai-servicenow-chatgpt-workflows": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T07:57:30+00:00",
+      "status": "needs_review",
+      "updated_at": "2026-10-29T07:57:34+00:00",
       "stage": "publish_requested",
       "container_id": "18133082785690068"
     }

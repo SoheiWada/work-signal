@@ -1654,10 +1654,12 @@
   },
   "20261029-anthropic-claude-legal-artifacts-workflows": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T12:28:42+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T12:28:45+00:00",
       "stage": "publish_requested",
-      "container_id": "18633898522041163"
+      "container_id": "18633898522041163",
+      "remote_id": "18633898522041163",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfFAglwmyFf"
     }
   }
 }

@@ -64,7 +64,14 @@ class SEOTests(unittest.TestCase):
                 for section in article.get('sections',[]):
                     if section.get('title') and section.get('body'): self.assertIn('<h2>'+site.esc(section['title'])+'</h2>',page)
                 schema=json.loads(re.search(r'application/ld\+json">(.*?)</script>',page).group(1))
-                self.assertEqual(schema['datePublished'],article['published_at'])
+                # Publication metadata now retains a verified first-registration
+                # timestamp when supplied by the approved editorial workflow.
+                # Legacy articles remain date-only; never invent an hour.
+                recorded = article.get('published_at_time')
+                expected = (recorded if (site._clock_text(recorded) or '')[:10] == article['published_at']
+                            else article['published_at'])
+                self.assertEqual(schema['datePublished'], expected)
+                self.assertIn('property="article:published_time" content="' + expected + '"', page)
                 self.assertEqual(schema['publisher']['name'],'WORK SIGNAL')
                 self.assertNotIn('dateModified',schema)
                 self.assertNotIn('author',schema)

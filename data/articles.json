@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261029-datadog-dd-trace-query-redos",
+    "title": "Datadog dd-traceにHIGH ReDoS、URLのクエリ文字列でNode.jsサーバー停止の恐れ",
+    "summary": "Node.js向けAPMトレーサー「dd-trace」で、HTTPリクエストのURLクエリ文字列を秘匿化する正規表現にReDoS脆弱性が確認された。CVE-2026-116693はHIGH（CVSS 8.7）。攻撃者が制御する入力によってCPUを長時間占有し、Webサービスの応答停止につながる恐れがある。開発元は5.131.1と6.20.1で修正済みだ。",
+    "category": "SECURITY",
+    "score": 82,
+    "published_at": "2026-10-29",
+    "published_at_time": "2026-10-29T13:19:37.276Z",
+    "source_url": "https://github.com/DataDog/dd-trace-js/security/advisories/GHSA-x94g-w73q-hpcw",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Node.js向けAPMトレーサー「dd-trace」で、HTTPリクエストのURLクエリ文字列を秘匿化する正規表現にReDoS脆弱性が確認された。CVE-2026-116693はHIGH（CVSS 8.7）。攻撃者が制御する入力によってCPUを長時間占有し、Webサービスの応答停止につながる恐れがある。開発元は5.131.1と6.20.1で修正済みだ。",
+    "sections": [
+      {
+        "title": "監視用のURL秘匿化処理がDoSの入口に",
+        "body": "Datadogが2026年10月8日に公表したGHSA-x94g-w73q-hpcwは、Node.js用トレーサー「dd-trace」のクエリ文字列秘匿化処理に関する脆弱性を説明している。URLのクエリ部分に含まれるパスワードやトークン等の情報をトレース記録から隠すための既定の正規表現が、特定の入力で過剰なバックトラッキングを起こす。処理は同期的に行われるため、攻撃者が制御できるURLクエリ文字列を対象のHTTPトレース統合が処理すると、リクエスト遅延やサービス拒否（DoS）につながる可能性がある。"
+      },
+      {
+        "title": "影響するのはdd-traceの特定バージョンとHTTP統合",
+        "body": "GitHub Advisory Databaseは、影響範囲をnpmパッケージdd-traceの2.0.0以上5.131.1未満、および6.0.0以上6.20.1未満としている。開発元の勧告では、クエリ文字列をURLのspanタグに含める影響対象のHTTP tracing統合で、問題の処理が既定で有効になると説明する。Node.js本体の脆弱性ではなく、dd-traceを導入したすべての構成が無条件に攻撃可能という意味でもない。GitHubはCVSS v4.0基本値8.7、HIGHと評価している。"
+      },
+      {
+        "title": "修正版は5.131.1と6.20.1",
+        "body": "開発元のリリースノートは、dd-trace 5.131.1と6.20.1で既定のクエリ文字列秘匿化用正規表現を更新し、GHSA-x94g-w73q-hpcwに対処したと明記している。利用中のメジャー系列に対応する修正版以上へ更新するのが基本だ。直ちに更新できない場合、公式勧告には環境変数 `DD_TRACE_OBFUSCATION_QUERY_STRING_REGEXP` に修正済みの正規表現を指定し、アプリケーションを再起動する暫定策が示されている。長い設定値の転記ミスを避けるため、必ず公式勧告を参照する。"
+      },
+      {
+        "title": "WORK SIGNALの視点：可観測性の部品も攻撃面になる",
+        "body": "アプリケーションの監視やトレースは、障害対応のために常時有効化されることが多い。しかし今回の問題は、監視用のURL処理が攻撃者入力に触れ、Node.jsプロセスの可用性に影響し得ることを示す。運用担当者はアプリ本体の依存関係だけでなく、APMエージェントや自動計測ライブラリも更新対象として棚卸ししたい。開発元の勧告は実環境での悪用を確認したとは記していない。2026年10月8日に修正済みの事案であり、10月29日の新規ゼロデイとして扱うべきではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "Datadog dd-trace（npm、Node.js用APMトレーサー）",
+    "social_security_action": "5系は5.131.1以上、6系は6.20.1以上に更新。すぐに更新できない場合は開発元勧告の修正済み正規表現を環境変数 DD_TRACE_OBFUSCATION_QUERY_STRING_REGEXP に設定して再起動。文字列は公式勧告から正確にコピーすること。"
+  },
+  {
     "id": "20261029-openai-chatgpt-pro-business-api-credits",
     "title": "ChatGPT Pro・BusinessにAPI利用クレジット、最大月500ドル。対象と条件を整理",
     "summary": "OpenAIは2026年10月28日、対象のChatGPT Pro・Business契約者が、AIアプリやエージェントの開発に使えるAPIクレジットを受け取れる特典を案内した。Proは月100〜500ドル、Businessは有料席数に応じて計算され、月500ドルが上限。ただし申請とAPI組織の連携が必要で、Plusなどは対象外となる。",

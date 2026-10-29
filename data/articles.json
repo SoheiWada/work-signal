@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261030-decode-uri-component-cve-2026-118664-dos",
+    "title": "decode-uri-componentにHIGH DoS、0.5.0でも残った二次計算量問題（CVE-2026-118664）",
+    "summary": "Node.js向けnpmライブラリ「decode-uri-component」に、細工した入力のデコードで処理時間が二次的に増え、Webサーバーのイベントループを停止させ得る脆弱性が確認された。CVE-2026-118664はCVSS 8.2（HIGH）。先行する別のDoS問題を修正した0.5.0にも残っており、0.5.1への更新が必要だ。",
+    "category": "SECURITY",
+    "score": 85,
+    "published_at": "2026-10-30",
+    "published_at_time": "2026-10-29T23:46:09.728Z",
+    "source_url": "https://github.com/SamVerschueren/decode-uri-component/security/advisories/GHSA-qr28-fpjm-wq7f",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Node.js向けnpmライブラリ「decode-uri-component」に、細工した入力のデコードで処理時間が二次的に増え、Webサーバーのイベントループを停止させ得る脆弱性が確認された。CVE-2026-118664はCVSS 8.2（HIGH）。先行する別のDoS問題を修正した0.5.0にも残っており、0.5.1への更新が必要だ。",
+    "sections": [
+      {
+        "title": "不正なパーセント符号化でCPU処理が増幅",
+        "body": "開発元の勧告によると、decodeUriComponent()は通常のデコードに失敗すると独自の復旧処理へ切り替わる。この処理は異なるパーセント符号化の並びを収集し、それぞれについて入力文字列全体への置換処理を実行する。異なる並びの数が増えるほど文字列全体の再走査が増え、入力長に対して最悪二次の処理時間となる。攻撃者が制御できる入力がこの関数に到達すると、Node.jsのイベントループを占有し、同じプロセスの他の要求も待たせる可能性がある。"
+      },
+      {
+        "title": "先行修正0.5.0では別経路が残存",
+        "body": "同じライブラリでは、2026年6月公表のCVE-2026-45822に対して0.5.0が修正版とされていた。しかし今回の公式勧告は、0.5.0が別の置換ループを残していたと説明する。CVE-2026-118664の影響範囲は0.5.0以前であり、開発元は0.5.1を修正版とした。0.5.1のリリースノートはパーセント符号化の並びを単一パスでデコードする変更を明記している。"
+      },
+      {
+        "title": "攻撃が成立する入力経路を区別",
+        "body": "開発元が示す再現例では約224KBの細工した入力で約20秒の処理停止が起こる。一方、一般的なNode.jsのHTTPヘッダー長制限により、URLクエリだけを通す場合は同じ規模の入力を送りにくい。公式勧告は標準的な16KBのヘッダー制限下での影響を約40ミリ秒／リクエストと説明している。フォーム本文など比較的大きな未信頼入力をquery-string.parse()等で処理する構成は、より直接的なリスクがある。すべてのNode.jsサイトが同じ条件で停止するわけではない。"
+      },
+      {
+        "title": "影響版、対策、悪用状況",
+        "body": "開発元公式勧告の深刻度はHIGH、CVSS v4.0基本スコア8.2。機密性・完全性ではなく可用性に影響する。0.5.0以前を使用するアプリケーションは0.5.1以降へ更新し、直接依存に加えquery-stringなどを介した間接依存も調べる必要がある。未信頼のリクエスト本文にサイズ上限を設ける運用も検討したい。実環境での悪用は公式勧告では確認できず、未確認として扱う。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "npm decode-uri-component",
+    "social_security_action": "decode-uri-componentを0.5.1以降へ更新。直接・間接依存関係を確認し、未信頼入力をデコードするHTTP本文のサイズ制限を併用する"
+  },
+  {
     "id": "20261028-angular-build-ssr-manifest-code-injection",
     "title": "Angularビルド生成マニフェストにコード注入脆弱性（HIGH・CVSS 7.7）",
     "summary": "Angularの公式ビルドツール「@angular/build」に、静的プリレンダリングとサーバーサイドレンダリングを組み合わせた構成で、外部データ由来の経路情報が実行可能なサーバーマニフェストに混入するコード注入脆弱性が見つかった。開発元は2026年10月28日にHIGH（CVSS 7.7）として公表し、20・21・22系の修正版を案内した。更新後は再ビルドと再デプロイが必要となる。",

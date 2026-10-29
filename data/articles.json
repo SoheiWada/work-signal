@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261029-graphql-tools-legacy-ws-auth-state-leak",
+    "title": "GraphQL ToolsでWebSocket認証情報が別ユーザーへ引き継がれるHIGH脆弱性",
+    "summary": "GraphQL ToolsのWebSocket実行ライブラリで、前の利用者の認証情報が次の利用者の接続に残るHIGH脆弱性が確認された。共有executorを使うゲートウェイなどが対象で、1.1.36への更新が推奨される。",
+    "category": "SECURITY",
+    "score": 90,
+    "published_at": "2026-10-29",
+    "published_at_time": "2026-10-29T02:03:51.787Z",
+    "source_url": "https://github.com/ardatan/graphql-tools/security/advisories/GHSA-434m-5hcj-pxf3",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "GraphQL ToolsのWebSocket実行ライブラリで、前の利用者の認証情報が次の利用者の接続に残るHIGH脆弱性が確認された。共有executorを使うゲートウェイなどが対象で、1.1.36への更新が推奨される。",
+    "sections": [
+      {
+        "title": "WebSocket認証の境界が崩れる条件",
+        "body": "開発元のGHSA-434m-5hcj-pxf3によると、`buildWSLegacyExecutor`で作成した実行器を複数の利用者間で共有し、リクエストごとの`extensions.connectionParams`に認証情報を渡す構成で問題が起こる。古い実装は`executorConnectionParams`を接続終了後も保持し、次の`connection_init`へ前のユーザーのトークンやテナント情報を再利用する。後続の匿名・低権限ユーザーが、前の利用者の権限でGraphQL subscriptionのデータを受け取る可能性がある。ライブラリ内のUrlLoaderのようにリクエストごとに新しいexecutorを作る経路は対象外と説明されている。"
+      },
+      {
+        "title": "修正版と管理者が確認すべき点",
+        "body": "影響するのは`@graphql-tools/executor-legacy-ws`の1.1.35以下。開発元は1.1.36で各実行の接続と`connection_init`パラメータを分離した。依存関係と実際の実行器の再利用方法を確認し、1.1.36以上へ更新する。実環境での悪用確認や被害件数は公式勧告には記載されていない。開発元のHIGH評価は確認できるが、公式CVSS数値は掲載されていないため付与しない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "@graphql-tools/executor-legacy-ws",
+    "social_security_action": "1.1.36以上へ更新。更新まで異なる認証主体で同じbuildWSLegacyExecutorを共有せず、接続ごとに認証パラメータを隔離する。"
+  },
+  {
     "id": "20261029-apple-macbook-pro-touch-proled-xdr",
     "title": "Apple、MacBook Proを初のタッチ対応に。制作・仕事の操作を再設計",
     "summary": "Appleは2026年10月28日、MacBook Proで初めて画面のタッチ操作に対応する新モデルを発表した。M5 Pro／M5 MaxとタンデムOLEDのPROLED XDRディスプレイを採用し、デザイン、映像、音楽制作の操作方法を広げる。日本では29日から予約開始、11月6日発売。14インチのM5 Proモデルは税込49万9,800円からだ。",

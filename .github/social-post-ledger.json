@@ -1825,5 +1825,11 @@
       "container_id": "18156849607488337",
       "remote_id": "18002342501812707"
     }
+  },
+  "20261030-sophos-utm-preauth-root-rce": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T23:57:06+00:00"
+    }
   }
 }

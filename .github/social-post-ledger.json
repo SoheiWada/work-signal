@@ -1702,7 +1702,9 @@
   "20261029-datadog-dd-trace-query-redos": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T13:22:47+00:00"
+      "updated_at": "2026-10-29T13:22:56+00:00",
+      "stage": "publish_requested",
+      "container_id": "18571490428079597"
     }
   }
 }

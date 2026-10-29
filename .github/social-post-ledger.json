@@ -1451,5 +1451,11 @@
       "container_id": "18156552700488337",
       "remote_id": "18032163041899516"
     }
+  },
+  "20261029-google-connected-apps-mcp-platform-preview": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T06:38:16+00:00"
+    }
   }
 }

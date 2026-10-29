@@ -1585,5 +1585,11 @@
       "container_id": "18156619789488337",
       "remote_id": "17935049277146616"
     }
+  },
+  "20261029-anthropic-ai-for-science-20-partners": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T10:57:12+00:00"
+    }
   }
 }

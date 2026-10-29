@@ -2,6 +2,10 @@ name: Build and deploy WORK SIGNAL
 on:
   push:
     branches: [main, 'fix/**']
+    # The social ledger is intentionally not deployed. Its many per-post
+    # writes must not cancel builds or re-trigger social publisher workflows.
+    paths-ignore:
+      - '.github/social-post-ledger.json'
   workflow_dispatch:
 
 permissions:

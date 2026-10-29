@@ -1668,5 +1668,11 @@
       "container_id": "18156648217488337",
       "remote_id": "18000099077823226"
     }
+  },
+  "20261029-fuxa-nodered-auth-bypass-rce": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T13:05:06+00:00"
+    }
   }
 }

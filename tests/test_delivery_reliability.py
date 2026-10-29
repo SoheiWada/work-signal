@@ -40,6 +40,19 @@ class DeliveryReliabilityTests(unittest.TestCase):
         self.assertEqual(account.call_count, 1)
         quota.assert_not_called()
 
+    def test_meta_link_error_with_existing_live_post_reconciles_without_retry(self):
+        a = {**self.article, "social_platforms": ["threads"]}
+        ledger = MemoryLedger()
+        error = p.MetaAPIError(400, {"code": -1, "error_subcode": 4279047,
+                                     "type": "OAuthException"})
+        with (patch.object(p, "verify_account", return_value={}),
+              patch.object(p, "verify_live"),
+              patch.object(p, "publish_threads", side_effect=error) as publish):
+            self.assertEqual(p.run([a], ledger, self.credentials), 0)
+        publish.assert_called_once()
+        self.assertEqual(ledger.rows[a["id"]]["threads"]["status"], "published")
+        self.assertEqual(ledger.rows[a["id"]]["threads"]["remote_id"], "123")
+
     def test_unconfirmed_threads_post_is_not_reported_published(self):
         a = {**self.article, "social_platforms": ["threads"]}
         ledger = MemoryLedger()

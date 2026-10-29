@@ -1812,7 +1812,9 @@
   "20261030-twisted-http2-rapid-reset-dos": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T23:56:27+00:00"
+      "updated_at": "2026-10-29T23:56:38+00:00",
+      "stage": "publish_requested",
+      "container_id": "18098797394644271"
     }
   }
 }

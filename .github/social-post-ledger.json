@@ -1551,17 +1551,13 @@
   },
   "20261029-openai-servicenow-chatgpt-workflows": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T12:00:45+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T12:00:56+00:00",
       "recovery_review_id": "threads-20261029-audit-40868867744-link-attachment-canonical",
       "stage": "publish_requested",
       "container_id": "18133082785690068",
-      "previous_attempt": {
-        "status": "needs_review",
-        "updated_at": "2026-10-29T07:57:34+00:00",
-        "stage": "publish_requested",
-        "container_id": "18133082785690068"
-      }
+      "remote_id": "18096675839414864",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfE9VFpkSxZ"
     },
     "instagram_story": {
       "status": "published",

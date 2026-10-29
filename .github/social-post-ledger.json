@@ -1360,8 +1360,8 @@
   },
   "20261029-nodejs-whisper-audio-path-command-injection": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T05:11:29+00:00",
+      "status": "needs_review",
+      "updated_at": "2026-10-29T05:11:33+00:00",
       "stage": "publish_requested",
       "container_id": "18133066864690068"
     }

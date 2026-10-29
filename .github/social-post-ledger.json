@@ -1289,5 +1289,11 @@
       "container_id": "18156478321488337",
       "remote_id": "18109370081238212"
     }
+  },
+  "20261029-graphql-tools-legacy-ws-auth-state-leak": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T02:07:18+00:00"
+    }
   }
 }

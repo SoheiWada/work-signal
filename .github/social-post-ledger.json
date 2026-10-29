@@ -1795,7 +1795,9 @@
   "20261030-decode-uri-component-cve-2026-118664-dos": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T23:55:51+00:00"
+      "updated_at": "2026-10-29T23:56:03+00:00",
+      "stage": "publish_requested",
+      "container_id": "18083140532341085"
     }
   }
 }

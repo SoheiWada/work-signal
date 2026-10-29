@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261030-node-open-mcp-inspector-powershell-injection",
+    "title": "npm openにPowerShellコマンド注入（HIGH）、MCP InspectorのOAuth経路にも影響",
+    "summary": "Node.js向けURL起動ライブラリ「open」で、WindowsやWSL上のPowerShellコマンド注入につながる脆弱性CVE-2026-119025が公表された。影響は7.2.0以上11.0.0未満で、修正版は11.0.0。悪意あるMCPサーバーのOAuth認可URLを開く経路にも関係し、MCP Inspectorでは2.12.0への更新が推奨される。",
+    "category": "SECURITY",
+    "score": 90,
+    "published_at": "2026-10-30",
+    "published_at_time": "2026-10-29T23:49:43.778Z",
+    "source_url": "https://www.vulncheck.com/advisories/open-7.2.0-before-11.0.0-os-command-injection-via-powershell-on-windows",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Node.js向けURL起動ライブラリ「open」で、WindowsやWSL上のPowerShellコマンド注入につながる脆弱性CVE-2026-119025が公表された。影響は7.2.0以上11.0.0未満で、修正版は11.0.0。悪意あるMCPサーバーのOAuth認可URLを開く経路にも関係し、MCP Inspectorでは2.12.0への更新が推奨される。",
+    "sections": [
+      {
+        "title": "openのPowerShell引数処理にコマンド注入",
+        "body": "VulnCheckは2026年10月29日、npmライブラリopenのCVE-2026-119025を公表した。CNA勧告によると影響するのはopenの7.2.0以上11.0.0未満で、CVSS v4.0基本値は7.7（HIGH）。WindowsとWindows Subsystem for Linux（WSL）のPowerShell経路で、外部から渡されたURLが安全にエスケープされず、PowerShellの式として解釈される恐れがある。これはNode.js本体の欠陥ではなく、URLを既定ブラウザーなどで開くライブラリの引数処理に関する問題だ。"
+      },
+      {
+        "title": "MCP InspectorではOAuth接続が攻撃経路になり得る",
+        "body": "MCP Inspectorの開発元は10月21日、関連するGHSA-q978-78c7-phqwを公開した。攻撃者が制御するMCPサーバーに接続すると、OAuth認可先のURLを自動で開く経路を通じ、Windows／WSLでコマンド実行につながる可能性がある。開発元勧告は、攻撃成立にAIモデルによるツール実行や利用者による追加承認は不要と説明する。ただし攻撃者が制御するサーバーへの接続と、影響するOS・呼び出し経路が前提だ。macOSや通常のLinuxで同じPowerShell経路が使われるとは説明されていない。"
+      },
+      {
+        "title": "open 11.0.0とInspector 2.12.0が修正版",
+        "body": "open開発元のv11.0.0リリースノートにはPowerShell引数のエスケープ修正が記録され、修正コミット274d704では引数の扱いを変更している。MCP Inspectorの開発元GHSAは、影響するInspector 2.0.0〜2.11.0に対して2.12.0を修正版として明示する。両者は異なるnpmパッケージであり、openのCVE-2026-119025（CVSS v4.0 7.7）とInspectorのGHSA-q978-78c7-phqw（CVSS v3.1 8.8）を同じ識別番号として混同してはならない。導入環境で依存バージョンを確認し、対象パッケージをそれぞれ更新する必要がある。"
+      },
+      {
+        "title": "WORK SIGNALの視点：MCP連携の認証URLも信頼境界",
+        "body": "今回の事例は、AIツールとの連携で使うOAuth認証URLも、外部から渡される未信頼入力として扱う必要があることを示している。URLを開くだけの機能であっても、OS固有のコマンド解釈に渡すと影響が広がり得る。MCPサーバーの接続先を検証し、認可URLのスキーム・接続先を制限し、依存ライブラリを更新することが重要だ。CVEの公表日は10月29日だが、関連するInspector勧告は10月21日公開済みであり、新しい悪用確認や新規パッチ公開と混同しない。実環境での悪用は未確認だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "open（npm）／関連製品 @modelcontextprotocol/inspector",
+    "social_security_action": "openは11.0.0以降、Inspectorは2.12.0以降へ更新。Windows/WSLで未信頼のOAuth認可URLを自動起動しない設計とURL検証を確認"
+  },
+  {
     "id": "20261030-gitlab-cve-2026-97229-cisa-kev",
     "title": "GitLabのCRITICAL RCE（CVE-2026-97229）をCISA KEVに追加、実悪用確認",
     "summary": "GitLabのCI/CD正規表現処理に存在するCVSS 10.0の遠隔コード実行脆弱性「CVE-2026-97229」が、米CISAの実悪用確認リスト（KEV）に2026年10月29日付で追加された。対象はGitLab CE/EEの一部19.2〜19.4系列。10月12日に修正版が提供されているが、別の重大な正規表現処理の問題にも対応するため、自己管理環境では後続のセキュリティパッチへの更新が重要となる。",

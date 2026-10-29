@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261029-seroval-three-high-deserialization",
+    "title": "SerovalにHIGH脆弱性3件、WebサーバーのDoSと不正な関数呼び出し",
+    "summary": "Webアプリケーションで利用されるシリアライズライブラリ「seroval」に、HIGH評価の脆弱性3件が確認されました。信頼できないJSONをデシリアライズする構成では、サービス停止やアプリケーション内の関数の意図しない呼び出しにつながる恐れがあります。3件の修正版は1.6.8です。",
+    "category": "SECURITY",
+    "score": 86,
+    "published_at": "2026-10-29",
+    "published_at_time": "2026-10-29T05:03:54.381Z",
+    "source_url": "https://github.com/lxsmnsyc/seroval/security/advisories/GHSA-97r2-qh9m-474h",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Webアプリケーションで利用されるシリアライズライブラリ「seroval」に、HIGH評価の脆弱性3件が確認されました。信頼できないJSONをデシリアライズする構成では、サービス停止やアプリケーション内の関数の意図しない呼び出しにつながる恐れがあります。3件の修正版は1.6.8です。",
+    "sections": [
+      {
+        "title": "小さなJSON入力がサーバーの処理を停止させる恐れ",
+        "body": "開発元が2026年10月21日に公開したCVE-2026-116581とCVE-2026-116584は、serovalの`fromJSON`／`fromCrossJSON`が信頼できない入力を復元する際の検証不足に起因します。配列の長さやシーケンスの終了位置に不正な値を指定すると、過剰なメモリ確保や終了しない処理が発生し得ます。両件のCVSS v3.1ベーススコアは7.5（HIGH）です。外部から受け取ったデータを該当関数に渡すサービスでは、認証なしのリクエストがサービス拒否につながる可能性があります。"
+      },
+      {
+        "title": "プラグイン由来の関数が意図せず呼び出される問題",
+        "body": "CVE-2026-116580は、非同期イテレーターを復元する処理で内部ストリームかどうかの型検証が不十分だった問題です。アプリケーションのプラグインが関数などの呼び出し可能な値を返す場合、攻撃者が細工した入力によってデシリアライズ中にその値が呼び出される恐れがあります。CVSSは7.3（HIGH）で、具体的な影響はアプリケーションのプラグイン実装に依存します。すべての利用環境で任意コード実行が成立すると断定する根拠はありません。"
+      },
+      {
+        "title": "対応と影響確認のポイント",
+        "body": "開発元は3件をseroval 1.6.8で修正しています。利用者は直接依存だけでなく、Webフレームワーク経由で組み込まれたserovalの実際のバージョンと、サーバー側で信頼できないJSONを復元する経路を確認する必要があります。GitHub Security Labは別の関連脆弱性についてTanStack StartとSolidStartのサーバー関数との関係を説明していますが、今回の3件がすべてのフレームワーク構成に影響することを意味しません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "seroval（npm）",
+    "social_security_action": "該当するseroval依存関係を確認し、3件の修正を含む1.6.8以降の適切なバージョンへ更新。依存するフレームワークのリリース・ロックファイルも確認する。"
+  },
+  {
     "id": "20261029-nvidia-nemotron35-transcribe-multilingual-local-ai",
     "title": "NVIDIA、40言語対応の音声AIを公開。文字起こし・話者ごとの区別・翻訳を一つに",
     "summary": "NVIDIAが2026年10月28日、40言語の文字起こしに対応するオープンウェイト音声AI「Nemotron 3.5 Transcribe」を公開した。日本語の文字起こしや話者ごとの区別、英語との翻訳にも対応する。会議記録を一つのモデルで処理できる一方、導入には計算環境と精度検証が必要だ。",

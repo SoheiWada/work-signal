@@ -1536,5 +1536,11 @@
       "container_id": "18156569335488337",
       "remote_id": "18119060414098955"
     }
+  },
+  "20261029-openai-servicenow-chatgpt-workflows": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T07:57:22+00:00"
+    }
   }
 }

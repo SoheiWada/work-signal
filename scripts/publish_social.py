@@ -72,7 +72,9 @@ def approved_articles(feed):
 
 
 def threads_text(article):
-    source, url = article["source_url"], tracked_article_url(article)
+    # Canonical URL is the tested safe Threads link-card target. The previous
+    # long UTM URL was implicitly selected as preview and triggered Meta 4279047.
+    source, url = article["source_url"], article_url(article)
     custom = article.get("social_threads_text")
     if custom is not None:
         if not isinstance(custom, str) or not custom.strip():
@@ -292,7 +294,32 @@ def verify_account(base, token, user_id, *, instagram=False):
     return profile
 
 
-def publish_threads(text, token, user_id, progress=None):
+def publish_threads(text, token, user_id, progress=None, *, link_attachment=None):
+    if link_attachment is not None:
+        # Meta's official one-request publication path for TEXT avoids the
+        # async creation_id boundary. Explicit link preview targets the short,
+        # canonical URL rather than an implicit UTM link in post text.
+        if not re.fullmatch(re.escape(BASE) + r"articles/[A-Za-z0-9_-]+/", link_attachment):
+            raise ValueError("Invalid canonical Threads link attachment")
+        if link_attachment not in text:
+            raise ValueError("Threads link attachment absent from caption")
+        try:
+            posted = request_json(
+                THREADS_API + "/" + user_id + "/threads",
+                method="POST", token=token,
+                data={"media_type": "TEXT", "text": text,
+                      "link_attachment": link_attachment, "auto_publish_text": "true"})
+        except RuntimeError as exc:
+            raise RuntimeError("Threads auto-publish: " + str(exc)) from None
+        identifier = str(posted.get("id", ""))
+        if not identifier.isdigit():
+            raise RuntimeError("Threads auto-publish: ambiguous ID")
+        if progress:
+            progress("publish_requested", identifier)
+        # This is an API response ID; callers must verify the LIVE post before
+        # recording a successful publication (it may be a creation ID).
+        return identifier
+
     # Stage labels and HTTP status are safe to log; never log token, text, URLs or API bodies.
     try:
         created = request_json(THREADS_API + "/" + user_id + "/threads",
@@ -586,15 +613,17 @@ def run(articles, ledger, credentials):
                 if hasattr(ledger, "progress"):
                     options["progress"] = lambda stage, cid: ledger.progress(identifier, kind, stage, cid)
                 if kind == "threads":
-                    remote = publish_threads(text, credentials["THREADS_ACCESS_TOKEN"], credentials["THREADS_USER_ID"], **options)
+                    remote = publish_threads(text, credentials["THREADS_ACCESS_TOKEN"], credentials["THREADS_USER_ID"],
+                                             link_attachment=article_url(article), **options)
                 elif kind == "instagram":
                     remote = publish_instagram(text, image_url(article), credentials["INSTAGRAM_ACCESS_TOKEN"], credentials["INSTAGRAM_USER_ID"], **options)
                 else:
                     remote = publish_instagram_story(story_image_url(article), credentials["INSTAGRAM_ACCESS_TOKEN"], credentials["INSTAGRAM_USER_ID"], **options)
                 if kind == "threads":
-                    live = verify_threads_delivery(article, credentials["THREADS_ACCESS_TOKEN"], credentials["THREADS_USER_ID"], expected_id=remote)
+                    live = verify_threads_delivery(article, credentials["THREADS_ACCESS_TOKEN"], credentials["THREADS_USER_ID"])
                     if not live:
                         raise RuntimeError("Threads live confirmation unavailable")
+                    remote = str(live["id"])
                     ledger.record(identifier, kind, "published", remote_id=remote, permalink=live.get("permalink", ""))
                 else:
                     ledger.record(identifier, kind, "published", remote_id=remote)
@@ -602,6 +631,22 @@ def run(articles, ledger, credentials):
                     budget -= 1
                 print("PUBLISHED", identifier, kind, remote)
             except Exception as exc:
+                if kind == "threads" and claimed:
+                    # An API error or a lost response does NOT prove that Meta
+                    # failed to publish. Reconcile read-only before holding;
+                    # never send a second write from this path.
+                    try:
+                        live = verify_threads_delivery(
+                            article, credentials["THREADS_ACCESS_TOKEN"],
+                            credentials["THREADS_USER_ID"])
+                        if live and live.get("id"):
+                            remote = str(live["id"])
+                            ledger.record(identifier, "threads", "published",
+                                          remote_id=remote, permalink=live.get("permalink", ""))
+                            print("RECONCILED_THREADS", identifier, remote)
+                            continue
+                    except Exception:
+                        pass
                 action_block = (kind != "threads" and isinstance(exc, MetaAPIError)
                                 and exc.code == 4 and exc.subcode == 2207051)
                 if action_block:

@@ -1794,10 +1794,12 @@
   },
   "20261030-decode-uri-component-cve-2026-118664-dos": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T23:56:03+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T23:56:06+00:00",
       "stage": "publish_requested",
-      "container_id": "18083140532341085"
+      "container_id": "18083140532341085",
+      "remote_id": "18083140532341085",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfGPKoNEUet"
     }
   }
 }

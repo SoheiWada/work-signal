@@ -1402,5 +1402,11 @@
       "container_id": "18156532021488337",
       "remote_id": "18089648057704930"
     }
+  },
+  "20261029-re2js-lookbehinds-quadratic-dos": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T05:12:50+00:00"
+    }
   }
 }

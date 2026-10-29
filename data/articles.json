@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261029-wordpress-telegram-plugin-account-takeover",
+    "title": "WordPressのTelegram連携プラグインにCRITICAL 9.8、管理者アカウント乗っ取りの恐れ",
+    "summary": "WordPressのTelegram連携プラグイン「Bot for Telegram on WooCommerce」で、認証なしに管理者を含む利用者のアカウントを乗っ取れる恐れがある脆弱性CVE-2026-109516が公表された。深刻度はCRITICAL、CVSS 9.8。影響は1.3.0以前で、10月29日時点で確認できる修正版はない。導入サイトではプラグインの停止・削除と不審なログインの確認を急ぎたい。",
+    "category": "SECURITY",
+    "score": 87,
+    "published_at": "2026-10-30",
+    "published_at_time": "2026-10-29T22:58:28.587Z",
+    "source_url": "https://www.wordfence.com/threat-intel/vulnerabilities/id/1f6b73e0-c154-4bc4-90bc-0929053b77b0?source=cve",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "WordPressのTelegram連携プラグイン「Bot for Telegram on WooCommerce」で、認証なしに管理者を含む利用者のアカウントを乗っ取れる恐れがある脆弱性CVE-2026-109516が公表された。深刻度はCRITICAL、CVSS 9.8。影響は1.3.0以前で、10月29日時点で確認できる修正版はない。導入サイトではプラグインの停止・削除と不審なログインの確認を急ぎたい。",
+    "sections": [
+      {
+        "title": "ログイン不要でWordPressのアカウントを乗っ取る恐れ",
+        "body": "Wordfenceは2026年10月28日、WordPressプラグイン「Bot for Telegram on WooCommerce」の認証回避脆弱性CVE-2026-109516を公表し、29日に情報を更新した。CNA勧告では影響バージョンを1.3.0以前、CVSS v3.1基本値を9.8（CRITICAL）としている。攻撃が成立すると、ログインしていない外部の攻撃者がWordPressの既存利用者になりすまし、管理者アカウントまで奪取する恐れがある。これはWordPress本体やWooCommerce本体に共通する欠陥ではなく、対象プラグインの認証処理に関する問題だ。"
+      },
+      {
+        "title": "Telegramの通知を信頼しすぎる認証処理",
+        "body": "Wordfenceの技術説明によれば、対象プラグインのTelegram Webhook受信処理では、外部から届いた情報の送信元確認が十分でなく、入力されたチャットIDをWordPressのログイン名として扱う経路がある。さらにログイントークンの生成・引き換え処理にも認証上の不備があり、攻撃者が対象のユーザー名を知っていれば、本人確認を経ずにセッションを取得できる可能性がある。問題の本質は、外部サービスとの連携に使う入力値をアカウント所有の証明として扱ってしまう点にある。勧告は管理者も乗っ取り対象になり得ると明記している。"
+      },
+      {
+        "title": "修正版は確認できず、公式プラグイン配布も停止中",
+        "body": "Wordfenceの当該勧告には「Patched? No」「No known patch available」と記載されており、2026年10月29日の確認時点で修正済みバージョンは示されていない。WordPress.orgの公式配布ページも、掲載バージョンは1.3.0で、10月23日から一時的にダウンロード提供を停止している。ただし、配布停止の具体的な理由はページに書かれておらず、今回のCVEが直接の原因だと断定できない。修正版が出たという未確認情報に依存して更新を待つのではなく、対象プラグインを利用しているか確認し、利用中なら停止・削除して代替手段を検討する必要がある。"
+      },
+      {
+        "title": "WORK SIGNALの視点：連携機能が管理者権限への入口に",
+        "body": "ECサイト運営では、受注通知やチャット対応の効率化のために外部メッセージングサービスとWordPressを連携させることがある。今回の事例は、その便利な連携部分が認証境界になり、Webサイト全体の管理権限に影響し得ることを示す。運用担当者は対象プラグインの停止だけでなく、管理者・ユーザー一覧、ログイン履歴、不審な権限変更やプラグイン追加の有無も確認したい。現時点で実際の攻撃や被害が確認されたという一次情報はなく、攻撃発生を断定してはならない。対処の判断には、CNAの公式勧告とWordPress.orgの配布状況を継続して照合することが重要だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Bot for Telegram on WooCommerce（WordPressプラグイン、Guru Team）",
+    "social_security_action": "当該プラグインを使用中なら直ちに停止・削除して代替策を検討。管理者アカウント、ログイン履歴、不審なプラグイン・ユーザー変更を調査。公式修正版が実際に確認できるまでは未修正として扱う。更新先のバージョン番号を推測しない。"
+  },
+  {
     "id": "20261029-smart-pos-register-subsidy-details",
     "title": "消費税率変更に備えるレジ補助金、最大350万円。10月29日に新制度の詳細公表",
     "summary": "デジタル化・AI導入補助金2026の事務局は10月29日、「スマートレジ類型」「POSレジ類型」の制度概要を公表した。中小企業のソフト導入・改修などは機能数に応じて最大50万〜350万円、レジ端末は最大20万円を補助する設計。2026年9月15日以降の対象支出を、導入・支払完了後に申請する事前着手制度だ。詳細な公募要領は今後公開され、交付は保証されない。",

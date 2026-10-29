@@ -1774,5 +1774,11 @@
       "container_id": "18156839770488337",
       "remote_id": "18091861862246959"
     }
+  },
+  "20261028-angular-build-ssr-manifest-code-injection": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T23:04:50+00:00"
+    }
   }
 }

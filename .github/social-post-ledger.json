@@ -1472,8 +1472,8 @@
   "20261029-google-ai-mode-ads-ten-markets": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T06:38:57+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-10-29T06:38:59+00:00",
+      "stage": "publish_requested",
       "container_id": "18133075081690068"
     }
   }

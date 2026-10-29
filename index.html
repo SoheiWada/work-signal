@@ -276,6 +276,11 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
   .filter:first-child .filter-signal{width:100%}
   .filter[data-category="SECURITY"]{font-size:10px;letter-spacing:-.02em}
 }
+
+/* Publication chronology: visible on static cards, paginated cards and archives. */
+.story-timeline{display:flex;flex-wrap:wrap;align-items:center;gap:5px 13px;margin:8px 0 1px;font:650 11px/1.65 var(--jp);color:#69665f;font-variant-numeric:tabular-nums}
+.story-timeline .timeline-updated{color:#a24e29;font-weight:750}
+@media(max-width:700px){.story-timeline{font-size:10px;gap:3px 10px;margin:8px 0 0}}
 </style>
 <link rel="stylesheet" href="/assets/css/signal-interactions.css">
 <link rel="stylesheet" href="/assets/css/hero-market.css">
@@ -382,6 +387,29 @@ function signalMark(deep){
  return svg;
 }
 
+function dateTimeJst(value){
+ if(typeof value!=='string'||!/(Z|[+-]\\d{2}:\\d{2})$/.test(value))return null;
+ const d=new Date(value);
+ if(!Number.isFinite(d.getTime()))return null;
+ const parts=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(d).map(p=>[p.type,p.value]));
+ return parts.year+'-'+parts.month+'-'+parts.day+' '+parts.hour+':'+parts.minute;
+}
+function timelineNode(a){
+ const wrap=node('div',undefined,'story-timeline');
+ const published=typeof a.published_at==='string'?a.published_at:'';
+ const recorded=dateTimeJst(a.published_at_time);
+ const validRecorded=recorded&&recorded.slice(0,10)===published;
+ const pub=node('time',(validRecorded?'公開登録 ':'公開 ')+(validRecorded?recorded+' JST':published),'timeline-published');
+ pub.dateTime=validRecorded?a.published_at_time:published;wrap.append(pub);
+ const updated=dateTimeJst(a.updated_at);
+ const updatedText=updated||(/^\\d{4}-\\d{2}-\\d{2}$/.test(a.updated_at||'')?a.updated_at:null);
+ if(updatedText&&(!validRecorded||updatedText!==recorded)){
+  const item=node('time','更新 '+updatedText+(updated?' JST':''),'timeline-updated');
+  item.dateTime=a.updated_at;wrap.append(item);
+ }
+ return wrap;
+}
+
 function render(){
 // Keep the category buttons in place so selection preserves keyboard focus.
 if(!filters.children.length)categories.forEach(category=>{
@@ -428,7 +456,7 @@ selected.slice(0,visibleCount).forEach(a=>{
  const waveD='M0 16 H30 L42 16 L49 10 L57 23 L65 4 L73 29 L81 16 H120';
  for(const cls of ['link-wave-track','link-wave-live']){const path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d',waveD);path.classList.add(cls);signal.append(path)}
  const mark=node('span',undefined,'story-link-mark');mark.append(signal);link.append(copy,mark);
- body.append(link);card.append(head,body);root.append(card)
+ body.append(link);card.append(head,timelineNode(a),body);root.append(card)
 })}
 fetch('./data/index.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('data unavailable');return r.json()}).then(data=>{items=Array.isArray(data)?data.filter(a=>a.status==='published'&&(a.format==='special_story'||a.format==='management_guide'||a.score>=80)&&typeof a.id==='string'&&categories.includes(a.category)&&typeof a.source_url==='string'&&/^https:\/\//.test(a.source_url)):[];render()}).catch(()=>{moreButton.hidden=true});
 </script>

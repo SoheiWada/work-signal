@@ -1327,8 +1327,8 @@
   "20261029-happy-dom-html-parser-ssrf": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T02:08:32+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-10-29T02:08:34+00:00",
+      "stage": "publish_requested",
       "container_id": "18133047184690068"
     }
   }

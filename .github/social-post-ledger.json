@@ -1671,8 +1671,14 @@
   },
   "20261029-fuxa-nodered-auth-bypass-rce": {
     "threads": {
-      "status": "needs_review",
-      "updated_at": "2026-10-29T13:05:34+00:00"
+      "status": "attempting",
+      "updated_at": "2026-10-29T13:34:59+00:00",
+      "stage": "publish_requested",
+      "recovery_review_id": "fuxa-read-only-audit-40882728528-source-preview-20261029",
+      "previous_attempt": {
+        "status": "needs_review",
+        "updated_at": "2026-10-29T13:05:34+00:00"
+      }
     },
     "instagram_story": {
       "status": "published",

@@ -1272,5 +1272,11 @@
       "container_id": "18156469867488337",
       "remote_id": "18069558476786278"
     }
+  },
+  "20261029-apple-macbook-pro-touch-proled-xdr": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T01:33:53+00:00"
+    }
   }
 }

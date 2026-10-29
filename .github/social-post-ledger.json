@@ -1471,10 +1471,12 @@
   },
   "20261029-google-ai-mode-ads-ten-markets": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T06:38:59+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T06:39:07+00:00",
       "stage": "publish_requested",
-      "container_id": "18133075081690068"
+      "container_id": "18133075081690068",
+      "remote_id": "18118659962100406",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfEYflpnNBv"
     }
   }
 }

@@ -1300,10 +1300,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfD5akpHGM2"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T02:07:49+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T02:07:52+00:00",
       "stage": "publish_requested",
-      "container_id": "18156485704488337"
+      "container_id": "18156485704488337",
+      "remote_id": "17975472087176655"
     }
   }
 }

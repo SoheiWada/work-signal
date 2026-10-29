@@ -932,13 +932,14 @@ def build(output, feed=None):
         status = alert.get('status', '')
         status_line = ('<span class="sw-status">' + esc(status) + '</span>') if status and status != '対応・影響条件は記事を参照' else ''
         href = '/articles/' + esc(article['id']) + '/' if article else '/security/'
-        updated_label = '<span class="sw-updated">UPDATED</span>' if updated > alert['date'] else ''
+        chronology = article_timeline(article or {'published_at': alert['date']},
+                                      updated if updated > alert['date'] else None)
         return ('<a class="sw-item" href="' + href + '"><span class="sw-level sw-' + severity.lower()
                 + '">' + severity + '</span><span class="sw-copy">'
                 + '<span class="sw-product">' + product + '</span>'
                 + '<strong class="sw-headline">' + headline + '</strong>'
                 + '<span class="sw-summary">' + summary + '</span>' + status_line
-                + '</span><span class="sw-date">' + updated_label + esc(updated[:10]) + '</span></a>')
+                + '</span><span class="sw-date">' + chronology + '</span></a>')
     security_home = '<section class="sw-section" aria-labelledby="sw-title"><div class="sw-heading"><div><span class="sw-kicker">/ VERIFIED SECURITY INTELLIGENCE</span><h2 id="sw-title">SECURITY WATCH<span>.</span></h2><div class="sw-pulse" aria-hidden="true"><svg viewBox="0 0 480 24" preserveAspectRatio="none" focusable="false"><path class="sw-baseline" d="M0 12 H480"/><path class="sw-wave sw-wave-echo" d="M0 12 H160 L169 12 L175 8 L182 17 L190 4 L198 20 L206 12 H310 L316 9 L322 15 L328 12 H480"/><path class="sw-wave sw-wave-main" d="M0 12 H160 L169 12 L175 8 L182 17 L190 4 L198 20 L206 12 H310 L316 9 L322 15 L328 12 H480"/><rect class="sw-tear" x="0" y="9" width="480" height="4"/></svg></div><p>主要Web技術の脆弱性と修正情報。重要な記事更新もここで確認できます。</p></div></div><div class="sw-items">' + ''.join(security_card(row) for row in security_rows[:4]) + '</div><a class="sw-more" href="/security/"><span class="sw-more-noise" aria-hidden="true"></span><span class="sw-more-label">MORE SECURITY SIGNALS</span></a></section>'
     security_styles = """<style>
 .sw-archive-page{margin:0;min-height:100vh;background:radial-gradient(ellipse at 78% 0%,rgba(131,48,55,.30),transparent 52%),linear-gradient(145deg,#402225 0%,#261b20 46%,#17181d 100%);font-family:system-ui,sans-serif;color:#f5eee9}
@@ -1021,7 +1022,9 @@ def build(output, feed=None):
 .sw-copy .sw-headline{font:800 clamp(15px,1.5vw,18px)/1.45 system-ui,sans-serif;color:#191918;letter-spacing:-.025em;overflow-wrap:anywhere}
 .sw-copy .sw-summary{font:400 12px/1.62 system-ui,sans-serif;color:#68645e;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .sw-copy .sw-status{align-self:flex-start;padding:3px 8px;border-radius:2px;background:#ebe5dc;color:#51433a;font:700 10px/1.45 system-ui,sans-serif}
-.sw-date{margin-top:7px;line-height:1.6}
+.sw-date{margin-top:7px;line-height:1.65;white-space:normal;text-align:right}
+.sw-date .article-timeline{display:flex;flex-direction:column;align-items:flex-end;gap:3px;font-size:10px;color:#68625d;font-variant-numeric:tabular-nums}
+.sw-date .timeline-updated{color:#a05b23;font-weight:750}
 .sw-archive-page .sw-copy .sw-headline{color:#191918}
 .sw-archive-page .sw-copy .sw-product{color:#514a43}
 .sw-archive-page .sw-copy .sw-summary{color:#504a45}

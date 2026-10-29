@@ -1,5 +1,38 @@
 [
   {
+    "id": "20261029-google-connected-apps-mcp-platform-preview",
+    "title": "Google、Geminiと検索にアプリをつなぐ共通基盤を公開。MCP連携の開発窓口を一本化",
+    "summary": "Googleは2026年10月28日、GeminiアプリとGoogle検索に外部サービスを連携させる開発者向け「Connected Apps Platform」のプレビューを発表した。クラウドMCPサーバーやAndroidのAppFunctionsを利用し、共通コンソールから登録・テスト・審査申請ができる。参加は段階的で、すべての開発者や地域に一斉提供されるわけではない。",
+    "category": "AI",
+    "score": 87,
+    "published_at": "2026-10-29",
+    "published_at_time": "2026-10-29T05:07:20.271Z",
+    "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/connected-apps-one-place/",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Googleは2026年10月28日、GeminiアプリとGoogle検索に外部サービスを連携させる開発者向け「Connected Apps Platform」のプレビューを発表した。クラウドMCPサーバーやAndroidのAppFunctionsを利用し、共通コンソールから登録・テスト・審査申請ができる。参加は段階的で、すべての開発者や地域に一斉提供されるわけではない。",
+    "sections": [
+      {
+        "title": "Geminiと検索に、共通の接続窓口",
+        "body": "Googleが発表したConnected Apps Platformは、開発者が自社サービスをGeminiアプリやGoogle検索につなぐための共通基盤だ。従来のようにサービスごとに個別の接続方法を考える負担を減らし、ひとつの連携経路から対象のGoogle製品に機能を届けることを目指す。Googleは2026年10月28日付の公式発表で、同プラットフォームのプレビューを開始したと説明している。\n\n技術的には、クラウドで動くMCPサーバー、またはAndroidのAppFunctions APIを用いたAndroid MCPに対応する。Google Connected Consoleからアプリの登録、テスト、提出を行い、審査前にGoogle検索・Geminiアプリのどちらへ公開するかを選択できる。公開後にはトラフィック、遅延、エラー率を確認できるという。"
+      },
+      {
+        "title": "利用者は、会話からサービスの操作へ",
+        "body": "Googleの開発者向け資料によると、利用者が外部サービスとの接続を許可すると、対応するGoogle製品の会話の中から、そのサービスのアカウント情報や操作機能を利用できる。つまりAIの役割が「情報を案内する」ことにとどまらず、許可された外部サービスで具体的な行動を支援する方向へ広がる。\n\nGoogleは検索とGeminiの合計で50を超えるConnected Appsをすでに展開していると説明する。Adobe、Experian、Localiza、Pelotonなどの連携がGeminiで利用でき、検索への展開も今後進めるとしている。ただし、これらはGoogleの発表時点の説明であり、個々の機能が日本国内の全利用者に提供済みであることを意味しない。"
+      },
+      {
+        "title": "開発者と企業が確認すべきこと",
+        "body": "企業や小規模サービスの開発者にとって、AIアシスタントと検索が新たな利用接点になる可能性がある。検討する際は、利用者がどの情報や操作を許可するか、認証・権限管理をどう設計するか、実行エラーをどのように監視するかを先に整理したい。Googleの公式開発資料は、クラウドMCPサーバーでのOAuth 2.1認可に関する案内も示している。\n\nただし、今回の発表は開発者向けプレビューであり、参加受付や対象地域の拡大は段階的だ。すべての開発者がすぐ公開できる、導入すれば集客が増える、すべての外部アプリを自由に操作できる、といった効果は確認されていない。まずは公式ドキュメントで参加条件と技術要件を確認する段階にある。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ]
+  },
+  {
     "id": "20261029-re2js-lookbehinds-quadratic-dos",
     "title": "re2jsのLOOKBEHINDS処理にHIGH脆弱性、反復マッチングでCPU停止の恐れ",
     "summary": "Node.js向け正規表現ライブラリre2jsで、明示的にLOOKBEHINDSを有効化した反復マッチングがCPUを過剰消費するHIGH脆弱性が確認された。影響は2.2.0以上2.8.7未満。開発元は2.8.7で修正し、外部入力を処理するサーバーでの更新と利用箇所の点検が求められる。",

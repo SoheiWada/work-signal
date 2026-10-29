@@ -1276,7 +1276,9 @@
   "20261029-apple-macbook-pro-touch-proled-xdr": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T01:33:53+00:00"
+      "updated_at": "2026-10-29T01:33:56+00:00",
+      "stage": "container_created",
+      "container_id": "18133043050690068"
     }
   }
 }

@@ -1326,10 +1326,12 @@
   },
   "20261029-happy-dom-html-parser-ssrf": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T02:08:34+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T02:08:45+00:00",
       "stage": "publish_requested",
-      "container_id": "18133047184690068"
+      "container_id": "18133047184690068",
+      "remote_id": "18101132477433347",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfD5jGTjgZ7"
     }
   }
 }

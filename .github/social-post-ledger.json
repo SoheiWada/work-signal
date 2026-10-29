@@ -1588,10 +1588,12 @@
   },
   "20261029-anthropic-ai-for-science-20-partners": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T10:57:18+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T10:57:25+00:00",
       "stage": "publish_requested",
-      "container_id": "18133101799690068"
+      "container_id": "18133101799690068",
+      "remote_id": "18133158568759002",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfE2Dr_oARh"
     }
   }
 }

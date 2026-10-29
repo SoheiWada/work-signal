@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261030-wordpress-auth-plugin-two-high-bypasses",
+    "title": "WordPress認証連携プラグイン2件に未修正HIGH、アカウント乗っ取りの恐れ",
+    "summary": "WordPressの認証連携プラグイン「SSL Wireless SMS Notification」と「Wild Apricot Login」に、アカウント乗っ取りにつながる2件のHIGH脆弱性が公表された。前者はSMS認証の検証不足、後者は特定のMultisite環境でのSSOアカウント紐付け不備が問題だ。10月29日時点で両件とも修正版が確認できず、利用サイトは停止・代替認証への移行を優先したい。",
+    "category": "SECURITY",
+    "score": 86,
+    "published_at": "2026-10-30",
+    "published_at_time": "2026-10-29T22:59:12.740Z",
+    "source_url": "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ssl-wireless-sms-notification/ssl-wireless-sms-notification-381-unauthenticated-authentication-bypass-to-account-takeover",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "WordPressの認証連携プラグイン「SSL Wireless SMS Notification」と「Wild Apricot Login」に、アカウント乗っ取りにつながる2件のHIGH脆弱性が公表された。前者はSMS認証の検証不足、後者は特定のMultisite環境でのSSOアカウント紐付け不備が問題だ。10月29日時点で両件とも修正版が確認できず、利用サイトは停止・代替認証への移行を優先したい。",
+    "sections": [
+      {
+        "title": "SMSのワンタイムコードを検証せずログインできる恐れ",
+        "body": "Wordfenceは2026年10月28日、WordPressプラグイン「SSL Wireless SMS Notification」のCVE-2026-96228を公表し、29日に更新した。対象は3.8.1以前、CVSS v3.1は8.1（HIGH）。公式勧告によると、公開されたログイン処理がSMSのワンタイムコードやサーバー側の一度限りの認証状態を十分に検証せず、攻撃者が指定した電話番号などの値でアカウントを特定して認証済みセッションを発行する可能性がある。電話番号を知っていることなどの条件を満たすと、ログインしていない攻撃者によるアカウント乗っ取りにつながる恐れがある。これはWordPress本体ではなく、特定プラグインの問題だ。"
+      },
+      {
+        "title": "SSOのメールアドレス一致で別アカウントに紐付く問題",
+        "body": "もう1件のCVE-2026-93757は「Wild Apricot Login」1.0.18以前が対象で、CVSS v3.1は7.5（HIGH）。Wordfenceによると、WildApricotの連絡先IDとの紐付けが見つからない際、WordPress側でメールアドレスが一致する既存ユーザーを探してログインを許可する処理が問題になる。パス型のWordPress Multisite環境で、攻撃者が標的管理者と同じメールアドレスのWildApricot会員情報を制御でき、該当SSOフローを実行できる場合、サブサイト管理者になりすませる恐れがある。すべてのWordPressサイトで無条件に成立するわけではない。"
+      },
+      {
+        "title": "両プラグインは配布停止中、修正版は未確認",
+        "body": "Wordfenceの両勧告は「Patched? No」とし、既知の修正版はないと明記している。WordPress.orgの配布ページには、SSL Wireless SMS Notificationは2026年10月23日から、Wild Apricot Loginは同20日からダウンロード停止と表示されている。掲載されているバージョンはそれぞれ3.8.1と1.0.18である。ただし、配布停止の理由はページ上で明示されていない。配布停止が今回の脆弱性を直接の理由としたものかどうかは断定できない。"
+      },
+      {
+        "title": "運用者が今確認すべきこと",
+        "body": "対象プラグインを導入している場合、Wordfenceは修正版がない状況で削除や代替策を検討するよう案内している。管理者は稼働中のプラグインとバージョンを確認し、該当する認証経路を停止して安全な代替手段へ移行することを優先したい。あわせて管理者・一般ユーザーの不審なログインや変更を点検する。Wild Apricot Loginについては、Multisite構成とSSO連携のアカウント紐付け方法も確認する。現時点で実環境での悪用が確認されたという情報はなく、未確認の修正版や被害件数を前提に判断しないことが重要だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "SSL Wireless SMS Notification（WordPressプラグイン）／Wild Apricot Login（WordPressプラグイン）",
+    "social_security_action": "該当プラグインを使用中なら停止・削除し、代替の認証方式へ切り替えることを優先。管理者を含む利用者アカウント、ログイン履歴、予期しないユーザー変更を点検。Wild Apricot Loginでは特にパス型Multisite構成とSSOのメール一致を確認。未確認の修正版番号は提示しない。"
+  },
+  {
     "id": "20261029-wordpress-telegram-plugin-account-takeover",
     "title": "WordPressのTelegram連携プラグインにCRITICAL 9.8、管理者アカウント乗っ取りの恐れ",
     "summary": "WordPressのTelegram連携プラグイン「Bot for Telegram on WooCommerce」で、認証なしに管理者を含む利用者のアカウントを乗っ取れる恐れがある脆弱性CVE-2026-109516が公表された。深刻度はCRITICAL、CVSS 9.8。影響は1.3.0以前で、10月29日時点で確認できる修正版はない。導入サイトではプラグインの停止・削除と不審なログインの確認を急ぎたい。",

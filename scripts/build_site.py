@@ -269,6 +269,40 @@ def json_ld(value):
             ">", "\\u003e").replace("&", "\\u0026") + '</script>'
 
 
+def _clock_text(value):
+    """Render a recorded, timezone-aware timestamp in Japan time; never infer an hour."""
+    if not isinstance(value, str) or not value:
+        return None
+    try:
+        moment = datetime.fromisoformat(value.replace('Z', '+00:00'))
+        if moment.tzinfo is None:
+            return None
+        return moment.astimezone(timezone(__import__('datetime').timedelta(hours=9))).strftime('%Y-%m-%d %H:%M')
+    except ValueError:
+        return None
+
+
+def article_timeline(article, modified_at=None, *, compact=False):
+    """Accessible publication/actual-content-update labels for cards and alerts."""
+    published = article['published_at']
+    recorded = _clock_text(article.get('published_at_time'))
+    # A commit timestamp is a recording time, not the exact Pages availability.
+    if recorded and recorded[:10] != published:
+        recorded = None
+    created_text = recorded or published
+    updated = modified_at or article.get('updated_at')
+    update_text = _clock_text(updated) or (updated if isinstance(updated, str) and
+                                          re.fullmatch(r'\\d{4}-\\d{2}-\\d{2}', updated) else None)
+    created_label = ('公開登録 ' if recorded else '公開 ') + created_text + (' JST' if recorded else '')
+    first = '<time class="timeline-published" datetime="' + esc(recorded and article['published_at_time'] or published) + '">' + esc(created_label) + '</time>'
+    if update_text and (not recorded or update_text != recorded):
+        second = '<time class="timeline-updated" datetime="' + esc(updated) + '">更新 ' + esc(update_text) + (' JST' if _clock_text(updated) else '') + '</time>'
+    else:
+        second = ''
+    cls = 'story-timeline' if compact else 'article-timeline'
+    return '<div class="' + cls + '">' + first + second + '</div>'
+
+
 def published_articles(data):
     if not isinstance(data, list):
         raise ValueError("Article feed must be a list")
@@ -408,7 +442,8 @@ def article_card(article):
             '<span class="story-format">' + story_icon(deep)
             + '<span class="story-format-label">' + form + '</span></span>'
             '</div><span class="story-readtime">' + minutes + '</span></div>'
-            '<div class="story-content"><h3>' + esc(article["title"]) + '</h3>'
+            + article_timeline(article, compact=True)
+            + '<div class="story-content"><h3>' + esc(article["title"]) + '</h3>'
             + article_card_image(article) + '<p>' + esc(article["summary"])
             + '</p>' + story_link(article) + '</div></article>')
 

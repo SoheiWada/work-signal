@@ -12,6 +12,12 @@ class TimelineTests(unittest.TestCase):
         self.assertNotIn("00:00", html)
         self.assertNotIn("更新 ", html)
 
+    def test_existing_first_git_registration_time_uses_jst(self):
+        article = {"published_at": "2026-10-29",
+                   "first_registered_at": "2026-10-29T09:12:23+09:00"}
+        html = article_timeline(article, compact=True)
+        self.assertIn("公開登録 2026-10-29 09:12 JST", html)
+
     def test_recorded_publication_clock_uses_japan_time(self):
         a = {"published_at": "2026-10-29",
              "published_at_time": "2026-10-29T00:15:21Z"}

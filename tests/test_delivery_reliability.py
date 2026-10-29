@@ -83,6 +83,7 @@ class DeliveryReliabilityTests(unittest.TestCase):
               patch.object(p, "publish_threads", side_effect=link_error) as publish,
               patch.object(p, "threads_live_history_matches",
                            side_effect=RuntimeError("Incomplete timeline")),
+              patch.object(p, "verify_threads_delivery", return_value=None),
               patch.object(p, "verify_threads_source_preview") as source):
             self.assertEqual(p.run([a], ledger, self.credentials), 1)
         publish.assert_called_once()

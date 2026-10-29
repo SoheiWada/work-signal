@@ -1366,10 +1366,11 @@
       "container_id": "18133066864690068"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T05:11:47+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T05:11:50+00:00",
       "stage": "publish_requested",
-      "container_id": "18156531787488337"
+      "container_id": "18156531787488337",
+      "remote_id": "18105296252334991"
     }
   }
 }

@@ -1317,10 +1317,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfD5e7EDora"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T02:08:23+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T02:08:27+00:00",
       "stage": "publish_requested",
-      "container_id": "18156485929488337"
+      "container_id": "18156485929488337",
+      "remote_id": "17955515490036409"
     }
   }
 }

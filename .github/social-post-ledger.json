@@ -1396,10 +1396,11 @@
       "container_id": "18133066906690068"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T05:12:44+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T05:12:48+00:00",
       "stage": "publish_requested",
-      "container_id": "18156532021488337"
+      "container_id": "18156532021488337",
+      "remote_id": "18089648057704930"
     }
   }
 }

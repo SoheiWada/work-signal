@@ -1836,10 +1836,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfGPT1KEZ6S"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T23:57:39+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T23:57:44+00:00",
       "stage": "publish_requested",
-      "container_id": "18156849889488337"
+      "container_id": "18156849889488337",
+      "remote_id": "18077140241565609"
     }
   }
 }

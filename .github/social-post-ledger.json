@@ -1596,10 +1596,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfE2Dr_oARh"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T10:57:39+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T10:57:42+00:00",
       "stage": "publish_requested",
-      "container_id": "18156619891488337"
+      "container_id": "18156619891488337",
+      "remote_id": "18141318880723269"
     }
   }
 }

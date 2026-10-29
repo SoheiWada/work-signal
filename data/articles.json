@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261030-wordpress-plugin-rce-account-takeover",
+    "title": "WordPressプラグイン2件にCRITICAL 9.8、認証不要のRCEと管理者アカウント奪取",
+    "summary": "WordPress向けの「Chat AI with Dispatcher」と「LogixFast Auth」に、認証不要の攻撃でサイトを侵害する恐れがある別々の脆弱性が公表された。前者はPHPファイルの不正アップロードによるコード実行、後者はパスワードリセット用コードの誤送信による管理者アカウント奪取が問題となる。両件のCISA ADP評価はCVSS 9.8だ。",
+    "category": "SECURITY",
+    "score": 86,
+    "published_at": "2026-10-30",
+    "published_at_time": "2026-10-29T23:48:34.368Z",
+    "source_url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/115xxx/CVE-2026-115245.json",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "WordPress向けの「Chat AI with Dispatcher」と「LogixFast Auth」に、認証不要の攻撃でサイトを侵害する恐れがある別々の脆弱性が公表された。前者はPHPファイルの不正アップロードによるコード実行、後者はパスワードリセット用コードの誤送信による管理者アカウント奪取が問題となる。両件のCISA ADP評価はCVSS 9.8だ。",
+    "sections": [
+      {
+        "title": "Chat AI with Dispatcher：アップロードの検証不足でPHPを受け入れる恐れ",
+        "body": "WPScanがCNAとして2026年10月29日に公表したCVE-2026-115245は、WordPressプラグイン「Chat AI with Dispatcher」の2.4未満に影響する。アップロードファイルの検証で、クライアント側から送られる偽装可能なContent-Type情報に依存しているため、認証されていない攻撃者がPHPを含む任意ファイルをアップロードでき、遠隔コード実行につながる恐れがある。これはプラグイン固有の問題で、WordPress本体に同じ欠陥があるという意味ではない。"
+      },
+      {
+        "title": "LogixFast Auth：パスワード再設定コードが別のメールアドレスへ",
+        "body": "CVE-2026-113616は「LogixFast Auth」の1.0.4未満が対象。パスワードリセット時に、対象アカウントに登録されたメールアドレスではなく、リクエストで指定されたメールアドレスへワンタイムコードを送る欠陥があった。これにより認証不要の攻撃者が管理者を含むユーザーのパスワードを再設定し、アカウントを乗っ取る恐れがある。開発元のWordPress.org公式変更履歴は1.0.4で「コードをアカウント登録メールアドレスにのみ送る」と明記している。"
+      },
+      {
+        "title": "深刻度は両件ともCRITICAL 9.8",
+        "body": "WPScanのCVE登録情報に付随するCISA ADPのVulnrichmentレコードでは、両CVEにCVSS v3.1 9.8（CRITICAL）が付与されている。いずれもネットワーク経由、認証不要、ユーザー操作不要の条件で高い機密性・完全性・可用性への影響が評価されている。ただしスコアは技術的な深刻度を示すもので、悪用が既に発生したという証拠ではない。CISA ADPのSSVC情報では両件とも確認された悪用を示していない。"
+      },
+      {
+        "title": "影響製品を限定し、修正版と痕跡を確認する",
+        "body": "Chat AI with Dispatcher利用サイトは2.4以降への更新可否を確認し、アップロード領域の不審なPHPファイルを点検する。LogixFast Auth利用サイトは1.0.4以降に更新し、管理者の不審なパスワード再設定・ログインを確認する。前者の2.4については脆弱性調査会社Patchstackが修正版として案内しているが、今回の調査では開発元配布画面を直接確認できていない。適用できない場合は該当プラグインを停止し、代替手段を検討する。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Chat AI with Dispatcher、LogixFast Auth（いずれもWordPressプラグイン）",
+    "social_security_action": "前者を2.4以降、後者を1.0.4以降に更新し、適用できない場合は該当機能を停止。アップロードされた不審なPHPファイルや管理者アカウント・パスワードリセット履歴を点検"
+  },
+  {
     "id": "20261030-sophos-utm-preauth-root-rce",
     "title": "Sophos UTMにCRITICAL 9.2、認証不要のroot権限RCEとEOL製品への手動パッチ要請",
     "summary": "Sophosは2026年10月28日、サポートを終了した統合セキュリティ製品「Sophos UTM」に、認証不要でroot権限の任意コマンド実行につながる重大な脆弱性CVE-2026-118633があると公表した。メールプロキシのスキャン機能を使う環境が対象で、同社は手動パッチの早急な適用を要請している。",

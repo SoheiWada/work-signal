@@ -1496,10 +1496,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfEetvSFW_r"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T07:33:42+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T07:33:46+00:00",
       "stage": "publish_requested",
-      "container_id": "18156564613488337"
+      "container_id": "18156564613488337",
+      "remote_id": "18115532762146296"
     }
   }
 }

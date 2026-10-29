@@ -1842,5 +1842,11 @@
       "container_id": "18156849889488337",
       "remote_id": "18077140241565609"
     }
+  },
+  "20261030-wordpress-plugin-rce-account-takeover": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-29T23:57:46+00:00"
+    }
   }
 }

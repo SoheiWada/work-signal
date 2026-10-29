@@ -1275,10 +1275,12 @@
   },
   "20261029-apple-macbook-pro-touch-proled-xdr": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-29T01:33:58+00:00",
+      "status": "published",
+      "updated_at": "2026-10-29T01:34:11+00:00",
       "stage": "publish_requested",
-      "container_id": "18133043050690068"
+      "container_id": "18133043050690068",
+      "remote_id": "17988162221882413",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfD1luwDC8i"
     }
   }
 }

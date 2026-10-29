@@ -1,5 +1,42 @@
 [
   {
+    "id": "20261029-openai-chatgpt-pro-business-api-credits",
+    "title": "ChatGPT Pro・BusinessにAPI利用クレジット、最大月500ドル。対象と条件を整理",
+    "summary": "OpenAIは2026年10月28日、対象のChatGPT Pro・Business契約者が、AIアプリやエージェントの開発に使えるAPIクレジットを受け取れる特典を案内した。Proは月100〜500ドル、Businessは有料席数に応じて計算され、月500ドルが上限。ただし申請とAPI組織の連携が必要で、Plusなどは対象外となる。",
+    "category": "AI",
+    "score": 91,
+    "published_at": "2026-10-29",
+    "published_at_time": "2026-10-29T13:10:05.721Z",
+    "source_url": "https://developers.openai.com/api/docs/guides/chatgpt-api-credits",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "OpenAIは2026年10月28日、対象のChatGPT Pro・Business契約者が、AIアプリやエージェントの開発に使えるAPIクレジットを受け取れる特典を案内した。Proは月100〜500ドル、Businessは有料席数に応じて計算され、月500ドルが上限。ただし申請とAPI組織の連携が必要で、Plusなどは対象外となる。",
+    "sections": [
+      {
+        "title": "ChatGPT契約とAPI開発の間に新しい特典",
+        "body": "OpenAIは10月28日付のChatGPTリリースノートで、対象のPro・Business契約者にAPIクレジット特典を設けたと案内した。これまで別々の請求体系だったChatGPTとAPI Platformのうち、後者で使える利用枠を、条件を満たす有料契約者が受け取れる仕組みだ。AIアプリや業務用エージェントを試作する際のAPI利用料に充当できる。ただし、ChatGPTそのものの利用枠が増えるわけではない。"
+      },
+      {
+        "title": "Proは月100〜500ドル、Businessは席数で計算",
+        "body": "OpenAIの公式開発者文書によると、Pro 100は月100ドル、Pro 200は月200ドル、Pro 500は月500ドルのAPIクレジットが対象となる。Business Standardは有料席当たり20ドル、Business Premiumは100ドルで計算し、同一ワークスペースの月額上限は合計500ドル。Businessで年額一括払いをしている場合は、年間分をまとめて付与する仕組みもある。\n\n例えばBusiness Standardが5席なら、通常の満額期間で100ドル相当となる。ただし初回付与額は現在の請求期間の残りに応じて按分されるため、表示された満額がそのまま最初に受け取れるとは限らない。"
+      },
+      {
+        "title": "自動的に使えるわけではない。所有者による申請が必要",
+        "body": "対象は7日以上継続している有料のProまたはBusiness契約で、ChatGPT側の契約・ワークスペースと受け取り先のAPI組織の両方でオーナー権限が必要となる。アカウントのメールアドレスも一致させる必要がある。契約者はChatGPTの請求設定、またはAPI PlatformのBillingから対象組織を指定して有効化する。\n\nPlus、Go、Free、Enterprise、Eduは今回の特典の対象として示されていない。未使用分は原則として請求期間末に失効し、翌月へ繰り越せない。クレジットを使い切った後は、別途購入済み残高がなければAPIリクエストが停止する。API利用には引き続きレート制限がある。"
+      },
+      {
+        "title": "小さな業務改善の試作費用を抑えられる可能性",
+        "body": "ここからはWORK SIGNALの考察だ。例えば、社内の文書分類、問い合わせの一次整理、議事録の要点抽出といった業務ツールを試す場合、従来はChatGPTの契約とは別にAPI利用料を予算化する必要があった。対象契約者なら、一定範囲の試作・検証費用を特典で賄える可能性がある。\n\nもっとも、開発の工数、個人情報の管理、モデルの精度評価、運用監視などのコストはなくならない。特典の有無だけで本番導入を決めず、必要な権限、月間使用量、利用期間を確認することが大切だ。今回の発表は「AIを使う契約」から「AIを組み込む開発」へ進む人にとって、費用面の選択肢が一つ増えたニュースといえる。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ]
+  },
+  {
     "id": "20261029-fuxa-nodered-auth-bypass-rce",
     "title": "FUXAのNode-RED連携にCRITICAL認証回避、未認証RCEの恐れ",
     "summary": "産業向けWeb HMI「FUXA」のNode-RED連携で、認証を回避して遠隔からコードを実行できる恐れがある脆弱性CVE-2026-42922が、2026年10月29日にCisco Talosから公表された。重大度はCVSS 9.8のCRITICAL。開発元はFUXA v1.3.3で対処したと回答しており、Node-RED連携を有効化した運用環境ではバージョンとアクセス制御の確認が急がれる。",

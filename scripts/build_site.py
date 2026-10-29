@@ -5,7 +5,7 @@ import json
 import re
 import shutil
 import math
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from functools import lru_cache
 from pathlib import Path
 from urllib.parse import urlencode, urlparse
@@ -277,7 +277,7 @@ def _clock_text(value):
         moment = datetime.fromisoformat(value.replace('Z', '+00:00'))
         if moment.tzinfo is None:
             return None
-        return moment.astimezone(timezone(__import__('datetime').timedelta(hours=9))).strftime('%Y-%m-%d %H:%M')
+        return moment.astimezone(timezone(timedelta(hours=9))).strftime('%Y-%m-%d %H:%M')
     except ValueError:
         return None
 
@@ -876,9 +876,13 @@ def write_rss(output, articles):
 def build(output, feed=None):
     if output.resolve() == ROOT.resolve() or ROOT.resolve().is_relative_to(output.resolve()):
         raise ValueError("Output must not overwrite the source repository")
-    articles = published_articles(feed if feed is not None else json.loads((ROOT / 'data/articles.json').read_text()))
+    articles = [dict(a) for a in published_articles(feed if feed is not None else json.loads((ROOT / 'data/articles.json').read_text()))]
     history = article_modifications(ROOT)
     modified = {item['id']: modification_date(item, history) for item in articles}
+    # Derive update times from substantive Git history without mutating approved source.
+    for item in articles:
+        if modified[item['id']]:
+            item['updated_at'] = modified[item['id']]
     if output.exists():
         shutil.rmtree(output)
     output.mkdir(parents=True)
@@ -1096,7 +1100,7 @@ def build(output, feed=None):
         destination.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / page / 'index.html', destination / 'index.html')
     (output / 'data/articles.json').write_text(json.dumps(articles, ensure_ascii=False, indent=2) + '\n')
-    listing_fields = ('id', 'title', 'summary', 'category', 'format', 'score', 'status', 'source_url', 'card_image', 'card_image_alt')
+    listing_fields = ('id', 'title', 'summary', 'category', 'format', 'score', 'status', 'source_url', 'published_at', 'published_at_time', 'updated_at', 'card_image', 'card_image_alt')
     listing = [{key: article[key] for key in listing_fields if key in article} for article in articles]
     (output / 'data/index.json').write_text(json.dumps(listing, ensure_ascii=False, separators=(',', ':')) + '\n')
     infographic = ROOT / 'assets/infographics/php2shell-explainer.svg'

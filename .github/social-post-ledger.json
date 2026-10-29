@@ -1589,8 +1589,8 @@
   "20261029-anthropic-ai-for-science-20-partners": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-29T10:57:17+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-10-29T10:57:18+00:00",
+      "stage": "publish_requested",
       "container_id": "18133101799690068"
     }
   }

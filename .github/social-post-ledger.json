@@ -2019,10 +2019,11 @@
       "updated_at": "2026-10-30T01:01:15+00:00"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T01:01:28+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T01:01:31+00:00",
       "stage": "publish_requested",
-      "container_id": "18156860659488337"
+      "container_id": "18156860659488337",
+      "remote_id": "18130747501894210"
     }
   }
 }

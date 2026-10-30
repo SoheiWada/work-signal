@@ -287,6 +287,25 @@ def _clock_text(value):
         return None
 
 
+def security_publication_sort_key(row):
+    """Sort SECURITY WATCH by first publication, not subsequent content edits.
+
+    Explicit original publication timestamps and first Git registrations have
+    minute-level precision. Fallback dates are considered midnight JST rather
+    than inventing an exact publication hour. Same-date ties are deterministic.
+    """
+    _last_update, alert, article = row
+    published = (article.get('published_at') if article else None) or alert['date']
+    jst = timezone(timedelta(hours=9))
+    first = datetime.combine(date.fromisoformat(published), datetime.min.time(), tzinfo=jst)
+    recorded = ((article.get('published_at_time') or article.get('first_registered_at'))
+                if article else None)
+    clock = _clock_text(recorded)
+    if clock and clock[:10] == published:
+        first = datetime.fromisoformat(recorded.replace('Z', '+00:00')).astimezone(jst)
+    return (first, alert.get('article_id') or alert.get('id', ''))
+
+
 def article_timeline(article, modified_at=None, *, compact=False):
     """Accessible publication/actual-content-update labels for cards and alerts."""
     published = article['published_at']
@@ -1039,7 +1058,8 @@ def build(output, feed=None):
         article = next((item for item in articles if item['id'] == article_id), None)
         update_date = (modified.get(article_id) if article else None) or alert['date']
         security_rows.append((update_date, alert, article))
-    security_rows.sort(key=lambda row: (row[0], row[1]['date']), reverse=True)
+    # Updates remain visible in each card but never reorder the publication timeline.
+    security_rows.sort(key=security_publication_sort_key, reverse=True)
     def security_card(row):
         updated, alert, article = row
         severity = esc(alert['severity'])
@@ -1195,7 +1215,7 @@ def build(output, feed=None):
         + security_styles + listing_analytics(index) + '</head><body class="sw-archive-page">'
         + '<main class="sw-archive-main"><p class="sw-back"><a href="/"><span class="sw-back-noise" aria-hidden="true"></span><span class="sw-back-label"><span class="sw-back-small">BACK TO</span><span class="sw-back-brand">WORK<span class="sw-back-dot">.</span>SIGNAL<span class="sw-back-reg">®</span></span></span></a></p>'
         + '<section class="sw-section sw-archive"><div class="sw-heading sw-archive-heading"><span class="sw-archive-noise" aria-hidden="true"></span><span class="sw-archive-grid" aria-hidden="true"></span><div class="sw-archive-copy"><span class="sw-archive-index" aria-hidden="true">WS / 01 — THREAT INTELLIGENCE</span><span class="sw-kicker">/ VERIFIED SECURITY INTELLIGENCE</span>'
-        + '<h1>SECURITY<br>WATCH<span>.</span></h1><p>公式情報に基づく脆弱性アラート。更新日順に表示。</p></div><div class="sw-archive-monitor" aria-hidden="true"><span class="sw-monitor-label">SIGNAL / MONITORING</span><svg viewBox="0 0 260 100" preserveAspectRatio="none"><path class="sw-monitor-axis" d="M0 50H260M0 25H260M0 75H260"/><path class="sw-monitor-trace" d="M0 50H60L68 46L74 56L82 12L91 90L100 50H148L155 43L162 62L171 50H260"/></svg><span class="sw-monitor-foot">CONTINUOUS OBSERVATION · VERIFIED SOURCES</span></div></div><div class="sw-items">'
+        + '<h1>SECURITY<br>WATCH<span>.</span></h1><p>公式情報に基づく脆弱性アラート。初回公開日時の新しい順に表示。更新情報は各記事に記載。</p></div><div class="sw-archive-monitor" aria-hidden="true"><span class="sw-monitor-label">SIGNAL / MONITORING</span><svg viewBox="0 0 260 100" preserveAspectRatio="none"><path class="sw-monitor-axis" d="M0 50H260M0 25H260M0 75H260"/><path class="sw-monitor-trace" d="M0 50H60L68 46L74 56L82 12L91 90L100 50H148L155 43L162 62L171 50H260"/></svg><span class="sw-monitor-foot">CONTINUOUS OBSERVATION · VERIFIED SOURCES</span></div></div><div class="sw-items">'
         + ''.join(security_card(row) for row in security_rows)
         + '</div></section></main></body></html>')
     security_dir = output / 'security'

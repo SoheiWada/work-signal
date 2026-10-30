@@ -55,6 +55,12 @@ class RelatedArticlesTests(unittest.TestCase):
         second = article('b', 'Bunの使い方')
         self.assertEqual(related_articles(first, [first, second]), [])
 
+    def test_legacy_brief_with_null_sections_can_match_a_cve_followup(self):
+        first = article('brief', '旧形式の記事', sections=None,
+                        what_happened='CVE-2026-123456の問題')
+        second = article('followup', '続報の解説', quick_take='CVE-2026-123456を修正')
+        self.assertEqual([x['id'] for x in related_articles(first, [first, second])], ['followup'])
+
     def test_archive_analytics_reuses_existing_configuration_once(self):
         template = (ROOT / 'index.html').read_text()
         page = archive_page([article('a', 'テスト')], 1, template)

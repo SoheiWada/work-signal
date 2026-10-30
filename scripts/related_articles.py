@@ -42,9 +42,12 @@ def features(article):
     # the same product. Do not extract arbitrary keywords from those URLs.
     lead = ' '.join(str(article.get(k) or '') for k in
                     ('title', 'summary', 'social_security_product'))
-    body = lead + ' ' + ' '.join(str(section.get('body') or '')
-                                for section in article.get('sections', [])
-                                if isinstance(section, dict))
+    body = lead + ' ' + ' '.join(str(article.get(key) or '') for key in
+                                ('quick_take', 'what_happened', 'why_it_matters',
+                                 'impact', 'caveats', 'social_security_cve'))
+    body += ' ' + ' '.join(str(section.get('body') or '')
+                          for section in (article.get('sections') or [])
+                          if isinstance(section, dict))
     products = {key for key, pattern in PATTERNS.items() if pattern.search(lead)}
     source = urlparse(article.get('source_url', ''))
     parts = source.path.strip('/').split('/')

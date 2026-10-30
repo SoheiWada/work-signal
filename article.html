@@ -112,6 +112,17 @@ for(const [name,value] of [['twitter:title',document.title],['twitter:descriptio
 }
 
 
+function securityWatchReturn(a,position){
+ if(a.category!=='SECURITY')return null;
+ const nav=el('nav',undefined,'security-watch-return security-watch-return--'+position);
+ nav.setAttribute('aria-label','SECURITY WATCHへ戻る');
+ const link=el('a',undefined);link.href='/security/';
+ link.setAttribute('aria-label','SECURITY WATCHの記事一覧へ戻る');
+ const arrow=el('span','←','security-watch-return-arrow');arrow.setAttribute('aria-hidden','true');
+ link.append(arrow,el('span','SECURITY WATCH一覧へ戻る'));nav.append(link);
+ return nav;
+}
+
 function articleEnd(a,isPreview){
  const section=el('section',undefined,'article-end'+(isPreview?' article-end--preview':''));
  section.id='article-end';
@@ -145,6 +156,7 @@ function articleEnd(a,isPreview){
    feedback.setAttribute('data-share-feedback','');feedback.setAttribute('role','status');feedback.setAttribute('aria-live','polite');share.append(feedback);
    grid.append(share);
  }
+ if(a.category==='SECURITY')grid.append(securityWatchReturn(a,'end'));
  const returnLink=el('a',undefined,'article-return');returnLink.href='/#latest';
  returnLink.setAttribute('aria-label','記事一覧のALL SIGNALSへ戻る');
  returnLink.append(el('span','BACK TO THE INDEX / FIND THE NEXT SIGNAL','article-return-sub'));
@@ -179,7 +191,7 @@ function addWageWidgets(content){
 }
 function render(a){
 root.replaceChildren();const deep=a.format==='deep_dive';const hasSections=Array.isArray(a.sections)&&a.sections.length>0;const special=a.format==='special_story',guide=a.format==='management_guide';const formatLabel=guide?'MANAGEMENT GUIDE · 独自解説':special?'SPECIAL STORY · 自社製品紹介':deep?'SIGNAL DEEP DIVE':'SIGNAL BRIEF';
-const hero=el('section',undefined,'hero');hero.append(el('div','/ '+a.category.toUpperCase()+' / '+(guide?'MANAGEMENT GUIDE':special?'SPECIAL STORY · 自社製品紹介':deep?'DEEP DIVE':'EDITORIAL BRIEFING'),'eyebrow'),el('h1',a.title));
+const hero=el('section',undefined,'hero');if(a.category==='SECURITY')hero.append(securityWatchReturn(a,'top'));hero.append(el('div','/ '+a.category.toUpperCase()+' / '+(guide?'MANAGEMENT GUIDE':special?'SPECIAL STORY · 自社製品紹介':deep?'DEEP DIVE':'EDITORIAL BRIEFING'),'eyebrow'),el('h1',a.title));
 const meta=el('div',undefined,'meta');if(!special&&!guide)meta.append(el('span',a.score+' / 100','score'));meta.append(el('span',formatLabel,'article-type'),el('span',a.category),el('time',a.published_at),el('span','約'+readingMinutes(a)+'分で読める','readtime'));hero.append(meta);
 const layout=el('div',undefined,'layout'),content=el('article',undefined,'content');content.append(el('p',a.summary,'lead'));
 const toc=[];

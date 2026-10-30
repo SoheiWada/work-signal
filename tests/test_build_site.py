@@ -130,7 +130,7 @@ class StaticPublishingTests(unittest.TestCase):
                 self.assertIn("a.category==='SECURITY'", source)
                 self.assertIn("link.href='/security/'", source)
                 self.assertIn("grid.append(securityWatchReturn(a,'end'))", source)
-                self.assertIn("hero.prepend(securityWatchReturn(a,'top'))", source)
+                self.assertIn("hero.append(securityWatchReturn(a,'top'))", source)
                 self.assertIn("returnLink.href='/#latest'", source)
         style = (ROOT / 'assets/css/signal-interactions.css').read_text()
         self.assertIn('.security-watch-return a:focus-visible', style)

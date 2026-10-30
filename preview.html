@@ -143,8 +143,7 @@ function articleEnd(a,isPreview){
 function fail(){const robots=document.createElement('meta');robots.name='robots';robots.content='noindex';document.head.append(robots);root.replaceChildren();const wrap=el('section',undefined,'notfound');wrap.append(el('div','/ SIGNAL NOT FOUND','eyebrow'),el('h1','NO SIGNAL.'),el('p','記事が見つからないか、まだ公開されていません。'));const a=el('a','記事一覧へ戻る','back');a.href='./#latest';wrap.append(a);root.append(wrap);document.title='記事が見つかりません — WORK SIGNAL';measurePageView()}
 function render(a){
 root.replaceChildren();const banner=el('div','EDITORIAL PREVIEW — 未公開の確認用原稿','eyebrow');banner.style.cssText='padding:20px 0;border-bottom:1px solid var(--orange)';root.append(banner);const deep=a.format==='deep_dive'&&Array.isArray(a.sections)&&a.sections.length>0;
-const hero=el('section',undefined,'hero');hero.append(el('div','/ '+a.category.toUpperCase()+' / '+(deep?'DEEP DIVE':'EDITORIAL BRIEFING'),'eyebrow'),el('h1',a.title));
-if(a.category==='SECURITY')hero.prepend(securityWatchReturn(a,'top'));
+const hero=el('section',undefined,'hero');if(a.category==='SECURITY')hero.append(securityWatchReturn(a,'top'));hero.append(el('div','/ '+a.category.toUpperCase()+' / '+(deep?'DEEP DIVE':'EDITORIAL BRIEFING'),'eyebrow'),el('h1',a.title));
 const meta=el('div',undefined,'meta');meta.append(el('span',a.score+' / 100','score'),el('span',deep?'SIGNAL DEEP DIVE':'SIGNAL BRIEF','article-type'),el('span',a.category),el('time',a.published_at),el('span','約'+readingMinutes(a)+'分で読める','readtime'));hero.append(meta);
 const layout=el('div',undefined,'layout'),content=el('article',undefined,'content');content.append(el('p',a.summary,'lead'));
 const toc=[];

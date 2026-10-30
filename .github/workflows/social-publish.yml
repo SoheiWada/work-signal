@@ -57,6 +57,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_delivery_reliability.py'
           python -m unittest discover -s tests -p 'test_delivery_channel_outcomes.py'
           python -m unittest discover -s tests -p 'test_approved_social_event.py'
+          python -m unittest discover -s tests -p 'test_scheduled_social.py'
       - name: Reconcile only freshness-reviewed missing posts
         # A newly approved article cannot authorize recovery of unrelated posts.
         if: inputs.article_ids == '' && (github.event_name != 'schedule' || steps.scheduled.outputs.ready == 'true')

@@ -1,0 +1,49 @@
+name: Validate WORK SIGNAL X publisher
+
+on:
+  push:
+    branches: [main, 'fix/**']
+    paths:
+      - scripts/publish_x.py
+      - scripts/x_text.mjs
+      - scripts/publish_social.py
+      - tests/test_x_publish.py
+      - tests/x/**
+      - tools/x-publisher/**
+      - .github/workflows/social-publish.yml
+      - .github/workflows/x-publisher-ci.yml
+      - .github/workflows/x-connection-check.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm --prefix tools/x-publisher ci --ignore-scripts --no-audit --no-fund
+      - run: python -m pip install -r requirements-build.txt
+      - name: X text and safe delivery tests (no API requests)
+        run: |
+          node --test tests/x/*.test.mjs
+          python -m unittest discover -s tests -p 'test_x_publish.py'
+          python -m unittest discover -s tests -p 'test_social_publish.py'
+          python -m unittest discover -s tests -p 'test_delivery_reliability.py'
+          python -m unittest discover -s tests -p 'test_delivery_channel_outcomes.py'
+      - name: Offline copy preview (existing articles are not queued)
+        run: python scripts/publish_x.py > x-offline-preview.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: work-signal-x-offline-preview
+          path: x-offline-preview.json
+          retention-days: 7

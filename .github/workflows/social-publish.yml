@@ -109,3 +109,57 @@ jobs:
           retention-days: 14
           if-no-files-found: ignore
 
+  publish-x:
+    # A separate completion state: Meta failures never skip X, and X failures
+    # cannot prevent Meta delivery. The workflow-level common lock serializes
+    # ALL writers to the shared durable ledger (including scheduled recovery).
+    needs: publish
+    if: always() && vars.SOCIAL_PUBLISH_ENABLED == 'true' && vars.X_PUBLISH_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.deployed_sha || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Install official X text parser
+        run: npm --prefix tools/x-publisher ci --ignore-scripts --no-audit --no-fund
+      - name: Verify deployed revision independently of Meta
+        env:
+          EXPECTED_SHA: ${{ inputs.deployed_sha }}
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python scripts/verify_deployed_revision.py
+      - name: Publish new approved X articles within the JST daily cap
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          SOCIAL_PUBLISH_ENABLED: ${{ vars.SOCIAL_PUBLISH_ENABLED }}
+          X_PUBLISH_ENABLED: ${{ vars.X_PUBLISH_ENABLED }}
+          X_PUBLISH_START_SHA: ${{ vars.X_PUBLISH_START_SHA }}
+          X_USERNAME: ${{ vars.X_USERNAME }}
+          X_USER_ID: ${{ vars.X_USER_ID }}
+          X_SCOPE_ARTICLE_IDS: ${{ inputs.article_ids }}
+          X_REPORT_ENABLED: 'true'
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: python scripts/publish_x.py --live
+      - name: Keep independent X completion report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: work-signal-x-delivery-status
+          path: x-delivery-status.json
+          retention-days: 14
+          if-no-files-found: ignore
+

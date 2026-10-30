@@ -1,0 +1,9 @@
+{
+  "name": "work-signal-x-publisher",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Official twitter-text character validation for WORK SIGNAL X posts",
+  "dependencies": {
+    "twitter-text": "3.1.0"
+  }
+}

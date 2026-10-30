@@ -2063,7 +2063,9 @@
   "20261030-progress-wsftp-critical-seven-cves": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-30T03:10:48+00:00"
+      "updated_at": "2026-10-30T03:10:57+00:00",
+      "stage": "publish_requested",
+      "container_id": "17970522021194565"
     }
   }
 }

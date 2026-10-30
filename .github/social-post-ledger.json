@@ -1978,5 +1978,11 @@
       "container_id": "18156860293488337",
       "remote_id": "17960642766016844"
     }
+  },
+  "20261030-amazon-q3-aws-growth-ai-capex-fcf": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-30T00:59:18+00:00"
+    }
   }
 }

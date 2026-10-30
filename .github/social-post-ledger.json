@@ -1880,7 +1880,9 @@
   "20261030-node-open-mcp-inspector-powershell-injection": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-30T00:35:59+00:00"
+      "updated_at": "2026-10-30T00:36:10+00:00",
+      "stage": "publish_requested",
+      "container_id": "18129368776841718"
     }
   }
 }

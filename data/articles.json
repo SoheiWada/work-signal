@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261030-progress-wsftp-critical-seven-cves",
+    "title": "WS_FTP Serverに最大CVSS 10.0、認証情報漏えいとOSコマンド注入の重大脆弱性",
+    "summary": "2026年10月29日、Windows版ファイル転送サーバー「WS_FTP Server」について、管理者認証情報の漏えい、権限昇格、OSコマンド注入など少なくとも7件のHIGH／CRITICAL脆弱性がCVE登録された。Progress SoftwareのCNA公式記録では最大CVSS 10.0。修正版は10月1日までに公開済みで、対象環境では更新と管理機能の公開範囲の点検が必要だ。",
+    "category": "SECURITY",
+    "score": 92,
+    "published_at": "2026-10-30",
+    "published_at_time": "2026-10-30T03:08:24.669Z",
+    "source_url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/84xxx/CVE-2026-84295.json",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "2026年10月29日、Windows版ファイル転送サーバー「WS_FTP Server」について、管理者認証情報の漏えい、権限昇格、OSコマンド注入など少なくとも7件のHIGH／CRITICAL脆弱性がCVE登録された。Progress SoftwareのCNA公式記録では最大CVSS 10.0。修正版は10月1日までに公開済みで、対象環境では更新と管理機能の公開範囲の点検が必要だ。",
+    "sections": [
+      {
+        "title": "今回照合した7件のCVE、最大CVSS 10.0",
+        "body": "Progress SoftwareがCVE番号を割り当てるCNAとして公開した公式記録によると、Windows版WS_FTP Serverに、今回照合した7件を含む複数の問題がある。CVE-2026-84295は認証不備により、認証なしの遠隔攻撃者が管理者認証情報を含む機密情報へアクセスする可能性があり、CVSS v3.1は10.0（CRITICAL）。一方、CVE-2026-90868は特定構成下でのOSコマンド注入でCVSS 9.9（CRITICAL）。後者はCVSS評価上、攻撃に低権限を必要とするため、両者の攻撃条件を混同してはならない。"
+      },
+      {
+        "title": "管理権限の境界を越える複数の欠陥",
+        "body": "CVE-2026-90863（9.1）は管理画面の認可欠落により、委任されたHost Administratorが許可範囲を越え、権限の高いコマンド実行に至る恐れがある。CVE-2026-90864（9.1）とCVE-2026-90866（9.1）はパスの境界管理不備で、Host Administratorが許可範囲外のファイルや場所へアクセスできる問題。後者は遠隔コード実行につながる可能性も公式記録に示されている。CVE-2026-90865（9.0）は特定構成でのOSコマンド注入、CVE-2026-90867（8.1）はWeb Adminコンソールのアクセス制御不備により遠隔から管理機能への認証試行が可能になる問題として登録された。これらのCVSSはすべてProgress Software CNAのCVSS v3.1である。"
+      },
+      {
+        "title": "修正の境界は2つ、統合対応は後続の修正版",
+        "body": "CVE-2026-84295のCNA公式記録は2024.0.6未満と2025.0.3未満を影響対象とする。一方、CVE-2026-90863〜90868は2024.0.7未満と2025.0.4未満を影響対象としている。したがって、7件をまとめて対処する場合は、利用中の系列に対応した2024.0.7または2025.0.4以降の修正版を確認し、更新する必要がある。バージョン番号は系列別に扱い、異なる系列の番号を単純に比較しない。Progressの公開リリースノートでは両系列の修正版が2026年10月1日にリリースされたと確認できる。個別の適用手順はProgressのサポート案内で別途確認する。"
+      },
+      {
+        "title": "運用者が優先して確認すべきこと",
+        "body": "まずWS_FTP Serverの稼働有無、Windows版の製品バージョン、Web Admin／管理画面の外部公開状況、委任管理者アカウントの権限を点検する。更新までの間は管理機能への到達元を制限し、認証情報の漏えいや不審な管理操作の痕跡を調査する。管理者認証情報の漏えいが疑われる場合は、調査とあわせて資格情報の更新を検討する。CNA記録は実環境での攻撃確認や被害件数を示しておらず、「すでに悪用された」とは断定できない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Progress Software WS_FTP Server（Windows）",
+    "social_security_action": "Windows版WS_FTP Serverの利用バージョンを確認し、該当系列で2024.0.7または2025.0.4以降の修正版へ更新する。Web Admin／管理画面への外部接続を制限し、管理者アカウントと認証情報の不審な利用を点検する。更新前にProgressの正式サポート情報と運用環境での適用条件を確認。"
+  },
+  {
     "id": "20261030-japan-september-labor-market-job-openings",
     "title": "9月の求人倍率1.19倍、失業率2.4％。改善の裏で求人件数は横ばい",
     "summary": "2026年9月の完全失業率は2.4％に低下し、有効求人倍率は1.19倍へ上昇した。ただし、求人倍率の上昇は求人件数の増加によるものとは限らない。厚生労働省の統計では、有効求人数は前月比横ばいで、有効求職者数が1.4％減少。数字の改善と、企業の採用需要が広がっているかどうかは分けて読む必要がある。",

@@ -5533,8 +5533,8 @@
   },
   {
     "id": "20261024-undici-content-encoding-dos",
-    "title": "エラーを処理してもNode.jsが停止？HTTPライブラリundiciに重大脆弱性",
-    "summary": "Node.jsのHTTP通信ライブラリundiciに、悪意あるHTTP応答によってプロセスが停止し得る脆弱性CVE-2026-109869。影響バージョン、修正版、対処を公式情報から解説する。",
+    "title": "undiciの脆弱性CVE-2026-109869｜影響バージョンと修正版",
+    "summary": "undiciのCVE-2026-109869は、細工したHTTP応答でNode.jsが停止し得るDoS脆弱性。影響する6・7・8系の範囲、修正版6.29.1／7.30.1／8.12.2、依存関係の確認事項を解説する。",
     "category": "SECURITY",
     "score": 93,
     "published_at": "2026-10-24",
@@ -5567,6 +5567,10 @@
         "title": "WORK SIGNALの視点｜例外処理だけでは守れない",
         "body": "エラー処理を正しく書いていても、内部ライブラリの欠陥でプロセスが停止する場合がある。重要なのは、個々の開発者の注意力だけに依存せず、依存関係の把握、公式勧告の監視、更新テストを継続できる仕組みを持つことだ。Node.js本体と周辺ライブラリを分けて管理する必要がある。"
       }
+    ],
+    "related_article_ids": [
+      "20261028-undici-three-high-security-advisories",
+      "20261024-express-body-parser-compressed-request-dos"
     ]
   },
   {
@@ -5731,8 +5735,8 @@
   },
   {
     "id": "20261024-storybook-dev-server-critical-security",
-    "title": "開発者のPCが狙われる。Storybookに緊急脆弱性、開発サーバーの起動に注意",
-    "summary": "Storybookの開発サーバーにCritical 9.4とHigh 8.7の脆弱性。悪意あるWebサイトや同じネットワーク上の第三者を起点に、開発ファイルの改ざん、条件次第でコード実行の恐れがある。修正版と企業の点検事項を解説。",
+    "title": "Storybook開発サーバーの脆弱性｜影響バージョン・修正版・確認事項",
+    "summary": "Storybook開発サーバーのCritical 9.4／High 8.7の脆弱性を解説。影響バージョン、修正版8.6.19／9.1.21／10.6.2／11.0.0-alpha.6と、静的ビルドとの違い・開発チームの確認事項を整理する。",
     "category": "SECURITY",
     "score": 94,
     "published_at": "2026-10-24",
@@ -5765,6 +5769,10 @@
         "title": "悪用確認と公開情報の読み方",
         "body": "開発元の公式アドバイザリでは、実際のStorybookプロジェクトへの悪用は把握していないと説明している。脆弱性の再現や攻撃シナリオの公開は、現実の被害発生を意味しない。開発サーバーが外部ネットワークに公開されていたか、利用したブラウザやアドオンの構成によって、リスクは変わる。\n\nただし、修正までの間に開発者のPCで脆弱なdevサーバーを使い続ける必要はない。チーム全体で利用状況を把握し、修正版を適用した後に開発サーバーを再開するのが基本だ。\n\n公式一次情報（Critical）：https://github.com/storybookjs/storybook/security/advisories/GHSA-f2ph-cmg5-wxc8\n\n公式一次情報（High）：https://github.com/storybookjs/storybook/security/advisories/GHSA-px85-f4q5-jh77"
       }
+    ],
+    "related_article_ids": [
+      "20261022-react-nextjs-critical-rce-security-patches",
+      "20261022-nodejs-security-update-10-vulnerabilities"
     ]
   },
   {
@@ -5845,8 +5853,8 @@
   },
   {
     "id": "20261024-express-body-parser-compressed-request-dos",
-    "title": "Express関連のbody-parserに重大脆弱性。認証不要の1リクエストでサーバー停止の恐れ",
-    "summary": "Expressなどで使われるbody-parserにHigh（CVSS 7.5）のDoS脆弱性。圧縮リクエストの末尾データが未捕捉例外を起こす可能性があり、修正版1.20.9／2.4.0への更新が必要だ。",
+    "title": "Express／body-parserのDoS脆弱性｜影響と修正版1.20.9・2.4.0",
+    "summary": "Expressなどで使われるbody-parserのCVE-2026-111181を解説。圧縮リクエストによるサーバー停止の条件、影響バージョン、修正版1.20.9／2.4.0、inflate: falseによる暫定対策を確認する。",
     "category": "SECURITY",
     "score": 93,
     "published_at": "2026-10-24",
@@ -5875,6 +5883,10 @@
         "title": "更新できない場合の暫定対策と注意点",
         "body": "圧縮されたリクエスト本文を受け付ける必要がない場合、body-parserミドルウェアに「inflate: false」を指定することで、デコード処理に入る前に圧縮リクエストを拒否できる。これは公式アドバイザリが示す回避策だ。ただし圧縮リクエストを利用する正規クライアントには影響するため、適用前に仕様を確認する。\n\n実際の悪用が確認されたという一次情報は、今回参照した公式アドバイザリには記載されていない。脆弱性の公開と実環境での悪用確認は区別すべきだ。\n\n一次情報：Express/body-parser公式セキュリティアドバイザリ https://github.com/expressjs/body-parser/security/advisories/GHSA-27r3-jxmh-p828"
       }
+    ],
+    "related_article_ids": [
+      "20261024-multer-async-filefilter-dos",
+      "20261024-undici-content-encoding-dos"
     ]
   },
   {
@@ -5917,8 +5929,8 @@
   },
   {
     "id": "20261023-bun-144-brotli-security-update",
-    "title": "Node.jsだけじゃない。Bunにも重大なBrotli脆弱性、v1.4.4への更新を",
-    "summary": "Bun 1.4.4がBrotliのメモリ破壊、危殆化した認証局の証明書問題、HTTP/3のQPACK増幅によるサービス停止リスクに対応。サーバー・開発環境での確認事項を整理する。",
+    "title": "BunのBrotli脆弱性CVE-2026-111497｜影響と修正版1.4.4",
+    "summary": "BunのBrotli脆弱性CVE-2026-111497について、影響条件、修正版1.4.4、バージョン確認と更新手順を解説。Node.jsとの更新経路の違い、TLS証明書検証・HTTP/3の修正も整理する。",
     "category": "SECURITY",
     "score": 92,
     "published_at": "2026-10-23",
@@ -5955,6 +5967,10 @@
         "title": "【10月25日追記】HTTP/3のヘッダー圧縮でサーバー停止の恐れ",
         "body": "Bun開発元は10月24日、HTTP/3のQPACKヘッダー圧縮に関する別のHIGH脆弱性GHSA-cf8x-9m69-3gg3を公表した。影響するのはBun 1.3.14以上1.4.4未満。HTTP/3を有効にしたBun.serveサーバーや、HTTP/3を明示的に使うfetchクライアントで、少量の通信から大量のヘッダーが展開され、メモリ枯渇やCPU負荷によるサービス停止が起き得る。HTTP/1.1とHTTP/2はこの問題の対象外で、HTTP/3は既定では無効だ。\n\n開発元の検証では約6MBの通信で2GB制限のサーバーが停止し、約20KBのリクエストで1分以上応答不能になった。実環境での悪用は未確認。修正版はBun 1.4.4で、bun build --compileで作成した実行ファイルは再ビルドが必要。更新できない場合は外部公開サーバーでHTTP/3を無効化し、信頼できない相手へのHTTP/3 fetchを避けたい。\n\n公式勧告：https://github.com/oven-sh/bun/security/advisories/GHSA-cf8x-9m69-3gg3"
       }
+    ],
+    "related_article_ids": [
+      "20261026-brotli-cross-stack-cve-2026-111497",
+      "20261022-nodejs-security-update-10-vulnerabilities"
     ]
   },
   {
@@ -7657,23 +7673,27 @@
   },
   {
     "id": "20261021-jp-incident-monitor-cyber-risk-management",
-    "title": "情報漏洩や不正アクセスを一目で把握。無料ツール「JP Incident Monitor」が変える企業のリスク管理",
-    "summary": "国内の公開サイバーインシデントを収集・整理する無料ダッシュボード「JP Incident Monitor」。機能と情報の限界を確認し、取引先管理や社内教育など企業のリスク管理への活用を考える。",
+    "title": "JP Incident Monitorとは？国内サイバーインシデントの調べ方と注意点",
+    "summary": "JP Incident Monitorは、日本の組織に関する情報漏えい・不正アクセスなどの公開情報を整理する無料ツール。公式サイト、組織名での検索・絞り込み、信頼度スコアの意味と利用時の注意点を解説する。",
     "category": "仕事",
     "score": 88,
     "published_at": "2026-10-21",
     "source_url": "https://github.com/elkentaro/jp_incidents",
     "status": "published",
     "format": "brief",
-    "quick_take": "日本国内のサイバーインシデントの公開情報をまとめる無料ツール。366の設定済み情報源を収集し、AIで整理。信頼度は被害の重大性ではなく情報の確からしさを示す。重要な判断には必ず原典を確認したい。",
+    "quick_take": "国内組織のサイバーインシデントの公開情報を、検索・絞り込みできる無料ツール。Confidenceは情報源に基づくスコアで、被害の重大性や正確さの確率を示すものではない。掲載元の公式発表と照合して利用したい。",
     "sections": [
       {
         "title": "国内のセキュリティ事故をまとめて確認",
-        "body": "顧客情報の流出、取引先への不正アクセス、ランサムウェアによる業務停止。こうしたニュースを見かけても、自社にどのような影響があるかを把握するのは簡単ではない。そこで注目したいのが、日本国内のサイバーインシデントを一覧できる無料Webサービス「JP Incident Monitor」だ。開発元のGitHubによると、行政機関、企業の公式発表、ニュース検索、セキュリティ専門媒体など366の情報源が設定されている。収集処理はホスト側で1時間ごとに実行され、情報はダッシュボードやRSSで提供される。情報源数は確認時点の値で、今後変動する可能性がある。"
+        "body": "顧客情報の流出、取引先への不正アクセス、ランサムウェアによる業務停止。こうしたニュースを見かけても、自社にどのような影響があるかを把握するのは簡単ではない。そこで確認の入口となるのが、日本の組織に関するサイバーインシデントの公開情報をまとめた無料Webサービス「JP Incident Monitor」だ。ニュース、セキュリティ専門媒体、公式発表などを自動収集し、AIで整理する。\n\n公式サイト：https://elkentaro.github.io/jp_incidents/"
       },
       {
-        "title": "AIが情報を整理。信頼度も表示",
-        "body": "サービスは一つの事故に関する複数の報道や公表を整理し、組織と事故ごとに確認できるよう設計されている。事故の種類や組織名などで情報を探せるほか、情報源の権威性や独立した裏付けをもとに信頼度を算出する。ただし信頼度は事故の重大性を示すものではない。あくまで収集した情報の確からしさを判断する補助指標だ。"
+        "title": "Confidence（信頼度）は何を示す？",
+        "body": "Confidenceは情報源に基づくスコアであり、事故の重大性、AIの確信度、情報が正しい確率ではない。公式・行政機関など情報源の区分と、追加の異なるドメインをもとに算出される。\n\nドメインの分類には誤りがあり得るほか、複数のサイトが同じ報道を転載している場合もある。スコアが100でも100％正しいという意味ではない。掲載情報を判断に使う前に、リンク先の原典を確認したい。"
+      },
+      {
+        "title": "使い方｜組織名で検索し、情報源を確認する",
+        "body": "公式サイトを開き、必要に応じてJA表示に切り替える。Incident directoryの検索欄に組織名などを入力し、事故の種類やConfidenceで絞り込む。対象の情報源を開き、対象組織の公式発表と内容を照合する。\n\n「直近24時間に追加・更新」は、この一覧での追加・変更時刻に基づく。事故が24時間以内に発生したことを意味しない。日付も、発生日が不明な場合は報道日となるため、時系列を確認して利用したい。"
       },
       {
         "title": "管理職が注目したい3つの使い方",
@@ -7681,8 +7701,12 @@
       },
       {
         "title": "情報を集めることと正しく判断することは別",
-        "body": "JP Incident Monitorは公開された事故の傾向を知る入口として役立つ可能性がある。一方、収集・分析に自動処理やAIが使われるため、情報の欠落や誤りが生じることもある。掲載されていないからといって事故が起きていないとは限らない。重要な判断は対象企業や行政機関の公式発表など一次情報で確かめたい。サービス公式：https://elkentaro.github.io/jp_incidents/　開発元・技術仕様："
+        "body": "JP Incident Monitorは公開された事故の傾向を知る入口として役立つ可能性がある。一方、収集・分析に自動処理やAIが使われるため、情報の欠落や誤りが生じることもある。掲載されていないからといって事故が起きていないとは限らない。侵入を直接検知したり、将来の事故を予測したりするサービスとして扱わず、重要な判断は対象企業や行政機関の公式発表で確かめたい。\n\n開発元・技術仕様：https://github.com/elkentaro/jp_incidents"
       }
+    ],
+    "related_article_ids": [
+      "20261020-ai-cyberattacks-japan-artex",
+      "20261021-anthropic-claude-attack-surface-reduction"
     ]
   },
   {

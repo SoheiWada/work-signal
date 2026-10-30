@@ -354,17 +354,10 @@ def write_favicons(output):
     image.save(output / 'favicon.ico', sizes=[(16, 16), (32, 32), (48, 48), (96, 96)])
 
 
-def related_articles(article, articles):
-    def tokens(item):
-        title = item['title'].lower()
-        terms = set(re.findall(r'[a-z][a-z0-9_-]{2,}', title))
-        terms.update(title[i:i + 2] for i in range(len(title) - 1)
-                     if all('一' <= char <= '龥' for char in title[i:i + 2]))
-        return terms
-    terms = tokens(article)
-    ranked = [(len(terms & tokens(item)), item['published_at'], item['id'], item)
-              for item in articles if item['id'] != article['id'] and item['category'] == article['category']]
-    return [item for score, _, _, item in sorted(ranked, key=lambda value: value[:3], reverse=True) if score > 0][:2]
+try:
+    from .related_articles import related_articles
+except ImportError:
+    from related_articles import related_articles
 
 
 def article_url(article):
@@ -796,6 +789,10 @@ def archive_page(articles, page, home_html):
     footer = re.search(r'<div class="shell"><footer>.*?</footer></div>', home_html, re.S)
     if not style or not fonts or not footer:
         raise ValueError('Home design assets required for the archive are missing')
+    analytics = home_html.split('<!-- Google tag (gtag.js): WORK SIGNAL -->', 1)[1].split('</head>', 1)[0]
+    # Archive pageviews use the same existing GA4 settings as the homepage.
+    # Advertising configuration is intentionally left in its existing templates.
+    analytics = analytics.split('<script async src="https://pagead2.googlesyndication.com/', 1)[0]
     footer_html = footer.group().replace('<span id="year"></span>', str(datetime.now(timezone.utc).year))
     archive_css = """<style>
 .archive-section{padding:65px 0 95px}
@@ -837,7 +834,7 @@ def archive_page(articles, page, home_html):
               '<meta name="theme-color" content="#f2efe7">'
               '<meta name="description" content="' + esc(description) + '">'
               '<title>' + esc(title) + '</title>' + canonical + favicon_links()
-              + fonts.group().removesuffix('<style>') + style.group() + archive_css + '</head>'
+              + fonts.group().removesuffix('<style>') + style.group() + archive_css + analytics + '</head>'
               '<body><div class="topline"></div><div class="shell"><header class="masthead">'
               '<a class="brand" href="/" aria-label="WORK SIGNALホーム">WORK<span class="dot">.</span>SIGNAL<span class="sup">®</span></a>'
               '<a class="archive-return" href="/#latest">LATEST SIGNALS</a></header>'

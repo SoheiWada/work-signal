@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261030-redhat-openshift-ai-gateway-cross-tenant-authorization",
+    "title": "Red Hat OpenShift AIのAI GatewayにCRITICAL認可回避、別テナントのLLM利用枠を不正消費の恐れ",
+    "summary": "Red Hat OpenShift AIのAI Gatewayコンポーネントに、別テナントのモデル識別子を利用して認可を回避する脆弱性「CVE-2026-117574」が公表された。Red Hatの公式CVE記録はCVSS 9.1（CRITICAL）と評価。認証済み攻撃者が別テナントのAPIキーを利用した不正なモデル要求を行い、LLMの利用枠を消費できる恐れがある。影響する製品リリース番号と修正版は追加確認が必要だ。",
+    "category": "SECURITY",
+    "score": 86,
+    "published_at": "2026-10-30",
+    "published_at_time": "2026-10-30T00:55:40.112Z",
+    "source_url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/117xxx/CVE-2026-117574.json",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Red Hat OpenShift AIのAI Gatewayコンポーネントに、別テナントのモデル識別子を利用して認可を回避する脆弱性「CVE-2026-117574」が公表された。Red Hatの公式CVE記録はCVSS 9.1（CRITICAL）と評価。認証済み攻撃者が別テナントのAPIキーを利用した不正なモデル要求を行い、LLMの利用枠を消費できる恐れがある。影響する製品リリース番号と修正版は追加確認が必要だ。",
+    "sections": [
+      {
+        "title": "Red HatがAI Gatewayのテナント間認可不備を公表",
+        "body": "Red HatがCVEの発行機関（CNA）として公開した2026年10月28日付の正式記録によると、問題はOpenShift AIの`ai-gateway-payload-processing`コンポーネントに存在する。認証済みの遠隔攻撃者がリクエスト本文またはヘッダーで他テナントのモデル識別子を指定した場合、共有ストアから認証情報を取り出す前の認可チェックが不足している。脆弱性の識別子はCVE-2026-117574で、弱点分類はCWE-639（利用者制御キーによる認可回避）。"
+      },
+      {
+        "title": "他テナントのAPIキーを使った要求が可能に",
+        "body": "公式記録は、別テナントに属するAPIキーが処理対象リクエストへ注入され、攻撃者が他テナントのLLMリソースや利用枠を消費できると説明する。これはテナント分離の失敗と利用量・課金管理に関わる問題だ。一方、公式記録からはAPIキーの文字列自体を攻撃者が直接読み取れるとは断定できない。認証済み利用者が必要な点も、認証不要の侵入と区別する必要がある。"
+      },
+      {
+        "title": "CVSS 9.1、ただしRed Hat製品評価はImportant",
+        "body": "Red Hat CNAが記載するCVSS v3.1基本値は9.1で、CRITICALの範囲に入る。攻撃元はネットワーク、攻撃複雑度は低、攻撃者に必要な権限は低権限と評価されている。Red Hat独自の製品影響評価はImportantであり、CVSSのCRITICALとは別の尺度である。正式CVE記録では`rhoai/odh-ai-gateway-payload-processing-rhel9`をaffectedとし、`rhoai/odh-ai-gateway-payload-processing-e2e-rhel9`はunaffectedとしている。"
+      },
+      {
+        "title": "バージョンと修正版は引き続き照合が必要",
+        "body": "確認できたRed Hat CNA記録には、影響するOpenShift AIの具体的なリリース番号、修正版、実悪用の有無が記載されていない。管理者は導入コンポーネントと権限・テナント境界を点検し、Red HatのCVEページと製品別セキュリティ修正情報を継続確認する必要がある。外部からのアクセス制限や不審なモデル識別子・利用量の監査は編集部による暫定的なリスク低減提案であり、公式に検証された回避策とは区別する。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Red Hat OpenShift AI (RHOAI)／rhoai/odh-ai-gateway-payload-processing-rhel9",
+    "social_security_action": "OpenShift AIの対象AI Gatewayコンポーネントの導入有無・テナント分離・権限設定を確認し、Red Hatの修正情報を追跡。外部公開範囲の限定と不審な他テナントのモデルID要求・利用量の監査は編集部の暫定提案であり、開発元が保証した回避策ではない"
+  },
+  {
     "id": "20261030-google-synthid-detector-global",
     "title": "Google、AI生成画像・動画・音声の検証ツールを世界公開。SynthID Detectorで分かること、分からないこと",
     "summary": "Googleは2026年10月29日、AI生成コンテンツの電子透かしを確認する「SynthID Detector」を一般向けに世界展開した。英語で利用でき、画像・動画・音声に含まれる対応する電子透かしを調べられる。GoogleによればOpenAI、NVIDIA、Kakaoなどの提携企業のコンテンツも対象だ。広報やメディア、採用活動などで素材の来歴を確かめる手段が増える一方、透かしが見つからないことは「AI生成ではない」証明にはならない。",

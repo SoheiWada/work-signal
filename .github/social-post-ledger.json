@@ -1938,10 +1938,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfGT9VPGT5P"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T00:38:10+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T00:38:14+00:00",
       "stage": "publish_requested",
-      "container_id": "18156856180488337"
+      "container_id": "18156856180488337",
+      "remote_id": "17892572667453038"
     }
   }
 }

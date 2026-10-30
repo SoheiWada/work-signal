@@ -25,7 +25,7 @@ def evaluate(summary, feed, ledger):
         return False, "Delivery report missing/invalid", {}
     items = {x.get("id"): x.get("platforms", {}) for x in summary["articles"]
              if isinstance(x, dict)}
-    approved = social.approved_articles(feed)
+    approved = social.approved_in_scope(feed, os.environ.get("SOCIAL_SCOPE_ARTICLE_IDS", ""))
     active_feed_hold = any(social.active_instagram_action_block(
         entry.get("instagram", {})) for entry in ledger.values()
         if isinstance(entry, dict))

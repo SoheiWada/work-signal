@@ -1965,7 +1965,9 @@
   "20261030-redhat-openshift-ai-gateway-cross-tenant-authorization": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-30T00:58:36+00:00"
+      "updated_at": "2026-10-30T00:58:43+00:00",
+      "stage": "publish_requested",
+      "container_id": "18217813276358452"
     }
   }
 }

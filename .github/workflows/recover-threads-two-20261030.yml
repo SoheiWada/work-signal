@@ -1,0 +1,27 @@
+name: Owner-approved two Threads posts recovery 2026-10-30
+on:
+  push:
+    branches: [recover/threads-two-20261030]
+    paths: [.github/workflows/recover-threads-two-20261030.yml]
+permissions:
+  contents: write
+concurrency:
+  group: work-signal-social-publishing
+  cancel-in-progress: false
+jobs:
+  recover:
+    if: github.repository == 'SoheiWada/work-signal' && github.ref == 'refs/heads/recover/threads-two-20261030'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Verify live absence, then recover only the two approved Threads posts
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+        run: python scripts/recover_threads_two_20261030.py

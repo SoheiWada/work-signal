@@ -1981,10 +1981,12 @@
   },
   "20261030-amazon-q3-aws-growth-ai-capex-fcf": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T00:59:39+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T00:59:41+00:00",
       "stage": "publish_requested",
-      "container_id": "17999469570043764"
+      "container_id": "17999469570043764",
+      "remote_id": "17999469570043764",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfGWdBqIBTI"
     }
   }
 }

@@ -104,6 +104,73 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertIn('Sitemap: ' + BASE + 'sitemap.xml', (output / 'robots.txt').read_text())
             self.assertNotIn("fetch('./data/articles.json'", page)
 
+    def test_security_watch_first_publication_sort_stays_stable_after_updates(self):
+        """Newer publications precede old but recently updated security advisories."""
+        from scripts.build_site import security_publication_sort_key
+
+        def row(aid, published, registered=None, updated=None):
+            article = {
+                'id': aid, 'published_at': published,
+                **({'first_registered_at': registered} if registered else {}),
+                **({'updated_at': updated} if updated else {}),
+            }
+            return (updated or published,
+                    {'article_id': aid, 'date': published, 'id': aid}, article)
+
+        latest = row('latest', '2026-10-30', '2026-10-30T18:30:00+09:00')
+        morning = row('morning', '2026-10-30', '2026-10-30T09:00:00+09:00')
+        legacy = row('old-updated', '2026-10-22', '2026-10-22T09:44:00+09:00',
+                     '2026-10-31T19:00:00+09:00')
+        missing_time = row('missing-time', '2026-10-30')
+        archive_only = ('2026-10-29', {'id': 'archive-only',
+                         'article_id': 'archive-only', 'date': '2026-10-29'}, None)
+
+        ordered = sorted([legacy, missing_time, archive_only, morning, latest],
+                         key=security_publication_sort_key, reverse=True)
+        self.assertEqual([row[1]['article_id'] for row in ordered],
+                         ['latest', 'morning', 'missing-time', 'archive-only', 'old-updated'])
+        # Updating a headline or the Git history date must NOT move its card.
+        legacy[0] = '2026-11-05T00:00:00+09:00'
+        unchanged = sorted([legacy, missing_time, archive_only, morning, latest],
+                           key=security_publication_sort_key, reverse=True)
+        self.assertEqual([row[1]['article_id'] for row in unchanged],
+                         ['latest', 'morning', 'missing-time', 'archive-only', 'old-updated'])
+
+    def test_security_watch_archive_visual_order_matches_publication_timeline(self):
+        """The static archive and home highlights use the same publication order."""
+        def article(aid, published, registered, updated=None):
+            a = copy.deepcopy(self.article)
+            a.update(id=aid, title='Navigation test ' + aid, category='SECURITY',
+                     published_at=published, published_at_time=registered,
+                     social_security_severity='CRITICAL',
+                     social_security_product='Test Product ' + aid)
+            if updated:
+                a['updated_at'] = updated
+            else:
+                a.pop('updated_at', None)
+            return a
+
+        older = article('chronology-old', '2026-10-22',
+                        '2026-10-22T08:00:00+09:00', '2026-10-31T12:00:00+09:00')
+        same_day_early = article('chronology-early', '2026-10-30',
+                                 '2026-10-30T08:00:00+09:00')
+        same_day_late = article('chronology-late', '2026-10-30',
+                                '2026-10-30T15:00:00+09:00')
+        with tempfile.TemporaryDirectory() as temp:
+            output = Path(temp) / 'site'
+            build(output, [older, same_day_early, same_day_late])
+            archive = (output / 'security/index.html').read_text()
+            home = (output / 'index.html').read_text()
+            # Use actual card hrefs rather than incidental page text.
+            paths = ['/articles/' + aid + '/' for aid in
+                     ('chronology-late', 'chronology-early', 'chronology-old')]
+            for page in (archive, home):
+                positions = [page.index('class="sw-item" href="' + path + '"')
+                             for path in paths]
+                self.assertEqual(positions, sorted(positions))
+            self.assertIn('更新 2026-10-31', archive)
+            self.assertIn('公開登録 2026-10-22 08:00 JST', archive)
+
     def test_security_watch_articles_return_to_archive_from_top_and_end(self):
         """SECURITY stories have a real archive route without losing ALL SIGNALS."""
         from scripts.build_site import article_page, security_watch_return

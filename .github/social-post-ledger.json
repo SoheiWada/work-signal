@@ -1964,10 +1964,12 @@
   },
   "20261030-redhat-openshift-ai-gateway-cross-tenant-authorization": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T00:58:43+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T00:58:46+00:00",
       "stage": "publish_requested",
-      "container_id": "18217813276358452"
+      "container_id": "18217813276358452",
+      "remote_id": "18217813276358452",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfGWWLSIM-s"
     }
   }
 }

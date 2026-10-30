@@ -4682,8 +4682,8 @@
   },
   {
     "id": "20261026-aspnetcore-linux-tarball-ownership-cve-2026-114148",
-    "title": "更新しても直らない？ASP.NET CoreのLinux配布物に権限昇格の脆弱性",
-    "summary": "MicrosoftがCVE-2026-114148（HIGH・CVSS 7.8）を公表。Linux向けASP.NET Core 8・9の一部tarballと.NET 8～11のソースビルド配布物に不適切な所有権情報が含まれる。影響条件、修正版、上書き更新では解消しない理由を解説する。",
+    "title": "ASP.NET Coreの脆弱性CVE-2026-114148｜修正版と再展開の注意点",
+    "summary": "ASP.NET Core／.NETのLinux向けtarballに関するCVE-2026-114148を解説。対象となる配布形式、8.0.33／9.0.22などの修正版、上書き更新だけでは解消しない理由と所有権の確認事項を整理する。",
     "category": "SECURITY",
     "score": 94,
     "published_at": "2026-10-26",
@@ -4724,10 +4724,17 @@
       {
         "title": "WORK SIGNALの視点｜更新作業の品質は「展開後」で決まる",
         "body": "ここからは編集部の実務上の考察だ。セキュリティ対策を『修正版に更新したか』だけで管理すると、今回のように古いディレクトリの所有権や、サービスが参照する実体が残るケースを見落としうる。管理職・運用担当者は、①どの配布形式で導入したか、②修正版をどの場所へ展開したか、③起動中のサービスやコンテナがどのファイルを使っているか、④更新後の権限を誰が検証したか、まで変更管理に含めたい。ソフトウェア更新はダウンロードの完了ではなく、安全な状態で運用再開できた時点で評価すべきだ。"
+      },
+      {
+        "title": "よくある疑問｜バージョン表示だけで更新完了と判断できる？",
+        "body": "この問題では、バージョン番号に加えて、導入に使った配布形式と展開先の所有権・書き込み権限を確認する必要がある。影響のあるディレクトリへの上書き展開だけでは解消しないとMicrosoftは説明している。\n\n通常のMicrosoft配布物とソースビルド配布物では対象範囲も異なる。対象のアーカイブを使ったか、修正版を安全な新しいディレクトリへ展開したか、稼働サービスが新しい実体を参照するかを分けて確認したい。"
       }
     ],
     "social_threads_text": "【SECURITY WATCH｜HIGH】ASP.NET Core/.NETのLinux向け配布アーカイブに所有権の脆弱性（CVE-2026-114148）。条件次第でローカル権限昇格の恐れ。ASP.NET Core 8は8.0.33、9は9.0.22へ。ただし既存環境への上書き展開だけでは不十分です。影響する配布形式と安全な再インストール手順を整理しました。\n記事：https://signal.amberlight.co.jp/articles/20261026-aspnetcore-linux-tarball-ownership-cve-2026-114148/\n一次情報：https://github.com/dotnet/aspnetcore/security/advisories/GHSA-r6pf-x897-gm86",
-    "social_instagram_caption": "【SECURITY WATCH｜HIGH】\nASP.NET Core / .NETのLinux向け配布アーカイブに権限昇格の脆弱性。\n\nCVE-2026-114148／CVSS 7.8\nASP.NET Core 8：8.0.33\nASP.NET Core 9：9.0.22\n\n重要なのは、単に最新版を上書きするだけでは不十分という点。対象となるtarballと展開時の所有権を確認し、新しい安全なディレクトリへ再インストールする必要があります。\n\n詳細はプロフィールのWORK SIGNALへ。\n#WORKSIGNAL #SECURITYWATCH #ASPNetCore #DotNet #脆弱性"
+    "social_instagram_caption": "【SECURITY WATCH｜HIGH】\nASP.NET Core / .NETのLinux向け配布アーカイブに権限昇格の脆弱性。\n\nCVE-2026-114148／CVSS 7.8\nASP.NET Core 8：8.0.33\nASP.NET Core 9：9.0.22\n\n重要なのは、単に最新版を上書きするだけでは不十分という点。対象となるtarballと展開時の所有権を確認し、新しい安全なディレクトリへ再インストールする必要があります。\n\n詳細はプロフィールのWORK SIGNALへ。\n#WORKSIGNAL #SECURITYWATCH #ASPNetCore #DotNet #脆弱性",
+    "related_article_ids": [
+      "20261027-dotnet-out-of-band-corrected-security-fixes"
+    ]
   },
   {
     "id": "20261026-marathon-fusion-mercury-gold-transmutation",
@@ -5779,8 +5786,8 @@
   },
   {
     "id": "20261024-multer-async-filefilter-dos",
-    "title": "ファイルを送るだけでサーバー停止？Node.jsのMulterに重大脆弱性、2.5.0へ更新を",
-    "summary": "Node.jsのファイルアップロード処理に使われるMulterで、非同期fileFilterを利用する場合に認証不要の1リクエストでプロセスが停止し得る脆弱性CVE-2026-113872が公表された。影響条件、修正版2.5.0、運用担当者が確認すべき点を整理する。",
+    "title": "Multerの脆弱性CVE-2026-113872｜影響条件と修正版2.5.0",
+    "summary": "MulterのCVE-2026-113872について、2.0.0以上2.5.0未満の影響範囲と非同期fileFilterという成立条件を解説。修正版2.5.0、同期型fileFilterによる回避策、更新後の確認事項を整理する。",
     "category": "SECURITY",
     "score": 94,
     "published_at": "2026-10-24",
@@ -5808,7 +5815,15 @@
       {
         "title": "WORK SIGNALの視点｜本体だけ更新しても守れない",
         "body": "Node.js本体のセキュリティ更新を確認していても、周辺ライブラリに脆弱性が残る可能性がある。今回のMulterと、先に報じたbody-parserは、その分かりやすい例だ。\n\n開発者だけでなく、サービスを発注・運営する企業にも問われるのは『誰が依存ライブラリの更新を確認するのか』という管理体制だ。公開後も保守対象の一覧を持ち、公式のセキュリティ勧告を受け取って対応できるようにする。サービスを止めないための仕事は、公開してからも続いている。"
+      },
+      {
+        "title": "よくある疑問｜Node.js本体を更新すれば対応は完了？",
+        "body": "今回の問題はNode.js本体ではなく、アップロード処理に使うMulterの脆弱性だ。Multerの実際のバージョンと、非同期fileFilterを使っているかを確認する必要がある。\n\n同期型fileFilterだけを利用する処理は、この脆弱性の影響を受けないと公式は説明している。修正版へ更新した後は、本番環境への反映に加えて、アップロード成功・ファイル拒否・途中切断の動作を確認したい。"
       }
+    ],
+    "related_article_ids": [
+      "20261024-express-body-parser-compressed-request-dos",
+      "20261024-undici-content-encoding-dos"
     ]
   },
   {
@@ -6023,8 +6038,8 @@
   },
   {
     "id": "20261024-fortinet-security-hardening-critical-updates",
-    "title": "Fortinet製品に重大な脆弱性。FortiOSなど広範囲の更新を推奨、企業が確認すべきこと",
-    "summary": "FortinetがFortiOS、FortiManager、FortiAnalyzer、FortiMail、FortiAuthenticatorのセキュリティ強化更新を発表。豪州政府も10月23日に重大警告を公表。対象製品の確認、修正版への更新、更新できない場合の暫定対策を整理する。",
+    "title": "Fortinet／FortiOSのセキュリティ更新｜対象製品と修正版の確認方法",
+    "summary": "FortinetのFortiOS・FortiManager・FortiAnalyzerなどのセキュリティ強化更新について、対象製品・修正版の確認方法、更新前の準備、すぐに更新できない場合の注意点を整理する。",
     "category": "仕事",
     "score": 93,
     "published_at": "2026-10-24",
@@ -6052,7 +6067,15 @@
       {
         "title": "WORK SIGNALの視点：更新体制もセキュリティの一部",
         "body": "ここからは編集部の考察だ。AIによって脆弱性を見つける技術が進むほど、企業には製品の把握、更新の判断、担当者間の連絡を迅速に行う運用体制が求められる。問題が公表されてから担当を決めるのではなく、日頃から機器の一覧、更新手順、バックアップ、緊急時の判断権限を整えておくことが重要だ。今回のFortinetの発表は、AI時代の安全性が技術と運用の両方で支えられることを考える機会になる。"
+      },
+      {
+        "title": "よくある疑問｜自社のFortinet製品で何から確認する？",
+        "body": "製品名だけで判断せず、利用している製品・バージョン・公開範囲を整理し、公式一覧の該当する系列と照合する。FortiOSだけでなく、FortiManagerやFortiAnalyzer、FortiMail、FortiAuthenticatorも案内の対象に含まれる。\n\n修正版は製品・系列で異なるため、単一のバージョン番号を全製品に当てはめない。更新前のバックアップや、更新後に稼働する機器の確認も含めて担当者に問い合わせたい。"
       }
+    ],
+    "related_article_ids": [
+      "20261028-sme-cybersecurity-free-consultation",
+      "20261021-jp-incident-monitor-cyber-risk-management"
     ]
   },
   {
@@ -6769,8 +6792,8 @@
   },
   {
     "id": "20261022-react-nextjs-critical-rce-security-patches",
-    "title": "React・Next.jsに重大脆弱性。認証不要のコード実行リスクと修正版、確認すべきポイント",
-    "summary": "React Server Components、Next.js、Vite公式RSCプラグインの重大脆弱性。対象バージョン、影響機能、修正版、企業の確認事項を公式情報に基づき整理。",
+    "title": "React・Next.jsの脆弱性｜影響範囲・修正版・更新前の確認事項",
+    "summary": "React Server ComponentsとNext.jsの重大脆弱性を解説。Reactの対象パッケージ、Next.js 15.5.28／16.4.1などの修正版、Vite公式RSCプラグイン、利用機能ごとの影響条件と更新確認を整理する。",
     "category": "仕事",
     "score": 92,
     "published_at": "2026-10-22",
@@ -6810,7 +6833,15 @@
       {
         "title": "WORK SIGNALの視点｜『React製だから危険』ではない",
         "body": "今回の教訓は、製品名だけで安全・危険を判断しないことだ。ブラウザー側だけのReact、React Server Componentsを使う構成、Next.jsのApp RouterとCache Components、SVG画像最適化では、それぞれ条件が異なる。経営者や管理職に必要なのは専門用語を暗記することではなく、運用中のシステムを把握し、担当者が修正の要否を判断できる体制をつくること。緊急パッチを適用できるかどうかは、平時の資産管理と委託先との連絡経路にも左右される。\n\n一次情報（React）：https://github.com/react/react/security/advisories/GHSA-xqc2-xf4c-x3h3\n一次情報（Next.js）：https://nextjs.org/blog/nextjs-security-update-october-14-2026"
+      },
+      {
+        "title": "よくある疑問｜Reactを使うサイトはすべて対象？",
+        "body": "Reactを使っていることだけで、この脆弱性の影響があるとは判断できない。React Server Componentsの対象パッケージや、Next.jsのApp Router、Cache Components、画像処理など、製品と利用機能を分けて確認する。\n\nブラウザー側だけで動くReactアプリと、対象のサーバー機能を使うアプリは同じ条件ではない。開発担当者には、対象パッケージの実際のバージョン、対象機能の使用有無、修正版を本番環境へ反映した証跡を確認したい。"
       }
+    ],
+    "related_article_ids": [
+      "20261024-storybook-dev-server-critical-security",
+      "20261022-nodejs-security-update-10-vulnerabilities"
     ]
   },
   {
@@ -6941,8 +6972,8 @@
   },
   {
     "id": "20261022-anthropic-claude-duet",
-    "title": "AIが「指示を待つ」から「先に動く」へ。Anthropicが新アプリ「Claude Duet」を発表",
-    "summary": "Anthropicが2026年10月21日にClaude Duetの研究プレビューを発表。朝のブリーフィング、接続アプリの定期確認、端末を閉じても続く業務支援、重要操作の承認と利用上の限界を解説。",
+    "title": "Claude Duetとは？できること・利用条件・日本での提供状況",
+    "summary": "Claude Duetの機能、米国Pro・Max向け研究プレビューとウェイトリスト、端末を閉じても続く作業、重要操作の承認を解説。日本での利用を考える際に確認したい提供条件と制限も整理する。",
     "category": "AI",
     "score": 92,
     "published_at": "2026-10-22",
@@ -6978,7 +7009,15 @@
       {
         "title": "WORK SIGNALの視点｜AIに任せる仕事をどう設計するか",
         "body": "AIが先回りして作業するようになると、管理職の役割は個々の作業指示だけでなく、任せる範囲、通知の優先順位、承認が必要な判断、失敗時の対応を設計する方向にも広がる。重要なのはすべてを自動化することではなく、人が本当に判断すべき仕事に時間を使えるようにすることだ。\n一次情報：https://claude.com/resources/articles/claude-duet"
+      },
+      {
+        "title": "よくある疑問｜日本からすぐに使える？仕事はリアルタイムで監視する？",
+        "body": "参照した公式発表の研究プレビューは、米国のPro・Max契約者を対象とするウェイトリスト方式だ。日本での一般提供を前提に導入を決めず、公式ページで対象地域・契約・参加条件の最新情報を確認したい。\n\n接続アプリの定期確認は数時間おきであり、常時リアルタイムの監視とは異なる。端末を閉じても依頼した作業を続けられる一方、重要操作には承認が必要で、バックグラウンドの確認も利用枠を消費する。"
       }
+    ],
+    "related_article_ids": [
+      "20261030-openai-model-spec-five-values-human-intent",
+      "20261029-microsoft-copilot-harness-foundry-preview"
     ]
   },
   {

@@ -34,7 +34,7 @@ function initMarket(art) {
   external.setAttribute('aria-label', '参考価格情報を新しいタブで開く（表示値と異なる場合があります）');
   const credit = node('span', 'market-attribution');
   const providerLink = node('a', '', 'Data: Twelve Data'); providerLink.href = 'https://twelvedata.com/'; providerLink.target = '_blank'; providerLink.rel = 'noopener noreferrer';
-  source.append(external, credit);
+  source.append(credit);
   const picker = node('div', 'market-picker'); picker.setAttribute('role', 'group'); picker.setAttribute('aria-label', '指標を選択');
   const pickerButtons = INSTRUMENTS.map(i => {
     const b = node('button', '', i.ticker); b.type = 'button'; b.setAttribute('aria-pressed', 'false'); b.addEventListener('click', () => open(i.id, opener || layer, true)); picker.append(b); return b;
@@ -118,6 +118,7 @@ function initMarket(art) {
     if (q) rows.push(['配信条件', q.timing === 'delayed' ? `${Math.ceil(q.delaySeconds / 60)}分遅延` : q.timing === 'eod' ? '日次終値' : q.timing === 'daily_reference' ? '日次参考値 · 取引レートではありません' : q.timing === 'reference' ? '5分ごとに取得 · 遅延・休場は未確認' : '随時更新 · 参考値']);
     detail.replaceChildren(...rows.map(([term, text]) => { const row = node('div'); row.append(node('dt', '', term), node('dd', '', text)); return row; }));
     external.href = info.url;
+    source.prepend(external);
     if (q && !specimen) { const provider = PROVIDERS[q.provider || 'twelve-data']; providerLink.textContent = 'Data: ' + provider.name; providerLink.href = provider.url; if (!credit.contains(providerLink)) credit.replaceChildren(providerLink); }
     else credit.textContent = specimen ? 'ILLUSTRATIVE ONLY' : 'データ接続前';
     pickerButtons.forEach((b, i) => b.setAttribute('aria-pressed', String(INSTRUMENTS[i].id === selected)));

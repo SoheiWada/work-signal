@@ -2235,5 +2235,11 @@
       "container_id": "18157035364488337",
       "remote_id": "18112667365885907"
     }
+  },
+  "20261030-wordpress-ai-engine-mcp-oauth-cve-2026-110732": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-30T14:34:49+00:00"
+    }
   }
 }

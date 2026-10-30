@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261030-wordpress-ai-engine-mcp-oauth-cve-2026-110732",
+    "title": "WordPressのAI EngineにHIGH 7.5、MCP OAuth認可不備で管理者権限奪取の恐れ",
+    "summary": "WordPress向けAI連携プラグイン「AI Engine」に、MCP接続のOAuthクライアント登録を悪用される恐れがあるHIGH脆弱性「CVE-2026-110732」が公表された。影響するのは3.8.6以前で、修正版は3.8.7。管理者が不正なクライアントの接続を承認した場合、管理者権限に結び付くMCPアクセストークンが攻撃者に渡る可能性がある。",
+    "category": "SECURITY",
+    "score": 87,
+    "published_at": "2026-10-30",
+    "published_at_time": "2026-10-30T14:29:49.047Z",
+    "source_url": "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ai-engine/ai-engine-the-chatbot-ai-framework-mcp-for-wordpress-386-missing-authorization-to-administrator-account-takeover-via-unauthenticated-mcp-oauth-client-registration",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "WordPress向けAI連携プラグイン「AI Engine」に、MCP接続のOAuthクライアント登録を悪用される恐れがあるHIGH脆弱性「CVE-2026-110732」が公表された。影響するのは3.8.6以前で、修正版は3.8.7。管理者が不正なクライアントの接続を承認した場合、管理者権限に結び付くMCPアクセストークンが攻撃者に渡る可能性がある。",
+    "sections": [
+      {
+        "title": "MCPのOAuthクライアント登録に認可不備",
+        "body": "Wordfenceが2026年10月29日に公表したCVE-2026-110732は、WordPressプラグイン「AI Engine」の3.8.6以前を対象とする。CVSS v3.1ベーススコアは7.5で、編集部基準のHIGHに該当する。\n\n公式の脆弱性説明によると、MCPモジュールのOAuth 2.1 Dynamic Client Registrationエンドポイントでアクセス許可の判定が不十分だった。認証していない第三者が、自分の管理するリダイレクト先を設定したOAuthクライアントを登録できる状態だったという。"
+      },
+      {
+        "title": "管理者の承認が攻撃成立の条件",
+        "body": "登録だけで直ちに管理者アカウントを奪えるわけではない。Wordfenceは、管理者が攻撃者側のクライアントをOAuth同意画面で承認すると、管理者に紐づくMCPアクセストークンを攻撃者が得て、MCPツール経由でユーザー作成やサイト設定変更などを行える可能性があると説明している。\n\n同意画面にはフレーム埋め込みを制限するヘッダーが不足し、クリックジャッキングによって承認を誘導される恐れも指摘された。したがって「認証不要で無条件に乗っ取り成功」とする説明は正確ではない。"
+      },
+      {
+        "title": "修正版は3.8.7、現在の配布版も確認",
+        "body": "Wordfenceは修正済みバージョンを3.8.7と明記し、それ以降の修正版への更新を推奨している。WordPress.orgの公式プラグインページでは3.8.7の公開日を10月23日、10月30日時点の掲載バージョンを3.8.9と確認できる。\n\nAI EngineのMCP機能は、AIアシスタントからWordPressの投稿・メディア・ユーザー管理などにアクセスできる仕組みである。サイト運営者はインストール済みのバージョンを確認し、該当する場合は修正版へ更新する必要がある。"
+      },
+      {
+        "title": "AIエージェントの接続権限をどう守るか",
+        "body": "この問題が示すのは、AIモデルそのものの欠陥ではなく、AIエージェントとWeb管理画面をつなぐ認証・認可経路の重要性だ。MCP連携では、接続先に付与する権限と、承認するOAuthクライアントの正当性がサイト管理権限に直結する。\n\n編集部としては、更新後に接続済みクライアントや不審な承認履歴を確認することも勧める。ただし、実際の攻撃発生件数や悪用キャンペーンについては、今回確認した一次情報から断定できない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "AI Engine – MCP Server & AI Chatbot for WordPress, with Claude, ChatGPT & Gemini（WordPressプラグイン）",
+    "social_security_action": "AI Engineを3.8.7以降の修正版へ更新し、MCP接続とOAuth承認済みクライアントを点検する。後半は編集部による防御上の確認提案であり、開発元の必須措置としては断定しない。"
+  },
+  {
     "id": "20261030-ecb-spf-q4-2026-inflation-expectations",
     "title": "ECB調査、2027年のユーロ圏物価見通し2.6％へ上方修正。企業の価格・調達計画に残るエネルギーリスク",
     "summary": "欧州中央銀行（ECB）は2026年10月30日、専門家予測調査の第4四半期結果を公表した。ユーロ圏の2027年消費者物価上昇率の予想は前回比0.4ポイント上方修正され2.6％となった一方、2028年と長期の見通しは2.0％を維持。エネルギー価格の影響が2027年にも残る可能性が示され、欧州と取引する企業には調達・価格設定の前提を点検する材料となる。ただし、これは専門家調査でありECB自身の経済予測ではない。",

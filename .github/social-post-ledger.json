@@ -2205,7 +2205,9 @@
   "20261030-binance-security-incident-63b-frozen-3b": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-30T10:20:28+00:00"
+      "updated_at": "2026-10-30T10:20:37+00:00",
+      "stage": "publish_requested",
+      "container_id": "18646122025039111"
     }
   }
 }

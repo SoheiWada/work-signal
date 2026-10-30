@@ -774,6 +774,12 @@ def archive_url(page):
     return BASE + ('archive/' if page == 1 else f'archive/page/{page}/')
 
 
+def listing_analytics(home_html):
+    """Reuse the existing GA4 settings without changing advertising placement."""
+    analytics = home_html.split('<!-- Google tag (gtag.js): WORK SIGNAL -->', 1)[1].split('</head>', 1)[0]
+    return analytics.split('<script async src="https://pagead2.googlesyndication.com/', 1)[0]
+
+
 def archive_page(articles, page, home_html):
     """A crawlable, numbered archive; works with JavaScript disabled."""
     total_pages = max(1, math.ceil(len(articles) / ARCHIVE_PAGE_SIZE))
@@ -789,10 +795,7 @@ def archive_page(articles, page, home_html):
     footer = re.search(r'<div class="shell"><footer>.*?</footer></div>', home_html, re.S)
     if not style or not fonts or not footer:
         raise ValueError('Home design assets required for the archive are missing')
-    analytics = home_html.split('<!-- Google tag (gtag.js): WORK SIGNAL -->', 1)[1].split('</head>', 1)[0]
-    # Archive pageviews use the same existing GA4 settings as the homepage.
-    # Advertising configuration is intentionally left in its existing templates.
-    analytics = analytics.split('<script async src="https://pagead2.googlesyndication.com/', 1)[0]
+    analytics = listing_analytics(home_html)
     footer_html = footer.group().replace('<span id="year"></span>', str(datetime.now(timezone.utc).year))
     archive_css = """<style>
 .archive-section{padding:65px 0 95px}
@@ -976,11 +979,11 @@ def build(output, feed=None):
 .sw-back a::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 15%,rgba(236,99,87,.24) 20%,transparent 26% 67%,rgba(236,99,87,.17) 72%,transparent 77%);opacity:0;animation:sw-more-flash 8s steps(1,end) infinite}
 .sw-back a:hover,.sw-back a:focus-visible{border-color:#d18b80;background:#34292a}
 .sw-back a:focus-visible{outline:2px solid #e2aa8b;outline-offset:3px}
-@media(max-width:620px){.sw-archive-page .sw-archive-heading{min-height:0;padding:20px 19px 16px;margin:-18px -16px 16px;gap:12px}.sw-archive-page .sw-archive-index{margin-bottom:15px}.sw-archive-page .sw-archive-heading h2{margin:12px 0 10px;font-size:clamp(42px,11vw,58px)}.sw-archive-page .sw-archive-monitor{position:absolute;right:14px;bottom:10px;top:auto;width:84px;height:32px;opacity:.42}.sw-archive-page .sw-archive-monitor svg{height:30px}.sw-archive-page .sw-archive-heading p{max-width:260px}.sw-archive-page .sw-section{margin-top:0}}
+@media(max-width:620px){.sw-archive-page .sw-archive-heading{min-height:0;padding:20px 19px 16px;margin:-18px -16px 16px;gap:12px}.sw-archive-page .sw-archive-index{margin-bottom:15px}.sw-archive-page .sw-archive-heading :is(h1,h2){margin:12px 0 10px;font-size:clamp(42px,11vw,58px)}.sw-archive-page .sw-archive-monitor{position:absolute;right:14px;bottom:10px;top:auto;width:84px;height:32px;opacity:.42}.sw-archive-page .sw-archive-monitor svg{height:30px}.sw-archive-page .sw-archive-heading p{max-width:260px}.sw-archive-page .sw-section{margin-top:0}}
 @media(prefers-reduced-motion:reduce){.sw-back-noise,.sw-back a::after{animation:none!important}.sw-back a::after{opacity:0!important}}
 
 .sw-archive-heading{position:relative;isolation:isolate;overflow:hidden;min-height:148px;align-items:center;padding:24px 22px;margin:-26px -28px 20px;background:linear-gradient(110deg,#332125,#221c21 80%);border-radius:8px 8px 0 0}
-.sw-archive-heading>div{position:relative;z-index:1}.sw-archive-heading .sw-kicker{color:#d49a91}.sw-archive-heading h2{color:#f7f2ec}.sw-archive-heading h2 span{color:#d25b4f}.sw-archive-heading p{color:#d1bcba}
+.sw-archive-heading>div{position:relative;z-index:1}.sw-archive-heading .sw-kicker{color:#d49a91}.sw-archive-heading :is(h1,h2){color:#f7f2ec}.sw-archive-heading :is(h1,h2) span{color:#d25b4f}.sw-archive-heading p{color:#d1bcba}
 .sw-archive-noise{position:absolute;inset:0;pointer-events:none;z-index:-1;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(220,85,77,.10) 3px 4px,transparent 4px 9px),linear-gradient(90deg,transparent 10%,rgba(211,75,67,.17) 32%,transparent 37% 62%,rgba(211,75,67,.14) 67%,transparent 74%);animation:sw-more-signal 8s steps(1,end) infinite}
 .sw-archive-heading::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 20%,rgba(236,99,87,.24) 22%,transparent 24% 63%,rgba(236,99,87,.17) 64%,transparent 66%);opacity:0;animation:sw-more-flash 8s steps(1,end) infinite}
 @media(max-width:620px){.sw-archive-main{padding:18px}.sw-archive-heading{margin:-18px -16px 18px;padding:26px 16px;min-height:124px}}
@@ -991,8 +994,8 @@ def build(output, feed=None):
 .sw-archive-heading .sw-archive-copy{position:relative;z-index:2;min-width:0}
 .sw-archive-index{display:block;margin-bottom:26px;color:#c88b81;font:600 10px/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.18em}
 .sw-archive-heading .sw-kicker{display:block;font-size:10px;letter-spacing:.20em}
-.sw-archive-heading h2{font-size:clamp(44px,7.2vw,94px);line-height:.88;letter-spacing:-.075em;margin:16px 0 18px;font-weight:850}
-.sw-archive-heading h2 span{color:#dc695b}
+.sw-archive-heading :is(h1,h2){font-size:clamp(44px,7.2vw,94px);line-height:.88;letter-spacing:-.075em;margin:16px 0 18px;font-weight:850}
+.sw-archive-heading :is(h1,h2) span{color:#dc695b}
 .sw-archive-heading p{font-size:12px;line-height:1.65}
 .sw-archive-grid{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.17;background-image:linear-gradient(rgba(214,108,94,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(214,108,94,.25) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(90deg,transparent 18%,#000 100%)}
 .sw-archive-noise{z-index:1;opacity:.55;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(228,103,80,.10) 3px 4px,transparent 4px 8px),linear-gradient(92deg,transparent 0 28%,rgba(201,65,57,.16) 32%,transparent 39% 65%,rgba(230,108,83,.15) 70%,transparent 76%);animation:sw-more-signal 8s steps(1,end) infinite}
@@ -1000,13 +1003,13 @@ def build(output, feed=None):
 .sw-monitor-label,.sw-monitor-foot{font:600 9px/1.5 ui-monospace,SFMono-Regular,monospace;letter-spacing:.12em}
 .sw-monitor-foot{opacity:.65}
 .sw-archive-monitor svg{width:100%;height:92px;overflow:visible}.sw-monitor-axis{fill:none;stroke:#725b59;stroke-width:.5}.sw-monitor-trace{fill:none;stroke:#da6a60;stroke-width:1.4;vector-effect:non-scaling-stroke;animation:sw-distortion 8s steps(1,end) infinite}
-@media(max-width:620px){.sw-archive-heading{min-height:238px;padding:22px 19px;margin:-18px -16px 18px}.sw-archive-index{margin-bottom:25px;font-size:8px}.sw-archive-heading .sw-kicker{font-size:9px}.sw-archive-heading h2{font-size:clamp(45px,12vw,68px)}.sw-archive-monitor{position:absolute;right:18px;top:24px;width:80px;min-width:0;height:52px;padding-left:8px;opacity:.55}.sw-monitor-label,.sw-monitor-foot{display:none}.sw-archive-monitor svg{height:42px}.sw-archive-heading p{max-width:290px}}
+@media(max-width:620px){.sw-archive-heading{min-height:238px;padding:22px 19px;margin:-18px -16px 18px}.sw-archive-index{margin-bottom:25px;font-size:8px}.sw-archive-heading .sw-kicker{font-size:9px}.sw-archive-heading :is(h1,h2){font-size:clamp(45px,12vw,68px)}.sw-archive-monitor{position:absolute;right:18px;top:24px;width:80px;min-width:0;height:52px;padding-left:8px;opacity:.55}.sw-monitor-label,.sw-monitor-foot{display:none}.sw-archive-monitor svg{height:42px}.sw-archive-heading p{max-width:290px}}
 @media(prefers-reduced-motion:reduce){.sw-monitor-trace{animation:none!important}}
 .sw-section{margin:34px 0 46px;padding:26px 28px;background:#f8f6f1;border:1px solid #dedbd3;border-radius:8px;color:#242424}
 .sw-heading{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:18px}
 .sw-kicker{font-size:10px;letter-spacing:.16em;font-weight:700;color:#716f69}
-.sw-heading h2{font-size:clamp(22px,3vw,34px);letter-spacing:-.045em;margin:5px 0}
-.sw-heading h2 span{color:#d07a2c}.sw-heading p{font-size:12px;color:#65625d;margin:0}
+.sw-heading :is(h1,h2){font-size:clamp(22px,3vw,34px);letter-spacing:-.045em;margin:5px 0}
+.sw-heading :is(h1,h2) span{color:#d07a2c}.sw-heading p{font-size:12px;color:#65625d;margin:0}
 .sw-heading>a{font-size:11px;font-weight:800;letter-spacing:.08em;color:inherit;text-decoration:none;white-space:nowrap}
 .sw-pulse{height:22px;max-width:410px;margin:5px 0 9px;overflow:hidden;opacity:.9;isolation:isolate}.sw-pulse svg{display:block;width:100%;height:100%;overflow:hidden}.sw-baseline{fill:none;stroke:#b6b0a6;stroke-width:.7;opacity:.45}
 .sw-wave{fill:none;stroke-linecap:round;stroke-linejoin:round}.sw-wave-main{stroke:#bb4446;stroke-width:1.7;animation:sw-distortion 8s steps(1,end) infinite both}.sw-wave-echo{stroke:#e38a85;stroke-width:1.1;opacity:0;animation:sw-ghost 8s steps(1,end) infinite both}.sw-tear{fill:#bb4446;opacity:0;animation:sw-tearing 8s steps(1,end) infinite both}
@@ -1081,10 +1084,17 @@ def build(output, feed=None):
     index = index.replace('<div class="shell"><section class="section" id="latest">', '<div class="shell">' + security_home + '<section class="section" id="latest">', 1)
     security_page = ('<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
         + '<title>SECURITY WATCH | WORK SIGNAL</title><meta name="description" content="主要Web技術の脆弱性・修正版・更新情報">'
-        + security_styles + '</head><body class="sw-archive-page">'
+        + '<link rel="canonical" href="' + BASE + 'security/">' + favicon_links()
+        + '<meta property="og:type" content="website"><meta property="og:site_name" content="WORK SIGNAL">'
+        + '<meta property="og:title" content="SECURITY WATCH | WORK SIGNAL">'
+        + '<meta property="og:description" content="主要Web技術の脆弱性・修正版・更新情報">'
+        + '<meta property="og:url" content="' + BASE + 'security/">'
+        + image_metadata(BASE + 'assets/og/home.png', 'SECURITY WATCH | WORK SIGNAL')
+        + '<meta name="robots" content="max-image-preview:large">'
+        + security_styles + listing_analytics(index) + '</head><body class="sw-archive-page">'
         + '<main class="sw-archive-main"><p class="sw-back"><a href="/"><span class="sw-back-noise" aria-hidden="true"></span><span class="sw-back-label"><span class="sw-back-small">BACK TO</span><span class="sw-back-brand">WORK<span class="sw-back-dot">.</span>SIGNAL<span class="sw-back-reg">®</span></span></span></a></p>'
         + '<section class="sw-section sw-archive"><div class="sw-heading sw-archive-heading"><span class="sw-archive-noise" aria-hidden="true"></span><span class="sw-archive-grid" aria-hidden="true"></span><div class="sw-archive-copy"><span class="sw-archive-index" aria-hidden="true">WS / 01 — THREAT INTELLIGENCE</span><span class="sw-kicker">/ VERIFIED SECURITY INTELLIGENCE</span>'
-        + '<h2>SECURITY<br>WATCH<span>.</span></h2><p>公式情報に基づく脆弱性アラート。更新日順に表示。</p></div><div class="sw-archive-monitor" aria-hidden="true"><span class="sw-monitor-label">SIGNAL / MONITORING</span><svg viewBox="0 0 260 100" preserveAspectRatio="none"><path class="sw-monitor-axis" d="M0 50H260M0 25H260M0 75H260"/><path class="sw-monitor-trace" d="M0 50H60L68 46L74 56L82 12L91 90L100 50H148L155 43L162 62L171 50H260"/></svg><span class="sw-monitor-foot">CONTINUOUS OBSERVATION · VERIFIED SOURCES</span></div></div><div class="sw-items">'
+        + '<h1>SECURITY<br>WATCH<span>.</span></h1><p>公式情報に基づく脆弱性アラート。更新日順に表示。</p></div><div class="sw-archive-monitor" aria-hidden="true"><span class="sw-monitor-label">SIGNAL / MONITORING</span><svg viewBox="0 0 260 100" preserveAspectRatio="none"><path class="sw-monitor-axis" d="M0 50H260M0 25H260M0 75H260"/><path class="sw-monitor-trace" d="M0 50H60L68 46L74 56L82 12L91 90L100 50H148L155 43L162 62L171 50H260"/></svg><span class="sw-monitor-foot">CONTINUOUS OBSERVATION · VERIFIED SOURCES</span></div></div><div class="sw-items">'
         + ''.join(security_card(row) for row in security_rows)
         + '</div></section></main></body></html>')
     security_dir = output / 'security'
@@ -1153,7 +1163,7 @@ def build(output, feed=None):
     sitemap = ET.Element('{' + ns + '}urlset')
     by_url = {article_url(item): item for item in articles}
     home_modified = latest_date([modified[item['id']] or item['published_at'] for item in articles])
-    for url in [BASE, BASE + 'about/', BASE + 'privacy/', BASE + 'contact/'] + archive_urls + [article_url(article) for article in articles]:
+    for url in [BASE, BASE + 'about/', BASE + 'privacy/', BASE + 'contact/', BASE + 'security/'] + archive_urls + [article_url(article) for article in articles]:
         entry = ET.SubElement(sitemap, '{' + ns + '}url')
         ET.SubElement(entry, '{' + ns + '}loc').text = url
         item = by_url.get(url)

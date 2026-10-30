@@ -275,8 +275,7 @@ def run(articles, baseline, ledger, credentials, *, clock=None, api=None):
         report(chosen, rows, ['X OAuth credentials incomplete; no posts'], clock=clock)
         return 1
     api = api or XAPI(credentials)
-    api.verify_account()  # Verified identity before any durable claim or POST.
-    errors, attempted = [], 0
+    errors, attempted, verified = [], 0, False
     for article in pending:
         rows, _ = ledger.read()
         if attempted >= DAILY_LIMIT or daily_attempts(rows, clock) >= DAILY_LIMIT:
@@ -292,6 +291,9 @@ def run(articles, baseline, ledger, credentials, *, clock=None, api=None):
             continue
         claimed, remote = False, ''
         try:
+            if not verified:
+                api.verify_account()  # Before claims; invalid copy never triggers a paid GET.
+                verified = True
             ledger.record(article['id'], 'x', 'attempting')
             claimed = True
             attempted += 1

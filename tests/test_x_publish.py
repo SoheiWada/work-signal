@@ -133,8 +133,7 @@ class XPublisherTests(unittest.TestCase):
         self.api.create.assert_not_called()
         self.api.verify_account.side_effect = RuntimeError('Wrong X account; posting stopped')
         ledger = MemoryLedger()
-        with self.assertRaises(RuntimeError):
-            self.run_x([article()], ledger)
+        self.assertEqual(self.run_x([article()], ledger), 1)
         self.assertEqual(ledger.changes, [])
 
     def test_daily_limit_counts_uncertain_attempts_and_stops_at_three(self):
@@ -205,6 +204,13 @@ class XPublisherTests(unittest.TestCase):
         self.assertNotIn('bad', ledger.rows)
         self.assertEqual(ledger.rows['good']['x']['status'], 'published')
         self.api.create.assert_called_once()
+
+    def test_invalid_copy_does_not_spend_on_repeated_profile_checks(self):
+        ledger = MemoryLedger()
+        self.assertEqual(self.run_x([article(social_x_text='URLなし')], ledger), 1)
+        self.assertEqual(ledger.changes, [])
+        self.api.verify_account.assert_not_called()
+        self.api.create.assert_not_called()
 
 
 class XAPITests(unittest.TestCase):

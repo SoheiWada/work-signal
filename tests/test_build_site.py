@@ -164,10 +164,14 @@ class StaticPublishingTests(unittest.TestCase):
             # Use actual card hrefs rather than incidental page text.
             paths = ['/articles/' + aid + '/' for aid in
                      ('chronology-late', 'chronology-early', 'chronology-old')]
-            for page in (archive, home):
-                positions = [page.index('class="sw-item" href="' + path + '"')
-                             for path in paths]
-                self.assertEqual(positions, sorted(positions))
+            archive_positions = [archive.index('class="sw-item" href="' + path + '"')
+                                 for path in paths]
+            self.assertEqual(archive_positions, sorted(archive_positions))
+            # Home shows only the four freshest advisories; an older test
+            # article may be excluded by reviewed legacy entries.
+            home_positions = [home.index('class="sw-item" href="' + path + '"')
+                              for path in paths[:2]]
+            self.assertEqual(home_positions, sorted(home_positions))
             self.assertIn('更新 2026-10-31', archive)
             self.assertIn('公開登録 2026-10-22 08:00 JST', archive)
 

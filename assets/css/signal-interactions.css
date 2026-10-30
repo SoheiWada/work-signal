@@ -1,3 +1,19 @@
+/* SECURITY WATCH story context: keep both the specialized archive and global index. */
+.security-watch-return{display:flex;align-items:center}
+.security-watch-return--top{margin:-24px 0 38px}
+.security-watch-return--end{margin:0 0 22px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.security-watch-return a{display:inline-flex;align-items:center;gap:10px;min-height:48px;
+  padding:10px 2px;color:#9e3b36;text-decoration:none;font:800 12px/1.5 var(--sans);
+  letter-spacing:.035em;transition:color .2s ease}
+.security-watch-return a:is(:hover,:focus-visible){color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+.security-watch-return a:focus-visible{outline:2px solid #9e3b36;outline-offset:3px}
+.security-watch-return-arrow{font:700 20px/1 var(--sans)}
+@media(max-width:760px){
+  .security-watch-return--top{margin:-15px 0 26px}
+  .security-watch-return--end{margin:0 0 15px}
+  .security-watch-return a{min-height:48px;font-size:12px}
+}
+
 
 /*
   WORK SIGNAL / TRANSMISSION SYSTEM

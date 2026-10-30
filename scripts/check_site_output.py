@@ -30,7 +30,10 @@ def main():
     if missing:
         raise RuntimeError("Missing generated article pages: " + ", ".join(missing[:10]))
 
-    expected_security = security_feed(articles, load(ROOT / "data/security-watch.json"))
+    # The builder enriches approved articles with Git-history update times.
+    # Compare SECURITY WATCH against the *effective published* article state;
+    # otherwise the freshness gate can disagree with the site it verified.
+    expected_security = security_feed(emitted, load(ROOT / "data/security-watch.json"))
     emitted_security = load(OUT / "data/security-watch.json")
     if emitted_security != expected_security:
         raise RuntimeError("SECURITY WATCH output differs from reviewed alert records")

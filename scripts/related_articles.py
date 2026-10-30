@@ -63,8 +63,12 @@ def editorial_ids(article):
 
 
 def related_articles(article, articles):
-    eligible = [item for item in articles if item.get('status') == 'published'
-                and item.get('score', 0) >= 80 and item.get('id') != article['id']]
+    def publishable(item):
+        score = item.get('score')
+        approved = (item.get('format') in ('special_story', 'management_guide')
+                    or (isinstance(score, (int, float)) and not isinstance(score, bool) and score >= 80))
+        return item.get('status') == 'published' and approved
+    eligible = [item for item in articles if publishable(item) and item.get('id') != article['id']]
     products, cves, topics, words = features(article)
     chosen = []
     by_id = {item['id']: item for item in eligible}

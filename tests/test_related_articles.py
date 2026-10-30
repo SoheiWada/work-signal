@@ -22,9 +22,9 @@ class RelatedArticlesTests(unittest.TestCase):
         self.assertEqual([x['id'] for x in related_articles(first, [unrelated, first, follow])], ['follow'])
 
     def test_shared_cve_can_cross_categories(self):
-        first = article('tech', 'BunのBrotli修正', summary_ignored='x')
+        first = article('tech', 'BunのBrotli修正')
         first['summary'] = 'CVE-2026-111497の修正'
-        second = article('guide', '圧縮ライブラリの基礎', category_ignored='x')
+        second = article('guide', '圧縮ライブラリの基礎')
         second['category'] = '仕事'
         second['summary'] = 'CVE-2026-111497を点検'
         self.assertEqual([x['id'] for x in related_articles(first, [first, second])], ['guide'])
@@ -34,6 +34,11 @@ class RelatedArticlesTests(unittest.TestCase):
         b, c = article('b', '基礎'), article('c', '続報', published_at='2026-10-02')
         draft, low = article('draft', '非公開', status='draft'), article('low', '低スコア', score=79)
         self.assertEqual([x['id'] for x in related_articles(first, [first, b, c, draft, low])], ['c', 'b'])
+
+    def test_unscored_special_stories_keep_existing_publication_rules(self):
+        first = article('normal', '管理職のマネジメント')
+        special = article('special', '管理職の基礎', score=None, format='special_story')
+        self.assertEqual([x['id'] for x in related_articles(first, [first, special])], ['special'])
 
     def test_editorial_links_provide_a_return_path(self):
         guide = article('guide', '事故情報の調べ方')

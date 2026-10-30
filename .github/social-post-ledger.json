@@ -2015,8 +2015,8 @@
   },
   "20261030-openai-model-spec-five-values-human-intent": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T01:00:41+00:00"
+      "status": "needs_review",
+      "updated_at": "2026-10-30T01:01:15+00:00"
     }
   }
 }

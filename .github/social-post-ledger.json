@@ -1989,10 +1989,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfGWdBqIBTI"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T00:59:55+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T00:59:58+00:00",
       "stage": "publish_requested",
-      "container_id": "18156860476488337"
+      "container_id": "18156860476488337",
+      "remote_id": "18349286404271281"
     }
   }
 }

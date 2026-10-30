@@ -183,6 +183,11 @@ def request_json(url, *, token="", data=None, method="GET"):
 
 class GithubLedger:
     """Optimistic SHA updates to a durable, non-deployed ledger in the repo."""
+    platforms = ("threads", "instagram", "instagram_story")
+
+    def validate_history(self, existing):
+        remaining_platforms(existing)
+
     def __init__(self, repo, token):
         if not re.fullmatch(r"[\w.-]+/[\w.-]+", repo) or not token:
             raise ValueError("GitHub repository and token required")
@@ -202,12 +207,12 @@ class GithubLedger:
         return rows, value["sha"]
 
     def record(self, identifier, platform, status, remote_id="", permalink="", **metadata):
-        if platform not in ("threads", "instagram", "instagram_story") or status not in STATUSES:
+        if platform not in self.platforms or status not in STATUSES:
             raise ValueError("Invalid ledger update")
         for attempt in range(4):
             rows, sha = self.read()
             per_article = rows.setdefault(identifier, {})
-            remaining_platforms(per_article)  # Reject malformed or unknown history before overwriting it.
+            self.validate_history(per_article)  # Validate only this publisher's channels.
             previous = per_article.get(platform, {})
             prior = previous.get("status") if isinstance(previous, dict) else None
             if status == "attempting" and prior in ("attempting", "published", "needs_review"):

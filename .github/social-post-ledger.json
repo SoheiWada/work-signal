@@ -2252,7 +2252,9 @@
   "20261030-ecb-spf-q4-2026-inflation-expectations": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-30T14:36:17+00:00"
+      "updated_at": "2026-10-30T14:36:27+00:00",
+      "stage": "publish_requested",
+      "container_id": "17873356017645788"
     }
   }
 }

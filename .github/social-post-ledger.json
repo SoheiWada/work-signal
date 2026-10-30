@@ -1931,7 +1931,9 @@
   "20261030-langflow-oss-auth-bypass-rce-security-bulletin": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-30T00:37:43+00:00"
+      "updated_at": "2026-10-30T00:37:53+00:00",
+      "stage": "publish_requested",
+      "container_id": "18112991375605527"
     }
   }
 }

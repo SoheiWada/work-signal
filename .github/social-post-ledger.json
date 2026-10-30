@@ -2012,5 +2012,11 @@
       "container_id": "18156860551488337",
       "remote_id": "18073434815732543"
     }
+  },
+  "20261030-openai-model-spec-five-values-human-intent": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-30T01:00:41+00:00"
+    }
   }
 }

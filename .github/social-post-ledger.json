@@ -1910,5 +1910,11 @@
       "container_id": "18156856018488337",
       "remote_id": "17978227701151653"
     }
+  },
+  "20261029-nvm-version-pattern-command-injection": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-30T00:37:09+00:00"
+    }
   }
 }

@@ -2144,7 +2144,9 @@
   "20261030-mhlw-working-days-holiday-sidejobs-discussion": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-30T08:33:49+00:00"
+      "updated_at": "2026-10-30T08:33:56+00:00",
+      "stage": "publish_requested",
+      "container_id": "18003263156808992"
     }
   }
 }

@@ -1876,5 +1876,11 @@
       "container_id": "18156850123488337",
       "remote_id": "18117075122019052"
     }
+  },
+  "20261030-node-open-mcp-inspector-powershell-injection": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-30T00:35:59+00:00"
+    }
   }
 }

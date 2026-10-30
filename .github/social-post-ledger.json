@@ -2126,10 +2126,12 @@
   },
   "20261030-chrome-156-mediastream-critical-update": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T08:33:12+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T08:33:14+00:00",
       "stage": "publish_requested",
-      "container_id": "18110205842459691"
+      "container_id": "18110205842459691",
+      "remote_id": "18110205842459691",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfHKWtGFnTR"
     }
   }
 }

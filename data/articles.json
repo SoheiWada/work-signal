@@ -1,5 +1,49 @@
 [
   {
+    "id": "20261030-chrome-156-mediastream-critical-update",
+    "title": "Google Chrome 156にCRITICAL含む21件、10月29日の追加更新でMediaStreamのメモリ破損を修正",
+    "summary": "Googleは2026年10月29日、Chrome 156の追加セキュリティ更新を公開した。修正は21件で、MediaStreamのメモリ破損「CVE-2026-76024」を最上位のCRITICALと評価。Windows・macOSは156.0.8078.79/.80、Linuxは156.0.8078.79が修正版となる。配布は段階的で、端末ごとの更新確認が重要だ。",
+    "category": "SECURITY",
+    "score": 91,
+    "published_at": "2026-10-30",
+    "published_at_time": "2026-10-30T08:28:04.715Z",
+    "source_url": "https://chromereleases.googleblog.com/2026/10/stable-channel-update-for-desktop_02107719452.html",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Googleは2026年10月29日、Chrome 156の追加セキュリティ更新を公開した。修正は21件で、MediaStreamのメモリ破損「CVE-2026-76024」を最上位のCRITICALと評価。Windows・macOSは156.0.8078.79/.80、Linuxは156.0.8078.79が修正版となる。配布は段階的で、端末ごとの更新確認が重要だ。",
+    "sections": [
+      {
+        "title": "2日後に追加された21件の修正",
+        "body": "GoogleのChrome Releasesによると、10月29日付のStable／Extended Stable更新には21件のセキュリティ修正が含まれる。これは10月27日に公表されたChrome 156の52件修正とは別の更新だ。今回の内訳はCRITICALが1件、HIGHが19件、MEDIUMが1件。短期間に続けて更新が出たため、前回のパッチだけを適用した端末が残っていないかが確認点になる。"
+      },
+      {
+        "title": "MediaStreamのCVE-2026-76024はGoogle評価CRITICAL",
+        "body": "最も深刻とされたのは、MediaStreamコンポーネントのメモリ破損「CVE-2026-76024」。Googleは10月21日にXinyang Ge氏から報告を受けたと記している。公表されているのは脆弱性の分類と修正情報が中心で、今回の公式発表だけから具体的な悪用方法、実際の被害、攻撃の成功率を断定することはできない。GoogleによるCRITICAL評価を、そのまま未確認のCVSS数値に置き換えてはいけない。"
+      },
+      {
+        "title": "FileSystem・V8・BlinkなどにもHIGHの修正",
+        "body": "同じリリースでは、FileSystemのUse-after-free（CVE-2026-76025、CVE-2026-76028）、V8の入力検証不備（CVE-2026-119262）、DOMのメモリ破損（CVE-2026-119267）、BlinkのUse-after-free（CVE-2026-119269）などもHIGHとして列挙された。各CVEは発生箇所や成立条件が異なるため、すべてを同一の遠隔コード実行問題と扱うべきではない。"
+      },
+      {
+        "title": "更新の確認はバージョンと再起動まで",
+        "body": "Googleが案内した修正版はWindows・macOS向け156.0.8078.79/.80、Linux向け156.0.8078.79。配信は数日から数週間かけて進む見込みだ。利用者はChromeの「設定」から「Chromeについて」を開いて更新を確認し、必要に応じて再起動する。企業では管理対象端末のバージョンを棚卸しし、10月27日の更新で止まっている端末を区別することが重要になる。"
+      },
+      {
+        "title": "何が分かっていて、何がまだ分からないか",
+        "body": "確認できたのはGoogleによる公式修正の提供、21件という件数、製品別の配布バージョンとCVEの分類である。一方、今回の21件が実環境で悪用されたという公式記述は確認できず、Googleは修正の普及まで詳細を制限する場合があると説明している。脅威を過大に断定せず、修正版への更新という実務対応を優先したい。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Google Chrome（Desktop Stable／Extended Stable）",
+    "social_security_action": "端末管理者・利用者はChromeをWindows/macOS 156.0.8078.79または.80、Linux 156.0.8078.79以降へ更新し、再起動して実適用を確認する。配信は段階的であるため端末ごとの確認を推奨。"
+  },
+  {
     "id": "20261030-consumer-confidence-35-inflation-expectations",
     "title": "消費者心理は10月35.0に低下。物価上昇を予想する世帯は90.8％",
     "summary": "内閣府が10月29日に発表した2026年10月の消費動向調査で、二人以上の世帯の消費者態度指数は35.0となり、前月から0.4ポイント低下した。暮らし向きや雇用環境の見通しも弱まる一方、1年後に物価が上昇すると考える回答者は90.8％に達した。実際の物価や雇用の統計とは異なる「生活者の先行き意識」を読み解く。",

@@ -1972,10 +1972,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfGWWLSIM-s"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T00:58:59+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T00:59:02+00:00",
       "stage": "publish_requested",
-      "container_id": "18156860293488337"
+      "container_id": "18156860293488337",
+      "remote_id": "17960642766016844"
     }
   }
 }

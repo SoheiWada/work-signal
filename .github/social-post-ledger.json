@@ -2221,10 +2221,12 @@
   },
   "20261030-fujifilm-fdec-forward-deployed-ai-organization": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T13:45:33+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T13:45:42+00:00",
       "stage": "publish_requested",
-      "container_id": "18099339368644452"
+      "container_id": "18099339368644452",
+      "remote_id": "18099339368644452",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfHuGOrEWnG"
     }
   }
 }

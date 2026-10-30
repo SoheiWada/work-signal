@@ -1913,10 +1913,12 @@
   },
   "20261029-nvm-version-pattern-command-injection": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T00:37:18+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T00:37:21+00:00",
       "stage": "publish_requested",
-      "container_id": "18135899833581677"
+      "container_id": "18135899833581677",
+      "remote_id": "18135899833581677",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfGT5FymfWV"
     }
   }
 }

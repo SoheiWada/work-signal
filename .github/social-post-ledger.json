@@ -2028,10 +2028,12 @@
   },
   "20261030-google-synthid-detector-global": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T01:01:41+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T01:01:43+00:00",
       "stage": "publish_requested",
-      "container_id": "18431332951145192"
+      "container_id": "18431332951145192",
+      "remote_id": "18431332951145192",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfGWr0NoAky"
     }
   }
 }

@@ -2062,10 +2062,12 @@
   },
   "20261030-progress-wsftp-critical-seven-cves": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T03:10:57+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T03:10:59+00:00",
       "stage": "publish_requested",
-      "container_id": "17970522021194565"
+      "container_id": "17970522021194565",
+      "remote_id": "17970522021194565",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfGlefHgK2_"
     }
   }
 }

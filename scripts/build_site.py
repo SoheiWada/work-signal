@@ -608,6 +608,17 @@ def dsx_pod_diagram(article):
             +track('DSX POD｜工場で事前統合','最短14日',pod,'pod')
             +'<figcaption class="dsx-footnote">※ NVIDIA公表値。電力・冷却・ネットワーク等の外部インフラが準備済みの設置場所での導入期間を比較。更地からの建設期間ではなく、最短値は全案件での実績を示すものではありません。DSX PODの工場作業と設置先の準備は並行可能です。出典：NVIDIA Newsroom（2026年10月21日）。</figcaption></figure>')
 
+def security_watch_return(article, position):
+    """Visible, keyboard-accessible return to SECURITY WATCH for security stories."""
+    if article.get('category') != 'SECURITY':
+        return ''
+    return ('<nav class="security-watch-return security-watch-return--' + position
+            + '" aria-label="SECURITY WATCHへ戻る">'
+            '<a href="/security/" aria-label="SECURITY WATCHの記事一覧へ戻る">'
+            '<span class="security-watch-return-arrow" aria-hidden="true">←</span>'
+            '<span>SECURITY WATCH一覧へ戻る</span></a></nav>')
+
+
 def article_body(article, modified_at=None, related=()):
     deep = article.get('format') == 'deep_dive'
     has_sections = isinstance(article.get('sections'), list) and bool(article['sections'])
@@ -632,7 +643,7 @@ def article_body(article, modified_at=None, related=()):
         blocks = ''.join('<section class="block"><h2>' + title + '</h2><p>' + linked_text(article[key]) + '</p></section>' for title, key in SECTIONS if article.get(key))
         toc = ''
     format_label = 'MANAGEMENT GUIDE · 独自解説' if article.get('format') == 'management_guide' else ('SPECIAL STORY · 自社製品紹介' if article.get('format') == 'special_story' else ('SIGNAL DEEP DIVE' if deep else 'SIGNAL BRIEF'))
-    return ('<section class="hero"><div class="eyebrow">/ ' + esc(article["category"])
+    return ('<section class="hero">' + security_watch_return(article, 'top') + '<div class="eyebrow">/ ' + esc(article["category"])
              + (' / MANAGEMENT GUIDE' if article.get('format') == 'management_guide' else (' / SPECIAL STORY · 自社製品紹介' if article.get('format') == 'special_story' else (' / DEEP DIVE' if deep else ' / EDITORIAL BRIEFING'))) + '</div><h1>' + esc(article['title'])
             + '</h1><div class="meta">' + ('' if article.get('format') in ('special_story', 'management_guide') else '<span class="score">' + esc(article['score']) + ' / 100</span>') + '<span class="article-type">' + format_label + '</span><span>'
             + esc(article['category']) + '</span><time datetime="' + esc(article['published_at'])
@@ -688,7 +699,8 @@ def article_end(article):
         + esc(url) + '">URLをコピー</button></nav>'
         '<span class="article-share-feedback" data-share-feedback="" '
         'role="status" aria-live="polite"></span></div>'
-        '<a class="article-return" href="/#latest" aria-label="記事一覧のALL SIGNALSへ戻る">'
+        + security_watch_return(article, 'end')
+        + '<a class="article-return" href="/#latest" aria-label="記事一覧のALL SIGNALSへ戻る">'
         '<span class="article-return-sub">BACK TO THE INDEX / FIND THE NEXT SIGNAL</span>'
         '<span class="article-return-label"><span class="article-return-name">ALL SIGNALS</span>'
         '<span class="article-return-signal">'

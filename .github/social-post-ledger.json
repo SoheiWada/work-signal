@@ -2242,10 +2242,11 @@
       "updated_at": "2026-10-30T14:35:26+00:00"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T14:35:41+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T14:35:46+00:00",
       "stage": "publish_requested",
-      "container_id": "18157051996488337"
+      "container_id": "18157051996488337",
+      "remote_id": "18073848113771337"
     }
   }
 }

@@ -78,3 +78,32 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
+
+  trigger-approved-social:
+    # The Pages deployment is the only prerequisite. SEO/design-only pushes
+    # NEVER dispatch a social run. This job does not publish or touch the ledger.
+    needs: deploy
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Identify newly approved article IDs
+        id: delta
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+        run: python3 scripts/approved_social_event.py
+      - name: Dispatch SNS only for those newly approved IDs
+        if: steps.delta.outputs.approved == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARTICLE_IDS: ${{ steps.delta.outputs.article_ids }}
+          DEPLOYED_SHA: ${{ github.sha }}
+        run: |
+          gh workflow run social-publish.yml --ref main \
+            -f "deployed_sha=$DEPLOYED_SHA" -f "article_ids=$ARTICLE_IDS"

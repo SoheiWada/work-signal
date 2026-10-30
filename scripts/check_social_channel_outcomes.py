@@ -30,8 +30,9 @@ def evaluate(summary, feed, ledger):
         entry.get("instagram", {})) for entry in ledger.values()
         if isinstance(entry, dict))
     counters = {"threads":0, "instagram_story":0, "feed_published":0,
-                "feed_held":0, "feed_pending_other":0}
+                "feed_held":0, "feed_pending_other":0, "feed_freshness_held":0}
     errors = []
+    feed_only_holds = set()
     for article in approved:
         aid = article["id"]
         status = items.get(aid)
@@ -55,6 +56,13 @@ def evaluate(summary, feed, ledger):
             state == "needs_review" and social.active_instagram_action_block(
                 ledger.get(aid, {}).get("instagram", {})))):
             counters["feed_held"] += 1
+            # An expired review can apply only to the blocked feed after all
+            # other requested channels have already been delivered. Require
+            # both report and ledger evidence; never hide pending Threads.
+            if all(status.get(ch) == "published" and
+                   ledger.get(aid, {}).get(ch, {}).get("status") == "published"
+                   for ch in selected if ch != "instagram"):
+                feed_only_holds.add(aid)
         else:
             counters["feed_pending_other"] += 1
             errors.append("Non-blocked Instagram feed incomplete " + aid)
@@ -62,9 +70,15 @@ def evaluate(summary, feed, ledger):
     if not isinstance(failures, list):
         errors.append("Unparseable publication failures")
     else:
+        freshness_holds = {aid + ": freshness review expired; delivery held"
+                           for aid in feed_only_holds}
         for failure in failures:
-            if failure not in KNOWN_FEED_HOLD_MESSAGES or not active_feed_hold:
-                errors.append("Unexpected publication failure: " + str(failure)[:160])
+            if isinstance(failure, str) and active_feed_hold and failure in KNOWN_FEED_HOLD_MESSAGES:
+                continue
+            if isinstance(failure, str) and failure in freshness_holds:
+                counters["feed_freshness_held"] += 1
+                continue
+            errors.append("Unexpected publication failure: " + str(failure)[:160])
     return not errors, "; ".join(errors[:6]), counters
 
 
@@ -84,6 +98,7 @@ def main():
         "instagram_feed_published":counts.get("feed_published",0),
         "instagram_feed_on_protective_hold":counts.get("feed_held",0),
         "other_incomplete_feed":counts.get("feed_pending_other",0),
+        "instagram_feed_freshness_expired_on_hold":counts.get("feed_freshness_held",0),
         "result":"success_with_explicit_feed_hold" if ok and counts.get("feed_held") else
                  ("success" if ok else "failure"),
         "error":error
@@ -95,6 +110,7 @@ def main():
                     "; Stories published: " + str(counts.get("instagram_story",0)) +
                     "; Instagram feed published: " + str(counts.get("feed_published",0)) +
                     "; Instagram feed **HELD**: " + str(counts.get("feed_held",0)) +
+                    "; of these, freshness review expired: " + str(counts.get("feed_freshness_held",0)) +
                     "\n\nInstagram feed held by Meta protective action 4/2207051: **NOT POSTED**. "
                     "This is explicitly not a successful feed delivery.\n\n")
     if not ok:

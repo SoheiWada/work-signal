@@ -53,6 +53,57 @@ class ChannelOutcomeTests(unittest.TestCase):
         self.assertFalse(ok)
         self.assertIn("Instagram feed incomplete",error)
 
+    def expired_feed_fixture(self):
+        self.rows["sample"] = {"threads":{"status":"published"},
+                               "instagram_story":{"status":"published"}}
+        self.report["failures"].append("sample: freshness review expired; delivery held")
+
+    def test_expired_review_only_for_a_blocked_feed_is_explicitly_held(self):
+        self.expired_feed_fixture()
+        ok, error, counts = evaluate(self.report,self.feed,self.rows)
+        self.assertTrue(ok,error)
+        self.assertEqual(counts["feed_freshness_held"],1)
+        self.assertEqual(counts["feed_held"],1)
+        self.assertEqual(counts["feed_published"],0)
+        self.assertEqual(len(self.report["failures"]),len(KNOWN_FEED_HOLD_MESSAGES)+1)
+
+    def test_expired_review_cannot_hide_pending_threads(self):
+        self.expired_feed_fixture()
+        self.report["articles"][0]["platforms"]["threads"]="pending"
+        self.rows["sample"].pop("threads")
+        ok, error, _ = evaluate(self.report,self.feed,self.rows)
+        self.assertFalse(ok)
+        self.assertIn("Incomplete threads",error)
+
+    def test_expired_review_cannot_hide_pending_story(self):
+        self.expired_feed_fixture()
+        self.report["articles"][0]["platforms"]["instagram_story"]="pending"
+        self.rows["sample"].pop("instagram_story")
+        ok, error, _ = evaluate(self.report,self.feed,self.rows)
+        self.assertFalse(ok)
+        self.assertIn("Incomplete instagram_story",error)
+
+    def test_expired_review_requires_ledger_evidence_for_other_channels(self):
+        self.expired_feed_fixture()
+        self.rows.pop("sample")
+        ok, error, _ = evaluate(self.report,self.feed,self.rows)
+        self.assertFalse(ok)
+        self.assertIn("Unexpected publication failure",error)
+
+    def test_expired_feed_without_protective_block_remains_failure(self):
+        self.expired_feed_fixture()
+        self.rows.pop("sentinel")
+        ok, error, _ = evaluate(self.report,self.feed,self.rows)
+        self.assertFalse(ok)
+        self.assertIn("Instagram feed incomplete",error)
+
+    def test_expired_feed_does_not_hide_unrelated_api_failure(self):
+        self.expired_feed_fixture()
+        self.report["failures"].append("sample: threads API HTTP 401 code=190")
+        ok, error, _ = evaluate(self.report,self.feed,self.rows)
+        self.assertFalse(ok)
+        self.assertIn("threads API HTTP 401",error)
+
     def test_missing_delivery_report_article_is_failure(self):
         self.report["articles"]=[]
         ok, error, _ = evaluate(self.report,self.feed,self.rows)

@@ -199,3 +199,15 @@ Instagramのプロフィールリンクには `https://signal.amberlight.co.jp/?
 - 2207051後の新規送信は保留を維持。アカウント全体の永久停止や解除時刻は断定しない。Meta公式の案内に沿った確認・誤判定申告には、コンテナID、日時、実投稿ID、APIバージョン、公開と応答の不整合を添える。新たな権限追加やトークン再発行を根拠なく行わない。
 
 公式資料: https://developers.facebook.com/documentation/instagram-platform/instagram-graph-api/reference/error-codes
+
+
+## 2026-10-30 媒体別の失敗判定を補正
+
+Threads投稿済みでも、InstagramフィードだけがMetaの保護制限と鮮度レビュー期限切れで保留されると、従来の媒体別判定が処理全体を失敗としていた。
+
+`check_social_channel_outcomes.py` は、実際のInstagram保護制限があり、当該記事で要求したフィード以外の媒体が配信レポート・台帳の両方でpublishedの場合に限り、該当する期限切れを「Instagramフィード保留」として分類する。対象件数を `instagram_feed_freshness_expired_on_hold` とSummaryに明示する。
+
+- Instagramフィードは未投稿のまま保留。鮮度レビューの延長、再送、台帳の書き換えはしない。
+- Threadsやストーリーズの未投稿・要確認、その他のAPIエラー、レポートと台帳の不一致は引き続き失敗。
+- 投稿処理そのもの、投稿枠、重複防止、公開承認、既存記事・SEO設定は変更しない。
+- 本番ログの125記事を使った再現では、Threads125・ストーリーズ122件が投稿済み。フィード79件の保留のうち、4件に鮮度期限切れが併存していた。これはThreadsの未投稿件数ではない。

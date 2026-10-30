@@ -2025,5 +2025,11 @@
       "container_id": "18156860659488337",
       "remote_id": "18130747501894210"
     }
+  },
+  "20261030-google-synthid-detector-global": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-30T01:01:33+00:00"
+    }
   }
 }

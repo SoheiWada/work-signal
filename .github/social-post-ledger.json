@@ -2045,10 +2045,12 @@
   },
   "20261030-japan-september-labor-market-job-openings": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T02:46:42+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T02:46:46+00:00",
       "stage": "publish_requested",
-      "container_id": "18098000984235830"
+      "container_id": "18098000984235830",
+      "remote_id": "18098000984235830",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfGisulkbiS"
     }
   }
 }

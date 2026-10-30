@@ -2268,10 +2268,12 @@
   },
   "20261031-us-employment-cost-index-q3": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T16:52:55+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T16:52:57+00:00",
       "stage": "publish_requested",
-      "container_id": "18119826929517521"
+      "container_id": "18119826929517521",
+      "remote_id": "18119826929517521",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfIDi5BFCdU"
     }
   }
 }

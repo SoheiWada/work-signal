@@ -2240,6 +2240,10 @@
     "threads": {
       "status": "needs_review",
       "updated_at": "2026-10-30T14:35:26+00:00"
+    },
+    "instagram_story": {
+      "status": "attempting",
+      "updated_at": "2026-10-30T14:35:29+00:00"
     }
   }
 }

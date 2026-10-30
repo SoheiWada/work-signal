@@ -71,6 +71,22 @@ def approved_articles(feed):
     return eligible
 
 
+def approved_in_scope(feed, scope=""):
+    """Scoped deployment event may publish ONLY its newly approved article IDs."""
+    approved = approved_articles(feed)
+    if not scope:
+        return approved
+    ids = scope.split(",")
+    if (len(ids) != len(set(ids)) or not ids
+            or any(not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,119}", aid)
+                   for aid in ids)):
+        raise ValueError("Invalid approved article scope")
+    found = {a["id"]: a for a in approved}
+    if any(aid not in found for aid in ids):
+        raise ValueError("Requested scope contains unapproved or unknown article")
+    return [found[aid] for aid in ids]
+
+
 def threads_text(article):
     # Canonical URL is the tested safe Threads link-card target. The previous
     # long UTM URL was implicitly selected as preview and triggered Meta 4279047.
@@ -572,7 +588,7 @@ def delivery_report(articles, rows, failures=()):
 
 
 def run(articles, ledger, credentials):
-    approved = approved_articles(articles)
+    approved = approved_in_scope(articles, credentials.get("SOCIAL_SCOPE_ARTICLE_IDS", ""))
     if not approved or credentials.get("SOCIAL_PUBLISH_ENABLED") != "true":
         print("Social posting disabled or no explicitly approved articles. No posts.")
         return 0

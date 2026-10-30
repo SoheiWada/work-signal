@@ -287,6 +287,25 @@ def _clock_text(value):
         return None
 
 
+def security_publication_sort_key(row):
+    """Sort SECURITY WATCH by first publication, not subsequent content edits.
+
+    Explicit original publication timestamps and first Git registrations have
+    minute-level precision. Fallback dates are considered midnight JST rather
+    than inventing an exact publication hour. Same-date ties are deterministic.
+    """
+    _last_update, alert, article = row
+    published = (article.get('published_at') if article else None) or alert['date']
+    jst = timezone(timedelta(hours=9))
+    first = datetime.combine(date.fromisoformat(published), datetime.min.time(), tzinfo=jst)
+    recorded = ((article.get('published_at_time') or article.get('first_registered_at'))
+                if article else None)
+    clock = _clock_text(recorded)
+    if clock and clock[:10] == published:
+        first = datetime.fromisoformat(recorded.replace('Z', '+00:00')).astimezone(jst)
+    return (first, alert.get('article_id') or alert.get('id', ''))
+
+
 def article_timeline(article, modified_at=None, *, compact=False):
     """Accessible publication/actual-content-update labels for cards and alerts."""
     published = article['published_at']
@@ -1039,7 +1058,8 @@ def build(output, feed=None):
         article = next((item for item in articles if item['id'] == article_id), None)
         update_date = (modified.get(article_id) if article else None) or alert['date']
         security_rows.append((update_date, alert, article))
-    security_rows.sort(key=lambda row: (row[0], row[1]['date']), reverse=True)
+    # Updates remain visible in each card but never reorder the publication timeline.
+    security_rows.sort(key=security_publication_sort_key, reverse=True)
     def security_card(row):
         updated, alert, article = row
         severity = esc(alert['severity'])

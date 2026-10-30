@@ -1,5 +1,37 @@
 """Build SECURITY WATCH from reviewed article metadata plus the legacy alert archive."""
-import re
+from datetime import datetime, timezone
+
+
+STALE_STATUS = "修正状況は最新記事で確認"
+
+
+def _parse_utc(value):
+    """Return a comparable UTC datetime; invalid/missing evidence is not trusted."""
+    if not isinstance(value, str) or not value:
+        return None
+    try:
+        instant = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        return instant.astimezone(timezone.utc) if instant.tzinfo else None
+    except ValueError:
+        return None
+
+
+def _current_status(record, article):
+    """Never publish an old remediation claim after a newer article revision.
+
+    A reviewed timestamp MUST be later than the article revision. Older legacy
+    rows without timestamps retain their status only until the article is updated.
+    This deliberately avoids inferring patch availability from article prose.
+    """
+    status = record.get("status", "")
+    updated = article.get("updated_at")
+    if not updated or not status:
+        return status
+    verified = _parse_utc(record.get("status_reviewed_at"))
+    article_updated = _parse_utc(updated)
+    if article_updated is None or verified is None or verified < article_updated:
+        return STALE_STATUS
+    return status
 
 
 def security_feed(articles, legacy):
@@ -31,6 +63,7 @@ def security_feed(articles, legacy):
             if level in ("HIGH", "CRITICAL"):
                 existing["severity"] = level
                 existing["product"] = article.get("social_security_product") or existing["product"]
+            existing["status"] = _current_status(existing, article)
             continue
         if not level and explicit is None:
             continue
@@ -47,5 +80,8 @@ def security_feed(articles, legacy):
             "product": product.strip(), "summary": summary.strip(),
             "headline": article.get("security_headline") or article["title"],
             "status": metadata.get("status", "対応・影響条件は記事を参照"),
+            **({"status_reviewed_at": metadata["status_reviewed_at"]}
+               if metadata.get("status_reviewed_at") else {}),
         }
+        alerts[article["id"]]["status"] = _current_status(alerts[article["id"]], article)
     return list(alerts.values())

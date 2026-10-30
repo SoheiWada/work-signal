@@ -45,6 +45,7 @@ jobs:
       - name: Validate site generation, SEO and SECURITY WATCH assets
         run: |
           python3 -m unittest discover -s tests -p 'test_build_site.py'
+          python3 -m unittest discover -s tests -p 'test_security_watch.py'
           python3 -m unittest discover -s tests -p 'test_seo_metadata.py'
           python3 -m unittest discover -s tests -p 'test_publication_timeline.py'
           python3 -m unittest discover -s tests -p 'test_market_assets.py'

@@ -321,7 +321,13 @@
     "date": "2026-10-25",
     "article_id": "20261022-php2shell-critical-vulnerabilities",
     "summary": "欧州政府機関で侵害確認。認証情報へのアクセスとAIエージェント型攻撃の兆候をUnit 42が報告",
-    "status": "修正版待ち（条件付き）"
+    "status": "悪用確認・修正版あり（製品別確認）",
+    "status_reviewed_at": "2026-10-30T03:20:57.044Z",
+    "status_sources": [
+      "https://www.php.net/archive/2026.php",
+      "https://security.paloaltonetworks.com/CVE-2026-109618"
+    ],
+    "status_note": "PHP 8.2.35/8.3.36/8.4.27/8.5.12 は修正済み。PAN-OS は対象系列・ホットフィックスを公式表で照合。実悪用確認。"
   },
   {
     "id": "storybook",

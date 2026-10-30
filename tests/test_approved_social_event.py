@@ -52,6 +52,7 @@ class ApprovedSocialEventTests(unittest.TestCase):
         pages = (ROOT / ".github/workflows/pages.yml").read_text()
         social = (ROOT / ".github/workflows/social-publish.yml").read_text()
         self.assertIn("needs: deploy", pages)
+        self.assertIn("group: pages-${{ github.ref }}", pages)
         self.assertIn("steps.delta.outputs.approved == 'true'", pages)
         self.assertIn("gh workflow run social-publish.yml", pages)
         self.assertNotIn("workflow_run:", social)

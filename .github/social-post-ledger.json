@@ -2212,10 +2212,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfHWpcWFsuG"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T10:20:53+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T10:20:56+00:00",
       "stage": "publish_requested",
-      "container_id": "18156976447488337"
+      "container_id": "18156976447488337",
+      "remote_id": "17914740144504990"
     }
   }
 }

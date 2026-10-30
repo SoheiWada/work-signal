@@ -2123,5 +2123,11 @@
       "container_id": "18156928264488337",
       "remote_id": "18133730515705006"
     }
+  },
+  "20261030-chrome-156-mediastream-critical-update": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-30T08:33:03+00:00"
+    }
   }
 }

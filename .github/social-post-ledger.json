@@ -2238,8 +2238,8 @@
   },
   "20261030-wordpress-ai-engine-mcp-oauth-cve-2026-110732": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T14:34:49+00:00"
+      "status": "needs_review",
+      "updated_at": "2026-10-30T14:35:26+00:00"
     }
   }
 }

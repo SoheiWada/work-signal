@@ -2143,10 +2143,12 @@
   },
   "20261030-mhlw-working-days-holiday-sidejobs-discussion": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T08:33:56+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T08:33:59+00:00",
       "stage": "publish_requested",
-      "container_id": "18003263156808992"
+      "container_id": "18003263156808992",
+      "remote_id": "18003263156808992",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfHKcSYlogZ"
     }
   }
 }

@@ -2187,10 +2187,12 @@
   },
   "20261030-intel-q3-2026-ai-dc-growth-pc-divergence": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T10:20:07+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T10:20:10+00:00",
       "stage": "publish_requested",
-      "container_id": "18201885517384699"
+      "container_id": "18201885517384699",
+      "remote_id": "18201885517384699",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfHWl-GFhrM"
     }
   }
 }

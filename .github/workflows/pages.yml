@@ -12,7 +12,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: pages
+  # PR/feature validation must not cancel a main production deployment.
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:

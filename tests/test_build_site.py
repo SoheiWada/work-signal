@@ -104,76 +104,96 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertIn('Sitemap: ' + BASE + 'sitemap.xml', (output / 'robots.txt').read_text())
             self.assertNotIn("fetch('./data/articles.json'", page)
 
-    def test_security_watch_first_publication_sort_stays_stable_after_updates(self):
-        """Newer publications precede old but recently updated security advisories."""
-        from scripts.build_site import security_publication_sort_key
+    def test_security_watch_activity_order_mixes_new_and_updated_by_instant(self):
+        """Four user scenarios alternate new stories and updated older stories."""
+        from scripts.build_site import security_activity_sort_key
 
-        def row(aid, published, registered=None, updated=None):
-            article = {
-                'id': aid, 'published_at': published,
-                **({'first_registered_at': registered} if registered else {}),
-                **({'updated_at': updated} if updated else {}),
-            }
-            return (updated or published,
-                    {'article_id': aid, 'date': published, 'id': aid}, article)
+        def row(aid, pub_date, pub_clock, changed=None):
+            article = {'id': aid, 'published_at': pub_date,
+                       'published_at_time': pub_clock}
+            return (changed or pub_date,
+                    {'article_id': aid, 'id': aid, 'date': pub_date}, article)
 
-        latest = row('latest', '2026-10-30', '2026-10-30T18:30:00+09:00')
-        morning = row('morning', '2026-10-30', '2026-10-30T09:00:00+09:00')
-        legacy = list(row('old-updated', '2026-10-22', '2026-10-22T09:44:00+09:00',
-                     '2026-10-31T19:00:00+09:00'))
-        missing_time = row('missing-time', '2026-10-30')
-        archive_only = ('2026-10-29', {'id': 'archive-only',
-                         'article_id': 'archive-only', 'date': '2026-10-29'}, None)
+        # Actual order: 22:00 update, 21:59 new, 21:57 update, 21:56 new.
+        first = row('first-updated', '2026-10-22',
+                    '2026-10-22T10:00:00+09:00', '2026-10-30T22:00:00+09:00')
+        second = row('second-new', '2026-10-30',
+                     '2026-10-30T21:59:00+09:00')
+        third = row('third-updated', '2026-10-20',
+                    '2026-10-20T12:43:00+09:00', '2026-10-30T12:57:00Z')
+        fourth = row('fourth-new', '2026-10-30',
+                     '2026-10-30T21:56:00+09:00')
+        items = [fourth, third, second, first]
+        ordered = sorted(items, key=security_activity_sort_key, reverse=True)
+        self.assertEqual([item[1]['article_id'] for item in ordered],
+                         ['first-updated', 'second-new', 'third-updated', 'fourth-new'])
+        # Reverse the first story's update and ensure the newer new stories win.
+        changed_first = ('2026-10-23T10:01:00+09:00', first[1], first[2])
+        ordered = sorted([fourth, third, second, changed_first],
+                         key=security_activity_sort_key, reverse=True)
+        self.assertEqual([item[1]['article_id'] for item in ordered],
+                         ['second-new', 'third-updated', 'fourth-new', 'first-updated'])
 
-        ordered = sorted([legacy, missing_time, archive_only, morning, latest],
-                         key=security_publication_sort_key, reverse=True)
-        self.assertEqual([row[1]['article_id'] for row in ordered],
-                         ['latest', 'morning', 'missing-time', 'archive-only', 'old-updated'])
-        # Updating a headline or the Git history date must NOT move its card.
-        legacy[0] = '2026-11-05T00:00:00+09:00'
-        unchanged = sorted([legacy, missing_time, archive_only, morning, latest],
-                           key=security_publication_sort_key, reverse=True)
-        self.assertEqual([row[1]['article_id'] for row in unchanged],
-                         ['latest', 'morning', 'missing-time', 'archive-only', 'old-updated'])
+    def test_security_watch_sort_handles_missing_clocks_and_timezone_offsets(self):
+        from scripts.build_site import security_activity_sort_key
+        jst_first = ('2026-10-30T21:59:00+09:00',
+                     {'date': '2026-10-22', 'article_id': 'edited'},
+                     {'published_at': '2026-10-22',
+                      'first_registered_at': '2026-10-22T09:00:00+09:00'})
+        utc_later = ('2026-10-30T13:00:00Z',
+                     {'date': '2026-10-20', 'article_id': 'utc'},
+                     {'published_at': '2026-10-20'})
+        date_only = ('2026-10-30',
+                     {'date': '2026-10-30', 'article_id': 'no-hour'}, None)
+        self.assertEqual(
+            [v[1]['article_id'] for v in
+             sorted([date_only, jst_first, utc_later],
+                    key=security_activity_sort_key, reverse=True)],
+            ['utc', 'edited', 'no-hour'])
 
-    def test_security_watch_archive_visual_order_matches_publication_timeline(self):
-        """The static archive and home highlights use the same publication order."""
+    def test_security_watch_archive_visual_order_follows_latest_activity(self):
+        """Home and archive cards use the same latest editorial activity order."""
         def article(aid, published, registered, updated=None):
-            a = copy.deepcopy(self.article)
-            a.update(id=aid, title='Navigation test ' + aid, category='SECURITY',
-                     published_at=published, published_at_time=registered,
-                     social_security_severity='CRITICAL',
-                     social_security_product='Test Product ' + aid)
+            item = copy.deepcopy(self.article)
+            item.update(id=aid, title='Chronology test ' + aid, category='SECURITY',
+                        published_at=published, published_at_time=registered,
+                        social_security_severity='CRITICAL',
+                        social_security_product='Test Product ' + aid)
             if updated:
-                a['updated_at'] = updated
+                item['updated_at'] = updated
             else:
-                a.pop('updated_at', None)
-            return a
+                item.pop('updated_at', None)
+            return item
 
-        older = article('chronology-old', '2026-10-22',
-                        '2026-10-22T08:00:00+09:00', '2026-10-31T12:00:00+09:00')
-        same_day_early = article('chronology-early', '2026-10-30',
-                                 '2026-10-30T08:00:00+09:00')
-        same_day_late = article('chronology-late', '2026-10-30',
-                                '2026-10-30T15:00:00+09:00')
+        first = article('activity-first', '2026-10-22',
+                        '2026-10-22T10:00:00+09:00',
+                        '2026-10-30T22:00:00+09:00')
+        second = article('activity-second', '2026-10-30',
+                         '2026-10-30T21:59:00+09:00')
+        third = article('activity-third', '2026-10-20',
+                        '2026-10-20T12:43:00+09:00',
+                        '2026-10-30T21:57:00+09:00')
+        fourth = article('activity-fourth', '2026-10-30',
+                         '2026-10-30T21:56:00+09:00')
         with tempfile.TemporaryDirectory() as temp:
             output = Path(temp) / 'site'
-            build(output, [older, same_day_early, same_day_late])
+            build(output, [fourth, third, second, first])
             archive = (output / 'security/index.html').read_text()
             home = (output / 'index.html').read_text()
-            # Use actual card hrefs rather than incidental page text.
-            paths = ['/articles/' + aid + '/' for aid in
-                     ('chronology-late', 'chronology-early', 'chronology-old')]
-            archive_positions = [archive.index('class="sw-item" href="' + path + '"')
-                                 for path in paths]
-            self.assertEqual(archive_positions, sorted(archive_positions))
-            # Home shows only the four freshest advisories; an older test
-            # article may be excluded by reviewed legacy entries.
-            home_positions = [home.index('class="sw-item" href="' + path + '"')
-                              for path in paths[:2]]
-            self.assertEqual(home_positions, sorted(home_positions))
-            self.assertIn('更新 2026-10-31', archive)
-            self.assertIn('公開登録 2026-10-22 08:00 JST', archive)
+            ids = ('activity-first', 'activity-second', 'activity-third',
+                   'activity-fourth')
+            # Use actual SECURITY WATCH card hrefs rather than incidental text.
+            for page in (archive, home):
+                found = [aid for aid in ids
+                         if ('class="sw-item" href="/articles/' + aid + '/"') in page]
+                if page is archive:
+                    self.assertEqual(len(found), 4)
+                offsets = [page.index('class="sw-item" href="/articles/' + aid + '/"')
+                           for aid in found]
+                self.assertEqual(offsets, sorted(offsets))
+            self.assertIn('更新 2026-10-30 22:00 JST', archive)
+            self.assertIn('公開登録 2026-10-22 10:00 JST', archive)
+            self.assertIn('新規公開・追記更新の新しい日時順', archive)
 
     def test_security_watch_articles_return_to_archive_from_top_and_end(self):
         """SECURITY stories have a real archive route without losing ALL SIGNALS."""

@@ -49,6 +49,7 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_build_site.py'
           python3 -m unittest discover -s tests -p 'test_security_watch.py'
           python3 -m unittest discover -s tests -p 'test_approved_social_event.py'
+          python3 -m unittest discover -s tests -p 'test_scheduled_social.py'
           python3 -m unittest discover -s tests -p 'test_seo_metadata.py'
           python3 -m unittest discover -s tests -p 'test_publication_timeline.py'
           python3 -m unittest discover -s tests -p 'test_market_assets.py'

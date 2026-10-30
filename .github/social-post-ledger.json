@@ -2117,10 +2117,11 @@
       "updated_at": "2026-10-30T06:20:24+00:00"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T06:20:37+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T06:20:41+00:00",
       "stage": "publish_requested",
-      "container_id": "18156928264488337"
+      "container_id": "18156928264488337",
+      "remote_id": "18133730515705006"
     }
   }
 }

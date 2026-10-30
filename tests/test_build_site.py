@@ -94,6 +94,48 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertIn('Sitemap: ' + BASE + 'sitemap.xml', (output / 'robots.txt').read_text())
             self.assertNotIn("fetch('./data/articles.json'", page)
 
+    def test_security_watch_articles_return_to_archive_from_top_and_end(self):
+        """SECURITY stories have a real archive route without losing ALL SIGNALS."""
+        from scripts.build_site import article_page, security_watch_return
+        template = (ROOT / 'article.html').read_text()
+        security = copy.deepcopy(self.article)
+        security['category'] = 'SECURITY'
+        security['id'] = 'security-navigation-example'
+        html = article_page(security, template)
+        doc = Document(html)
+        links = [attrs for tag, attrs in doc.tags if tag == 'a']
+        security_links = [attrs for attrs in links if attrs.get('href') == '/security/']
+        self.assertEqual(len(security_links), 2)
+        self.assertTrue(all(attrs.get('aria-label') == 'SECURITY WATCHの記事一覧へ戻る'
+                            for attrs in security_links))
+        self.assertIn('security-watch-return--top', html)
+        self.assertIn('security-watch-return--end', html)
+        self.assertIn('SECURITY WATCH一覧へ戻る', html)
+        self.assertIn('href="/#latest"', html)
+        self.assertIn('class="article-return"', html)
+        self.assertEqual(security_watch_return(security, 'top').count('href="/security/"'), 1)
+
+        normal = copy.deepcopy(security)
+        normal['category'] = 'AI'
+        normal_html = article_page(normal, template)
+        self.assertNotIn('security-watch-return', normal_html)
+        self.assertNotIn('href="/security/"', normal_html)
+        self.assertIn('href="/#latest"', normal_html)
+
+    def test_legacy_and_preview_navigation_match_static_articles(self):
+        for name in ('article.html', 'preview.html'):
+            source = (ROOT / name).read_text()
+            with self.subTest(name=name):
+                self.assertIn("function securityWatchReturn(a,position)", source)
+                self.assertIn("a.category==='SECURITY'", source)
+                self.assertIn("link.href='/security/'", source)
+                self.assertIn("grid.append(securityWatchReturn(a,'end'))", source)
+                self.assertIn("hero.prepend(securityWatchReturn(a,'top'))", source)
+                self.assertIn("returnLink.href='/#latest'", source)
+        style = (ROOT / 'assets/css/signal-interactions.css').read_text()
+        self.assertIn('.security-watch-return a:focus-visible', style)
+        self.assertIn('min-height:48px', style)
+
     def test_security_watch_archive_card_contrast(self):
         # Archive cards have a pale surface; text must not inherit
         # the light foreground used by the surrounding dark shell.

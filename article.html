@@ -191,8 +191,7 @@ function addWageWidgets(content){
 }
 function render(a){
 root.replaceChildren();const deep=a.format==='deep_dive';const hasSections=Array.isArray(a.sections)&&a.sections.length>0;const special=a.format==='special_story',guide=a.format==='management_guide';const formatLabel=guide?'MANAGEMENT GUIDE · 独自解説':special?'SPECIAL STORY · 自社製品紹介':deep?'SIGNAL DEEP DIVE':'SIGNAL BRIEF';
-const hero=el('section',undefined,'hero');hero.append(el('div','/ '+a.category.toUpperCase()+' / '+(guide?'MANAGEMENT GUIDE':special?'SPECIAL STORY · 自社製品紹介':deep?'DEEP DIVE':'EDITORIAL BRIEFING'),'eyebrow'),el('h1',a.title));
-if(a.category==='SECURITY')hero.prepend(securityWatchReturn(a,'top'));
+const hero=el('section',undefined,'hero');if(a.category==='SECURITY')hero.append(securityWatchReturn(a,'top'));hero.append(el('div','/ '+a.category.toUpperCase()+' / '+(guide?'MANAGEMENT GUIDE':special?'SPECIAL STORY · 自社製品紹介':deep?'DEEP DIVE':'EDITORIAL BRIEFING'),'eyebrow'),el('h1',a.title));
 const meta=el('div',undefined,'meta');if(!special&&!guide)meta.append(el('span',a.score+' / 100','score'));meta.append(el('span',formatLabel,'article-type'),el('span',a.category),el('time',a.published_at),el('span','約'+readingMinutes(a)+'分で読める','readtime'));hero.append(meta);
 const layout=el('div',undefined,'layout'),content=el('article',undefined,'content');content.append(el('p',a.summary,'lead'));
 const toc=[];

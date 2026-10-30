@@ -2110,5 +2110,11 @@
       "container_id": "18156919666488337",
       "remote_id": "17939259243127756"
     }
+  },
+  "20261030-consumer-confidence-35-inflation-expectations": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-30T06:19:48+00:00"
+    }
   }
 }

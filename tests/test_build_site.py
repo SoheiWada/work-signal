@@ -119,8 +119,8 @@ class StaticPublishingTests(unittest.TestCase):
 
         latest = row('latest', '2026-10-30', '2026-10-30T18:30:00+09:00')
         morning = row('morning', '2026-10-30', '2026-10-30T09:00:00+09:00')
-        legacy = row('old-updated', '2026-10-22', '2026-10-22T09:44:00+09:00',
-                     '2026-10-31T19:00:00+09:00')
+        legacy = list(row('old-updated', '2026-10-22', '2026-10-22T09:44:00+09:00',
+                     '2026-10-31T19:00:00+09:00'))
         missing_time = row('missing-time', '2026-10-30')
         archive_only = ('2026-10-29', {'id': 'archive-only',
                          'article_id': 'archive-only', 'date': '2026-10-29'}, None)

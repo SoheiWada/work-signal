@@ -6,10 +6,11 @@ social-publisher-ci.yml and must never prevent an approved article from
 reaching the website.
 """
 import json
+import re
 from html import escape
 from pathlib import Path
 
-from scripts.build_site import ROOT, published_articles
+from scripts.build_site import ROOT, published_articles, security_activity_sort_key
 from scripts.security_watch import security_feed
 
 OUT = ROOT / "_site"
@@ -58,6 +59,25 @@ def main():
                          if escape(row.get("headline") or lookup[row["article_id"]]["title"], quote=True) not in watch_html]
     if missing_headlines:
         raise RuntimeError("SECURITY WATCH article headlines not rendered: " + ", ".join(missing_headlines[:10]))
+    # Check the *actual generated order* instead of trusting only the feed.
+    # This catches a UI regression after SEO/template changes even if every
+    # article link still exists and a normal build returns success.
+    effective = {a["id"]: a for a in emitted}
+    expected_order = sorted(expected_security, key=lambda row:
+        security_activity_sort_key((
+            effective[row["article_id"]].get("updated_at") or row["date"],
+            row, effective[row["article_id"]]
+        )), reverse=True)
+    expected_order_ids = [row["article_id"] for row in expected_order]
+    card_pattern = r'<a class="sw-item" href="/articles/([A-Za-z0-9_-]+)/">'
+    archive_ids = re.findall(card_pattern, watch_html)
+    home_ids = re.findall(card_pattern, home_html)
+    if archive_ids != expected_order_ids:
+        raise RuntimeError("SECURITY WATCH archive cards are not in publication/update order")
+    if home_ids != expected_order_ids[:4]:
+        raise RuntimeError("SECURITY WATCH top cards differ from archive order")
+    if "新規公開・追記更新の新しい日時順" not in watch_html:
+        raise RuntimeError("SECURITY WATCH sorting explanation is stale")
     if 'data-category="SECURITY"' not in home_html and "const categories=['すべて','AI','SECURITY'" not in home_html:
         raise RuntimeError("SECURITY category filter not available on the homepage")
     print(f"SITE_OUTPUT_OK articles={len(articles)} security_alerts={len(expected_security)}")

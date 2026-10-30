@@ -1879,10 +1879,12 @@
   },
   "20261030-node-open-mcp-inspector-powershell-injection": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T00:36:10+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T00:36:12+00:00",
       "stage": "publish_requested",
-      "container_id": "18129368776841718"
+      "container_id": "18129368776841718",
+      "remote_id": "18129368776841718",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfGTwpSGRbY"
     }
   }
 }

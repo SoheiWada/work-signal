@@ -36,7 +36,15 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+      - name: Choose only fresh, safe scheduled delivery targets
+        id: scheduled
+        if: github.event_name == 'schedule'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python scripts/select_scheduled_social.py
       - name: Verify published source and allow only ledger changes
+        if: github.event_name != 'schedule' || steps.scheduled.outputs.ready == 'true'
         env:
           EXPECTED_SHA: ${{ inputs.deployed_sha }}
           GITHUB_TOKEN: ${{ github.token }}
@@ -51,7 +59,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_approved_social_event.py'
       - name: Reconcile only freshness-reviewed missing posts
         # A newly approved article cannot authorize recovery of unrelated posts.
-        if: inputs.article_ids == ''
+        if: inputs.article_ids == '' && (github.event_name != 'schedule' || steps.scheduled.outputs.ready == 'true')
         env:
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
@@ -61,6 +69,7 @@ jobs:
           INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
         run: python scripts/reconcile_social_recovery.py
       - name: Publish explicitly approved articles
+        if: github.event_name != 'schedule' || steps.scheduled.outputs.ready == 'true'
         id: publish
         # A known Meta Instagram FEED hold is not a Threads failure.
         # The next step ONLY permits that explicit hold. All other failures
@@ -71,7 +80,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           SOCIAL_PUBLISH_ENABLED: ${{ vars.SOCIAL_PUBLISH_ENABLED }}
           SOCIAL_REPORT_ENABLED: 'true'
-          SOCIAL_SCOPE_ARTICLE_IDS: ${{ inputs.article_ids }}
+          SOCIAL_SCOPE_ARTICLE_IDS: ${{ inputs.article_ids || steps.scheduled.outputs.article_ids }}
           THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
           THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
@@ -80,12 +89,12 @@ jobs:
       - name: Verify Threads and Stories delivery separately from IG feed protective hold
         if: always() && steps.publish.outcome != 'skipped'
         env:
-          SOCIAL_SCOPE_ARTICLE_IDS: ${{ inputs.article_ids }}
+          SOCIAL_SCOPE_ARTICLE_IDS: ${{ inputs.article_ids || steps.scheduled.outputs.article_ids }}
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python scripts/check_social_channel_outcomes.py
       - name: Diagnose Instagram review states (read only)
-        if: always()
+        if: always() && (github.event_name != 'schedule' || steps.scheduled.outputs.ready == 'true')
         env:
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
           INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}

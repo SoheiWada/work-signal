@@ -2080,7 +2080,9 @@
   "20261030-boj-rate-hold-etf-sales-2027": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-30T04:03:51+00:00"
+      "updated_at": "2026-10-30T04:03:59+00:00",
+      "stage": "publish_requested",
+      "container_id": "17972473497189651"
     }
   }
 }

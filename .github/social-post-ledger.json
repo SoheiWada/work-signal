@@ -2118,8 +2118,13 @@
   },
   "20261030-consumer-confidence-35-inflation-expectations": {
     "threads": {
-      "status": "needs_review",
-      "updated_at": "2026-10-30T06:20:24+00:00"
+      "status": "attempting",
+      "updated_at": "2026-10-30T09:24:31+00:00",
+      "recovery_review_id": "owner-approved-threads-two-20261030",
+      "previous_attempt": {
+        "status": "needs_review",
+        "updated_at": "2026-10-30T06:20:24+00:00"
+      }
     },
     "instagram_story": {
       "status": "published",

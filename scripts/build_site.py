@@ -28,6 +28,11 @@ try:
 except ImportError:
     from seo_metadata import article_modifications, article_publication_times, modification_date, latest_date
 
+try:
+    from .topic_catalog import TOPICS, active_topics, topic_articles, article_topics
+except ImportError:
+    from topic_catalog import TOPICS, active_topics, topic_articles, article_topics
+
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://signal.amberlight.co.jp/"
 HOME_PAGE_SIZE = 12
@@ -612,7 +617,7 @@ def security_watch_return(article, position):
             '<span>SECURITY WATCH一覧へ戻る</span></a></nav>')
 
 
-def article_body(article, modified_at=None, related=()):
+def article_body(article, modified_at=None, related=(), topics=()):
     deep = article.get('format') == 'deep_dive'
     has_sections = isinstance(article.get('sections'), list) and bool(article['sections'])
     reading = max(1, math.ceil((len(article.get('summary', '')) + sum(len(str(part.get('body', ''))) for part in article.get('sections', []))) / 600))
@@ -651,6 +656,7 @@ def article_body(article, modified_at=None, related=()):
             + '</dd>' + ('' if article.get('format') in ('special_story', 'management_guide') else '<dt>SIGNAL SCORE</dt><dd>' + esc(article['score']) + ' / 100</dd>') + '<dt>PUBLISHED</dt><dd>' + esc(article['published_at'])
             + '</dd></dl>' + toc
             + ('<nav class="toc" aria-label="関連記事"><div class="side-title">RELATED SIGNALS</div>' + ''.join('<a href="' + article_url(item) + '">' + esc(item['title']) + '</a>' for item in related) + '</nav>' if related else '')
+            + ('<nav class="toc" aria-label="関連テーマ"><div class="side-title">READ BY TOPIC</div>' + ''.join('<a href="' + topic_url(item) + '">' + esc(item['name']) + '</a>' for item in topics) + '</nav>' if topics else '')
             + '<div class="source"><small>/ PRIMARY SOURCE</small><a href="'
             + esc(article['source_url']) + '" target="_blank" rel="noopener noreferrer">'
             + esc(article['source_url']) + '</a></div><p class="note">'
@@ -719,7 +725,7 @@ def wage_widget_script(article, template):
             + "addWageWidgets(document.querySelector('#article .content'));</script>")
 
 
-def article_page(article, template, modified_at=None, related=()):
+def article_page(article, template, modified_at=None, related=(), topics=()):
     url = article_url(article)
     image_url = BASE + 'assets/og/' + article['id'] + '.png'
     title = article["title"] + " — WORK SIGNAL"
@@ -761,9 +767,9 @@ def article_page(article, template, modified_at=None, related=()):
     body = ('<body><div class="top" id="page-top"></div><div class="shell"><header>'
             + '<a class="brand" href="/">WORK<span>.</span>SIGNAL</a>'
             + '<a class="back" href="/#latest">ALL SIGNALS</a></header>'
-            + '<main id="article">' + article_body(article, modified_at, related) + article_end(article) + '</main></div>'
+            + '<main id="article">' + article_body(article, modified_at, related, topics) + article_end(article) + '</main></div>'
             + '<footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong>'
-            + '<small>NEWS IS SHORT. MEANING IS DEEP. · <a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a> · <a href="/feed.xml">RSS</a></small>'
+            + '<small>NEWS IS SHORT. MEANING IS DEEP. · <a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a> · <a href="/feed.xml">RSS</a> · <a href="/topics/">TOPICS</a></small>'
             + '<nav class="footer-social-links" aria-label="公式SNS"><a href="https://www.instagram.com/work_signal_japan/" target="_blank" rel="noopener noreferrer"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.9" cy="6.4" r="1.1" fill="currentColor"/></svg><span>INSTAGRAM</span></a><a href="https://www.threads.com/@work_signal_japan" target="_blank" rel="noopener noreferrer"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.263 11.097c-.03-3.486-1.92-5.586-5.111-5.586-2.13 0-3.922.963-4.863 2.499l2.062 1.438c.535-.843 1.272-1.543 2.628-1.543 1.528 0 2.318.85 2.544 2.431a15 15 0 0 0-2.236-.173c-4.125 0-6.068 1.867-6.068 4.336s1.943 3.99 4.804 3.99c3.139 0 5.013-2.115 5.781-4.735.798.361 1.348 1.204 1.348 2.47 0 3.387-3.907 5.232-7.22 5.232-4.885 0-8.077-3.207-8.077-8.424 0-6.392 4.223-10.487 9.9-10.487 3.808 0 5.69 1.671 6.97 3.914l2.108-1.475C21.44 2.078 18.331 0 13.663 0 6.227 0 1.168 5.277 1.168 12.934c0 7 4.953 11.066 10.856 11.066 4.878 0 9.809-2.846 9.809-7.716 0-2.545-1.46-4.231-3.569-5.187m-6.33 4.855c-1.077 0-2.026-.512-2.026-1.453 0-1.483 1.822-1.934 3.606-1.934.678 0 1.34.045 1.927.173-.422 1.927-1.671 3.215-3.508 3.214Z"/></svg><span>THREADS</span></a></nav></div></footer>'
             + wage_widget_script(article, template) + '</body></html>')
     return head + body
@@ -778,6 +784,26 @@ def listing_analytics(home_html):
     """Reuse the existing GA4 settings without changing advertising placement."""
     analytics = home_html.split('<!-- Google tag (gtag.js): WORK SIGNAL -->', 1)[1].split('</head>', 1)[0]
     return analytics.split('<script async src="https://pagead2.googlesyndication.com/', 1)[0]
+
+
+def archive_styles():
+    return """<style>
+.archive-section{padding:65px 0 95px}
+.archive-section .section-heading h1{margin:8px 0 0;font:800 clamp(40px,6vw,78px)/1 var(--sans);letter-spacing:-.075em}
+.archive-return{font:700 11px var(--sans);letter-spacing:.1em;text-decoration:none;border-bottom:1px solid var(--ink);padding:8px 0}
+.archive-return:is(:hover,:focus-visible){color:var(--orange)}
+.archive-intro{display:flex;align-items:baseline;justify-content:space-between;gap:15px;flex-wrap:wrap;padding:18px 0 33px;margin:0 0 23px;border-bottom:1px solid var(--line)}
+.archive-intro p{font:500 12px/1.9 var(--jp);color:var(--muted);margin:0}
+.archive-intro small{font:700 10px var(--sans);letter-spacing:.1em;color:var(--orange)}
+.archive-pages{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px;margin-top:47px;padding:22px 0;border-top:1px solid var(--line)}
+.archive-pages a,.archive-pages span{min-width:42px;min-height:44px;padding:10px 12px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font:700 11px var(--sans);letter-spacing:.08em}
+.archive-pages a{border:1px solid var(--line)}
+.archive-pages a:is(:hover,:focus-visible){border-color:var(--orange);color:var(--orange)}
+.archive-pages a:focus-visible,.archive-return:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.archive-pages [aria-current="page"]{background:var(--ink);color:var(--paper)}
+.archive-pages .archive-gap{min-width:12px;color:var(--muted)}
+@media(max-width:700px){.archive-section{padding:38px 0 65px}.archive-intro{padding-top:12px}.archive-return{font-size:9px}.archive-pages{gap:5px}.archive-pages a,.archive-pages span{min-width:37px;padding:9px 8px}}
+</style>"""
 
 
 def archive_page(articles, page, home_html):
@@ -797,23 +823,7 @@ def archive_page(articles, page, home_html):
         raise ValueError('Home design assets required for the archive are missing')
     analytics = listing_analytics(home_html)
     footer_html = footer.group().replace('<span id="year"></span>', str(datetime.now(timezone.utc).year))
-    archive_css = """<style>
-.archive-section{padding:65px 0 95px}
-.archive-section .section-heading h1{margin:8px 0 0;font:800 clamp(40px,6vw,78px)/1 var(--sans);letter-spacing:-.075em}
-.archive-return{font:700 11px var(--sans);letter-spacing:.1em;text-decoration:none;border-bottom:1px solid var(--ink);padding:8px 0}
-.archive-return:is(:hover,:focus-visible){color:var(--orange)}
-.archive-intro{display:flex;align-items:baseline;justify-content:space-between;gap:15px;flex-wrap:wrap;padding:18px 0 33px;margin:0 0 23px;border-bottom:1px solid var(--line)}
-.archive-intro p{font:500 12px/1.9 var(--jp);color:var(--muted);margin:0}
-.archive-intro small{font:700 10px var(--sans);letter-spacing:.1em;color:var(--orange)}
-.archive-pages{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px;margin-top:47px;padding:22px 0;border-top:1px solid var(--line)}
-.archive-pages a,.archive-pages span{min-width:42px;min-height:44px;padding:10px 12px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font:700 11px var(--sans);letter-spacing:.08em}
-.archive-pages a{border:1px solid var(--line)}
-.archive-pages a:is(:hover,:focus-visible){border-color:var(--orange);color:var(--orange)}
-.archive-pages a:focus-visible,.archive-return:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
-.archive-pages [aria-current="page"]{background:var(--ink);color:var(--paper)}
-.archive-pages .archive-gap{min-width:12px;color:var(--muted)}
-@media(max-width:700px){.archive-section{padding:38px 0 65px}.archive-intro{padding-top:12px}.archive-return{font-size:9px}.archive-pages{gap:5px}.archive-pages a,.archive-pages span{min-width:37px;padding:9px 8px}}
-</style>"""
+    archive_css = archive_styles()
     numbers = []
     previous_omitted = False
     for number in range(1, total_pages + 1):
@@ -852,6 +862,97 @@ def archive_page(articles, page, home_html):
               '</section></main></div>' + footer_html + '</body></html>')
     return result
 
+
+
+def topic_url(topic=None):
+    return BASE + 'topics/' + (topic['id'] + '/' if topic else '')
+
+
+def topic_page(topic, articles, home_html):
+    """A static reading guide using the existing archive typography and cards."""
+    active = active_topics(articles)
+    selected = topic_articles(topic, articles) if topic else []
+    title = (topic['title'] if topic else 'テーマから読む｜AIの業務活用・セキュリティ・管理職の実務') + ' — WORK SIGNAL'
+    description = topic['description'] if topic else 'WORK SIGNALのニュース解説を、AIの業務活用、企業のセキュリティ対策、管理職の実務というテーマと読む順番から探す。'
+    heading = topic['name'] if topic else 'テーマから読む'
+    url = topic_url(topic)
+    style = re.search(r'<style>.*?</style>', home_html, re.S).group()
+    fonts = re.search(r'<link rel="preconnect".*?<style>', home_html, re.S).group().removesuffix('<style>')
+    footer = re.search(r'<div class="shell"><footer>.*?</footer></div>', home_html, re.S).group()
+    footer = footer.replace('<span id="year"></span>', str(datetime.now(timezone.utc).year))
+    breadcrumbs = [{'@type': 'ListItem', 'position': 1, 'name': 'ホーム', 'item': BASE},
+                   {'@type': 'ListItem', 'position': 2, 'name': 'テーマから読む', 'item': topic_url()}]
+    if topic:
+        breadcrumbs.append({'@type': 'ListItem', 'position': 3, 'name': heading, 'item': url})
+    entries = ([{'@type': 'ListItem', 'position': i + 1, 'url': article_url(item), 'name': item['title']}
+                for i, item in enumerate(selected)] if topic else
+               [{'@type': 'ListItem', 'position': i + 1, 'url': topic_url(item), 'name': item['name']}
+                for i, item in enumerate(active)])
+    schema = {'@context': 'https://schema.org', '@type': 'CollectionPage', 'name': title,
+              'description': description, 'url': url, 'inLanguage': 'ja',
+              'isPartOf': {'@type': 'WebSite', 'name': 'WORK SIGNAL', 'url': BASE},
+              'mainEntity': {'@type': 'ItemList', 'itemListElement': entries}}
+    if topic:
+        lookup = {item['id']: item for item in selected}
+        steps = []
+        for step in topic['steps']:
+            guides = ''.join('<li><a href="' + article_url(lookup[aid]) + '">' + esc(lookup[aid]['title'])
+                             + '</a></li>' for aid in step['articles'] if aid in lookup)
+            if guides:
+                steps.append('<section class="topic-step"><h2>' + esc(step['title']) + '</h2><p>'
+                             + esc(step['text']) + '</p><ul>' + guides + '</ul></section>')
+        content = ('<p class="topic-lead">' + esc(topic['intro']) + '</p><p class="topic-reviewed">ガイド確認日：'
+                   + esc(topic['reviewed_at']) + ' · 記事の公開日・更新日は各記事で確認できます。</p>'
+                   + '<div class="topic-steps">' + ''.join(steps) + '</div>'
+                   + ('<p class="topic-lead"><a href="/security/">最新の脆弱性情報はSECURITY WATCH一覧へ</a></p>'
+                      if topic['id'] == 'security-practice' else '')
+                   + '<h2 class="topic-list-title">このテーマの解説記事</h2><div class="grid">'
+                   + ''.join(article_card(item) for item in selected) + '</div>'
+                   + '<nav class="archive-pages" aria-label="テーマの一覧へ"><a href="/topics/">すべてのテーマを見る</a></nav>')
+    else:
+        content = '<p class="topic-lead">知りたいことや職場の悩みから、基礎解説・事例・続報を読む順番で案内します。記事一覧は公開時に自動更新されます。</p><div class="grid">'
+        for item in active:
+            content += ('<article class="story"><div class="story-head"><div class="story-top">'
+                        '<span class="story-category">READING GUIDE</span></div></div>'
+                        '<div class="story-content"><h2 class="topic-card-title">' + esc(item['name'])
+                        + '</h2><p>' + esc(item['description']) + '</p><a class="story-link" href="'
+                        + topic_url(item) + '">読む順番と記事を見る ↗</a></div></article>')
+        content += '</div>'
+    css = """<style>
+.topic-page h1{font-family:var(--jp)!important;font-size:clamp(28px,4.8vw,56px)!important;line-height:1.5!important;letter-spacing:-.04em!important;overflow-wrap:anywhere}
+.topic-breadcrumbs{font-size:12px;line-height:1.9;margin:0 0 25px;display:flex;gap:8px;flex-wrap:wrap}
+.topic-lead{max-width:850px;font-size:15px;line-height:2.1;margin:25px 0}
+.topic-reviewed{font-size:11px;line-height:1.9;color:var(--muted);margin-bottom:30px}
+.topic-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin:30px 0 45px}
+.topic-step{border-top:2px solid var(--ink);padding-top:18px;min-width:0}
+.topic-step h2,.topic-card-title{font:700 20px/1.7 var(--jp);letter-spacing:-.035em;margin:0 0 15px}
+.topic-step p,.topic-step li{font-size:13px;line-height:2;overflow-wrap:anywhere}
+.topic-step ul{padding-left:1.2em}.topic-step li{margin:12px 0}
+.topic-step a:hover,.topic-breadcrumbs a:hover{color:var(--orange)}
+.topic-list-title{font-size:24px;line-height:1.7;margin:35px 0 25px}
+@media(max-width:700px){.topic-steps{grid-template-columns:1fr;gap:20px}.topic-lead{font-size:14px}}
+</style>"""
+    breadcrumb_html = '<a href="/">ホーム</a><span aria-hidden="true">/</span>'
+    breadcrumb_html += ('<a href="/topics/">テーマから読む</a><span aria-hidden="true">/</span><span aria-current="page">'
+                        + esc(heading) + '</span>' if topic else '<span aria-current="page">テーマから読む</span>')
+    return ('<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+            '<meta name="theme-color" content="#f2efe7"><title>' + esc(title) + '</title>'
+            '<meta name="description" content="' + esc(description) + '"><link rel="canonical" href="' + url + '">'
+            + favicon_links() + '<meta name="robots" content="max-image-preview:large">'
+            '<meta property="og:type" content="website"><meta property="og:site_name" content="WORK SIGNAL">'
+            '<meta property="og:title" content="' + esc(title) + '"><meta property="og:description" content="' + esc(description)
+            + '"><meta property="og:url" content="' + url + '"><meta name="twitter:title" content="' + esc(title)
+            + '"><meta name="twitter:description" content="' + esc(description) + '">'
+            + image_metadata(BASE + 'assets/og/home.png', title) + json_ld(schema)
+            + json_ld({'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': breadcrumbs})
+            + fonts + style + archive_styles() + css + listing_analytics(home_html)
+            + '</head><body class="topic-page"><div class="topline"></div><div class="shell">'
+            '<header class="masthead"><a class="brand" href="/" aria-label="WORK SIGNALホーム">WORK<span class="dot">.</span>SIGNAL<span class="sup">®</span></a>'
+            '<a class="archive-return" href="/archive/">THE ARCHIVE</a></header>'
+            '<main><section class="section archive-section"><nav class="topic-breadcrumbs" aria-label="パンくずリスト">'
+            + breadcrumb_html + '</nav><div class="section-heading"><div><div class="kicker">/ READ BY TOPIC</div><h1>'
+            + esc(heading) + '<span style="color:var(--orange)">.</span></h1></div></div>'
+            + content + '</section></main></div>' + footer + '</body></html>')
 
 def write_rss(output, articles):
     """Generate an RSS 2.0 summary feed from approved published articles."""
@@ -1156,18 +1257,30 @@ def build(output, feed=None):
                 instagram_story_card(output, article)
         folder = output / 'articles' / article['id']
         folder.mkdir(parents=True)
-        (folder / 'index.html').write_text(article_page(article, template, modified[article['id']], related_articles(article, articles)))
+        (folder / 'index.html').write_text(article_page(article, template, modified[article['id']], related_articles(article, articles), article_topics(article)))
+    topic_urls, topic_modified = [], {}
+    active = active_topics(articles)
+    for topic in ([None] + active if active else []):
+        directory = output / 'topics' / (topic['id'] if topic else '')
+        directory.mkdir(parents=True, exist_ok=True)
+        (directory / 'index.html').write_text(topic_page(topic, articles, index))
+        topic_urls.append(topic_url(topic))
+        if topic:
+            dates = [modified[item['id']] or item['published_at'] for item in topic_articles(topic, articles)]
+            topic_modified[topic_url(topic)] = latest_date(dates + [topic['reviewed_at']])
+    if active:
+        topic_modified[topic_url()] = latest_date(topic_modified.values())
     write_rss(output, articles)
     ns = 'http://www.sitemaps.org/schemas/sitemap/0.9'
     ET.register_namespace('', ns)
     sitemap = ET.Element('{' + ns + '}urlset')
     by_url = {article_url(item): item for item in articles}
     home_modified = latest_date([modified[item['id']] or item['published_at'] for item in articles])
-    for url in [BASE, BASE + 'about/', BASE + 'privacy/', BASE + 'contact/', BASE + 'security/'] + archive_urls + [article_url(article) for article in articles]:
+    for url in [BASE, BASE + 'about/', BASE + 'privacy/', BASE + 'contact/', BASE + 'security/'] + archive_urls + topic_urls + [article_url(article) for article in articles]:
         entry = ET.SubElement(sitemap, '{' + ns + '}url')
         ET.SubElement(entry, '{' + ns + '}loc').text = url
         item = by_url.get(url)
-        lastmod = (modified[item['id']] or item['published_at']) if item else (home_modified if url == BASE or url in archive_urls else None)
+        lastmod = (modified[item['id']] or item['published_at']) if item else (topic_modified.get(url) or (home_modified if url == BASE or url in archive_urls else None))
         if lastmod:
             ET.SubElement(entry, '{' + ns + '}lastmod').text = lastmod
     ET.ElementTree(sitemap).write(output / 'sitemap.xml', encoding='utf-8', xml_declaration=True)

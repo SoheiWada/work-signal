@@ -44,6 +44,7 @@ jobs:
       # Publisher safeguards remain enforced by social-publisher-ci.yml.
       - name: Validate site generation, SEO and SECURITY WATCH assets
         run: |
+          python3 -m unittest discover -s tests -p 'test_topic_pages.py'
           python3 -m unittest discover -s tests -p 'test_related_articles.py'
           python3 -m unittest discover -s tests -p 'test_build_site.py'
           python3 -m unittest discover -s tests -p 'test_security_watch.py'

@@ -140,6 +140,35 @@ def audit(pages, sitemap_urls):
             'errors': errors, 'warnings': warnings}
 
 
+def audit_topics(pages, sitemap_urls):
+    errors = []
+    known = set(sitemap_urls)
+    count = 0
+    for url, status, source, headers in pages:
+        if '/topics/' not in url:
+            continue
+        count += 1
+        doc = Document(source)
+        if doc.attr('link', 'rel', 'canonical', 'href') != [url]:
+            errors.append([url, 'topic canonical'])
+        if sum(tag == 'h1' for tag, attrs in doc.tags) != 1:
+            errors.append([url, 'topic H1'])
+        if not doc.attr('meta', 'name', 'description', 'content'):
+            errors.append([url, 'topic description'])
+        types = {schema.get('@type') for schema in doc.schemas}
+        if not {'CollectionPage', 'BreadcrumbList'} <= types:
+            errors.append([url, 'topic schema'])
+        for tag, attrs in doc.tags:
+            if tag != 'a':
+                continue
+            target = urlsplit(urljoin(url, attrs.get('href', '')))
+            if target.netloc == urlsplit(BASE).netloc and target.path.startswith(('/articles/', '/topics/')):
+                normalized = target._replace(query='', fragment='').geturl()
+                if normalized not in known:
+                    errors.append([url, 'unknown topic target ' + normalized])
+    return count, errors
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--live', action='store_true')
@@ -170,6 +199,9 @@ def main():
         emitted = json.loads((out / 'data/articles.json').read_text())
         if report['articles'] != len(emitted):
             report['errors'].append(['coverage', 'article count mismatch'])
+    topic_count, topic_errors = audit_topics(pages, urls)
+    report['topic_pages'] = topic_count
+    report['errors'].extend(topic_errors)
     print(json.dumps(report, ensure_ascii=False, indent=2))
     if report['errors']:
         raise SystemExit(1)

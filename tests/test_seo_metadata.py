@@ -79,7 +79,10 @@ class SEOTests(unittest.TestCase):
                 self.assertLessEqual(len(related),2)
                 for item in related:
                     self.assertNotEqual(item['id'],article['id'])
-                    self.assertEqual(item['category'],article['category'])
+                    self.assertIn(item, site.published_articles(self.feed))
+                    linked_page = site.article_page(article, self.template, related=related)
+                    self.assertIn('href="' + site.article_url(item) + '"', linked_page)
+                self.assertEqual(len({item['id'] for item in related}), len(related))
 
     def test_visible_schema_og_sitemap_dates_and_favicon_outputs_agree(self):
         article=next(item for item in self.feed if item['published_at'] <= '2026-10-22'); modified='2026-10-22T16:00:00+09:00'

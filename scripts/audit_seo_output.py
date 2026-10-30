@@ -9,6 +9,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from html.parser import HTMLParser
 import json
+import re
 from pathlib import Path
 from urllib.parse import urljoin, urlsplit
 from urllib.request import Request, urlopen
@@ -64,6 +65,7 @@ def remote(url):
 
 def audit(pages, sitemap_urls):
     errors, warnings, metadata = [], [], []
+    related_map = {}
     article_urls = {url for url in sitemap_urls if '/articles/' in url}
     for url, status, source, headers in pages:
         if status != 200:
@@ -120,6 +122,8 @@ def audit(pages, sitemap_urls):
                         errors.append([url, 'unknown internal article ' + normalized])
             if 'G-X4B5F6JJZH' not in source:
                 warnings.append([url, 'GA4 tag absent'])
+            related = re.search(r'<nav class="toc" aria-label="関連記事">(.*?)</nav>', source, re.S)
+            related_map[url] = re.findall(r'<a href="([^"]+)">', related.group(1)) if related else []
             metadata.append((url, schema.get('headline', ''), (description or [''])[0]))
         except (ValueError, TypeError, KeyError) as error:
             errors.append([url, 'parse: ' + str(error)])
@@ -129,6 +133,10 @@ def audit(pages, sitemap_urls):
             if count > 1:
                 errors.append([label, 'duplicate (' + str(count) + '): ' + value])
     return {'articles': len(metadata), 'sitemap_urls': len(sitemap_urls),
+            'articles_with_related': sum(bool(links) for links in related_map.values()),
+            'related_link_count': sum(len(links) for links in related_map.values()),
+            'related_examples': {url: links for url, links in related_map.items()
+                                 if any(term in url for term in ('jp-incident-monitor', 'bun-144', 'undici-content', 'express-body-parser', 'storybook-dev'))},
             'errors': errors, 'warnings': warnings}
 
 

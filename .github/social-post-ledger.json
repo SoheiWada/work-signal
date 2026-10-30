@@ -2170,10 +2170,12 @@
   },
   "20261030-mistral-large-4-open-weights-enterprise": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-30T09:33:31+00:00",
+      "status": "published",
+      "updated_at": "2026-10-30T09:33:33+00:00",
       "stage": "publish_requested",
-      "container_id": "18451157605125486"
+      "container_id": "18451157605125486",
+      "remote_id": "18451157605125486",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfHRQXVkWOc"
     }
   }
 }

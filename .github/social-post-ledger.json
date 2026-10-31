@@ -2459,7 +2459,9 @@
   "20261031-node-forge-141-security-fixes": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-31T09:20:44+00:00"
+      "updated_at": "2026-10-31T09:20:53+00:00",
+      "stage": "publish_requested",
+      "container_id": "18118979323800534"
     }
   }
 }

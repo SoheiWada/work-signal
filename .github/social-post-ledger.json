@@ -2475,10 +2475,12 @@
   },
   "20261031-ai-training-robots-policy-token": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-31T09:21:29+00:00",
+      "status": "published",
+      "updated_at": "2026-10-31T09:21:31+00:00",
       "stage": "publish_requested",
-      "container_id": "17994203283024856"
+      "container_id": "17994203283024856",
+      "remote_id": "17994203283024856",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfJ0rV4G1dU"
     }
   }
 }

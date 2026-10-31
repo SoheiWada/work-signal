@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261031-hapi-content-joi-dos",
+    "title": "Hapi関連2件にHIGH DoS、multipart解析とJoiメール検証に影響",
+    "summary": "Node.js向けHapi関連ライブラリの@hapi/contentとjoiに、認証前のHTTP入力などからサーバーのイベントループを長時間停止させるHIGH脆弱性が公表された。いずれも正規表現の非効率な処理が原因で、開発元は@hapi/content 6.0.3、joi 17.13.9／18.3.1で修正した。影響はmultipartの受付設定やメール検証の使用条件によって異なる。",
+    "category": "SECURITY",
+    "score": 88,
+    "published_at": "2026-10-31",
+    "published_at_time": "2026-10-31T03:50:51.690Z",
+    "source_url": "https://github.com/advisories/GHSA-8494-f6mr-cjpv",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Node.js向けHapi関連ライブラリの@hapi/contentとjoiに、認証前のHTTP入力などからサーバーのイベントループを長時間停止させるHIGH脆弱性が公表された。いずれも正規表現の非効率な処理が原因で、開発元は@hapi/content 6.0.3、joi 17.13.9／18.3.1で修正した。影響はmultipartの受付設定やメール検証の使用条件によって異なる。",
+    "sections": [
+      {
+        "title": "multipart/form-dataの解析が認証前に止まる恐れ",
+        "body": "CVE-2026-119202（GHSA-8494-f6mr-cjpv）は、@hapi/contentのContent.disposition()がContent-Dispositionパラメータを正規表現で解析する際、イコール記号を持たない長いトークンを繰り返し検査して二次計算量になる問題だ。@hapi/pezがmultipart/form-dataを処理するHapiルートでは、ハンドラや入力検証に到達する前に発生する。開発元の検証では約128KBの入力で約7秒、約1MBでは数分間処理が停止する例が示されている。外部公開のmultipart受付ルートがある場合、認証不要のDoSにつながり得る。"
+      },
+      {
+        "title": "@hapi/content 6.0.3で修正、サイズ制限は補助策",
+        "body": "公式GHSAによると@hapi/content 6.0.2以前が影響を受け、修正版は6.0.3。旧名contentの3.0.6～4.0.6も対象で、旧パッケージ側の修正版は記載されていない。パーサーの正規表現を変更し、長いトークンでも線形時間で処理できるようにした。更新までの一時的な負荷軽減策として、multipartを受け付けるルートのpayload.maxBytesを小さくすることが示されているが、根本的な修正の代替ではない。"
+      },
+      {
+        "title": "Joiの複数メールアドレス検証にもHIGHのDoS",
+        "body": "CVE-2026-118772（GHSA-4528-x5fx-h6hg）は、Joi.string().email({ multiple: true })の区切り文字処理に関する別件だ。長い空白文字列が入力されると、正規表現の試行が二次計算量になり、開発元の検証では約100KBの空白を処理するのに数秒かかった。外部入力をこのルールで検証し、事前の有効な長さ制限がない場合にイベントループがブロックされ得る。通常の単一メール検証すべてに影響するとの意味ではない。"
+      },
+      {
+        "title": "修正版と現場の確認ポイント",
+        "body": "joiは17.13.9と18.3.1で修正された。旧@hapi/joiの16.0.0以降についてはGHSAに修正版が記載されていない。更新できない場合、Joiの.max()による事前の長さ制限が回避策として示されている。ただしabortEarly:falseでは最大長に違反してもemailルールが動くため、同じ回避策が成立しない。依存関係の実際の解決バージョンと、外部公開のmultipartルート・multiple:trueの利用有無を確認することが重要だ。今回の2件について、CISA KEVへの掲載や実環境での悪用を裏付ける情報は確認していない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "@hapi/content、joi、旧@hapi/joi",
+    "social_security_action": "@hapi/contentを6.0.3以上、joiを17.13.9または18.3.1以上に更新。multipart受付ルートのpayload.maxBytesを見直し、Joiのmultiple:true使用箇所には適切な長さ制限を置く。旧パッケージは移行を検討。"
+  },
+  {
     "id": "20261031-node-forge-141-security-fixes",
     "title": "node-forge 1.4.1で複数のHIGH脆弱性を修正、RSA署名偽造・証明書検証・DoSに影響",
     "summary": "JavaScriptの暗号処理ライブラリnode-forgeで、RSA署名検証の偽造リスク、X.509証明書検証の不備、TLSやASN.1解析を通じたサービス拒否など複数のHIGH脆弱性が公表された。開発元はnode-forge 1.4.1で修正。影響は利用するAPIや鍵・入力条件によって異なり、ライブラリを導入した全アプリが直ちに攻撃可能という意味ではない。",

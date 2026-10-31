@@ -2305,10 +2305,12 @@
   },
   "20261031-uk-cma-meta-commercial-terms-investigation": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-31T03:55:50+00:00",
+      "status": "published",
+      "updated_at": "2026-10-31T03:55:52+00:00",
       "stage": "publish_requested",
-      "container_id": "17970349296179561"
+      "container_id": "17970349296179561",
+      "remote_id": "17970349296179561",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfJPaDsjWwl"
     }
   }
 }

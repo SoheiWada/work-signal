@@ -2387,5 +2387,11 @@
       "container_id": "18157335871488337",
       "remote_id": "17946716013359944"
     }
+  },
+  "20261031-cursor-claude-code-extension-ssh-backdoor": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-31T08:42:51+00:00"
+    }
   }
 }

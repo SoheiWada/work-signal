@@ -2442,7 +2442,9 @@
   "20261031-hapi-content-joi-dos": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-31T09:20:15+00:00"
+      "updated_at": "2026-10-31T09:20:23+00:00",
+      "stage": "publish_requested",
+      "container_id": "18127817002655368"
     }
   }
 }

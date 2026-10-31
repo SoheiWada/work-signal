@@ -21,7 +21,7 @@ on:
     types: [completed]
     branches: [main]
   schedule:
-    - cron: '13,43 * * * *'
+    - cron: '6,36 * * * *'
 
 permissions:
   contents: write

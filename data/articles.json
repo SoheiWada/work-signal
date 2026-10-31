@@ -2256,15 +2256,15 @@
   {
     "id": "20261029-signalk-server-ziplogs-jwt-admin-takeover",
     "title": "Signal K ServerにCRITICAL認証回避、ログZIPからJWT秘密鍵が漏えいし管理者権限奪取の恐れ",
-    "summary": "船舶向けデータサーバーSignal K Serverで、認証なしで取得できるログZIPにJWT署名鍵が含まれ、管理者権限の奪取につながるCRITICAL脆弱性が確認された。開発元は2.33.0で修正済み。インターネットに公開された該当サーバーは優先して更新と設定確認が必要だ。",
+    "summary": "船舶向けデータサーバーSignal K Serverで、認証なしで取得できるログZIPにJWT署名鍵が含まれ、管理者権限の奪取につながるCRITICAL脆弱性が確認された。開発元は2.33.0で修正済み。インターネットに公開された該当サーバーは優先して更新と設定確認が必要だ。 船舶向けデータサーバーSignal K Serverに、既報とは異なるCRITICAL脆弱性が確認された。resources APIのパストラバーサルにより設定ファイルが漏えいすると、管理者トークンの偽造からサーバー上での任意コマンド実行につながる恐れがある。開発元は2.34.0で修正しており、既報の2.33.0で対応を止めず、追加更新が必要だ。",
     "category": "SECURITY",
-    "score": 87,
+    "score": 92,
     "published_at": "2026-10-29",
     "published_at_time": "2026-10-29T05:08:15.443Z",
-    "source_url": "https://github.com/SignalK/signalk-server/security/advisories/GHSA-4w32-qx5g-cpwv",
+    "source_url": "https://github.com/SignalK/signalk-server/security/advisories/GHSA-4xm8-rg9h-jhq2",
     "status": "published",
     "format": "deep_dive",
-    "quick_take": "船舶向けデータサーバーSignal K Serverで、認証なしで取得できるログZIPにJWT署名鍵が含まれ、管理者権限の奪取につながるCRITICAL脆弱性が確認された。開発元は2.33.0で修正済み。インターネットに公開された該当サーバーは優先して更新と設定確認が必要だ。",
+    "quick_take": "船舶向けデータサーバーSignal K Serverで、認証なしで取得できるログZIPにJWT署名鍵が含まれ、管理者権限の奪取につながるCRITICAL脆弱性が確認された。開発元は2.33.0で修正済み。インターネットに公開された該当サーバーは優先して更新と設定確認が必要だ。 船舶向けデータサーバーSignal K Serverに、既報とは異なるCRITICAL脆弱性が確認された。resources APIのパストラバーサルにより設定ファイルが漏えいすると、管理者トークンの偽造からサーバー上での任意コマンド実行につながる恐れがある。開発元は2.34.0で修正しており、既報の2.33.0で対応を止めず、追加更新が必要だ。",
     "sections": [
       {
         "title": "認証不要のログZIPが管理者トークン偽造につながる",
@@ -2273,6 +2273,22 @@
       {
         "title": "修正版2.33.0、公開サーバーは優先更新",
         "body": "2026年9月21日の開発元リリース2.33.0は、同GHSAを修正したと明記し、インターネット公開サーバーには直ちに更新するかData Logging Directoryの設定を見直すよう案内している。修正版の `src/interfaces/logfiles.js` では `/skServer/ziplogs` に管理者認証ミドルウェアが追加されたことをソースコードで確認できる。更新できない間は管理機能の公開範囲を制限し、侵害の疑いがある場合は署名鍵の更新や不審な管理者アカウントの確認を検討したい。"
+      },
+      {
+        "title": "既報とは別の侵入経路、ファイルパスの検証不備",
+        "body": "開発元のGHSA-4xm8-rg9h-jhq2は、Signal K ServerのresourcesおよびapplicationData APIで、保存領域外のファイルを読み書き・削除できるパストラバーサルを報告している。resources APIの識別子が適切に検証されず、ファイル保存処理のパス結合から意図しないJSONファイルへ到達する問題だ。既報のログZIP取得エンドポイントの認証欠落（GHSA-4w32-qx5g-cpwv）とは原因と攻撃経路が異なる。"
+      },
+      {
+        "title": "JWT署名鍵の漏えいから管理者権限とコマンド実行へ",
+        "body": "開発元によると、構成ディレクトリのsecurity.jsonを読み取れる場合、JWT署名鍵の漏えいにより管理者トークンを偽造できる。管理者権限でExecute型プロバイダーを追加すると、サーバープロセスの権限でコマンドが実行され得る。匿名の読み取りを許可するallow_readonly=true構成では未認証の攻撃経路があり、標準のallow_readonly=false構成でも読み取り権限を持つユーザートークンがあれば影響し得る。全構成で無条件に未認証RCEが成立すると断定してはならない。"
+      },
+      {
+        "title": "修正版は2.34.0、resources-providerは1.5.3",
+        "body": "GitHub公式アドバイザリーに記載された影響範囲は、signalk-server 2.0.0以上2.34.0未満、および@signalk/resources-provider 1.0.0以上1.5.3未満。修正版はそれぞれ2.34.0、1.5.3だ。10月18日公開のSignal K Server v2.34.0リリースノートにはJWT署名鍵をsecurity.jsonの外に保存するセキュリティ変更が明記されている。既報のログZIP問題を修正した2.33.0だけでは、今回の別経路への対応完了とはみなせない。"
+      },
+      {
+        "title": "公開サーバーの優先点検と侵害の有無の確認",
+        "body": "影響するサーバーとプラグインの更新を優先し、匿名読み取り設定、外部公開範囲、不要な読み取り権限を確認する。漏えいの疑いがある場合は、JWT署名鍵の再生成・既存トークン失効、認証情報の更新、不審な管理者操作やExecute型プロバイダーの有無を調査する。公開されたPoCの存在と実環境での悪用確認は別であり、今回確認した公式資料だけでは実悪用の有無は確定できない。"
       }
     ],
     "social_publish": true,
@@ -2283,7 +2299,8 @@
     ],
     "social_security_severity": "CRITICAL",
     "social_security_product": "Signal K Server（signalk-server）",
-    "social_security_action": "インターネット公開のSignal K Serverを2.33.0以上に更新。直ちに更新できない場合は管理画面の公開を制限し、開発元リリースが案内するData Logging Directoryの設定を確認。秘密鍵漏えいの疑いがある場合はJWT署名鍵と認証情報の更新、管理者アカウント・アクセスログを調査。"
+    "social_security_action": "インターネット公開のSignal K Serverを2.33.0以上に更新。直ちに更新できない場合は管理画面の公開を制限し、開発元リリースが案内するData Logging Directoryの設定を確認。秘密鍵漏えいの疑いがある場合はJWT署名鍵と認証情報の更新、管理者アカウント・アクセスログを調査。 / 該当サーバーを2.34.0以降、独立導入のresources-providerを1.5.3以降へ更新。匿名読み取りを許すallow_readonly設定とAPIの外部公開を点検し、侵害が疑われる場合はJWT署名鍵・認証情報の更新、管理者権限とExecute providerの不審な変更を調査する。",
+    "updated_at": "2026-10-31T05:35:55.232Z"
   },
   {
     "id": "20261029-google-connected-apps-mcp-platform-preview",

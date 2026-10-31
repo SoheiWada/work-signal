@@ -2238,8 +2238,8 @@
   },
   "20261030-wordpress-ai-engine-mcp-oauth-cve-2026-110732": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-31T09:30:15+00:00",
+      "status": "published",
+      "updated_at": "2026-10-31T09:30:17+00:00",
       "recovery_review_id": "freshness-reviewed-threads-recovery-20261031",
       "reconciled_at": "2026-10-31T09:30:03+00:00",
       "previous_attempt": {
@@ -2247,7 +2247,9 @@
         "updated_at": "2026-10-30T14:35:26+00:00"
       },
       "stage": "publish_requested",
-      "container_id": "17912646714485550"
+      "container_id": "17912646714485550",
+      "remote_id": "17912646714485550",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfJ1rjElT6Q"
     },
     "instagram_story": {
       "status": "published",

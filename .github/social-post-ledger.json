@@ -2282,5 +2282,11 @@
       "container_id": "18157096351488337",
       "remote_id": "18127784254849324"
     }
+  },
+  "20261031-traefik-fastproxy-http1-upgrade-dos-cve-2026-119574": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-31T01:52:01+00:00"
+    }
   }
 }

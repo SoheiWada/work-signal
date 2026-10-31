@@ -1,5 +1,42 @@
 [
   {
+    "id": "20261031-google-cloud-spend-caps-ga-api-monthly-reset",
+    "title": "Google Cloud、AI・Cloud Runの支出上限を一般提供。API管理・月次自動解除にも対応",
+    "summary": "Google Cloudは10月30日、Gemini APIやCloud Runなどの対象サービスで、設定額を超えた新規利用を自動停止する「Spend Caps」の一般提供を発表した。管理API、推定費用の迅速な表示、月初の自動解除も追加。AI開発の想定外の請求を抑える一方、全サービスを完全に定額化する仕組みではない。",
+    "category": "お金",
+    "score": 91,
+    "published_at": "2026-10-31",
+    "published_at_time": "2026-10-31T07:57:19.161Z",
+    "source_url": "https://cloud.google.com/blog/topics/cost-management/google-cloud-spend-caps-now-generally-available/",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Google Cloudは10月30日、Gemini APIやCloud Runなどの対象サービスで、設定額を超えた新規利用を自動停止する「Spend Caps」の一般提供を発表した。管理API、推定費用の迅速な表示、月初の自動解除も追加。AI開発の想定外の請求を抑える一方、全サービスを完全に定額化する仕組みではない。",
+    "sections": [
+      {
+        "title": "「予算通知」から、対象サービスの利用停止へ",
+        "body": "Google Cloudは2026年10月30日の公式ブログで、Cloud Billing BudgetsのSpend Capsを一般提供すると発表した。従来の予算超過アラートとは異なり、対象のプロジェクトとサービスに設定した月額の支出上限に達すると、そのサービスの新しいAPI利用を停止する。既存リソースやデータを削除する仕組みではない。Googleの公式ドキュメントによれば、対象はGemini API、Gemini Enterprise Agent Platform（旧Vertex AI）、Cloud Run、Cloud Run functionsの4サービス。上限は原則として単一プロジェクト・単一サービスごとに設定する。"
+      },
+      {
+        "title": "APIで上限を自動管理し、費用を早く把握",
+        "body": "今回の発表では、既存のCloud Billing Budgets API経由でSpend Capsを作成・更新・解除できる管理APIを提供する。例えば新しい開発用プロジェクトを作る際に支出上限を自動設定できる。AIサービスについては推定使用額に基づく費用表示を高速化し、上限発動の根拠となった金額をCost Reportsで確認できる。Googleは初期の推奨対象として、サンドボックス、テスト環境、実験的なAIエージェントを挙げている。"
+      },
+      {
+        "title": "月初に自動解除。ただし停止は即時・完全ではない",
+        "body": "上限に達して停止した対象サービスは、次の予算期間の開始時（通常は翌月1日）に自動的に再開する。手動で解除する選択肢も残る。一方、Googleの公式ドキュメントは、支出上限の執行には遅延があり、超過分の請求が発生し得ると明記する。進行中のリクエストは完了まで処理され、継続的な固定費やストレージ等は停止しない。予約済みのProvisioned Throughputなども対象外となるため、設定額を絶対的な請求上限と誤解してはいけない。"
+      },
+      {
+        "title": "開発・財務担当者が確認したい設定",
+        "body": "WORK SIGNALの実務的な解釈として、まず実験環境に低めの上限を設定し、50％・80％・100％で送られる既定の通知が担当者に届くか確認したい。本番環境では上限到達によるAPI停止がサービス障害になり得るため、停止を許容できる処理と許容できない処理を分ける必要がある。月次自動解除は運用負担を減らす反面、翌月に利用が自動再開することも監視設計に織り込むべきだ。今回の仕組みはすべてのGoogle Cloud料金を包括的に止めるものではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ]
+  },
+  {
     "id": "20261031-imgproxy-ico-integer-overflow-ghsa-hff9-5pqw-6w9f",
     "title": "imgproxyのICO画像処理にCRITICAL 9.8、ヒープ破壊によるDoS・潜在的RCE",
     "summary": "画像変換サーバーimgproxyのICO画像読み込み処理に、CRITICAL（CVSS 9.8）の整数オーバーフローが確認された。細工された画像データによってメモリ破壊が起き、サービス停止や任意コード実行につながる恐れがある。開発元はv4.0.16で修正済み。10月30日にGitHubの審査済み脆弱性データベースへ収録されたが、開発元の初報は10月6日である。",

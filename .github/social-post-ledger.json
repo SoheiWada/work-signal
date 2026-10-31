@@ -2323,7 +2323,9 @@
   "20261031-nx-maven-gradle-command-injection-cve-2026-119282": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-31T04:05:48+00:00"
+      "updated_at": "2026-10-31T04:05:56+00:00",
+      "stage": "publish_requested",
+      "container_id": "18098161829663624"
     }
   }
 }

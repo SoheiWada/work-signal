@@ -2391,7 +2391,9 @@
   "20261031-cursor-claude-code-extension-ssh-backdoor": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-31T08:42:51+00:00"
+      "updated_at": "2026-10-31T08:43:00+00:00",
+      "stage": "publish_requested",
+      "container_id": "18107312858203784"
     }
   }
 }

@@ -2408,7 +2408,9 @@
   "20261031-imgproxy-ico-integer-overflow-ghsa-hff9-5pqw-6w9f": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-31T09:19:08+00:00"
+      "updated_at": "2026-10-31T09:19:18+00:00",
+      "stage": "publish_requested",
+      "container_id": "17945711562090573"
     }
   }
 }

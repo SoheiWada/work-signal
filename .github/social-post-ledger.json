@@ -2441,10 +2441,12 @@
   },
   "20261031-hapi-content-joi-dos": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-31T09:20:23+00:00",
+      "status": "published",
+      "updated_at": "2026-10-31T09:20:25+00:00",
       "stage": "publish_requested",
-      "container_id": "18127817002655368"
+      "container_id": "18127817002655368",
+      "remote_id": "18127817002655368",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfJ0jR0mxgv"
     }
   }
 }

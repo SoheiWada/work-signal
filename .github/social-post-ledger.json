@@ -2340,7 +2340,9 @@
   "20261031-dallas-fed-logan-two-more-hikes-jobs": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-31T05:39:58+00:00"
+      "updated_at": "2026-10-31T05:40:21+00:00",
+      "stage": "publish_requested",
+      "container_id": "17949450039346991"
     }
   }
 }

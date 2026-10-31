@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261031-nx-maven-gradle-command-injection-cve-2026-119282",
+    "title": "NxのMaven・GradleプラグインにHIGHコマンド注入、CVE-2026-119282",
+    "summary": "NxのMaven・Gradle連携プラグインに、設定ファイルnx.jsonを介してOSコマンドを実行させ得るHIGH脆弱性（CVE-2026-119282）が確認された。未信頼リポジトリや外部プルリクエストを処理する開発環境・CIが主な注意対象で、修正版は22.7.9と23.1.2。Nx本体と該当プラグインを一緒に更新する必要がある。",
+    "category": "SECURITY",
+    "score": 83,
+    "published_at": "2026-10-31",
+    "published_at_time": "2026-10-31T04:02:03.112Z",
+    "source_url": "https://github.com/nrwl/nx/security/advisories/GHSA-qm8w-vx34-5j9j",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "NxのMaven・Gradle連携プラグインに、設定ファイルnx.jsonを介してOSコマンドを実行させ得るHIGH脆弱性（CVE-2026-119282）が確認された。未信頼リポジトリや外部プルリクエストを処理する開発環境・CIが主な注意対象で、修正版は22.7.9と23.1.2。Nx本体と該当プラグインを一緒に更新する必要がある。",
+    "sections": [
+      {
+        "title": "プロジェクト構成の解析時にシェルが設定値を解釈",
+        "body": "開発元のGitHub Security Advisoryによると、Nxの@nx/mavenと@nx/gradleは、プロジェクトグラフの解析処理をシェル経由で起動する際、nx.jsonのプラグイン設定値をコマンドラインへ直接埋め込んでいた。設定値にシェル構文が含まれると、通常のnxコマンドを実行した利用者の権限で意図しないコマンドが実行され得る。MavenではtargetNamePrefix、Gradleではより広範なオプション名と値が問題になる。"
+      },
+      {
+        "title": "危険が生じるのは未信頼のnx.jsonを実行する構成",
+        "body": "開発元は、悪意あるリポジトリをクローンしてNxを実行する場合や、nx.jsonを変更できる外部プルリクエストをCIがチェックアウトして実行する場合を例示している。一方、MavenやGradleのビルド設定を変更できる攻撃者は、元から別の実行経路を持つことが多く、今回の新たな露出は限定的だとも説明する。nx.jsonに@nx/mavenと@nx/gradleのどちらも登録していないワークスペースは、この問題の対象外である。"
+      },
+      {
+        "title": "影響範囲と修正版はプラグイン別に確認",
+        "body": "@nx/gradleの影響範囲は21.0.0以上22.7.9未満と23.0.0以上23.1.2未満、@nx/mavenは22.0.2以上22.7.9未満と23.0.0以上23.1.2未満。修正版はそれぞれ22系の22.7.9、23系の23.1.2だ。開発元は、修正がNx本体のコードにも依存するため、プラグインだけを更新しても対策完了とはならず、Nx本体とプラグインの両方を対応する修正版にするよう求めている。"
+      },
+      {
+        "title": "CI/CDでは依存更新と未信頼PRの実行境界を確認",
+        "body": "該当プラグインを使用する場合は、依存関係の実解決バージョンとnx.jsonを点検し、修正版へ更新する。すぐに更新できない環境では、未信頼のリポジトリや外部PRからNxコマンドを実行する運用を避けることが暫定策になる。開発元の評価はCVSS v4.0で7.3（HIGH）。GHSA自体は9月11日に公開され、10月30日にCVE-2026-119282としてGitHub Advisory Databaseへ審査掲載されたもので、10月31日に初めて発見された脆弱性ではない。実環境での悪用は開発元が未確認と説明している。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "@nx/maven、@nx/gradle、連動するnx本体",
+    "social_security_action": "Nx本体と使用中の@nx/maven／@nx/gradleを22.7.9または23.1.2以降の対応する組合せに更新。未修正環境では不審なリポジトリや外部PRのnx.jsonを信頼せず、CIの権限と実行対象を制限。"
+  },
+  {
     "id": "20261031-chatgpt-ads-creative-enhancements-default-on",
     "title": "ChatGPT広告、AIによる文面自動調整が10月30日から初期有効に。広告主が確認したい設定",
     "summary": "OpenAIは2026年10月30日から、ChatGPT Adsで広告の文面などをAIが調整する「Creative enhancements」を新規・既存キャンペーンで初期有効にした。会話の文脈や広告のリンク先ページを参考に見出し・説明文を変えるほか、翻訳や遷移先URLの最適化も対象となる。広告主が事前にすべてのバリエーションを確認する仕組みではないため、設定と掲載情報の点検が重要だ。",

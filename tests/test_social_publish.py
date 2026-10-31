@@ -213,6 +213,7 @@ class SocialPublisherTests(unittest.TestCase):
         with patch("scripts.publish_social.verify_account", return_value={"account_type": "BUSINESS"}), \
              patch("scripts.publish_social.instagram_budget", return_value=50), \
              patch("scripts.publish_social.verify_live"), \
+             patch("scripts.publish_social.verify_threads_delivery", return_value={"id": "1"}), \
              patch("scripts.publish_social.publish_threads", return_value="1") as threads, \
              patch("scripts.publish_social.publish_instagram", return_value="2"), \
              patch("scripts.publish_social.publish_instagram_story", return_value="3"):

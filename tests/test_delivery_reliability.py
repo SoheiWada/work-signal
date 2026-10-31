@@ -30,6 +30,9 @@ class DeliveryReliabilityTests(unittest.TestCase):
                                 return_value={"id": "123", "permalink": "https://www.threads.com/t/test"})
         readback.start()
         self.addCleanup(readback.stop)
+        history = patch.object(p, "threads_live_history_matches", return_value=[{"id": "123"}])
+        history.start()
+        self.addCleanup(history.stop)
 
     def test_threads_only_ignores_missing_instagram_credentials(self):
         a = {**self.article, "social_platforms": ["threads"]}

@@ -2578,10 +2578,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfLWjs-lihJ"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-10-31T23:37:04+00:00",
+      "status": "published",
+      "updated_at": "2026-10-31T23:37:07+00:00",
       "stage": "publish_requested",
-      "container_id": "18157593880488337"
+      "container_id": "18157593880488337",
+      "remote_id": "18133518103818016"
     }
   }
 }

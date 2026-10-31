@@ -2527,7 +2527,9 @@
   "20261031-google-suncatcher-orbit-tpu-first-response": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-31T09:23:26+00:00"
+      "updated_at": "2026-10-31T09:23:33+00:00",
+      "stage": "publish_requested",
+      "container_id": "18108569402259236"
     }
   }
 }

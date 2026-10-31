@@ -2489,5 +2489,11 @@
       "container_id": "18157345261488337",
       "remote_id": "17969974032196206"
     }
+  },
+  "20261031-google-cloud-spend-caps-ga-api-monthly-reset": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-31T09:22:14+00:00"
+    }
   }
 }

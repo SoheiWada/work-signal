@@ -1,5 +1,42 @@
 [
   {
+    "id": "20261031-ai-training-robots-policy-token",
+    "title": "AI学習の拒否設定を共通化へ。OpenAI・Google・Microsoftがrobots.txt新方式を支持",
+    "summary": "OpenAI、Google、Microsoftが2026年10月30日、Webサイトのコンテンツを生成AIの学習に使うかどうかを共通のrobots.txt設定で示す仕組みへの支持を発表した。IETFの草案は「__usage_ai-training」という共通トークンを提案する。ただし正式標準ではなく、各社の対応時期も異なる。サイト運営者には、学習利用の制御とAI検索での露出を分けて考える新たな判断が求められる。",
+    "category": "AI",
+    "score": 94,
+    "published_at": "2026-10-31",
+    "published_at_time": "2026-10-31T03:48:20.428Z",
+    "source_url": "https://openai.com/index/helping-websites-express-ai-training-preferences/",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "OpenAI、Google、Microsoftが2026年10月30日、Webサイトのコンテンツを生成AIの学習に使うかどうかを共通のrobots.txt設定で示す仕組みへの支持を発表した。IETFの草案は「__usage_ai-training」という共通トークンを提案する。ただし正式標準ではなく、各社の対応時期も異なる。サイト運営者には、学習利用の制御とAI検索での露出を分けて考える新たな判断が求められる。",
+    "sections": [
+      {
+        "title": "AI各社ごとの設定から、共通の意思表示へ",
+        "body": "WebサイトがAIの学習利用を望まない場合、これまでは事業者ごとに異なるクローラーや制御方法を確認する必要があった。10月30日、OpenAIとGoogle、Microsoftは、IETFのAI Preferences作業部会で議論される共通方式を支持すると発表した。IETFに提出されたInternet-Draftは、robots.txtに「User-Agent: __usage_ai-training」と書き、その下の「Disallow: /」などの既存ルールで、学習利用に関する希望をサイト全体または特定パスに結び付ける方法を示している。新しい命令文法を増やす方式ではない。"
+      },
+      {
+        "title": "「学習拒否」と「検索に出さない」は別の問題",
+        "body": "この共通トークンは、生成AIのモデル学習にコンテンツを使うことへの希望を表すものだ。IETF草案は、クローラーのアクセス自体を停止する指示ではないと明記している。Microsoftも、モデルの学習に使う「AI Training」と、AIの回答を作る際の情報参照に使う「AI Grounding」を別の設定として説明した。学習を拒否しながら回答の情報源としての利用を認める選択肢がある一方、Groundingを拒否するとAI回答内でのブランド露出が減る可能性がある。通常のBing検索結果への掲載資格は、この新しい利用希望の設定だけでは変わらないとMicrosoftは説明する。"
+      },
+      {
+        "title": "実装時期は会社ごとに異なる",
+        "body": "共通方式の採用発表は、全事業者で即日機能するという意味ではない。OpenAIは今後数か月での実装を目指し、Googleは2027年の対応を予定する。Googleは、個別のGoogle-Extended設定が明示されていない場合、共通トークンの学習拒否をGoogle-Extendedの拒否として解釈する方針だ。Microsoftは2027年2月1日から、新しい設定をクロール時に尊重すると発表した。従来のNoArchiveまたはNoCacheを利用しているサイトには、2027年3月1日までに新設定へ移行するよう求めている。移行対象のサイトでは、Groundingの一時的な希望をBing Webmaster Toolsにも登録する必要がある。"
+      },
+      {
+        "title": "企業・メディア・個人サイトが今できること",
+        "body": "まず自社のrobots.txt、個別のAIクローラー制御、Bing向けのNoArchive/NoCache、AI検索での引用方針を棚卸しする。次に、コンテンツをAI学習へ提供するか、AI回答の参照先として表示されたいかを分けて判断する。Microsoftの旧設定を使う場合は移行日程を管理する。ただし新方式はまだ正式なIETF標準ではなく、各社実装の完了時期や適用範囲を継続確認する必要がある。robots.txtは希望を伝える仕組みであり、過去に収集されたデータの削除や、従わない第三者による収集防止を保証するものではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ]
+  },
+  {
     "id": "20261031-uk-drcf-agentic-ai-business-responsibility",
     "title": "英4規制当局、AIエージェントの責任を共同確認。自律的に動いても企業の法令順守義務は消えない",
     "summary": "英国の競争・金融・個人情報・通信分野を担う4規制当局が10月30日、個人向けAIエージェントに関する共同声明を公表した。AIが購入や顧客とのやり取りを自律的に行っても、導入企業の法令順守責任はなくならないと明記。権限の与え方、個人情報、推薦の利害関係、トラブル時の救済を企業が点検すべき論点として示した。",

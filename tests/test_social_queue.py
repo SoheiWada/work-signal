@@ -38,10 +38,11 @@ class SocialQueueTests(unittest.TestCase):
             batch_ids([article("one")], {}, "unapproved", NOW)
 
     def test_reviewed_absence_can_recover_when_only_uncertain_work_remains(self):
-        feed = [article("reviewed")]
+        today = datetime.now(timezone(timedelta(hours=9))).date().isoformat()
+        feed = [article("reviewed", pub=today)]
         old = {"status": "needs_review"}
         rows = {"reviewed": {"threads": old}}
-        self.assertEqual(batch_ids(feed, rows, clock=NOW), [])
+        self.assertEqual(batch_ids(feed, rows), [])
         replacement = recovery_update(old, [], "new-owner-freshness-review", "threads")
         rows["reviewed"]["threads"] = replacement
         self.assertEqual(batch_ids(feed, rows), ["reviewed"])

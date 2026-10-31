@@ -2458,10 +2458,12 @@
   },
   "20261031-node-forge-141-security-fixes": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-31T09:20:53+00:00",
+      "status": "published",
+      "updated_at": "2026-10-31T09:21:01+00:00",
       "stage": "publish_requested",
-      "container_id": "18118979323800534"
+      "container_id": "18118979323800534",
+      "remote_id": "18118979323800534",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfJ0myqG54v"
     }
   }
 }

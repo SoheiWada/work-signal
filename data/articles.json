@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261101-google-skills-gemini-finance-legal-courses",
+    "title": "Google、金融・法務向けGemini無料講座9本を公開。専門業務でのAI活用を学ぶ",
+    "summary": "Google Cloudは2026年10月30日、金融サービス向け4本と法務向け5本、計9本のGemini活用動画講座をGoogle Skillsで無料公開した。投資調査、契約レビュー、規制対応など専門職の具体的な業務を題材に、AIエージェントの使い方を学べる。教材の無料公開と、業務用Gemini製品の無料提供は別であり、実務導入には精度と情報管理の検証が欠かせない。",
+    "category": "仕事",
+    "score": 88,
+    "published_at": "2026-11-01",
+    "published_at_time": "2026-10-31T23:33:01.962Z",
+    "source_url": "https://cloud.google.com/blog/topics/training-certifications/new-gemini-courses-for-financial-services-and-legal-teams",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Google Cloudは2026年10月30日、金融サービス向け4本と法務向け5本、計9本のGemini活用動画講座をGoogle Skillsで無料公開した。投資調査、契約レビュー、規制対応など専門職の具体的な業務を題材に、AIエージェントの使い方を学べる。教材の無料公開と、業務用Gemini製品の無料提供は別であり、実務導入には精度と情報管理の検証が欠かせない。",
+    "sections": [
+      {
+        "title": "金融4本・法務5本、専門業務から学ぶAI活用",
+        "body": "Google Cloud LearningのGary Eimerman氏が10月30日付で公開した公式案内によると、新しい動画講座は金融サービス向け4本、法務向け5本の計9本。Google Skillsで動画を無償視聴できる。Google Skillsの公式学習パスも、金融は4 activities、法務は5 activitiesと表示している。汎用的なプロンプトの紹介にとどまらず、職種ごとに馴染みのある仕事を入口にしている点が特徴だ。"
+      },
+      {
+        "title": "金融は投資調査、法務は契約・規制対応",
+        "body": "金融向けは、顧客への助言に必要な情報整理、投資ポートフォリオの耐性評価、債券発行業務、信用市場の機会探索という4テーマ。法務向けは、規制動向の監視、データ主体のアクセス請求（DSAR）対応、契約レビューとチェック手順の作成、文書の機密情報のマスキング、秘密保持契約（NDA）の起案という5テーマを扱う。いずれもGoogleが教材で提示する活用例であり、金融判断や法律判断をAIへ無条件に委ねることを推奨するものではない。"
+      },
+      {
+        "title": "人材育成で役立つのは「仕事単位」で試せること",
+        "body": "企業の研修担当者にとって重要なのは、AIの機能名ではなく、どの業務をどの条件で支援できるかを共有することだ。たとえば契約レビューなら、社内のチェック項目に照らして見落としや誤った指摘を確認する。金融調査なら、参照資料の出典、更新日時、数値の整合性を人が点検する。こうした確認項目を講座視聴後の演習に組み込むことは、WORK SIGNALによる実務提案であり、Googleが検証済みの成果として発表したものではない。"
+      },
+      {
+        "title": "無料教材と有料サービスは分けて考える",
+        "body": "公式案内が無料とするのは今回の動画講座だ。Geminiの業務用製品、利用枠、組織向け契約まで無料という発表ではない。Googleは、より高度な学習向けのGemini Agent Ready（GEAR）も紹介し、登録時に演習環境向け35クレジットを付与すると説明している。ただし、この教材発表だけでは金融・法務の実業務での正確性、費用対効果、各国の規制適合性を独立に証明できない。機密情報の入力範囲、利用規約、専門家による最終確認を整えてから試す必要がある。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ],
+    "publication_key": "b4a8e06cfc5fc76d11d7aad26583342f2224d8d9a74617977ee8f300dafe0caf",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261101-estee-lauder-microsoft-copilot-enterprise-ai",
     "title": "エスティ ローダー、MicrosoftとAI基盤を拡張。1万4,000人超にCopilot、商品開発と業務改革を横断",
     "summary": "米化粧品大手エスティ ローダー カンパニーズは10月30日、Microsoftとの新たな戦略提携を発表した。ブランドや地域、部門をまたぐデータ基盤を強化し、オフィス勤務の世界の従業員1万4,000人超にCopilotを展開。商品開発、マーケティング、意思決定、定型業務の自動化を一体で進める。企業がAIを現場に根付かせるための「データと仕事の設計」が見えてくる。",

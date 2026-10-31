@@ -2554,7 +2554,9 @@
   "20261101-estee-lauder-microsoft-copilot-enterprise-ai": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-31T23:30:07+00:00"
+      "updated_at": "2026-10-31T23:30:32+00:00",
+      "stage": "publish_requested",
+      "container_id": "17884627401529257"
     }
   }
 }

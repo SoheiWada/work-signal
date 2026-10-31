@@ -2476,7 +2476,9 @@
   "20261031-ai-training-robots-policy-token": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-31T09:21:21+00:00"
+      "updated_at": "2026-10-31T09:21:29+00:00",
+      "stage": "publish_requested",
+      "container_id": "17994203283024856"
     }
   }
 }

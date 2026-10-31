@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261031-node-forge-141-security-fixes",
+    "title": "node-forge 1.4.1で複数のHIGH脆弱性を修正、RSA署名偽造・証明書検証・DoSに影響",
+    "summary": "JavaScriptの暗号処理ライブラリnode-forgeで、RSA署名検証の偽造リスク、X.509証明書検証の不備、TLSやASN.1解析を通じたサービス拒否など複数のHIGH脆弱性が公表された。開発元はnode-forge 1.4.1で修正。影響は利用するAPIや鍵・入力条件によって異なり、ライブラリを導入した全アプリが直ちに攻撃可能という意味ではない。",
+    "category": "SECURITY",
+    "score": 91,
+    "published_at": "2026-10-31",
+    "published_at_time": "2026-10-31T03:50:03.325Z",
+    "source_url": "https://github.com/digitalbazaar/forge/security/advisories/GHSA-2g46-22mc-6gwp",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "JavaScriptの暗号処理ライブラリnode-forgeで、RSA署名検証の偽造リスク、X.509証明書検証の不備、TLSやASN.1解析を通じたサービス拒否など複数のHIGH脆弱性が公表された。開発元はnode-forge 1.4.1で修正。影響は利用するAPIや鍵・入力条件によって異なり、ライブラリを導入した全アプリが直ちに攻撃可能という意味ではない。",
+    "sections": [
+      {
+        "title": "RSA署名検証に残っていた不備",
+        "body": "開発元が10月27日に公表したGHSA-2g46-22mc-6gwp（CVE-2026-85393）とGHSA-6qrw-m8cv-hcxf（CVE-2026-119192）は、RSASSA-PKCS1-v1_5署名の検証に関する問題だ。DigestInfoの内部に余分な要素や非正規エンコーディングが含まれていても受け入れられ、低い公開指数（e=3）のRSA鍵では秘密鍵なしに署名を偽造できる場合がある。開発元は、期待するDigestInfoのDERエンコーディングとのバイト単位比較を導入し、1.4.1で修正した。これはe=3などの特定条件に関する問題で、すべてのRSA署名に一律に成立するわけではない。"
+      },
+      {
+        "title": "証明書とPKCS#12にも検証上のリスク",
+        "body": "GHSA-5x38-2vff-x55p（CVE-2026-119190）では、廃止済み拡張OIDをbasicConstraintsとして扱うことにより、偽装した拡張が正規の証明書拡張より先にある場合、CA証明書として誤認される問題が報告された。GHSA-jc66-7q78-782g（CVE-2026-118782）では、PKCS#12の反復回数がゼロ以下の場合にパスワードと無関係な定数鍵が生じ、改変したPKCS#12ファイルのMACが検証を通過し得る。いずれも1.4.1で修正された。該当する証明書検証やPFX/PKCS#12処理を利用しているかの確認が重要だ。"
+      },
+      {
+        "title": "TLS・PEM・ASN.1解析を通じたDoS",
+        "body": "GHSA-hqq3-7jhf-c5jx（CVE-2026-119187）はTLSレコード処理の再帰によるスタック枯渇、GHSA-8hrf-8g6f-7xwp（CVE-2026-119188）は分割されたハンドシェイクの途中で別種のレコードを受けた際の未捕捉例外を扱う。GHSA-7wch-p9px-956x（CVE-2026-118779）はPEM解析の正規表現処理によるCPU負荷、GHSA-rhr8-3pm8-cq29（CVE-2026-119191）はASN.1 BIT STRINGのネスト処理によるCPU・メモリ消費を報告した。外部から不正なTLS通信や証明書・鍵データを受け付ける構成では、認証前のサービス拒否につながり得る。これらの修正版も1.4.1である。"
+      },
+      {
+        "title": "運用担当者が確認すべきこと",
+        "body": "まずnpmの直接依存・間接依存を確認し、実際に解決されるnode-forgeのバージョンを1.4.1以上にする。次に、署名検証、証明書チェーン検証、PKCS#12の取り込み、外部PEM/DER入力、node-forge独自TLS接続の利用有無を洗い出す。各脆弱性の攻撃成立条件は異なるため、製品名だけで被害を断定しない。今回確認したCVEについて、CISA KEVへの掲載や実環境での悪用を裏付ける情報は確認していない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "node-forge（Forge）",
+    "social_security_action": "node-forgeを1.4.1以上に更新し、間接依存も含めロックファイルの実際の解決バージョンを確認。署名・証明書検証、TLS、PEM/ASN.1/PKCS#12入力を扱う経路を点検。"
+  },
+  {
     "id": "20261031-google-suncatcher-orbit-tpu-first-response",
     "title": "Google、軌道上TPUで初のAI応答。宇宙データセンター構想が動作実証へ",
     "summary": "Googleは2026年10月30日、宇宙空間で試験中のProject Suncatcher衛星から、データセンター級TPUを使ったAIの応答を初めて受信したと発表した。Gemma 4に送った文章生成の指示に軌道上で応答できたという。ただし商用の「宇宙データセンター」が完成したわけではない。放射線や温度変化への耐久性、通信と運用の経済性など、実用化への検証はこれからだ。",

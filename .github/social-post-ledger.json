@@ -2404,5 +2404,11 @@
       "container_id": "18157336099488337",
       "remote_id": "18098302085398783"
     }
+  },
+  "20261031-imgproxy-ico-integer-overflow-ghsa-hff9-5pqw-6w9f": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-31T09:19:08+00:00"
+    }
   }
 }

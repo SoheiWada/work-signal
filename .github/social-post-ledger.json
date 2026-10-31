@@ -2421,5 +2421,11 @@
       "container_id": "18157344931488337",
       "remote_id": "18136821694677525"
     }
+  },
+  "20261031-sigstore-oci-credential-leak-cve-2026-118763": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-31T09:19:44+00:00"
+    }
   }
 }

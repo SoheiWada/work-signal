@@ -5,6 +5,7 @@ on:
     paths:
       - scripts/audit_social_delivery.py
       - .github/workflows/social-delivery-audit.yml
+      - .github/social-recovery-review.json
   workflow_dispatch:
 permissions:
   contents: read

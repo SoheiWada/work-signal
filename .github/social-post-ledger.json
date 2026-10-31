@@ -2373,10 +2373,12 @@
   },
   "20261031-microsoft-copilot-synthetic-enterprise-evaluation": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-31T08:42:29+00:00",
+      "status": "published",
+      "updated_at": "2026-10-31T08:42:33+00:00",
       "stage": "publish_requested",
-      "container_id": "18645150559020325"
+      "container_id": "18645150559020325",
+      "remote_id": "18645150559020325",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfJwNgskfl3"
     }
   }
 }

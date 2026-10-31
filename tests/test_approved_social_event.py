@@ -48,6 +48,26 @@ class ApprovedSocialEventTests(unittest.TestCase):
             with self.subTest(scope=scope), self.assertRaises(ValueError):
                 approved_in_scope(rows, scope)
 
+
+    def test_canceled_intermediate_pages_commits_do_not_lose_approvals(self):
+        """Baseline must be the last successful site deploy, not the last push."""
+        successful_deploy = [article("already-published")]
+        cancelled_a = [*successful_deploy, article("missing-early")]
+        cancelled_b = [*cancelled_a, article("missing-middle")]
+        final_deploy = [*cancelled_b, article("just-now")]
+        # Old github.event.before -> final detects only "just-now".
+        self.assertEqual(approvals(cancelled_b, final_deploy), ["just-now"])
+        # Correct previous successful deployment -> all three in final.
+        self.assertEqual(approvals(successful_deploy, final_deploy),
+                         ["just-now", "missing-early", "missing-middle"])
+
+    def test_dispatch_uses_successful_deployment_history_not_push_before(self):
+        pages = (ROOT / ".github/workflows/pages.yml").read_text()
+        self.assertIn('actions/workflows/pages.yml/runs?branch=main&status=success', pages)
+        self.assertIn('git merge-base --is-ancestor', pages)
+        self.assertIn('steps.baseline.outputs.sha', pages)
+        self.assertNotIn('BEFORE_SHA: ${{ github.event.before }}', pages)
+
     def test_site_and_social_triggers_are_separate(self):
         pages = (ROOT / ".github/workflows/pages.yml").read_text()
         social = (ROOT / ".github/workflows/social-publish.yml").read_text()

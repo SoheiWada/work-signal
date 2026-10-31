@@ -2526,10 +2526,12 @@
   },
   "20261031-google-suncatcher-orbit-tpu-first-response": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-31T09:23:33+00:00",
+      "status": "published",
+      "updated_at": "2026-10-31T09:23:37+00:00",
       "stage": "publish_requested",
-      "container_id": "18108569402259236"
+      "container_id": "18108569402259236",
+      "remote_id": "18108569402259236",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfJ06lrFjaJ"
     }
   }
 }

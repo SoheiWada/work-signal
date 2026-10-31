@@ -2588,7 +2588,9 @@
   "20261031-kling-ai-funding-198b-yuan-completion": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-31T23:57:04+00:00"
+      "updated_at": "2026-10-31T23:57:11+00:00",
+      "stage": "publish_requested",
+      "container_id": "18351918487287005"
     }
   }
 }

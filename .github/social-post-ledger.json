@@ -2550,5 +2550,11 @@
       "container_id": "18157345960488337",
       "remote_id": "17940444054381489"
     }
+  },
+  "20261101-estee-lauder-microsoft-copilot-enterprise-ai": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-10-31T23:30:07+00:00"
+    }
   }
 }

@@ -1,163 +1,20 @@
 {
-  "reviewed_at": "2026-10-28",
-  "authorization": "Owner requested investigation, freshness assessment and publication of confirmed missing posts",
-  "read_only_audit_run": 40609576224,
+  "review_id": "freshness-reviewed-threads-recovery-20261031",
+  "reviewed_at": "2026-10-31T18:20:12+09:00",
+  "valid_until": "2026-10-31T23:59:00+09:00",
+  "authorization": "Owner requested safe recovery and SNS stabilization after audit; only the previously approved missing Threads delivery is authorized.",
+  "read_only_audit_run": 41188015284,
+  "prior_review_archive": ".github/social-recovery-reviews/freshness-reviewed-recovery-20261028.json",
   "items": [
     {
-      "article_id": "20261028-boj-september-services-price-index",
-      "checked_on": "2026-10-28",
+      "article_id": "20261030-wordpress-ai-engine-mcp-oauth-cve-2026-110732",
+      "checked_on": "2026-10-31",
       "decision": "deliver_missing_platforms_only",
-      "rationale": "10/27公表の9月速報。日銀公式PDFで3.7%・9.7%・-11.7%を確認。",
-      "source_url": "https://www.boj.or.jp/en/statistics/pi/cspi_release/sppi2609.pdf",
-      "platforms": [
-        "instagram",
-        "instagram_story"
-      ]
-    },
-    {
-      "article_id": "20261028-apple-m6-macbook-imac-local-ai",
-      "checked_on": "2026-10-28",
-      "decision": "deliver_missing_platforms_only",
-      "rationale": "10/27のMacBook Pro/iMac公式発表、10/29予約・11/6発売を確認。",
-      "source_url": "https://www.apple.com/jp/newsroom/2026/10/apple-introduces-the-new-14-inch-macbook-pro-with-m6/",
-      "platforms": [
-        "instagram",
-        "instagram_story"
-      ]
-    },
-    {
-      "article_id": "20261028-deepmind-genie4-world-simulation",
-      "checked_on": "2026-10-28",
-      "decision": "deliver_missing_platforms_only",
-      "rationale": "10/27公式発表、研究プレビューと制限を確認。",
-      "source_url": "https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/",
-      "platforms": [
-        "instagram",
-        "instagram_story"
-      ]
-    },
-    {
-      "article_id": "20261028-apple-creator-studio-ai-mcp",
-      "checked_on": "2026-10-28",
-      "decision": "deliver_missing_platforms_only",
-      "rationale": "10/27公式発表、11月提供・ベータ条件を確認。",
-      "source_url": "https://www.apple.com/jp/newsroom/2026/10/apple-creator-studio-adds-powerful-new-ai-features-and-even-more-creative-tools/",
-      "platforms": [
-        "instagram",
-        "instagram_story"
-      ]
-    },
-    {
-      "article_id": "20261028-fujitsu-copilot-100k-service-desk-ai",
-      "checked_on": "2026-10-28",
-      "decision": "deliver_missing_platforms_only",
-      "rationale": "10/9公開の公式事例。新着速報でなく事例解説として配信。10万・90%超・75%を確認。",
-      "source_url": "https://www.microsoft.com/en/customers/story/27449-fujitsu-limited-microsoft-365-copilot",
-      "platforms": [
-        "instagram",
-        "instagram_story"
-      ]
-    },
-    {
-      "article_id": "20261028-nest-admin-jwt-auth-bypass-cve-2026-117564",
-      "checked_on": "2026-10-28",
-      "decision": "deliver_missing_platforms_only",
-      "rationale": "CVEは10/27公表。開発元v1.0.1（10/26）と修正コミットを確認。更新・鍵交換の注意喚起は有効。",
-      "source_url": "https://github.com/buqiyuan/nest-admin/issues/92",
-      "platforms": [
-        "instagram",
-        "instagram_story"
-      ]
-    },
-    {
-      "article_id": "20261028-adobe-commerce-magento-cve-2026-48356-kev",
-      "checked_on": "2026-10-28",
-      "decision": "deliver_missing_platforms_only",
-      "rationale": "CISA公式KEVデータで2026-10-27追加を再確認。実悪用確認済みのため優先復旧。",
-      "source_url": "https://www.adobe.com/trust/security/products/commerce/apsb26-73.html",
-      "platforms": [
-        "instagram",
-        "instagram_story"
-      ]
-    },
-    {
-      "article_id": "20261027-openai-gpt61-terra-computer-use-cost",
-      "checked_on": "2026-10-28",
-      "decision": "deliver_missing_platforms_only",
-      "rationale": "OpenAI公式発表で価格50%低下・ベンチマーク15ポイント向上を再確認。未投稿Threadsのみ復旧。",
-      "source_url": "https://openai.com/index/introducing-gpt-6-1-terra/",
       "platforms": [
         "threads"
-      ]
-    },
-    {
-      "article_id": "20261027-oracle-deep-trust-ai-architecture",
-      "checked_on": "2026-10-28",
-      "decision": "deliver_missing_platforms_only",
-      "rationale": "10/26の公式発表を再確認。設計解説として鮮度維持。",
-      "source_url": "https://www.oracle.com/news/announcement/ai-world-oracle-announces-deep-trust-ai-architecture-to-help-enterprises-innovate-with-confidence-2026-10-26/",
-      "platforms": [
-        "instagram",
-        "instagram_story"
-      ]
-    },
-    {
-      "article_id": "20261027-arcgis-server-sql-injection-cve-2026-10757",
-      "checked_on": "2026-10-28",
-      "decision": "deliver_missing_platforms_only",
-      "rationale": "10/14公式勧告と累積パッチ、CVSS9.8・対象版を再確認。新規発覚の速報ではなく更新確認として有効。",
-      "source_url": "https://www.esri.com/arcgis-blog/products/trust-arcgis/administration/october-2026-arcgis-security-bulletin",
-      "platforms": [
-        "instagram",
-        "instagram_story"
-      ]
-    },
-    {
-      "article_id": "20261027-traefik-ingress-mtls-bypass-ghsa-p8wx-ph99-xgcr",
-      "checked_on": "2026-10-28",
-      "decision": "deliver_missing_platforms_only",
-      "rationale": "10/16公式勧告・3.7.15修正を確認。設定条件のある既知脆弱性として再送可。",
-      "source_url": "https://github.com/traefik/traefik/security/advisories/GHSA-p8wx-ph99-xgcr",
-      "platforms": [
-        "threads"
-      ]
-    },
-    {
-      "article_id": "20261026-perl-starman-plack-http-security",
-      "checked_on": "2026-10-28",
-      "decision": "register_security_watch_without_sns_repost",
-      "rationale": "修正情報・対象条件を一次情報で再確認。SNS成功記録を維持しWATCH掲載漏れを補完。",
-      "source_url": "https://github.com/advisories/GHSA-4q75-5w63-6hx7"
-    },
-    {
-      "article_id": "20261026-apache-tomcat-auth-bypass-http2-mixup",
-      "checked_on": "2026-10-28",
-      "decision": "register_security_watch_without_sns_repost",
-      "rationale": "修正情報・対象条件を一次情報で再確認。SNS成功記録を維持しWATCH掲載漏れを補完。",
-      "source_url": "https://tomcat.apache.org/security-11"
-    },
-    {
-      "article_id": "20261026-yeswiki-bazar-sqli-cve-2026-116207",
-      "checked_on": "2026-10-28",
-      "decision": "register_security_watch_without_sns_repost",
-      "rationale": "修正情報・対象条件を一次情報で再確認。SNS成功記録を維持しWATCH掲載漏れを補完。",
-      "source_url": "https://github.com/YesWiki/yeswiki/security/advisories/GHSA-hgxv-w4r8-8877"
-    },
-    {
-      "article_id": "20261026-brotli-cross-stack-cve-2026-111497",
-      "checked_on": "2026-10-28",
-      "decision": "register_security_watch_without_sns_repost",
-      "rationale": "修正情報・対象条件を一次情報で再確認。SNS成功記録を維持しWATCH掲載漏れを補完。",
-      "source_url": "https://github.com/envoyproxy/envoy/security/advisories/GHSA-3wvj-j6qm-62mr"
-    },
-    {
-      "article_id": "20261026-aspnetcore-linux-tarball-ownership-cve-2026-114148",
-      "checked_on": "2026-10-28",
-      "decision": "register_security_watch_without_sns_repost",
-      "rationale": "修正情報・対象条件を一次情報で再確認。SNS成功記録を維持しWATCH掲載漏れを補完。",
-      "source_url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-r6pf-x897-gm86"
+      ],
+      "source_url": "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ai-engine/ai-engine-the-chatbot-ai-framework-mcp-for-wordpress-386-missing-authorization-to-administrator-account-takeover-via-unauthenticated-mcp-oauth-client-registration",
+      "rationale": "Wordfence primary record rechecked: published 2026-10-29, updated 2026-10-30, CVSS 7.5, affected <=3.8.6, patched 3.8.7, administrator consent required. Full authenticated Threads history (141 posts, complete) contained no matching canonical URL at 2026-10-31T09:16:31Z. Recovery rechecks complete live history before any state change. Story already published; IG feed protective hold unchanged."
     }
-  ],
-  "valid_until": "2026-10-30T00:00:00+09:00",
-  "review_id": "freshness-reviewed-recovery-20261028"
+  ]
 }

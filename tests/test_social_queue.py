@@ -2,6 +2,7 @@ import unittest
 from datetime import datetime, timezone, timedelta
 from scripts.social_queue import batch_ids, continuation_ids, backlog_report, scheduler_health
 from tests.test_scheduled_social import article
+from scripts.reconcile_social_recovery import recovery_update
 
 NOW = datetime(2026, 10, 31, 8, 0, tzinfo=timezone.utc)
 
@@ -35,6 +36,15 @@ class SocialQueueTests(unittest.TestCase):
         self.assertEqual(batch_ids([article("one"), article("two")], {}, "one", NOW), ["one"])
         with self.assertRaises(ValueError):
             batch_ids([article("one")], {}, "unapproved", NOW)
+
+    def test_reviewed_absence_can_recover_when_only_uncertain_work_remains(self):
+        feed = [article("reviewed")]
+        old = {"status": "needs_review"}
+        rows = {"reviewed": {"threads": old}}
+        self.assertEqual(batch_ids(feed, rows, clock=NOW), [])
+        replacement = recovery_update(old, [], "new-owner-freshness-review", "threads")
+        rows["reviewed"]["threads"] = replacement
+        self.assertEqual(batch_ids(feed, rows), ["reviewed"])
 
     def test_global_report_exposes_missing_posts_outside_a_successful_batch(self):
         report = backlog_report([article("done"), article("missed"), article("unknown")], {

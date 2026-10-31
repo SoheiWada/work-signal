@@ -78,6 +78,8 @@ class ApprovedSocialEventTests(unittest.TestCase):
         self.assertIn('workflows: ["Build and deploy WORK SIGNAL"]', social)
         self.assertIn('github.event.workflow_run.head_repository.full_name == github.repository', social)
         self.assertIn('queue: max', social)
+        self.assertLess(social.index('scripts/reconcile_social_recovery.py'),
+                        social.index('scripts/social_queue.py prepare'))
         self.assertIn("SOCIAL_SCOPE_ARTICLE_IDS:", social)
         self.assertIn("inputs.deployed_sha", social)
         self.assertIn("SOCIAL_PUBLISH_ENABLED", social)

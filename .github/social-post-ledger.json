@@ -2510,7 +2510,9 @@
   "20261031-chatgpt-ads-creative-enhancements-default-on": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-31T09:22:57+00:00"
+      "updated_at": "2026-10-31T09:23:04+00:00",
+      "stage": "publish_requested",
+      "container_id": "18147085600604806"
     }
   }
 }

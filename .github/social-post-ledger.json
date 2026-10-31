@@ -2356,10 +2356,12 @@
   },
   "20261031-uk-planassist-planning-ai-58-percent": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-31T08:02:10+00:00",
+      "status": "published",
+      "updated_at": "2026-10-31T08:02:13+00:00",
       "stage": "publish_requested",
-      "container_id": "18479299813116789"
+      "container_id": "18479299813116789",
+      "remote_id": "18479299813116789",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfJrmQvm378"
     }
   }
 }

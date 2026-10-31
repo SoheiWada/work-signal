@@ -2296,7 +2296,9 @@
   "20261031-uk-drcf-agentic-ai-business-responsibility": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-10-31T01:52:22+00:00"
+      "updated_at": "2026-10-31T01:52:31+00:00",
+      "stage": "publish_requested",
+      "container_id": "18135746608673653"
     }
   }
 }

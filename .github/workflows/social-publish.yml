@@ -11,6 +11,15 @@ on:
         description: "Comma-separated newly approved article IDs; blank = approved backlog"
         required: false
         type: string
+      continuation_depth:
+        description: "Internal bounded continuation count (0-2)"
+        required: false
+        default: '0'
+        type: string
+  workflow_run:
+    workflows: ["Build and deploy WORK SIGNAL"]
+    types: [completed]
+    branches: [main]
   schedule:
     - cron: '13,43 * * * *'
 
@@ -21,35 +30,44 @@ permissions:
 concurrency:
   group: work-signal-social-publishing
   cancel-in-progress: false
+  queue: max
 
 jobs:
   publish:
-    if: vars.SOCIAL_PUBLISH_ENABLED == 'true'
+    if: >-
+      vars.SOCIAL_PUBLISH_ENABLED == 'true' && github.ref == 'refs/heads/main' &&
+      (github.event_name != 'workflow_run' ||
+       (github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_branch == 'main' &&
+        github.event.workflow_run.head_repository.full_name == github.repository))
+    permissions:
+      contents: write
+      actions: write
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout exactly the successfully deployed revision
         uses: actions/checkout@v6
         with:
-          ref: ${{ inputs.deployed_sha || github.sha }}
+          ref: ${{ inputs.deployed_sha || github.event.workflow_run.head_sha || github.sha }}
           fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
-      - name: Choose only fresh, safe scheduled delivery targets
-        id: scheduled
-        if: github.event_name == 'schedule'
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-        run: python scripts/select_scheduled_social.py
       - name: Verify published source and allow only ledger changes
-        if: github.event_name != 'schedule' || steps.scheduled.outputs.ready == 'true'
         env:
-          EXPECTED_SHA: ${{ inputs.deployed_sha }}
+          EXPECTED_SHA: ${{ inputs.deployed_sha || github.event.workflow_run.head_sha }}
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python scripts/verify_deployed_revision.py
+      - name: Choose a bounded batch from the durable approved backlog
+        id: scheduled
+        env:
+          REQUESTED_ARTICLE_IDS: ${{ inputs.article_ids }}
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python scripts/social_queue.py prepare
       - name: Validate social publisher
         run: |
           python -m pip install -r requirements-build.txt
@@ -58,9 +76,11 @@ jobs:
           python -m unittest discover -s tests -p 'test_delivery_channel_outcomes.py'
           python -m unittest discover -s tests -p 'test_approved_social_event.py'
           python -m unittest discover -s tests -p 'test_scheduled_social.py'
+          python -m unittest discover -s tests -p 'test_social_queue.py'
+          python -m unittest discover -s tests -p 'test_social_preflight.py'
       - name: Reconcile only freshness-reviewed missing posts
         # A newly approved article cannot authorize recovery of unrelated posts.
-        if: inputs.article_ids == '' && (github.event_name != 'schedule' || steps.scheduled.outputs.ready == 'true')
+        if: inputs.article_ids == '' && steps.scheduled.outputs.ready == 'true'
         env:
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
@@ -70,7 +90,7 @@ jobs:
           INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
         run: python scripts/reconcile_social_recovery.py
       - name: Publish explicitly approved articles
-        if: github.event_name != 'schedule' || steps.scheduled.outputs.ready == 'true'
+        if: steps.scheduled.outputs.ready == 'true'
         id: publish
         # A known Meta Instagram FEED hold is not a Threads failure.
         # The next step ONLY permits that explicit hold. All other failures
@@ -81,31 +101,49 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           SOCIAL_PUBLISH_ENABLED: ${{ vars.SOCIAL_PUBLISH_ENABLED }}
           SOCIAL_REPORT_ENABLED: 'true'
-          SOCIAL_SCOPE_ARTICLE_IDS: ${{ inputs.article_ids || steps.scheduled.outputs.article_ids }}
+          SOCIAL_PREFLIGHT_HISTORY: 'true'
+          SOCIAL_SCOPE_ARTICLE_IDS: ${{ steps.scheduled.outputs.article_ids }}
           THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
           THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
           INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
         run: python scripts/publish_social.py --live
       - name: Verify Threads and Stories delivery separately from IG feed protective hold
-        if: always() && steps.publish.outcome != 'skipped'
+        if: always() && steps.publish.outcome != 'skipped' && steps.publish.outcome != ''
         env:
-          SOCIAL_SCOPE_ARTICLE_IDS: ${{ inputs.article_ids || steps.scheduled.outputs.article_ids }}
+          SOCIAL_SCOPE_ARTICLE_IDS: ${{ steps.scheduled.outputs.article_ids }}
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python scripts/check_social_channel_outcomes.py
       - name: Diagnose Instagram review states (read only)
-        if: always() && (github.event_name != 'schedule' || steps.scheduled.outputs.ready == 'true')
+        if: always() && steps.scheduled.outputs.ready == 'true'
         env:
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
           INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
         run: python scripts/diagnose_instagram.py
+      - name: Report the entire approved backlog and permit only bounded progress
+        if: always()
+        id: backlog
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          REQUESTED_ARTICLE_IDS: ${{ inputs.article_ids }}
+          CONTINUATION_DEPTH: ${{ inputs.continuation_depth || '0' }}
+        run: python scripts/social_queue.py finish
+      - name: Continue only after confirmed progress (at most two additional batches)
+        if: steps.backlog.outputs.continue_ready == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NEXT_DEPTH: ${{ steps.backlog.outputs.next_depth }}
+        run: gh workflow run social-publish.yml --ref main -f "continuation_depth=$NEXT_DEPTH"
       - name: Keep per-platform completion report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: work-signal-social-delivery-status
-          path: social-delivery-status.json
+          path: |
+            social-delivery-status.json
+            social-backlog-status.json
           retention-days: 14
           if-no-files-found: ignore
 
@@ -114,13 +152,13 @@ jobs:
     # cannot prevent Meta delivery. The workflow-level common lock serializes
     # ALL writers to the shared durable ledger (including scheduled recovery).
     needs: publish
-    if: always() && vars.SOCIAL_PUBLISH_ENABLED == 'true' && vars.X_PUBLISH_ENABLED == 'true'
+    if: always() && needs.publish.result != 'skipped' && vars.SOCIAL_PUBLISH_ENABLED == 'true' && vars.X_PUBLISH_ENABLED == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v6
         with:
-          ref: ${{ inputs.deployed_sha || github.sha }}
+          ref: ${{ inputs.deployed_sha || github.event.workflow_run.head_sha || github.sha }}
           fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-python@v6
@@ -134,7 +172,7 @@ jobs:
         run: npm --prefix tools/x-publisher ci --ignore-scripts --no-audit --no-fund
       - name: Verify deployed revision independently of Meta
         env:
-          EXPECTED_SHA: ${{ inputs.deployed_sha }}
+          EXPECTED_SHA: ${{ inputs.deployed_sha || github.event.workflow_run.head_sha }}
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: python scripts/verify_deployed_revision.py

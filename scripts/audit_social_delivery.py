@@ -20,7 +20,10 @@ def collect(base, path, token, fields, *, pages=8):
         if after:
             args["after"] = after
         response = social.request_json(base + "/" + path + "?" + urlencode(args), token=token)
-        items.extend(response.get("data", []))
+        data = response.get("data")
+        if not isinstance(data, list) or any(not isinstance(x, dict) or not x.get("id") for x in data):
+            raise RuntimeError("Invalid media history; absence cannot be established")
+        items.extend(data)
         paging = response.get("paging", {})
         if not paging.get("next"):
             return items, True
@@ -42,7 +45,7 @@ def matches(article, kind, items):
     return [x for x in items if (x.get("caption") or "").strip() == caption]
 
 
-def story_image_checks(articles, ledger, stories):
+def story_image_checks(articles, ledger, stories, *, target_ids=()):
     """Stories have no captions: compare the unchanged title area, including a positive control."""
     from PIL import Image, ImageChops, ImageStat
     def image(url, own=False):
@@ -59,7 +62,8 @@ def story_image_checks(articles, ledger, stories):
     live = [(item, image(item["media_url"])) for item in stories]
     controls = [a for a in articles if ledger.get(a["id"], {}).get("instagram_story", {}).get("remote_id")
                 in {str(x[0].get("id")) for x in live}][:3]
-    targets = [a for a in articles if ledger.get(a["id"], {}).get("instagram_story", {}).get("status") == "needs_review"]
+    targets = [a for a in articles if a["id"] in target_ids or
+               ledger.get(a["id"], {}).get("instagram_story", {}).get("status") == "needs_review"]
     output = {}
     for a in controls + targets:
         expected = image(social.story_image_url(a), own=True)
@@ -70,7 +74,10 @@ def story_image_checks(articles, ledger, stories):
                            "closest_id": item.get("id"), "is_control": a in controls,
                            "matching_ids": [x.get("id") for score, x in scores if score <= 2.0],
                            "all_images_inspected": len(live)}
-    control_ok = any(x["is_control"] and x["matching_ids"] for x in output.values())
+    control_ok = any(x["is_control"] and
+                     str(ledger[aid]["instagram_story"]["remote_id"]) in
+                     [str(value) for value in x["matching_ids"]]
+                     for aid, x in output.items())
     for a in targets:
         row = output[a["id"]]
         row["absence_verified"] = bool(control_ok and live and row["closest_difference"] is not None and row["closest_difference"] >= 4.0)

@@ -9,6 +9,14 @@ on:
       - scripts/build_site.py
       - scripts/security_watch.py
       - scripts/verify_deployed_revision.py
+      - scripts/social_queue.py
+      - scripts/select_scheduled_social.py
+      - scripts/social_delivery_preflight.py
+      - scripts/audit_social_delivery.py
+      - tests/test_social_queue.py
+      - tests/test_social_preflight.py
+      - tests/test_scheduled_social.py
+      - tests/test_approved_social_event.py
       - tests/test_delivery_reliability.py
       - tests/test_delivery_channel_outcomes.py
       - scripts/check_social_channel_outcomes.py
@@ -41,6 +49,10 @@ jobs:
           python -m unittest discover -s tests -p 'test_social_attribution.py'
           python -m unittest discover -s tests -p 'test_delivery_reliability.py'
           python -m unittest discover -s tests -p 'test_delivery_channel_outcomes.py'
+          python -m unittest discover -s tests -p 'test_social_queue.py'
+          python -m unittest discover -s tests -p 'test_social_preflight.py'
+          python -m unittest discover -s tests -p 'test_approved_social_event.py'
+          python -m unittest discover -s tests -p 'test_scheduled_social.py'
       - name: Report test result to GitHub commit status
         if: ${{ always() }}
         env:

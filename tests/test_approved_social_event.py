@@ -1,4 +1,4 @@
-"""No SEO/deploy-only change may start a social publication run."""
+"""SEO changes grant no new approvals; wakeups can drain safe existing backlog."""
 import unittest
 from pathlib import Path
 from scripts.approved_social_event import approvals, eligible
@@ -61,21 +61,23 @@ class ApprovedSocialEventTests(unittest.TestCase):
         self.assertEqual(approvals(successful_deploy, final_deploy),
                          ["just-now", "missing-early", "missing-middle"])
 
-    def test_dispatch_uses_successful_deployment_history_not_push_before(self):
+    def test_delivery_wakeup_is_independent_of_ephemeral_push_delta(self):
         pages = (ROOT / ".github/workflows/pages.yml").read_text()
-        self.assertIn('actions/workflows/pages.yml/runs?branch=main&status=success', pages)
-        self.assertIn('git merge-base --is-ancestor', pages)
-        self.assertIn('steps.baseline.outputs.sha', pages)
+        social = (ROOT / ".github/workflows/social-publish.yml").read_text()
+        self.assertIn('workflow_run:', social)
+        self.assertIn('github.event.workflow_run.conclusion == \'success\'', social)
+        self.assertIn('scripts/social_queue.py prepare', social)
         self.assertNotIn('BEFORE_SHA: ${{ github.event.before }}', pages)
 
     def test_site_and_social_triggers_are_separate(self):
         pages = (ROOT / ".github/workflows/pages.yml").read_text()
         social = (ROOT / ".github/workflows/social-publish.yml").read_text()
-        self.assertIn("needs: deploy", pages)
+        self.assertIn("needs: build", pages)
         self.assertIn("group: pages-${{ github.ref }}", pages)
-        self.assertIn("steps.delta.outputs.approved == 'true'", pages)
-        self.assertIn("gh workflow run social-publish.yml", pages)
-        self.assertNotIn("workflow_run:", social)
+        self.assertNotIn("gh workflow run social-publish.yml", pages)
+        self.assertIn('workflows: ["Build and deploy WORK SIGNAL"]', social)
+        self.assertIn('github.event.workflow_run.head_repository.full_name == github.repository', social)
+        self.assertIn('queue: max', social)
         self.assertIn("SOCIAL_SCOPE_ARTICLE_IDS:", social)
         self.assertIn("inputs.deployed_sha", social)
         self.assertIn("SOCIAL_PUBLISH_ENABLED", social)

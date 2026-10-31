@@ -602,6 +602,15 @@ def run(articles, ledger, credentials):
         print("No requested Meta account is connected.", file=sys.stderr)
         return 1
     rows, _ = ledger.read()
+    preflight = None
+    if credentials.get("SOCIAL_PREFLIGHT_HISTORY") == "true":
+        try:
+            from .social_delivery_preflight import DeliveryPreflight
+        except ImportError:
+            from social_delivery_preflight import DeliveryPreflight
+        # Include all articles to locate known positive Story controls.
+        preflight = DeliveryPreflight(articles, rows, credentials,
+                                      target_ids=[a["id"] for a in approved])
     work = {a["id"]: [p for p in remaining_platforms(rows.get(a["id"], {}))
                        if p in requested_platforms(a)] for a in approved}
     needed = set(p for kinds in work.values() for p in kinds)
@@ -675,6 +684,14 @@ def run(articles, ledger, credentials):
             except (ValueError, RuntimeError) as exc:
                 failures.append(identifier + ": " + kind + " preflight " + str(exc))
                 continue
+            existing = None
+            if preflight:
+                try:
+                    existing = preflight.existing(article, kind)
+                except Exception as exc:
+                    detail = str(exc) if isinstance(exc, RuntimeError) else type(exc).__name__
+                    failures.append(identifier + ": " + kind + " history preflight " + detail)
+                    continue
             claimed = False
             try:
                 processed[group].add(identifier)
@@ -683,6 +700,11 @@ def run(articles, ledger, credentials):
                 options = {}
                 if hasattr(ledger, "progress"):
                     options["progress"] = lambda stage, cid: ledger.progress(identifier, kind, stage, cid)
+                if existing:
+                    ledger.record(identifier, kind, "published", remote_id=str(existing["id"]),
+                                  permalink=existing.get("permalink", ""))
+                    print("RECONCILED_EXISTING", identifier, kind, existing["id"])
+                    continue
                 if kind == "threads":
                     token, uid = credentials["THREADS_ACCESS_TOKEN"], credentials["THREADS_USER_ID"]
                     try:

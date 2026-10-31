@@ -50,7 +50,7 @@ class ScheduledSocialTests(unittest.TestCase):
         source = (Path(__file__).resolve().parents[1] /
                   ".github/workflows/social-publish.yml").read_text()
         self.assertIn("steps.scheduled.outputs.ready == 'true'", source)
-        self.assertIn("scripts/select_scheduled_social.py", source)
+        self.assertIn("scripts/social_queue.py prepare", source)
         self.assertIn("cancel-in-progress: false", source)
 
 

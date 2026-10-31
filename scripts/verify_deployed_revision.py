@@ -16,7 +16,7 @@ def main():
     expected = os.environ.get("EXPECTED_SHA", "")
     if not expected:
         response = social.request_json("https://api.github.com/repos/" + os.environ["GITHUB_REPOSITORY"]
-                                       + "/actions/runs?branch=main&status=success&per_page=50",
+                                       + "/actions/workflows/pages.yml/runs?branch=main&status=success&per_page=20",
                                        token=os.environ["GITHUB_TOKEN"])
         matches = [r for r in response.get("workflow_runs", []) if r.get("name") == "Build and deploy WORK SIGNAL"
                    and r.get("conclusion") == "success" and r.get("head_branch") == "main"]

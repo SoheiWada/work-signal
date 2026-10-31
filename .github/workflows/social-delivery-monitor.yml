@@ -1,0 +1,48 @@
+name: Monitor WORK SIGNAL entire SNS backlog
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23,53 * * * *'
+  workflow_run:
+    workflows: ["Publish approved WORK SIGNAL social posts"]
+    types: [completed]
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - scripts/social_queue.py
+      - .github/workflows/social-delivery-monitor.yml
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: work-signal-social-monitor
+  cancel-in-progress: false
+jobs:
+  monitor:
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.head_branch == 'main' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Detect missing delivery, uncertain results and stale scheduler (no Meta writes)
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python scripts/social_queue.py monitor
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: work-signal-entire-social-backlog
+          path: social-backlog-status.json
+          retention-days: 30
+          if-no-files-found: error

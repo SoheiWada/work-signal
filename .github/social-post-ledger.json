@@ -2407,10 +2407,12 @@
   },
   "20261031-imgproxy-ico-integer-overflow-ghsa-hff9-5pqw-6w9f": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-31T09:19:18+00:00",
+      "status": "published",
+      "updated_at": "2026-10-31T09:19:20+00:00",
       "stage": "publish_requested",
-      "container_id": "17945711562090573"
+      "container_id": "17945711562090573",
+      "remote_id": "17945711562090573",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfJ0bEIm-eo"
     }
   }
 }

@@ -2424,10 +2424,12 @@
   },
   "20261031-sigstore-oci-credential-leak-cve-2026-118763": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-10-31T09:19:52+00:00",
+      "status": "published",
+      "updated_at": "2026-10-31T09:19:55+00:00",
       "stage": "publish_requested",
-      "container_id": "17914809711503148"
+      "container_id": "17914809711503148",
+      "remote_id": "17914809711503148",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfJ0fcgmwl-"
     }
   }
 }

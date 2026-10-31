@@ -95,10 +95,28 @@ jobs:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - name: Identify newly approved article IDs
-        id: delta
+      - name: Locate prior successfully deployed production revision
+        id: baseline
         env:
-          BEFORE_SHA: ${{ github.event.before }}
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          # A rapid series of article commits cancels intermediate Pages runs.
+          # Compare with the LAST SUCCESSFUL DEPLOY, not only github.event.before,
+          # so approvals from cancelled builds are included in the next success.
+          previous="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/pages.yml/runs?branch=main&status=success&per_page=100" \
+            --jq '[.workflow_runs[] | select(.event == "push" or .event == "workflow_dispatch")][0].head_sha // ""')"
+          if [[ "$previous" =~ ^[0-9a-f]{40}$ ]] && git merge-base --is-ancestor "$previous" "$GITHUB_SHA"; then
+            echo "sha=$previous" >> "$GITHUB_OUTPUT"
+            echo "Comparing last production deployment $previous to $GITHUB_SHA"
+          else
+            echo "::warning::No trustworthy prior Pages deployment; SNS dispatch safely withheld"
+          fi
+      - name: Identify newly approved article IDs since previous successful deployment
+        id: delta
+        if: steps.baseline.outputs.sha != ''
+        env:
+          BEFORE_SHA: ${{ steps.baseline.outputs.sha }}
           AFTER_SHA: ${{ github.sha }}
         run: python3 scripts/approved_social_event.py
       - name: Dispatch SNS only for those newly approved IDs

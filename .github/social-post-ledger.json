@@ -2774,10 +2774,12 @@
   },
   "20261101-nvidia-nemoclaw-agent-governance-blueprints": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-01T11:31:26+00:00",
+      "status": "published",
+      "updated_at": "2026-11-01T11:31:28+00:00",
       "stage": "publish_requested",
-      "container_id": "18118577843104044"
+      "container_id": "18118577843104044",
+      "remote_id": "18118577843104044",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfMoVnJkQ1s"
     }
   }
 }

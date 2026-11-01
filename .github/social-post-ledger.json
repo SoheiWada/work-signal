@@ -2843,7 +2843,9 @@
   "20261102-github-copilot-memory-dreaming-context-governance": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-01T21:46:59+00:00"
+      "updated_at": "2026-11-01T21:47:10+00:00",
+      "stage": "publish_requested",
+      "container_id": "18097781636458911"
     }
   }
 }

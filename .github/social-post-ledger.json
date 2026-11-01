@@ -2672,10 +2672,12 @@
   },
   "20261031-gravity-forms-cve-2026-103039-php-object-injection": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-01T07:17:31+00:00",
+      "status": "published",
+      "updated_at": "2026-11-01T07:17:36+00:00",
       "stage": "publish_requested",
-      "container_id": "18172005601477229"
+      "container_id": "18172005601477229",
+      "remote_id": "18172005601477229",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfMLSQOkRUW"
     }
   }
 }

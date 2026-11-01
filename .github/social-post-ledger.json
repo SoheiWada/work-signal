@@ -2822,5 +2822,11 @@
       "container_id": "18157781452488337",
       "remote_id": "18024839696712010"
     }
+  },
+  "20261101-openai-prism-shutdown-export-codex-migration": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-01T13:16:42+00:00"
+    }
   }
 }

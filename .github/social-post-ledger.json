@@ -2805,5 +2805,11 @@
       "container_id": "18157768987488337",
       "remote_id": "18393874288231406"
     }
+  },
+  "20261101-github-enterprise-copilot-access-metered-billing": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-01T12:20:11+00:00"
+    }
   }
 }

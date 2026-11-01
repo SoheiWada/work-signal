@@ -1,5 +1,44 @@
 [
   {
+    "id": "20261101-drupal-commerce-core-access-bypass-cve-2026-118539",
+    "title": "Drupal Commerce Coreで実悪用を確認。修正版への更新と注文データの監査を",
+    "summary": "Drupal Security Teamは10月28日、EC機能を提供するCommerce Coreのアクセス制御回避（CVE-2026-118539）について、実環境で悪用されていると公表した。対象の利用者には修正版への更新と注文データの不整合監査を推奨している。公式重大度はDrupal独自尺度の「Highly critical 21/25」。CVSSの評価と混同せず、対象製品と対応範囲を確認したい。",
+    "category": "SECURITY",
+    "score": 88,
+    "published_at": "2026-11-01",
+    "published_at_time": "2026-11-01T05:59:43.018Z",
+    "source_url": "https://www.drupal.org/sa-contrib-2026-254",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Drupal Security Teamは10月28日、EC機能を提供するCommerce Coreのアクセス制御回避（CVE-2026-118539）について、実環境で悪用されていると公表した。対象の利用者には修正版への更新と注文データの不整合監査を推奨している。公式重大度はDrupal独自尺度の「Highly critical 21/25」。CVSSの評価と混同せず、対象製品と対応範囲を確認したい。",
+    "sections": [
+      {
+        "title": "対象はCommerce Core、Drupal本体全般とは区別する",
+        "body": "今回の勧告は、カートやチェックアウト、APIを通じたEC機能を提供するCommerce Coreが対象だ。公式発表によると、一部のルートとエンティティフィールドの保護が不十分で、アクセス制御を回避され、事業者に金銭的影響が生じる可能性がある。Drupalを使っているという理由だけで同じ影響があるとは扱わず、まずCommerce Coreの導入有無を確認する。"
+      },
+      {
+        "title": "実悪用を公式確認、重大度の尺度は分けて読む",
+        "body": "Drupal Security Teamは実環境での悪用を明記している。一方、重大度の「Highly critical 21/25」はDrupalの独自尺度であり、CVSS 9.0以上などへ換算するものではない。GitHub Advisory Databaseの参照ページにもCVSSの確定値は掲載されていない。本稿は確認できた公式評価をそのまま紹介する通常解説であり、WORK SIGNAL独自のHIGH／CRITICALを付与しない。被害件数や個別サイトの侵害状況は確認できない。"
+      },
+      {
+        "title": "該当する系列に応じた修正版を確認する",
+        "body": "公式勧告の影響範囲は2.41未満、および3.0.0以上3.3.13未満。3.x系は3.3.13、以前の系列は8.x-2.41が修正版として示されている。運営担当者は画面の表示だけでなく、管理している依存関係と実際に稼働している版を確認し、利用系列に合う修正版と更新手順を照合したい。"
+      },
+      {
+        "title": "更新後も注文データの不整合を監査する",
+        "body": "公式勧告は更新だけでなく、注文データに不整合がないか監査するよう推奨する。運営側では、技術担当と受注・経理担当で確認範囲を共有し、調査と更新の記録を残すとよい。修正版を導入したことだけで過去の注文に影響がなかったとは判断できない。個別の不整合が見つかった場合も、この脆弱性が原因だと直ちに断定せず、記録に基づき切り分ける必要がある。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "security_watch": false,
+    "security_watch_exclusion_reason": "編集長指定の通常SECURITY解説。公式評価本文参照と各情報源の評価・成立条件を本文に明記し、重大アラートとは区別する。"
+  },
+  {
     "id": "20261101-apple-intelligence-china-qwen-ios273",
     "title": "Apple Intelligenceが中国で11月4日から試験開始。Alibaba「千問」をSiri・文章作成に統合",
     "summary": "Appleは2026年10月31日、中国向けApple Intelligenceの初期機能を11月4日から開発者向けベータで試験提供し、12月のiOS 27.3正式版で一般提供する計画を発表した。AlibabaのAI「千問（Qwen）」をSiri、文章作成、視覚認識の一部機能に組み込む。地域ごとの規制と現地AIモデルを踏まえた展開であり、次世代の「Siri AI」自体は今回の提供対象に含まれない。",

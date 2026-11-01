@@ -2706,10 +2706,12 @@
   },
   "20261031-wordpress-core-upgrade-rce-cve-2026-119977": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-01T07:18:36+00:00",
+      "status": "published",
+      "updated_at": "2026-11-01T07:18:39+00:00",
       "stage": "publish_requested",
-      "container_id": "17918899032525454"
+      "container_id": "17918899032525454",
+      "remote_id": "17918899032525454",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfMLaODEea0"
     }
   }
 }

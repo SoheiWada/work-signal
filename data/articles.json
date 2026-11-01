@@ -1,5 +1,46 @@
 [
   {
+    "id": "20261101-apache-thrift-java-recursion-cve-2026-120135",
+    "title": "Apache ThriftのJava処理にHIGH 8.2、深い再帰でサービス停止の恐れ",
+    "summary": "Apache ThriftのJavaバインディングに、再帰処理の深さを標準では制限しない脆弱性「CVE-2026-120135」が公表された。公式CVSS v4.0評価は8.2（HIGH）。特定の入力処理を経由すると過剰な再帰によってサービスの可用性を損なう恐れがある。影響するのは0.24.0より前のバージョンで、Apacheは0.24.0への更新を推奨している。",
+    "category": "SECURITY",
+    "score": 84,
+    "published_at": "2026-11-01",
+    "published_at_time": "2026-11-01T11:17:06.432Z",
+    "source_url": "https://www.openwall.com/lists/oss-security/2026/10/31/2",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Apache ThriftのJavaバインディングに、再帰処理の深さを標準では制限しない脆弱性「CVE-2026-120135」が公表された。公式CVSS v4.0評価は8.2（HIGH）。特定の入力処理を経由すると過剰な再帰によってサービスの可用性を損なう恐れがある。影響するのは0.24.0より前のバージョンで、Apacheは0.24.0への更新を推奨している。",
+    "sections": [
+      {
+        "title": "Javaの再帰処理がサービス停止につながる可能性",
+        "body": "Apache Software Foundationの担当者は2026年10月31日（日本時間）、Apache ThriftのJavaバインディングにおける制御されない再帰の脆弱性を公表した。対象はJavaの `TProtocolUtil.skip()` で、標準状態では再帰深度に制限が設けられていないという。Thriftは異なる言語・システム間の通信を支える仕組みであり、該当処理が攻撃者の影響下にあるデータを処理する構成では、過剰な再帰によるリソース消費やサービス停止のリスクがある。\n\nただし、Apache Thriftを導入しているだけで直ちに外部から攻撃が成立するという意味ではない。入力の到達経路や実際の使用方法を調べる必要がある。"
+      },
+      {
+        "title": "公式CVSSは8.2のHIGH、機密情報漏えいではなく可用性が中心",
+        "body": "公式告知の重大度表記は「important」、CVSS v4.0のスコアは8.2（HIGH）である。CVSSベクトルはネットワーク経由、認証不要、利用者操作不要である一方、攻撃要件（AT:P）が存在することを示す。評価上の影響は可用性が高く、機密性と完全性への直接的影響は示されていない。したがって、本件を認証回避やリモートコード実行と混同すべきではない。\n\n識別子はCVE-2026-120135。GitHub Advisory DatabaseにもGHSA-663r-q6wf-5j93として登録されているが、同ページはUnreviewedでパッケージ・修正バージョン欄がUnknownのため、具体的な影響範囲はApacheの一次告知を優先した。"
+      },
+      {
+        "title": "修正版は0.24.0、現在の安定版は0.25.0",
+        "body": "Apacheの公式告知によれば、影響するのはJavaバインディングの0.24.0より前であり、0.24.0で修正済み。Apache公式ダウンロードページは2026年9月30日公開の0.25.0を最新安定版としている。運用者は `org.apache.thrift:libthrift` の実際のバージョンを、直接依存だけでなく推移的依存も含めて確認したい。\n\n対策の基本は0.24.0以降への更新である。0.25.0を選ぶ場合も、通信相手とのプロトコル互換性やアプリケーションの回帰試験を行う必要がある。更新までの通信制限や入力保護はリスク低減策であり、パッチ適用と同等の対処とはみなせない。"
+      },
+      {
+        "title": "運用判断では「どこから入力が届くか」を確認",
+        "body": "RPCサービスを提供する組織は、ThriftのJava実装を使うプロセスと外部接続経路を洗い出し、影響版が本番環境に残っていないかを確認することが重要だ。特にインターネットからの到達性、他システムから受け取るデータの信頼境界、障害時の再起動や監視体制を合わせて点検する価値がある。\n\n本稿の確認時点では、実際の攻撃による被害、攻撃コードの有効性、個別の製品構成における成立条件は公式一次情報で確定できていない。公式CVSS 8.2は危険性の評価であり、すべての導入先で同じ影響が生じるとの断定ではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "Apache Thrift Java bindings、Maven org.apache.thrift:libthrift、TProtocolUtil.skip()",
+    "social_security_action": "Javaのlibthrift依存関係とTProtocolUtil.skip()の使用・外部入力経路を調べ、0.24.0以降へ更新。現行安定版0.25.0の採用時は互換性・回帰試験を実施。更新まで非信頼入力の到達性とサービス保護を見直すことは編集部の補助的提案であり、公式修正の代替ではない。",
+    "publication_key": "0a1d3f947ee5e14702f1a3e01f91e1b81141910f2a7299a06674c83aa4dc0aa0",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261101-github-copilot-fusion-multimodel-local-routing",
     "title": "GitHub Copilot Fusionが一般提供。複数AIの自動選択とローカルモデル連携、料金とオフラインの注意点",
     "summary": "GitHubは10月28日、開発支援AI「Copilot Fusion」の一般提供を発表した。作業に応じて複数モデルを自動選択・連携させ、Standard・High・Maxの3段階で処理の深さを指定できる。同日、端末内モデルとの自動振り分けも実験的に公開。ただし、ローカル推論を使っても完全オフラインにはならず、利用料金もモデルごとに発生する。",

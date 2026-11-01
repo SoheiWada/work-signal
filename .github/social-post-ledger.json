@@ -2731,10 +2731,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfMnKsokSTp"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-01T11:21:34+00:00",
+      "status": "published",
+      "updated_at": "2026-11-01T11:21:38+00:00",
       "stage": "publish_requested",
-      "container_id": "18157767046488337"
+      "container_id": "18157767046488337",
+      "remote_id": "18092859410215303"
     }
   }
 }

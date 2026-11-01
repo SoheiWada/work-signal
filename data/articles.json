@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261102-github-copilot-automations-shared-cost-controls",
+    "title": "GitHub Copilot Automations、チーム共有と費用上限に対応。AI自動化を属人化させない運用設計",
+    "summary": "GitHubは10月28日、Copilot Automationsにチーム共有機能とAI利用料の上限設定を追加した。作成者が退職しても継続できるリポジトリ単位の自動化に加え、外部システムからの起動や24種類の新たなGitHubイベントにも対応する。ただし、請求先は共有先の所有者に移り、利用可能なリポジトリや管理者設定にも条件がある。導入時に押さえるべき統制を整理した。",
+    "category": "仕事",
+    "score": 87,
+    "published_at": "2026-11-02",
+    "published_at_time": "2026-11-01T22:45:38.400Z",
+    "source_url": "https://github.blog/changelog/2026-10-28-build-shared-workflows-for-your-team-with-copilot-automations/",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "GitHubは10月28日、Copilot Automationsにチーム共有機能とAI利用料の上限設定を追加した。作成者が退職しても継続できるリポジトリ単位の自動化に加え、外部システムからの起動や24種類の新たなGitHubイベントにも対応する。ただし、請求先は共有先の所有者に移り、利用可能なリポジトリや管理者設定にも条件がある。導入時に押さえるべき統制を整理した。",
+    "sections": [
+      {
+        "title": "個人の自動化から「チームが保有する仕組み」へ",
+        "body": "GitHubは2026年10月28日、Copilot AutomationsのShared（共有）タイプを段階的に提供すると発表した。従来のPersonalタイプでは作成者だけが設定を閲覧・編集し、AIクレジットも本人に請求される。Sharedタイプでは、リポジトリの読み取り権限を持つ人が設定を閲覧でき、書き込み権限を持つ人が編集できる。GitHub上の操作主体はCopilotとなり、作成者がチームを離れても自動化を継続できる。\n\n業務上の意味は、担当者の個人設定に依存していたバグ再現、プルリクエストのレビュー補助、障害調査などをチームの運用資産として扱えることだ。一方、作成時に選ぶPersonalとSharedのタイプは後から変更できない。既存の個人用自動化が自動的にチーム共有へ移るわけではない。"
+      },
+      {
+        "title": "外部イベントと連鎖実行で運用範囲を拡張",
+        "body": "同日付の別発表では、GitHub REST APIからの起動、Issue・Pull Request・Discussion・セキュリティアラートに関する24種類の新しいイベント、複数のAutomationをつなぐ実行条件が案内された。Jiraや監視システムからWebhook経由で起動する構成も可能だが、外部側のイベント受信・API呼び出しの実装は必要になる。\n\nさらに20種類のGitHubツールが追加され、独自MCPサーバーのツールも選択できる。ただしMCPツールは対象リポジトリ外のシステムにも到達し得る。自動化に使わせるツールを最小限に絞り、外部連携先の認証情報・アクセス範囲・ログを事前に確認する必要がある。"
+      },
+      {
+        "title": "AIクレジットの上限と、別途発生するActions費用",
+        "body": "SharedタイプのAIクレジットは、個人の作成者ではなくリポジトリ所有者の組織または個人アカウントに請求される。GitHubは実行ごと、日次、週次、月次のAIクレジット上限を設定できるようにした。実行ごとの下限は30クレジット。日・週・月の上限に達すると新規実行を止めるが、すでに動いている実行は止まらないため、単発実行にも上限を設定するのが安全だ。\n\n重要なのは、AutomationがAIクレジットだけでなくGitHub Actionsの実行時間も消費することだ。AIクレジットの上限はActions利用料の総額を保証するものではない。導入前に両方の利用状況と予算設定を確認し、まず小さな対象で実測したい。"
+      },
+      {
+        "title": "利用条件とAgentic Workflowsとの違い",
+        "body": "GitHub公式Docsによれば、Copilot AutomationsはPro、Pro+、Max、Business、Enterpriseが対象で、利用できるのはprivateまたはinternalリポジトリに限られる。公開リポジトリには対応せず、Copilot cloud agentの有効化と管理者ポリシーが必要だ。組織所有リポジトリのSharedタイプには、組織負担でのcloud agent利用を許可する管理者設定も求められる。Shared機能は段階的な提供のため、契約プランだけで即時利用を保証するものではない。\n\n前日に取り上げたGitHub Agentic Workflowsは、Markdownの定義をコードとしてレビューし、GitHub Actionsへ変換する仕組みである。今回のCopilot Automationsは、Copilot cloud agentの設定・トリガー・ツールをGitHub上で管理する別製品機能で、Automation設定自体はリポジトリのGit履歴にコミットされない。運用責任者は、変更履歴の確認方法、実行ログの閲覧権限、停止手順、人による承認条件を明文化してから本番業務へ広げたい。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ],
+    "publication_key": "531c4fb697e9f46927d63e1a5323eb0d35a77af21d752817af48b2d85e67d788",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261102-github-copilot-memory-dreaming-context-governance",
     "title": "GitHub Copilot Memoryが正式提供、Dreamingは試験段階。AIが開発ルールを学ぶ時代の費用と統制",
     "summary": "GitHubは10月28日、Copilotが開発者の好みやリポジトリの決まりを次の作業へ引き継ぐ「Copilot Memory」の一般提供を発表した。過去の作業から文脈を更新する「Dreaming」は公開プレビューで、利用には対象プランや設定の条件がある。AIエージェントの引き継ぎ負担を減らす一方、記憶の誤り、権限、AIクレジットの費用管理が新たな運用課題となる。",

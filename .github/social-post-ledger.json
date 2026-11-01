@@ -2737,5 +2737,11 @@
       "container_id": "18157767046488337",
       "remote_id": "18092859410215303"
     }
+  },
+  "20261101-apache-mina-3-deserialization-cve-2026-118636": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-01T11:29:58+00:00"
+    }
   }
 }

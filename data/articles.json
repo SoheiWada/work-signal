@@ -1,5 +1,152 @@
 [
   {
+    "id": "20261101-github-agentic-workflows-ga-actions-guardrails",
+    "title": "GitHub Agentic Workflowsが一般提供。自然言語でActionsを自動化、権限制御とAI利用料に注意",
+    "summary": "GitHubは10月28日、AIエージェントでリポジトリ作業を自動化する「GitHub Agentic Workflows」の一般提供を発表した。Markdownに自然言語で指示を書き、GitHub Actionsとして実行できる。Issueの仕分けやCI失敗の調査、文書更新などが対象だが、AIに自由な書き込み権限を渡す仕組みではない。安全策と利用料金を確認して導入したい。",
+    "category": "AI",
+    "score": 88,
+    "published_at": "2026-11-01",
+    "published_at_time": "2026-11-01T11:23:58.971Z",
+    "source_url": "https://github.blog/changelog/2026-10-28-github-agentic-workflows-generally-available/",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "GitHubは10月28日、AIエージェントでリポジトリ作業を自動化する「GitHub Agentic Workflows」の一般提供を発表した。Markdownに自然言語で指示を書き、GitHub Actionsとして実行できる。Issueの仕分けやCI失敗の調査、文書更新などが対象だが、AIに自由な書き込み権限を渡す仕組みではない。安全策と利用料金を確認して導入したい。",
+    "sections": [
+      {
+        "title": "Markdownで定義し、既存のGitHub Actionsとして実行する",
+        "body": "GitHubが2026年10月28日に一般提供を発表したGitHub Agentic Workflowsは、GitHub Next発のオープンソースプロジェクトだ。開発チームはMarkdownファイルに実行条件、アクセス権限、許可する出力と自然言語の作業指示を記載する。ツールがこれを通常のGitHub Actions YAMLにコンパイルし、既存のランナーや組織ポリシーを利用して実行する。\n\n対象としてGitHubが挙げるのは、Issueの分類、CIの失敗原因調査、ドキュメント更新、テストの作成、定期的なリポジトリ報告など。従来の固定手順によるActionsと異なり、AIエージェントが状況を読み取って判断する工程を含む。10月28日に一般提供されたCopilot Fusionはモデルの選択・連携が主題であり、今回のAgentic Workflowsはリポジトリ業務の自動化基盤である。"
+      },
+      {
+        "title": "読み取り専用が基本。書き込みは許可した出力に限定",
+        "body": "自動化を増やすほど重要になるのが権限設計だ。GitHubはエージェントを既定で読み取り専用とし、隔離されたコンテナとAgent Workflow Firewallのもとで動かすと説明する。Issue作成、コメント、Pull Requestなどの書き込みは、ワークフローで事前に宣言したsafe outputsを経由し、適用前に脅威検出ジョブが変更案を検査する。\n\n一般提供時には、Actions Runner Controller（ARC）とDocker-in-Docker、Cloud HypervisorやNVX micro-VMによる隔離などの対応も案内された。ただし、これらの仕組みは誤った指示や権限設定によるリスクをゼロにする保証ではない。公開リポジトリの外部入力やPR本文をAIに読ませる場合も、権限・許可する通信先・人によるレビューを明確にしたい。"
+      },
+      {
+        "title": "Freeでも使えるが、AI推論まで無料とは限らない",
+        "body": "GitHubの発表によると、Agentic Workflowsはgithub.comのFree、Team、Enterpriseで一般提供される。ただし標準のGitHub Copilot CLIエンジンを利用するにはCopilotライセンスが必要だ。GitHub Docsは、Claude、OpenAI Codex、Geminiなど別のエンジンも設定可能とするが、それぞれの認証と提供事業者の料金条件を確認する必要がある。\n\n総費用は主にGitHub Actionsの実行時間と、選択したAIエンジンの推論利用料に分かれる。公式Docsでは使用量管理の指標として1 AI Credit（AIC）を0.01米ドルと定義し、`gh aw logs`や`gh aw audit`で推定コストを確認できると説明する。推定値は請求額と一致するとは限らない。GitHubが紹介する導入企業の大幅な工数削減やエラー減少も、その企業の事例であり、一般的な効果として扱えない。"
+      },
+      {
+        "title": "最初は「報告だけ」のワークフローから試す",
+        "body": "導入するなら、まずIssueやPRの状況を読んで日次報告を作るなど、影響の小さい処理から始めたい。GitHubのクイックスタートは、GitHub CLIを認証し、`gh extension install github/gh-aw`で拡張を追加、`gh aw add-wizard githubnext/agentics/daily-repo-status`でサンプルを導入する手順を示す。生成されたMarkdownと`.lock.yml`をレビューし、実行履歴とAI利用料を確認してから対象業務を広げる流れだ。\n\n今回の一般提供は、AIによる変更が無条件で安全になることや、既存のCI/CD運用が自動的に置き換わることを意味しない。障害時の停止、承認者、予算上限、変更内容の検証をチームの運用規程に組み込めるかが導入判断の焦点になる。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ]
+  },
+  {
+    "id": "20261101-apache-mina-3-deserialization-cve-2026-118636",
+    "title": "Apache MINA 3.0にCRITICAL 9.8のデシリアライズ脆弱性、修正版提供予定なし",
+    "summary": "Java製ネットワークアプリケーション基盤Apache MINA 3.0のデシリアライズ処理に、CRITICAL（CVSS 9.8）の脆弱性「CVE-2026-118636」が公表された。非信頼の通信データを対象のデコーダーへ渡す構成では任意コード実行につながる恐れがある。Apacheは3.0系の修正版を提供しない方針を示し、最新の2.2.x系への移行を推奨している。",
+    "category": "SECURITY",
+    "score": 87,
+    "published_at": "2026-11-01",
+    "published_at_time": "2026-11-01T11:23:58.971Z",
+    "source_url": "https://www.openwall.com/lists/oss-security/2026/10/31/3",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Java製ネットワークアプリケーション基盤Apache MINA 3.0のデシリアライズ処理に、CRITICAL（CVSS 9.8）の脆弱性「CVE-2026-118636」が公表された。非信頼の通信データを対象のデコーダーへ渡す構成では任意コード実行につながる恐れがある。Apacheは3.0系の修正版を提供しない方針を示し、最新の2.2.x系への移行を推奨している。",
+    "sections": [
+      {
+        "title": "通信データのデシリアライズがコード実行の入口に",
+        "body": "Apache Software Foundationの担当者が2026年10月31日に公表した告知によると、Apache MINA 3.0 codecモジュールの「JavaNativeMessageDecoder」は、受信したフレームのバイト列をJavaのObjectInputStream.readObject()へ渡す際、許可クラスを制限するフィルターを設けていない。非信頼の通信相手からその処理に入力が届くアプリケーションでは、危険なオブジェクトの復元を通じ、いわゆるガジェットチェーンを利用したリモートコード実行（RCE）の恐れがある。\n\nこれはApache MINAを採用するすべてのシステムが一律に侵害されるという意味ではない。対象のデコーダーが実際に組み込まれ、外部から制御可能な入力を処理するかが重要な確認点となる。"
+      },
+      {
+        "title": "公式深刻度はCRITICAL 9.8、影響版の表記には留保",
+        "body": "Apacheの公式告知は本件をCRITICAL、CVSS v3.1で9.8と評価した。識別子はCVE-2026-118636。影響版について原文は「Apache MINA 3.0.0 through 3.0.0-M2」と記すが、通常の版順との関係が読み取りにくい。したがって、この表現を編集部が独自に並べ替えて断定せず、3.0系の依存ライブラリと該当クラスの実装状況を個別に調査する必要がある。\n\nGitHub Advisory Databaseにも同じCVEがCRITICALとして登録されているが、同データベースの表示はUnreviewedであり、製品の影響版・修正版欄はUnknownとなっている。重大度と対応方針の根拠にはApacheの告知を用いる。"
+      },
+      {
+        "title": "0系には修正版を出さず、最新2.2.x系への移行を推奨",
+        "body": "今回の注意点は、修正パッチの適用だけでは解決できない可能性があることだ。Apacheは3.0.0ブランチが活動停止状態であり、本件を修正する3.0系のバージョンをリリースする予定はないと説明した。そのうえで、利用者には最新のApache MINA 2.2.x系を使うよう勧めている。\n\n運用担当者は、まず依存関係と実際の使用コードを点検し、対象構成なら2.2.x系への移行・互換性テスト・再デプロイを検討したい。直ちに移行できない場合に非信頼の接続元を制限することはリスク低減の一案だが、開発元が正式に保証した回避策ではなく、移行の代替とはならない。"
+      },
+      {
+        "title": "実悪用は未確認、露出状況を踏まえて優先順位を判断",
+        "body": "今回確認したApacheの告知には、実環境での悪用確認、被害組織、侵害指標の記載はない。公開されたCVSS 9.8は技術的な重大度であり、すべての導入先で同じ確率で攻撃が成立することを意味しない。影響するコードの利用有無、外部からの到達性、依存ライブラリの実際のバージョンを優先して調べ、必要な対応を決めることが重要だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Apache MINA 3.0 codecモジュールのJavaNativeMessageDecoder",
+    "social_security_action": "MINA 3.0系およびJavaNativeMessageDecoderの使用有無と外部からの到達性を確認し、影響構成ならApache推奨の2.2.x系への移行を計画。移行まで非信頼ピアからの接続を制限することは編集部の補助的リスク低減提案であり、公式パッチの代替ではない。"
+  },
+  {
+    "id": "20261101-nvidia-nemoclaw-agent-governance-blueprints",
+    "title": "NVIDIAがNemoClawの実装指針を公開。企業AIエージェントの権限・監査・実行環境を一体設計",
+    "summary": "企業がAIエージェントを実務に導入するとき、性能の高いモデルを選ぶだけでは足りない。ファイル、社内システム、認証情報へのアクセスを誰が制限し、実行履歴をどう追跡するかが問われる。NVIDIAは10月30日、NemoClawの実装指針を公開。既存のエージェント基盤を生かしながら、モデル、実行環境、権限制御、監査を組み合わせる設計を解説した。",
+    "category": "AI",
+    "score": 87,
+    "published_at": "2026-11-01",
+    "published_at_time": "2026-11-01T11:23:58.970Z",
+    "source_url": "https://developer.nvidia.com/blog/build-specialized-agents-on-a-stack-you-control-with-nvidia-nemoclaw/",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "企業がAIエージェントを実務に導入するとき、性能の高いモデルを選ぶだけでは足りない。ファイル、社内システム、認証情報へのアクセスを誰が制限し、実行履歴をどう追跡するかが問われる。NVIDIAは10月30日、NemoClawの実装指針を公開。既存のエージェント基盤を生かしながら、モデル、実行環境、権限制御、監査を組み合わせる設計を解説した。",
+    "sections": [
+      {
+        "title": "AIエージェントには「モデル以外」の設計が必要",
+        "body": "NVIDIAの2026年10月30日付技術解説は、実務向けエージェントを「推論するモデル」「行動を組み立てるハーネス」「業務用のツールやスキル」「アクセスを管理する実行環境」の組み合わせとして整理する。NemoClawは、それらを構成するオープンなブループリント（実装のひな型）であり、エージェントのハーネスそのものでも、実行ランタイム単体でもない。\n\n公式解説によれば、NemoClawのブループリントはOpenClaw、Hermes Agent、LangChain Deep Agentsに対応する。OpenClawはファイルやアプリ操作、Hermes Agentは反復作業から得た手順の再利用、LangChain Deep Agentsは計画・記憶・サブエージェントへの委任といった特徴を持つ。既存の業務用エージェントを全面的に書き換えるのではなく、その周囲に運用基盤を組み立てる考え方だ。"
+      },
+      {
+        "title": "権限制御をプロンプト任せにしない",
+        "body": "構成の中心となるのがNVIDIA OpenShellだ。NVIDIAは、ファイル、ネットワーク、資格情報、外部ツールへのアクセスを実行時のポリシーで制御すると説明する。AIが記憶や検索結果から想定外の操作を提案しても、モデルへの指示文だけに依存せず、実行環境側で制限を掛ける設計である。\n\n公式の「Chief of Staff」サンプルでは、Hermes Agentが人物・案件・優先順位などの継続的な文脈を扱い、OpenShellがファイルや通信の権限を管理する。認証情報はサンドボックスの外側で扱い、NeMo Relayが実行過程のトレースを収集する構成も示された。企業の導入担当者にとっては、AIの回答精度だけでなく「何にアクセスできるか」「操作を後から検証できるか」を設計段階から分けて考える材料となる。"
+      },
+      {
+        "title": "コスト削減の数値は特定構成の評価",
+        "body": "NVIDIAは、LangChain Deep AgentsのハーネスをNemotron 3 Ultra向けに調整した事例について、主要なクローズドモデルと比べて実行当たりのコストがおよそ10分の1で、性能も先端モデルに近づいたと説明する。ただしこれは開発元が紹介する特定のモデル・ハーネス・評価条件での結果だ。あらゆる業務、クラウド契約、ハードウェアで同じ削減率が得られると解釈してはいけない。\n\nNemoClawはクラウド、データセンター、NVIDIA DGX Spark、NVIDIA RTX搭載PC・ワークステーションなどでの構成が説明されているが、モデルや推論プロバイダー、OS、コンテナ環境によって前提条件は異なる。公式クイックスタートもインストール前の動作環境確認、推論先と権限ポリシーの選択、サンドボックスの稼働確認を案内している。"
+      },
+      {
+        "title": "導入判断は「任せる業務」と「禁止する操作」から",
+        "body": "企業で試すなら、まず対象を定型的な調査、社内ナレッジ検索、資料の下準備などに絞り、読み取り専用で必要なファイルと通信先を列挙する。次に、書き込みや外部送信の許可条件、認証情報の保持方法、操作ログの保存、失敗時の停止・人による確認手順を決める。そのうえで既存ハーネスとNemoClawのブループリントが合うかを検証したい。\n\n今回の発表は実装指針の公開であり、企業ごとのセキュリティ認証取得、完全な情報漏えい防止、無人運用の安全性を保証するものではない。モデルの能力評価と、実行時に何を許すかという統制の検証は、別々に実施する必要がある。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ]
+  },
+  {
+    "id": "20261101-amazon-pinpoint-end-of-support-api-migration",
+    "title": "Amazon Pinpointが10月30日に主要機能を終了。止まるキャンペーンと継続する送信APIを整理",
+    "summary": "AWSの顧客向け配信基盤「Amazon Pinpoint」は、2026年10月30日に顧客セグメント、キャンペーン、ジャーニー、分析ダッシュボードなどの機能がサポート終了日を迎えた。一方、SMS・プッシュ通知・ワンタイムパスワードなどの送信機能まで一斉に終了したわけではない。AWS公式資料を基に、利用継続できるAPIと移行先を整理する。",
+    "category": "仕事",
+    "score": 87,
+    "published_at": "2026-11-01",
+    "published_at_time": "2026-11-01T11:23:58.968Z",
+    "source_url": "https://docs.aws.amazon.com/pinpoint/latest/userguide/migrate.html",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "AWSの顧客向け配信基盤「Amazon Pinpoint」は、2026年10月30日に顧客セグメント、キャンペーン、ジャーニー、分析ダッシュボードなどの機能がサポート終了日を迎えた。一方、SMS・プッシュ通知・ワンタイムパスワードなどの送信機能まで一斉に終了したわけではない。AWS公式資料を基に、利用継続できるAPIと移行先を整理する。",
+    "sections": [
+      {
+        "title": "終了したのは顧客エンゲージメント機能",
+        "body": "AWSはAmazon Pinpointのサポート終了日を2026年10月30日と定めていた。対象は、顧客のエンドポイント管理、セグメント、キャンペーン、ジャーニー、分析ダッシュボードなどのエンゲージメント機能。AWS公式ドキュメントによると、終了後はPinpointコンソールとこれらのリソースへアクセスできなくなる。ユーザー単位の送信を行う `SendUsersMessages`、保存済みエンドポイントID宛の送信、アプリ内メッセージ、レコメンダー、分析・KPI APIも終了対象だ。終了告知は2025年5月20日に掲載されており、今回の話は突然発生した障害や11月1日の新発表ではない。"
+      },
+      {
+        "title": "すべての送信APIが停止したわけではない",
+        "body": "AWSの機能別対応表では、プッシュ通知、プッシュ用テンプレート、OTPの送信・検証、電話番号検証は継続するとしている。 `SendMessages` は、アカウントで引き続き利用可能なチャネルに限り継続。SMS・音声・メールの送信は2025年5月20日より前に利用登録した既存顧客向けに継続し、SMS・音声・メールのテンプレート操作も維持される。送信結果のKinesis／Data Firehoseイベント配送とCloudWatchメトリクス配送も継続するが、従来のPinpoint分析・KPI APIとは別物だ。したがって「Pinpointが終了したのでSMSが全停止した」という理解は正確ではない。"
+      },
+      {
+        "title": "移行先は用途別に異なる",
+        "body": "AWSは、セグメント管理やキャンペーンなど顧客との継続的な接点を設計する用途にAmazon ConnectのアウトバウンドキャンペーンとCustomer Profilesを推奨している。一方、SMS・プッシュ・音声などの直接送信にはAWS End User Messaging、メール送信にはAmazon Simple Email Service（SES）を案内。イベント収集やモバイル分析にはAmazon Kinesisが候補となる。顧客属性、配信テンプレート、同意管理、運用指標などの移行方法はシステムごとに異なり、AWSは一括の自動移行が完了したとは説明していない。"
+      },
+      {
+        "title": "既存利用者が今確認すべきこと",
+        "body": "まず、運用中のアプリがPinpointのセグメント・キャンペーン・ジャーニーや `SendUsersMessages` に依存していないか、呼び出しAPIと運用フローを棚卸しする。次に、継続対象の直接送信APIでも既存顧客・チャネル条件があるため、アカウント単位で確認する。過去の分析データは期限前のエクスポートが推奨されていたため、未移行の場合はAWSサポートに利用可能な復旧・取得手段を相談する必要がある。公式資料は終了後の仕様を説明しているが、各社の実環境で何が実際に停止したかまでは証明していない。稼働状況と移行可否は個別に検証したい。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ]
+  },
+  {
     "id": "20261101-apache-thrift-java-recursion-cve-2026-120135",
     "title": "Apache ThriftのJava処理にHIGH 8.2、深い再帰でサービス停止の恐れ",
     "summary": "Apache ThriftのJavaバインディングに、再帰処理の深さを標準では制限しない脆弱性「CVE-2026-120135」が公表された。公式CVSS v4.0評価は8.2（HIGH）。特定の入力処理を経由すると過剰な再帰によってサービスの可用性を損なう恐れがある。影響するのは0.24.0より前のバージョンで、Apacheは0.24.0への更新を推奨している。",

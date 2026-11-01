@@ -2669,5 +2669,11 @@
       "container_id": "18157693120488337",
       "remote_id": "17965722072213213"
     }
+  },
+  "20261031-gravity-forms-cve-2026-103039-php-object-injection": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-01T07:17:23+00:00"
+    }
   }
 }

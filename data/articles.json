@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261102-github-copilot-memory-dreaming-context-governance",
+    "title": "GitHub Copilot Memoryが正式提供、Dreamingは試験段階。AIが開発ルールを学ぶ時代の費用と統制",
+    "summary": "GitHubは10月28日、Copilotが開発者の好みやリポジトリの決まりを次の作業へ引き継ぐ「Copilot Memory」の一般提供を発表した。過去の作業から文脈を更新する「Dreaming」は公開プレビューで、利用には対象プランや設定の条件がある。AIエージェントの引き継ぎ負担を減らす一方、記憶の誤り、権限、AIクレジットの費用管理が新たな運用課題となる。",
+    "category": "AI",
+    "score": 89,
+    "published_at": "2026-11-02",
+    "published_at_time": "2026-11-01T21:42:51.623Z",
+    "source_url": "https://github.blog/changelog/2026-10-28-github-intelligence-puts-your-code-context-and-history-to-work/",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "GitHubは10月28日、Copilotが開発者の好みやリポジトリの決まりを次の作業へ引き継ぐ「Copilot Memory」の一般提供を発表した。過去の作業から文脈を更新する「Dreaming」は公開プレビューで、利用には対象プランや設定の条件がある。AIエージェントの引き継ぎ負担を減らす一方、記憶の誤り、権限、AIクレジットの費用管理が新たな運用課題となる。",
+    "sections": [
+      {
+        "title": "記憶を共有する範囲は「個人」と「リポジトリ」で異なる",
+        "body": "GitHubの2026年10月28日付発表によると、Copilot Memoryは有料Copilotプランで一般提供された。リポジトリのビルド手順や設計上の決まりを共有する「repository-level facts」と、利用者の回答形式・承認ルールなどを引き継ぐ「user-level preferences」は別管理だ。前者は原則そのリポジトリ内で適用され、後者は利用者の複数リポジトリで使われる。組織管理プランの個人設定は管理者の許可が必要で、クライアントごとの設定やリポジトリへのアクセス権によっても実際の利用可否が変わる。記憶はCopilotが自動生成・評価するため、保存された指示が必ず守られる仕組みではない。"
+      },
+      {
+        "title": "Dreamingは別機能。自動更新されるのは何か",
+        "body": "「Copilot Dreaming」は過去のセッションやコードレビューのフィードバックから、個人・リポジトリの記憶を整理し、古い情報の修正を試みる公開プレビューだ。記憶自体は自動で追加・変更・削除される一方、リポジトリ内の指示ファイルやスキルへの変更はプルリクエストで提案され、マージ前に人が確認できる。Dreamingはオプトインで、初期プレビューではGPT-6.1 Solへのアクセスなどが必要。GitHub公式ドキュメントではCopilot Proを対象外としており、Copilot Memoryの一般提供とDreamingの利用条件を混同してはならない。"
+      },
+      {
+        "title": "横断検索で得られる実務価値",
+        "body": "GitHubは、関連リポジトリのコード・設定・履歴をローカルに複製せずに調べられるコード検索も「GitHub intelligence」の柱として紹介した。たとえば決済機能が複数サービスにまたがる場合、開発者はCopilotに関連する実装や呼び出し元を調査させ、移行計画や不具合の影響範囲を検討できる。記憶の共有、継続的な文脈更新、横断検索は別々の機能であり、全利用者に一律に提供されるわけではない。実務では、検索結果と記憶の根拠を元コードに戻って検証する工程が必要だ。"
+      },
+      {
+        "title": "導入前に確認する費用・権限・限界",
+        "body": "GitHubの公式資料によると、Dreamingの実行にはAIクレジットを消費し、変更を行わない実行や非アクティブなリポジトリも課金対象となり得る。管理者は対象リポジトリ、セッション同期、ポリシー、予算上限を事前に確認したい。Memoryの標準保持期限は、再評価による延長がなければ90日で、組織はリポジトリの記憶に限り7〜180日の範囲で調整できる。なお、GitHubが示す「93％で好みへの準拠改善」などは公開プレビュー中に記憶を利用したCLIセッションの観測結果であり、すべての開発現場で同等の改善を保証する比較試験ではない。重要なセキュリティ要件や承認手順は自動生成された記憶だけに依存せず、明示的な指示とレビューを併用する必要がある。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ],
+    "publication_key": "a73a0a97c09c506d56a0d823807bdd3fc6ada925825834e827bb513c3fc3f977",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261101-openai-prism-shutdown-export-codex-migration",
     "title": "OpenAI「Prism」が2027年1月1日に終了。研究原稿のZIP退避とCodex移行で失う機能を確認",
     "summary": "OpenAIは研究者向けLaTeX共同執筆サービス「Prism」を2027年1月1日に終了すると公式案内した。終了後はPrism関連データが削除され、復元できない。利用者は期限前にプロジェクトをZIP形式で書き出し、必要ならPDFやコメント、共同編集の記録も別途保存する必要がある。公式移行ガイドはCodexでの作業継続を案内するが、共同リアルタイム編集などはそのまま移行できない。",

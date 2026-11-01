@@ -2799,10 +2799,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfMoZbyEcn_"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-01T11:32:10+00:00",
+      "status": "published",
+      "updated_at": "2026-11-01T11:32:13+00:00",
       "stage": "publish_requested",
-      "container_id": "18157768987488337"
+      "container_id": "18157768987488337",
+      "remote_id": "18393874288231406"
     }
   }
 }

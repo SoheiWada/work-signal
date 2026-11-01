@@ -1,5 +1,120 @@
 [
   {
+    "id": "20261101-github-copilot-fusion-multimodel-local-routing",
+    "title": "GitHub Copilot Fusionが一般提供。複数AIの自動選択とローカルモデル連携、料金とオフラインの注意点",
+    "summary": "GitHubは10月28日、開発支援AI「Copilot Fusion」の一般提供を発表した。作業に応じて複数モデルを自動選択・連携させ、Standard・High・Maxの3段階で処理の深さを指定できる。同日、端末内モデルとの自動振り分けも実験的に公開。ただし、ローカル推論を使っても完全オフラインにはならず、利用料金もモデルごとに発生する。",
+    "category": "AI",
+    "score": 90,
+    "published_at": "2026-11-01",
+    "published_at_time": "2026-11-01T07:11:42.690Z",
+    "source_url": "https://github.blog/changelog/2026-10-28-route-and-orchestrate-models-with-github-copilot-fusion/",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "GitHubは10月28日、開発支援AI「Copilot Fusion」の一般提供を発表した。作業に応じて複数モデルを自動選択・連携させ、Standard・High・Maxの3段階で処理の深さを指定できる。同日、端末内モデルとの自動振り分けも実験的に公開。ただし、ローカル推論を使っても完全オフラインにはならず、利用料金もモデルごとに発生する。",
+    "sections": [
+      {
+        "title": "モデル選択から、タスクごとの実行設計へ",
+        "body": "GitHubが2026年10月28日に一般提供を発表したCopilot Fusionは、開発者がモデルを1つ選び続けるのではなく、タスクの内容に合わせてモデルと処理手順を振り分ける仕組みだ。利用者はStandard（通常の開発作業）、High（難しい作業や深い推論）、Max（最も複雑な課題）から処理の強度を選ぶ。GitHubが説明する実行パターンは、1モデルで解く「Single」、軽量モデルの結果を判定して必要なら強力なモデルへ切り替える「Cascade」、別モデルがレビューして修正を促す「Critique」の3種類。VS Code、GitHub Copilot app、CLI、JetBrains IDEで利用できると案内している。"
+      },
+      {
+        "title": "ベンチマークの改善は『すべての開発で半額』を意味しない",
+        "body": "GitHubはArtificial Analysis Coding Agent IndexでFusion Maxが60点となり、Claude Code（Opus 5.5 Max）との差は2点だったと報告した。比較対象のテストでは、平均APIコストが約半分、使用トークンが約半分、タスク完了時間が約40％短かったという。ただし、これはGitHubが示した特定の評価条件での比較だ。個別企業のコードベース、テスト体制、レビュー工程で同じ削減率が再現される保証はない。GitHub公式説明では、Fusionの請求は実際に使った各モデルの通常料金に基づく。有料Copilotプラン利用者向けのモデル費用30％割引は期間限定であり、常時30％安い料金体系になったわけではない。"
+      },
+      {
+        "title": "ローカルモデルの自動振り分けは実験段階",
+        "body": "同じ10月28日、GitHubはCopilot Fusionから端末内モデルとクラウドモデルを選び分ける機能を実験的プレビューとして公開した。Windowsの対応端末ではWindows ML経由でMAI Code 1.1 Flashを管理付きで導入できる。CLIでは、macOSやLinuxも含め、利用者がローカルのOpenAI互換サーバーを用意すればMAI Code 1.1 FlashやQwen3.8 Flash Nextを候補にできる。ただし、ローカルモデルを登録するだけで自動振り分けに使えるとは限らず、対応設定と十分な端末資源が必要だ。Copilot appの自動振り分けは現状、管理されたWindows MLモデルに限られる。さらにGitHubは、振り分け判断をクラウドで行うため『ローカル推論＝完全オフライン』ではないと明記している。"
+      },
+      {
+        "title": "企業が導入前に確認すべき3つの境界",
+        "body": "開発チームが評価すべきなのは、モデルの最高性能だけではない。第一に、企業・組織の管理者がFusionに許可するモデルを制御できるため、機密性や利用規約に応じたモデルポリシーを確認すること。第二に、Standard・High・Maxと実際の使用モデルに応じた費用を、同一の開発タスクで比較すること。第三に、端末内処理があってもクラウド通信が残るため、ソースコードの扱い、ネットワーク要件、監査条件を検証することだ。GitHubの発表はモデル連携の選択肢を広げるが、全業務の自動化、情報の外部送信ゼロ、費用削減を一律に保証するものではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ]
+  },
+  {
+    "id": "20261031-wordpress-core-upgrade-rce-cve-2026-119977",
+    "title": "WordPress更新時のRCE、開発元LowとWordfence Highの評価差を読む",
+    "summary": "WordPress Coreの更新中に、認証なしの攻撃者が遠隔コード実行に至る可能性のある競合状態が報告された。開発元の勧告はLow、WordfenceはCVSS 8.1のHighと評価し、攻撃を試みる通信も観測している。通常時に無条件で成立する問題ではなく、完全パッケージ更新中の短い時間帯などが成立条件。評価差と修正版の確認事項を整理する。",
+    "category": "SECURITY",
+    "score": 92,
+    "published_at": "2026-11-01",
+    "published_at_time": "2026-11-01T07:11:42.689Z",
+    "source_url": "https://github.com/WordPress/wordpress-develop/security/advisories/GHSA-4w3m-c66w-69mg",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "WordPress Coreの更新中に、認証なしの攻撃者が遠隔コード実行に至る可能性のある競合状態が報告された。開発元の勧告はLow、WordfenceはCVSS 8.1のHighと評価し、攻撃を試みる通信も観測している。通常時に無条件で成立する問題ではなく、完全パッケージ更新中の短い時間帯などが成立条件。評価差と修正版の確認事項を整理する。",
+    "sections": [
+      {
+        "title": "更新時の一時ディレクトリが攻撃対象に",
+        "body": "WordPressが2026年10月29日に公開したGHSA-4w3m-c66w-69mgによると、完全パッケージを使うCore更新では、新しいファイルがWebから到達できるアップグレード用ディレクトリ内の予測可能な場所へ展開されていた。認証していない攻撃者がこの展開処理と競争するようにアクセスした場合、遠隔コード実行（RCE）につながる可能性がある。通常時にWordPressへアクセスするだけで必ずRCEが成立する問題ではなく、更新処理中の一時的な状態が焦点となる。"
+      },
+      {
+        "title": "開発元LowとWordfence Highを分けて読む",
+        "body": "WordPress開発元のGHSA-4w3m-c66w-69mgは深刻度をLowと表示する。一方、Wordfenceは同じ更新処理に関する問題をCVE-2026-119977として説明し、CVSS v3.1 8.1のHighと評価している。評価主体が異なるため、WordPress自身がHighと評価したようにまとめることはできない。\n\nWordfenceは、成功時にはサーバー上のコード実行につながる一方、完全パッケージ更新、Webからステージング領域への到達、数秒程度の競合への勝利などが必要で、攻撃の難度が高いと説明する。WordPressのGHSAにはLowという定性的評価が示されているが、詳しいCVSS採点根拠は記載されていない。本稿では両者の評価を併記し、WordPress側の評価理由を推測で断定しない。"
+      },
+      {
+        "title": "攻撃を試みる通信を観測、成功例とは区別",
+        "body": "Wordfenceは10月29日の調査報告で、10月28日に防御ルールを導入してから9分後に最初の一致リクエストを確認し、最初の21時間で一時的なsetup-config.phpなどを狙う18,500件超のリクエストを記録したと述べた。約14.5時間にわたり少数サイトを繰り返し探索する送信元もあった。ただし、すべてのリクエストが正確な攻撃パスだったわけではなく、公開された記録から侵害成功は確認できない。攻撃試行の観測と実被害の確認を混同しないことが重要だ。"
+      },
+      {
+        "title": "修正版へ更新し、アップグレード領域を点検",
+        "body": "WordPressは10月28日に7.1.4を公開し、GHSAには7.0.8、6.9.11など各ブランチの修正版も掲載した。サイト管理者は利用版と更新状態を確認し、公式修正版へ移行する必要がある。更新前にはWebサーバー側でwp-content/upgrade/への外部アクセスを遮断できるか確認することが合理的で、更新後も不審な同ディレクトリへのリクエスト、見覚えのない管理者アカウントやPHPファイルを点検したい。Wordfenceもファイアウォールを更新の代替とせず、実際に更新が完了したか確認するよう推奨している。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "security_watch": false,
+    "security_watch_exclusion_reason": "編集長指定の通常SECURITY解説。公式評価LOWと各情報源の評価・成立条件を本文に明記し、重大アラートとは区別する。"
+  },
+  {
+    "id": "20261031-gravity-forms-cve-2026-103039-php-object-injection",
+    "title": "Gravity FormsにCRITICAL 9.8のPHPオブジェクト注入（CVE-2026-103039）",
+    "summary": "WordPressのフォーム作成プラグイン「Gravity Forms」に、認証なしでPHPオブジェクトを注入できる脆弱性CVE-2026-103039が公表された。WordfenceによるCVSS v3.1評価は9.8（CRITICAL）、影響範囲は3.1.2以前。任意コード実行は追加条件に依存するため、すべての導入環境で即座に成立すると断定せず、利用版とフォーム設定の確認を優先したい。",
+    "category": "SECURITY",
+    "score": 91,
+    "published_at": "2026-11-01",
+    "published_at_time": "2026-11-01T07:11:42.687Z",
+    "source_url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/103xxx/CVE-2026-103039.json",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "WordPressのフォーム作成プラグイン「Gravity Forms」に、認証なしでPHPオブジェクトを注入できる脆弱性CVE-2026-103039が公表された。WordfenceによるCVSS v3.1評価は9.8（CRITICAL）、影響範囲は3.1.2以前。任意コード実行は追加条件に依存するため、すべての導入環境で即座に成立すると断定せず、利用版とフォーム設定の確認を優先したい。",
+    "sections": [
+      {
+        "title": "Gravity Formsで認証不要のPHPオブジェクト注入が判明",
+        "body": "CVE採番機関（CNA）のWordfenceは2026年10月30日、WordPress向けフォーム作成プラグイン「Gravity Forms」の脆弱性CVE-2026-103039を公開した。公式CVEレコードに記載されたCVSS v3.1の基本スコアは9.8で、編集部の基準ではCRITICALに該当する。影響するバージョンは3.1.2以前だ。問題は、投稿用のカスタムフィールドの一部設定で、外部から送られたデータが安全でないPHPの復元処理に渡り得る点にある。"
+      },
+      {
+        "title": "任意コード実行は追加条件に左右される",
+        "body": "CNAの説明によると、Post Custom Fieldの入力タイプがListで、コンテンツテンプレートを有効にした場合、送信値が本来使用すべき制限付きの処理ではなくWordPress標準の復元処理に渡る経路がある。これにより、認証されていない攻撃者がPHPオブジェクトを投稿メタデータへ注入できる可能性がある。ただし、プラグイン自体に任意コード実行のガジェットチェーンが存在するとは説明されていない。別のプラグイン・テーマやサーバー環境など、条件が重なる場合に深刻な影響へ発展する恐れがあるという区別が重要だ。"
+      },
+      {
+        "title": "影響版と公式更新情報を突き合わせる",
+        "body": "WordfenceのCNAレコードは3.1.2以前を影響対象とし、それ以外のバージョンを原則として影響外と登録している。Gravity Forms開発元の公式変更履歴には、3.1.3が10月1日、3.2.0が10月20日、3.2.1が10月28日に公開されたことが記載され、いずれもセキュリティ強化を含む。ただし、各リリースノートにCVE-2026-103039の識別番号は書かれていない。導入者は利用バージョンを確認し、公式配布の新しいリリースへ更新したうえで、フォームの動作と投稿設定を検証したい。"
+      },
+      {
+        "title": "実悪用は未確認、管理対象サイトの点検を",
+        "body": "2026年10月30日付のCISAのCVE補足情報には、悪用状況が「none」と記録されている。また、公開前に取得したCISA KEVカタログ2026年10月30日版に本CVEは掲載されていない。ただし、これらは攻撃が存在しないことの証明ではなく、公開情報上の確認状況に限られる。WordPressのサイト管理者は、Gravity Formsのバージョンと公開フォームの設定を棚卸しし、公式更新版への移行と変更後の検証を優先することが合理的だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Gravity Forms（WordPressプラグイン）",
+    "social_security_action": "CNAの影響範囲上は3.1.3以降が影響外。開発元が2026-10-28に公開した3.2.1など、現行の更新版へアップデートし、対象フォーム設定を確認する。ただし開発元の変更履歴にはこのCVE番号と個別修正の対応が明記されていない。"
+  },
+  {
     "id": "20261101-drupal-commerce-core-access-bypass-cve-2026-118539",
     "title": "Drupal Commerce Coreで実悪用を確認。修正版への更新と注文データの監査を",
     "summary": "Drupal Security Teamは10月28日、EC機能を提供するCommerce Coreのアクセス制御回避（CVE-2026-118539）について、実環境で悪用されていると公表した。対象の利用者には修正版への更新と注文データの不整合監査を推奨している。公式重大度はDrupal独自尺度の「Highly critical 21/25」。CVSSの評価と混同せず、対象製品と対応範囲を確認したい。",

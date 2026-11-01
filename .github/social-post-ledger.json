@@ -2638,10 +2638,12 @@
   },
   "20261101-apple-intelligence-china-qwen-ios273": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-01T02:42:30+00:00",
+      "status": "published",
+      "updated_at": "2026-11-01T02:42:35+00:00",
       "stage": "publish_requested",
-      "container_id": "18124891766316159"
+      "container_id": "18124891766316159",
+      "remote_id": "18124891766316159",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfLr0KdjMWd"
     }
   }
 }

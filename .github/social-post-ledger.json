@@ -2673,7 +2673,9 @@
   "20261031-gravity-forms-cve-2026-103039-php-object-injection": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-01T07:17:23+00:00"
+      "updated_at": "2026-11-01T07:17:31+00:00",
+      "stage": "publish_requested",
+      "container_id": "18172005601477229"
     }
   }
 }

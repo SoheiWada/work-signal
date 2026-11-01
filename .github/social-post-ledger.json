@@ -2601,5 +2601,11 @@
       "container_id": "18157598101488337",
       "remote_id": "18229532194333419"
     }
+  },
+  "20261031-graphql-core-validation-memory-dos-cve-2026-119286": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-01T00:48:33+00:00"
+    }
   }
 }

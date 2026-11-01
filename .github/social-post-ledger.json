@@ -2842,10 +2842,12 @@
   },
   "20261102-github-copilot-memory-dreaming-context-governance": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-01T21:47:10+00:00",
+      "status": "published",
+      "updated_at": "2026-11-01T21:47:15+00:00",
       "stage": "publish_requested",
-      "container_id": "18097781636458911"
+      "container_id": "18097781636458911",
+      "remote_id": "18097781636458911",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfNuzZ_AX-1"
     }
   }
 }

@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261101-github-enterprise-copilot-access-metered-billing",
+    "title": "GitHub EnterpriseにCopilot利用権を追加。席料ゼロでもAIは従量課金、企業が確認すべき費用と移行条件",
+    "summary": "GitHubは10月28日、対象のGitHub Enterprise Cloud契約で、開発者向けCopilotの利用権を追加する新料金方式を発表した。ライセンス保有者のCopilot席料は0ドルになる一方、チャットやAIエージェントなどの利用は最初のリクエストから従量課金。従来プランの月額19ドル・39ドルと単純比較すると判断を誤る。適用条件、予算管理、移行時の注意点を公式資料で整理する。",
+    "category": "仕事",
+    "score": 90,
+    "published_at": "2026-11-01",
+    "published_at_time": "2026-11-01T12:16:19.136Z",
+    "source_url": "https://github.blog/changelog/2026-10-28-github-enterprise-now-includes-access-to-github-copilot/",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "GitHubは10月28日、対象のGitHub Enterprise Cloud契約で、開発者向けCopilotの利用権を追加する新料金方式を発表した。ライセンス保有者のCopilot席料は0ドルになる一方、チャットやAIエージェントなどの利用は最初のリクエストから従量課金。従来プランの月額19ドル・39ドルと単純比較すると判断を誤る。適用条件、予算管理、移行時の注意点を公式資料で整理する。",
+    "sections": [
+      {
+        "title": "Copilotの「席料0ドル」は、利用料金0ドルではない",
+        "body": "GitHubは2026年10月28日、GitHub Enterprise Cloud（GHEC）の対象企業に向けた新しい「Copilot access」を公表した。GHECライセンスを持つ利用者は、Copilotの追加の席料が0ドルとなる。GHECライセンスを持たない利用者も、同じ企業内で「Copilot Standalone」を1人当たり月額10米ドルで割り当てられる。\n\nただし、どちらにもAI利用枠は含まれない。Copilot Chatやクラウドエージェントなどの課金対象機能は最初の利用からAI creditsを消費する。コード補完と次の編集候補はAI creditsの課金対象外で、予算が0ドルでも利用可能とされる。GHEC本体の契約料がなくなるわけではなく、「GitHub Enterpriseの全契約者が無条件にCopilotを無料で使える」という意味でもない。"
+      },
+      {
+        "title": "従来の月額19ドル・39ドルとの違い",
+        "body": "GitHubの公式料金比較では、Copilot Businessは1人月額19米ドルで月1,900 AI credits、Copilot Enterpriseは月額39米ドルで月3,900 AI creditsが付く。これらのクレジットは組織・企業単位でプールされる。対してCopilot accessはGHECライセンス保有者の追加席料が0ドル、非保有者は月額10ドルで、どちらも付属クレジットがない。\n\nGitHubの料金資料では1 AI creditは0.01米ドル。例えば、GHECライセンスを持つ20人がそれぞれ月1,000 credits相当を利用する仮定なら、Copilot accessのAI利用分は合計200米ドルとなる。ただしこれは仮の使用量による計算で、従来プランの19ドル×20人＝380米ドルと比べる際には、既存契約で付くクレジット、実際のモデル別使用量、GHEC本体の料金を別々に考慮する必要がある。新方式が常に割安とは限らない。"
+      },
+      {
+        "title": "対象企業は限定、既存契約は自動移行しない",
+        "body": "新方式は10月28日から、GitHubまたはMicrosoftの担当営業チームと契約するGHEC企業に提供されている。セルフサービス契約者への提供は段階的で、11月1日時点では利用できない。GitHub Free／Team組織とセルフサービスのGHEC試用版も対象外だ。\n\n既存のCopilot Business／Enterpriseは継続でき、切り替えは任意。新方式と従来のCopilot Business／Enterpriseを同一企業内で混在させることはできない。またGHECライセンスがあってもCopilotへの席割り当ては管理者が実施する必要がある。既存企業の移行は担当営業への相談が必要で、移行日は月初となる。企業固有の契約価格や移行条件は担当チームで確認する。"
+      },
+      {
+        "title": "導入判断は「使用量・上限・運用」の3点で",
+        "body": "AI creditsは利用モデルと入出力トークン量に応じて増減する。利用頻度が少ない開発者と、長時間エージェントを使う開発者では支出が大きく異なるため、既存のAI利用ダッシュボードから、付属クレジット内で消費した分も含む実使用量を把握する必要がある。\n\nGitHubは利用者単位の予算、コストセンター、企業全体の支出上限を設定できると説明している。新方式では最初の従量課金から制限が適用されるため、移行前に予算設定とAI credits有料利用ポリシーを確認したい。さらに、ネットワークの許可リストをCopilot Business用のホストだけに絞っている企業は、Enterprise用エンドポイントを追加しなければ接続が中断する可能性がある。料金の変更だけでなく、管理者による権限・予算・接続の確認が必要な移行だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ],
+    "publication_key": "f388333c0a172b13bd036daab2982851477b29e1cbac9501fe6313c1df481069",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261101-github-agentic-workflows-ga-actions-guardrails",
     "title": "GitHub Agentic Workflowsが一般提供。自然言語でActionsを自動化、権限制御とAI利用料に注意",
     "summary": "GitHubは10月28日、AIエージェントでリポジトリ作業を自動化する「GitHub Agentic Workflows」の一般提供を発表した。Markdownに自然言語で指示を書き、GitHub Actionsとして実行できる。Issueの仕分けやCI失敗の調査、文書更新などが対象だが、AIに自由な書き込み権限を渡す仕組みではない。安全策と利用料金を確認して導入したい。",

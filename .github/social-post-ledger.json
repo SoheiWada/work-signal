@@ -2605,7 +2605,9 @@
   "20261031-graphql-core-validation-memory-dos-cve-2026-119286": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-01T00:48:33+00:00"
+      "updated_at": "2026-11-01T00:48:57+00:00",
+      "stage": "publish_requested",
+      "container_id": "18222791758344494"
     }
   }
 }

@@ -2703,5 +2703,11 @@
       "container_id": "18157708831488337",
       "remote_id": "18146161603576819"
     }
+  },
+  "20261031-wordpress-core-upgrade-rce-cve-2026-119977": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-01T07:18:28+00:00"
+    }
   }
 }

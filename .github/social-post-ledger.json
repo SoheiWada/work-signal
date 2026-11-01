@@ -2707,7 +2707,9 @@
   "20261031-wordpress-core-upgrade-rce-cve-2026-119977": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-01T07:18:28+00:00"
+      "updated_at": "2026-11-01T07:18:36+00:00",
+      "stage": "publish_requested",
+      "container_id": "17918899032525454"
     }
   }
 }

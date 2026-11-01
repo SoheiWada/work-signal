@@ -2656,7 +2656,9 @@
   "20261101-drupal-commerce-core-access-bypass-cve-2026-118539": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-01T06:03:46+00:00"
+      "updated_at": "2026-11-01T06:03:54+00:00",
+      "stage": "publish_requested",
+      "container_id": "17927168322204399"
     }
   }
 }

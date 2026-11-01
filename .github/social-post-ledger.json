@@ -2792,7 +2792,9 @@
   "20261101-amazon-pinpoint-end-of-support-api-migration": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-01T11:31:46+00:00"
+      "updated_at": "2026-11-01T11:31:54+00:00",
+      "stage": "publish_requested",
+      "container_id": "17916633591495318"
     }
   }
 }

@@ -2740,10 +2740,12 @@
   },
   "20261101-apache-mina-3-deserialization-cve-2026-118636": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-01T11:30:05+00:00",
+      "status": "published",
+      "updated_at": "2026-11-01T11:30:10+00:00",
       "stage": "publish_requested",
-      "container_id": "18021403343734279"
+      "container_id": "18021403343734279",
+      "remote_id": "18021403343734279",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfMoMM-kdmD"
     }
   }
 }

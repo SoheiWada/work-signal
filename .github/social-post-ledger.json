@@ -2850,10 +2850,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfNuzZ_AX-1"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-01T21:47:33+00:00",
+      "status": "published",
+      "updated_at": "2026-11-01T21:47:36+00:00",
       "stage": "publish_requested",
-      "container_id": "18157932262488337"
+      "container_id": "18157932262488337",
+      "remote_id": "17974037229179185"
     }
   }
 }

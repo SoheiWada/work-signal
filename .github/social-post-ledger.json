@@ -2788,5 +2788,11 @@
       "container_id": "18157768897488337",
       "remote_id": "18107888186625997"
     }
+  },
+  "20261101-amazon-pinpoint-end-of-support-api-migration": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-01T11:31:46+00:00"
+    }
   }
 }

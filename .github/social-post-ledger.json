@@ -2809,7 +2809,9 @@
   "20261101-github-enterprise-copilot-access-metered-billing": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-01T12:20:11+00:00"
+      "updated_at": "2026-11-01T12:20:21+00:00",
+      "stage": "publish_requested",
+      "container_id": "17927511396202767"
     }
   }
 }

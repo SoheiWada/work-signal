@@ -2720,5 +2720,11 @@
       "container_id": "18157708924488337",
       "remote_id": "18114953111162365"
     }
+  },
+  "20261101-apache-thrift-java-recursion-cve-2026-120135": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-01T11:21:01+00:00"
+    }
   }
 }

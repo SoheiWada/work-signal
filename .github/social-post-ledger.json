@@ -2723,10 +2723,12 @@
   },
   "20261101-apache-thrift-java-recursion-cve-2026-120135": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-01T11:21:10+00:00",
+      "status": "published",
+      "updated_at": "2026-11-01T11:21:14+00:00",
       "stage": "publish_requested",
-      "container_id": "18180869614451530"
+      "container_id": "18180869614451530",
+      "remote_id": "18180869614451530",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfMnKsokSTp"
     }
   }
 }

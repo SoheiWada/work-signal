@@ -2621,10 +2621,12 @@
   },
   "20261031-openai-gpt6-rosalind-research-trusted-access": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-01T00:49:30+00:00",
+      "status": "published",
+      "updated_at": "2026-11-01T00:49:33+00:00",
       "stage": "publish_requested",
-      "container_id": "18114181433226025"
+      "container_id": "18114181433226025",
+      "remote_id": "18114181433226025",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfLe4WvFEjn"
     }
   }
 }

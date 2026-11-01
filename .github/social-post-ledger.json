@@ -2724,7 +2724,9 @@
   "20261101-apache-thrift-java-recursion-cve-2026-120135": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-01T11:21:01+00:00"
+      "updated_at": "2026-11-01T11:21:10+00:00",
+      "stage": "publish_requested",
+      "container_id": "18180869614451530"
     }
   }
 }

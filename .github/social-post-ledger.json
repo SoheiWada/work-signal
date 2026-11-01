@@ -2826,7 +2826,9 @@
   "20261101-openai-prism-shutdown-export-codex-migration": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-01T13:16:42+00:00"
+      "updated_at": "2026-11-01T13:16:51+00:00",
+      "stage": "publish_requested",
+      "container_id": "18400980673207671"
     }
   }
 }

@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-10-31",
-  "fetchedAt": "2026-11-01T01:16:33.394Z",
-  "lastAttemptAt": "2026-11-01T01:16:33.394Z",
+  "throughDate": "2026-11-01",
+  "fetchedAt": "2026-11-01T16:50:41.149Z",
+  "lastAttemptAt": "2026-11-01T16:50:41.149Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 83,
+  "countedGames": 88,
   "standingsReason": null,
   "teams": [
     {
@@ -16,7 +16,7 @@
       "name": "Atlanta Hawks",
       "conference": "East",
       "wins": 3,
-      "losses": 3
+      "losses": 4
     },
     {
       "code": "BOS",
@@ -50,7 +50,7 @@
       "code": "CLE",
       "name": "Cleveland Cavaliers",
       "conference": "East",
-      "wins": 3,
+      "wins": 4,
       "losses": 2
     },
     {
@@ -85,7 +85,7 @@
       "code": "HOU",
       "name": "Houston Rockets",
       "conference": "West",
-      "wins": 5,
+      "wins": 6,
       "losses": 1
     },
     {
@@ -113,7 +113,7 @@
       "code": "MEM",
       "name": "Memphis Grizzlies",
       "conference": "West",
-      "wins": 5,
+      "wins": 6,
       "losses": 0
     },
     {
@@ -128,20 +128,20 @@
       "name": "Milwaukee Bucks",
       "conference": "East",
       "wins": 1,
-      "losses": 4
+      "losses": 5
     },
     {
       "code": "MIN",
       "name": "Minnesota Timberwolves",
       "conference": "West",
       "wins": 4,
-      "losses": 2
+      "losses": 3
     },
     {
       "code": "NOP",
       "name": "New Orleans Pelicans",
       "conference": "West",
-      "wins": 1,
+      "wins": 2,
       "losses": 4
     },
     {
@@ -156,7 +156,7 @@
       "name": "Oklahoma City Thunder",
       "conference": "West",
       "wins": 4,
-      "losses": 1
+      "losses": 2
     },
     {
       "code": "ORL",
@@ -191,13 +191,13 @@
       "name": "Sacramento Kings",
       "conference": "West",
       "wins": 0,
-      "losses": 5
+      "losses": 6
     },
     {
       "code": "SAS",
       "name": "San Antonio Spurs",
       "conference": "West",
-      "wins": 3,
+      "wins": 4,
       "losses": 2
     },
     {
@@ -224,6 +224,56 @@
   ],
   "sets": [
     [
+      {
+        "id": "21718007",
+        "date": "2026-10-31",
+        "home": "HOU",
+        "away": "OKC",
+        "homeScore": 119,
+        "awayScore": 98,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718006",
+        "date": "2026-10-31",
+        "home": "SAS",
+        "away": "MIN",
+        "homeScore": 121,
+        "awayScore": 111,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718005",
+        "date": "2026-10-31",
+        "home": "MIL",
+        "away": "CLE",
+        "homeScore": 111,
+        "awayScore": 136,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718004",
+        "date": "2026-10-31",
+        "home": "MEM",
+        "away": "SAC",
+        "homeScore": 136,
+        "awayScore": 105,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718003",
+        "date": "2026-10-31",
+        "home": "NOP",
+        "away": "ATL",
+        "homeScore": 121,
+        "awayScore": 99,
+        "competition": "regular",
+        "countsForStandings": true
+      },
       {
         "id": "21718002",
         "date": "2026-10-31",

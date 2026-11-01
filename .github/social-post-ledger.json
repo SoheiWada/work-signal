@@ -2758,7 +2758,9 @@
   "20261101-github-agentic-workflows-ga-actions-guardrails": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-01T11:30:29+00:00"
+      "updated_at": "2026-11-01T11:30:36+00:00",
+      "stage": "publish_requested",
+      "container_id": "17965141452249626"
     }
   }
 }

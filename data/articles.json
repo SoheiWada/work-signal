@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261029-wildfly-iiop-auth-deserialization",
+    "title": "WildFlyのIIOPに認証回避と認証前デシリアライズ、Red Hatが2件公表",
+    "summary": "Red Hatは2026年10月29日、WildFlyのIIOP機能に関する2件の脆弱性情報を公開した。CVE-2026-114488は特定設定下でのEJB呼び出し時の認証回避、CVE-2026-15564は認証前の入力デシリアライズに関するもの。いずれもCVSS基本値は7.4だが、Red Hatは成立条件を踏まえて製品への影響をModerateと評価している。",
+    "category": "SECURITY",
+    "score": 82,
+    "published_at": "2026-11-01",
+    "published_at_time": "2026-11-01T00:31:37.845Z",
+    "source_url": "https://access.redhat.com/security/cve/CVE-2026-114488",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Red Hatは2026年10月29日、WildFlyのIIOP機能に関する2件の脆弱性情報を公開した。CVE-2026-114488は特定設定下でのEJB呼び出し時の認証回避、CVE-2026-15564は認証前の入力デシリアライズに関するもの。いずれもCVSS基本値は7.4だが、Red Hatは成立条件を踏まえて製品への影響をModerateと評価している。",
+    "sections": [
+      {
+        "title": "IIOP経由の認証回避：CVE-2026-114488",
+        "body": "Red Hatの公式説明によると、WildFlyのCSIv2セキュリティインターセプターが、IIOPサービスコンテキストに含まれるITTPrincipalNameの本人性をトランスポート層の認証に結び付けずに受け入れる問題がある。攻撃者がIIOPポート（既定TCP 3528）へ到達でき、管理者などがcaller propagationを明示的に有効化し、相互TLSや必須の認証コンテキストを適用していない場合、認証前のクライアントが別の主体になりすましてリモートEJBを呼び出す可能性がある。Red Hatは標準設定のcaller propagationが「none」であることを明記し、通常の構成すべてに当てはまる脆弱性ではないと説明している。"
+      },
+      {
+        "title": "認証前のデシリアライズ：CVE-2026-15564",
+        "body": "もう一件は、IIOPリスナーが認証前に入力ストリームをデシリアライズし得る問題。攻撃が成立するにはIIOPポートへアクセスできることに加え、対象EJBが型の限定されないパラメーターを受け付け、クラスパス上に悪用可能なガジェットチェーンが存在する必要がある。Red Hatによると、標準のJBoss EAP構成ではIIOPサービスはlocalhostにのみバインドされ、外部からの到達は既定で制限されている。現段階で、この説明をもって無条件の遠隔コード実行が可能と断定することはできない。"
+      },
+      {
+        "title": "CVSS 7.4でも、Red Hatの製品評価はModerate",
+        "body": "両件のRed Hat公式CVSS v3.1基本値は7.4で、スコア区分ではHIGHに相当する。ただし同社は、いずれも非標準の設定や複数の条件が必要であるため、製品に対する重要度をModerateと明記している。CVE-2026-114488はネットワーク経由の認証回避、CVE-2026-15564はIIOPへの到達と特定のアプリケーション条件が前提となる。スコアのみを見て全構成での緊急侵害と扱うのは適切ではない。"
+      },
+      {
+        "title": "今すぐ確認する設定と、残る不明点",
+        "body": "Red Hatは、IIOPポート（既定TCP 3528）を信頼済みネットワークに制限することを両件の緩和策として提示。認証回避の問題にはcaller-propagationを既定の「none」に戻し、必要なら相互TLSなどのトランスポート認証を要求する対策を挙げている。デシリアライズの問題には、CORBA/IIOP連携を使用していなければサブシステム削除も提示する。ただし変更はリモートEJB連携を停止させ得るため、業務影響の確認と計画的な再読み込みが必要となる。現時点で公式公開ページから修正済み製品バージョンを確定できていないため、パッチ番号は記載しない。"
+      }
+    ],
+    "social_publish": false,
+    "social_platforms": [],
+    "social_security_severity": "HIGH",
+    "social_security_product": "WildFlyのIIOP機能／Red Hat JBoss Enterprise Application Platformの該当構成",
+    "social_security_action": "IIOPのTCP 3528公開制限、caller-propagation=noneの維持・復帰、不要ならIIOPサブシステム削除。業務接続への影響を確認して適用"
+  },
+  {
     "id": "20261031-kling-ai-funding-198b-yuan-completion",
     "title": "Kling AI、約198億元の資金調達を完了。動画生成AIの競争は資本力と支配構造へ",
     "summary": "中国の快手科技（Kuaishou Technology）は2026年10月30日、動画生成AI「Kling AI」を担う北京可靈への外部出資が完了したと香港取引所に開示した。実際の払込総額は約198.02億元（約29.05億米ドル）。一部投資家の払込不履行により当初上限を下回ったが、快手側は引き続き経営支配を維持する。",

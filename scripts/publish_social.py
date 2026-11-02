@@ -16,7 +16,27 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode, urlsplit
-from urllib.request import Request, urlopen
+from urllib.request import Request, urlopen as _public_urlopen, HTTPRedirectHandler, build_opener
+
+
+class NoCredentialRedirect(HTTPRedirectHandler):
+    def redirect_request(self, request, response, code, message, headers, new_url):
+        return None  # A redirect is not proof that a write was rejected.
+
+_CREDENTIAL_OPENER = build_opener(NoCredentialRedirect())
+_API_HOSTS = frozenset(("api.github.com", "graph.threads.net", "graph.instagram.com"))
+
+def urlopen(request, timeout=30):
+    """Do not forward API credentials to a redirect destination."""
+    authenticated = isinstance(request, Request) and request.has_header("Authorization")
+    if authenticated:
+        parsed = urlsplit(request.full_url)
+        if (parsed.scheme != "https" or parsed.hostname not in _API_HOSTS
+                or parsed.username or parsed.password or parsed.port not in (None, 443)):
+            raise ValueError("Unrecognized credential destination")
+        return _CREDENTIAL_OPENER.open(request, timeout=timeout)
+    return _public_urlopen(request, timeout=timeout)
+
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://signal.amberlight.co.jp/"
@@ -173,6 +193,8 @@ def request_json(url, *, token="", data=None, method="GET"):
             err = json.loads(exc.read(8192)).get("error", {})
         except (ValueError, TypeError, AttributeError):
             pass
+        finally:
+            exc.close()
         raise MetaAPIError(exc.code, err if isinstance(err, dict) else {}) from None
     except (URLError, TimeoutError, ValueError) as exc:
         raise RuntimeError("API transport/response error: " + type(exc).__name__) from None

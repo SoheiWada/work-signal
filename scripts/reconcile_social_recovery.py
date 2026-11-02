@@ -12,6 +12,9 @@ except ImportError:
     import publish_social as social
     from audit_social_delivery import collect, matches, story_image_checks
 
+# Share the credential-preserving redirect policy with the canonical publisher.
+urlopen = social.urlopen
+
 
 def save_verified(ledger, aid, kind, expected, replacement):
     rows, sha = ledger.read()

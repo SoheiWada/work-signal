@@ -4,6 +4,7 @@ on:
   push:
     branches: [main, analytics/social-dashboard, 'fix/**']
     paths:
+      - tests/test_social_security.py
       - scripts/publish_social.py
       - scripts/publish_story_once.py
       - scripts/build_site.py
@@ -45,6 +46,7 @@ jobs:
       - name: Test publisher safeguards without calling Meta
         id: tests
         run: |
+          python -m unittest discover -s tests -p 'test_social_security.py'
           python -m unittest discover -s tests -p 'test_social_publish.py'
           python -m unittest discover -s tests -p 'test_social_attribution.py'
           python -m unittest discover -s tests -p 'test_delivery_reliability.py'

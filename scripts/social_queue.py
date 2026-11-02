@@ -16,6 +16,9 @@ except ImportError:
     import publish_social as social
     from select_scheduled_social import scheduled_ids
 
+# Share the credential-preserving redirect policy with the canonical publisher.
+urlopen = social.urlopen
+
 BATCH_LIMIT = 5
 MAX_CONTINUATIONS = 2
 DELIVERY_GRACE_SECONDS = 15 * 60

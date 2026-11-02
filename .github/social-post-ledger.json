@@ -2952,10 +2952,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfPATu_FgVh"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-02T09:39:35+00:00",
+      "status": "published",
+      "updated_at": "2026-11-02T09:39:38+00:00",
       "stage": "publish_requested",
-      "container_id": "18158098756488337"
+      "container_id": "18158098756488337",
+      "remote_id": "18649290835019913"
     }
   }
 }

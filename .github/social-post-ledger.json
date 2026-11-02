@@ -2873,5 +2873,11 @@
       "container_id": "18157945984488337",
       "remote_id": "18146390059507451"
     }
+  },
+  "20261102-github-copilot-projects-multirepo-preview": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-02T01:52:07+00:00"
+    }
   }
 }

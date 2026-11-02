@@ -2876,10 +2876,12 @@
   },
   "20261102-github-copilot-projects-multirepo-preview": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-02T01:52:17+00:00",
+      "status": "published",
+      "updated_at": "2026-11-02T01:52:20+00:00",
       "stage": "publish_requested",
-      "container_id": "18138888586636731"
+      "container_id": "18138888586636731",
+      "remote_id": "18138888586636731",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfOK26MiVhs"
     }
   }
 }

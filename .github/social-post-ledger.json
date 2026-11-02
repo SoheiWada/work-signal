@@ -2927,10 +2927,12 @@
   },
   "20261102-abu-dhabi-machine-readable-government-food-imports": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-02T09:24:20+00:00",
+      "status": "published",
+      "updated_at": "2026-11-02T09:24:23+00:00",
       "stage": "publish_requested",
-      "container_id": "18164441791497537"
+      "container_id": "18164441791497537",
+      "remote_id": "18164441791497537",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfO-l7fFrYZ"
     }
   }
 }

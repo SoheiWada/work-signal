@@ -2992,5 +2992,11 @@
       "container_id": "18158107027488337",
       "remote_id": "17971348475965763"
     }
+  },
+  "20261102-bis-cpmi-central-bank-money-payment-roles": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-02T13:38:07+00:00"
+    }
   }
 }

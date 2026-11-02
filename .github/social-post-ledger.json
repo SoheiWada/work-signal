@@ -2979,7 +2979,9 @@
   "20261102-ai-productivity-gains-unreported-management-survey": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-02T10:22:26+00:00"
+      "updated_at": "2026-11-02T10:22:35+00:00",
+      "stage": "publish_requested",
+      "container_id": "18087166298518009"
     }
   }
 }

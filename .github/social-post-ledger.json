@@ -2901,10 +2901,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfOOp4UoMTj"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-02T02:25:47+00:00",
+      "status": "published",
+      "updated_at": "2026-11-02T02:25:51+00:00",
       "stage": "publish_requested",
-      "container_id": "18157996666488337"
+      "container_id": "18157996666488337",
+      "remote_id": "17956792929299262"
     }
   }
 }

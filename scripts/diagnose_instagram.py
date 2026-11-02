@@ -8,7 +8,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
-from urllib.request import Request, urlopen
+from urllib.request import Request
+try:
+    from .publish_social import urlopen
+except ImportError:
+    from publish_social import urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://graph.instagram.com/v25.0/"

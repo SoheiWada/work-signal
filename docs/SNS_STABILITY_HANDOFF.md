@@ -6,8 +6,8 @@
 - 監視で安全なready記事が見つかり、実行中・待機中の配信がなく、直近の起動から10分以上経過したときは、既存social-publish.ymlを1回だけ起動する。投稿承認・媒体選択・台帳は変更しない。
 - 既存amberlight-analytics WorkerのCron Triggerも毎時07/17/27/37/47/57分に確認する。GitHub scheduleの停止に依存しない起動経路。Worker自体はMetaへ送信しない。
 - Workerはmainの同一コミットにある承認記事と台帳を読み、直近2日以内・鮮度有効・安全な未処理だけを検出する。対象があれば共通キューを起動。未処理がなければ最長30分間隔で読み取り監視を起動し、外部時計の動作もActionsに記録する。
-- Cloudflare起動はrun名のcloudflare_cron、監視による回収はmonitor_recoveryで識別できる。起動中・待機中・10分以内の重複要求は抑える。送信側の共通ロック、5記事上限、最大2回の進捗継続は維持。
-- Workerの設定はSOCIAL_WAKEUP_ENABLED。既存EDITORIAL_PUBLISH_TOKENを固定のGitHubリポジトリのActions起動に使用する。未設定・権限不足・取得不整合は停止し、成功扱いしない。新しいトークンや権限を自動作成しない。
+- Cloudflare起動はrepository_dispatchイベント（固定のwork_signal_social_wakeup / work_signal_social_health）、監視による回収はmonitor_recoveryで識別できる。起動中・待機中・10分以内の重複要求は抑える。送信側の共通ロック、5記事上限、最大2回の進捗継続は維持。
+- Workerの設定はSOCIAL_WAKEUP_ENABLED。既存EDITORIAL_PUBLISH_TOKENを固定のGitHubリポジトリのrepository_dispatch（既存のContents書き込み権限）に使用する。未設定・権限不足・取得不整合は停止し、成功扱いしない。新しいトークンや権限を自動作成しない。
 - Instagramフィードの4/2207051保護停止は解除確認まで維持する。起動経路の追加は保護停止の解除や102件等の過去記事の一括再送を意味しない。
 - API結果が不明なattempting/needs_reviewは人による実照合まで再送しない。投稿済み・未承認記事・恒久的な媒体除外を回収対象にしない。
 

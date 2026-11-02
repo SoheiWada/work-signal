@@ -1,6 +1,8 @@
 name: Monitor WORK SIGNAL entire SNS backlog
 run-name: "SNS delivery health · ${{ inputs.wake_source || github.event_name }}"
 on:
+  repository_dispatch:
+    types: [work_signal_social_health]
   workflow_dispatch:
     inputs:
       wake_source:

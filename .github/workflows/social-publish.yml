@@ -2,6 +2,8 @@ name: Publish approved WORK SIGNAL social posts
 
 run-name: "SNS delivery · ${{ inputs.wake_source || github.event_name }}"
 on:
+  repository_dispatch:
+    types: [work_signal_social_wakeup]
   workflow_dispatch:
     inputs:
       wake_source:

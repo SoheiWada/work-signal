@@ -2894,7 +2894,9 @@
   "20261102-apache-wicket-upload-dos-cve-2026-83594-84170": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-02T02:25:18+00:00"
+      "updated_at": "2026-11-02T02:25:28+00:00",
+      "stage": "publish_requested",
+      "container_id": "18181250056429116"
     }
   }
 }

@@ -2944,10 +2944,12 @@
   },
   "20261102-xreal-aura-japan-android-xr-gemini": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-02T09:39:18+00:00",
+      "status": "published",
+      "updated_at": "2026-11-02T09:39:20+00:00",
       "stage": "publish_requested",
-      "container_id": "18146053318602216"
+      "container_id": "18146053318602216",
+      "remote_id": "18146053318602216",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfPATu_FgVh"
     }
   }
 }

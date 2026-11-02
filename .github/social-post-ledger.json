@@ -3016,10 +3016,11 @@
       "updated_at": "2026-11-02T23:44:34+00:00"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-02T23:44:54+00:00",
+      "status": "published",
+      "updated_at": "2026-11-02T23:44:58+00:00",
       "stage": "publish_requested",
-      "container_id": "18158307298488337"
+      "container_id": "18158307298488337",
+      "remote_id": "18124126298318402"
     }
   }
 }

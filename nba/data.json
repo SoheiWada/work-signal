@@ -3,12 +3,12 @@
   "provider": "balldontlie",
   "season": 2026,
   "throughDate": "2026-11-01",
-  "fetchedAt": "2026-11-01T16:50:41.149Z",
-  "lastAttemptAt": "2026-11-01T16:50:41.149Z",
+  "fetchedAt": "2026-11-02T01:35:09.819Z",
+  "lastAttemptAt": "2026-11-02T01:35:09.819Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 88,
+  "countedGames": 90,
   "standingsReason": null,
   "teams": [
     {
@@ -22,14 +22,14 @@
       "code": "BOS",
       "name": "Boston Celtics",
       "conference": "East",
-      "wins": 4,
+      "wins": 5,
       "losses": 1
     },
     {
       "code": "BKN",
       "name": "Brooklyn Nets",
       "conference": "East",
-      "wins": 0,
+      "wins": 1,
       "losses": 5
     },
     {
@@ -93,7 +93,7 @@
       "name": "Indiana Pacers",
       "conference": "East",
       "wins": 2,
-      "losses": 4
+      "losses": 5
     },
     {
       "code": "LAC",
@@ -163,7 +163,7 @@
       "name": "Orlando Magic",
       "conference": "East",
       "wins": 2,
-      "losses": 3
+      "losses": 4
     },
     {
       "code": "PHI",
@@ -223,6 +223,28 @@
     }
   ],
   "sets": [
+    [
+      {
+        "id": "21718009",
+        "date": "2026-11-01",
+        "home": "IND",
+        "away": "BKN",
+        "homeScore": 90,
+        "awayScore": 98,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718008",
+        "date": "2026-11-01",
+        "home": "ORL",
+        "away": "BOS",
+        "homeScore": 97,
+        "awayScore": 108,
+        "competition": "regular",
+        "countsForStandings": true
+      }
+    ],
     [
       {
         "id": "21718007",
@@ -681,78 +703,6 @@
         "away": "WAS",
         "homeScore": 110,
         "awayScore": 103,
-        "competition": "regular",
-        "countsForStandings": true
-      }
-    ],
-    [
-      {
-        "id": "21717961",
-        "date": "2026-10-25",
-        "home": "SAC",
-        "away": "MEM",
-        "homeScore": 112,
-        "awayScore": 123,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717960",
-        "date": "2026-10-25",
-        "home": "PHI",
-        "away": "DET",
-        "homeScore": 93,
-        "awayScore": 106,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717959",
-        "date": "2026-10-25",
-        "home": "OKC",
-        "away": "LAC",
-        "homeScore": 108,
-        "awayScore": 101,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717958",
-        "date": "2026-10-25",
-        "home": "MIN",
-        "away": "TOR",
-        "homeScore": 117,
-        "awayScore": 94,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717957",
-        "date": "2026-10-25",
-        "home": "NYK",
-        "away": "ORL",
-        "homeScore": 102,
-        "awayScore": 111,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717956",
-        "date": "2026-10-25",
-        "home": "BKN",
-        "away": "IND",
-        "homeScore": 109,
-        "awayScore": 136,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717955",
-        "date": "2026-10-25",
-        "home": "UTA",
-        "away": "LAL",
-        "homeScore": 123,
-        "awayScore": 132,
         "competition": "regular",
         "countsForStandings": true
       }

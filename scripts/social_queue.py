@@ -18,6 +18,8 @@ except ImportError:
 
 BATCH_LIMIT = 5
 MAX_CONTINUATIONS = 2
+DELIVERY_GRACE_SECONDS = 15 * 60
+ACTIVE_ATTEMPT_GRACE_SECONDS = 5 * 60
 
 
 def batch_ids(feed, rows, scope="", clock=None):
@@ -84,7 +86,9 @@ def backlog_report(feed, rows, clock=None):
                 category = "review_required"  # stale/expired: never silently drop
             counts[kind][category] += 1
             if category != "published":
-                outstanding.append({"id": aid, "platform": kind, "state": category})
+                outstanding.append({"id": aid, "platform": kind, "state": category,
+                    "published_at_time": article.get("published_at_time"),
+                    "attempt_updated_at": entry.get("updated_at")})
     return {"checked_at": clock.isoformat(), "counts": counts,
             "ready_article_ids": sorted(ready_ids), "outstanding": outstanding,
             "note": "Cumulative ledger evidence, not current visibility. Stories expire."}
@@ -111,6 +115,9 @@ def write_report(report):
                 output.write("\nDelivery: **" + report["delivery_health"] + "**. Protective holds remain incomplete.\n")
             if "recovery" in report:
                 output.write("\nRecovery wake-up: " + report["recovery"]["state"] + "\n")
+            if report.get("delivery_health") == "processing":
+                output.write("\nProcessing within the fixed grace window; these posts are still outstanding, not delivered. "
+                             "Ready work becomes an error 15 minutes after article registration; active attempts after 5 minutes.\n")
 
 
 def output_values(**values):
@@ -133,6 +140,26 @@ def delivery_health(report):
     problems = [x for x in report["outstanding"] if x["state"] in
                 ("ready", "needs_review", "attempting", "review_required")]
     if problems:
+        # A running pipeline is not a completed delivery or an immediate fault.
+        # The deadline is tied to each article/attempt, never reset by new runs.
+        recovery = report.get("recovery", {}).get("state")
+        clock = datetime.fromisoformat(report["checked_at"])
+        def young(stamp, limit):
+            try:
+                when = datetime.fromisoformat(stamp.replace("Z", "+00:00"))
+                return when.tzinfo is not None and 0 <= (clock - when).total_seconds() < limit
+            except (AttributeError, TypeError, ValueError):
+                return False
+        def processing(item):
+            if item["state"] == "ready":
+                return recovery in ("publisher_active", "cooldown", "requested") and young(
+                    item.get("published_at_time"), DELIVERY_GRACE_SECONDS)
+            if item["state"] == "attempting":
+                return recovery == "publisher_active" and young(
+                    item.get("attempt_updated_at"), ACTIVE_ATTEMPT_GRACE_SECONDS)
+            return False
+        if all(processing(item) for item in problems):
+            return "processing"
         return "needs_attention"
     return "waiting" if report["outstanding"] else "complete"
 
@@ -211,6 +238,8 @@ def main():
     report["delivery_health"] = delivery_health(report)
     write_report(report)
     print("DELIVERY_HEALTH", report["delivery_health"])
+    if report["delivery_health"] == "processing":
+        print("::notice::DELIVERY_PROCESSING: outstanding work is within its fixed deadline; not marked published")
     if report["delivery_health"] == "needs_attention":
         print("::warning::DELIVERY_INCOMPLETE: inspect per-channel outstanding work and recovery")
         return 1 if args.action == "monitor" else 0
@@ -219,3 +248,4 @@ def main():
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

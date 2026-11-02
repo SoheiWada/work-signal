@@ -180,5 +180,78 @@ class SocialMonitorRecoveryTests(unittest.TestCase):
                 dispatch.assert_called_once()
 
 
+class PipelineGraceTests(unittest.TestCase):
+    def recent_report(self, age=120, recovery="cooldown"):
+        feed = [article("ricoh", published_at_time=(NOW - timedelta(seconds=age)).isoformat()),
+                article("xreal", published_at_time=(NOW - timedelta(seconds=age)).isoformat())]
+        report = backlog_report(feed, {}, NOW)
+        report["recovery"] = {"state": recovery}
+        return report
+
+    def test_two_new_articles_during_skipped_run_cooldown_are_processing_not_failed(self):
+        from scripts.social_queue import delivery_health
+        report = self.recent_report()
+        self.assertEqual(delivery_health(report), "processing")
+        self.assertEqual(report["counts"]["threads"]["ready"], 2)
+        self.assertEqual(report["counts"]["threads"]["published"], 0)
+
+    def test_new_runs_never_extend_the_fixed_article_deadline(self):
+        from scripts.social_queue import delivery_health
+        for recovery in ("cooldown", "publisher_active", "requested"):
+            self.assertEqual(delivery_health(self.recent_report(899, recovery)), "processing")
+            self.assertEqual(delivery_health(self.recent_report(900, recovery)), "needs_attention")
+
+    def test_no_pipeline_or_unknown_future_timestamp_does_not_get_grace(self):
+        from scripts.social_queue import delivery_health
+        for recovery in ("idle", "failed", None):
+            self.assertEqual(delivery_health(self.recent_report(recovery=recovery)), "needs_attention")
+        self.assertEqual(delivery_health(self.recent_report(age=-1)), "needs_attention")
+
+    def test_uncertain_result_always_alerts_even_with_an_active_pipeline(self):
+        from scripts.social_queue import delivery_health
+        report = self.recent_report(recovery="publisher_active")
+        report["outstanding"][0]["state"] = "needs_review"
+        self.assertEqual(delivery_health(report), "needs_attention")
+
+    def test_sending_is_only_processing_while_the_actual_publisher_is_active(self):
+        from scripts.social_queue import delivery_health
+        report = self.recent_report(recovery="publisher_active")
+        row = report["outstanding"][0]
+        row["state"] = "attempting"
+        row["attempt_updated_at"] = (NOW - timedelta(seconds=299)).isoformat()
+        self.assertEqual(delivery_health(report), "processing")
+        row["attempt_updated_at"] = (NOW - timedelta(seconds=300)).isoformat()
+        self.assertEqual(delivery_health(report), "needs_attention")
+        row["attempt_updated_at"] = NOW.isoformat()
+        report["recovery"]["state"] = "cooldown"
+        self.assertEqual(delivery_health(report), "needs_attention")
+
+    def test_monitor_replays_the_incident_without_a_failure_or_false_published_claim(self):
+        import json, tempfile
+        from pathlib import Path
+        from unittest.mock import patch
+        from scripts import social_queue as q
+        feed = [article("ricoh", published_at_time=(NOW - timedelta(minutes=2)).isoformat()),
+                article("xreal", published_at_time=(NOW - timedelta(minutes=1)).isoformat())]
+        run = {"created_at": (NOW - timedelta(seconds=13)).isoformat(),
+               "status": "completed", "conclusion": "skipped"}
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder); (root / "data").mkdir()
+            (root / "data/articles.json").write_text(json.dumps(feed))
+            with patch.object(q.social, "ROOT", root), patch.object(q.social, "GithubLedger") as ledger, \
+                 patch.object(q.social, "request_json", return_value={"workflow_runs": [run]}), \
+                 patch.object(q, "dispatch_queue") as dispatch, patch.object(q, "write_report") as report, \
+                 patch.object(q, "datetime", wraps=datetime) as clock, \
+                 patch.dict("os.environ", {"GITHUB_REPOSITORY": "SoheiWada/work-signal", "GITHUB_TOKEN": "test"}), \
+                 patch("sys.argv", ["social_queue.py", "monitor"]):
+                clock.now.return_value = NOW
+                ledger.return_value.read.return_value = ({}, "sha")
+                self.assertEqual(q.main(), 0)
+                self.assertEqual(report.call_args.args[0]["delivery_health"], "processing")
+                self.assertEqual(report.call_args.args[0]["counts"]["threads"]["ready"], 2)
+                dispatch.assert_not_called()
+
+
 if __name__ == "__main__":
     unittest.main()
+

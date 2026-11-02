@@ -2884,10 +2884,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfOK26MiVhs"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-02T01:52:39+00:00",
+      "status": "published",
+      "updated_at": "2026-11-02T01:52:43+00:00",
       "stage": "publish_requested",
-      "container_id": "18157990126488337"
+      "container_id": "18157990126488337",
+      "remote_id": "18129278179858279"
     }
   }
 }

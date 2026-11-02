@@ -70,5 +70,115 @@ class SocialQueueTests(unittest.TestCase):
             self.assertEqual(scheduler_health(runs, NOW)["stale"], expected)
 
 
+
+class SocialMonitorRecoveryTests(unittest.TestCase):
+    def test_stale_schedule_is_not_a_delivery_failure_when_queue_is_complete(self):
+        from scripts.social_queue import delivery_health
+        report = backlog_report([article("done")], {"done": {"threads": {"status": "published"}}}, NOW)
+        report["scheduler"] = scheduler_health([], NOW)
+        self.assertTrue(report["scheduler"]["stale"])
+        self.assertEqual(delivery_health(report), "complete")
+
+    def test_hold_remains_incomplete_but_does_not_hide_other_channel_failure(self):
+        from scripts.social_queue import delivery_health
+        feed = [article("feed", social_platforms=["instagram"])]
+        rows = {"old": {"instagram": {"status": "published", "action_block_hold": True}}}
+        report = backlog_report(feed, rows, NOW)
+        self.assertEqual(delivery_health(report), "waiting")
+        self.assertEqual(report["counts"]["instagram"]["held"], 1)
+        report = backlog_report(feed + [article("missed")], rows, NOW)
+        self.assertEqual(delivery_health(report), "needs_attention")
+
+    def test_invalid_history_is_reported_not_retried_or_silently_dropped(self):
+        from scripts.social_queue import delivery_health
+        for entry in (None, {"status": "bogus"}, {"status": "deferred"}):
+            report = backlog_report([article("bad")], {"bad": {"threads": entry}}, NOW)
+            self.assertEqual(report["counts"]["threads"]["review_required"], 1)
+            self.assertEqual(report["ready_article_ids"], [])
+            self.assertEqual(delivery_health(report), "needs_attention")
+
+    def test_quota_resume_uses_the_same_clock_as_freshness_and_report(self):
+        a = article("due")
+        rows = {"due": {"threads": {"status": "deferred",
+                                    "next_attempt_at": (NOW + timedelta(hours=1)).isoformat()}}}
+        self.assertEqual(batch_ids([a], rows, clock=NOW), [])
+        self.assertEqual(backlog_report([a], rows, NOW)["counts"]["threads"]["deferred"], 1)
+        self.assertEqual(batch_ids([a], rows, clock=NOW + timedelta(hours=2)), ["due"])
+
+    def test_recovery_is_bounded_and_never_wakes_an_active_publisher(self):
+        from scripts.social_queue import recovery_decision
+        run = {"created_at": (NOW - timedelta(hours=2)).isoformat(), "status": "completed"}
+        self.assertTrue(recovery_decision(["missed"], [run], NOW)["dispatch"])
+        self.assertFalse(recovery_decision([], [run], NOW)["dispatch"])
+        for status in ("queued", "in_progress", "waiting"):
+            self.assertFalse(recovery_decision(["missed"], [{**run, "status": status}], NOW)["dispatch"])
+        self.assertEqual(recovery_decision(["missed"], [{**run, "created_at": NOW.isoformat()}], NOW)["state"],
+                         "cooldown")
+
+    def test_dispatch_uses_json_and_accepts_empty_204_without_meta_or_ledger_writes(self):
+        import json
+        from unittest.mock import patch, MagicMock
+        from scripts.social_queue import dispatch_queue
+        response = MagicMock()
+        response.__enter__.return_value.status = 204
+        with patch("scripts.social_queue.urlopen", return_value=response) as send:
+            dispatch_queue("https://api.github.com/repos/SoheiWada/work-signal", "test-token")
+        req = send.call_args.args[0]
+        self.assertEqual(req.method, "POST")
+        self.assertEqual(req.full_url, "https://api.github.com/repos/SoheiWada/work-signal/actions/workflows/social-publish.yml/dispatches")
+        self.assertEqual(req.get_header("Content-type"), "application/json")
+        self.assertEqual(json.loads(req.data), {"ref": "main", "inputs": {"wake_source": "monitor_recovery"}})
+
+    def test_monitor_incident_reproduction_exits_zero_without_hiding_scheduler_warning(self):
+        import json, tempfile
+        from pathlib import Path
+        from unittest.mock import patch
+        from scripts import social_queue as q
+        feed = [article("done")]
+        rows = {"done": {"threads": {"status": "published"}}}
+        run = {"created_at": (NOW - timedelta(minutes=10)).isoformat(),
+               "status": "completed", "conclusion": "success"}
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root / "data").mkdir()
+            (root / "data/articles.json").write_text(json.dumps(feed))
+            with patch.object(q.social, "ROOT", root), patch.object(q.social, "GithubLedger") as ledger, \
+                 patch.object(q.social, "request_json", side_effect=[{"workflow_runs": [run]}, {"workflow_runs": []}]), \
+                 patch.object(q, "dispatch_queue") as dispatch, patch.object(q, "write_report") as report, \
+                 patch.object(q, "datetime", wraps=datetime) as clock, \
+                 patch.dict("os.environ", {"GITHUB_REPOSITORY": "SoheiWada/work-signal", "GITHUB_TOKEN": "test"}), \
+                 patch("sys.argv", ["social_queue.py", "monitor"]):
+                clock.now.return_value = NOW
+                ledger.return_value.read.return_value = (rows, "sha")
+                self.assertEqual(q.main(), 0)
+                state = report.call_args.args[0]
+                self.assertEqual(state["delivery_health"], "complete")
+                self.assertTrue(state["scheduler"]["stale"])
+                self.assertEqual(state["publisher"]["state"], "recent")
+                dispatch.assert_not_called()
+
+    def test_monitor_wakes_real_pending_work_but_does_not_claim_delivery_complete(self):
+        import json, tempfile
+        from pathlib import Path
+        from unittest.mock import patch
+        from scripts import social_queue as q
+        run = {"created_at": (NOW - timedelta(hours=2)).isoformat(), "status": "completed"}
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root / "data").mkdir()
+            (root / "data/articles.json").write_text(json.dumps([article("missed")]))
+            with patch.object(q.social, "ROOT", root), patch.object(q.social, "GithubLedger") as ledger, \
+                 patch.object(q.social, "request_json", return_value={"workflow_runs": [run]}), \
+                 patch.object(q, "dispatch_queue") as dispatch, patch.object(q, "write_report") as report, \
+                 patch.object(q, "datetime", wraps=datetime) as clock, \
+                 patch.dict("os.environ", {"GITHUB_REPOSITORY": "SoheiWada/work-signal", "GITHUB_TOKEN": "test"}), \
+                 patch("sys.argv", ["social_queue.py", "monitor"]):
+                clock.now.return_value = NOW
+                ledger.return_value.read.return_value = ({}, "sha")
+                self.assertEqual(q.main(), 1)
+                self.assertEqual(report.call_args.args[0]["delivery_health"], "needs_attention")
+                dispatch.assert_called_once()
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -1,6 +1,13 @@
 name: Monitor WORK SIGNAL entire SNS backlog
+run-name: "SNS delivery health · ${{ inputs.wake_source || github.event_name }}"
 on:
   workflow_dispatch:
+    inputs:
+      wake_source:
+        description: "Wake-up source; no new publication approval"
+        required: false
+        default: github
+        type: string
   schedule:
     - cron: '23,53 * * * *'
   workflow_run:
@@ -14,7 +21,7 @@ on:
       - .github/workflows/social-delivery-monitor.yml
 permissions:
   contents: read
-  actions: read
+  actions: write
 concurrency:
   group: work-signal-social-monitor
   cancel-in-progress: false
@@ -34,7 +41,7 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
-      - name: Detect missing delivery, uncertain results and stale scheduler (no Meta writes)
+      - name: Report channel delivery and safely wake the canonical queue (no Meta writes)
         env:
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}

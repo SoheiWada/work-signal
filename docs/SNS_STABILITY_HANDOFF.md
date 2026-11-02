@@ -1,5 +1,17 @@
 # SNS安定化・投稿担当への共有（2026-10-31）
 
+## 2026-11-02 配信障害と起動遅延の分離・独立した起動経路
+
+- SNS監視は媒体別の未処理・結果不明・鮮度切れで失敗する。GitHubのscheduleが90分超空いた場合はSCHEDULER_DELAYとして独立表示し、配信完了やフィード保留と混同しない。保護停止・deferredは未完了のまま表示する。
+- 監視で安全なready記事が見つかり、実行中・待機中の配信がなく、直近の起動から10分以上経過したときは、既存social-publish.ymlを1回だけ起動する。投稿承認・媒体選択・台帳は変更しない。
+- 既存amberlight-analytics WorkerのCron Triggerも毎時07/17/27/37/47/57分に確認する。GitHub scheduleの停止に依存しない起動経路。Worker自体はMetaへ送信しない。
+- Workerはmainの同一コミットにある承認記事と台帳を読み、直近2日以内・鮮度有効・安全な未処理だけを検出する。対象があれば共通キューを起動。未処理がなければ最長30分間隔で読み取り監視を起動し、外部時計の動作もActionsに記録する。
+- Cloudflare起動はrun名のcloudflare_cron、監視による回収はmonitor_recoveryで識別できる。起動中・待機中・10分以内の重複要求は抑える。送信側の共通ロック、5記事上限、最大2回の進捗継続は維持。
+- Workerの設定はSOCIAL_WAKEUP_ENABLED。既存EDITORIAL_PUBLISH_TOKENを固定のGitHubリポジトリのActions起動に使用する。未設定・権限不足・取得不整合は停止し、成功扱いしない。新しいトークンや権限を自動作成しない。
+- Instagramフィードの4/2207051保護停止は解除確認まで維持する。起動経路の追加は保護停止の解除や102件等の過去記事の一括再送を意味しない。
+- API結果が不明なattempting/needs_reviewは人による実照合まで再送しない。投稿済み・未承認記事・恒久的な媒体除外を回収対象にしない。
+
+
 既存の投稿承認・記事JSON・原稿ルールを維持。新しい必須入力はない。
 
 ## 配信の変更
@@ -18,7 +30,7 @@
 2. `social_platforms` は恒久的な媒体選択。一時障害の回避のために媒体を削らない。過去記事へ承認フラグを一括付与しない。
 3. 記事ID・初回公開日を固定する。SEO更新のためにIDを作り直したり、初回公開日を更新しない。
 4. サイト公開、Threads、Instagramフィード、ストーリーズ、Xを別々に報告する。サイト公開成功や当該バッチ成功だけで「SNS全件完了」としない。
-5. 全体の未処理はActionsの **Monitor WORK SIGNAL entire SNS backlog** と `social-backlog-status.json` で確認する。ready / deferred / needs_review / attempting / held / review_required を分けて確認する。監視は未処理・結果不明・鮮度切れ・定期実行90分超の空白で失敗する。フィード保護停止は別記する。
+5. 全体の未処理はActionsの **Monitor WORK SIGNAL entire SNS backlog** と `social-backlog-status.json` で確認する。ready / deferred / needs_review / attempting / held / review_required を分けて確認する。監視は未処理・結果不明・鮮度切れで失敗する。定期実行90分超の空白はSCHEDULER_DELAYで別記する。フィード保護停止は別記する。
 
 ## Xは別の有効化手順
 

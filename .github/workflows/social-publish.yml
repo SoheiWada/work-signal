@@ -1,8 +1,14 @@
 name: Publish approved WORK SIGNAL social posts
 
+run-name: "SNS delivery · ${{ inputs.wake_source || github.event_name }}"
 on:
   workflow_dispatch:
     inputs:
+      wake_source:
+        description: "Wake-up source; does not authorize delivery"
+        required: false
+        default: github
+        type: string
       deployed_sha:
         description: "Verified deployed commit SHA (blank for manual/scheduled runs)"
         required: false

@@ -512,7 +512,7 @@ def requested_platforms(article):
     return selected
 
 
-def remaining_platforms(existing):
+def remaining_platforms(existing, now=None):
     """Do not automatically retry an attempted, published, or uncertain platform."""
     if not isinstance(existing, dict):
         raise RuntimeError("Invalid publication history; manual review required")
@@ -533,7 +533,7 @@ def remaining_platforms(existing):
                     raise ValueError("Timezone required")
             except (KeyError, ValueError, TypeError):
                 raise RuntimeError("Invalid deferred publication state") from None
-            if resume <= datetime.now(timezone.utc):
+            if resume <= (now or datetime.now(timezone.utc)):
                 pending.append(platform)
     return pending
 

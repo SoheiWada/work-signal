@@ -6,6 +6,8 @@ Wake-up events carry no irreplaceable queue data. Never rearm uncertain writes.
 import argparse
 import json
 import os
+from urllib.request import Request, urlopen
+from urllib.error import HTTPError, URLError
 from datetime import datetime, timezone, timedelta
 try:
     from . import publish_social as social
@@ -46,7 +48,8 @@ def backlog_report(feed, rows, clock=None):
     ready_ids = set(scheduled_ids(feed, rows, clock))
     blocked = {kind for history in rows.values() if isinstance(history, dict)
                for kind in ("instagram", "instagram_story")
-               if social.active_instagram_action_block(history.get(kind, {}))}
+               if isinstance(history.get(kind, {}), dict)
+               and social.active_instagram_action_block(history.get(kind, {}))}
     counts = {kind: {key: 0 for key in (
         "published", "ready", "deferred", "needs_review", "attempting", "held", "review_required")}
               for kind in social.SOCIAL_PLATFORMS}
@@ -54,11 +57,22 @@ def backlog_report(feed, rows, clock=None):
     for article in social.approved_articles(feed):
         aid = article["id"]
         history = rows.get(aid, {})
-        remaining = social.remaining_platforms(history)
+        invalid_history = False
+        try:
+            remaining = social.remaining_platforms(history, clock)
+        except RuntimeError:
+            remaining, invalid_history = [], True
+        if not isinstance(history, dict):
+            history = {}
         for kind in social.requested_platforms(article):
             entry = history.get(kind, {})
+            invalid_entry = not isinstance(entry, dict)
+            if invalid_entry:
+                entry = {}
             status = entry.get("status", "pending")
-            if status in ("published", "needs_review", "attempting"):
+            if invalid_entry or (invalid_history and status not in ("published", "needs_review", "attempting")):
+                category = "review_required"
+            elif status in ("published", "needs_review", "attempting"):
                 category = status
             elif kind in blocked:
                 category = "held"
@@ -90,7 +104,13 @@ def write_report(report):
             output.write("\nPublished counts are cumulative ledger records. Held/review items are **not completed deliveries**. "
                          "See social-backlog-status.json for every outstanding article.\n")
             if "scheduler" in report:
-                output.write("\nScheduler: " + report["scheduler"]["state"] + "\n")
+                output.write("\nScheduled trigger: **" + report["scheduler"]["state"] + "** (independent of delivery).\n")
+            if "publisher" in report:
+                output.write("\nLatest successful publisher: " + report["publisher"]["state"] + "\n")
+            if "delivery_health" in report:
+                output.write("\nDelivery: **" + report["delivery_health"] + "**. Protective holds remain incomplete.\n")
+            if "recovery" in report:
+                output.write("\nRecovery wake-up: " + report["recovery"]["state"] + "\n")
 
 
 def output_values(**values):
@@ -107,6 +127,43 @@ def scheduler_health(runs, clock):
     minutes = (clock - last).total_seconds() / 60
     return {"state": "stale" if minutes > 90 else "recent", "stale": minutes > 90,
             "last_created_at": last.isoformat(), "minutes_since_last_run": round(minutes, 1)}
+
+
+def delivery_health(report):
+    problems = [x for x in report["outstanding"] if x["state"] in
+                ("ready", "needs_review", "attempting", "review_required")]
+    if problems:
+        return "needs_attention"
+    return "waiting" if report["outstanding"] else "complete"
+
+
+def recovery_decision(ready_ids, runs, clock):
+    if not ready_ids:
+        return {"state": "idle", "dispatch": False}
+    if any(r.get("status") != "completed" for r in runs):
+        return {"state": "publisher_active", "dispatch": False}
+    if runs:
+        last = datetime.fromisoformat(runs[0]["created_at"].replace("Z", "+00:00"))
+        if (clock - last).total_seconds() < 600:
+            return {"state": "cooldown", "dispatch": False}
+    return {"state": "requested", "dispatch": True}
+
+
+def dispatch_queue(endpoint, token):
+    # GitHub dispatch expects JSON and returns an empty 204, unlike Meta APIs.
+    request = Request(endpoint + "/actions/workflows/social-publish.yml/dispatches",
+        data=json.dumps({"ref": "main", "inputs": {"wake_source": "monitor_recovery"}}).encode(),
+        headers={"Authorization": "Bearer " + token, "Accept": "application/vnd.github+json",
+                 "Content-Type": "application/json", "User-Agent": "WORK-SIGNAL-Monitor/1.0"},
+        method="POST")
+    try:
+        with urlopen(request, timeout=20) as response:
+            if response.status != 204:
+                raise RuntimeError("Queue dispatch response not acknowledged")
+    except HTTPError as error:
+        raise RuntimeError("Queue dispatch HTTP " + str(error.code)) from None
+    except (URLError, TimeoutError):
+        raise RuntimeError("Queue dispatch result unknown; canonical lock prevents duplicate writes") from None
 
 
 def main():
@@ -133,15 +190,29 @@ def main():
             ids = []
         output_values(continue_ready="true" if ids else "false", next_depth=depth + 1)
     if args.action == "monitor":
-        response = social.request_json("https://api.github.com/repos/" + os.environ["GITHUB_REPOSITORY"]
-            + "/actions/workflows/social-publish.yml/runs?branch=main&event=schedule&per_page=1",
+        endpoint = "https://api.github.com/repos/" + os.environ["GITHUB_REPOSITORY"]
+        response = social.request_json(endpoint
+            + "/actions/workflows/social-publish.yml/runs?branch=main&per_page=20",
             token=os.environ["GITHUB_TOKEN"])
-        report["scheduler"] = scheduler_health(response.get("workflow_runs", []), datetime.now(timezone.utc))
+        runs = response.get("workflow_runs")
+        scheduled = social.request_json(endpoint
+            + "/actions/workflows/social-publish.yml/runs?branch=main&event=schedule&per_page=1",
+            token=os.environ["GITHUB_TOKEN"]).get("workflow_runs")
+        if not isinstance(runs, list) or not isinstance(scheduled, list):
+            raise RuntimeError("Publisher run history unavailable")
+        clock = datetime.now(timezone.utc)
+        report["scheduler"] = scheduler_health(scheduled, clock)
+        report["publisher"] = scheduler_health([r for r in runs if r.get("conclusion") == "success"], clock)
+        report["recovery"] = recovery_decision(report["ready_article_ids"], runs, clock)
+        if report["recovery"]["dispatch"]:
+            dispatch_queue(endpoint, os.environ["GITHUB_TOKEN"])
+        if report["scheduler"]["stale"]:
+            print("::warning::SCHEDULER_DELAY: scheduled trigger overdue; see delivery and recovery separately")
+    report["delivery_health"] = delivery_health(report)
     write_report(report)
-    problems = [x for x in report["outstanding"] if x["state"] in
-                ("ready", "needs_review", "attempting", "review_required")]
-    if problems or report.get("scheduler", {}).get("stale"):
-        print("::warning::SNS backlog needs attention; inspect global report, not only batch success")
+    print("DELIVERY_HEALTH", report["delivery_health"])
+    if report["delivery_health"] == "needs_attention":
+        print("::warning::DELIVERY_INCOMPLETE: inspect per-channel outstanding work and recovery")
         return 1 if args.action == "monitor" else 0
     return 0
 

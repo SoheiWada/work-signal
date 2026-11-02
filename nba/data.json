@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-11-01",
-  "fetchedAt": "2026-11-02T01:35:09.819Z",
-  "lastAttemptAt": "2026-11-02T01:35:09.819Z",
+  "throughDate": "2026-11-02",
+  "fetchedAt": "2026-11-02T20:24:12.726Z",
+  "lastAttemptAt": "2026-11-02T20:24:12.726Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 90,
+  "countedGames": 92,
   "standingsReason": null,
   "teams": [
     {
@@ -78,7 +78,7 @@
       "code": "GSW",
       "name": "Golden State Warriors",
       "conference": "West",
-      "wins": 3,
+      "wins": 4,
       "losses": 3
     },
     {
@@ -100,13 +100,13 @@
       "name": "LA Clippers",
       "conference": "West",
       "wins": 1,
-      "losses": 4
+      "losses": 5
     },
     {
       "code": "LAL",
       "name": "Los Angeles Lakers",
       "conference": "West",
-      "wins": 4,
+      "wins": 5,
       "losses": 2
     },
     {
@@ -205,7 +205,7 @@
       "name": "Toronto Raptors",
       "conference": "East",
       "wins": 3,
-      "losses": 2
+      "losses": 3
     },
     {
       "code": "UTA",
@@ -224,6 +224,26 @@
   ],
   "sets": [
     [
+      {
+        "id": "21718011",
+        "date": "2026-11-01",
+        "home": "LAL",
+        "away": "TOR",
+        "homeScore": 131,
+        "awayScore": 125,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718010",
+        "date": "2026-11-01",
+        "home": "GSW",
+        "away": "LAC",
+        "homeScore": 124,
+        "awayScore": 112,
+        "competition": "regular",
+        "countsForStandings": true
+      },
       {
         "id": "21718009",
         "date": "2026-11-01",
@@ -708,5 +728,5 @@
       }
     ]
   ],
-  "requests": 5
+  "requests": 6
 }

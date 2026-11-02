@@ -36,7 +36,7 @@ def scheduled_ids(articles, rows, now=None):
             states = rows.get(aid, {})
             if not isinstance(states, dict):
                 continue
-            remaining = social.remaining_platforms(states)
+            remaining = social.remaining_platforms(states, now)
             if any(p in social.requested_platforms(article) and p not in blocked for p in remaining):
                 chosen.append(aid)
         except (KeyError, TypeError, ValueError, RuntimeError):

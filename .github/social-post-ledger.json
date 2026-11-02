@@ -2890,5 +2890,11 @@
       "container_id": "18157990126488337",
       "remote_id": "18129278179858279"
     }
+  },
+  "20261102-apache-wicket-upload-dos-cve-2026-83594-84170": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-02T02:25:18+00:00"
+    }
   }
 }

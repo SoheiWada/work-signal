@@ -3084,10 +3084,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfRpE2nG-NY"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-03T10:14:18+00:00",
+      "status": "published",
+      "updated_at": "2026-11-03T10:14:22+00:00",
       "stage": "publish_requested",
-      "container_id": "18158436682488337"
+      "container_id": "18158436682488337",
+      "remote_id": "18073529870602309"
     }
   }
 }

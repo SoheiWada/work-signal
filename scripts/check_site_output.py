@@ -84,7 +84,7 @@ def main():
     # default LATEST cards (without JavaScript). Category/search still exposes them.
     featured_ids = set(home_ids)
     default_card_ids = set(re.findall(
-        r'<a class="story-link" href="https://signal\\.amberlight\\.co\\.jp/articles/([A-Za-z0-9_-]+)/"',
+        r'<a class="story-link" href="https://signal\.amberlight\.co\.jp/articles/([A-Za-z0-9_-]+)/"',
         home_html,
     ))
     if featured_ids & default_card_ids:

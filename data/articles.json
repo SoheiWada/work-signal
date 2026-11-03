@@ -1,5 +1,46 @@
 [
   {
+    "id": "20261102-traefik-ntlm-negotiate-backend-transport-dos-ghsa-xv5x-242w-7hf7",
+    "title": "Traefikに認証不要のリソース枯渇DoS、HIGH 7.5。NTLM/Kerberos未使用でも影響、v3.7.17などで修正",
+    "summary": "Webサービスの入口を担うリバースプロキシTraefikに、認証不要でメモリや接続資源を消費させるHIGH脆弱性が公表された。NTLMやKerberosの認証バックエンドを設定していなくても影響し得る点が特徴だ。対象はv2.11.58〜v2.11.60とv3.7.14〜v3.7.16。修正版v2.11.61、v3.7.17は10月30日に公開されている。",
+    "category": "SECURITY",
+    "score": 89,
+    "published_at": "2026-11-03",
+    "published_at_time": "2026-11-03T10:08:38.068Z",
+    "source_url": "https://github.com/traefik/traefik/security/advisories/GHSA-xv5x-242w-7hf7",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Webサービスの入口を担うリバースプロキシTraefikに、認証不要でメモリや接続資源を消費させるHIGH脆弱性が公表された。NTLMやKerberosの認証バックエンドを設定していなくても影響し得る点が特徴だ。対象はv2.11.58〜v2.11.60とv3.7.14〜v3.7.16。修正版v2.11.61、v3.7.17は10月30日に公開されている。",
+    "sections": [
+      {
+        "title": "認証が成功しなくてもバックエンド接続が残る",
+        "body": "Traefik開発元は2026年11月2日、GitHub Security Advisory「GHSA-xv5x-242w-7hf7」をHIGH（CVSS v3.1 7.5）として公開した。問題は、クライアントからのリクエストに `Authorization: NTLM` または `Authorization: Negotiate` というスキームが含まれるだけで、クライアント接続専用のバックエンドtransportを確保してしまう点にある。\n\nその後クライアントが切断しても、transport、アイドル状態のバックエンド接続、関連goroutineが解放されない。攻撃者は有効な認証情報を持たずに短命な接続を繰り返し、メモリ、ファイルディスクリプタ、バックエンド接続枠を消費させられる。開発元は同様の処理がFastProxyにも存在すると説明している。"
+      },
+      {
+        "title": "対象は限定されたv2・v3系列、NTLM設定の有無だけでは判断できない",
+        "body": "開発元が明示する影響範囲はTraefik v2.11.58〜v2.11.60、v3.7.14〜v3.7.16。v2.11.57以前やv3.6系列およびそれ以前のv3系列は、この問題の対象外とされる。従来はバックエンドがNTLMまたはNegotiateの認証チャレンジを返した後に専用transportを割り当てていたが、対象版ではリクエストヘッダーだけで確保されるようになった。\n\n重要なのは、**NTLM/Kerberosバックエンドを運用していないから安全とは判断できない**ことだ。リバースプロキシを外部公開している組織では、認証設定の有無だけでなく実際のTraefikバージョンを確認する必要がある。"
+      },
+      {
+        "title": "修正版は10月30日公開のv2.11.61とv3.7.17",
+        "body": "公式勧告はv2.11.61、v3.7.17を修正版として指定する。両リリースは2026年10月30日に公開済みで、v3.7.17の変更履歴には通常のバックエンド接続処理とFastProxy双方のNTLM/Kerberos接続リーク修正が記載されている。v2.11.61にもバックエンド接続リーク修正が記載されている。\n\n運用担当者はまずデプロイ中のTraefikイメージ・バイナリのバージョンを確認し、影響版なら対応する修正版以降へ更新する。更新後は認証連携や長時間接続、FastProxy利用時の動作を回帰テストしたい。WAFや接続制限は環境によって負荷を抑える補助策になり得るが、公式修正の代わりになるとは断定できない。"
+      },
+      {
+        "title": "実悪用は未確認、CVEも未割当",
+        "body": "2026年11月2日の開発元GHSAには、実環境での悪用確認は記載されていない。CVE欄も「No known CVE」であり、識別子はGHSA-xv5x-242w-7hf7として扱う。新たな攻撃が観測されたと断定せず、公式に確認できる脆弱性の成立条件と更新手順を優先する。\n\n今回の情報公開日と修正版の提供日は異なる。10月30日の修正版リリースを「11月2日に緊急公開」と誤認させないこと、既報のTraefik ForwardAuth認証混同やFastProxyの別CVEと混同しないことも重要だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "Traefik v2 / v3、通常のバックエンド通信経路およびFastProxy",
+    "social_security_action": "Traefikのバージョンを確認し、該当するv2系列はv2.11.61以降、v3系列はv3.7.17以降へ更新。通常経路とFastProxyを含む実運用で更新後の接続・認証動作を検証。修正までのヘッダー遮断や接続制限は環境依存の補助策であり、開発元が保証する代替修正とは扱わない。",
+    "publication_key": "e3e17d76f8b1ea907293be0c843ddda1cead1c960e9906e33c93a76d75e21617",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261102-adnoc-openai-frontier-industrial-decision-ai",
     "title": "ADNOCとOpenAI、油田開発から販売までAIの判断を連携へ。部門別最適から全体最適へ",
     "summary": "アブダビ国営石油会社ADNOCは11月2日、OpenAIとG42との複数年提携を発表した。狙いは、油田開発、生産、精製、物流、販売で分断されがちな情報と判断をAIでつなぐこと。初期用途には油田全体の開発計画と、原油の供給・需要・採算を横断する意思決定支援を掲げる。ただし、短縮時間などは今後の目標であり、新システムの実績として確認された数字ではない。",

@@ -3,6 +3,7 @@ import argparse
 import html
 import json
 import re
+import unicodedata
 import shutil
 import math
 from datetime import date, datetime, timedelta, timezone
@@ -473,10 +474,55 @@ def story_link(article):
     )
 
 
+
+def _normalized_teaser(value):
+    """Normalize typography only; never rewrite approved editorial content."""
+    clean = unicodedata.normalize('NFKC', str(value or '')).casefold()
+    return re.sub(r'[\s、。.,!！?？:：;；「」『』（）()【】]', '', clean)
+
+
+def distinct_quick_take(article):
+    """Hide a repeated summary instead of showing the same copy twice."""
+    quick_take = article.get('quick_take')
+    if not isinstance(quick_take, str) or not quick_take.strip():
+        return None
+    summary = _normalized_teaser(article.get('summary'))
+    quick = _normalized_teaser(quick_take)
+    if not quick:
+        return None
+    if summary and (summary == quick or
+                    (min(len(summary), len(quick)) >= 24 and
+                     min(len(summary), len(quick)) / max(len(summary), len(quick)) >= .82 and
+                     (summary in quick or quick in summary))):
+        return None
+    return quick_take
+
+
+def reading_minutes(article):
+    """Estimate Japanese reading time from actual displayed prose, not format labels."""
+    prose = [article.get('summary', '')]
+    sections = article.get('sections')
+    if isinstance(sections, list) and sections:
+        for section in sections:
+            if not isinstance(section, dict) or not section.get('title') or not section.get('body'):
+                continue
+            prose.extend((section['title'], section['body']))
+            for stat in section.get('stats', []):
+                if isinstance(stat, dict) and stat.get('value'):
+                    prose.extend((stat.get('value', ''), stat.get('label', '')))
+        quick_take = distinct_quick_take(article)
+        if quick_take:
+            prose.append(quick_take)
+    else:
+        prose.extend(article.get(key, '') for _, key in SECTIONS)
+    length = sum(len(str(part)) for part in prose if part)
+    return max(1, math.ceil(length / 600))
+
+
 def article_card(article):
     deep = article.get("format") == "deep_dive"
     form = "MANAGEMENT GUIDE · 独自解説" if article.get("format") == "management_guide" else ("SPECIAL STORY · 自社製品紹介" if article.get("format") == "special_story" else ("SIGNAL DEEP DIVE" if deep else "SIGNAL BRIEF"))
-    minutes = "PRACTICAL GUIDE" if article.get("format") == "management_guide" else ("SPECIAL FEATURE" if article.get("format") == "special_story" else ("4–7 MIN" if deep else "1–2 MIN"))
+    minutes = "約" + str(reading_minutes(article)) + "分"
     return ('<article class="story"><div class="story-head"><div class="story-top">'
             '<span class="story-category">' + esc(article["category"]) + '</span>'
             '<span class="story-format">' + story_icon(deep)
@@ -497,14 +543,14 @@ def management_cta(article):
         note_label = "noteでさらに深く読む（有料記事）" if "management-stop-doing-work" in article.get("id", "") else "noteでさらに深く読む"
         return ('<section class="block" aria-label="記事の次の一歩"><h2>この記事を、次の一歩につなげる</h2>'
                 '<p>この解説をさらに深く学びたい方へ。現場経験や実践方法をnoteで紹介しています。</p>'
-                '<p><a href="' + esc(note) + '" target="_blank" rel="noopener noreferrer">' + note_label + ' ↗</a></p>'
-                '<p><a href="https://note.com/amber_light/m/m9104f843fd06" target="_blank" rel="noopener noreferrer">マガジン「リーダーの灯」でまとめて読む ↗</a></p>'
+                '<p><a href="' + esc(note) + '" target="_blank" rel="noopener noreferrer">' + note_label + '</a></p>'
+                '<p><a href="https://note.com/amber_light/m/m9104f843fd06" target="_blank" rel="noopener noreferrer">マガジン「リーダーの灯」でまとめて読む</a></p>'
                 '<p>自分の状況について相談したい方へ。MANAGER reLIGHTはWORK SIGNALと同一運営元のサービスです。</p>'
-                '<p><a href="' + esc(intro) + '">もっと相談したい｜MANAGER reLIGHTについて ↗</a></p></section>')
+                '<p><a href="' + esc(intro) + '">もっと相談したい｜MANAGER reLIGHTについて</a></p></section>')
     if article.get("id") == "20261021-manager-relight-introduction":
         return ('<section class="block" aria-label="MANAGER reLIGHT"><h2>MANAGER reLIGHTを知る</h2>'
                 '<p>無料のReflection、単発相談のSESSION、継続伴走のPARTNERをご案内しています。</p>'
-                '<p><a href="https://relight.amberlight.co.jp/" target="_blank" rel="noopener noreferrer">公式サイトでサービスを確認する ↗</a></p>'
+                '<p><a href="https://relight.amberlight.co.jp/" target="_blank" rel="noopener noreferrer">公式サイトでサービスを確認する</a></p>'
                 '<p>このサービスはWORK SIGNALと同一運営元による提供です。</p></section>')
     return ""
 
@@ -661,7 +707,7 @@ def security_watch_return(article, position):
 def article_body(article, modified_at=None, related=(), topics=()):
     deep = article.get('format') == 'deep_dive'
     has_sections = isinstance(article.get('sections'), list) and bool(article['sections'])
-    reading = max(1, math.ceil((len(article.get('summary', '')) + sum(len(str(part.get('body', ''))) for part in article.get('sections', []))) / 600))
+    reading = reading_minutes(article)
     if has_sections:
         blocks = ''
         for i, part in enumerate(article['sections'], 1):
@@ -675,8 +721,9 @@ def article_body(article, modified_at=None, related=(), topics=()):
                 paragraphs += dsx_pod_diagram(article)
             stats = ''.join('<div class="stat"><strong>' + esc(stat['value']) + '</strong><span>' + esc(stat.get('label', '')) + '</span></div>' for stat in part.get('stats', []) if isinstance(stat, dict) and stat.get('value'))
             blocks += '<section class="block" id="section-' + str(i) + '"><h2>' + esc(part['title']) + '</h2>' + paragraphs + stats + '</section>'
-        if article.get('quick_take'):
-            blocks = '<section class="takeaways"><h2>30秒でわかる / THE SIGNAL</h2><p>' + esc(article['quick_take']) + '</p></section>' + blocks
+        quick_take = distinct_quick_take(article)
+        if quick_take:
+            blocks = '<section class="takeaways"><h2>30秒でわかる / THE SIGNAL</h2><p>' + esc(quick_take) + '</p></section>' + blocks
         toc = '<nav class="toc" aria-label="記事の目次"><div class="side-title">IN THIS STORY</div>' + ''.join('<a href="#section-' + str(i) + '">' + esc(part['title']) + '</a>' for i, part in enumerate(article['sections'], 1) if isinstance(part, dict) and part.get('title') and part.get('body')) + '</nav>'
     else:
         blocks = ''.join('<section class="block"><h2>' + title + '</h2><p>' + linked_text(article[key]) + '</p></section>' for title, key in SECTIONS if article.get(key))
@@ -888,7 +935,7 @@ def archive_page(articles, page, home_html):
               '<meta name="theme-color" content="#f2efe7">'
               '<meta name="description" content="' + esc(description) + '">'
               '<title>' + esc(title) + '</title>' + canonical + favicon_links()
-              + fonts.group().removesuffix('<style>') + style.group() + archive_css + analytics + '</head>'
+              + fonts.group().removesuffix('<style>') + style.group() + archive_css + '<link rel="stylesheet" href="/assets/css/signal-interactions.css">' + analytics + '</head>'
               '<body><div class="topline"></div><div class="shell"><header class="masthead">'
               '<a class="brand" href="/" aria-label="WORK SIGNALホーム">WORK<span class="dot">.</span>SIGNAL<span class="sup">®</span></a>'
               '<a class="archive-return" href="/#latest">LATEST SIGNALS</a></header>'
@@ -907,6 +954,21 @@ def archive_page(articles, page, home_html):
 
 def topic_url(topic=None):
     return BASE + 'topics/' + (topic['id'] + '/' if topic else '')
+
+
+def topic_signal_link(topic):
+    """Reuse the same waveform affordance as an ordinary article link."""
+    line = "M0 16 H30 L42 16 L49 10 L57 23 L65 4 L73 29 L81 16 H120"
+    return (
+        '<a class="story-link" href="' + topic_url(topic) + '" aria-label="' +
+        esc(topic['name'] + 'の読み方と記事を見る') + '">'
+        '<span class="story-link-copy"><span class="story-link-title">読む順番と記事を見る</span></span>'
+        '<span class="story-link-mark"><svg class="story-link-wave" viewBox="0 0 120 32" '
+        'preserveAspectRatio="xMidYMid meet" aria-hidden="true">'
+        '<path class="link-wave-track" d="' + line + '"/>'
+        '<path class="link-wave-live" d="' + line + '"/>'
+        '</svg></span></a>'
+    )
 
 
 def topic_page(topic, articles, home_html):
@@ -956,8 +1018,8 @@ def topic_page(topic, articles, home_html):
             content += ('<article class="story"><div class="story-head"><div class="story-top">'
                         '<span class="story-category">READING GUIDE</span></div></div>'
                         '<div class="story-content"><h2 class="topic-card-title">' + esc(item['name'])
-                        + '</h2><p>' + esc(item['description']) + '</p><a class="story-link" href="'
-                        + topic_url(item) + '">読む順番と記事を見る ↗</a></div></article>')
+                        + '</h2><p>' + esc(item['description']) + '</p>' + topic_signal_link(item)
+                        + '</div></article>')
         content += '</div>'
     css = """<style>
 .topic-page h1{font-family:var(--jp)!important;font-size:clamp(28px,4.8vw,56px)!important;line-height:1.5!important;letter-spacing:-.04em!important;overflow-wrap:anywhere}
@@ -986,7 +1048,7 @@ def topic_page(topic, articles, home_html):
             + '"><meta name="twitter:description" content="' + esc(description) + '">'
             + image_metadata(BASE + 'assets/og/home.png', title) + json_ld(schema)
             + json_ld({'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': breadcrumbs})
-            + fonts + style + archive_styles() + css + listing_analytics(home_html)
+            + fonts + style + archive_styles() + css + '<link rel="stylesheet" href="/assets/css/signal-interactions.css">' + listing_analytics(home_html)
             + '</head><body class="topic-page"><div class="topline"></div><div class="shell">'
             '<header class="masthead"><a class="brand" href="/" aria-label="WORK SIGNALホーム">WORK<span class="dot">.</span>SIGNAL<span class="sup">®</span></a>'
             '<a class="archive-return" href="/archive/">THE ARCHIVE</a></header>'
@@ -1243,7 +1305,12 @@ def build(output, feed=None):
     security_dir = output / 'security'
     security_dir.mkdir(exist_ok=True)
     (security_dir / 'index.html').write_text(security_page)
-    cards = ''.join(article_card(article) for article in articles[:HOME_PAGE_SIZE])
+    # Keep the featured SECURITY WATCH dispatch visible there, but do not repeat
+    # its four current headlines in the default LATEST stream. The SECURITY
+    # category and crawlable archive continue to contain all approved articles.
+    featured_ids = {article['id'] for _, _, article in security_rows[:4] if article}
+    home_articles = [article for article in articles if article['id'] not in featured_ids]
+    cards = ''.join(article_card(article) for article in home_articles[:HOME_PAGE_SIZE])
     if not cards:
         cards = '<div class="empty"><div><strong>THE SIGNAL IS COMING.</strong><p>公開準備中です。</p></div></div>'
     marker = '<div class="grid" id="articles"></div>'
@@ -1253,7 +1320,7 @@ def build(output, feed=None):
     progress_marker = '0 / 0 SIGNALS'
     if progress_marker not in index:
         raise ValueError('Home pagination progress marker is missing')
-    index = index.replace(progress_marker, f'{min(len(articles), HOME_PAGE_SIZE)} / {len(articles)} SIGNALS', 1)
+    index = index.replace(progress_marker, f'{min(len(home_articles), HOME_PAGE_SIZE)} / {len(home_articles)} SIGNALS', 1)
     (output / 'index.html').write_text(index)
     archive_urls = []
     for page in range(1, max(1, math.ceil(len(articles) / ARCHIVE_PAGE_SIZE)) + 1):
@@ -1273,7 +1340,8 @@ def build(output, feed=None):
         shutil.copyfile(ROOT / page / 'index.html', destination / 'index.html')
     (output / 'data/articles.json').write_text(json.dumps(articles, ensure_ascii=False, indent=2) + '\n')
     listing_fields = ('id', 'title', 'summary', 'category', 'format', 'score', 'status', 'source_url', 'published_at', 'published_at_time', 'first_registered_at', 'updated_at', 'card_image', 'card_image_alt')
-    listing = [{key: article[key] for key in listing_fields if key in article} for article in articles]
+    listing = [{**{key: article[key] for key in listing_fields if key in article},
+                'reading_minutes': reading_minutes(article)} for article in articles]
     (output / 'data/index.json').write_text(json.dumps(listing, ensure_ascii=False, separators=(',', ':')) + '\n')
     infographic = ROOT / 'assets/infographics/php2shell-explainer.svg'
     if infographic.is_file():

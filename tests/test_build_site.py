@@ -104,6 +104,60 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertIn('Sitemap: ' + BASE + 'sitemap.xml', (output / 'robots.txt').read_text())
             self.assertNotIn("fetch('./data/articles.json'", page)
 
+    def test_repeated_quick_take_is_not_rendered_twice(self):
+        from scripts.build_site import article_body, distinct_quick_take
+
+        article = copy.deepcopy(self.article)
+        article['format'] = 'deep_dive'
+        article['sections'] = [{'title': '検証したこと', 'body': '一次情報に基づく説明です。'}]
+        article['summary'] = 'OpenAIが新しい技術を発表し、仕事の進め方に影響が出る可能性があります。'
+        article['quick_take'] = article['summary']
+        self.assertIsNone(distinct_quick_take(article))
+        rendered = article_body(article)
+        self.assertEqual(rendered.count(article['summary']), 1)
+        self.assertNotIn('class="takeaways"', rendered)
+
+        article['quick_take'] = 'OpenAIが新しい技術を発表し、仕事の進め方に影響が出る可能性があります。　'
+        self.assertIsNone(distinct_quick_take(article))
+        article['quick_take'] = '企業の担当者は導入前に権限管理と運用ルールを点検する必要があります。'
+        self.assertEqual(distinct_quick_take(article), article['quick_take'])
+        rendered = article_body(article)
+        self.assertIn('class="takeaways"', rendered)
+        self.assertEqual(rendered.count(article['quick_take']), 1)
+
+    def test_reading_time_is_consistent_across_card_article_and_listing(self):
+        from scripts.build_site import article_body, reading_minutes
+
+        brief = copy.deepcopy(self.article)
+        brief.pop('sections', None)
+        brief['format'] = 'brief'
+        brief['summary'] = 'ニュースの概要。'
+        brief['what_happened'] = '詳細' * 350
+        brief['why_it_matters'] = '重要性' * 120
+        brief['impact'] = '仕事' * 100
+        brief['caveats'] = '留保' * 100
+        minutes = reading_minutes(brief)
+        self.assertGreater(minutes, 1)
+        self.assertIn('約' + str(minutes) + '分', article_card(brief))
+        self.assertIn('約' + str(minutes) + '分で読める', article_body(brief))
+
+        deep = dict(brief, sections=[{'title': '背景', 'body': '背景の説明' * 180}], quick_take='概要の要点')
+        deep_minutes = reading_minutes(deep)
+        self.assertGreaterEqual(deep_minutes, 1)
+        self.assertIn('約' + str(deep_minutes) + '分', article_card(deep))
+        self.assertIn('約' + str(deep_minutes) + '分で読める', article_body(deep))
+
+    def test_home_search_and_security_deduplication_are_accessible(self):
+        source = (ROOT / 'index.html').read_text()
+        self.assertIn('role="search"', source)
+        self.assertIn('type="search"', source)
+        self.assertIn('id="signal-search-input"', source)
+        self.assertIn('aria-controls="articles"', source)
+        self.assertIn('featuredSecurityIds', source)
+        self.assertIn('function matchingArticles(category,format,query)', source)
+        self.assertIn('reading_minutes', source)
+        self.assertNotIn('class="courtside-arrow" aria-hidden="true">→', source)
+
     def test_security_watch_activity_order_mixes_new_and_updated_by_instant(self):
         """Four user scenarios alternate new stories and updated older stories."""
         from scripts.build_site import security_activity_sort_key

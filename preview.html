@@ -69,7 +69,35 @@ html{scroll-behavior:smooth}
 const root=document.querySelector('#article');const params=new URLSearchParams(location.search);const id=params.get('id');
 function el(tag,txt,cls){const n=document.createElement(tag);if(txt!==undefined)n.textContent=txt;if(cls)n.className=cls;return n}
 function section(title,body){if(!body)return null;const box=el('section',undefined,'block');box.append(el('h2',title),el('p',body));return box}
-function readingMinutes(a){const content=[a.summary,a.what_happened,a.why_it_matters,a.impact,a.caveats,...(Array.isArray(a.sections)?a.sections.map(x=>[x.title,x.body].join('')):[])].filter(Boolean).join('');return Math.max(1,Math.ceil(content.length/600))}
+function distinctQuickTake(a){
+ const raw=typeof a.quick_take==='string'?a.quick_take.trim():'';
+ if(!raw)return null;
+ const normalize=value=>String(value||'').normalize('NFKC').toLocaleLowerCase('ja')
+  .replace(/[\s、。.,!！?？:：;；「」『』（）()【】]/g,'');
+ const lead=normalize(a.summary),quick=normalize(raw);
+ if(!quick)return null;
+ if(lead&&(lead===quick||
+   (Math.min(lead.length,quick.length)>=24&&
+    Math.min(lead.length,quick.length)/Math.max(lead.length,quick.length)>=.82&&
+    (lead.includes(quick)||quick.includes(lead)))))return null;
+ return raw;
+}
+function readingMinutes(a){
+ const prose=[a.summary];const sections=Array.isArray(a.sections)?a.sections:[];
+ if(sections.length){
+  sections.forEach(part=>{
+   if(!part||!part.title||!part.body)return;
+   prose.push(part.title,part.body);
+   if(Array.isArray(part.stats))part.stats.forEach(stat=>{
+    if(stat&&stat.value)prose.push(stat.value,stat.label);
+   });
+  });
+  const quick=distinctQuickTake(a);if(quick)prose.push(quick);
+ }else{
+  prose.push(a.what_happened,a.why_it_matters,a.impact,a.caveats);
+ }
+ return Math.max(1,Math.ceil(prose.filter(Boolean).map(v=>String(v).length).reduce((a,b)=>a+b,0)/600));
+}
 function articleMetadata(a){
 const url='https://signal.amberlight.co.jp/preview.html?id='+encodeURIComponent(a.id);
 let canonical=document.querySelector('link[rel="canonical"]');if(!canonical){canonical=document.createElement('link');canonical.rel='canonical';document.head.append(canonical)}canonical.href=url;
@@ -148,7 +176,7 @@ const meta=el('div',undefined,'meta');meta.append(el('span',a.score+' / 100','sc
 const layout=el('div',undefined,'layout'),content=el('article',undefined,'content');content.append(el('p',a.summary,'lead'));
 const toc=[];
 if(deep){
-if(a.quick_take){const box=el('section',undefined,'takeaways');box.append(el('h2','30秒でわかる / THE SIGNAL'),el('p',a.quick_take));content.append(box)}
+const uniqueQuickTake=distinctQuickTake(a);if(uniqueQuickTake){const box=el('section',undefined,'takeaways');box.append(el('h2','30秒でわかる / THE SIGNAL'),el('p',uniqueQuickTake));content.append(box)}
 a.sections.forEach((part,i)=>{if(!part||!part.title||!part.body)return;const sec=el('section',undefined,'block');sec.id='section-'+(i+1);sec.append(el('h2',part.title));const paragraphs=String(part.body).split(/\n\s*\n/).filter(Boolean);paragraphs.forEach(p=>sec.append(el('p',p)));if(Array.isArray(part.stats))part.stats.forEach(stat=>{if(!stat||!stat.value)return;const box=el('div',undefined,'stat');box.append(el('strong',String(stat.value)),el('span',stat.label||''));sec.append(box)});content.append(sec);toc.push({id:sec.id,title:part.title})});
 }else{
 for(const [title,key] of [['何が起きた？','what_happened'],['なぜ重要？','why_it_matters'],['仕事や暮らしへの影響','impact'],['確認しておきたいこと','caveats']]){const sec=section(title,a[key]);if(sec)content.append(sec)}

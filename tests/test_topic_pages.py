@@ -60,6 +60,18 @@ class TopicPageTests(unittest.TestCase):
         for topic in active_topics(self.feed):
             self.assertIn('href="'+site.topic_url(topic)+'"',page)
 
+    def test_topic_cards_use_existing_wave_link_without_decorative_arrows(self):
+        page = site.topic_page(None, self.feed, self.template)
+        self.assertIn('class="story-link-wave"', page)
+        self.assertIn('class="link-wave-live"', page)
+        self.assertIn('href="/assets/css/signal-interactions.css"', page)
+        self.assertNotIn('読む順番と記事を見る ↗', page)
+        self.assertEqual(page.count('class="topic-card-title"'), len(active_topics(self.feed)))
+        article = site.article_card(self.feed[0])
+        self.assertIn('分</span>', article)
+        self.assertNotIn('4–7 MIN', article)
+        self.assertNotIn('1–2 MIN', article)
+
     def test_article_topic_navigation_uses_the_existing_sidebar(self):
         article=next(a for a in self.feed if a['id']=='20261021-jp-incident-monitor-cyber-risk-management')
         page=site.article_page(article,(site.ROOT/'article.html').read_text(),topics=article_topics(article))

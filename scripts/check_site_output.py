@@ -10,7 +10,7 @@ import re
 from html import escape
 from pathlib import Path
 
-from scripts.build_site import ROOT, published_articles, security_activity_sort_key
+from scripts.build_site import ROOT, published_articles, security_activity_sort_key, reading_minutes, distinct_quick_take
 from scripts.security_watch import security_feed
 
 OUT = ROOT / "_site"
@@ -80,7 +80,37 @@ def main():
         raise RuntimeError("SECURITY WATCH sorting explanation is stale")
     if 'data-category="SECURITY"' not in home_html and "const categories=['すべて','AI','SECURITY'" not in home_html:
         raise RuntimeError("SECURITY category filter not available on the homepage")
-    print(f"SITE_OUTPUT_OK articles={len(articles)} security_alerts={len(expected_security)}")
+    # The four highlighted SECURITY WATCH articles should not reappear in the
+    # default LATEST cards (without JavaScript). Category/search still exposes them.
+    featured_ids = set(home_ids)
+    default_card_ids = set(re.findall(
+        r'<a class="story-link" href="https://signal\.amberlight\.co\.jp/articles/([A-Za-z0-9_-]+)/"',
+        home_html,
+    ))
+    if featured_ids & default_card_ids:
+        raise RuntimeError("Featured SECURITY WATCH article repeated in LATEST: " +
+                           ", ".join(sorted(featured_ids & default_card_ids)))
+
+    listing = load(OUT / "data/index.json")
+    indexed_minutes = {article["id"]: article.get("reading_minutes") for article in listing}
+    if set(indexed_minutes) != article_ids:
+        raise RuntimeError("Search listing IDs differ from published articles")
+    duplicate_suppressed = 0
+    for article in articles:
+        minutes = reading_minutes(article)
+        if indexed_minutes[article["id"]] != minutes:
+            raise RuntimeError("Reading time mismatch in listing: " + article["id"])
+        generated = (OUT / "articles" / article["id"] / "index.html").read_text(encoding="utf-8")
+        if f"約{minutes}分で読める" not in generated:
+            raise RuntimeError("Article reading time differs from card data: " + article["id"])
+        if isinstance(article.get("sections"), list) and article["sections"] and article.get("quick_take"):
+            expected_takeaway = distinct_quick_take(article) is not None
+            has_takeaway = 'class="takeaways"' in generated
+            if expected_takeaway != has_takeaway:
+                raise RuntimeError("Repeated or distinct quick take rendered incorrectly: " + article["id"])
+            if not expected_takeaway:
+                duplicate_suppressed += 1
+    print(f"SITE_OUTPUT_OK articles={len(articles)} security_alerts={len(expected_security)} suppressed_quick_takes={duplicate_suppressed}")
     return 0
 
 

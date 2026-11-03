@@ -1,5 +1,46 @@
 [
   {
+    "id": "20261102-apache-wicket-component-id-xss-cve-2026-95863",
+    "title": "Apache WicketのコンポーネントID処理にXSS、既定CSPでも防げないHIGH 7.6（CVE-2026-95863）",
+    "summary": "Java向けWebフレームワークApache Wicketに、コンポーネントIDやHTML要素のIDを生成JavaScriptへ埋め込む際の処理に起因するXSS脆弱性が公表された。CVE-2026-95863は開発元CNA評価でCVSS v4.0 7.6（HIGH）。既定のCSPでは防げない経路があり、修正版への更新に加え、IDの文字種チェック強化によるアプリの互換性も確認する必要がある。",
+    "category": "SECURITY",
+    "score": 88,
+    "published_at": "2026-11-03",
+    "published_at_time": "2026-11-03T10:06:29.738Z",
+    "source_url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/95xxx/CVE-2026-95863.json",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Java向けWebフレームワークApache Wicketに、コンポーネントIDやHTML要素のIDを生成JavaScriptへ埋め込む際の処理に起因するXSS脆弱性が公表された。CVE-2026-95863は開発元CNA評価でCVSS v4.0 7.6（HIGH）。既定のCSPでは防げない経路があり、修正版への更新に加え、IDの文字種チェック強化によるアプリの互換性も確認する必要がある。",
+    "sections": [
+      {
+        "title": "画面部品のIDがJavaScriptに組み込まれる",
+        "body": "Apache Software Foundationが2026年11月1日（UTC）に公表したCVE-2026-95863は、Wicketが画面部品のマークアップIDやフォーム部品の入力名をJavaScript文字列に埋め込む際の処理に関する脆弱性だ。対象となるIDに特定の文字が含まれると、出力先のJavaScriptの文字列として適切に扱われず、アプリケーションと同じオリジンで意図しないスクリプトが実行される恐れがある。\n\nCNA原本は、wicket-coreのFormやFormComponentUpdatingBehavior、MultiFileUploadFieldのほか、wicket-extensionsの複数コンポーネントに関係する経路を列挙している。ただし、Wicket自身が危険なIDを自動生成するわけではない。アプリ側が設定したID、テンプレートのID、データから導出されたIDなどに問題となる文字が含まれることが成立条件であり、すべてのWicketアプリで直ちに悪用できると断定できない。"
+      },
+      {
+        "title": "既定のCSPだけでは防げない理由",
+        "body": "Wicket 9.x／10.xでは、生成するスクリプト要素にリクエストごとのnonceを付与するCSPが既定で利用される。しかし今回の問題は、許可済みのスクリプト要素の内部で発生する。開発元CNAは、この経路について既定のCSPでは防げないと明記している。\n\nこの点は、同日に別Issue #162で扱ったリソースバンドル文言のXSSと共通するが、今回の入力源は文言ではなくコンポーネントID／マークアップIDだ。開発者はCSPの設定確認だけでなく、IDを組み立てる実装とテンプレートの値を点検する必要がある。"
+      },
+      {
+        "title": "影響範囲と修正版、更新時の互換性",
+        "body": "影響するのはWicket 8.0.0～8.19.0、9.0.0～9.24.0、10.0.0～10.11.0。Apache CNAは修正版として8.20.0、9.25.0、10.12.0を示している。開発元によれば8.xと9.xは最終リリースに達し、今後のセキュリティ修正を提供しない。長期運用にはサポート中の10系LTSなどへの移行が必要だ。\n\n修正は各出力箇所でのエスケープ追加ではなく、IDを受け取る段階で一部の記号・制御文字を拒否する方式を採る。このため、旧版で使えていた独自IDが更新後に例外を引き起こす可能性がある。更新後はフォーム、Ajaxイベント、画面遷移などを含む回帰テストで動作を確かめたい。"
+      },
+      {
+        "title": "実悪用と影響の限界",
+        "body": "今回確認したApache CNA原本と公式リリースには、本CVEの実環境での悪用を確証する情報はない。GitHub Advisory DatabaseはHIGH 7.6と表示する一方、パッケージ別の影響・修正バージョン欄はUnknownであり、具体的な範囲はApache CNA原本を根拠とした。CISA KEVの2026年10月30日版はCVE公表前のため、同版に掲載がないことを悪用不存在の証拠とはしない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "Apache Wicket（org.apache.wicket:wicket-core。関連するwicket-extensionsのコンポーネントにも影響する経路あり）",
+    "social_security_action": "影響するWicketの依存関係を確認し、サポート中の10.12.0以降への更新を優先。アプリが独自設定するコンポーネントID／マークアップIDやテンプレート中のIDを棚卸しし、更新後にID検証による例外・画面動作の回帰テストを行う。CSPのみを緩和策としない。",
+    "publication_key": "798d6721ea732c25bcb1ca972e498437902c38ea764f7f85ec98d5526c3ff253",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261102-apache-wicket-resource-bundle-xss-cve-2026-111089",
     "title": "Apache Wicketの文言処理にXSS、既定CSPでも防げないHIGH 7.6（CVE-2026-111089）",
     "summary": "Java向けWebフレームワークApache Wicketに、アプリケーションの翻訳文言などがJavaScriptやHTML属性へ適切にエスケープされず、条件次第でクロスサイトスクリプティング（XSS）につながる脆弱性が公表された。CVE-2026-111089は開発元CNA評価でHIGH（CVSS v4.0 7.6）。既定のContent-Security-Policy（CSP）でも防げない経路があり、影響版の利用者は更新と文言管理の点検が必要だ。",

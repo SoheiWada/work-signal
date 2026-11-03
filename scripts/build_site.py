@@ -543,14 +543,14 @@ def management_cta(article):
         note_label = "noteでさらに深く読む（有料記事）" if "management-stop-doing-work" in article.get("id", "") else "noteでさらに深く読む"
         return ('<section class="block" aria-label="記事の次の一歩"><h2>この記事を、次の一歩につなげる</h2>'
                 '<p>この解説をさらに深く学びたい方へ。現場経験や実践方法をnoteで紹介しています。</p>'
-                '<p><a href="' + esc(note) + '" target="_blank" rel="noopener noreferrer">' + note_label + ' ↗</a></p>'
-                '<p><a href="https://note.com/amber_light/m/m9104f843fd06" target="_blank" rel="noopener noreferrer">マガジン「リーダーの灯」でまとめて読む ↗</a></p>'
+                '<p><a href="' + esc(note) + '" target="_blank" rel="noopener noreferrer">' + note_label + '</a></p>'
+                '<p><a href="https://note.com/amber_light/m/m9104f843fd06" target="_blank" rel="noopener noreferrer">マガジン「リーダーの灯」でまとめて読む</a></p>'
                 '<p>自分の状況について相談したい方へ。MANAGER reLIGHTはWORK SIGNALと同一運営元のサービスです。</p>'
-                '<p><a href="' + esc(intro) + '">もっと相談したい｜MANAGER reLIGHTについて ↗</a></p></section>')
+                '<p><a href="' + esc(intro) + '">もっと相談したい｜MANAGER reLIGHTについて</a></p></section>')
     if article.get("id") == "20261021-manager-relight-introduction":
         return ('<section class="block" aria-label="MANAGER reLIGHT"><h2>MANAGER reLIGHTを知る</h2>'
                 '<p>無料のReflection、単発相談のSESSION、継続伴走のPARTNERをご案内しています。</p>'
-                '<p><a href="https://relight.amberlight.co.jp/" target="_blank" rel="noopener noreferrer">公式サイトでサービスを確認する ↗</a></p>'
+                '<p><a href="https://relight.amberlight.co.jp/" target="_blank" rel="noopener noreferrer">公式サイトでサービスを確認する</a></p>'
                 '<p>このサービスはWORK SIGNALと同一運営元による提供です。</p></section>')
     return ""
 
@@ -935,7 +935,7 @@ def archive_page(articles, page, home_html):
               '<meta name="theme-color" content="#f2efe7">'
               '<meta name="description" content="' + esc(description) + '">'
               '<title>' + esc(title) + '</title>' + canonical + favicon_links()
-              + fonts.group().removesuffix('<style>') + style.group() + archive_css + analytics + '</head>'
+              + fonts.group().removesuffix('<style>') + style.group() + archive_css + '<link rel="stylesheet" href="/assets/css/signal-interactions.css">' + analytics + '</head>'
               '<body><div class="topline"></div><div class="shell"><header class="masthead">'
               '<a class="brand" href="/" aria-label="WORK SIGNALホーム">WORK<span class="dot">.</span>SIGNAL<span class="sup">®</span></a>'
               '<a class="archive-return" href="/#latest">LATEST SIGNALS</a></header>'
@@ -954,6 +954,21 @@ def archive_page(articles, page, home_html):
 
 def topic_url(topic=None):
     return BASE + 'topics/' + (topic['id'] + '/' if topic else '')
+
+
+def topic_signal_link(topic):
+    """Reuse the same waveform affordance as an ordinary article link."""
+    line = "M0 16 H30 L42 16 L49 10 L57 23 L65 4 L73 29 L81 16 H120"
+    return (
+        '<a class="story-link" href="' + topic_url(topic) + '" aria-label="' +
+        esc(topic['name'] + 'の読み方と記事を見る') + '">'
+        '<span class="story-link-copy"><span class="story-link-title">読む順番と記事を見る</span></span>'
+        '<span class="story-link-mark"><svg class="story-link-wave" viewBox="0 0 120 32" '
+        'preserveAspectRatio="xMidYMid meet" aria-hidden="true">'
+        '<path class="link-wave-track" d="' + line + '"/>'
+        '<path class="link-wave-live" d="' + line + '"/>'
+        '</svg></span></a>'
+    )
 
 
 def topic_page(topic, articles, home_html):
@@ -1003,8 +1018,8 @@ def topic_page(topic, articles, home_html):
             content += ('<article class="story"><div class="story-head"><div class="story-top">'
                         '<span class="story-category">READING GUIDE</span></div></div>'
                         '<div class="story-content"><h2 class="topic-card-title">' + esc(item['name'])
-                        + '</h2><p>' + esc(item['description']) + '</p><a class="story-link" href="'
-                        + topic_url(item) + '">読む順番と記事を見る ↗</a></div></article>')
+                        + '</h2><p>' + esc(item['description']) + '</p>' + topic_signal_link(item)
+                        + '</div></article>')
         content += '</div>'
     css = """<style>
 .topic-page h1{font-family:var(--jp)!important;font-size:clamp(28px,4.8vw,56px)!important;line-height:1.5!important;letter-spacing:-.04em!important;overflow-wrap:anywhere}
@@ -1033,7 +1048,7 @@ def topic_page(topic, articles, home_html):
             + '"><meta name="twitter:description" content="' + esc(description) + '">'
             + image_metadata(BASE + 'assets/og/home.png', title) + json_ld(schema)
             + json_ld({'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': breadcrumbs})
-            + fonts + style + archive_styles() + css + listing_analytics(home_html)
+            + fonts + style + archive_styles() + css + '<link rel="stylesheet" href="/assets/css/signal-interactions.css">' + listing_analytics(home_html)
             + '</head><body class="topic-page"><div class="topline"></div><div class="shell">'
             '<header class="masthead"><a class="brand" href="/" aria-label="WORK SIGNALホーム">WORK<span class="dot">.</span>SIGNAL<span class="sup">®</span></a>'
             '<a class="archive-return" href="/archive/">THE ARCHIVE</a></header>'

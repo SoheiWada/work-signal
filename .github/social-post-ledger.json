@@ -3067,10 +3067,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfRpBK_mxlt"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-03T10:13:48+00:00",
+      "status": "published",
+      "updated_at": "2026-11-03T10:13:51+00:00",
       "stage": "publish_requested",
-      "container_id": "18158436499488337"
+      "container_id": "18158436499488337",
+      "remote_id": "18186173668425035"
     }
   }
 }

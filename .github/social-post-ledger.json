@@ -3033,10 +3033,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfQmGZCo6V6"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-03T00:29:17+00:00",
+      "status": "published",
+      "updated_at": "2026-11-03T00:29:22+00:00",
       "stage": "publish_requested",
-      "container_id": "18158314831488337"
+      "container_id": "18158314831488337",
+      "remote_id": "18133044826691009"
     }
   }
 }

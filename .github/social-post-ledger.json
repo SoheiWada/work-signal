@@ -3073,5 +3073,11 @@
       "container_id": "18158436499488337",
       "remote_id": "18186173668425035"
     }
+  },
+  "20261102-apache-wicket-window-name-xss-cve-2026-82956": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-03T10:13:54+00:00"
+    }
   }
 }

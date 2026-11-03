@@ -3042,10 +3042,12 @@
   },
   "20261102-traefik-ntlm-negotiate-backend-transport-dos-ghsa-xv5x-242w-7hf7": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-03T10:12:57+00:00",
+      "status": "published",
+      "updated_at": "2026-11-03T10:12:59+00:00",
       "stage": "publish_requested",
-      "container_id": "18031292021859197"
+      "container_id": "18031292021859197",
+      "remote_id": "18031292021859197",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfRo8nrm4_i"
     }
   }
 }

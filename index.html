@@ -334,6 +334,24 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
 
 /* Preserve the NBA transmission scan but replace its arrow with a signal trace. */
 .courtside-link-wave{display:block;width:100%;height:20px;fill:none;stroke:var(--orange);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* Editorial reading index: typography instead of a capsule or pictogram. */
+.story .story-readtime{
+  display:inline-flex;align-items:baseline;flex:none;gap:4px;margin-left:auto;
+  border-left:1px solid var(--line);padding:1px 0 1px 12px;
+  color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums;
+}
+.story .story-readtime .readtime-number{
+  font:800 23px/1 var(--sans);letter-spacing:-.075em;
+}
+.story .story-readtime .readtime-unit{
+  font:750 10px/1 var(--sans);letter-spacing:.1em;color:var(--muted);
+}
+@media(max-width:700px){
+  .story .story-readtime{gap:3px;padding-left:9px}
+  .story .story-readtime .readtime-number{font-size:20px}
+  .story .story-readtime .readtime-unit{font-size:9px}
+}
 </style>
 <link rel="stylesheet" href="/assets/css/signal-interactions.css">
 <link rel="stylesheet" href="/assets/css/hero-market.css">
@@ -419,7 +437,7 @@ function matchingArticles(category,format,query){
  return items.filter(a=>{
   if(category!=='すべて'&&a.category!==category)return false;
   if(category==='すべて'&&!query&&featuredSecurityIds.has(a.id))return false;
-  if(format&&(a.format==='deep_dive'?'deep_dive':'brief')!==format)return false;
+  if(format&&(a.reading_format==='deep_dive'?'deep_dive':'brief')!==format)return false;
   if(!query)return true;
   const haystack=[a.title,a.summary,a.category].filter(Boolean).join(' ').normalize('NFKC').toLocaleLowerCase('ja');
   return haystack.includes(query);
@@ -434,6 +452,17 @@ searchClear.addEventListener('click',()=>{
 });
 moreButton.addEventListener('click',()=>{const previous=visibleCount;visibleCount+=HOME_PAGE_SIZE;render();const firstAdded=root.querySelectorAll('.story-link')[previous];if(firstAdded)firstAdded.focus()});
 function node(tag,content,className){const n=document.createElement(tag);if(content!==undefined)n.textContent=content;if(className)n.className=className;return n}
+function readingMark(a){
+ const time=document.createElement('time');time.className='story-readtime';
+ const minutes=a.reading_minutes;
+ if(!Number.isInteger(minutes)||minutes<=0){time.textContent='READ TIME';return time}
+ time.dateTime='PT'+minutes+'M';
+ time.setAttribute('aria-label','読了目安 '+minutes+'分');
+ time.append(node('span',String(minutes).padStart(2,'0'),'readtime-number'),
+             node('span','MIN','readtime-unit'));
+ return time;
+}
+
 /* Same waveform geometry as the reading guide, rendered at a native icon viewBox.
    The dim base path stays visible at every animation frame. */
 const miniPaths={
@@ -510,14 +539,15 @@ signalsProgress.textContent=Math.min(visibleCount,selected.length)+' / '+selecte
 moreButton.hidden=selected.length<=visibleCount;
 if(!selected.length){const box=node('div',undefined,'empty'),inner=node('div');inner.append(node('div','TRANSMISSION 001 / STANDBY','number'),node('strong',formatActive?'NO MATCHING SIGNALS.':'THE SIGNAL IS COMING.'));inner.append(node('p',searchTerm?'検索条件に合う記事がありません。キーワードを変えてください。':formatActive?'この条件に合う記事はありません。\n読み方の選択を解除するか、カテゴリーを変えてください。':'公開準備中です。\n一次情報を検証し、承認されたニュースから掲載します。'));box.append(inner);root.append(box);return}
 selected.slice(0,visibleCount).forEach(a=>{
- const deep=a.format==='deep_dive';
+ const effective=a.reading_format||a.format;
+ const deep=effective==='deep_dive';
  const card=node('article',undefined,'story');
  const head=node('div',undefined,'story-head'),top=node('div',undefined,'story-top');
  top.append(node('span',a.category,'story-category'));
  const badge=node('span',undefined,'story-format');
  badge.append(signalMark(deep),node('span',a.format==='management_guide'?'MANAGEMENT GUIDE · 独自解説':a.format==='special_story'?'SPECIAL STORY · 自社製品紹介':deep?'SIGNAL DEEP DIVE':'SIGNAL BRIEF','story-format-label'));
  top.append(badge);
- head.append(top,node('span',Number.isInteger(a.reading_minutes)&&a.reading_minutes>0?'約'+a.reading_minutes+'分':'読了時間未取得','story-readtime'));
+ head.append(top,readingMark(a));
  const body=node('div',undefined,'story-content');body.append(node('h3',a.title));
  const picture=typeof a.card_image==='string'?a.card_image:'';
  if(/^\/assets\/[A-Za-z0-9/_-]+\.(?:png|jpe?g|webp|avif)$/i.test(picture)){

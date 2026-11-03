@@ -3012,8 +3012,8 @@
   },
   "20261102-openai-grid-protectors-ai-datacenter-power-flexibility": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-03T10:33:03+00:00",
+      "status": "published",
+      "updated_at": "2026-11-03T10:33:06+00:00",
       "recovery_review_id": "freshness-reviewed-grid-protectors-threads-20261103",
       "reconciled_at": "2026-11-03T10:32:51+00:00",
       "previous_attempt": {
@@ -3021,7 +3021,9 @@
         "updated_at": "2026-11-02T23:44:34+00:00"
       },
       "stage": "publish_requested",
-      "container_id": "18109756214187916"
+      "container_id": "18109756214187916",
+      "remote_id": "18109756214187916",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfRrQOImxAw"
     },
     "instagram_story": {
       "status": "published",

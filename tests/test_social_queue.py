@@ -175,7 +175,7 @@ class SocialMonitorRecoveryTests(unittest.TestCase):
                  patch("sys.argv", ["social_queue.py", "monitor"]):
                 clock.now.return_value = NOW
                 ledger.return_value.read.return_value = ({}, "sha")
-                self.assertEqual(q.main(), 1)
+                self.assertEqual(q.main(), 0)  # Monitor warns; publisher failures remain separate.
                 self.assertEqual(report.call_args.args[0]["delivery_health"], "needs_attention")
                 dispatch.assert_called_once()
 

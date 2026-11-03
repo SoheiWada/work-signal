@@ -3124,5 +3124,11 @@
       "container_id": "18158436949488337",
       "remote_id": "18064792298531655"
     }
+  },
+  "20261102-adnoc-openai-frontier-industrial-decision-ai": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-03T10:16:00+00:00"
+    }
   }
 }

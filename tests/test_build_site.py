@@ -138,14 +138,62 @@ class StaticPublishingTests(unittest.TestCase):
         brief['caveats'] = '留保' * 100
         minutes = reading_minutes(brief)
         self.assertGreater(minutes, 1)
-        self.assertIn('約' + str(minutes) + '分', article_card(brief))
-        self.assertIn('約' + str(minutes) + '分で読める', article_body(brief))
+        for html in (article_card(brief), article_body(brief)):
+            self.assertIn('datetime="PT' + str(minutes) + 'M"', html)
+            self.assertIn('aria-label="読了目安 ' + str(minutes) + '分"', html)
+            self.assertIn('class="readtime-number" aria-hidden="true">' + f'{minutes:02d}' + '</span>', html)
+            self.assertIn('class="readtime-unit" aria-hidden="true">MIN</span>', html)
 
         deep = dict(brief, sections=[{'title': '背景', 'body': '背景の説明' * 180}], quick_take='概要の要点')
         deep_minutes = reading_minutes(deep)
         self.assertGreaterEqual(deep_minutes, 1)
-        self.assertIn('約' + str(deep_minutes) + '分', article_card(deep))
-        self.assertIn('約' + str(deep_minutes) + '分で読める', article_body(deep))
+        for html in (article_card(deep), article_body(deep)):
+            self.assertIn('datetime="PT' + str(deep_minutes) + 'M"', html)
+
+    def test_reading_format_uses_depth_not_legacy_deep_dive_badge(self):
+        from scripts.build_site import reading_format
+
+        story = copy.deepcopy(self.article)
+        story['format'] = 'deep_dive'
+        story['sections'] = [
+            {'title': '確認事実', 'body': '公式の発表。' * 35},
+            {'title': '修正方法', 'body': '更新を行う。' * 35},
+        ]
+        self.assertEqual(reading_format(story), 'brief')
+
+        story['format'] = 'brief'
+        story['sections'] = [
+            {'title': f'独自の検証 {number}', 'body': '事実と背景を分析し、条件を比較する。' * 20}
+            for number in range(4)
+        ]
+        self.assertEqual(reading_format(story), 'deep_dive')
+        self.assertIn('SIGNAL DEEP DIVE', article_card(story))
+
+        story['format'] = 'deep_dive'
+        story['reading_format_override'] = 'brief'
+        self.assertEqual(reading_format(story), 'brief')
+        story['format'] = 'management_guide'
+        self.assertEqual(reading_format(story), 'management_guide')
+
+    def test_reading_format_editorial_override_requires_reason(self):
+        from scripts.build_site import published_articles
+
+        story = copy.deepcopy(self.article)
+        story['reading_format_override'] = 'brief'
+        with self.assertRaisesRegex(ValueError, 'Reading format override'):
+            published_articles([story])
+        story['reading_format_reason'] = '公式情報の事実整理を中心とした速報で、比較分析や背景考察は意図的に扱っていない。'
+        self.assertEqual(len(published_articles([story])), 1)
+
+    def test_formatted_reading_time_is_accessible_not_a_badge(self):
+        from scripts.build_site import reading_time_markup
+
+        story = copy.deepcopy(self.article)
+        mark = reading_time_markup(story)
+        self.assertIn('<time class="story-readtime" datetime="PT', mark)
+        self.assertIn('readtime-number', mark)
+        self.assertNotIn('約', mark)
+        self.assertNotIn('rounded', mark)
 
     def test_home_search_and_security_deduplication_are_accessible(self):
         source = (ROOT / 'index.html').read_text()

@@ -1,20 +1,19 @@
 {
-  "review_id": "freshness-reviewed-threads-recovery-20261031",
-  "reviewed_at": "2026-10-31T18:20:12+09:00",
-  "valid_until": "2026-10-31T23:59:00+09:00",
-  "authorization": "Owner requested safe recovery and SNS stabilization after audit; only the previously approved missing Threads delivery is authorized.",
-  "read_only_audit_run": 41188015284,
-  "prior_review_archive": ".github/social-recovery-reviews/freshness-reviewed-recovery-20261028.json",
+  "review_id": "freshness-reviewed-grid-protectors-threads-20261103",
+  "reviewed_at": "2026-11-03T10:23:07.383Z",
+  "valid_until": "2026-11-03T14:23:07.383Z",
+  "authorization": "Owner explicitly requested permanent fixes and publication of the remaining Threads post in this chat on 2026-11-03. Scope is only this already-approved article's missing Threads delivery.",
+  "prior_review_archive": ".github/social-recovery-reviews/freshness-reviewed-threads-recovery-20261031.json",
   "items": [
     {
-      "article_id": "20261030-wordpress-ai-engine-mcp-oauth-cve-2026-110732",
-      "checked_on": "2026-10-31",
+      "article_id": "20261102-openai-grid-protectors-ai-datacenter-power-flexibility",
+      "checked_on": "2026-11-03",
       "decision": "deliver_missing_platforms_only",
       "platforms": [
         "threads"
       ],
-      "source_url": "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ai-engine/ai-engine-the-chatbot-ai-framework-mcp-for-wordpress-386-missing-authorization-to-administrator-account-takeover-via-unauthenticated-mcp-oauth-client-registration",
-      "rationale": "Wordfence primary record rechecked: published 2026-10-29, updated 2026-10-30, CVSS 7.5, affected <=3.8.6, patched 3.8.7, administrator consent required. Full authenticated Threads history (141 posts, complete) contained no matching canonical URL at 2026-10-31T09:16:31Z. Recovery rechecks complete live history before any state change. Story already published; IG feed protective hold unchanged."
+      "source_url": "https://openai.com/index/grid-protectors-program/",
+      "rationale": "Rechecked OpenAI's 2026-11-02 primary announcement: national program for future compute campuses, Georgia pilot with up to 1,000MW flexibility, about 700,000 households as a comparison, and customer savings described as projections across large-load agreements rather than a realized benefit of one site. The site article remains approved and relevant. The old run failed in source-link preflight with HTTPError, and its Threads ledger entry is needs_review. No absence is assumed: reconciliation must verify the work_signal_japan account and complete live Threads history immediately before any transition. A unique existing post is reconciled without writing to Meta; only verified absence may defer this one delivery back to the canonical queue. The publisher performs another full history check before sending. Existing Story publication and IG feed protective hold stay unchanged."
     }
   ]
 }

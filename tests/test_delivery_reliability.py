@@ -56,7 +56,7 @@ class DeliveryReliabilityTests(unittest.TestCase):
         self.assertEqual(ledger.rows[a["id"]]["threads"]["status"], "published")
         self.assertEqual(ledger.rows[a["id"]]["threads"]["remote_id"], "123")
 
-    def test_invalid_link_preview_falls_back_once_to_verified_primary_source(self):
+    def test_invalid_link_preview_falls_back_once_to_text_only(self):
         a = {**self.article, "social_platforms": ["threads"]}
         ledger = MemoryLedger()
         link_error = p.MetaAPIError(400, {"code": -1, "error_subcode": 4279047,
@@ -70,10 +70,10 @@ class DeliveryReliabilityTests(unittest.TestCase):
             self.assertEqual(p.run([a], ledger, self.credentials), 0)
         self.assertEqual(publish.call_count, 2)
         self.assertEqual(history.call_count, 2)
-        source.assert_called_once_with(a["source_url"])
+        source.assert_not_called()
         self.assertEqual(publish.call_args_list[0].kwargs["link_attachment"], p.article_url(a))
-        self.assertEqual(publish.call_args_list[1].kwargs["link_attachment"], a["source_url"])
-        self.assertEqual(publish.call_args_list[1].kwargs["approved_source_url"], a["source_url"])
+        self.assertNotIn("link_attachment", publish.call_args_list[1].kwargs)
+        self.assertNotIn("approved_source_url", publish.call_args_list[1].kwargs)
         self.assertEqual(ledger.rows[a["id"]]["threads"]["status"], "published")
 
     def test_unverified_history_prevents_link_fallback(self):

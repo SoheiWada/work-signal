@@ -3025,10 +3025,12 @@
   },
   "20261103-openai-lifeval-everyday-task-evaluation": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-03T00:28:51+00:00",
+      "status": "published",
+      "updated_at": "2026-11-03T00:28:54+00:00",
       "stage": "publish_requested",
-      "container_id": "18118941218471317"
+      "container_id": "18118941218471317",
+      "remote_id": "18118941218471317",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfQmGZCo6V6"
     }
   }
 }

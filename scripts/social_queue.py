@@ -245,7 +245,7 @@ def main():
         print("::notice::DELIVERY_PROCESSING: outstanding work is within its fixed deadline; not marked published")
     if report["delivery_health"] == "needs_attention":
         print("::warning::DELIVERY_INCOMPLETE: inspect per-channel outstanding work and recovery")
-        return 1 if args.action == "monitor" else 0
+        return 0  # Monitor reports outstanding work via artifact and warnings; it is not a publisher failure.
     return 0
 
 

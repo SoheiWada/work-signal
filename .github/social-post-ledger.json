@@ -3056,5 +3056,11 @@
       "container_id": "18158436166488337",
       "remote_id": "18119397050081433"
     }
+  },
+  "20261102-apache-wicket-external-link-xss-cve-2026-84231": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-03T10:13:24+00:00"
+    }
   }
 }

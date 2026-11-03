@@ -10,6 +10,7 @@ from unittest.mock import patch
 from xml.etree import ElementTree as ET
 from PIL import Image
 from scripts import build_site as site
+from scripts.site_identity import publisher_identity
 from scripts.seo_metadata import modifications_from_snapshots, publications_from_snapshots, modification_date, article_modifications, latest_date
 
 class SEOTests(unittest.TestCase):
@@ -72,7 +73,8 @@ class SEOTests(unittest.TestCase):
                             else article['published_at'])
                 self.assertEqual(schema['datePublished'], expected)
                 self.assertIn('property="article:published_time" content="' + expected + '"', page)
-                self.assertEqual(schema['publisher']['name'],'WORK SIGNAL')
+                self.assertEqual(schema['publisher'],publisher_identity())
+                self.assertIn('href="/about/"', page)
                 self.assertNotIn('dateModified',schema)
                 self.assertNotIn('author',schema)
                 related=site.related_articles(article,site.published_articles(self.feed))
@@ -112,3 +114,54 @@ class SEOTests(unittest.TestCase):
             git('init');feed=copy.deepcopy([item for item in self.feed if item['published_at'] <= '2026-10-22'][:2]);(root/'data/articles.json').write_text(json.dumps(feed));git('add','data/articles.json');git('commit','-m','publish')
             feed[1]['summary']+=' 更新';(root/'data/articles.json').write_text(json.dumps(feed));git('add','data/articles.json');git('commit','-m','update second',stamp='2026-10-22T02:00:00+00:00')
             self.assertEqual(article_modifications(root),{feed[1]['id']:'2026-10-22T11:00:00+09:00'})
+
+
+class BrandIdentityTests(unittest.TestCase):
+    def schemas(self, path):
+        text = (site.ROOT / path).read_text()
+        return text, [json.loads(value) for value in re.findall(
+            r'<script type="application/ld\+json">(.*?)</script>', text, re.S)]
+
+    def test_home_identifies_one_website_and_connects_its_real_publisher(self):
+        text, schemas = self.schemas('index.html')
+        websites = [item for item in schemas if item.get('@type') == 'WebSite']
+        self.assertEqual(len(websites), 1)
+        website = websites[0]
+        publisher = next(item for item in schemas if item.get('@type') == 'Organization')
+        self.assertEqual(website['@id'], site.BASE + '#website')
+        self.assertEqual(website['url'], site.BASE)
+        self.assertEqual(website['name'], 'WORK SIGNAL')
+        self.assertIn('ワークシグナル', website['alternateName'])
+        self.assertEqual(website['publisher'], {'@id': publisher['@id']})
+        self.assertEqual({key: value for key, value in publisher.items() if key != '@context'},
+                         publisher_identity())
+        self.assertIn('WORK SIGNAL（ワークシグナル）は、', text.split('<body', 1)[1])
+        self.assertIn('href="/about/">WORK SIGNALについて・編集方針</a>', text)
+        self.assertIn('<link rel="canonical" href="' + site.BASE + '">', text)
+
+    def test_about_connects_visible_operator_policy_and_official_profiles(self):
+        text, schemas = self.schemas('about/index.html')
+        self.assertEqual(len(schemas), 1)
+        page = schemas[0]
+        self.assertEqual(page['@type'], 'AboutPage')
+        self.assertEqual(page['url'], site.BASE + 'about/')
+        self.assertEqual(page['isPartOf'], {'@id': site.BASE + '#website'})
+        self.assertEqual(page['mainEntity'], publisher_identity())
+        body = text.split('<body', 1)[1]
+        self.assertIn('運営法人：アンバーライト合同会社', body)
+        self.assertIn('id="editorial-policy"', body)
+        self.assertIn('id="corrections"', body)
+        self.assertIn('href="/contact/"', body)
+        self.assertIn('href="' + site.BASE + '"', body)
+        for url in publisher_identity()['sameAs']:
+            self.assertIn('href="' + url + '"', body)
+        self.assertEqual(publisher_identity()['parentOrganization']['@id'], site.BASE + 'about/#operator')
+        self.assertIn('id="operator"', body)
+
+    def test_publisher_calls_cannot_mutate_other_page_identity(self):
+        publisher = publisher_identity()
+        publisher['sameAs'].clear()
+        publisher['parentOrganization']['name'] = 'changed'
+        fresh = publisher_identity()
+        self.assertEqual(len(fresh['sameAs']), 2)
+        self.assertEqual(fresh['parentOrganization']['name'], 'アンバーライト合同会社')

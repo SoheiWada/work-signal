@@ -10,7 +10,7 @@ import re
 from html import escape
 from pathlib import Path
 
-from scripts.build_site import ROOT, published_articles, security_activity_sort_key, reading_minutes, distinct_quick_take
+from scripts.build_site import ROOT, published_articles, security_activity_sort_key, reading_minutes, reading_format, distinct_quick_take
 from scripts.security_watch import security_feed
 
 OUT = ROOT / "_site"
@@ -93,16 +93,27 @@ def main():
 
     listing = load(OUT / "data/index.json")
     indexed_minutes = {article["id"]: article.get("reading_minutes") for article in listing}
+    indexed_formats = {article["id"]: article.get("reading_format") for article in listing}
     if set(indexed_minutes) != article_ids:
         raise RuntimeError("Search listing IDs differ from published articles")
     duplicate_suppressed = 0
+    reading_counts = {'brief': 0, 'deep_dive': 0, 'management_guide': 0, 'special_story': 0}
     for article in articles:
         minutes = reading_minutes(article)
+        mode = reading_format(article)
+        reading_counts[mode] += 1
+        if indexed_formats[article["id"]] != mode or effective[article["id"]].get('reading_format') != mode:
+            raise RuntimeError("Reading format disagrees between static and index data: " + article["id"])
         if indexed_minutes[article["id"]] != minutes:
             raise RuntimeError("Reading time mismatch in listing: " + article["id"])
         generated = (OUT / "articles" / article["id"] / "index.html").read_text(encoding="utf-8")
-        if f"約{minutes}分で読める" not in generated:
+        if (f'datetime="PT{minutes}M"' not in generated
+                or f'aria-label="読了目安 {minutes}分"' not in generated):
             raise RuntimeError("Article reading time differs from card data: " + article["id"])
+        if mode in ('brief', 'deep_dive'):
+            label = "SIGNAL DEEP DIVE" if mode == 'deep_dive' else "SIGNAL BRIEF"
+            if f'class="article-type">{label}</span>' not in generated:
+                raise RuntimeError("Article reading format is mismatched: " + article["id"])
         if isinstance(article.get("sections"), list) and article["sections"] and article.get("quick_take"):
             expected_takeaway = distinct_quick_take(article) is not None
             has_takeaway = 'class="takeaways"' in generated
@@ -110,7 +121,7 @@ def main():
                 raise RuntimeError("Repeated or distinct quick take rendered incorrectly: " + article["id"])
             if not expected_takeaway:
                 duplicate_suppressed += 1
-    print(f"SITE_OUTPUT_OK articles={len(articles)} security_alerts={len(expected_security)} suppressed_quick_takes={duplicate_suppressed}")
+    print(f"SITE_OUTPUT_OK articles={len(articles)} security_alerts={len(expected_security)} suppressed_quick_takes={duplicate_suppressed} reading_formats={reading_counts}")
     return 0
 
 

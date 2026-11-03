@@ -361,6 +361,11 @@ def published_articles(data):
         score = article.get("score")
         if not (article.get("format") in ("special_story", "management_guide") or (isinstance(score, (int, float)) and not isinstance(score, bool) and score >= 80)):
             continue
+        override = article.get('reading_format_override')
+        if override is not None:
+            reason = article.get('reading_format_reason')
+            if override not in ('brief', 'deep_dive') or not isinstance(reason, str) or len(reason.strip()) < 20:
+                raise ValueError('Reading format override needs a valid format and editorial rationale')
         if article.get("category") not in CATEGORIES:
             raise ValueError("Unknown category in published article")
         identifier = article.get("id", "")
@@ -519,15 +524,65 @@ def reading_minutes(article):
     return max(1, math.ceil(length / 600))
 
 
+
+# The written format remains unchanged in the approved article source; this
+# reading classification controls editorial labels and filters only.
+DEEP_DIVE_MIN_BODY_CHARS = 1000
+DEEP_DIVE_MIN_SECTIONS = 4
+DEEP_DIVE_MIN_SUBSTANTIVE_SECTIONS = 3
+DEEP_DIVE_SUBSTANTIVE_SECTION_CHARS = 160
+
+
+def reading_format(article):
+    """Consistent reading format, independent of legacy ad hoc format values.
+
+    A deep dive needs several developed sections AND sufficient explanatory
+    content, not just a high score, a security severity or many short headings.
+    Editors may override only with an explicit documented rationale.
+    """
+    authored = article.get('format')
+    if authored in ('management_guide', 'special_story'):
+        return authored
+    override = article.get('reading_format_override')
+    if override in ('brief', 'deep_dive'):
+        return override
+    sections = article.get('sections')
+    if not isinstance(sections, list):
+        return 'brief'
+    lengths = [
+        len(re.sub(r'\s+', '', str(part.get('body', ''))))
+        for part in sections
+        if isinstance(part, dict) and part.get('title') and part.get('body')
+    ]
+    if (len(lengths) >= DEEP_DIVE_MIN_SECTIONS
+            and sum(lengths) >= DEEP_DIVE_MIN_BODY_CHARS
+            and sum(length >= DEEP_DIVE_SUBSTANTIVE_SECTION_CHARS for length in lengths)
+            >= DEEP_DIVE_MIN_SUBSTANTIVE_SECTIONS):
+        return 'deep_dive'
+    return 'brief'
+
+
+def reading_time_markup(article, *, cls='story-readtime'):
+    """Publication-like numeral; accessible duration, never a decorative badge."""
+    minutes = reading_minutes(article)
+    return (
+        '<time class="' + cls + '" datetime="PT' + str(minutes) + 'M" '
+        'aria-label="読了目安 ' + str(minutes) + '分">'
+        '<span class="readtime-number" aria-hidden="true">' + f'{minutes:02d}' + '</span>'
+        '<span class="readtime-unit" aria-hidden="true">MIN</span></time>'
+    )
+
+
+
 def article_card(article):
-    deep = article.get("format") == "deep_dive"
-    form = "MANAGEMENT GUIDE · 独自解説" if article.get("format") == "management_guide" else ("SPECIAL STORY · 自社製品紹介" if article.get("format") == "special_story" else ("SIGNAL DEEP DIVE" if deep else "SIGNAL BRIEF"))
-    minutes = "約" + str(reading_minutes(article)) + "分"
+    effective = reading_format(article)
+    deep = effective == "deep_dive"
+    form = "MANAGEMENT GUIDE · 独自解説" if effective == "management_guide" else ("SPECIAL STORY · 自社製品紹介" if effective == "special_story" else ("SIGNAL DEEP DIVE" if deep else "SIGNAL BRIEF"))
     return ('<article class="story"><div class="story-head"><div class="story-top">'
             '<span class="story-category">' + esc(article["category"]) + '</span>'
             '<span class="story-format">' + story_icon(deep)
             + '<span class="story-format-label">' + form + '</span></span>'
-            '</div><span class="story-readtime">' + minutes + '</span></div>'
+            '</div>' + reading_time_markup(article) + '</div>'
             + article_timeline(article, compact=True)
             + '<div class="story-content"><h3>' + esc(article["title"]) + '</h3>'
             + article_card_image(article) + '<p>' + esc(article["summary"])
@@ -705,7 +760,8 @@ def security_watch_return(article, position):
 
 
 def article_body(article, modified_at=None, related=(), topics=()):
-    deep = article.get('format') == 'deep_dive'
+    effective = reading_format(article)
+    deep = effective == 'deep_dive'
     has_sections = isinstance(article.get('sections'), list) and bool(article['sections'])
     reading = reading_minutes(article)
     if has_sections:
@@ -728,19 +784,19 @@ def article_body(article, modified_at=None, related=(), topics=()):
     else:
         blocks = ''.join('<section class="block"><h2>' + title + '</h2><p>' + linked_text(article[key]) + '</p></section>' for title, key in SECTIONS if article.get(key))
         toc = ''
-    format_label = 'MANAGEMENT GUIDE · 独自解説' if article.get('format') == 'management_guide' else ('SPECIAL STORY · 自社製品紹介' if article.get('format') == 'special_story' else ('SIGNAL DEEP DIVE' if deep else 'SIGNAL BRIEF'))
+    format_label = 'MANAGEMENT GUIDE · 独自解説' if effective == 'management_guide' else ('SPECIAL STORY · 自社製品紹介' if effective == 'special_story' else ('SIGNAL DEEP DIVE' if deep else 'SIGNAL BRIEF'))
     return ('<section class="hero">' + security_watch_return(article, 'top') + '<div class="eyebrow">/ ' + esc(article["category"])
              + (' / MANAGEMENT GUIDE' if article.get('format') == 'management_guide' else (' / SPECIAL STORY · 自社製品紹介' if article.get('format') == 'special_story' else (' / DEEP DIVE' if deep else ' / EDITORIAL BRIEFING'))) + '</div><h1>' + esc(article['title'])
             + '</h1><div class="meta">' + ('' if article.get('format') in ('special_story', 'management_guide') else '<span class="score">' + esc(article['score']) + ' / 100</span>') + '<span class="article-type">' + format_label + '</span><span>'
             + esc(article['category']) + '</span><time datetime="' + esc(article['published_at'])
             + '">' + esc(article['published_at']) + '</time>'
             + ('<span>更新：<time datetime="' + esc(modified_at) + '">' + esc(modified_at[:10]) + '</time></span>' if modified_at else '')
-            + '<span class="readtime">約'
-            + str(reading) + '分で読める</span></div></section><div class="layout"><article class="content">'
+            + reading_time_markup(article, cls='readtime')
+            + '</div></section><div class="layout"><article class="content">'
             + '<p class="lead">' + esc(article['summary']) + '</p>' + blocks
             + management_cta(article) + '</article><aside class="side"><div class="side-title">ARTICLE INTELLIGENCE</div>'
             + '<dl><dt>FORMAT</dt><dd>' + format_label + '</dd><dt>READ TIME</dt><dd>'
-            + str(reading) + ' MIN</dd><dt>CATEGORY</dt><dd>' + esc(article['category'])
+            + f'{reading:02d}' + ' MIN</dd><dt>CATEGORY</dt><dd>' + esc(article['category'])
             + '</dd>' + ('' if article.get('format') in ('special_story', 'management_guide') else '<dt>SIGNAL SCORE</dt><dd>' + esc(article['score']) + ' / 100</dd>') + '<dt>PUBLISHED</dt><dd>' + esc(article['published_at'])
             + '</dd></dl>' + toc
             + ('<nav class="toc" aria-label="関連記事"><div class="side-title">RELATED SIGNALS</div>' + ''.join('<a href="' + article_url(item) + '">' + esc(item['title']) + '</a>' for item in related) + '</nav>' if related else '')
@@ -1100,6 +1156,9 @@ def build(output, feed=None):
     history = article_modifications(ROOT)
     registered = article_publication_times(ROOT)
     modified = {item['id']: modification_date(item, history) for item in articles}
+    # Editorial labels are derived from approved content without rewriting source.
+    for item in articles:
+        item['reading_format'] = reading_format(item)
     # Derive update times from substantive Git history without mutating approved source.
     for item in articles:
         if modified[item['id']]:
@@ -1339,7 +1398,7 @@ def build(output, feed=None):
         destination.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / page / 'index.html', destination / 'index.html')
     (output / 'data/articles.json').write_text(json.dumps(articles, ensure_ascii=False, indent=2) + '\n')
-    listing_fields = ('id', 'title', 'summary', 'category', 'format', 'score', 'status', 'source_url', 'published_at', 'published_at_time', 'first_registered_at', 'updated_at', 'card_image', 'card_image_alt')
+    listing_fields = ('id', 'title', 'summary', 'category', 'format', 'reading_format', 'score', 'status', 'source_url', 'published_at', 'published_at_time', 'first_registered_at', 'updated_at', 'card_image', 'card_image_alt')
     listing = [{**{key: article[key] for key in listing_fields if key in article},
                 'reading_minutes': reading_minutes(article)} for article in articles]
     (output / 'data/index.json').write_text(json.dumps(listing, ensure_ascii=False, separators=(',', ':')) + '\n')

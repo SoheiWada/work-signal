@@ -68,7 +68,8 @@ class TopicPageTests(unittest.TestCase):
         self.assertNotIn('読む順番と記事を見る ↗', page)
         self.assertEqual(page.count('class="topic-card-title"'), len(active_topics(self.feed)))
         article = site.article_card(self.feed[0])
-        self.assertIn('分</span>', article)
+        self.assertIn('class="story-readtime" datetime="PT', article)
+        self.assertIn('class="readtime-unit" aria-hidden="true">MIN</span>', article)
         self.assertNotIn('4–7 MIN', article)
         self.assertNotIn('1–2 MIN', article)
 

@@ -1,5 +1,46 @@
 [
   {
+    "id": "20261102-apache-wicket-external-link-xss-cve-2026-84231",
+    "title": "Apache Wicket 8のExternalLinkにXSS、HIGH 7.4。8.20.0で修正、8系はサポート終了",
+    "summary": "Apache Wicket 8のリンクコンポーネント`ExternalLink`に、特定のタグとURL入力条件が重なるとクロスサイトスクリプティング（XSS）が起きる脆弱性CVE-2026-84231が公表された。Apacheの公式評価はCVSS v4.0 7.4（HIGH）。8.20.0で修正された一方、8系はサポートを終了しており、更新と移行の両方を検討する必要がある。",
+    "category": "SECURITY",
+    "score": 83,
+    "published_at": "2026-11-03",
+    "published_at_time": "2026-11-03T10:07:10.664Z",
+    "source_url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/84xxx/CVE-2026-84231.json",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Apache Wicket 8のリンクコンポーネント`ExternalLink`に、特定のタグとURL入力条件が重なるとクロスサイトスクリプティング（XSS）が起きる脆弱性CVE-2026-84231が公表された。Apacheの公式評価はCVSS v4.0 7.4（HIGH）。8.20.0で修正された一方、8系はサポートを終了しており、更新と移行の両方を検討する必要がある。",
+    "sections": [
+      {
+        "title": "非アンカー要素のクリック処理にあるエスケープ不備",
+        "body": "Apache Software Foundationが公開したCVE-2026-84231は、Wicketの`ExternalLink`を`a`、`link`、`area`以外のHTMLタグに結び付けた場合に関わる。Wicketはクリック時の動作を`onclick`属性内のJavaScriptとして生成するが、モデルが保持するURLをJavaScript文字列の文脈に合わせてエスケープしていなかった。ポップアップ設定を使う経路の`PopupSettings#getPopupJavaScript()`にも同様の問題がある。\n\nHTML属性のエスケープでアポストロフィーが文字参照に変換されても、ブラウザーが属性値を解釈する際に復元するため、JavaScript文字列を閉じてスクリプトとして実行され得る。攻撃にはURLモデル値への攻撃者の影響と、利用者による対象要素のクリックが必要であり、Wicketを使う全ページが無条件に攻撃可能という意味ではない。"
+      },
+      {
+        "title": "影響はWicket 8.0.0〜8.19.0、公式修正版は8.20.0",
+        "body": "Apache CNA原本が示す影響範囲はWicket 8.0.0から8.19.0までで、修正版は8.20.0。CVEのCVSS v4.0評価は7.4、深刻度はHIGHだ。Wicket 9系や10系まで影響すると拡大解釈してはならない。\n\nApache Wicketは2026年10月29日に8.20.0を公開し、同時に8系のサポート終了を発表した。したがって8.20.0への更新は当該CVEへの直接対処だが、将来のセキュリティ修正を受け取るための長期対策ではない。Apacheはサポート中の10系LTSへの移行を案内している。8系からは9系を経由する移行手順やJava／Servlet APIの変更も確認したい。"
+      },
+      {
+        "title": "運用担当者が点検すべき実装と更新計画",
+        "body": "まずMavenなどの依存関係で`org.apache.wicket:wicket-core`のバージョンを調べ、Wicket 8を利用しているか確認する。次に`ExternalLink`を`button`や`span`などの非アンカータグに割り当てていないか、リンク先URLのモデル値がユーザー入力や外部データから組み立てられていないかを点検する。\n\n該当する場合は8.20.0への更新を優先し、回帰テストでリンク・ポップアップの挙動を確認する。同時に、サポート中のWicket 10 LTS（10.12.0など）への移行計画を立てる。実装変更で危険な入力経路をなくすことは防御上有用だが、公式修正版の適用に代わる確実な修正とは扱わない。"
+      },
+      {
+        "title": "実悪用の有無と情報の限界",
+        "body": "今回照合したApache CNA原本と公式リリースからは、実環境での悪用が確認されたとは判断できない。GitHub Advisory Databaseの当該レコードはUnreviewedで、影響バージョン欄が未整備でも、Apache CNA原本には影響範囲と修正版が明記されている。公開済みの一括勧告19件のうちの1件であり、11月2日に新たな19件が追加されたという意味ではない。利用環境の構成を確認したうえで、適用範囲を判断する必要がある。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "Apache Wicket（Maven `org.apache.wicket:wicket-core`）",
+    "social_security_action": "Wicket 8の利用状況と非アンカー要素へのExternalLink割り当て、URLモデルの外部入力を確認。該当時は8.20.0への更新を急ぎ、EOLのため10系LTSへの移行計画を立てる。非アンカータグへのバインドや信頼できないURL入力の見直しは更新までの補助的防御策であり、修正の代替保証ではない。",
+    "publication_key": "657afe927020c4684665eb2cea02151a9f8398fb9dd0adfd860502525fbb94cf",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261102-apache-wicket-window-name-xss-cve-2026-82956",
     "title": "Apache Wicketのウィンドウ名処理にXSS、HIGH 7.6（CVE-2026-82956）",
     "summary": "Java向けWebフレームワークApache Wicketで、ブラウザーのウィンドウ名を扱う機能にXSS脆弱性が見つかった。CVE-2026-82956はApache Software Foundationの公式評価でCVSS v4.0 7.6（HIGH）。すべてのWicketアプリが対象ではなく、特定のBehaviorを明示的に使う場合に成立する。利用有無を調べ、影響版なら修正版へ更新する必要がある。",

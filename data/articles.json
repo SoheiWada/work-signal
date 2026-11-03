@@ -1,5 +1,46 @@
 [
   {
+    "id": "20261102-apache-wicket-resource-bundle-xss-cve-2026-111089",
+    "title": "Apache Wicketの文言処理にXSS、既定CSPでも防げないHIGH 7.6（CVE-2026-111089）",
+    "summary": "Java向けWebフレームワークApache Wicketに、アプリケーションの翻訳文言などがJavaScriptやHTML属性へ適切にエスケープされず、条件次第でクロスサイトスクリプティング（XSS）につながる脆弱性が公表された。CVE-2026-111089は開発元CNA評価でHIGH（CVSS v4.0 7.6）。既定のContent-Security-Policy（CSP）でも防げない経路があり、影響版の利用者は更新と文言管理の点検が必要だ。",
+    "category": "SECURITY",
+    "score": 88,
+    "published_at": "2026-11-03",
+    "published_at_time": "2026-11-03T10:06:18.569Z",
+    "source_url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/111xxx/CVE-2026-111089.json",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Java向けWebフレームワークApache Wicketに、アプリケーションの翻訳文言などがJavaScriptやHTML属性へ適切にエスケープされず、条件次第でクロスサイトスクリプティング（XSS）につながる脆弱性が公表された。CVE-2026-111089は開発元CNA評価でHIGH（CVSS v4.0 7.6）。既定のContent-Security-Policy（CSP）でも防げない経路があり、影響版の利用者は更新と文言管理の点検が必要だ。",
+    "sections": [
+      {
+        "title": "翻訳文言がスクリプトになる仕組み",
+        "body": "Apache Software Foundationが2026年11月1日に公開したCVE-2026-111089は、Wicketがアプリケーションのリソースバンドルから読み込む文言を、JavaScriptの単一引用符付き文字列やHTMLの属性値に埋め込む際のエスケープ不足を指摘する。引用符を含む文言で画面の構造が崩れ、攻撃者が影響できる文言が挿入された場合には、利用者のブラウザーでアプリケーションと同じオリジンのスクリプトが実行される恐れがある。\n\n影響箇所として、wicket-coreのMultiFileUploadFieldやForm、wicket-extensionsのUploadProgressBar、FilterForm、TrapFocusBehaviorなどが挙げられている。ただし、一般利用者が入力した任意の文字列がそのままリソースバンドルへ入るとは限らない。文言は通常、アプリケーションの開発・運用側が管理するため、第三者による改変可能性や翻訳管理の仕組みが攻撃成立を左右する。"
+      },
+      {
+        "title": "既定CSPでも防げない経路と、防げる経路",
+        "body": "Wicket 9.xと10.xが既定で送信するCSPは、生成したスクリプト要素にリクエストごとのnonceを付与する。今回のJavaScript文字列への混入は、そのnonce付きスクリプト自体の内部で起きるため、CSPがスクリプト全体を許可してしまう。一方、HTML属性へ注入されるインラインイベントハンドラーについては、既定CSPが実行を抑止すると開発元は説明している。\n\nしたがって「CSPが全面的に無効」という意味ではない。実装箇所と出力文脈によって防御効果が異なる。開発者はCSPの存在だけで安全と判断せず、影響コンポーネントとリソース文言の編集権限を確認する必要がある。"
+      },
+      {
+        "title": "影響するバージョンと修正先",
+        "body": "公式CVE原本の対象範囲はWicket 8.0.0～8.19.0、9.0.0～9.24.0、10.0.0～10.11.0。修正版は8.20.0、9.25.0、10.12.0と明記されている。Wicket 8.xと9.xは2026年10月29日の最終リリース後にサポート終了となっており、継続利用する場合はサポート中の10系LTSまたは11系への移行も検討対象となる。\n\nまず依存関係のバージョンを把握し、該当するコンポーネントの利用状況を確認する。そのうえで修正版へ更新し、外部の翻訳サービス、CMS、運用管理画面などからリソース文言を変更できる場合は、その承認・公開フローも点検したい。これは更新に加えて行う防御上の提案であり、更新の代替ではない。"
+      },
+      {
+        "title": "既報のWicket脆弱性との違いと未確認事項",
+        "body": "WORK SIGNALで先に扱ったCVE-2026-83594／CVE-2026-84170は、専用ファイルアップロード機能の容量制限やメモリ確保に関するサービス停止リスクだった。今回のCVE-2026-111089は、画面生成時の文言処理に関するXSSであり、CVEも攻撃経路も異なる。同じWicketの一括公表に含まれるため、修正先が重なる点には注意が必要だ。\n\n今回確認した公式資料には、CVE-2026-111089の実環境での悪用確認や被害規模の確証はない。深刻度HIGHは成立条件を満たす場合の影響評価であり、すべてのWicketアプリケーションが直ちに攻撃可能という意味ではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "Apache Wicket（wicket-core、関連するwicket-extensionsのコンポーネント）",
+    "social_security_action": "Wicketの依存バージョンと影響コンポーネントを点検し、サポート中の10.12.0以降への更新を優先。翻訳・文言リソースを外部主体が編集できる運用では、承認経路・信頼境界も確認する。CSPだけに依存しない。",
+    "publication_key": "b5cdf22edc59fef7cc7c00f66fed292fa6ff3ff9848c22c45c663e36be974f14",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261103-openai-lifeval-everyday-task-evaluation",
     "title": "OpenAI「LifeVal」公開。AIの評価軸を「答えの正しさ」から「生活の用事を完了できるか」へ",
     "summary": "OpenAIは11月2日、日常生活の具体的な用事をAIがどこまで支援できるかを測る評価体系「LifeVal」を公開した。約4,000人への調査と時間利用統計をもとに、育児、家計、行政手続きなどを対象とする。企業のAI導入にも、回答品質だけでなく「必要な手続きが進んだか」「人の確認をどこに残すか」で成果を測る視点を提示する。",

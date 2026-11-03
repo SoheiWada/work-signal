@@ -10,7 +10,7 @@ import re
 from html import escape
 from pathlib import Path
 
-from scripts.build_site import ROOT, published_articles, security_activity_sort_key, reading_minutes, reading_format, distinct_quick_take
+from scripts.build_site import ROOT, published_articles, security_activity_sort_key, reading_minutes, reading_format, distinct_quick_take, editorial_figure_catalog
 from scripts.security_watch import security_feed
 
 OUT = ROOT / "_site"
@@ -42,6 +42,11 @@ def main():
     home_html = (OUT / "index.html").read_text(encoding="utf-8")
     if watch_html.count('class="sw-item"') != len(expected_security):
         raise RuntimeError("SECURITY WATCH entry count differs from generated page")
+    if (re.search(r'<span class="story-readtime">約[0-9]+分</span>', home_html)
+            or re.search(r'<span class="story-readtime">約[0-9]+分</span>',
+                         (OUT / "archive" / "index.html").read_text(encoding="utf-8"))
+            or '4–7 MIN</span>' in home_html):
+        raise RuntimeError("Legacy reading-time display leaked into current static output")
     if "SECURITY WATCH" not in home_html or 'href="/security/"' not in home_html:
         raise RuntimeError("SECURITY WATCH homepage link missing")
     article_ids = set(expected_ids)
@@ -121,7 +126,19 @@ def main():
                 raise RuntimeError("Repeated or distinct quick take rendered incorrectly: " + article["id"])
             if not expected_takeaway:
                 duplicate_suppressed += 1
-    print(f"SITE_OUTPUT_OK articles={len(articles)} security_alerts={len(expected_security)} suppressed_quick_takes={duplicate_suppressed} reading_formats={reading_counts}")
+    figures = editorial_figure_catalog()
+    for aid in figures:
+        if aid not in article_ids:
+            raise RuntimeError("Editorial visual references a nonexistent article: " + aid)
+        page = (OUT / "articles" / aid / "index.html").read_text(encoding="utf-8")
+        if ('class="signal-evidence"' not in page or 'n = 546' not in page
+                or 'n = 520' not in page or '95.2' not in page or '71.1' not in page):
+            raise RuntimeError("Approved editorial figure is incomplete: " + aid)
+        head = page.split('</head>', 1)[0]
+        if ('<link rel="canonical" href="' not in head or
+                '<script type="application/ld+json">' not in head):
+            raise RuntimeError("SEO head damaged for figure article: " + aid)
+    print(f"SITE_OUTPUT_OK articles={len(articles)} security_alerts={len(expected_security)} suppressed_quick_takes={duplicate_suppressed} reading_formats={reading_counts} figures={len(figures)}")
     return 0
 
 

@@ -33,8 +33,12 @@ try:
 except ImportError:
     from topic_catalog import TOPICS, active_topics, topic_articles, article_topics
 
+try:
+    from .site_identity import BASE, publisher_identity
+except ImportError:
+    from site_identity import BASE, publisher_identity
+
 ROOT = Path(__file__).resolve().parents[1]
-BASE = "https://signal.amberlight.co.jp/"
 HOME_PAGE_SIZE = 12
 ARCHIVE_PAGE_SIZE = 24
 CATEGORIES = {"AI", "仕事", "マネジメント", "お金", "経済", "Crypto", "SECURITY"}
@@ -775,7 +779,7 @@ def article_page(article, template, modified_at=None, related=(), topics=()):
     schema = {"@context": "https://schema.org", "@type": ("Article" if article.get("format") in ("special_story", "management_guide") else "NewsArticle"), "headline": article["title"],
               "description": article["summary"], "datePublished": published_schema, "image": [image_url],
               "inLanguage": "ja", "mainEntityOfPage": {"@type": "WebPage", "@id": url},
-              "publisher": {"@type": "Organization", "name": "WORK SIGNAL", "url": BASE, "sameAs": ["https://www.instagram.com/work_signal_japan/","https://www.threads.com/@work_signal_japan"]}}
+              "publisher": publisher_identity()}
     if modified_at:
         schema['dateModified'] = modified_at
     # Do not invent a person or organization byline that the feed does not provide.
@@ -806,7 +810,7 @@ def article_page(article, template, modified_at=None, related=(), topics=()):
             + '<a class="back" href="/#latest">ALL SIGNALS</a></header>'
             + '<main id="article">' + article_body(article, modified_at, related, topics) + article_end(article) + '</main></div>'
             + '<footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong>'
-            + '<small>NEWS IS SHORT. MEANING IS DEEP. · <a href="/about/">ABOUT</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a> · <a href="/feed.xml">RSS</a> · <a href="/topics/">TOPICS</a></small>'
+            + '<small>NEWS IS SHORT. MEANING IS DEEP. · <a href="/about/">媒体・編集方針</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a> · <a href="/feed.xml">RSS</a> · <a href="/topics/">TOPICS</a></small>'
             + '<nav class="footer-social-links" aria-label="公式SNS"><a href="https://www.instagram.com/work_signal_japan/" target="_blank" rel="noopener noreferrer"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.9" cy="6.4" r="1.1" fill="currentColor"/></svg><span>INSTAGRAM</span></a><a href="https://www.threads.com/@work_signal_japan" target="_blank" rel="noopener noreferrer"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.263 11.097c-.03-3.486-1.92-5.586-5.111-5.586-2.13 0-3.922.963-4.863 2.499l2.062 1.438c.535-.843 1.272-1.543 2.628-1.543 1.528 0 2.318.85 2.544 2.431a15 15 0 0 0-2.236-.173c-4.125 0-6.068 1.867-6.068 4.336s1.943 3.99 4.804 3.99c3.139 0 5.013-2.115 5.781-4.735.798.361 1.348 1.204 1.348 2.47 0 3.387-3.907 5.232-7.22 5.232-4.885 0-8.077-3.207-8.077-8.424 0-6.392 4.223-10.487 9.9-10.487 3.808 0 5.69 1.671 6.97 3.914l2.108-1.475C21.44 2.078 18.331 0 13.663 0 6.227 0 1.168 5.277 1.168 12.934c0 7 4.953 11.066 10.856 11.066 4.878 0 9.809-2.846 9.809-7.716 0-2.545-1.46-4.231-3.569-5.187m-6.33 4.855c-1.077 0-2.026-.512-2.026-1.453 0-1.483 1.822-1.934 3.606-1.934.678 0 1.34.045 1.927.173-.422 1.927-1.671 3.215-3.508 3.214Z"/></svg><span>THREADS</span></a></nav></div></footer>'
             + wage_widget_script(article, template) + '</body></html>')
     return head + body
@@ -927,7 +931,7 @@ def topic_page(topic, articles, home_html):
                 for i, item in enumerate(active)])
     schema = {'@context': 'https://schema.org', '@type': 'CollectionPage', 'name': title,
               'description': description, 'url': url, 'inLanguage': 'ja',
-              'isPartOf': {'@type': 'WebSite', 'name': 'WORK SIGNAL', 'url': BASE},
+              'isPartOf': {'@type': 'WebSite', '@id': BASE + '#website', 'name': 'WORK SIGNAL', 'url': BASE},
               'mainEntity': {'@type': 'ItemList', 'itemListElement': entries}}
     if topic:
         lookup = {item['id']: item for item in selected}

@@ -3090,5 +3090,11 @@
       "container_id": "18158436682488337",
       "remote_id": "18073529870602309"
     }
+  },
+  "20261102-apache-wicket-component-id-xss-cve-2026-95863": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-03T10:14:24+00:00"
+    }
   }
 }

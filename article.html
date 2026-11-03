@@ -68,6 +68,45 @@ html{scroll-behavior:smooth}
 .footer-social-links a:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
 .social-icon{display:block;width:18px;height:18px;flex:none}
 @media(max-width:760px){.footer-social-links{gap:8px}}
+
+/* Editorial reading surface — preserve the global #f2efe7 paper canvas.
+   The article text alone receives a near-white reading plane, with no rounded
+   panels, extra arrows, additional scripts or publication logic changes. */
+#article .layout{gap:clamp(30px,4.5vw,76px)}
+#article .layout>.content{
+  min-width:0;background:var(--white);
+  border-top:2px solid var(--ink);
+  padding:clamp(24px,3.1vw,44px)
+}
+#article .content .lead{
+  line-height:1.95;padding-bottom:36px;margin-bottom:40px
+}
+#article .content .block{margin-bottom:54px}
+#article .content .block h2{line-height:1.5;margin-bottom:20px}
+#article .content .block p{
+  font-size:16px;line-height:2.12;color:#403e38;
+  overflow-wrap:anywhere
+}
+#article .content .takeaways{
+  background:var(--paper);padding:26px 28px;
+  border-left-width:3px
+}
+#article .content .takeaways p{line-height:2.05}
+@media(max-width:760px){
+  #article .layout{gap:27px;padding-top:35px}
+  #article .layout>.content{padding:25px 18px}
+  #article .content .lead{
+    font-size:clamp(19px,5.1vw,24px);
+    padding-bottom:27px;margin-bottom:31px
+  }
+  #article .content .block{margin-bottom:43px}
+  #article .content .block h2{margin-bottom:16px}
+  #article .content .block p{font-size:15.5px;line-height:2.1}
+  #article .content .takeaways{padding:22px 18px}
+}
+@media(max-width:360px){
+  #article .layout>.content{padding:22px 14px}
+}
 </style>
 <link rel="stylesheet" href="/assets/css/signal-interactions.css">
 <script defer src="/assets/js/article-actions.js"></script>

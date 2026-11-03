@@ -411,7 +411,7 @@ const searchInput=document.querySelector('#signal-search-input'),searchClear=doc
 // SECURITY WATCH owns the four featured items in the default latest listing.
 // When filtering SECURITY or searching, every approved article remains discoverable.
 const featuredSecurityIds=new Set([...document.querySelectorAll('.sw-section .sw-item[href^="/articles/"]')]
-  .map(link=>link.getAttribute('href').match(/^\\/articles\\/([a-zA-Z0-9_-]+)\\/$/)?.[1]).filter(Boolean));
+  .map(link=>link.getAttribute('href').match(/^\/articles\/([a-zA-Z0-9_-]+)\/$/)?.[1]).filter(Boolean));
 function matchingArticles(category,format,query){
  return items.filter(a=>{
   if(category!=='すべて'&&a.category!==category)return false;

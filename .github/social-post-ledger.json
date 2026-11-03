@@ -3060,7 +3060,9 @@
   "20261102-apache-wicket-external-link-xss-cve-2026-84231": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-03T10:13:24+00:00"
+      "updated_at": "2026-11-03T10:13:32+00:00",
+      "stage": "publish_requested",
+      "container_id": "18141000901623690"
     }
   }
 }

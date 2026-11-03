@@ -478,7 +478,7 @@ def story_link(article):
 def _normalized_teaser(value):
     """Normalize typography only; never rewrite approved editorial content."""
     clean = unicodedata.normalize('NFKC', str(value or '')).casefold()
-    return re.sub(r'[\\s、。.,!！?？:：;；「」『』（）()【】]', '', clean)
+    return re.sub(r'[\s、。.,!！?？:：;；「」『』（）()【】]', '', clean)
 
 
 def distinct_quick_take(article):

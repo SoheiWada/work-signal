@@ -78,3 +78,23 @@ test('card time is typographic, screen-reader labelled and represents an ISO dur
   assert.match(article, /meta\.append\([^;]*articleReadtimeMark\(a\)/);
   assert.doesNotMatch(homepage, /'約'\+a\.reading_minutes\+'分'/);
 });
+
+
+test('editorial hero prioritizes title and source data figures display explicit cohorts', () => {
+  const builder = source('scripts/build_site.py');
+  const article = source('article.html');
+  const preview = source('preview.html');
+  const figure = JSON.parse(source('data/editorial-figures.json'));
+  const caseStudy = figure['20261102-ai-productivity-gains-unreported-management-survey'];
+  assert.ok(caseStudy);
+  assert.equal(caseStudy.type, 'metric_pair');
+  assert.deepEqual(caseStudy.metrics.map(x => [x.value, x.base]), [[95.2,546],[71.1,520]]);
+  assert.match(caseStudy.note, /異なる設問と回答母数/);
+  assert.match(builder, /class="hero article-hero"/);
+  assert.match(builder, /editorial_evidence_figure\(article\)/);
+  assert.match(builder, /article-kicker-category/);
+  assert.match(article, /#article \.article-hero h1/);
+  assert.match(article, /#article \.signal-evidence-grid/);
+  assert.match(preview, /#article \.article-hero h1/);
+  assert.match(preview, /className='article-kicker'|,'article-kicker'\)/);
+});

@@ -759,6 +759,64 @@ def security_watch_return(article, position):
             '<span>SECURITY WATCH一覧へ戻る</span></a></nav>')
 
 
+
+@lru_cache(maxsize=1)
+def editorial_figure_catalog():
+    """Editor-verified figures, deliberately separate from approved article JSON."""
+    target = ROOT / 'data' / 'editorial-figures.json'
+    return json.loads(target.read_text(encoding='utf-8')) if target.is_file() else {}
+
+
+def editorial_evidence_figure(article):
+    """Render a restrained, accessible, denominator-aware figure when approved."""
+    data = editorial_figure_catalog().get(article.get('id'))
+    if data is None:
+        return ''
+    if data.get('type') != 'metric_pair' or len(data.get('metrics', [])) != 2:
+        raise ValueError('Unknown editorial visual or invalid metric count')
+    if not str(article.get('source_url', '')).startswith('https://'):
+        raise ValueError('Evidence figure requires HTTPS primary source')
+
+    article_text = unicodedata.normalize(
+        'NFKC', ' '.join([str(article.get('summary', ''))] +
+                         [str(part.get('body', '')) for part in article.get('sections', [])
+                          if isinstance(part, dict)]))
+    metrics = []
+    for metric in data['metrics']:
+        value = metric.get('value')
+        base = metric.get('base')
+        if (isinstance(value, bool) or not isinstance(value, (int, float))
+                or not 0 <= value <= 100 or isinstance(base, bool)
+                or not isinstance(base, int) or base < 1):
+            raise ValueError('Evidence figure requires valid measured values and denominators')
+        numeral = f'{value:g}'
+        if numeral + '%' not in article_text or str(base) not in article_text:
+            raise ValueError('Figure must cite figures and denominator found in its own article')
+        metrics.append(
+            '<div class="signal-evidence-metric">'
+            '<div class="signal-evidence-value"><strong>' + numeral +
+            '</strong><span>%</span></div>'
+            '<p class="signal-evidence-label">' + esc(metric['label']) + '</p>'
+            '<div class="signal-evidence-track" aria-hidden="true">'
+            '<span style="width:' + numeral + '%"></span></div>'
+            '<p class="signal-evidence-base"><span>n = ' + str(base) +
+            '</span> / ' + esc(metric['basis']) + '</p></div>'
+        )
+
+    return (
+        '<figure class="signal-evidence" aria-label="' + esc(data['title']) + '">'
+        '<div class="signal-evidence-index"><span>WORK SIGNAL / DATA FREQUENCY</span>'
+        '<span>' + esc(data['index']) + '</span></div>'
+        '<h2 class="signal-evidence-title">' + esc(data['title']) + '</h2>'
+        '<p class="signal-evidence-intro">' + esc(data['intro']) + '</p>'
+        '<div class="signal-evidence-grid">' + ''.join(metrics) + '</div>'
+        '<figcaption><strong>READ THE DATA /</strong> ' + esc(data['note']) +
+        ' <a href="' + esc(article['source_url']) +
+        '" target="_blank" rel="noopener noreferrer">' +
+        esc(data['source_label']) + '</a></figcaption></figure>'
+    )
+
+
 def article_body(article, modified_at=None, related=(), topics=()):
     effective = reading_format(article)
     deep = effective == 'deep_dive'
@@ -785,15 +843,20 @@ def article_body(article, modified_at=None, related=(), topics=()):
         blocks = ''.join('<section class="block"><h2>' + title + '</h2><p>' + linked_text(article[key]) + '</p></section>' for title, key in SECTIONS if article.get(key))
         toc = ''
     format_label = 'MANAGEMENT GUIDE · 独自解説' if effective == 'management_guide' else ('SPECIAL STORY · 自社製品紹介' if effective == 'special_story' else ('SIGNAL DEEP DIVE' if deep else 'SIGNAL BRIEF'))
-    return ('<section class="hero">' + security_watch_return(article, 'top') + '<div class="eyebrow">/ ' + esc(article["category"])
-             + (' / MANAGEMENT GUIDE' if article.get('format') == 'management_guide' else (' / SPECIAL STORY · 自社製品紹介' if article.get('format') == 'special_story' else (' / DEEP DIVE' if deep else ' / EDITORIAL BRIEFING'))) + '</div><h1>' + esc(article['title'])
-            + '</h1><div class="meta">' + ('' if article.get('format') in ('special_story', 'management_guide') else '<span class="score">' + esc(article['score']) + ' / 100</span>') + '<span class="article-type">' + format_label + '</span><span>'
-            + esc(article['category']) + '</span><time datetime="' + esc(article['published_at'])
-            + '">' + esc(article['published_at']) + '</time>'
-            + ('<span>更新：<time datetime="' + esc(modified_at) + '">' + esc(modified_at[:10]) + '</time></span>' if modified_at else '')
+    return ('<section class="hero article-hero">' + security_watch_return(article, 'top')
+            + '<div class="article-kicker"><span class="article-kicker-category">/ WORK SIGNAL / '
+            + esc(article['category']) + '</span><span class="article-type">'
+            + format_label + '</span></div><h1>' + esc(article['title'])
+            + '</h1><div class="meta article-meta"><span class="article-meta-published">'
+            + '<span class="article-meta-label">PUBLISHED</span><time datetime="'
+            + esc(article['published_at']) + '">' + esc(article['published_at'])
+            + '</time></span>'
+            + ('<span class="article-meta-updated">更新：<time datetime="' + esc(modified_at) + '">' + esc(modified_at[:10]) + '</time></span>'
+               if modified_at else '')
             + reading_time_markup(article, cls='readtime')
             + '</div></section><div class="layout"><article class="content">'
-            + '<p class="lead">' + esc(article['summary']) + '</p>' + blocks
+            + '<p class="lead">' + esc(article['summary']) + '</p>'
+            + editorial_evidence_figure(article) + blocks
             + management_cta(article) + '</article><aside class="side"><div class="side-title">ARTICLE INTELLIGENCE</div>'
             + '<dl><dt>FORMAT</dt><dd>' + format_label + '</dd><dt>READ TIME</dt><dd>'
             + f'{reading:02d}' + ' MIN</dd><dt>CATEGORY</dt><dd>' + esc(article['category'])

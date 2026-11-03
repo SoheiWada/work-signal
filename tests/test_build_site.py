@@ -104,6 +104,54 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertIn('Sitemap: ' + BASE + 'sitemap.xml', (output / 'robots.txt').read_text())
             self.assertNotIn("fetch('./data/articles.json'", page)
 
+
+    def test_article_hero_moves_score_into_intelligence_sidebar(self):
+        from scripts.build_site import article_body
+
+        rendered = article_body(self.article)
+        hero = rendered.split('<div class="layout">', 1)[0]
+        self.assertIn('class="hero article-hero"', hero)
+        self.assertIn('class="article-kicker"', hero)
+        self.assertIn('class="article-kicker-category"', hero)
+        self.assertIn('class="article-meta-label">PUBLISHED</span>', hero)
+        self.assertIn('class="readtime"', hero)
+        self.assertNotIn('class="score"', hero)
+        self.assertIn('<dt>SIGNAL SCORE</dt>', rendered)
+        self.assertEqual(rendered.count('<h1>'), 1)
+
+    def test_data_frequency_figure_is_source_checked_and_cohort_aware(self):
+        from scripts.build_site import editorial_evidence_figure, article_body
+
+        data = json.loads((ROOT / 'data/articles.json').read_text())
+        article = next(a for a in data if
+                       a['id'] == '20261102-ai-productivity-gains-unreported-management-survey')
+        html = editorial_evidence_figure(article)
+        self.assertIn('class="signal-evidence"', html)
+        self.assertIn('95.2', html)
+        self.assertIn('71.1', html)
+        self.assertIn('n = 546', html)
+        self.assertIn('n = 520', html)
+        self.assertIn('母数', html)
+        self.assertIn(article['source_url'], html)
+        self.assertIn('style="width:95.2%"', html)
+        self.assertIn('style="width:71.1%"', html)
+        self.assertIn('https://', html)
+        self.assertEqual(article_body(article).count('class="signal-evidence"'), 1)
+        self.assertEqual(editorial_evidence_figure(self.article), '')
+
+        altered = copy.deepcopy(article)
+        altered['summary'] = '数値を伏せた文章'
+        altered['sections'] = []
+        with self.assertRaisesRegex(ValueError, 'Figure must cite figures'):
+            editorial_evidence_figure(altered)
+
+    def test_survey_heading_matches_primary_source_statistic(self):
+        article = next(a for a in json.loads((ROOT / 'data/articles.json').read_text())
+                       if a['id'] == '20261102-ai-productivity-gains-unreported-management-survey')
+        self.assertTrue(article['sections'][0]['title'].startswith('95.2％'))
+        self.assertIn('95.2％', article['summary'])
+        self.assertIn('71.1％', article['summary'])
+
     def test_repeated_quick_take_is_not_rendered_twice(self):
         from scripts.build_site import article_body, distinct_quick_take
 

@@ -1,0 +1,20 @@
+{
+  "review_id": "freshness-reviewed-threads-recovery-20261031",
+  "reviewed_at": "2026-10-31T18:20:12+09:00",
+  "valid_until": "2026-10-31T23:59:00+09:00",
+  "authorization": "Owner requested safe recovery and SNS stabilization after audit; only the previously approved missing Threads delivery is authorized.",
+  "read_only_audit_run": 41188015284,
+  "prior_review_archive": ".github/social-recovery-reviews/freshness-reviewed-recovery-20261028.json",
+  "items": [
+    {
+      "article_id": "20261030-wordpress-ai-engine-mcp-oauth-cve-2026-110732",
+      "checked_on": "2026-10-31",
+      "decision": "deliver_missing_platforms_only",
+      "platforms": [
+        "threads"
+      ],
+      "source_url": "https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-plugins/ai-engine/ai-engine-the-chatbot-ai-framework-mcp-for-wordpress-386-missing-authorization-to-administrator-account-takeover-via-unauthenticated-mcp-oauth-client-registration",
+      "rationale": "Wordfence primary record rechecked: published 2026-10-29, updated 2026-10-30, CVSS 7.5, affected <=3.8.6, patched 3.8.7, administrator consent required. Full authenticated Threads history (141 posts, complete) contained no matching canonical URL at 2026-10-31T09:16:31Z. Recovery rechecks complete live history before any state change. Story already published; IG feed protective hold unchanged."
+    }
+  ]
+}

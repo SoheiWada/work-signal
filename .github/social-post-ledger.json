@@ -3050,10 +3050,11 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfRo8nrm4_i"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-03T10:13:17+00:00",
+      "status": "published",
+      "updated_at": "2026-11-03T10:13:22+00:00",
       "stage": "publish_requested",
-      "container_id": "18158436166488337"
+      "container_id": "18158436166488337",
+      "remote_id": "18119397050081433"
     }
   }
 }

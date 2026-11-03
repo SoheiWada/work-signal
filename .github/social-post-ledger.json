@@ -3107,5 +3107,11 @@
       "container_id": "18158436805488337",
       "remote_id": "18098897987452962"
     }
+  },
+  "20261102-apache-wicket-resource-bundle-xss-cve-2026-111089": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-03T10:14:58+00:00"
+    }
   }
 }

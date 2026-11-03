@@ -1,5 +1,46 @@
 [
   {
+    "id": "20261102-apache-wicket-window-name-xss-cve-2026-82956",
+    "title": "Apache Wicketのウィンドウ名処理にXSS、HIGH 7.6（CVE-2026-82956）",
+    "summary": "Java向けWebフレームワークApache Wicketで、ブラウザーのウィンドウ名を扱う機能にXSS脆弱性が見つかった。CVE-2026-82956はApache Software Foundationの公式評価でCVSS v4.0 7.6（HIGH）。すべてのWicketアプリが対象ではなく、特定のBehaviorを明示的に使う場合に成立する。利用有無を調べ、影響版なら修正版へ更新する必要がある。",
+    "category": "SECURITY",
+    "score": 87,
+    "published_at": "2026-11-03",
+    "published_at_time": "2026-11-03T10:06:58.304Z",
+    "source_url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/82xxx/CVE-2026-82956.json",
+    "status": "published",
+    "format": "deep_dive",
+    "quick_take": "Java向けWebフレームワークApache Wicketで、ブラウザーのウィンドウ名を扱う機能にXSS脆弱性が見つかった。CVE-2026-82956はApache Software Foundationの公式評価でCVSS v4.0 7.6（HIGH）。すべてのWicketアプリが対象ではなく、特定のBehaviorを明示的に使う場合に成立する。利用有無を調べ、影響版なら修正版へ更新する必要がある。",
+    "sections": [
+      {
+        "title": "ブラウザーが渡すウィンドウ名がスクリプトに混入",
+        "body": "Apache Software Foundationが2026年11月1日22:16 UTC（日本時間11月2日07:16）に公開したCVE-2026-82956は、Wicketの `org.apache.wicket.ajax.AjaxNewWindowNotifyingBehavior` に関する脆弱性だ。この機能は、同じページが別のウィンドウやタブで開かれたことを検知するため、ブラウザーの `window.name` をリクエストパラメーター `windowName` として受け取る。\n\n受け取った値はページのシリアライズ状態に保存され、後続の画面表示時にAjax呼び出しの事前条件としてJavaScriptの単一引用符付き文字列に埋め込まれる。公式CVEによれば、この値がJavaScript向けにエスケープされないため、特定の文字を含むウィンドウ名によって文字列の構造が崩れ、アプリケーションと同じオリジンで意図しないスクリプトが実行され得る。"
+      },
+      {
+        "title": "影響するのはBehaviorを明示的に追加したアプリ",
+        "body": "今回の成立条件は重要だ。Apache CNAは、WicketがこのBehaviorを標準で自動導入することはなく、アプリケーション側がコンポーネントへ明示的に追加している場合に限って影響すると説明する。利用していないアプリケーションを、単にWicketを使っているという理由で直ちに攻撃可能とは判定できない。\n\nまた、ブラウザーがウィンドウ名を報告しない場合、Behaviorが自動生成する名前はランダムなUUIDであり、今回のクライアント由来入力とは区別される。運用者はまずソースコードや依存コンポーネントで `AjaxNewWindowNotifyingBehavior` の利用箇所を検索し、影響の有無を判断したい。"
+      },
+      {
+        "title": "影響バージョンと修正先",
+        "body": "公式CVE原本が示す影響範囲はApache Wicket 8.0.0～8.19.0、9.0.0～9.24.0、10.0.0～10.11.0。修正版はそれぞれ8.20.0、9.25.0、10.12.0である。開発元のリリース情報では8系・9系は2026年10月29日の最終リリースでサポート終了となっており、継続運用ではサポート中の10系LTSなどへの移行を優先したい。\n\n更新時は依存するWicketモジュールのバージョンをそろえ、複数タブ・ウィンドウを開く操作やAjaxイベントの回帰テストを行う。これは脆弱性修正後に業務画面が想定どおり動作するかを確かめるための運用上の提案である。"
+      },
+      {
+        "title": "同日公表の別XSSと実悪用の留保",
+        "body": "WORK SIGNALで先に扱ったWicketのアップロード関連DoS（CVE-2026-83594／CVE-2026-84170）、リソースバンドル文言のXSS（CVE-2026-111089）、コンポーネントIDのXSS（CVE-2026-95863）とは、CVE番号も入力経路も異なる。ただし修正先のWicketバージョンは共通するため、更新計画では関連する複数の脆弱性をまとめて点検できる。\n\n今回確認した公式資料には、CVE-2026-82956の実環境での悪用や被害件数を確定できる記述はない。CVSSのHIGH評価は成立条件を満たす場合の影響を示すものであり、すべての導入環境での悪用を意味しない。GitHub Advisory Databaseは現時点でUnreviewedであり、パッケージ別の影響・修正版欄はUnknownのため、バージョン情報はApache CNA原本に基づいた。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "Apache Wicket（org.apache.wicket:wicket-core）のAjaxNewWindowNotifyingBehaviorをアプリ側が明示追加している構成",
+    "social_security_action": "対象のWicket依存バージョンとAjaxNewWindowNotifyingBehaviorの明示利用を調査し、サポート中の10.12.0以降への更新を優先。更新後は新規ウィンドウ／タブ検知とAjax処理の回帰テストを行う。未更新の間は当該Behaviorの利用を停止・見直すことも検討するが、更新の代替とは扱わない。",
+    "publication_key": "38c37ee479dc2889478561561ab91d2c03e947bc20bd9ab97e5054788ad75984",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261102-apache-wicket-component-id-xss-cve-2026-95863",
     "title": "Apache WicketのコンポーネントID処理にXSS、既定CSPでも防げないHIGH 7.6（CVE-2026-95863）",
     "summary": "Java向けWebフレームワークApache Wicketに、コンポーネントIDやHTML要素のIDを生成JavaScriptへ埋め込む際の処理に起因するXSS脆弱性が公表された。CVE-2026-95863は開発元CNA評価でCVSS v4.0 7.6（HIGH）。既定のCSPでは防げない経路があり、修正版への更新に加え、IDの文字種チェック強化によるアプリの互換性も確認する必要がある。",

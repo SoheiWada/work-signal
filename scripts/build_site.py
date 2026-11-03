@@ -851,8 +851,7 @@ def article_body(article, modified_at=None, related=(), topics=()):
             + '<span class="article-meta-label">PUBLISHED</span><time datetime="'
             + esc(article['published_at']) + '">' + esc(article['published_at'])
             + '</time></span>'
-            + ('<span class="article-meta-updated"><span class="article-meta-label">UPDATED</span>'
-               '<time datetime="' + esc(modified_at) + '">' + esc(modified_at[:10]) + '</time></span>'
+            + ('<span class="article-meta-updated">更新：<time datetime="' + esc(modified_at) + '">' + esc(modified_at[:10]) + '</time></span>'
                if modified_at else '')
             + reading_time_markup(article, cls='readtime')
             + '</div></section><div class="layout"><article class="content">'

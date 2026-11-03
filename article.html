@@ -427,8 +427,17 @@ function addWageWidgets(content){
 }
 function render(a){
 root.replaceChildren();const effective=readingFormat(a);const deep=effective==='deep_dive';const hasSections=Array.isArray(a.sections)&&a.sections.length>0;const special=a.format==='special_story',guide=a.format==='management_guide';const formatLabel=guide?'MANAGEMENT GUIDE · 独自解説':special?'SPECIAL STORY · 自社製品紹介':deep?'SIGNAL DEEP DIVE':'SIGNAL BRIEF';
-const hero=el('section',undefined,'hero');if(a.category==='SECURITY')hero.append(securityWatchReturn(a,'top'));hero.append(el('div','/ '+a.category.toUpperCase()+' / '+(guide?'MANAGEMENT GUIDE':special?'SPECIAL STORY · 自社製品紹介':deep?'DEEP DIVE':'EDITORIAL BRIEFING'),'eyebrow'),el('h1',a.title));
-const meta=el('div',undefined,'meta');if(!special&&!guide)meta.append(el('span',a.score+' / 100','score'));meta.append(el('span',formatLabel,'article-type'),el('span',a.category),el('time',a.published_at),articleReadtimeMark(a));hero.append(meta);
+const hero=el('section',undefined,'hero article-hero');
+if(a.category==='SECURITY')hero.append(securityWatchReturn(a,'top'));
+const kicker=el('div',undefined,'article-kicker');
+kicker.append(el('span','/ WORK SIGNAL / '+a.category,'article-kicker-category'),
+              el('span',formatLabel,'article-type'));
+hero.append(kicker,el('h1',a.title));
+const meta=el('div',undefined,'meta article-meta');
+const pub=el('span',undefined,'article-meta-published');
+const date=el('time',a.published_at);date.dateTime=a.published_at;
+pub.append(el('span','PUBLISHED','article-meta-label'),date);meta.append(pub);
+meta.append(articleReadtimeMark(a));hero.append(meta);
 const layout=el('div',undefined,'layout'),content=el('article',undefined,'content');content.append(el('p',a.summary,'lead'));
 const toc=[];
 if(hasSections){

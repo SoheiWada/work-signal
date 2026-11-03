@@ -3013,13 +3013,15 @@
   "20261102-openai-grid-protectors-ai-datacenter-power-flexibility": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-03T10:32:56+00:00",
+      "updated_at": "2026-11-03T10:33:03+00:00",
       "recovery_review_id": "freshness-reviewed-grid-protectors-threads-20261103",
       "reconciled_at": "2026-11-03T10:32:51+00:00",
       "previous_attempt": {
         "status": "needs_review",
         "updated_at": "2026-11-02T23:44:34+00:00"
-      }
+      },
+      "stage": "publish_requested",
+      "container_id": "18109756214187916"
     },
     "instagram_story": {
       "status": "published",

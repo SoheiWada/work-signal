@@ -3110,10 +3110,12 @@
   },
   "20261102-apache-wicket-resource-bundle-xss-cve-2026-111089": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-03T10:15:07+00:00",
+      "status": "published",
+      "updated_at": "2026-11-03T10:15:09+00:00",
       "stage": "publish_requested",
-      "container_id": "18148348558572683"
+      "container_id": "18148348558572683",
+      "remote_id": "18148348558572683",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfRpMrgG3Fe"
     }
   }
 }

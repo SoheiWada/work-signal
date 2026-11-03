@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   design-audit:
-    if: github.ref == 'refs/heads/audit/impeccable-readonly-20261103'
+    if: github.ref == 'refs/heads/audit/impeccable-readonly-20261103' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:

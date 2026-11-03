@@ -3127,10 +3127,12 @@
   },
   "20261102-adnoc-openai-frontier-industrial-decision-ai": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-03T10:16:08+00:00",
+      "status": "published",
+      "updated_at": "2026-11-03T10:16:11+00:00",
       "stage": "publish_requested",
-      "container_id": "18649430722046378"
+      "container_id": "18649430722046378",
+      "remote_id": "18649430722046378",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfRpUUAmy3C"
     }
   }
 }

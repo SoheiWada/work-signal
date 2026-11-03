@@ -155,7 +155,8 @@ class BrandIdentityTests(unittest.TestCase):
         self.assertIn('href="' + site.BASE + '"', body)
         for url in publisher_identity()['sameAs']:
             self.assertIn('href="' + url + '"', body)
-        self.assertIn('href="' + publisher_identity()['parentOrganization']['url'] + '"', body)
+        self.assertEqual(publisher_identity()['parentOrganization']['@id'], site.BASE + 'about/#operator')
+        self.assertIn('id="operator"', body)
 
     def test_publisher_calls_cannot_mutate_other_page_identity(self):
         publisher = publisher_identity()

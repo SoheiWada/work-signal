@@ -281,6 +281,42 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
 .story-timeline{display:flex;flex-wrap:wrap;align-items:center;gap:5px 13px;margin:8px 0 1px;font:650 11px/1.65 var(--jp);color:#69665f;font-variant-numeric:tabular-nums}
 .story-timeline .timeline-updated{color:#a24e29;font-weight:750}
 @media(max-width:700px){.story-timeline{font-size:10px;gap:3px 10px;margin:8px 0 0}}
+
+/* Editorial rhythm: improve the reading hierarchy without changing the paper
+   palette, article content, or the existing signal transmission affordances.
+   Scoped to the homepage news grid to avoid SECURITY WATCH presentation. */
+#latest .section-heading{padding-bottom:26px}
+#latest .section-aside{font-size:12px;line-height:1.6}
+#latest .grid{margin-top:28px;gap:clamp(18px,1.9vw,28px)}
+#latest .story{padding:clamp(27px,2.6vw,37px);box-shadow:none}
+#latest .story-head{
+  align-items:flex-start;padding-bottom:15px;border-bottom:1px solid var(--line)
+}
+#latest .story-timeline{margin-top:13px}
+#latest .story-format,#latest .story-readtime{font-size:11px}
+#latest .story h3{
+  font-size:clamp(23px,2.1vw,32px);line-height:1.5;
+  letter-spacing:-.05em;margin:23px 0 15px
+}
+#latest .story p{
+  max-width:65ch;font-size:14px;line-height:1.95;
+  color:#4b4943;margin-bottom:27px
+}
+@media(max-width:700px){
+  #latest.section{padding-top:68px;padding-bottom:86px}
+  #latest .section-heading{padding-bottom:20px}
+  #latest .section-heading h2{font-size:clamp(40px,12vw,49px)}
+  #latest .section-aside{font-size:11px;line-height:1.55}
+  #latest .grid{margin-top:24px;gap:20px}
+  #latest .story{padding:24px 22px 23px}
+  #latest .story-head{padding-bottom:12px}
+  #latest .story-timeline{margin-top:11px}
+  #latest .story h3{
+    font-size:clamp(22px,5.7vw,28px);line-height:1.52;
+    margin:20px 0 13px
+  }
+  #latest .story p{font-size:14px;line-height:1.95;margin-bottom:24px}
+}
 </style>
 <link rel="stylesheet" href="/assets/css/signal-interactions.css">
 <link rel="stylesheet" href="/assets/css/hero-market.css">
@@ -305,7 +341,7 @@ footer{padding:36px 0 48px}.footer-row{display:flex;justify-content:space-betwee
 </head>
 <body>
 <div class="topline"></div>
-<div class="shell"><header class="masthead"><a href="./" class="brand" aria-label="WORK SIGNAL ホーム">WORK<span class="dot">.</span>SIGNAL<span class="sup">®</span></a><nav class="navlinks" aria-label="メインナビゲーション"><a href="#latest">LATEST</a><a class="nav-nba" href="/nba/"><span class="nav-ball" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54"/><path d="M6 60H114M60 6V114M22 22C55 42 55 78 22 98M98 22C65 42 65 78 98 98"/></svg></span><span class="nav-edition">別冊 / COURTSIDE</span><span class="nav-title">NBA SIGNAL</span></a><a href="#about">OUR POINT OF VIEW</a></nav><div class="issue"><span class="live" aria-hidden="true"></span> INDEPENDENT NEWS EDITION</div></header>
+<div class="shell"><header class="masthead"><a href="./" class="brand" aria-label="WORK SIGNAL ホーム">WORK<span class="dot">.</span>SIGNAL<span class="sup">®</span></a><nav class="navlinks" aria-label="メインナビゲーション"><a href="#latest">LATEST</a><a class="nav-nba" href="/nba/"><span class="nav-ball" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54"/><path d="M6 60H114M60 6V114M22 22C55 42 55 78 22 98M98 22C65 42 65 78 98 98"/></svg></span><span class="nav-edition">別冊 / COURTSIDE</span><span class="nav-title">NBA SIGNAL</span></a><a href="#about">OUR POINT OF VIEW</a></nav><div class="issue"><span class="live" aria-hidden="true"></span> INDEPENDENT NEWS EDITION</div></header><nav class="mobile-quicknav" aria-label="ページ内の主要リンク"><a href="#latest" aria-label="最新の記事へ移動"><span>LATEST</span><span class="quicknav-wave" aria-hidden="true"><svg viewBox="0 0 120 32" preserveAspectRatio="xMidYMid meet" focusable="false"><path class="link-wave-track" d="M0 16 H30 L42 16 L49 10 L57 23 L65 4 L73 29 L81 16 H120"/><path class="link-wave-live" d="M0 16 H30 L42 16 L49 10 L57 23 L65 4 L73 29 L81 16 H120"/></svg></span></a><a href="#about" aria-label="WORK SIGNALについて"><span>ABOUT</span><span class="quicknav-wave" aria-hidden="true"><svg viewBox="0 0 120 32" preserveAspectRatio="xMidYMid meet" focusable="false"><path class="link-wave-track" d="M0 16 H30 L42 16 L49 10 L57 23 L65 4 L73 29 L81 16 H120"/><path class="link-wave-live" d="M0 16 H30 L42 16 L49 10 L57 23 L65 4 L73 29 L81 16 H120"/></svg></span></a></nav>
 <main><section class="hero" aria-label="WORK SIGNALの紹介"><div class="hero-copy"><div class="eyebrow">THE SIGNAL OVER THE NOISE</div><h1>ニュースは<br><span class="stroke">短く。</span>意味は<br><span class="accent">深く。</span></h1><div class="hero-bottom"><div class="hero-description"><strong>情報は増えた。判断する時間は減った。</strong><br>WORK SIGNAL（ワークシグナル）は、AI・仕事・マネジメント・経済の変化を一次情報から読み解くニュースメディアです。</div><a class="scrollcue" href="#latest">EXPLORE</a></div></div>
 <div class="art"><div class="art-label" aria-hidden="true">01 / FIND YOUR FREQUENCY</div><div class="orbit" aria-hidden="true"><div class="ring"></div><div class="signal">W<span style="color:#191918">.</span></div></div><div class="art-corner" aria-hidden="true">NO MORE NOISE.<br>JUST SIGNAL.</div></div></section></main></div>
 <div class="ticker" aria-hidden="true"><div class="ticker-track"><span>AI <b aria-hidden="true"></b> WORK <b aria-hidden="true"></b> MANAGEMENT <b aria-hidden="true"></b> ECONOMY <b aria-hidden="true"></b> MONEY <b aria-hidden="true"></b> CRYPTO <b aria-hidden="true"></b> READ BEYOND THE HEADLINE <b aria-hidden="true"></b></span><span>AI <b aria-hidden="true"></b> WORK <b aria-hidden="true"></b> MANAGEMENT <b aria-hidden="true"></b> ECONOMY <b aria-hidden="true"></b> MONEY <b aria-hidden="true"></b> CRYPTO <b aria-hidden="true"></b> READ BEYOND THE HEADLINE <b aria-hidden="true"></b></span></div></div>

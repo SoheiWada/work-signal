@@ -214,3 +214,70 @@
   .story .story-link-wave .link-wave-live,
   .article-return-svg .return-rise{stroke-dashoffset:0!important;opacity:0!important}
 }
+
+/* WORK SIGNAL accessibility refinements — 2026-11-03.
+   Evidence: Impeccable 4.8.0 read-only audit.
+   Preserve the brand orange (#fa4c24) on illustrations, icons, borders and
+   display-size hero text. Use a darker, WCAG AA-compliant orange only for
+   small text on the paper or off-white reading surfaces. */
+:root{--accent-text:#a83b17}
+.kicker,
+.guide-overline,
+.guide-time,
+.article-end-label,
+#article .eyebrow,
+.navlinks a:hover,
+.back:hover,
+.toc a:hover,
+.article-share-button.is-copied{color:var(--accent-text)}
+
+/* Desktop remains unchanged; restore the section navigation on small screens
+   as a separate row instead of squeezing links into the 77px masthead. */
+.mobile-quicknav{display:none}
+@media(max-width:700px){
+  .mobile-quicknav{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    border-bottom:1px solid var(--line);
+    margin-top:-1px;
+  }
+  .mobile-quicknav a{
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+    min-width:0;min-height:48px;padding:10px 14px 10px 0;
+    color:var(--ink);text-decoration:none;
+    font:700 12px/1.3 var(--sans);letter-spacing:.08em;
+  }
+  .mobile-quicknav a+a{border-left:1px solid var(--line);padding-left:14px}
+  .mobile-quicknav a:focus-visible{outline:2px solid var(--accent-text);outline-offset:-3px}
+  /* Same waveform path, track and 0.88s signal-transmit effect as READ THE SIGNAL.
+     Keep it purely decorative; the visible link label provides the accessible name. */
+  .mobile-quicknav .quicknav-wave{
+    display:block;flex:none;width:clamp(44px,13vw,68px);height:20px
+  }
+  .mobile-quicknav .quicknav-wave svg{display:block;width:100%;height:100%;overflow:visible}
+  .mobile-quicknav .quicknav-wave path{
+    fill:none;stroke:var(--orange);stroke-width:1.8;
+    stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke
+  }
+  .mobile-quicknav .link-wave-track{opacity:.44;stroke-width:1.2}
+  .mobile-quicknav .link-wave-live{
+    opacity:0;stroke-width:2.8;stroke-dasharray:15 220;stroke-dashoffset:220
+  }
+  .mobile-quicknav a:is(:focus-visible,:active) .link-wave-live{
+    animation:signal-transmit .88s var(--transmission-ease) both
+  }
+  .nav-edition,.story-readtime,.story-format,.filter-count,
+  .guide-time,.guide-overline,.signals-progress,.signals-archive,
+  .footer-social-links a{font-size:11px}
+  .guide-description{font-size:11px}
+}
+
+/* Match existing link motion for fine pointers; never animate automatically. */
+@media(hover:hover) and (pointer:fine){
+  .mobile-quicknav a:hover .link-wave-live{
+    animation:signal-transmit .88s var(--transmission-ease) both
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .mobile-quicknav .link-wave-live{animation:none!important;opacity:0!important}
+}

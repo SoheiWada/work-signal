@@ -753,11 +753,12 @@ def run(articles, ledger, credentials):
                                 remote = str(previous[0]["id"])
                                 print("RECONCILED_THREADS", identifier, remote)
                             else:
-                                verify_threads_source_preview(article["source_url"])
-                                remote = publish_threads(text, token, uid,
-                                                         link_attachment=article["source_url"],
-                                                         approved_source_url=article["source_url"], **options)
-                                print("THREADS_SOURCE_PREVIEW_FALLBACK", identifier)
+                                # A rejected link card is not a rejected post.
+                                # Retry once as a text post, retaining both URLs
+                                # in the caption without attaching a second
+                                # external preview that may also be blocked.
+                                remote = publish_threads(text, token, uid, **options)
+                                print("THREADS_TEXT_ONLY_FALLBACK", identifier)
                 elif kind == "instagram":
                     remote = publish_instagram(text, image_url(article), credentials["INSTAGRAM_ACCESS_TOKEN"], credentials["INSTAGRAM_USER_ID"], **options)
                 else:

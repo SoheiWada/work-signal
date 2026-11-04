@@ -3050,12 +3050,26 @@
       "remote_id": "18133044826691009"
     },
     "instagram": {
-      "status": "attempting",
-      "updated_at": "2026-11-04T22:12:26+00:00",
+      "status": "published",
+      "updated_at": "2026-11-04T22:12:30+00:00",
       "probe_request_id": "instagram-feed-restart-20261105-lifeval",
       "caption_sha256": "c311f06db1af4e7ed8e8d0f534f01c5cdfb978c07ded6d1bb46f227e1ef426f5",
       "stage": "publish_requested",
-      "container_id": "18158988517488337"
+      "container_id": "18158988517488337",
+      "remote_id": "18101945714537541",
+      "permalink": "https://www.instagram.com/p/DfVgE7Ykft_/",
+      "error": {
+        "http_status": 403,
+        "code": 4,
+        "subcode": 2207051,
+        "type": "OAuthException",
+        "fbtrace_id": "AS9pDzlONJTw3-cCuhnG8Nx",
+        "is_transient": false,
+        "message": "Application request limit reached",
+        "error_user_msg": "We restrict certain activity to protect our community. Tell us if you think we made a mistake.",
+        "error_user_title": "action is blocked"
+      },
+      "action_block_hold": true
     }
   },
   "20261102-traefik-ntlm-negotiate-backend-transport-dos-ghsa-xv5x-242w-7hf7": {

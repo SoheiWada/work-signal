@@ -18,6 +18,28 @@
   }
 
   document.addEventListener('click', async function (event) {
+    const follow = event.target.closest('[data-social-follow]');
+    if (follow && !follow.closest('.article-end--preview')) {
+      const platform = follow.getAttribute('data-social-follow');
+      const destinations = {
+        threads: 'https://www.threads.com/@work_signal_japan',
+        instagram: 'https://www.instagram.com/work_signal_japan/',
+        rss: '/feed.xml'
+      };
+      if (Object.hasOwn(destinations, platform) && follow.getAttribute('href') === destinations[platform]) {
+        // A link click is not proof of a follow. Analytics must never block navigation.
+        try {
+          if (typeof window.gtag === 'function') window.gtag('event', 'social_follow_click', {
+            platform: platform,
+            article_id: follow.getAttribute('data-article-id') || '',
+            placement: 'article_end',
+            link_url: follow.href,
+            transport_type: 'beacon'
+          });
+        } catch (error) { /* Navigation remains available if measurement fails. */ }
+      }
+      return;
+    }
     const button = event.target.closest('[data-copy-article-url]');
     if (!button) return;
     event.preventDefault();

@@ -365,13 +365,27 @@ function articleEnd(a,isPreview){
  section.setAttribute('aria-label','読了後のナビゲーション');
  section.append(el('div','TRANSMISSION / AFTER THE SIGNAL','article-end-label'));
  const intro=el('div',undefined,'article-end-intro');
- intro.append(el('h2','読んだ、その先へ。'),el('p',isPreview?'原稿を確認したら、シグナル一覧へ戻れます。':'気になった変化を共有して、次のシグナルへ。'));
+ intro.append(el('h2','読んだ、その先へ。'),el('p',isPreview?'原稿を確認したら、シグナル一覧へ戻れます。':'次の変化を追う。誰かの判断材料にする。'));
  section.append(intro);
  const grid=el('div',undefined,'article-end-grid');
  if(!isPreview){
    const url='https://signal.amberlight.co.jp/articles/'+encodeURIComponent(a.id)+'/';
+   const follow=el('div',undefined,'article-follow');
+   const followIntro=el('div',undefined,'article-follow-intro');
+   followIntro.append(el('p','FOLLOW THE SIGNAL','article-share-title'),el('h3','この先の変化も、追うなら。'),el('p','AI・仕事・経済の変化を、一次情報から。次の判断材料を、公式SNSでも。'));
+   const policy=el('a','WORK SIGNALの編集方針','article-follow-policy');policy.href='/about/#editorial-policy';followIntro.append(policy);
+   const followLinks=el('nav',undefined,'article-follow-links');followLinks.setAttribute('aria-label','WORK SIGNALの更新を追う');
+   for(const [platform,name,href] of [['threads','THREADS','https://www.threads.com/@work_signal_japan'],['instagram','INSTAGRAM','https://www.instagram.com/work_signal_japan/']]){
+     const link=el('a',undefined,'article-follow-link');link.href=href;link.target='_blank';link.rel='noopener noreferrer';
+     link.setAttribute('data-social-follow',platform);link.setAttribute('data-article-id',a.id);
+     link.setAttribute('aria-label','公式'+(platform==='threads'?'Threads':'Instagram')+'を開く（新しいタブ）');
+     link.append(el('strong',name),el('span','@work_signal_japan'));followLinks.append(link);
+   }
+   const rss=el('a','RSSで更新を受け取る','article-follow-rss');rss.href='/feed.xml';
+   rss.setAttribute('data-social-follow','rss');rss.setAttribute('data-article-id',a.id);followLinks.append(rss);
+   follow.append(followIntro,followLinks);grid.append(follow);
    const share=el('div',undefined,'article-share');
-   share.append(el('p','SHARE THIS SIGNAL','article-share-title'));
+   share.append(el('p','SHARE THIS SIGNAL','article-share-title'),el('h3','誰かの判断材料に、なりそうなら。','article-share-heading'));
    const list=el('nav',undefined,'article-share-list');
    list.setAttribute('aria-label','この記事を共有する');
    const destinations=[

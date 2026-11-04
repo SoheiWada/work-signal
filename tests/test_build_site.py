@@ -571,6 +571,16 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertFalse(any(attrs.get('href') == '#page-top' for attrs in links))
             self.assertTrue(any(attrs.get('data-copy-article-url') == canonical
                                 for attrs in buttons))
+            follow_links = {attrs['data-social-follow']: attrs for attrs in links
+                            if 'data-social-follow' in attrs}
+            self.assertEqual(set(follow_links), {'threads', 'instagram', 'rss'})
+            self.assertEqual(follow_links['threads']['href'], 'https://www.threads.com/@work_signal_japan')
+            self.assertEqual(follow_links['instagram']['href'], 'https://www.instagram.com/work_signal_japan/')
+            self.assertEqual(follow_links['rss']['href'], '/feed.xml')
+            for attrs in follow_links.values():
+                self.assertEqual(attrs['data-article-id'], self.article['id'])
+            self.assertLess(page.index('FOLLOW THE SIGNAL'), page.index('SHARE THIS SIGNAL'))
+            self.assertIn('href="/about/#editorial-policy"', page)
             outbound = [attrs for attrs in links
                         if attrs.get('class') == 'article-share-button']
             self.assertEqual(len(outbound), 3)

@@ -495,6 +495,77 @@ def verify_threads_delivery(article, token, user_id, expected_id='', attempts=4)
             time.sleep(5)
     return None
 
+
+def instagram_history(token, user_id, kind="instagram"):
+    """Read the complete owned timeline; an incomplete list is never absence."""
+    try:
+        from .audit_social_delivery import collect
+    except ImportError:
+        from audit_social_delivery import collect
+    endpoint = "media" if kind == "instagram" else "stories"
+    fields = "id,timestamp,permalink" + (",media_product_type,caption" if kind == "instagram" else "")
+    items, complete = collect(IG_API, user_id + "/" + endpoint, token, fields)
+    if not complete:
+        raise RuntimeError("Incomplete Instagram live history")
+    return items
+
+
+def instagram_feed_matches(article, items, *, caption=None):
+    """Positive identity: exact submitted caption or the complete canonical path.
+
+    A title match is a review candidate, never proof of delivery. URL prefixes,
+    similarly named domains, other article paths and Stories are not matches.
+    """
+    expected = (caption if caption is not None else instagram_text(article)).strip()
+    canonical = urlsplit(article_url(article))
+    def identifies(value):
+        if not isinstance(value, str):
+            return False
+        if value.strip() == expected:
+            return True
+        for token in re.findall(r'https?://[^\s<>"\u3000]+', value):
+            try:
+                parsed = urlsplit(token.rstrip(".,;!?、。)）］]」』】"))
+                if (parsed.scheme == canonical.scheme and parsed.hostname == canonical.hostname
+                        and parsed.port in (None, 443) and not parsed.username and not parsed.password
+                        and parsed.path == canonical.path):
+                    return True
+            except ValueError:
+                continue
+        return False
+    return [row for row in items if row.get("media_product_type") in (None, "FEED")
+            and identifies(row.get("caption"))]
+
+
+def verify_instagram_delivery(article, token, user_id, *, caption=None, expected_id="",
+                              kind="instagram", report=None, delays=(0, 5, 10, 15, 30, 60)):
+    """GET-only confirmation for up to 120 seconds; never create or publish media."""
+    if kind not in ("instagram", "instagram_story"):
+        raise ValueError("Unknown Instagram media kind")
+    if kind == "instagram_story" and not expected_id:
+        return None  # Empty captions cannot identify a Story after a lost response.
+    for delay in delays:
+        if delay:
+            time.sleep(delay)
+        items = instagram_history(token, user_id, kind)
+        if kind == "instagram":
+            found = instagram_feed_matches(article, items, caption=caption)
+            candidate_ids = [str(row["id"]) for row in items if row not in found
+                             and article["title"] in (row.get("caption") or "")]
+            if candidate_ids and report is not None:
+                report["title_only_candidate_ids"] = candidate_ids[:10]
+        else:
+            found = [row for row in items if str(row["id"]) == str(expected_id)
+                     and row.get("media_product_type") in (None, "STORY", "STORIES")]
+        if len(found) > 1:
+            raise RuntimeError("Multiple Instagram live matches; manual review required")
+        if found:
+            if expected_id and str(found[0]["id"]) != str(expected_id):
+                raise RuntimeError("Instagram response ID and live identity differ")
+            return found[0]
+    return None
+
+
 def publish_instagram(text, url, token, user_id, progress=None):
     created = request_json(IG_API + "/" + user_id + "/media",
                            method="POST", token=token, data={"image_url": url, "caption": text})
@@ -742,14 +813,20 @@ def run(articles, ledger, credentials):
                     detail = str(exc) if isinstance(exc, RuntimeError) else type(exc).__name__
                     failures.append(identifier + ": " + kind + " history preflight " + detail)
                     continue
-            claimed = False
+            claimed, publish_requested, instagram_checked = False, False, False
+            remote = None
             try:
                 processed[group].add(identifier)
                 ledger.record(identifier, kind, "attempting")
                 claimed = True
                 options = {}
-                if hasattr(ledger, "progress"):
-                    options["progress"] = lambda stage, cid: ledger.progress(identifier, kind, stage, cid)
+                def progress(stage, cid):
+                    nonlocal publish_requested
+                    if hasattr(ledger, "progress"):
+                        ledger.progress(identifier, kind, stage, cid)
+                    if stage == "publish_requested":
+                        publish_requested = True
+                options["progress"] = progress
                 if existing:
                     ledger.record(identifier, kind, "published", remote_id=str(existing["id"]),
                                   permalink=existing.get("permalink", ""))
@@ -784,8 +861,10 @@ def run(articles, ledger, credentials):
                                 remote = publish_threads(text, token, uid, **options)
                                 print("THREADS_TEXT_ONLY_FALLBACK", identifier)
                 elif kind == "instagram":
+                    budget -= 1  # Reserve even when the publish response is lost.
                     remote = publish_instagram(text, image_url(article), credentials["INSTAGRAM_ACCESS_TOKEN"], credentials["INSTAGRAM_USER_ID"], **options)
                 else:
+                    budget -= 1
                     remote = publish_instagram_story(story_image_url(article), credentials["INSTAGRAM_ACCESS_TOKEN"], credentials["INSTAGRAM_USER_ID"], **options)
                 if kind == "threads":
                     live = verify_threads_delivery(article, credentials["THREADS_ACCESS_TOKEN"], credentials["THREADS_USER_ID"])
@@ -794,9 +873,13 @@ def run(articles, ledger, credentials):
                     remote = str(live["id"])
                     ledger.record(identifier, kind, "published", remote_id=remote, permalink=live.get("permalink", ""))
                 else:
-                    ledger.record(identifier, kind, "published", remote_id=remote)
-                if kind != "threads":
-                    budget -= 1
+                    instagram_checked = True
+                    live = verify_instagram_delivery(article, credentials["INSTAGRAM_ACCESS_TOKEN"],
+                        credentials["INSTAGRAM_USER_ID"], expected_id=remote, kind=kind)
+                    if not live:
+                        raise RuntimeError("Instagram live confirmation unavailable")
+                    ledger.record(identifier, kind, "published", remote_id=str(live["id"]),
+                                  permalink=live.get("permalink", ""))
                 print("PUBLISHED", identifier, kind, remote)
             except Exception as exc:
                 if kind == "threads" and claimed:
@@ -819,9 +902,25 @@ def run(articles, ledger, credentials):
                                 and exc.code == 4 and exc.subcode == 2207051)
                 if action_block:
                     blocked_ig_platforms.add(kind)
+                if (kind != "threads" and claimed and publish_requested and not instagram_checked):
+                    # Only the publish boundary can produce a new live delivery.
+                    # Preserve the protective error even if its write succeeded.
+                    try:
+                        live = verify_instagram_delivery(article, credentials["INSTAGRAM_ACCESS_TOKEN"],
+                            credentials["INSTAGRAM_USER_ID"], expected_id=remote or "", kind=kind)
+                        if live:
+                            metadata = {"error": exc.metadata()} if isinstance(exc, MetaAPIError) else {}
+                            if action_block:
+                                metadata["action_block_hold"] = True
+                            ledger.record(identifier, kind, "published", remote_id=str(live["id"]),
+                                          permalink=live.get("permalink", ""), **metadata)
+                            print("RECONCILED_INSTAGRAM", identifier, kind, live["id"])
+                            continue
+                    except Exception:
+                        pass  # Uncertain reads leave the durable claim in review.
                 if claimed:
                     try:
-                        if kind != "threads" and isinstance(exc, MetaAPIError) and exc.http_status == 400 and exc.subcode == 2207042:
+                        if kind != "threads" and isinstance(exc, MetaAPIError) and exc.code == 9 and exc.subcode == 2207042:
                             budget = 0
                             ledger.record(identifier, kind, "deferred", reason="instagram_quota_rejected", error=exc.metadata(),
                                           next_attempt_at=(datetime.now(timezone.utc) + timedelta(hours=1)).isoformat(timespec="seconds"))
@@ -829,6 +928,7 @@ def run(articles, ledger, credentials):
                             metadata = {"error": exc.metadata()} if isinstance(exc, MetaAPIError) else {}
                             if action_block:
                                 metadata["reason"] = "instagram_protective_action_block"
+                                metadata["action_block_hold"] = True
                             ledger.record(identifier, kind, "needs_review", **metadata)
                     except Exception:
                         print("IMPORTANT: ledger state requires manual inspection for", identifier, kind)
@@ -941,13 +1041,9 @@ def instagram_feed_probe(articles, ledger, credentials, plan, clock=None):
     # HTTP error, timeout and success all require live confirmation. Never resend.
     live = None
     try:
-        for attempt in range(4):
-            matches, _ = matching_history()
-            if matches:
-                live = matches[0]
-                break
-            if attempt < 3:
-                time.sleep(5)
+        if report["media_publish_attempts"] == 1:
+            live = verify_instagram_delivery(article, token, uid, caption=caption,
+                                            expected_id=remote or "", report=report)
     except Exception:
         pass
     error = failure.metadata() if isinstance(failure, MetaAPIError) else {}

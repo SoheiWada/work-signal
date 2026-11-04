@@ -49,12 +49,23 @@ class FeedProbeTests(unittest.TestCase):
         for name in ("verify_account", "instagram_budget", "verify_live", "publish_instagram"):
             patcher = patch.object(p, name); self.mocks[name] = patcher.start(); self.addCleanup(patcher.stop)
         self.mocks["instagram_budget"].return_value = 99
-        self.mocks["publish_instagram"].return_value = "456"
+        self.mocks["publish_instagram"].side_effect = self.publish
         patcher = patch("scripts.audit_social_delivery.collect")
         self.collect = patcher.start(); self.addCleanup(patcher.stop)
         self.collect.side_effect = [([], True), ([self.live], True)]
         patcher = patch.object(p.time, "sleep"); patcher.start(); self.addCleanup(patcher.stop)
         patcher = patch("builtins.print"); patcher.start(); self.addCleanup(patcher.stop)
+
+    def publish(self, *args, **kwargs):
+        kwargs["progress"]("container_created", "789")
+        kwargs["progress"]("publish_requested", "789")
+        return "456"
+
+    def publishing_error(self, error):
+        def send(*args, **kwargs):
+            self.publish(*args, **kwargs)
+            raise error
+        self.mocks["publish_instagram"].side_effect = send
 
     def run_probe(self):
         return p.instagram_feed_probe([self.article], self.ledger, self.credentials, self.plan, self.clock)
@@ -70,8 +81,8 @@ class FeedProbeTests(unittest.TestCase):
         self.assertEqual(self.result()["permalink"], self.live["permalink"])
 
     def test_protective_error_stops_and_rerunning_never_retries(self):
-        self.mocks["publish_instagram"].side_effect = p.MetaAPIError(403,
-            {"code": 4, "error_subcode": 2207051, "fbtrace_id": "trace_12345", "is_transient": False})
+        self.publishing_error(p.MetaAPIError(403,
+            {"code": 4, "error_subcode": 2207051, "fbtrace_id": "trace_12345", "is_transient": False}))
         self.collect.side_effect = None; self.collect.return_value = ([], True)
         self.assertEqual(self.run_probe(), 1)
         entry = self.ledger.rows["probe-article"]["instagram"]
@@ -82,14 +93,14 @@ class FeedProbeTests(unittest.TestCase):
         self.mocks["publish_instagram"].assert_called_once()
 
     def test_error_with_actual_post_is_recorded_published_without_resending(self):
-        self.mocks["publish_instagram"].side_effect = p.MetaAPIError(400, {"code":4, "error_subcode":2207051})
+        self.publishing_error(p.MetaAPIError(400, {"code":4, "error_subcode":2207051}))
         self.assertEqual(self.run_probe(), 0)
         self.assertTrue(self.ledger.rows["probe-article"]["instagram"]["action_block_hold"])
         self.assertEqual(self.result()["state"], "published")
         self.mocks["publish_instagram"].assert_called_once()
 
     def test_lost_response_remains_uncertain(self):
-        self.mocks["publish_instagram"].side_effect = RuntimeError("Lost response")
+        self.publishing_error(RuntimeError("Lost response"))
         self.collect.side_effect = None; self.collect.return_value = ([], True)
         self.assertEqual(self.run_probe(), 1)
         self.assertEqual(self.ledger.rows["probe-article"]["instagram"]["status"], "needs_review")
@@ -138,6 +149,41 @@ class FeedProbeTests(unittest.TestCase):
         self.assertEqual(self.run_probe(), 1)
         self.assertFalse(self.ledger.calls)
         self.mocks["publish_instagram"].assert_not_called()
+
+    def test_title_only_post_after_send_is_a_warning_not_success(self):
+        unrelated = {**self.live, "caption": self.article["title"] + " / unrelated update"}
+        self.collect.side_effect = [([], True)] + [([unrelated], True)] * 6
+        self.assertEqual(self.run_probe(), 1)
+        self.assertEqual(self.result()["state"], "needs_review")
+        self.assertEqual(self.result()["title_only_candidate_ids"], ["456"])
+        self.mocks["publish_instagram"].assert_called_once()
+
+    def test_delayed_live_probe_is_confirmed_after_60_seconds(self):
+        elapsed = 0
+        def tick(seconds):
+            nonlocal elapsed
+            elapsed += seconds
+        self.collect.side_effect = lambda *args, **kw: ([self.live] if elapsed >= 60 else [], True)
+        with patch.object(p.time, "sleep", side_effect=tick):
+            self.assertEqual(self.run_probe(), 0)
+        self.assertGreaterEqual(elapsed, 60)
+        self.assertLessEqual(elapsed, 120)
+        self.mocks["publish_instagram"].assert_called_once()
+
+    def test_termination_after_claim_remains_attempting_and_never_resends(self):
+        self.mocks["publish_instagram"].side_effect = SystemExit("Runner terminated")
+        with self.assertRaises(SystemExit):
+            self.run_probe()
+        self.assertEqual(self.ledger.rows[self.article["id"]]["instagram"]["status"], "attempting")
+        self.assertEqual(self.run_probe(), 0)
+        self.mocks["publish_instagram"].assert_called_once()
+
+    def test_prepublication_error_does_not_use_a_title_candidate_to_confirm(self):
+        self.mocks["publish_instagram"].side_effect = RuntimeError("Container creation failed")
+        self.collect.side_effect = [([], True)]
+        self.assertEqual(self.run_probe(), 1)
+        self.assertEqual(self.collect.call_count, 1)
+        self.assertEqual(self.result()["media_publish_attempts"], 0)
 
 
 if __name__ == "__main__":

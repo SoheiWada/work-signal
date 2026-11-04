@@ -6,11 +6,26 @@ from urllib.error import HTTPError
 from io import BytesIO
 from pathlib import Path
 from unittest.mock import patch
+from datetime import datetime, timezone
 
 from scripts import diagnose_instagram as d
 
 
 class DiagnosticsTests(unittest.TestCase):
+    def test_inventory_preserves_stalled_claims_and_marks_unknown_age(self):
+        rows = {"a": {"instagram": {"status":"attempting", "updated_at":"2026-11-04T00:00:00Z"}},
+                "b": {"instagram_story": {"status":"needs_review", "stage":"publish_requested",
+                    "error":{"code":4, "subcode":2207051}}},
+                "c": {"instagram": {"status":"published", "remote_id":"123"}}}
+        snapshot = json.dumps(rows)
+        result = d.review_inventory(rows, datetime(2026,11,5,tzinfo=timezone.utc))
+        self.assertEqual(len(result), 2)
+        self.assertEqual(result[0]["age_seconds"], 86400)
+        self.assertIsNone(result[1]["age_seconds"])
+        self.assertEqual(result[1]["subcode"], 2207051)
+        self.assertTrue(all(x["automatic_resend"] is False for x in result))
+        self.assertEqual(json.dumps(rows), snapshot)
+
     def test_headers_discard_identifiers_and_unrecognised_payloads(self):
         headers = {"x-app-usage": '{"call_count":2,"token":"SECRET"}',
                    "x-business-use-case-usage": '{"private-account-id":[{"call_count":3,"total_time":1,"url":"SECRET"}]}',

@@ -38,11 +38,9 @@ def matches(article, kind, items):
         needle = social.article_url(article)
         return [x for x in items if needle in (x.get("text") or "")]
     try:
-        caption = social.instagram_text(article).strip()
+        return social.instagram_feed_matches(article, items)
     except ValueError:
         return []
-    # Full approved caption is compared; no fuzzy title matching authorizes a retry.
-    return [x for x in items if (x.get("caption") or "").strip() == caption]
 
 
 def story_image_checks(articles, ledger, stories, *, target_ids=()):

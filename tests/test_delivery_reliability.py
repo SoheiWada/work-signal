@@ -33,6 +33,9 @@ class DeliveryReliabilityTests(unittest.TestCase):
         history = patch.object(p, "threads_live_history_matches", return_value=[{"id": "123"}])
         history.start()
         self.addCleanup(history.stop)
+        instagram = patch.object(p, "verify_instagram_delivery",
+            side_effect=lambda *args, **kw: {"id":kw["expected_id"], "permalink":""})
+        instagram.start(); self.addCleanup(instagram.stop)
 
     def test_threads_only_ignores_missing_instagram_credentials(self):
         a = {**self.article, "social_platforms": ["threads"]}

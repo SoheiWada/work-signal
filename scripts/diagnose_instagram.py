@@ -117,6 +117,32 @@ def prior_attempt(entry):
     return entry if entry.get("error") else previous
 
 
+def review_inventory(rows, clock=None):
+    """Inventory stalled claims without changing eligibility or resending media."""
+    clock = clock or datetime.now(timezone.utc)
+    result = []
+    for aid, history in rows.items():
+        if not isinstance(history, dict):
+            continue
+        for kind in ("instagram", "instagram_story"):
+            entry = history.get(kind, {})
+            if not isinstance(entry, dict) or entry.get("status") not in ("attempting", "needs_review"):
+                continue
+            age = None
+            try:
+                stamp = datetime.fromisoformat(entry["updated_at"].replace("Z", "+00:00"))
+                if stamp.tzinfo is not None and stamp <= clock:
+                    age = int((clock - stamp).total_seconds())
+            except (KeyError, ValueError, TypeError, AttributeError):
+                pass
+            result.append({"article_id": aid, "platform": kind, "state": entry["status"],
+                "stage": entry.get("stage", "unknown"), "updated_at": entry.get("updated_at"),
+                "age_seconds": age, "container_id": entry.get("container_id"),
+                "code": entry.get("error", {}).get("code"),
+                "subcode": entry.get("error", {}).get("subcode"), "automatic_resend": False})
+    return result
+
+
 def main():
     token, uid = os.getenv("INSTAGRAM_ACCESS_TOKEN", ""), os.getenv("INSTAGRAM_USER_ID", "")
     if not token or not uid.isdigit():
@@ -146,6 +172,7 @@ def main():
         and re.fullmatch(r"instagram_[a-z_]+", str(r.get("permission", "")))
         and r.get("status") in ("granted", "declined", "expired")]
     rows = json.loads((ROOT / ".github/social-post-ledger.json").read_text())
+    report["review_inventory"] = review_inventory(rows)
     articles = json.loads((ROOT / "data/articles.json").read_text())
     # Read every currently held container, including posts reconciled after an error.
     for aid, per_article in rows.items():

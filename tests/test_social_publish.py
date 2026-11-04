@@ -1,6 +1,6 @@
 import json
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, ANY
 
 from scripts.publish_social import (
     approved_articles, article_url, image_url, story_image_url, threads_text,
@@ -10,6 +10,9 @@ from scripts.publish_social import (
 
 class SocialPublisherTests(unittest.TestCase):
     def setUp(self):
+        readback = patch("scripts.publish_social.verify_instagram_delivery",
+                         side_effect=lambda *args, **kw: {"id":kw["expected_id"], "permalink":""})
+        readback.start(); self.addCleanup(readback.stop)
         self.story = {
             "id": "20261026-approved-test",
             "title": "働く人のための新しい情報",
@@ -137,7 +140,7 @@ class SocialPublisherTests(unittest.TestCase):
         feed_post.assert_not_called()
         story_post.assert_called_once_with(
             story_image_url(article), credentials["INSTAGRAM_ACCESS_TOKEN"],
-            credentials["INSTAGRAM_USER_ID"])
+            credentials["INSTAGRAM_USER_ID"], progress=ANY)
         self.assertEqual(check_asset.call_count, 2)
         self.assertEqual([x[1:] for x in ledger.changes],
                          [("instagram_story", "attempting"),

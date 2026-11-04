@@ -3155,8 +3155,8 @@
   "20261104-us-midterms-japan-stocks-ai-investment": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-04T05:55:31+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-11-04T05:55:32+00:00",
+      "stage": "publish_requested",
       "container_id": "18133842520690068"
     }
   }

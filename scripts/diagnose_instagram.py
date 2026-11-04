@@ -130,6 +130,10 @@ def main():
     report["quota"] = [{"quota_usage": r.get("quota_usage"), "config": {
         k: r.get("config", {}).get(k) for k in ("quota_total", "quota_duration")}}
         for r in quota.get("data", []) if isinstance(r, dict)]
+    recent = reader.get(uid + "/media?fields=id,media_product_type,timestamp,permalink&limit=5", "recent_media") or {}
+    report["recent_media"] = [{k: row.get(k) for k in
+        ("id", "media_product_type", "timestamp", "permalink")}
+        for row in recent.get("data", []) if isinstance(row, dict)]
     permissions = reader.get("me/permissions", "permissions")
     report["permission_query_state"] = "available" if permissions is not None else "unsupported_or_denied"
     report["permissions"] = [{"permission": r["permission"], "status": r.get("status")}

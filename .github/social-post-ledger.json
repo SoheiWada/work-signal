@@ -3051,10 +3051,10 @@
     },
     "instagram": {
       "status": "attempting",
-      "updated_at": "2026-11-04T22:12:19+00:00",
+      "updated_at": "2026-11-04T22:12:26+00:00",
       "probe_request_id": "instagram-feed-restart-20261105-lifeval",
       "caption_sha256": "c311f06db1af4e7ed8e8d0f534f01c5cdfb978c07ded6d1bb46f227e1ef426f5",
-      "stage": "container_created",
+      "stage": "publish_requested",
       "container_id": "18158988517488337"
     }
   },

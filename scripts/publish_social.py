@@ -152,13 +152,34 @@ def now():
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
+def safe_meta_message(value, secrets=()):
+    """Bounded, redacted diagnostic text; never include request bodies or tokens."""
+    if not isinstance(value, str) or not value.strip():
+        return None
+    for secret in secrets:
+        if secret:
+            value = value.replace(secret, "[REDACTED]")
+    value = re.sub(r"https?://\S+", "[REDACTED_URL]", value, flags=re.I)
+    value = re.sub(r"(?i)\b(?:bearer|access[_ -]?token|token|authorization|client_secret)\b[\s\"':=]+[^\s,;]+",
+                   "credential [REDACTED]", value)
+    value = re.sub(r"[A-Za-z0-9_.~+/=-]{24,}", "[REDACTED]", value)
+    value = re.sub(r"[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}", "[REDACTED_EMAIL]", value)
+    value = " ".join(value.split())
+    if re.fullmatch(r"[A-Za-z0-9_=-]+", value):
+        return "[REDACTED]"
+    return value[:700]
+
+
 class MetaAPIError(RuntimeError):
-    """Only allowlisted structured fields; never persist raw messages or tokens."""
-    def __init__(self, http_status, error):
+    """Structured codes and redacted messages; no raw API bodies or tokens."""
+    def __init__(self, http_status, error, *, secrets=()):
         self.http_status = http_status
         self.code = error.get("code")
         self.subcode = error.get("error_subcode")
-        self.error_type = str(error.get("type", "?"))[:80]
+        error_type = error.get("type", "")
+        self.error_type = error_type if isinstance(error_type, str) and re.fullmatch(r"[A-Za-z0-9_]{1,80}", error_type) else "unknown"
+        self.messages = {key: text for key in ("message", "error_user_msg", "error_user_title")
+                         if (text := safe_meta_message(error.get(key), secrets)) is not None}
         trace = error.get("fbtrace_id", "")
         self.trace_id = trace if isinstance(trace, str) and re.fullmatch(r"[A-Za-z0-9_-]{5,128}", trace) else None
         self.is_transient = error.get("is_transient") if type(error.get("is_transient")) is bool else None
@@ -168,7 +189,8 @@ class MetaAPIError(RuntimeError):
         return {"http_status": self.http_status, "code": self.code,
                 "subcode": self.subcode, "type": self.error_type,
                 **({"fbtrace_id": self.trace_id} if self.trace_id else {}),
-                **({"is_transient": self.is_transient} if self.is_transient is not None else {})}
+                **({"is_transient": self.is_transient} if self.is_transient is not None else {}),
+                **self.messages}
 
 
 def request_json(url, *, token="", data=None, method="GET"):
@@ -195,7 +217,7 @@ def request_json(url, *, token="", data=None, method="GET"):
             pass
         finally:
             exc.close()
-        raise MetaAPIError(exc.code, err if isinstance(err, dict) else {}) from None
+        raise MetaAPIError(exc.code, err if isinstance(err, dict) else {}, secrets=(token,)) from None
     except (URLError, TimeoutError, ValueError) as exc:
         raise RuntimeError("API transport/response error: " + type(exc).__name__) from None
     if not isinstance(obj, dict):

@@ -10,9 +10,9 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request
 try:
-    from .publish_social import urlopen
+    from .publish_social import urlopen, safe_meta_message
 except ImportError:
-    from publish_social import urlopen
+    from publish_social import urlopen, safe_meta_message
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://graph.instagram.com/v25.0/"
@@ -56,7 +56,7 @@ def safe_headers(headers):
     return result
 
 
-def safe_error(value):
+def safe_error(value, secrets=()):
     value = value if isinstance(value, dict) else {}
     result = {k: value[k] for k in ("code", "error_subcode") if type(value.get(k)) is int}
     if type(value.get("is_transient")) is bool:
@@ -67,7 +67,11 @@ def safe_error(value):
     trace = value.get("fbtrace_id", "")
     if re.fullmatch(r"[A-Za-z0-9_-]{5,128}", trace):
         result["fbtrace_id"] = trace
-    # Classify in memory; never output the raw error, user text, or an embedded token.
+    for key in ("message", "error_user_msg", "error_user_title"):
+        text = safe_meta_message(value.get(key), secrets)
+        if text is not None:
+            result[key] = text
+    # Preserve classification and fingerprints alongside redacted text.
     message = " ".join(str(value.get(k, "")) for k in ("message", "error_user_title", "error_user_msg")).lower()
     patterns = {"spam_or_protective": ("spam", "protect", "restrict", "block"),
                 "rate_limit": ("rate limit", "too many", "maximum number", "limit reached"),
@@ -99,7 +103,7 @@ class Reader:
             except (ValueError, TypeError):
                 value = {}
             call.update(http_status=exc.code, usage_headers=safe_headers(exc.headers),
-                        error=safe_error(value.get("error") if isinstance(value, dict) else {}))
+                        error=safe_error(value.get("error") if isinstance(value, dict) else {}, (self.token,)))
             value = None
         except (URLError, TimeoutError, ValueError) as exc:
             call["transport_error"] = type(exc).__name__
@@ -124,6 +128,7 @@ def main():
     report["account"] = {"verified": verified, "type": profile.get("account_type")}
     if not verified:
         report["calls"] = reader.calls
+        (ROOT / "instagram-health-diagnostic.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
         print("IG_HEALTH", json.dumps(report))
         raise SystemExit("Account could not be verified; diagnostics stopped")
     quota = reader.get(uid + "/content_publishing_limit?fields=config,quota_usage", "quota") or {}

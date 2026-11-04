@@ -3154,10 +3154,12 @@
   },
   "20261104-us-midterms-japan-stocks-ai-investment": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-04T05:55:32+00:00",
+      "status": "published",
+      "updated_at": "2026-11-04T05:55:38+00:00",
       "stage": "publish_requested",
-      "container_id": "18133842520690068"
+      "container_id": "18133842520690068",
+      "remote_id": "17977938873144694",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfTwSzVlLvb"
     }
   }
 }

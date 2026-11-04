@@ -64,7 +64,7 @@ class TopicPageTests(unittest.TestCase):
         page = site.topic_page(None, self.feed, self.template)
         self.assertIn('class="story-link-wave"', page)
         self.assertIn('class="link-wave-live"', page)
-        self.assertIn('href="/assets/css/signal-interactions.css"', page)
+        self.assertIn('href="/assets/css/signal-interactions.css?v=20261105-follow1"', page)
         self.assertNotIn('読む順番と記事を見る ↗', page)
         self.assertEqual(page.count('class="topic-card-title"'), len(active_topics(self.feed)))
         article = site.article_card(self.feed[0])

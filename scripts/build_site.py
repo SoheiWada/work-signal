@@ -985,8 +985,8 @@ def article_page(article, template, modified_at=None, related=(), topics=()):
             + image_metadata(image_url, title)
             + '<meta name="robots" content="max-image-preview:large">'
             + json_ld(schema) + fonts + style + (BTC_CALENDAR_CSS if article.get('id') == '20261021-bitcoin-ath-events' else '') + (DSX_POD_DIAGRAM_CSS if article.get('id') == '20261021-nvidia-dsx-pod-ai-datacenter-deployment' else '')
-            + '<link rel="stylesheet" href="/assets/css/signal-interactions.css">'
-            + '<script defer src="/assets/js/article-actions.js"></script>' + analytics
+            + '<link rel="stylesheet" href="/assets/css/signal-interactions.css?v=20261105-follow1">'
+            + '<script defer src="/assets/js/article-actions.js?v=20261105-follow1"></script>' + analytics
             + '<script>measurePageView();</script></head>')
     body = ('<body><div class="top" id="page-top"></div><div class="shell"><header>'
             + '<a class="brand" href="/">WORK<span>.</span>SIGNAL</a>'
@@ -1071,7 +1071,7 @@ def archive_page(articles, page, home_html):
               '<meta name="theme-color" content="#f2efe7">'
               '<meta name="description" content="' + esc(description) + '">'
               '<title>' + esc(title) + '</title>' + canonical + favicon_links()
-              + fonts.group().removesuffix('<style>') + style.group() + archive_css + '<link rel="stylesheet" href="/assets/css/signal-interactions.css">' + analytics + '</head>'
+              + fonts.group().removesuffix('<style>') + style.group() + archive_css + '<link rel="stylesheet" href="/assets/css/signal-interactions.css?v=20261105-follow1">' + analytics + '</head>'
               '<body><div class="topline"></div><div class="shell"><header class="masthead">'
               '<a class="brand" href="/" aria-label="WORK SIGNALホーム">WORK<span class="dot">.</span>SIGNAL<span class="sup">®</span></a>'
               '<a class="archive-return" href="/#latest">LATEST SIGNALS</a></header>'
@@ -1184,7 +1184,7 @@ def topic_page(topic, articles, home_html):
             + '"><meta name="twitter:description" content="' + esc(description) + '">'
             + image_metadata(BASE + 'assets/og/home.png', title) + json_ld(schema)
             + json_ld({'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': breadcrumbs})
-            + fonts + style + archive_styles() + css + '<link rel="stylesheet" href="/assets/css/signal-interactions.css">' + listing_analytics(home_html)
+            + fonts + style + archive_styles() + css + '<link rel="stylesheet" href="/assets/css/signal-interactions.css?v=20261105-follow1">' + listing_analytics(home_html)
             + '</head><body class="topic-page"><div class="topline"></div><div class="shell">'
             '<header class="masthead"><a class="brand" href="/" aria-label="WORK SIGNALホーム">WORK<span class="dot">.</span>SIGNAL<span class="sup">®</span></a>'
             '<a class="archive-return" href="/archive/">THE ARCHIVE</a></header>'

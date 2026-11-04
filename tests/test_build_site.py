@@ -541,7 +541,7 @@ class StaticPublishingTests(unittest.TestCase):
         self.assertIn('.story .story-link:focus-visible', css)
         self.assertIn('.story .story-link{', css)
         self.assertIn('.reading-guide{display:grid', source)
-        self.assertIn('href="/assets/css/signal-interactions.css"', source)
+        self.assertIn('href="/assets/css/signal-interactions.css?v=20261105-follow1"', source)
         self.assertIn("'READ THE SIGNAL','story-link-title'", source)
 
     def test_article_end_is_a_shared_editorial_transmission_and_all_signals_return(self):
@@ -595,15 +595,15 @@ class StaticPublishingTests(unittest.TestCase):
                     self.assertIn('\n' + canonical, params['text'][0])
                     self.assertTrue(params['text'][0].endswith(self.article['source_url']))
 
-            self.assertIn('href="/assets/css/signal-interactions.css"', page)
-            self.assertIn('src="/assets/js/article-actions.js"', page)
+            self.assertIn('href="/assets/css/signal-interactions.css?v=20261105-follow1"', page)
+            self.assertIn('src="/assets/js/article-actions.js?v=20261105-follow1"', page)
             dynamic = (output / 'article.html').read_text()
             self.assertFalse((output / 'preview.html').exists())
             self.assertFalse((output / 'data/drafts.json').exists())
             self.assertTrue((output / 'contact/index.html').is_file())
             self.assertIn('https://formspree.io/f/xoejzwye', (output / 'contact/index.html').read_text())
             self.assertNotIn('info@amberlight.co.jp', (output / 'contact/index.html').read_text())
-            self.assertIn('href="/assets/css/signal-interactions.css"', dynamic)
+            self.assertIn('href="/assets/css/signal-interactions.css?v=20261105-follow1"', dynamic)
             self.assertIn("returnLink.href='/#latest'", dynamic)
             self.assertIn("'SHARE THIS SIGNAL'", dynamic)
             shared_js = output / 'assets/js/article-actions.js'
@@ -625,7 +625,7 @@ class StaticPublishingTests(unittest.TestCase):
             self.assertIn('ALL SIGNALS</a>', source)
             self.assertNotIn('ALL STORIES</a>', source)
             self.assertNotIn("returnLink.href='#page-top'", source)
-            self.assertIn('href="/assets/css/signal-interactions.css"', source)
+            self.assertIn('href="/assets/css/signal-interactions.css?v=20261105-follow1"', source)
         self.assertIn('function signalMark(deep)', index)
         self.assertIn('.guide-pulse path{fill:none', index)
         self.assertIn('.reading-guide{display:grid', index)

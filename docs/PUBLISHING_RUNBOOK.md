@@ -1,5 +1,15 @@
 # WORK SIGNAL 公開運用マニュアル
 
+## 2026-11-05 Instagramトークン更新後の単発フィードテスト
+
+- 所有者がパスワード変更後のトークンをGitHub Secretsへ更新。07:03 JSTのGET専用診断（run 41809476908 / attempt 2）でアカウント照合成功、BUSINESS、実枠1/100・86,400秒を確認した。最新の実FEEDは10月28日であり、添付説明の「10月27日が最後」は今回のAPI結果で更新する。
+- 所有者の安全な再開手順2以降の実行指示に基づき、`.github/instagram-feed-probe.json` で1記事だけを再審査。通常の `social-publish.yml` と同じ共通ロック内で `publish_social.py --live --instagram-feed-probe` を実行する。別の固定記事用投稿スクリプトや並列投稿経路は追加しない。
+- 元記事の承認・一次情報URL、6時間以内の明示レビュー、アカウント・投稿枠、完全なmedia履歴、直近7日間のフィード静止、公開記事とJPEGを確認する。既存のフィード台帳がある対象は状態を問わず再試行しない。
+- 送信前にrequest IDとcaptionハッシュを既存の台帳へattemptingとして確保。既存のpublished・needs_review・attempting・deferredは削除しない。media_publishは最大1回。レスポンスの成否を問わず完全なmedia履歴で確認し、実投稿が確認できなければneeds_reviewで停止する。
+- 4/2207051でも実投稿が見つかった場合はpublishedとerror/action_block_holdを両立して記録する。過去の保護停止は成功しても一括解除しない。認証GET成功や枠の空きだけで解除しない。
+- 台帳のrequest IDで再実行時の二重送信を防ぐ。別の再審査でも前回テストから7日未満なら拒否する。テストの自動日次再試行は設けない。期限切れレビューは送信せず、次回は鮮度と実投稿を再確認する。
+- `instagram-feed-probe-result.json` とActions Summaryへ単発テスト結果を保存。Threads・ストーリーズの通常配信結果とは区別する。今回のテストは通常フィード配信の全件再開ではない。
+
 ## 2026-11-04 Instagram安全な再開の事前診断
 
 18:40 JSTのGET専用診断（Actions run 41809208748）では `/me` がHTTP 401 / code 190 / subcode 0を返し、アカウント検証に失敗した。これは既存の4/2207051フィード保護停止とは別の現在の認証障害。失効・取消・設定不整合などの内訳は応答の安全なメッセージを確認するまで断定しない。

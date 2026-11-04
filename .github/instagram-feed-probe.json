@@ -1,0 +1,11 @@
+{
+  "request_id": "instagram-feed-restart-20261105-lifeval",
+  "article_id": "20261103-openai-lifeval-everyday-task-evaluation",
+  "reviewed_at": "2026-11-04T22:06:36.266745+00:00",
+  "valid_until": "2026-11-05T02:06:36.266745+00:00",
+  "max_publish_calls": 1,
+  "source_url": "https://openai.com/index/lifeval/",
+  "authorization": "Owner explicitly requested safe restart steps 2 onward, including one feed test, on 2026-11-04 and confirmed the replacement token was saved on 2026-11-05. This request authorizes only one feed delivery of the specified already-approved article; no historical hold is cleared and no bulk recovery is authorized.",
+  "caption": "AIに求めたいのは、うまい返事より「用事が進むこと」。\n\nOpenAIが11月2日に公開したLifeValは、育児や家計、行政サービスなど、生活上の用事をAIがどこまで支援できるかを測る評価体系です。\n\n仕事でも、文章の出来栄えに加えて「担当者が判断できる状態まで進んだか」「どこで人が確認するか」を見たい。WORK SIGNALでは、その示唆と評価の限界を整理しました。\n\n記事全文はプロフィールのリンクから。\nhttps://signal.amberlight.co.jp/articles/20261103-openai-lifeval-everyday-task-evaluation/\n\n一次情報：https://openai.com/index/lifeval/",
+  "source_check_note": "Re-read OpenAI primary announcement on 2026-11-05. Published November 2; LifeVal measures practical everyday assistance using time-use studies and 3,995 survey respondents. Caption distinguishes editorial workplace implications from measured product outcomes. Article image has not previously been delivered to the feed; complete live history must be verified immediately before claiming."
+}

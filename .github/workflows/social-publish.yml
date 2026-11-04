@@ -79,6 +79,16 @@ jobs:
           python -m unittest discover -s tests -p 'test_scheduled_social.py'
           python -m unittest discover -s tests -p 'test_social_queue.py'
           python -m unittest discover -s tests -p 'test_social_preflight.py'
+          python -m unittest discover -s tests -p 'test_instagram_feed_probe.py'
+      - name: Probe only one explicitly reviewed Instagram feed delivery
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          SOCIAL_PUBLISH_ENABLED: ${{ vars.SOCIAL_PUBLISH_ENABLED }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+        run: python scripts/publish_social.py --live --instagram-feed-probe
       - name: Reconcile only freshness-reviewed missing posts
         # A newly approved article cannot authorize recovery of unrelated posts.
         if: inputs.article_ids == ''
@@ -152,6 +162,7 @@ jobs:
           path: |
             social-delivery-status.json
             social-backlog-status.json
+            instagram-feed-probe-result.json
           retention-days: 14
           if-no-files-found: ignore
 

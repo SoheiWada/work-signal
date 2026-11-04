@@ -267,12 +267,14 @@ class GithubLedger:
                 raise RuntimeError("Already published")
             if status == "deferred" and prior == "needs_review":
                 raise RuntimeError("Uncertain results require explicit reconciliation")
-            allowed = {"reason", "next_attempt_at", "error", "stage", "container_id"}
+            allowed = {"reason", "next_attempt_at", "error", "stage", "container_id",
+                       "probe_request_id", "caption_sha256", "action_block_hold"}
             if set(metadata) - allowed:
                 raise ValueError("Unsupported ledger metadata")
             per_article[platform] = {
                 "status": status, "updated_at": now(),
-                **{key: previous[key] for key in ("recovery_review_id", "reconciled_at", "previous_attempt") if key in previous},
+                **{key: previous[key] for key in ("recovery_review_id", "reconciled_at", "previous_attempt",
+                    "probe_request_id", "caption_sha256") if key in previous},
                 **({key: previous[key] for key in ("stage", "container_id") if key in previous}
                    if status != "attempting" else {}),
                 **({"remote_id": remote_id} if remote_id else {}),
@@ -839,9 +841,136 @@ def run(articles, ledger, credentials):
     return 1 if outstanding or failures else 0
 
 
+def instagram_feed_probe(articles, ledger, credentials, plan, clock=None):
+    """One reviewed recovery probe in the canonical lock; never clear global holds.
+
+    Only an entirely unclaimed article is eligible. The durable claim consumes
+    the request even if a later API response or ledger update is lost.
+    """
+    import hashlib
+    try:
+        from .audit_social_delivery import collect
+    except ImportError:
+        from audit_social_delivery import collect
+    clock = clock or datetime.now(timezone.utc)
+    report = {"checked_at": now(), "state": "withheld", "media_publish_attempts": 0}
+    def finish(state, **details):
+        report.update(state=state, **details)
+        (ROOT / "instagram-feed-probe-result.json").write_text(
+            json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+        print("INSTAGRAM_FEED_PROBE", json.dumps(report, ensure_ascii=False))
+        if os.getenv("GITHUB_STEP_SUMMARY"):
+            with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as output:
+                output.write("\n## Single Instagram feed recovery probe\n\n```json\n"
+                             + json.dumps(report, ensure_ascii=False, indent=2) + "\n```\n")
+        return 0 if state in ("published", "already_consumed", "expired", "no_request") else 1
+    if not plan:
+        return finish("no_request")
+    try:
+        reviewed = datetime.fromisoformat(plan["reviewed_at"])
+        expires = datetime.fromisoformat(plan["valid_until"])
+        if (reviewed.tzinfo is None or expires.tzinfo is None or
+                not timedelta(0) < expires - reviewed <= timedelta(hours=6)):
+            raise ValueError("Invalid probe review window")
+        if not reviewed <= clock < expires:
+            return finish("expired")
+        aid, rid = plan["article_id"], plan["request_id"]
+        if not re.fullmatch(r"[A-Za-z0-9_-]{1,100}", rid) or plan.get("max_publish_calls") != 1:
+            raise ValueError("Invalid single-probe authorization")
+        if not isinstance(plan.get("authorization"), str) or len(plan["authorization"]) < 20:
+            raise ValueError("Explicit owner authorization required")
+        targets = [a for a in approved_articles(articles) if a["id"] == aid]
+        if len(targets) != 1 or plan["source_url"] != targets[0]["source_url"]:
+            raise ValueError("Reviewed article/source mismatch")
+        article = targets[0]
+        caption = instagram_text({**article, "social_instagram_caption": plan["caption"]})
+        if article_url(article) not in caption:
+            raise ValueError("Probe caption must identify the approved article")
+        report.update(article_id=aid, request_id=rid)
+        rows, _ = ledger.read()
+        remaining_platforms(rows.get(aid, {}))
+        if "instagram" in rows.get(aid, {}):
+            return finish("already_consumed", ledger_state=rows[aid]["instagram"]["status"])
+        for history in rows.values():
+            entry = history.get("instagram", {})
+            if entry.get("probe_request_id") == rid:
+                return finish("already_consumed")
+            if entry.get("probe_request_id"):
+                stamp = datetime.fromisoformat(entry["updated_at"])
+                if stamp.tzinfo is None or clock - stamp < timedelta(days=7):
+                    raise RuntimeError("Recovery probes must be at least seven days apart")
+        token, uid = credentials["INSTAGRAM_ACCESS_TOKEN"], credentials["INSTAGRAM_USER_ID"]
+        verify_account(IG_API, token, uid, instagram=True)
+        if instagram_budget(credentials) < 1:
+            raise RuntimeError("No verified Instagram publishing budget")
+        def matching_history():
+            items, complete = collect(IG_API, uid + "/media", token,
+                "id,caption,timestamp,permalink,media_product_type")
+            if not complete:
+                raise RuntimeError("Incomplete Instagram history; probe withheld")
+            matches = [item for item in items if
+                (item.get("caption") or "").strip() in (caption, instagram_text(article))
+                or article_url(article) in (item.get("caption") or "")
+                or article["title"] in (item.get("caption") or "")]
+            if len(matches) > 1:
+                raise RuntimeError("Multiple existing feed matches; manual review required")
+            return matches, items
+        existing, items = matching_history()
+        if existing:
+            return finish("existing_post_found", permalink=existing[0].get("permalink", ""))
+        for item in items:
+            stamp = datetime.fromisoformat(item["timestamp"].replace("Z", "+00:00"))
+            if stamp.tzinfo is None or clock - stamp < timedelta(days=7):
+                raise RuntimeError("Seven-day quiet period required before recovery probe")
+        verify_live(article_url(article))
+        verify_live(image_url(article), jpg=True)
+        ledger.record(aid, "instagram", "attempting", probe_request_id=rid,
+                      caption_sha256=hashlib.sha256(caption.encode()).hexdigest())
+    except Exception as exc:
+        return finish("withheld", error=exc.metadata() if isinstance(exc, MetaAPIError)
+                      else {"type": type(exc).__name__})
+    failure, remote = None, None
+    def progress(stage, cid):
+        ledger.progress(aid, "instagram", stage, cid)
+        if stage == "publish_requested":
+            report["media_publish_attempts"] = 1
+    try:
+        remote = publish_instagram(caption, image_url(article), token, uid, progress=progress)
+    except Exception as exc:
+        failure = exc
+    # HTTP error, timeout and success all require live confirmation. Never resend.
+    live = None
+    try:
+        for attempt in range(4):
+            matches, _ = matching_history()
+            if matches:
+                live = matches[0]
+                break
+            if attempt < 3:
+                time.sleep(5)
+    except Exception:
+        pass
+    error = failure.metadata() if isinstance(failure, MetaAPIError) else {}
+    blocked = error.get("code") == 4 and error.get("subcode") == 2207051
+    metadata = {"error": error} if error else {}
+    if blocked:
+        metadata["action_block_hold"] = True
+    try:
+        if live and (not remote or str(live["id"]) == remote):
+            ledger.record(aid, "instagram", "published", remote_id=str(live["id"]),
+                          permalink=live.get("permalink", ""), **metadata)
+            return finish("published", remote_id=str(live["id"]),
+                          permalink=live.get("permalink", ""), protective_error=blocked)
+        ledger.record(aid, "instagram", "needs_review", reason="instagram_feed_probe_unconfirmed", **metadata)
+        return finish("needs_review", error=error, protective_error=blocked)
+    except Exception:
+        return finish("ledger_requires_review", error=error)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--live", action="store_true")
+    parser.add_argument("--instagram-feed-probe", action="store_true")
     args = parser.parse_args()
     articles = json.loads((ROOT / "data/articles.json").read_text())
     approved = approved_articles(articles)
@@ -859,6 +988,10 @@ def main():
         print("GitHub ledger credentials incomplete. No posts.", file=sys.stderr)
         return 1
     ledger = GithubLedger(os.getenv("GITHUB_REPOSITORY", ""), os.getenv("GITHUB_TOKEN", ""))
+    if args.instagram_feed_probe:
+        path = ROOT / ".github/instagram-feed-probe.json"
+        plan = json.loads(path.read_text()) if path.is_file() else None
+        return instagram_feed_probe(articles, ledger, dict(os.environ), plan)
     return run(articles, ledger, dict(os.environ))
 
 

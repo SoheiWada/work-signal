@@ -3244,7 +3244,9 @@
   "20261105-openai-gpt6-cyber-security-model": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-05T23:10:52+00:00"
+      "updated_at": "2026-11-05T23:11:01+00:00",
+      "stage": "publish_requested",
+      "container_id": "18134536282783238"
     }
   }
 }

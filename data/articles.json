@@ -32,6 +32,7 @@
     "social_publish": true,
     "social_platforms": [
       "threads",
+      "instagram",
       "instagram_story"
     ],
     "publication_key": "1b8296065af395259ec5bb8dd44e9d1e09f0637e0dc33dfb4fe587181fdccdda",
@@ -66,6 +67,7 @@
     "social_publish": true,
     "social_platforms": [
       "threads",
+      "instagram",
       "instagram_story"
     ],
     "social_security_severity": "CRITICAL",
@@ -103,6 +105,7 @@
     "social_publish": true,
     "social_platforms": [
       "threads",
+      "instagram",
       "instagram_story"
     ],
     "social_security_severity": "HIGH",
@@ -140,6 +143,7 @@
     "social_publish": true,
     "social_platforms": [
       "threads",
+      "instagram",
       "instagram_story"
     ],
     "social_security_severity": "CRITICAL",
@@ -181,6 +185,7 @@
     "social_publish": true,
     "social_platforms": [
       "threads",
+      "instagram",
       "instagram_story"
     ],
     "publication_key": "de59557b84ef76cf7ecbb00a2e6811eed53da860df342b734489b7875545bd7d",
@@ -219,6 +224,7 @@
     "social_publish": true,
     "social_platforms": [
       "threads",
+      "instagram",
       "instagram_story"
     ],
     "publication_key": "43c58b6397526db4bdeedb53337ea606e08b11beced1cc48b8e8fb80d5f9d97a",

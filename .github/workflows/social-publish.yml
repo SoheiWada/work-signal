@@ -31,10 +31,10 @@ on:
   schedule:
     - cron: '6,36 * * * *'
 
-# Owner requested Threads only while Instagram is unresolved. This pause is
-# operational: article media choices and existing delivery records are retained.
+# Owner confirmed Instagram feed restored on 2026-11-06 JST and requested all
+# three media. Keep the operational pause available for a future explicit stop.
 env:
-  SOCIAL_PAUSED_PLATFORMS: instagram,instagram_story
+  SOCIAL_PAUSED_PLATFORMS: ''
 
 permissions:
   contents: write

@@ -3213,10 +3213,12 @@
   },
   "20261104-rails-activestorage-imagemagick-file-access": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-05T22:35:26+00:00",
+      "status": "published",
+      "updated_at": "2026-11-05T22:35:33+00:00",
       "stage": "publish_requested",
-      "container_id": "18110535311243844"
+      "container_id": "18110535311243844",
+      "remote_id": "18110535311243844",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfYHgsCAZjV"
     }
   }
 }

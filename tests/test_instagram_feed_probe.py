@@ -89,6 +89,10 @@ class FeedProbeTests(unittest.TestCase):
         self.assertEqual(entry["status"], "needs_review")
         self.assertTrue(entry["action_block_hold"])
         self.assertEqual(entry["error"]["subcode"], 2207051)
+        self.assertIn("feed_attempted_at", entry)
+        deadline = datetime.fromisoformat(entry["restricted_until"])
+        self.assertGreater(deadline, self.clock + timedelta(hours=47, minutes=59))
+        self.assertLess(deadline, self.clock + timedelta(hours=48, minutes=1))
         self.assertEqual(self.run_probe(), 0)
         self.mocks["publish_instagram"].assert_called_once()
 
@@ -96,6 +100,7 @@ class FeedProbeTests(unittest.TestCase):
         self.publishing_error(p.MetaAPIError(400, {"code":4, "error_subcode":2207051}))
         self.assertEqual(self.run_probe(), 0)
         self.assertTrue(self.ledger.rows["probe-article"]["instagram"]["action_block_hold"])
+        self.assertIn("restricted_until", self.ledger.rows["probe-article"]["instagram"])
         self.assertEqual(self.result()["state"], "published")
         self.mocks["publish_instagram"].assert_called_once()
 

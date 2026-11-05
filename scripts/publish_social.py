@@ -1071,7 +1071,8 @@ def instagram_feed_probe(articles, ledger, credentials, plan, clock=None):
         verify_live(article_url(article))
         verify_live(image_url(article), jpg=True)
         ledger.record(aid, "instagram", "attempting", probe_request_id=rid,
-                      caption_sha256=hashlib.sha256(caption.encode()).hexdigest())
+                      caption_sha256=hashlib.sha256(caption.encode()).hexdigest(),
+                      feed_attempted_at=now())
     except Exception as exc:
         return finish("withheld", error=exc.metadata() if isinstance(exc, MetaAPIError)
                       else {"type": type(exc).__name__})
@@ -1097,6 +1098,7 @@ def instagram_feed_probe(articles, ledger, credentials, plan, clock=None):
     metadata = {"error": error} if error else {}
     if blocked:
         metadata["action_block_hold"] = True
+        metadata.update(restriction_metadata(now()))
     try:
         if live and (not remote or str(live["id"]) == remote):
             ledger.record(aid, "instagram", "published", remote_id=str(live["id"]),

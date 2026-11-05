@@ -3268,6 +3268,10 @@
       "container_id": "18159357427488337",
       "remote_id": "17907887124598874",
       "permalink": "https://www.instagram.com/p/DfYNaIxjrIr/"
+    },
+    "instagram_story": {
+      "status": "attempting",
+      "updated_at": "2026-11-05T23:27:07+00:00"
     }
   },
   "20261104-rails-activestorage-imagemagick-file-access": {

@@ -3237,7 +3237,9 @@
     },
     "instagram": {
       "status": "attempting",
-      "updated_at": "2026-11-05T23:26:14+00:00"
+      "updated_at": "2026-11-05T23:26:20+00:00",
+      "stage": "container_created",
+      "container_id": "18159357331488337"
     }
   },
   "20261104-rails-actionpack-each-key-parameters-bypass": {

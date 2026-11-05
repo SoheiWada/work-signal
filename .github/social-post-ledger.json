@@ -3372,10 +3372,12 @@
   },
   "20261104-openai-pierre-acquisition-codex-git": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-05T23:53:42+00:00",
+      "status": "published",
+      "updated_at": "2026-11-05T23:53:45+00:00",
       "stage": "publish_requested",
-      "container_id": "18134980564776839"
+      "container_id": "18134980564776839",
+      "remote_id": "18134980564776839",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfYQd4HmI5c"
     }
   }
 }

@@ -1,5 +1,42 @@
 [
   {
+    "id": "20261104-rails-activestorage-imagemagick-file-access",
+    "title": "Rails Active StorageにCRITICAL 9.8、画像添付処理でサーバーファイル読み書きの恐れ",
+    "summary": "Ruby on RailsのActive Storageに、画像添付時のImageMagick処理を通じてサーバー上のファイルを読み書きされ得る重大な脆弱性が公表された。開発元の評価はCRITICAL、CVSS 9.8。特定の画像処理設定と信頼できない利用者からのアップロードを許す構成が対象で、8.0.5.2または8.1.4.1への更新が必要となる。",
+    "category": "SECURITY",
+    "score": 90,
+    "published_at": "2026-11-06",
+    "published_at_time": "2026-11-05T22:29:58.411Z",
+    "source_url": "https://github.com/rails/rails/security/advisories/GHSA-f3w6-w445-fwh9",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Ruby on RailsのActive Storageに、画像添付時のImageMagick処理を通じてサーバー上のファイルを読み書きされ得る重大な脆弱性が公表された。開発元の評価はCRITICAL、CVSS 9.8。特定の画像処理設定と信頼できない利用者からのアップロードを許す構成が対象で、8.0.5.2または8.1.4.1への更新が必要となる。",
+    "sections": [
+      {
+        "title": "添付ファイルの解析だけで問題が生じ得る",
+        "body": "Rails開発元が11月4日に公開したGHSA-f3w6-w445-fwh9によると、Active StorageはImageMagickの危険な処理方式を十分に制限していなかった。信頼できない利用者がファイルをアップロードすると、画像の派生版やプレビューを明示的に生成しなくても解析が動作し、アプリケーションの権限でファイルの書き込みが可能になる恐れがある。保存先にDiskサービスを使用する場合は、アプリケーションが読める秘密情報などの読み取りにもつながり得る。開発元はCRITICAL、CVSS 9.8と評価した。"
+      },
+      {
+        "title": "対象はImageMagickとアップロード条件が重なる環境",
+        "body": "影響には、Active Storageの画像処理でmini_magickを使うこと、ImageMagick側のセキュリティポリシーで該当処理が拒否されていないこと、信頼できない利用者のアップロードを許すことが必要だ。Railsのすべての構成が一律に影響を受けるわけではない。開発元は8.0.5.2未満と8.1以上8.1.4.1未満を影響範囲とし、修正版8.0.5.2および8.1.4.1を案内している。"
+      },
+      {
+        "title": "修正版適用と秘密情報の取り扱いを確認",
+        "body": "まずGemfile.lockのactivestorageと画像処理設定を確認し、該当する場合は修正版へ更新する。mini_magick使用時には5.1以上が必要と開発元は注意している。独自のImageMagick環境設定を上書きする構成では、修正版が配布する保護ポリシーが適用されない場合があるため個別検証が必要だ。Diskサービスを使う環境について、開発元はsecret_key_baseや関連する認証情報の変更も推奨している。攻撃経路の報告があったことと、実際の被害・悪用が確認されたことは同義ではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Ruby on Rails Active Storage",
+    "social_security_action": "修正版8.0.5.2または8.1.4.1へ更新。mini_magick 5.1以上とImageMagickポリシーの適用を確認し、Diskサービスでは秘密情報を変更する。",
+    "publication_key": "5bd80a3468cf589c3c251a4ac2d72427b157bb8df5ae3144602559e5efc99600",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261104-openai-images-26",
     "title": "OpenAI「Images 2.6」公開、画像生成50％高速化とGIF・SVG対応。制作現場で変わる工程",
     "summary": "OpenAIは11月4日、画像生成・編集機能「Images 2.6」をChatGPT、Codex、API向けに発表した。従来比50％の生成高速化をうたい、GIFアニメーション制作やAPIでの画像マークアップ、SVG出力などを追加。制作現場では生成速度だけでなく、修正と再利用の工程をどう組み直せるかが焦点となる。",

@@ -3244,10 +3244,12 @@
       "permalink": "https://www.instagram.com/p/DfYNV33DiSg/"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-05T23:26:44+00:00",
+      "status": "published",
+      "updated_at": "2026-11-05T23:26:47+00:00",
       "stage": "publish_requested",
-      "container_id": "18159357394488337"
+      "container_id": "18159357394488337",
+      "remote_id": "18120292390777760",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4024025094820912406"
     }
   },
   "20261104-rails-actionpack-each-key-parameters-bypass": {

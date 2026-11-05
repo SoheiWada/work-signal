@@ -3326,10 +3326,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfYHi4GAXop"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-05T23:28:10+00:00",
+      "status": "published",
+      "updated_at": "2026-11-05T23:28:13+00:00",
       "stage": "publish_requested",
-      "container_id": "18159357895488337"
+      "container_id": "18159357895488337",
+      "remote_id": "17953329909342731",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4024025820301247186"
     }
   },
   "20261105-openai-linux-lpe-research": {

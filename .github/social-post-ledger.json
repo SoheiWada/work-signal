@@ -617,6 +617,13 @@
           "subcode": 2207051,
           "type": "OAuthException"
         }
+      },
+      "action_block_cleared_at": "2026-11-05T23:12:06.298Z",
+      "action_block_clearance": {
+        "approved_by": "SoheiWada",
+        "basis": "Owner confirmed feed restored and requested all SNS channels on 2026-11-06 JST; successful LifeVal feed probe is confirmed in ledger and live API diagnostics.",
+        "evidence_remote_id": "18101945714537541",
+        "evidence_permalink": "https://www.instagram.com/p/DfVgE7Ykft_/"
       }
     },
     "instagram_story": {
@@ -745,6 +752,13 @@
           "subcode": 2207051,
           "type": "OAuthException"
         }
+      },
+      "action_block_cleared_at": "2026-11-05T23:12:06.298Z",
+      "action_block_clearance": {
+        "approved_by": "SoheiWada",
+        "basis": "Owner confirmed feed restored and requested all SNS channels on 2026-11-06 JST; successful LifeVal feed probe is confirmed in ledger and live API diagnostics.",
+        "evidence_remote_id": "18101945714537541",
+        "evidence_permalink": "https://www.instagram.com/p/DfVgE7Ykft_/"
       }
     },
     "instagram_story": {
@@ -782,6 +796,13 @@
           "subcode": 2207051,
           "type": "OAuthException"
         }
+      },
+      "action_block_cleared_at": "2026-11-05T23:12:06.298Z",
+      "action_block_clearance": {
+        "approved_by": "SoheiWada",
+        "basis": "Owner confirmed feed restored and requested all SNS channels on 2026-11-06 JST; successful LifeVal feed probe is confirmed in ledger and live API diagnostics.",
+        "evidence_remote_id": "18101945714537541",
+        "evidence_permalink": "https://www.instagram.com/p/DfVgE7Ykft_/"
       }
     },
     "instagram_story": {
@@ -817,6 +838,13 @@
           "subcode": 2207051,
           "type": "OAuthException"
         }
+      },
+      "action_block_cleared_at": "2026-11-05T23:12:06.298Z",
+      "action_block_clearance": {
+        "approved_by": "SoheiWada",
+        "basis": "Owner confirmed feed restored and requested all SNS channels on 2026-11-06 JST; successful LifeVal feed probe is confirmed in ledger and live API diagnostics.",
+        "evidence_remote_id": "18101945714537541",
+        "evidence_permalink": "https://www.instagram.com/p/DfVgE7Ykft_/"
       }
     },
     "instagram_story": {
@@ -3069,7 +3097,14 @@
         "error_user_msg": "We restrict certain activity to protect our community. Tell us if you think we made a mistake.",
         "error_user_title": "action is blocked"
       },
-      "action_block_hold": true
+      "action_block_hold": true,
+      "action_block_cleared_at": "2026-11-05T23:12:06.298Z",
+      "action_block_clearance": {
+        "approved_by": "SoheiWada",
+        "basis": "Owner confirmed feed restored and requested all SNS channels on 2026-11-06 JST; successful LifeVal feed probe is confirmed in ledger and live API diagnostics.",
+        "evidence_remote_id": "18101945714537541",
+        "evidence_permalink": "https://www.instagram.com/p/DfVgE7Ykft_/"
+      }
     }
   },
   "20261102-traefik-ntlm-negotiate-backend-transport-dos-ghsa-xv5x-242w-7hf7": {

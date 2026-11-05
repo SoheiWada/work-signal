@@ -40,6 +40,36 @@ class DeliveryPreflight:
     def existing(self, article, kind):
         items = self.history(kind)
         if kind == "instagram_story":
+            if not items:
+                # A verified complete empty active-story collection needs no
+                # image comparison. Permit only fresh, unclaimed deliveries,
+                # and reject contradictions with known <24h published stories.
+                current = datetime.now(timezone.utc)
+                today = current.astimezone(timezone(timedelta(hours=9))).date().isoformat()
+                entry = self.rows.get(article["id"], {}).get(kind, {})
+                fresh = article.get("published_at") == today
+                stamp = article.get("published_at_time")
+                if stamp:
+                    try:
+                        published = datetime.fromisoformat(stamp.replace("Z", "+00:00"))
+                        fresh = fresh and published.tzinfo is not None and timedelta(0) <= current - published < timedelta(hours=24)
+                    except (TypeError, ValueError):
+                        fresh = False
+                uncertain = entry.get("status") in ("attempting", "needs_review") or any(
+                    entry.get(key) for key in ("remote_id", "container_id", "previous_attempt"))
+                recent_known = False
+                for history in self.rows.values():
+                    known = history.get("instagram_story", {})
+                    if known.get("status") != "published":
+                        continue
+                    try:
+                        when = datetime.fromisoformat(known["updated_at"].replace("Z", "+00:00"))
+                        recent_known |= when.tzinfo is not None and timedelta(0) <= current - when < timedelta(hours=24)
+                    except (KeyError, TypeError, ValueError):
+                        recent_known = True  # Unknown known-post age cannot prove absence.
+                if fresh and not uncertain and not recent_known:
+                    return None
+                raise RuntimeError("Empty Story history conflicts with freshness or prior delivery evidence; manual review required")
             if self.story_checks is None:
                 self.story_checks = story_image_checks(
                     self.articles, self.rows, items,

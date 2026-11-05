@@ -22,7 +22,7 @@ on:
       - scripts/social_queue.py
       - .github/workflows/social-delivery-monitor.yml
 env:
-  SOCIAL_PAUSED_PLATFORMS: instagram,instagram_story
+  SOCIAL_PAUSED_PLATFORMS: ''
 
 permissions:
   contents: read

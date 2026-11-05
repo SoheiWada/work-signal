@@ -54,13 +54,13 @@ class SocialPreflightTests(unittest.TestCase):
         publish.assert_called_once()
 
     def test_story_uses_visual_positive_control_and_today_window(self):
-        with (patch("scripts.social_delivery_preflight.collect", return_value=([], True)),
+        with (patch("scripts.social_delivery_preflight.collect", return_value=([{"id":"unrelated"}], True)),
               patch("scripts.social_delivery_preflight.story_image_checks", return_value={
                   self.a["id"]: {"absence_verified": True, "matching_ids": []}})):
             self.assertIsNone(self.preflight.existing(self.a, "instagram_story"))
             with self.assertRaises(RuntimeError):
                 self.preflight.existing({**self.a, "published_at": "2026-01-01"}, "instagram_story")
-        with (patch("scripts.social_delivery_preflight.collect", return_value=([], True)),
+        with (patch("scripts.social_delivery_preflight.collect", return_value=([{"id":"unrelated"}], True)),
               patch("scripts.social_delivery_preflight.story_image_checks", return_value={})):
             fresh = DeliveryPreflight([self.a], {}, self.credentials)
             with self.assertRaises(RuntimeError):
@@ -77,6 +77,33 @@ class SocialPreflightTests(unittest.TestCase):
         for response in ({}, {"data": {}}, {"data": [None]}, {"data": [{}]}):
             with patch.object(social, "request_json", return_value=response), self.assertRaises(RuntimeError):
                 collect("https://graph.example", "user/media", "t", "id")
+
+    def test_complete_empty_stories_allow_a_fresh_unclaimed_initial_post(self):
+        with (patch("scripts.social_delivery_preflight.collect", return_value=([], True)),
+              patch("scripts.social_delivery_preflight.story_image_checks") as visual):
+            self.assertIsNone(self.preflight.existing(self.a, "instagram_story"))
+        visual.assert_not_called()
+
+    def test_empty_story_history_cannot_clear_stale_uncertain_or_known_active_posts(self):
+        now = datetime.now(timezone.utc).isoformat()
+        cases = [
+            ({**self.a, "published_at":"2026-01-01"}, {}),
+            (self.a, {self.a["id"]:{"instagram_story":{"status":"needs_review"}}}),
+            (self.a, {"other":{"instagram_story":{"status":"published","updated_at":now,"remote_id":"known"}}}),
+            (self.a, {"other":{"instagram_story":{"status":"published","remote_id":"unknown-age"}}}),
+        ]
+        with patch("scripts.social_delivery_preflight.collect", return_value=([], True)):
+            for article, rows in cases:
+                preflight = DeliveryPreflight([article], rows, self.credentials)
+                with self.assertRaises(RuntimeError):
+                    preflight.existing(article, "instagram_story")
+
+    def test_complete_empty_story_history_requires_valid_precise_publication_time(self):
+        for stamp in ["invalid", "2020-01-01T00:00:00Z", "2026-11-06T23:59:00Z"]:
+            with patch("scripts.social_delivery_preflight.collect", return_value=([], True)):
+                preflight = DeliveryPreflight([self.a], {}, self.credentials)
+                with self.assertRaises(RuntimeError):
+                    preflight.existing({**self.a,"published_at_time":stamp}, "instagram_story")
 
 
 if __name__ == "__main__":

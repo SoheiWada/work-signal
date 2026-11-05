@@ -3271,7 +3271,9 @@
     },
     "instagram_story": {
       "status": "attempting",
-      "updated_at": "2026-11-05T23:27:07+00:00"
+      "updated_at": "2026-11-05T23:27:12+00:00",
+      "stage": "container_created",
+      "container_id": "18159357463488337"
     }
   },
   "20261104-rails-activestorage-imagemagick-file-access": {

@@ -3203,10 +3203,12 @@
   },
   "20261104-rails-actionpack-each-key-parameters-bypass": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-05T22:35:10+00:00",
+      "status": "published",
+      "updated_at": "2026-11-05T22:35:15+00:00",
       "stage": "publish_requested",
-      "container_id": "18220704394345158"
+      "container_id": "18220704394345158",
+      "remote_id": "18220704394345158",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfYHefGgSrU"
     }
   }
 }

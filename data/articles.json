@@ -1,5 +1,44 @@
 [
   {
+    "id": "20261104-openai-pierre-acquisition-codex-git",
+    "title": "OpenAIがPierre買収を発表、CodexでGitのコード管理・レビューを強化へ",
+    "summary": "OpenAIは11月4日、Gitベースのコード保存サービス「Code Storage」やオープンソースの開発ツールを手がけるPierre Computer Companyを買収すると発表した。Codexでのコード閲覧・差分確認にすでに利用している技術を基盤に、AIエージェントと人間が並行して開発するためのコード管理・レビュー機能を強化する狙いだ。買収はまだ完了していない。",
+    "category": "AI",
+    "score": 87,
+    "published_at": "2026-11-06",
+    "published_at_time": "2026-11-05T23:48:57.105Z",
+    "source_url": "https://openai.com/index/openai-to-acquire-pierre/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは11月4日、Gitベースのコード保存サービス「Code Storage」やオープンソースの開発ツールを手がけるPierre Computer Companyを買収すると発表した。Codexでのコード閲覧・差分確認にすでに利用している技術を基盤に、AIエージェントと人間が並行して開発するためのコード管理・レビュー機能を強化する狙いだ。買収はまだ完了していない。",
+    "sections": [
+      {
+        "title": "Codexが利用するコード閲覧技術の開発元",
+        "body": "OpenAIが買収を発表したPierreは、Gitでコードと変更履歴を管理するCode Storageや、プロジェクト内のファイルを閲覧するTrees、差分を確認するDiffsなどを開発している。OpenAIによると、Codexアプリのファイル閲覧と変更レビューにはすでにTreesとDiffsが使われている。Diffsには変更箇所で直接コードを編集する機能もある。"
+      },
+      {
+        "title": "AIエージェントの並列開発を支える基盤へ",
+        "body": "OpenAIは、AIエージェントが同時に多数の作業を行う時代にはGitを取り巻く仕組みの進化が必要だと説明する。同社は社内向けのソースコード管理基盤Pandoも紹介しており、今回の買収計画はCodexをコード生成だけでなく、変更確認から管理まで扱う開発環境へ拡張する戦略の一環と読める。ただし、将来の統合機能の提供時期や料金は発表されていない。"
+      },
+      {
+        "title": "開発組織が注目すべき点",
+        "body": "AIコーディングの評価軸は、生成したコードの量だけではなく、複数エージェントによる変更を誰が確認し、どの履歴で追跡するかに広がる。企業の開発責任者は、コードレビューの権限設計、変更履歴の監査、既存Git環境との相互運用性を確認する必要がある。これは今回の発表を踏まえた実務上の分析であり、OpenAIが具体的な企業向け管理機能を新たに提供したという意味ではない。"
+      },
+      {
+        "title": "買収は未完了、オープンソース継続を表明",
+        "body": "OpenAIはPierreのオープンソースプロジェクトを引き続き公開し、貢献を続けると説明している。Code Storageの利用者も買収完了後にサービスを継続利用できるとしている。一方、取引の成立には規制当局の承認を含む通常の条件が必要で、完了までは両社は独立した企業のままだ。買収金額は公式発表で明示されていない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "publication_key": "430637e069143db3d72b99d6246a62db4761f7237a43951bb9ef8f42f4af992d",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261105-openai-gpt6-cyber-security-model",
     "title": "OpenAI「GPT-6 Cyber」発表、脆弱性検証48.5％とFirefoxの新規81件を報告",
     "summary": "OpenAIは2026年11月5日、セキュリティ研究向けモデル「GPT-6 Cyber」を発表した。脆弱性の悪用可能性を検証する同社ベンチマークで48.5％を記録し、Firefoxでは新たな高深刻度の脆弱性81件を発見したと説明する。AIが防御側の調査能力を広げる一方、利用には承認された対象範囲と人間による検証が欠かせない。",

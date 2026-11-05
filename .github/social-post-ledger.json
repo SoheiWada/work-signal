@@ -3373,7 +3373,9 @@
   "20261104-openai-pierre-acquisition-codex-git": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-05T23:53:33+00:00"
+      "updated_at": "2026-11-05T23:53:42+00:00",
+      "stage": "publish_requested",
+      "container_id": "18134980564776839"
     }
   }
 }

@@ -3,19 +3,19 @@
   "provider": "balldontlie",
   "season": 2026,
   "throughDate": "2026-11-04",
-  "fetchedAt": "2026-11-04T18:04:13.735Z",
-  "lastAttemptAt": "2026-11-04T18:04:13.735Z",
+  "fetchedAt": "2026-11-05T02:34:17.270Z",
+  "lastAttemptAt": "2026-11-05T02:34:17.270Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 107,
+  "countedGames": 108,
   "standingsReason": null,
   "teams": [
     {
       "code": "ATL",
       "name": "Atlanta Hawks",
       "conference": "East",
-      "wins": 4,
+      "wins": 5,
       "losses": 4
     },
     {
@@ -219,10 +219,22 @@
       "name": "Washington Wizards",
       "conference": "East",
       "wins": 4,
-      "losses": 3
+      "losses": 4
     }
   ],
   "sets": [
+    [
+      {
+        "id": "21718028",
+        "date": "2026-11-04",
+        "home": "WAS",
+        "away": "ATL",
+        "homeScore": 105,
+        "awayScore": 120,
+        "competition": "regular",
+        "countsForStandings": true
+      }
+    ],
     [
       {
         "id": "21718026",
@@ -741,48 +753,6 @@
         "away": "MIA",
         "homeScore": 117,
         "awayScore": 129,
-        "competition": "regular",
-        "countsForStandings": true
-      }
-    ],
-    [
-      {
-        "id": "21717974",
-        "date": "2026-10-27",
-        "home": "LAL",
-        "away": "POR",
-        "homeScore": 129,
-        "awayScore": 136,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717973",
-        "date": "2026-10-27",
-        "home": "SAS",
-        "away": "SAC",
-        "homeScore": 130,
-        "awayScore": 103,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717972",
-        "date": "2026-10-27",
-        "home": "NYK",
-        "away": "DET",
-        "homeScore": 111,
-        "awayScore": 97,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717971",
-        "date": "2026-10-27",
-        "home": "BOS",
-        "away": "BKN",
-        "homeScore": 125,
-        "awayScore": 124,
         "competition": "regular",
         "countsForStandings": true
       }

@@ -3233,10 +3233,12 @@
   },
   "20261105-openai-linux-lpe-research": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-05T22:36:02+00:00",
+      "status": "published",
+      "updated_at": "2026-11-05T22:36:07+00:00",
       "stage": "publish_requested",
-      "container_id": "18097934210138117"
+      "container_id": "18097934210138117",
+      "remote_id": "18097934210138117",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfYHk54gQCS"
     }
   }
 }

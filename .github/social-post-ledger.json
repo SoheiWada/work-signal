@@ -3344,10 +3344,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfYHk54gQCS"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-05T23:28:26+00:00",
+      "status": "published",
+      "updated_at": "2026-11-05T23:28:30+00:00",
       "stage": "publish_requested",
-      "container_id": "18159358021488337"
+      "container_id": "18159358021488337",
+      "remote_id": "18115940027104671",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4024025959577345797"
     }
   },
   "20261105-openai-gpt6-cyber-security-model": {

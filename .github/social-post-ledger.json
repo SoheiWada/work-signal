@@ -3193,10 +3193,12 @@
   },
   "20261105-apache-juneau-directoryresource-traversal": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-05T22:34:50+00:00",
+      "status": "published",
+      "updated_at": "2026-11-05T22:34:56+00:00",
       "stage": "publish_requested",
-      "container_id": "18024612128927990"
+      "container_id": "18024612128927990",
+      "remote_id": "18024612128927990",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfYHcI8garu"
     }
   }
 }

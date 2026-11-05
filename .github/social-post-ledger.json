@@ -3306,6 +3306,10 @@
         "error_user_title": "action is blocked"
       },
       "action_block_hold": true
+    },
+    "instagram_story": {
+      "status": "attempting",
+      "updated_at": "2026-11-05T23:27:41+00:00"
     }
   },
   "20261104-openai-images-26": {

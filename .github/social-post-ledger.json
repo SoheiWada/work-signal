@@ -3223,10 +3223,12 @@
   },
   "20261104-openai-images-26": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-05T22:35:44+00:00",
+      "status": "published",
+      "updated_at": "2026-11-05T22:35:50+00:00",
       "stage": "publish_requested",
-      "container_id": "17976563034149063"
+      "container_id": "17976563034149063",
+      "remote_id": "17976563034149063",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfYHi4GAXop"
     }
   }
 }

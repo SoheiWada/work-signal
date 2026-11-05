@@ -22,6 +22,7 @@ def scheduled_ids(articles, rows, now=None):
                for name, value in entry.items()
                if name in ("instagram", "instagram_story") and
                isinstance(value, dict) and social.active_instagram_action_block(value)}
+    feed_ready = social.feed_pacing_state(rows, now)["allowed"]
     chosen = []
     for article in social.approved_articles(articles):
         aid = article["id"]
@@ -37,7 +38,8 @@ def scheduled_ids(articles, rows, now=None):
             if not isinstance(states, dict):
                 continue
             remaining = social.remaining_platforms(states, now)
-            if any(p in social.delivery_platforms(article) and p not in blocked for p in remaining):
+            if any(p in social.delivery_platforms(article) and p not in blocked
+                   and (p != "instagram" or feed_ready) for p in remaining):
                 chosen.append(aid)
         except (KeyError, TypeError, ValueError, RuntimeError):
             # Unknown evidence is a manual review case, not a social write.

@@ -50,6 +50,7 @@ def continuation_ids(feed, before, after, ids, depth, clock=None):
 
 def backlog_report(feed, rows, clock=None):
     clock = clock or datetime.now(timezone.utc)
+    feed_policy = social.feed_pacing_state(rows, clock)
     ready_ids = set(scheduled_ids(feed, rows, clock))
     blocked = {kind for history in rows.values() if isinstance(history, dict)
                for kind in ("instagram", "instagram_story")
@@ -83,6 +84,10 @@ def backlog_report(feed, rows, clock=None):
                 category = "held"
             elif kind in blocked:
                 category = "held"
+            elif kind == "instagram" and not feed_policy["allowed"]:
+                category = ("deferred" if feed_policy["reason"] == "feed_pacing" else
+                            "review_required" if feed_policy["reason"] in
+                            ("feed_history_unknown", "feed_history_time_unknown") else "held")
             elif aid in ready_ids and kind in remaining:
                 category = "ready"
             elif status == "deferred" and kind not in remaining:
@@ -94,8 +99,12 @@ def backlog_report(feed, rows, clock=None):
                 outstanding.append({"id": aid, "platform": kind, "state": category,
                     "published_at_time": article.get("published_at_time"),
                     "attempt_updated_at": entry.get("updated_at"),
-                    "hold_reason": "operator_pause" if category == "held" and kind in social.paused_platforms() else None})
-    return {"checked_at": clock.isoformat(), "counts": counts,
+                    "hold_reason": "operator_pause" if category == "held" and kind in social.paused_platforms() else
+                        (feed_policy["reason"] if kind == "instagram" and not feed_policy["allowed"] else None),
+                    "next_attempt_at": entry.get("next_attempt_at") or
+                        (feed_policy.get("next_attempt_at") if kind == "instagram" else None)})
+    return {"instagram_feed_policy": feed_policy,
+            "checked_at": clock.isoformat(), "counts": counts,
             "ready_article_ids": sorted(ready_ids), "outstanding": outstanding,
             "note": "Cumulative ledger evidence, not current visibility. Stories expire."}
 
@@ -113,6 +122,10 @@ def write_report(report):
                 output.write("| " + kind + " | " + " | ".join(str(n) for n in counts.values()) + " |\n")
             output.write("\nPublished counts are cumulative ledger records. Held/review items are **not completed deliveries**. "
                          "See social-backlog-status.json for every outstanding article.\n")
+            if "instagram_feed_policy" in report:
+                output.write("\nInstagram feed local pacing/cooldown: " +
+                             json.dumps(report["instagram_feed_policy"]) +
+                             ". A cooldown deadline never clears the manual protective hold.\n")
             if "scheduler" in report:
                 output.write("\nScheduled trigger: **" + report["scheduler"]["state"] + "** (independent of delivery).\n")
             if "publisher" in report:
@@ -254,4 +267,3 @@ def main():
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

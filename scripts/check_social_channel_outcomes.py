@@ -30,7 +30,7 @@ def evaluate(summary, feed, ledger):
         entry.get("instagram", {})) for entry in ledger.values()
         if isinstance(entry, dict))
     counters = {"threads":0, "instagram_story":0, "feed_published":0,
-                "feed_held":0, "feed_pending_other":0, "feed_freshness_held":0, "operator_paused":0}
+                "feed_held":0, "feed_pending_other":0, "feed_freshness_held":0, "operator_paused":0, "feed_paced":0}
     errors = []
     feed_only_holds = set()
     for article in approved:
@@ -57,6 +57,8 @@ def evaluate(summary, feed, ledger):
         if ("instagram" in social.paused_platforms() and state == "paused" and
                 ledger.get(aid, {}).get("instagram", {}).get("status", "pending") in ("pending", "deferred")):
             counters["operator_paused"] += 1
+        elif state == "deferred" and social.safe_pacing_deferral(ledger.get(aid, {}).get("instagram", {})):
+            counters["feed_paced"] += 1
         elif state == "published":
             counters["feed_published"] += 1
         elif active_feed_hold and (state == "pending" or (
@@ -107,9 +109,11 @@ def main():
         "other_incomplete_feed":counts.get("feed_pending_other",0),
         "instagram_feed_freshness_expired_on_hold":counts.get("feed_freshness_held",0),
         "operator_paused_not_posted":counts.get("operator_paused",0),
-        "result":"success_with_operator_pause" if ok and counts.get("operator_paused") else
+        "instagram_feed_paced_not_posted":counts.get("feed_paced",0),
+        "result":"success_with_feed_pacing" if ok and counts.get("feed_paced") else
+                 ("success_with_operator_pause" if ok and counts.get("operator_paused") else
                  ("success_with_explicit_feed_hold" if ok and counts.get("feed_held") else
-                 ("success" if ok else "failure")),
+                 ("success" if ok else "failure"))),
         "error":error
     }))
     if os.environ.get("GITHUB_STEP_SUMMARY"):
@@ -119,6 +123,7 @@ def main():
                     "; Stories published: " + str(counts.get("instagram_story",0)) +
                     "; Operator paused (NOT POSTED): " + str(counts.get("operator_paused",0)) +
                     "; Instagram feed published: " + str(counts.get("feed_published",0)) +
+                    "; Instagram feed paced (NOT POSTED): " + str(counts.get("feed_paced",0)) +
                     "; Instagram feed **HELD**: " + str(counts.get("feed_held",0)) +
                     "; of these, freshness review expired: " + str(counts.get("feed_freshness_held",0)) +
                     "\n\nInstagram feed held by Meta protective action 4/2207051: **NOT POSTED**. "
@@ -126,6 +131,8 @@ def main():
     if not ok:
         print("CHANNEL_HEALTH_FAIL", error, file=sys.stderr)
         return 1
+    if counts.get("feed_paced"):
+        print("::notice::Instagram feed is paced: NOT POSTED; next_attempt_at remains in the ledger")
     if counts.get("operator_paused"):
         print("::notice::Requested channels are operator-paused: NOT POSTED; Threads failures remain errors")
     if counts.get("feed_held"):

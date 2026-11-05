@@ -38,6 +38,11 @@ def urlopen(request, timeout=30):
     return _public_urlopen(request, timeout=timeout)
 
 
+try:
+    from scripts.instagram_feed_pacing import feed_pacing_state, restriction_metadata, safe_pacing_deferral
+except ImportError:
+    from instagram_feed_pacing import feed_pacing_state, restriction_metadata, safe_pacing_deferral
+
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://signal.amberlight.co.jp/"
 THREADS_API = "https://graph.threads.net/v1.0"
@@ -268,13 +273,13 @@ class GithubLedger:
             if status == "deferred" and prior == "needs_review":
                 raise RuntimeError("Uncertain results require explicit reconciliation")
             allowed = {"reason", "next_attempt_at", "error", "stage", "container_id",
-                       "probe_request_id", "caption_sha256", "action_block_hold"}
+                       "probe_request_id", "caption_sha256", "action_block_hold", "feed_attempted_at", "restricted_until"}
             if set(metadata) - allowed:
                 raise ValueError("Unsupported ledger metadata")
             per_article[platform] = {
                 "status": status, "updated_at": now(),
                 **{key: previous[key] for key in ("recovery_review_id", "reconciled_at", "previous_attempt",
-                    "probe_request_id", "caption_sha256") if key in previous},
+                    "probe_request_id", "caption_sha256", "feed_attempted_at", "restricted_until") if key in previous},
                 **({key: previous[key] for key in ("stage", "container_id") if key in previous}
                    if status != "attempting" else {}),
                 **({"remote_id": remote_id} if remote_id else {}),
@@ -719,7 +724,8 @@ def delivery_report(articles, rows, failures=()):
             pending += status in ("pending", "deferred")
         table.append("| " + article["id"] + " | " + " | ".join(statuses.values()) + " |")
         details.append({"id": article["id"], "platforms": statuses})
-    summary = {"checked_at": now(), "published": published, "pending": pending,
+    summary = {"instagram_feed_policy": feed_pacing_state(rows),
+               "checked_at": now(), "published": published, "pending": pending,
                "needs_review": review, "paused": paused, "failures": list(failures), "articles": details}
     print("DELIVERY_SUMMARY", json.dumps({k: v for k, v in summary.items() if k != "articles"}))
     if os.getenv("SOCIAL_REPORT_ENABLED") == "true":
@@ -779,6 +785,7 @@ def run(articles, ledger, credentials):
     # SECURITY WATCH first; within each group preserve oldest-first delivery.
     ordered = sorted(enumerate(approved), key=lambda pair: (0 if pair[1].get("social_security_severity") else 1, -pair[0]))
     processed = {"threads": set(), "instagram": set()}
+    feed_attempted_this_run = False
     for _, article in ordered:
         identifier = article["id"]
         rows, _ = ledger.read()
@@ -797,6 +804,17 @@ def run(articles, ledger, credentials):
                 if message not in failures:
                     failures.append(message)
                 continue
+            if kind == "instagram":
+                gate_rows, _ = ledger.read()
+                gate = feed_pacing_state(gate_rows)
+                if not gate["allowed"] or feed_attempted_this_run:
+                    if gate.get("reason") == "feed_pacing":
+                        ledger.record(identifier, kind, "deferred", reason="instagram_feed_pacing",
+                                      next_attempt_at=gate["next_attempt_at"])
+                        print("INSTAGRAM_FEED_DEFERRED", identifier, gate["next_attempt_at"])
+                    else:
+                        failures.append(identifier + ": instagram feed pacing/hold requires review")
+                    continue
             if group not in profiles:
                 continue
             if identifier not in processed[group] and len(processed[group]) >= 5:
@@ -834,7 +852,10 @@ def run(articles, ledger, credentials):
             remote = None
             try:
                 processed[group].add(identifier)
-                ledger.record(identifier, kind, "attempting")
+                if kind == "instagram" and not existing:
+                    feed_attempted_this_run = True
+                claim = {"feed_attempted_at": now()} if kind == "instagram" and not existing else {}
+                ledger.record(identifier, kind, "attempting", **claim)
                 claimed = True
                 options = {}
                 def progress(stage, cid):
@@ -929,6 +950,8 @@ def run(articles, ledger, credentials):
                             metadata = {"error": exc.metadata()} if isinstance(exc, MetaAPIError) else {}
                             if action_block:
                                 metadata["action_block_hold"] = True
+                                if kind == "instagram":
+                                    metadata.update(restriction_metadata(now()))
                             ledger.record(identifier, kind, "published", remote_id=str(live["id"]),
                                           permalink=live.get("permalink", ""), **metadata)
                             print("RECONCILED_INSTAGRAM", identifier, kind, live["id"])
@@ -946,6 +969,8 @@ def run(articles, ledger, credentials):
                             if action_block:
                                 metadata["reason"] = "instagram_protective_action_block"
                                 metadata["action_block_hold"] = True
+                                if kind == "instagram":
+                                    metadata.update(restriction_metadata(now()))
                             ledger.record(identifier, kind, "needs_review", **metadata)
                     except Exception:
                         print("IMPORTANT: ledger state requires manual inspection for", identifier, kind)
@@ -955,7 +980,9 @@ def run(articles, ledger, credentials):
     outstanding = delivery_report(approved, rows, failures)
     for message in failures:
         print("DELIVERY INCOMPLETE", message, file=sys.stderr)
-    return 1 if outstanding or failures else 0
+    paced = sum(safe_pacing_deferral(rows.get(a["id"], {}).get("instagram", {}))
+                for a in approved if "instagram" in delivery_platforms(a))
+    return 1 if outstanding > paced or failures else 0
 
 
 def instagram_feed_probe(articles, ledger, credentials, plan, clock=None):
@@ -1112,5 +1139,3 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
-
-

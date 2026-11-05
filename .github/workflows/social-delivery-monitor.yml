@@ -21,6 +21,9 @@ on:
     paths:
       - scripts/social_queue.py
       - .github/workflows/social-delivery-monitor.yml
+env:
+  SOCIAL_PAUSED_PLATFORMS: instagram,instagram_story
+
 permissions:
   contents: read
   actions: write

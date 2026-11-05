@@ -2,8 +2,8 @@
 """Check audited per-platform outcomes without hiding genuine publication failures.
 
 The known Instagram FEED 4/2207051 protective hold is reported as WARNING,
-never as a successful feed post. Threads and Stories must be fully published
-for this separate channel-health gate to pass. All other API errors fail.
+never as a successful feed post. Requested active channels must be published. An explicit operator pause remains
+NOT POSTED; unknown writes and other API errors still fail.
 """
 import json
 import os
@@ -30,7 +30,7 @@ def evaluate(summary, feed, ledger):
         entry.get("instagram", {})) for entry in ledger.values()
         if isinstance(entry, dict))
     counters = {"threads":0, "instagram_story":0, "feed_published":0,
-                "feed_held":0, "feed_pending_other":0, "feed_freshness_held":0}
+                "feed_held":0, "feed_pending_other":0, "feed_freshness_held":0, "operator_paused":0}
     errors = []
     feed_only_holds = set()
     for article in approved:
@@ -43,6 +43,10 @@ def evaluate(summary, feed, ledger):
         for ch in ("threads", "instagram_story"):
             if ch not in selected:
                 continue
+            if (ch in social.paused_platforms() and status.get(ch) == "paused" and
+                    ledger.get(aid, {}).get(ch, {}).get("status", "pending") in ("pending", "deferred")):
+                counters["operator_paused"] += 1
+                continue
             if status.get(ch) != "published":
                 errors.append("Incomplete " + ch + " " + aid)
             else:
@@ -50,7 +54,10 @@ def evaluate(summary, feed, ledger):
         if "instagram" not in selected:
             continue
         state = status.get("instagram", "pending")
-        if state == "published":
+        if ("instagram" in social.paused_platforms() and state == "paused" and
+                ledger.get(aid, {}).get("instagram", {}).get("status", "pending") in ("pending", "deferred")):
+            counters["operator_paused"] += 1
+        elif state == "published":
             counters["feed_published"] += 1
         elif active_feed_hold and (state == "pending" or (
             state == "needs_review" and social.active_instagram_action_block(
@@ -99,8 +106,10 @@ def main():
         "instagram_feed_on_protective_hold":counts.get("feed_held",0),
         "other_incomplete_feed":counts.get("feed_pending_other",0),
         "instagram_feed_freshness_expired_on_hold":counts.get("feed_freshness_held",0),
-        "result":"success_with_explicit_feed_hold" if ok and counts.get("feed_held") else
-                 ("success" if ok else "failure"),
+        "operator_paused_not_posted":counts.get("operator_paused",0),
+        "result":"success_with_operator_pause" if ok and counts.get("operator_paused") else
+                 ("success_with_explicit_feed_hold" if ok and counts.get("feed_held") else
+                 ("success" if ok else "failure")),
         "error":error
     }))
     if os.environ.get("GITHUB_STEP_SUMMARY"):
@@ -108,6 +117,7 @@ def main():
             f.write("\n## Channel-specific verified delivery\n\n"
                     + "Threads published: " + str(counts.get("threads",0)) +
                     "; Stories published: " + str(counts.get("instagram_story",0)) +
+                    "; Operator paused (NOT POSTED): " + str(counts.get("operator_paused",0)) +
                     "; Instagram feed published: " + str(counts.get("feed_published",0)) +
                     "; Instagram feed **HELD**: " + str(counts.get("feed_held",0)) +
                     "; of these, freshness review expired: " + str(counts.get("feed_freshness_held",0)) +
@@ -116,8 +126,10 @@ def main():
     if not ok:
         print("CHANNEL_HEALTH_FAIL", error, file=sys.stderr)
         return 1
+    if counts.get("operator_paused"):
+        print("::notice::Requested channels are operator-paused: NOT POSTED; Threads failures remain errors")
     if counts.get("feed_held"):
-        print("::warning::Instagram FEED is intentionally held by Meta 4/2207051; Threads and Stories are verified published")
+        print("::warning::Instagram FEED is intentionally held by Meta 4/2207051; active requested channels are verified; paused channels remain NOT POSTED")
     return 0
 
 

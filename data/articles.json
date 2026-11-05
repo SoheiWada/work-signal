@@ -1,5 +1,42 @@
 [
   {
+    "id": "20261105-apache-juneau-directoryresource-traversal",
+    "title": "Apache JuneauにCRITICAL 10.0、DirectoryResourceの設定次第でルート外ファイル操作の恐れ",
+    "summary": "Apache JuneauのDirectoryResourceに、設定されたルートディレクトリの外側へアクセスできる脆弱性が公表された。Apache自身が割り当てたCVE-2026-121489の評価はCRITICAL、CVSS 4.0で10.0。閲覧・アップロード・削除の機能を有効にした環境で問題となり、修正版9.2.1への更新が推奨されている。",
+    "category": "SECURITY",
+    "score": 90,
+    "published_at": "2026-11-06",
+    "published_at_time": "2026-11-05T22:30:39.543Z",
+    "source_url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/121xxx/CVE-2026-121489.json",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Apache JuneauのDirectoryResourceに、設定されたルートディレクトリの外側へアクセスできる脆弱性が公表された。Apache自身が割り当てたCVE-2026-121489の評価はCRITICAL、CVSS 4.0で10.0。閲覧・アップロード・削除の機能を有効にした環境で問題となり、修正版9.2.1への更新が推奨されている。",
+    "sections": [
+      {
+        "title": "ディレクトリ境界を越えるファイル操作",
+        "body": "Apache Software Foundationが2026年11月5日に公開したCVE原票によると、Juneauのマイクロサービス機能DirectoryResourceは、要求されたファイルパスを設定済みルート内に適切に閉じ込められない。条件を満たす構成では、サーバープロセスがアクセスできる範囲で、ルート外のファイルの読み取り、書き込み、削除につながる可能性がある。Apache CNAによるCVSS v4.0基本値は10.0（CRITICAL）だ。"
+      },
+      {
+        "title": "初期設定では対象機能は無効",
+        "body": "成立条件はDirectoryResourceのview、upload、deleteのいずれかの設定が有効であること。CNA原票ではこれらはすべて初期状態で無効とされている。Juneauを導入しているだけで、あらゆるアプリケーションが同じ危険にさらされるわけではない。運用担当者は該当機能の有効化状況、外部からの到達可能性、サーバープロセスのファイル権限を確認する必要がある。"
+      },
+      {
+        "title": "2.1へ更新し、公開範囲と権限を点検",
+        "body": "CNA原票が示す影響範囲は9.2.0までで、修正版は9.2.1。影響する環境では更新を優先し、更新までの間は該当するファイル操作機能を必要に応じて無効化することを検討したい。ファイル操作を許すサーバープロセスの権限も最小限にする。公表情報は潜在的な影響を説明したものであり、実際の悪用被害やCISA KEVへの掲載を確認したものではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Apache Juneau、juneau-microservice-core / juneau-commons",
+    "social_security_action": "DirectoryResourceのview/upload/delete設定と公開範囲を確認し、9.2.1へ更新する。",
+    "publication_key": "1a809e5c3ceb7126739bf87d316211e60d9163f2a48ed484b15351fb8003f7c6",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261104-rails-actionpack-each-key-parameters-bypass",
     "title": "Rails Action PackのStrong Parameters回避、公式HIGH 7.5で修正",
     "summary": "Ruby on RailsのAction Packで、Strong Parametersによる属性保護を特定のコード経路で迂回できる脆弱性が公表された。開発元はHIGH、CVSS 7.5と評価。アプリケーションがeach_keyの戻り値を一括代入へ渡す場合に限って問題が成立し、修正版8.0.5.2と8.1.4.1が案内されている。",

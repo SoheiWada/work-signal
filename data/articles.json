@@ -1,5 +1,42 @@
 [
   {
+    "id": "20261104-rails-actionpack-each-key-parameters-bypass",
+    "title": "Rails Action PackのStrong Parameters回避、公式HIGH 7.5で修正",
+    "summary": "Ruby on RailsのAction Packで、Strong Parametersによる属性保護を特定のコード経路で迂回できる脆弱性が公表された。開発元はHIGH、CVSS 7.5と評価。アプリケーションがeach_keyの戻り値を一括代入へ渡す場合に限って問題が成立し、修正版8.0.5.2と8.1.4.1が案内されている。",
+    "category": "SECURITY",
+    "score": 84,
+    "published_at": "2026-11-06",
+    "published_at_time": "2026-11-05T22:30:09.364Z",
+    "source_url": "https://github.com/rails/rails/security/advisories/GHSA-wm3x-v3qw-4jh3",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Ruby on RailsのAction Packで、Strong Parametersによる属性保護を特定のコード経路で迂回できる脆弱性が公表された。開発元はHIGH、CVSS 7.5と評価。アプリケーションがeach_keyの戻り値を一括代入へ渡す場合に限って問題が成立し、修正版8.0.5.2と8.1.4.1が案内されている。",
+    "sections": [
+      {
+        "title": "Strong Parametersの保護が特定の戻り値で失われる",
+        "body": "開発元の11月4日付勧告によると、ActionController::Parameters#each_keyをブロック付きで呼び出すと、保護されたParametersではなく内部のHashWithIndifferentAccessが返る場合がある。この戻り値をActive Modelのnew、assign_attributes、updateなどの一括代入に渡すと、許可していない属性まで設定され得る。認可フラグなどの改変につながる可能性があるため、開発元はHIGH、CVSS v3.0 7.5と評価した。"
+      },
+      {
+        "title": "Railsを使うだけでは成立しない",
+        "body": "成立条件は、アプリケーション側がブロック付きeach_keyの戻り値を一括代入へ渡すこと。Rails自身はこの呼び出しを行わないと開発元は説明している。過去のCVE-2020-8164でeachなどを修正した際にeach_keyが残っていたことが背景だが、今回のGHSAに新しいCVEは記載されていない。すべてのRailsアプリで無条件に悪用可能という意味ではない。"
+      },
+      {
+        "title": "更新とアプリケーションコードの点検",
+        "body": "開発元はactionpack 8.0.5.2および8.1.4.1を修正版として案内している。運用担当者はGemfile.lockで導入バージョンを確認し、更新するとともに、each_keyの戻り値を一括代入に使用するコードを点検したい。すぐ更新できない場合はeach_keyの戻り値を使用せず、許可済みのParametersを明示的に渡す回避策が示されている。実際の攻撃被害や悪用確認は今回の公式勧告には記載されていない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "Ruby on Rails Action Pack (actionpack)",
+    "social_security_action": "修正版8.0.5.2または8.1.4.1へ更新。each_keyの戻り値を一括代入に使うコードを点検する。",
+    "publication_key": "afb2679bc032de61fc62799631314edb6882ce9562993795460715a400a82020",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261104-rails-activestorage-imagemagick-file-access",
     "title": "Rails Active StorageにCRITICAL 9.8、画像添付処理でサーバーファイル読み書きの恐れ",
     "summary": "Ruby on RailsのActive Storageに、画像添付時のImageMagick処理を通じてサーバー上のファイルを読み書きされ得る重大な脆弱性が公表された。開発元の評価はCRITICAL、CVSS 9.8。特定の画像処理設定と信頼できない利用者からのアップロードを許す構成が対象で、8.0.5.2または8.1.4.1への更新が必要となる。",

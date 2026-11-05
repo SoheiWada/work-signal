@@ -3243,10 +3243,12 @@
   },
   "20261105-openai-gpt6-cyber-security-model": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-05T23:11:01+00:00",
+      "status": "published",
+      "updated_at": "2026-11-05T23:11:03+00:00",
       "stage": "publish_requested",
-      "container_id": "18134536282783238"
+      "container_id": "18134536282783238",
+      "remote_id": "18134536282783238",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfYLlVYiVG3"
     }
   }
 }

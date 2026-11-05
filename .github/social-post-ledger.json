@@ -3262,10 +3262,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfYHefGgSrU"
     },
     "instagram": {
-      "status": "attempting",
-      "updated_at": "2026-11-05T23:27:01+00:00",
+      "status": "published",
+      "updated_at": "2026-11-05T23:27:06+00:00",
       "stage": "publish_requested",
-      "container_id": "18159357427488337"
+      "container_id": "18159357427488337",
+      "remote_id": "17907887124598874",
+      "permalink": "https://www.instagram.com/p/DfYNaIxjrIr/"
     }
   },
   "20261104-rails-activestorage-imagemagick-file-access": {

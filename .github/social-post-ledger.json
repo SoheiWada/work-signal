@@ -3214,7 +3214,9 @@
   "20261104-rails-activestorage-imagemagick-file-access": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-05T22:35:17+00:00"
+      "updated_at": "2026-11-05T22:35:26+00:00",
+      "stage": "publish_requested",
+      "container_id": "18110535311243844"
     }
   }
 }

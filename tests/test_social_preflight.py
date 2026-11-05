@@ -99,7 +99,7 @@ class SocialPreflightTests(unittest.TestCase):
                     preflight.existing(article, "instagram_story")
 
     def test_complete_empty_story_history_requires_valid_precise_publication_time(self):
-        for stamp in ["invalid", "2020-01-01T00:00:00Z", "2026-11-06T23:59:00Z"]:
+        for stamp in ["invalid", "2020-01-01T00:00:00Z", (datetime.now(timezone.utc) + timedelta(days=1)).isoformat()]:
             with patch("scripts.social_delivery_preflight.collect", return_value=([], True)):
                 preflight = DeliveryPreflight([self.a], {}, self.credentials)
                 with self.assertRaises(RuntimeError):

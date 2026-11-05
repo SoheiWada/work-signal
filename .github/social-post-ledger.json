@@ -3234,7 +3234,9 @@
   "20261105-openai-linux-lpe-research": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-05T22:35:52+00:00"
+      "updated_at": "2026-11-05T22:36:02+00:00",
+      "stage": "publish_requested",
+      "container_id": "18097934210138117"
     }
   }
 }

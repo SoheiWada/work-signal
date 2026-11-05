@@ -633,6 +633,20 @@ def requested_platforms(article):
     return selected
 
 
+
+def paused_platforms():
+    """An explicit operator pause retains requested media and all ledger evidence."""
+    value = os.getenv("SOCIAL_PAUSED_PLATFORMS", "")
+    selected = [p.strip() for p in value.split(",") if p.strip()]
+    if any(p not in SOCIAL_PLATFORMS for p in selected):
+        raise RuntimeError("Invalid operator channel pause; no delivery authorized")
+    return frozenset(selected)
+
+
+def delivery_platforms(article):
+    return [p for p in requested_platforms(article) if p not in paused_platforms()]
+
+
 def remaining_platforms(existing, now=None):
     """Do not automatically retry an attempted, published, or uncertain platform."""
     if not isinstance(existing, dict):
@@ -685,7 +699,7 @@ def active_instagram_action_block(entry):
 
 
 def delivery_report(articles, rows, failures=()):
-    pending, review, published = 0, 0, 0
+    pending, review, published, paused = 0, 0, 0, 0
     table = ["| Article | Threads | Feed | Story |", "|---|---|---|---|"]
     details = []
     for article in articles:
@@ -694,22 +708,25 @@ def delivery_report(articles, rows, failures=()):
         statuses = {}
         for kind in SOCIAL_PLATFORMS:
             status = state.get(kind, {}).get("status", "pending" if kind in selected else "not requested")
+            if kind in selected and kind in paused_platforms() and status in ("pending", "deferred"):
+                status = "paused"
             statuses[kind] = status
             if kind not in selected:
                 continue
+            paused += status == "paused"
             published += status == "published"
             review += status in ("attempting", "needs_review")
             pending += status in ("pending", "deferred")
         table.append("| " + article["id"] + " | " + " | ".join(statuses.values()) + " |")
         details.append({"id": article["id"], "platforms": statuses})
     summary = {"checked_at": now(), "published": published, "pending": pending,
-               "needs_review": review, "failures": list(failures), "articles": details}
+               "needs_review": review, "paused": paused, "failures": list(failures), "articles": details}
     print("DELIVERY_SUMMARY", json.dumps({k: v for k, v in summary.items() if k != "articles"}))
     if os.getenv("SOCIAL_REPORT_ENABLED") == "true":
         (ROOT / "social-delivery-status.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n")
     if os.getenv("SOCIAL_REPORT_ENABLED") == "true" and os.getenv("GITHUB_STEP_SUMMARY"):
         with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as report:
-            report.write("\n## WORK SIGNAL delivery\n\n" + f"Published: {published}; pending: {pending}; needs review: {review}\n\n" + "\n".join(table) + "\n")
+            report.write("\n## WORK SIGNAL delivery\n\n" + f"Published: {published}; pending: {pending}; needs review: {review}; operator-paused (NOT POSTED): {paused}\n\n" + "\n".join(table) + "\n")
     return pending + review
 
 
@@ -733,7 +750,7 @@ def run(articles, ledger, credentials):
         preflight = DeliveryPreflight(articles, rows, credentials,
                                       target_ids=[a["id"] for a in approved])
     work = {a["id"]: [p for p in remaining_platforms(rows.get(a["id"], {}))
-                       if p in requested_platforms(a)] for a in approved}
+                       if p in delivery_platforms(a)] for a in approved}
     needed = set(p for kinds in work.values() for p in kinds)
     failures, profiles = [], {}
     blocked_ig_platforms = {kind for item in rows.values() for kind, entry in item.items()
@@ -765,7 +782,7 @@ def run(articles, ledger, credentials):
     for _, article in ordered:
         identifier = article["id"]
         rows, _ = ledger.read()
-        remaining = [p for p in remaining_platforms(rows.get(identifier, {})) if p in requested_platforms(article)]
+        remaining = [p for p in remaining_platforms(rows.get(identifier, {})) if p in delivery_platforms(article)]
         if not remaining:
             continue
         if article.get("social_review_valid_until"):
@@ -963,7 +980,9 @@ def instagram_feed_probe(articles, ledger, credentials, plan, clock=None):
             with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as output:
                 output.write("\n## Single Instagram feed recovery probe\n\n```json\n"
                              + json.dumps(report, ensure_ascii=False, indent=2) + "\n```\n")
-        return 0 if state in ("published", "already_consumed", "expired", "no_request") else 1
+        return 0 if state in ("published", "already_consumed", "expired", "no_request", "operator_paused") else 1
+    if "instagram" in paused_platforms():
+        return finish("operator_paused")
     if not plan:
         return finish("no_request")
     try:

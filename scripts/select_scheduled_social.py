@@ -37,7 +37,7 @@ def scheduled_ids(articles, rows, now=None):
             if not isinstance(states, dict):
                 continue
             remaining = social.remaining_platforms(states, now)
-            if any(p in social.requested_platforms(article) and p not in blocked for p in remaining):
+            if any(p in social.delivery_platforms(article) and p not in blocked for p in remaining):
                 chosen.append(aid)
         except (KeyError, TypeError, ValueError, RuntimeError):
             # Unknown evidence is a manual review case, not a social write.

@@ -79,6 +79,8 @@ def backlog_report(feed, rows, clock=None):
                 category = "review_required"
             elif status in ("published", "needs_review", "attempting"):
                 category = status
+            elif kind in social.paused_platforms():
+                category = "held"
             elif kind in blocked:
                 category = "held"
             elif aid in ready_ids and kind in remaining:
@@ -91,7 +93,8 @@ def backlog_report(feed, rows, clock=None):
             if category != "published":
                 outstanding.append({"id": aid, "platform": kind, "state": category,
                     "published_at_time": article.get("published_at_time"),
-                    "attempt_updated_at": entry.get("updated_at")})
+                    "attempt_updated_at": entry.get("updated_at"),
+                    "hold_reason": "operator_pause" if category == "held" and kind in social.paused_platforms() else None})
     return {"checked_at": clock.isoformat(), "counts": counts,
             "ready_article_ids": sorted(ready_ids), "outstanding": outstanding,
             "note": "Cumulative ledger evidence, not current visibility. Stories expire."}
@@ -115,7 +118,7 @@ def write_report(report):
             if "publisher" in report:
                 output.write("\nLatest successful publisher: " + report["publisher"]["state"] + "\n")
             if "delivery_health" in report:
-                output.write("\nDelivery: **" + report["delivery_health"] + "**. Protective holds remain incomplete.\n")
+                output.write("\nDelivery: **" + report["delivery_health"] + "**. Protective/operator holds remain incomplete.\n")
             if "recovery" in report:
                 output.write("\nRecovery wake-up: " + report["recovery"]["state"] + "\n")
             if report.get("delivery_health") == "processing":

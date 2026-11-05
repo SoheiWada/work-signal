@@ -3308,10 +3308,12 @@
       "action_block_hold": true
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-05T23:27:53+00:00",
+      "status": "published",
+      "updated_at": "2026-11-05T23:27:57+00:00",
       "stage": "publish_requested",
-      "container_id": "18159357748488337"
+      "container_id": "18159357748488337",
+      "remote_id": "18180481378449343",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4024025675002198913"
     }
   },
   "20261104-openai-images-26": {

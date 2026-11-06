@@ -3390,10 +3390,12 @@
   },
   "20261106-us-productivity-labor-share-q3": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-06T02:25:20+00:00",
+      "status": "published",
+      "updated_at": "2026-11-06T02:25:23+00:00",
       "stage": "publish_requested",
-      "container_id": "17956387482319901"
+      "container_id": "17956387482319901",
+      "remote_id": "17956387482319901",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfYh0FIIMMP"
     }
   }
 }

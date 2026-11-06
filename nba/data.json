@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-11-05",
-  "fetchedAt": "2026-11-06T02:33:25.718Z",
-  "lastAttemptAt": "2026-11-06T02:33:25.718Z",
+  "throughDate": "2026-11-06",
+  "fetchedAt": "2026-11-06T17:33:46.438Z",
+  "lastAttemptAt": "2026-11-06T17:33:46.438Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 121,
+  "countedGames": 123,
   "standingsReason": null,
   "teams": [
     {
@@ -78,7 +78,7 @@
       "code": "GSW",
       "name": "Golden State Warriors",
       "conference": "West",
-      "wins": 5,
+      "wins": 6,
       "losses": 3
     },
     {
@@ -121,7 +121,7 @@
       "name": "Miami Heat",
       "conference": "East",
       "wins": 3,
-      "losses": 5
+      "losses": 6
     },
     {
       "code": "MIL",
@@ -163,7 +163,7 @@
       "name": "Orlando Magic",
       "conference": "East",
       "wins": 2,
-      "losses": 5
+      "losses": 6
     },
     {
       "code": "PHI",
@@ -176,7 +176,7 @@
       "code": "PHX",
       "name": "Phoenix Suns",
       "conference": "West",
-      "wins": 1,
+      "wins": 2,
       "losses": 5
     },
     {
@@ -223,6 +223,28 @@
     }
   ],
   "sets": [
+    [
+      {
+        "id": "21718042",
+        "date": "2026-11-05",
+        "home": "GSW",
+        "away": "MIA",
+        "homeScore": 120,
+        "awayScore": 100,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718041",
+        "date": "2026-11-05",
+        "home": "PHX",
+        "away": "ORL",
+        "homeScore": 117,
+        "awayScore": 104,
+        "competition": "regular",
+        "countsForStandings": true
+      }
+    ],
     [
       {
         "id": "21718040",
@@ -761,128 +783,6 @@
         "away": "CLE",
         "homeScore": 114,
         "awayScore": 111,
-        "competition": "regular",
-        "countsForStandings": true
-      }
-    ],
-    [
-      {
-        "id": "21717986",
-        "date": "2026-10-28",
-        "home": "LAC",
-        "away": "LAL",
-        "homeScore": 87,
-        "awayScore": 103,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717985",
-        "date": "2026-10-28",
-        "home": "DAL",
-        "away": "OKC",
-        "homeScore": 120,
-        "awayScore": 96,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717984",
-        "date": "2026-10-28",
-        "home": "UTA",
-        "away": "SAS",
-        "homeScore": 111,
-        "awayScore": 117,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717983",
-        "date": "2026-10-28",
-        "home": "NOP",
-        "away": "DEN",
-        "homeScore": 91,
-        "awayScore": 104,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717982",
-        "date": "2026-10-28",
-        "home": "MIN",
-        "away": "GSW",
-        "homeScore": 114,
-        "awayScore": 119,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717981",
-        "date": "2026-10-28",
-        "home": "MIL",
-        "away": "HOU",
-        "homeScore": 100,
-        "awayScore": 132,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717980",
-        "date": "2026-10-28",
-        "home": "CHI",
-        "away": "NYK",
-        "homeScore": 127,
-        "awayScore": 133,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717979",
-        "date": "2026-10-28",
-        "home": "TOR",
-        "away": "ORL",
-        "homeScore": 129,
-        "awayScore": 99,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717978",
-        "date": "2026-10-28",
-        "home": "IND",
-        "away": "PHI",
-        "homeScore": 109,
-        "awayScore": 114,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717977",
-        "date": "2026-10-28",
-        "home": "DET",
-        "away": "CHA",
-        "homeScore": 97,
-        "awayScore": 89,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717976",
-        "date": "2026-10-28",
-        "home": "CLE",
-        "away": "WAS",
-        "homeScore": 121,
-        "awayScore": 111,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21717975",
-        "date": "2026-10-28",
-        "home": "ATL",
-        "away": "MIA",
-        "homeScore": 117,
-        "awayScore": 129,
         "competition": "regular",
         "countsForStandings": true
       }

@@ -89,6 +89,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_social_channel_pause.py'
           python -m unittest discover -s tests -p 'test_instagram_feed_probe.py'
           python -m unittest discover -s tests -p 'test_instagram_feed_pacing.py'
+          python -m unittest discover -s tests -p 'test_feed_policy_contract.py'
           python -m unittest discover -s tests -p 'test_instagram_delivery_confirmation.py'
       - name: Probe only one explicitly reviewed Instagram feed delivery
         continue-on-error: true

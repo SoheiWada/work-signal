@@ -128,6 +128,9 @@ def write_report(report):
                              ". A cooldown deadline never clears the manual protective hold.\n")
             if "scheduler" in report:
                 output.write("\nScheduled trigger: **" + report["scheduler"]["state"] + "** (independent of delivery).\n")
+            if "triggers" in report:
+                output.write("\nTrigger paths: **" + report["triggers"]["state"] +
+                             "**. Successful dispatch evidence does not mark articles delivered.\n")
             if "publisher" in report:
                 output.write("\nLatest successful publisher: " + report["publisher"]["state"] + "\n")
             if "delivery_health" in report:
@@ -149,10 +152,32 @@ def output_values(**values):
 def scheduler_health(runs, clock):
     if not runs:
         return {"state": "missing", "stale": True}
-    last = datetime.fromisoformat(runs[0]["created_at"].replace("Z", "+00:00"))
+    try:
+        last = datetime.fromisoformat(runs[0]["created_at"].replace("Z", "+00:00"))
+        if last.tzinfo is None or last > clock + timedelta(minutes=5):
+            raise ValueError("Unverified run time")
+    except (KeyError, AttributeError, TypeError, ValueError):
+        return {"state": "unknown", "stale": True}
     minutes = (clock - last).total_seconds() / 60
     return {"state": "stale" if minutes > 90 else "recent", "stale": minutes > 90,
             "last_created_at": last.isoformat(), "minutes_since_last_run": round(minutes, 1)}
+
+
+def trigger_health(scheduled, publisher_runs, monitor_runs, clock):
+    """Report independent clock evidence separately from delivery completion."""
+    external = [r for r in publisher_runs + monitor_runs
+                if r.get("event") == "repository_dispatch" and r.get("conclusion") == "success"
+                and r.get("display_title") in ("SNS delivery · repository_dispatch",
+                                              "SNS delivery health · repository_dispatch")]
+    external.sort(key=lambda r: r.get("created_at", ""), reverse=True)
+    health = scheduler_health(external, clock)
+    external_ok = not health["stale"] and health.get("minutes_since_last_run", 999) <= 45
+    primary = scheduler_health(scheduled, clock)
+    return {"state": "primary_recent" if not primary["stale"] else
+            "external_clock_covering_delay" if external_ok else "trigger_attention_required",
+            "primary_schedule": primary, "external_clock": health,
+            "external_clock_recent": external_ok,
+            "note": "Trigger evidence is not a completed delivery. Unknown/failed runs do not prove clock health."}
 
 
 def delivery_health(report):
@@ -249,11 +274,22 @@ def main():
         clock = datetime.now(timezone.utc)
         report["scheduler"] = scheduler_health(scheduled, clock)
         report["publisher"] = scheduler_health([r for r in runs if r.get("conclusion") == "success"], clock)
+        try:
+            monitors = social.request_json(endpoint
+                + "/actions/workflows/social-delivery-monitor.yml/runs?branch=main&per_page=20",
+                token=os.environ["GITHUB_TOKEN"]).get("workflow_runs")
+        except RuntimeError:
+            monitors = None
+        report["triggers"] = trigger_health(scheduled, runs, monitors or [], clock)
+        report["triggers"]["monitor_history_available"] = isinstance(monitors, list)
+        print("TRIGGER_HEALTH", report["triggers"]["state"])
         report["recovery"] = recovery_decision(report["ready_article_ids"], runs, clock)
         if report["recovery"]["dispatch"]:
             dispatch_queue(endpoint, os.environ["GITHUB_TOKEN"])
         if report["scheduler"]["stale"]:
             print("::warning::SCHEDULER_DELAY: scheduled trigger overdue; see delivery and recovery separately")
+        if report["triggers"]["state"] == "trigger_attention_required":
+            print("::warning::TRIGGER_ATTENTION: neither schedule nor recent external clock success is verified")
     report["delivery_health"] = delivery_health(report)
     write_report(report)
     print("DELIVERY_HEALTH", report["delivery_health"])

@@ -1,0 +1,149 @@
+[
+  {
+    "name": "empty",
+    "rows": {},
+    "now": "2026-11-06T01:00:00Z",
+    "expected": {
+      "allowed": true,
+      "reason": "ready"
+    }
+  },
+  {
+    "name": "one_today",
+    "rows": {
+      "one": {
+        "instagram": {
+          "status": "published",
+          "updated_at": "2026-11-06T00:00:00Z"
+        }
+      }
+    },
+    "now": "2026-11-06T01:00:00Z",
+    "expected": {
+      "allowed": false,
+      "reason": "feed_pacing",
+      "next_attempt_at": "2026-11-07T00:00:00Z"
+    }
+  },
+  {
+    "name": "midnight_not_reset",
+    "rows": {
+      "one": {
+        "instagram": {
+          "status": "published",
+          "updated_at": "2026-11-05T14:59:00Z"
+        }
+      }
+    },
+    "now": "2026-11-05T15:01:00Z",
+    "expected": {
+      "allowed": false,
+      "reason": "feed_pacing",
+      "next_attempt_at": "2026-11-06T14:59:00Z"
+    }
+  },
+  {
+    "name": "legacy_hold_after_deadline",
+    "rows": {
+      "one": {
+        "instagram": {
+          "status": "published",
+          "updated_at": "2026-11-01T01:00:00Z",
+          "action_block_hold": true
+        }
+      }
+    },
+    "now": "2026-11-06T01:00:00Z",
+    "expected": {
+      "allowed": false,
+      "reason": "protective_hold",
+      "manual_release_required": true,
+      "restricted_until": "2026-11-03T01:00:00Z"
+    }
+  },
+  {
+    "name": "cleared_but_minimum",
+    "rows": {
+      "one": {
+        "instagram": {
+          "status": "published",
+          "updated_at": "2026-11-05T01:00:00Z",
+          "action_block_cleared_at": "2026-11-06T00:00:00Z",
+          "restricted_until": "2026-11-07T01:00:00Z"
+        }
+      }
+    },
+    "now": "2026-11-06T01:00:00Z",
+    "expected": {
+      "allowed": false,
+      "reason": "minimum_cooldown",
+      "manual_release_required": false
+    }
+  },
+  {
+    "name": "rejected_attempt_still_counts",
+    "rows": {
+      "one": {
+        "instagram": {
+          "status": "deferred",
+          "feed_attempted_at": "2026-11-06T00:00:00Z",
+          "updated_at": "2026-11-06T00:01:00Z"
+        }
+      }
+    },
+    "now": "2026-11-06T01:00:00Z",
+    "expected": {
+      "allowed": false,
+      "reason": "feed_pacing"
+    }
+  },
+  {
+    "name": "missing_time",
+    "rows": {
+      "one": {
+        "instagram": {
+          "status": "published"
+        }
+      }
+    },
+    "now": "2026-11-06T01:00:00Z",
+    "expected": {
+      "allowed": false,
+      "reason": "feed_history_time_unknown",
+      "manual_release_required": true
+    }
+  },
+  {
+    "name": "future_time",
+    "rows": {
+      "one": {
+        "instagram": {
+          "status": "published",
+          "updated_at": "2026-11-06T02:00:00Z"
+        }
+      }
+    },
+    "now": "2026-11-06T01:00:00Z",
+    "expected": {
+      "allowed": false,
+      "reason": "feed_history_time_unknown"
+    }
+  },
+  {
+    "name": "stable_attempt_not_last_reconciliation",
+    "rows": {
+      "one": {
+        "instagram": {
+          "status": "published",
+          "feed_attempted_at": "2026-11-02T01:00:00Z",
+          "updated_at": "2026-11-06T00:00:00Z"
+        }
+      }
+    },
+    "now": "2026-11-06T01:00:00Z",
+    "expected": {
+      "allowed": true,
+      "reason": "ready"
+    }
+  }
+]

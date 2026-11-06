@@ -143,7 +143,7 @@ class SocialMonitorRecoveryTests(unittest.TestCase):
             (root / "data").mkdir()
             (root / "data/articles.json").write_text(json.dumps(feed))
             with patch.object(q.social, "ROOT", root), patch.object(q.social, "GithubLedger") as ledger, \
-                 patch.object(q.social, "request_json", side_effect=[{"workflow_runs": [run]}, {"workflow_runs": []}]), \
+                 patch.object(q.social, "request_json", side_effect=[{"workflow_runs": [run]}, {"workflow_runs": []}, {"workflow_runs": []}]), \
                  patch.object(q, "dispatch_queue") as dispatch, patch.object(q, "write_report") as report, \
                  patch.object(q, "datetime", wraps=datetime) as clock, \
                  patch.dict("os.environ", {"GITHUB_REPOSITORY": "SoheiWada/work-signal", "GITHUB_TOKEN": "test"}), \
@@ -254,4 +254,3 @@ class PipelineGraceTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

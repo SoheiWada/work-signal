@@ -8,6 +8,8 @@ on:
       - tests/test_instagram_feed_probe.py
       - tests/test_instagram_feed_pacing.py
       - scripts/instagram_feed_pacing.py
+      - tests/test_feed_policy_contract.py
+      - tests/fixtures/instagram-feed-policy.json
       - tests/test_instagram_delivery_confirmation.py
       - tests/test_instagram_diagnostics.py
       - scripts/diagnose_instagram.py
@@ -21,6 +23,7 @@ on:
       - scripts/social_delivery_preflight.py
       - scripts/audit_social_delivery.py
       - tests/test_social_queue.py
+      - tests/test_trigger_health.py
       - tests/test_social_preflight.py
       - tests/test_scheduled_social.py
       - tests/test_approved_social_event.py
@@ -55,6 +58,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_social_security.py'
           python -m unittest discover -s tests -p 'test_instagram_feed_probe.py'
           python -m unittest discover -s tests -p 'test_instagram_feed_pacing.py'
+          python -m unittest discover -s tests -p 'test_feed_policy_contract.py'
           python -m unittest discover -s tests -p 'test_instagram_delivery_confirmation.py'
           python -m unittest discover -s tests -p 'test_instagram_diagnostics.py'
           python -m unittest discover -s tests -p 'test_social_publish.py'
@@ -62,6 +66,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_delivery_reliability.py'
           python -m unittest discover -s tests -p 'test_delivery_channel_outcomes.py'
           python -m unittest discover -s tests -p 'test_social_queue.py'
+          python -m unittest discover -s tests -p 'test_trigger_health.py'
           python -m unittest discover -s tests -p 'test_social_preflight.py'
           python -m unittest discover -s tests -p 'test_approved_social_event.py'
           python -m unittest discover -s tests -p 'test_scheduled_social.py'

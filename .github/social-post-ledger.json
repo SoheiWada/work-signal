@@ -3408,10 +3408,12 @@
   },
   "20261107-us-october-jobs-165k-unemployment": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-07T00:14:33+00:00",
+      "status": "published",
+      "updated_at": "2026-11-07T00:14:37+00:00",
       "stage": "publish_requested",
-      "container_id": "18216197197360489"
+      "container_id": "18216197197360489",
+      "remote_id": "18216197197360489",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dfa3ploCQuZ"
     }
   }
 }

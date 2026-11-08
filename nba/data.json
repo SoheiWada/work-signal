@@ -2,20 +2,20 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-11-07",
-  "fetchedAt": "2026-11-08T01:30:08.367Z",
-  "lastAttemptAt": "2026-11-08T01:30:08.367Z",
+  "throughDate": "2026-11-08",
+  "fetchedAt": "2026-11-08T16:43:29.963Z",
+  "lastAttemptAt": "2026-11-08T16:43:29.963Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 133,
+  "countedGames": 139,
   "standingsReason": null,
   "teams": [
     {
       "code": "ATL",
       "name": "Atlanta Hawks",
       "conference": "East",
-      "wins": 6,
+      "wins": 7,
       "losses": 4
     },
     {
@@ -30,7 +30,7 @@
       "name": "Brooklyn Nets",
       "conference": "East",
       "wins": 2,
-      "losses": 6
+      "losses": 7
     },
     {
       "code": "CHA",
@@ -51,7 +51,7 @@
       "name": "Cleveland Cavaliers",
       "conference": "East",
       "wins": 5,
-      "losses": 4
+      "losses": 5
     },
     {
       "code": "DAL",
@@ -78,7 +78,7 @@
       "code": "GSW",
       "name": "Golden State Warriors",
       "conference": "West",
-      "wins": 6,
+      "wins": 7,
       "losses": 3
     },
     {
@@ -86,7 +86,7 @@
       "name": "Houston Rockets",
       "conference": "West",
       "wins": 7,
-      "losses": 2
+      "losses": 3
     },
     {
       "code": "IND",
@@ -148,14 +148,14 @@
       "code": "NYK",
       "name": "New York Knicks",
       "conference": "East",
-      "wins": 4,
+      "wins": 5,
       "losses": 4
     },
     {
       "code": "OKC",
       "name": "Oklahoma City Thunder",
       "conference": "West",
-      "wins": 7,
+      "wins": 8,
       "losses": 2
     },
     {
@@ -163,7 +163,7 @@
       "name": "Orlando Magic",
       "conference": "East",
       "wins": 2,
-      "losses": 6
+      "losses": 7
     },
     {
       "code": "PHI",
@@ -176,7 +176,7 @@
       "code": "PHX",
       "name": "Phoenix Suns",
       "conference": "West",
-      "wins": 2,
+      "wins": 3,
       "losses": 5
     },
     {
@@ -184,7 +184,7 @@
       "name": "Portland Trail Blazers",
       "conference": "West",
       "wins": 6,
-      "losses": 2
+      "losses": 3
     },
     {
       "code": "SAC",
@@ -197,7 +197,7 @@
       "code": "SAS",
       "name": "San Antonio Spurs",
       "conference": "West",
-      "wins": 7,
+      "wins": 8,
       "losses": 2
     },
     {
@@ -219,11 +219,71 @@
       "name": "Washington Wizards",
       "conference": "East",
       "wins": 4,
-      "losses": 5
+      "losses": 6
     }
   ],
   "sets": [
     [
+      {
+        "id": "21718058",
+        "date": "2026-11-07",
+        "home": "POR",
+        "away": "SAS",
+        "homeScore": 103,
+        "awayScore": 125,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718057",
+        "date": "2026-11-07",
+        "home": "PHX",
+        "away": "HOU",
+        "homeScore": 102,
+        "awayScore": 99,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718056",
+        "date": "2026-11-07",
+        "home": "GSW",
+        "away": "ORL",
+        "homeScore": 126,
+        "awayScore": 119,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718055",
+        "date": "2026-11-07",
+        "home": "OKC",
+        "away": "WAS",
+        "homeScore": 114,
+        "awayScore": 75,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718054",
+        "date": "2026-11-07",
+        "home": "CLE",
+        "away": "NYK",
+        "homeScore": 97,
+        "awayScore": 109,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718053",
+        "date": "2026-11-07",
+        "home": "ATL",
+        "away": "BKN",
+        "homeScore": 124,
+        "awayScore": 121,
+        "competition": "regular",
+        "countsForStandings": true
+      },
       {
         "id": "21718052",
         "date": "2026-11-07",

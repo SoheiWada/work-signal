@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-11-08",
-  "fetchedAt": "2026-11-09T01:46:34.080Z",
-  "lastAttemptAt": "2026-11-09T01:46:34.080Z",
+  "throughDate": "2026-11-09",
+  "fetchedAt": "2026-11-09T20:50:39.965Z",
+  "lastAttemptAt": "2026-11-09T20:50:39.965Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 141,
+  "countedGames": 146,
   "standingsReason": null,
   "teams": [
     {
@@ -22,7 +22,7 @@
       "code": "BOS",
       "name": "Boston Celtics",
       "conference": "East",
-      "wins": 7,
+      "wins": 8,
       "losses": 2
     },
     {
@@ -30,7 +30,7 @@
       "name": "Brooklyn Nets",
       "conference": "East",
       "wins": 2,
-      "losses": 7
+      "losses": 8
     },
     {
       "code": "CHA",
@@ -57,7 +57,7 @@
       "code": "DAL",
       "name": "Dallas Mavericks",
       "conference": "West",
-      "wins": 5,
+      "wins": 6,
       "losses": 4
     },
     {
@@ -99,7 +99,7 @@
       "code": "LAC",
       "name": "LA Clippers",
       "conference": "West",
-      "wins": 1,
+      "wins": 2,
       "losses": 7
     },
     {
@@ -120,7 +120,7 @@
       "code": "MIA",
       "name": "Miami Heat",
       "conference": "East",
-      "wins": 3,
+      "wins": 4,
       "losses": 6
     },
     {
@@ -128,13 +128,13 @@
       "name": "Milwaukee Bucks",
       "conference": "East",
       "wins": 1,
-      "losses": 8
+      "losses": 9
     },
     {
       "code": "MIN",
       "name": "Minnesota Timberwolves",
       "conference": "West",
-      "wins": 7,
+      "wins": 8,
       "losses": 3
     },
     {
@@ -142,7 +142,7 @@
       "name": "New Orleans Pelicans",
       "conference": "West",
       "wins": 4,
-      "losses": 5
+      "losses": 6
     },
     {
       "code": "NYK",
@@ -191,7 +191,7 @@
       "name": "Sacramento Kings",
       "conference": "West",
       "wins": 1,
-      "losses": 8
+      "losses": 9
     },
     {
       "code": "SAS",
@@ -212,7 +212,7 @@
       "name": "Utah Jazz",
       "conference": "West",
       "wins": 1,
-      "losses": 8
+      "losses": 9
     },
     {
       "code": "WAS",
@@ -224,6 +224,56 @@
   ],
   "sets": [
     [
+      {
+        "id": "21718065",
+        "date": "2026-11-08",
+        "home": "SAC",
+        "away": "MIA",
+        "homeScore": 108,
+        "awayScore": 114,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718064",
+        "date": "2026-11-08",
+        "home": "LAC",
+        "away": "NOP",
+        "homeScore": 139,
+        "awayScore": 123,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718063",
+        "date": "2026-11-08",
+        "home": "MIL",
+        "away": "BOS",
+        "homeScore": 97,
+        "awayScore": 117,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718062",
+        "date": "2026-11-08",
+        "home": "DAL",
+        "away": "BKN",
+        "homeScore": 130,
+        "awayScore": 93,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718061",
+        "date": "2026-11-08",
+        "home": "MIN",
+        "away": "UTA",
+        "homeScore": 115,
+        "awayScore": 100,
+        "competition": "regular",
+        "countsForStandings": true
+      },
       {
         "id": "21718060",
         "date": "2026-11-08",

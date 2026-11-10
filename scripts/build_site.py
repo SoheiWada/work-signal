@@ -407,9 +407,14 @@ def write_favicons(output):
 
 
 try:
-    from .related_articles import related_articles
+    from .related_articles import related_articles, category_followups
 except ImportError:
-    from related_articles import related_articles
+    from related_articles import related_articles, category_followups
+
+try:
+    from .discovery_sitemaps import write_discovery_sitemaps
+except ImportError:
+    from discovery_sitemaps import write_discovery_sitemaps
 
 
 def article_url(article):
@@ -817,7 +822,46 @@ def editorial_evidence_figure(article):
     )
 
 
-def article_body(article, modified_at=None, related=(), topics=()):
+def security_key_facts(article):
+    # Display only approved structured fields; no inferred versions or scores.
+    if article.get('category') != 'SECURITY' or article.get('security_watch') is False:
+        return ''
+    fields = [('対象製品・条件', article.get('social_security_product')),
+              ('公式深刻度', article.get('social_security_severity')),
+              ('推奨対応', article.get('social_security_action'))]
+    fields = [(label, value) for label, value in fields if isinstance(value, str) and value.strip()]
+    if not fields:
+        return ''
+    return ('<section class="security-key-facts" aria-labelledby="security-facts-title">'
+            '<h2 id="security-facts-title">対応前に確認すること</h2><dl>'
+            + ''.join('<div><dt>'+esc(label)+'</dt><dd>'+esc(value)+'</dd></div>' for label, value in fields)
+            + '</dl><p>記事掲載時点の情報です。最新の条件は一次情報で確認してください。</p></section>')
+
+
+def reading_rail(article, related=(), followups=()):
+    def group(title, items):
+        if not items:
+            return ''
+        return '<section><h3>'+esc(title)+'</h3><ul>'+''.join(
+            '<li><a href="'+article_url(item)+'">'+esc(item['title'])+'</a></li>' for item in items)+'</ul></section>'
+    return ('<nav class="article-reading-rail" aria-label="次に読む記事"><h2>次に読む</h2>'
+            + group('関連記事', related) + group(article['category']+'の新着', followups)
+            + '<a class="reading-topic-link" href="/topics/">テーマから記事を探す</a></nav>')
+
+
+def article_breadcrumbs(article, topics):
+    middle = (topics[0]['name'], topic_url(topics[0])) if topics else ('テーマ一覧', topic_url())
+    items = [('ホーム', BASE), middle, (article['title'], article_url(article))]
+    markup = '<nav class="article-breadcrumbs" aria-label="パンくずリスト"><ol>'+''.join(
+        '<li>'+('<a href="'+esc(url)+'">'+esc(name)+'</a>' if i < 2 else
+                 '<span aria-current="page">'+esc(name)+'</span>')+'</li>'
+        for i, (name, url) in enumerate(items))+'</ol></nav>'
+    schema = {'@context':'https://schema.org','@type':'BreadcrumbList','itemListElement':[
+        {'@type':'ListItem','position':i+1,'name':name,'item':url} for i,(name,url) in enumerate(items)]}
+    return markup, schema
+
+
+def article_body(article, modified_at=None, related=(), topics=(), followups=()):
     effective = reading_format(article)
     deep = effective == 'deep_dive'
     has_sections = isinstance(article.get('sections'), list) and bool(article['sections'])
@@ -854,10 +898,12 @@ def article_body(article, modified_at=None, related=(), topics=()):
             + ('<span class="article-meta-updated">更新：<time datetime="' + esc(modified_at) + '">' + esc(modified_at[:10]) + '</time></span>'
                if modified_at else '')
             + reading_time_markup(article, cls='readtime')
-            + '</div></section><div class="layout"><article class="content">'
+            + '</div><p class="article-byline"><a href="/about/#editorial-policy">WORK SIGNAL編集部</a>'
+            + '<span>一次情報の確認・編集方針</span></p></section><div class="layout"><article class="content">'
             + '<p class="lead">' + esc(article['summary']) + '</p>'
-            + editorial_evidence_figure(article) + blocks
-            + management_cta(article) + '</article><aside class="side"><div class="side-title">ARTICLE INTELLIGENCE</div>'
+            + security_key_facts(article) + editorial_evidence_figure(article) + blocks
+            + management_cta(article) + reading_rail(article, related, followups)
+            + '</article><aside class="side"><div class="side-title">ARTICLE INTELLIGENCE</div>'
             + '<dl><dt>FORMAT</dt><dd>' + format_label + '</dd><dt>READ TIME</dt><dd>'
             + f'{reading:02d}' + ' MIN</dd><dt>CATEGORY</dt><dd>' + esc(article['category'])
             + '</dd>' + ('' if article.get('format') in ('special_story', 'management_guide') else '<dt>SIGNAL SCORE</dt><dd>' + esc(article['score']) + ' / 100</dd>') + '<dt>PUBLISHED</dt><dd>' + esc(article['published_at'])
@@ -949,7 +995,7 @@ def wage_widget_script(article, template):
             + "addWageWidgets(document.querySelector('#article .content'));</script>")
 
 
-def article_page(article, template, modified_at=None, related=(), topics=()):
+def article_page(article, template, modified_at=None, related=(), topics=(), followups=()):
     url = article_url(article)
     image_url = BASE + 'assets/og/' + article['id'] + '.png'
     title = article["title"] + " — WORK SIGNAL"
@@ -959,13 +1005,16 @@ def article_page(article, template, modified_at=None, related=(), topics=()):
     recorded = article.get('published_at_time')
     published_schema = (recorded if (_clock_text(recorded) or '')[:10] == article['published_at']
                         else article['published_at'])
+    breadcrumbs, breadcrumb_schema = article_breadcrumbs(article, topics)
     schema = {"@context": "https://schema.org", "@type": ("Article" if article.get("format") in ("special_story", "management_guide") else "NewsArticle"), "headline": article["title"],
               "description": article["summary"], "datePublished": published_schema, "image": [image_url],
               "inLanguage": "ja", "mainEntityOfPage": {"@type": "WebPage", "@id": url},
-              "publisher": publisher_identity()}
+              "publisher": publisher_identity(),
+              "author": {"@type":"Organization","name":"WORK SIGNAL編集部","url":BASE+'about/#editorial-policy'}}
     if modified_at:
         schema['dateModified'] = modified_at
-    # Do not invent a person or organization byline that the feed does not provide.
+    # The visible organizational byline describes editorial responsibility,
+    # never an invented individual author or a fabricated publication time.
     head = ('<!doctype html><html lang="ja"><head><meta charset="utf-8">'
             + '<meta name="viewport" content="width=device-width,initial-scale=1">'
             + '<meta name="theme-color" content="#f2efe7"><title>' + esc(title) + '</title>'
@@ -984,14 +1033,15 @@ def article_page(article, template, modified_at=None, related=(), topics=()):
             + ('<meta property="article:modified_time" content="' + esc(modified_at) + '">' if modified_at else '')
             + image_metadata(image_url, title)
             + '<meta name="robots" content="max-image-preview:large">'
-            + json_ld(schema) + fonts + style + (BTC_CALENDAR_CSS if article.get('id') == '20261021-bitcoin-ath-events' else '') + (DSX_POD_DIAGRAM_CSS if article.get('id') == '20261021-nvidia-dsx-pod-ai-datacenter-deployment' else '')
+            + json_ld(schema) + json_ld(breadcrumb_schema) + fonts + style + (BTC_CALENDAR_CSS if article.get('id') == '20261021-bitcoin-ath-events' else '') + (DSX_POD_DIAGRAM_CSS if article.get('id') == '20261021-nvidia-dsx-pod-ai-datacenter-deployment' else '')
             + '<link rel="stylesheet" href="/assets/css/signal-interactions.css?v=20261105-follow1">'
+            + '<link rel="stylesheet" href="/assets/css/article-discovery.css?v=20261111">'
             + '<script defer src="/assets/js/article-actions.js?v=20261105-follow1"></script>' + analytics
             + '<script>measurePageView();</script></head>')
     body = ('<body><div class="top" id="page-top"></div><div class="shell"><header>'
             + '<a class="brand" href="/">WORK<span>.</span>SIGNAL</a>'
             + '<a class="back" href="/#latest">ALL SIGNALS</a></header>'
-            + '<main id="article">' + article_body(article, modified_at, related, topics) + article_end(article) + '</main></div>'
+            + '<main id="article">' + breadcrumbs + article_body(article, modified_at, related, topics, followups) + article_end(article) + '</main></div>'
             + '<footer><div class="shell footer"><strong>WORK<span>.</span>SIGNAL</strong>'
             + '<small>NEWS IS SHORT. MEANING IS DEEP. · <a href="/about/">媒体・編集方針</a> · <a href="/privacy/">PRIVACY POLICY</a> · <a href="/contact/">CONTACT</a> · <a href="/feed.xml">RSS</a> · <a href="/topics/">TOPICS</a></small>'
             + '<nav class="footer-social-links" aria-label="公式SNS"><a href="https://www.instagram.com/work_signal_japan/" target="_blank" rel="noopener noreferrer"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.9" cy="6.4" r="1.1" fill="currentColor"/></svg><span>INSTAGRAM</span></a><a href="https://www.threads.com/@work_signal_japan" target="_blank" rel="noopener noreferrer"><svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.263 11.097c-.03-3.486-1.92-5.586-5.111-5.586-2.13 0-3.922.963-4.863 2.499l2.062 1.438c.535-.843 1.272-1.543 2.628-1.543 1.528 0 2.318.85 2.544 2.431a15 15 0 0 0-2.236-.173c-4.125 0-6.068 1.867-6.068 4.336s1.943 3.99 4.804 3.99c3.139 0 5.013-2.115 5.781-4.735.798.361 1.348 1.204 1.348 2.47 0 3.387-3.907 5.232-7.22 5.232-4.885 0-8.077-3.207-8.077-8.424 0-6.392 4.223-10.487 9.9-10.487 3.808 0 5.69 1.671 6.97 3.914l2.108-1.475C21.44 2.078 18.331 0 13.663 0 6.227 0 1.168 5.277 1.168 12.934c0 7 4.953 11.066 10.856 11.066 4.878 0 9.809-2.846 9.809-7.716 0-2.545-1.46-4.231-3.569-5.187m-6.33 4.855c-1.077 0-2.026-.512-2.026-1.453 0-1.483 1.822-1.934 3.606-1.934.678 0 1.34.045 1.927.173-.422 1.927-1.671 3.215-3.508 3.214Z"/></svg><span>THREADS</span></a></nav></div></footer>'
@@ -1258,6 +1308,8 @@ def build(output, feed=None):
     output_style = output / 'assets/css/signal-interactions.css'
     output_style.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(shared_style, output_style)
+    discovery_style = output / 'assets/css/article-discovery.css'
+    shutil.copyfile(ROOT / 'assets/css/article-discovery.css', discovery_style)
     # Explicit allowlist: no server source, test specimens or credentials enter Pages.
     for asset in ('assets/css/hero-market.css', 'assets/js/hero-market.mjs', 'assets/js/market-model.mjs',
                   'assets/js/free-market-client.mjs', 'assets/js/free-market-feeds.mjs'):
@@ -1506,7 +1558,8 @@ def build(output, feed=None):
                 instagram_story_card(output, article)
         folder = output / 'articles' / article['id']
         folder.mkdir(parents=True)
-        (folder / 'index.html').write_text(article_page(article, template, modified[article['id']], related_articles(article, articles), article_topics(article)))
+        related = related_articles(article, articles)
+        (folder / 'index.html').write_text(article_page(article, template, modified[article['id']], related, article_topics(article), category_followups(article, articles, related)))
     topic_urls, topic_modified = [], {}
     active = active_topics(articles)
     for topic in ([None] + active if active else []):
@@ -1533,7 +1586,8 @@ def build(output, feed=None):
         if lastmod:
             ET.SubElement(entry, '{' + ns + '}lastmod').text = lastmod
     ET.ElementTree(sitemap).write(output / 'sitemap.xml', encoding='utf-8', xml_declaration=True)
-    (output / 'robots.txt').write_text('User-agent: *\nAllow: /\n\nSitemap: ' + BASE + 'sitemap.xml\n')
+    write_discovery_sitemaps(output, articles)
+    (output / 'robots.txt').write_text('User-agent: *\nAllow: /\n\n'+''.join('Sitemap: '+BASE+name+'\n' for name in ('sitemap.xml','news-sitemap.xml','image-sitemap.xml')))
     (output / '.nojekyll').touch()
     (output / 'CNAME').write_text(BASE.removeprefix('https://').rstrip('/') + '\n')
     write_favicons(output)

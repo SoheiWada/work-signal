@@ -78,7 +78,7 @@ def related_articles(article, articles):
     for identifier in editorial_ids(article):
         if identifier in by_id and identifier not in {item['id'] for item in chosen}:
             chosen.append(by_id[identifier])
-        if len(chosen) == 2:
+        if len(chosen) == 4:
             return chosen
     ranked = []
     for item in eligible:
@@ -102,4 +102,17 @@ def related_articles(article, articles):
                  + 20 * topic_match + len(shared_topics) + len(shared_words))
         ranked.append((score, item.get('published_at', ''), item['id'], item))
     ranked.sort(key=lambda row: row[:3], reverse=True)
-    return (chosen + [row[3] for row in ranked])[:2]
+    return (chosen + [row[3] for row in ranked])[:4]
+
+
+def category_followups(article, articles, related=()):
+    """Fill a four-story reading rail, explicitly labeled as category news."""
+    excluded = {article['id'], *(item['id'] for item in related)}
+    eligible = [item for item in articles if item.get('status') == 'published'
+                and item.get('category') == article.get('category')
+                and item.get('id') not in excluded
+                and (item.get('format') in ('special_story', 'management_guide')
+                     or isinstance(item.get('score'), (int, float))
+                     and not isinstance(item.get('score'), bool) and item['score'] >= 80)]
+    return sorted(eligible, key=lambda item: (item.get('published_at_time') or
+                  item.get('published_at', ''), item['id']), reverse=True)[:max(0, 4-len(related))]

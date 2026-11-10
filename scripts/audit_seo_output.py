@@ -94,6 +94,10 @@ def audit(pages, sitemap_urls):
                 errors.append([url, 'Article schema'])
                 continue
             schema = schemas[0]
+            if schema.get('author', {}).get('name') != 'WORK SIGNAL編集部':
+                errors.append([url, 'editorial author'])
+            if not any(s.get('@type') == 'BreadcrumbList' for s in doc.schemas):
+                errors.append([url, 'article breadcrumb'])
             for key in ('headline', 'description', 'datePublished', 'publisher', 'mainEntityOfPage'):
                 if not schema.get(key):
                     errors.append([url, 'missing ' + key])
@@ -122,8 +126,11 @@ def audit(pages, sitemap_urls):
                         errors.append([url, 'unknown internal article ' + normalized])
             if 'G-X4B5F6JJZH' not in source:
                 warnings.append([url, 'GA4 tag absent'])
-            related = re.search(r'<nav class="toc" aria-label="関連記事">(.*?)</nav>', source, re.S)
+            related = re.search(r'<nav class="article-reading-rail" aria-label="次に読む記事">(.*?)</nav>', source, re.S)
             related_map[url] = re.findall(r'<a href="([^"]+)">', related.group(1)) if related else []
+            related_map[url] = [link for link in related_map[url] if '/articles/' in link]
+            if len(set(related_map[url])) < 3:
+                errors.append([url, 'fewer than three reading targets'])
             metadata.append((url, schema.get('headline', ''), (description or [''])[0]))
         except (ValueError, TypeError, KeyError) as error:
             errors.append([url, 'parse: ' + str(error)])

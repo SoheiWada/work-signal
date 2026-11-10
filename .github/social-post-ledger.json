@@ -3426,10 +3426,12 @@
   },
   "20261110-chatgpt-enterprise-aws-marketplace": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-10T02:59:30+00:00",
+      "status": "published",
+      "updated_at": "2026-11-10T02:59:34+00:00",
       "stage": "publish_requested",
-      "container_id": "17969837600973666"
+      "container_id": "17969837600973666",
+      "remote_id": "17969837600973666",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dfi46aSDK91"
     }
   }
 }

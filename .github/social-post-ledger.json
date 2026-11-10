@@ -3776,10 +3776,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfkRPa_EeNM"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-10T15:51:40+00:00",
+      "status": "published",
+      "updated_at": "2026-11-10T15:51:44+00:00",
       "stage": "publish_requested",
-      "container_id": "18160726249488337"
+      "container_id": "18160726249488337",
+      "remote_id": "18115848548611822",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4027419928449608772"
     }
   }
 }

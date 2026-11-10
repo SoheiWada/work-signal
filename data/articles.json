@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261110-chatgpt-enterprise-aws-marketplace",
+    "title": "OpenAI、ChatGPT EnterpriseをAWS Marketplaceで提供開始──企業のAI調達と契約管理に新たな選択肢",
+    "summary": "OpenAIは11月9日、ChatGPT EnterpriseをAWS Marketplace経由で購入できるようにしたと発表した。企業は既存のAWS購買・請求関係を使って導入を進められ、条件を満たす支出はAWSとのコミットメントにも充当できる。新モデルの発表ではなく、AI導入を阻んできた契約・調達の手間を減らす動きだ。",
+    "category": "AI",
+    "score": 88,
+    "published_at": "2026-11-10",
+    "published_at_time": "2026-11-10T02:52:36.485Z",
+    "source_url": "https://openai.com/index/chatgpt-enterprise-aws-marketplace/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは11月9日、ChatGPT EnterpriseをAWS Marketplace経由で購入できるようにしたと発表した。企業は既存のAWS購買・請求関係を使って導入を進められ、条件を満たす支出はAWSとのコミットメントにも充当できる。新モデルの発表ではなく、AI導入を阻んできた契約・調達の手間を減らす動きだ。",
+    "sections": [
+      {
+        "title": "AWS MarketplaceにChatGPT Enterpriseが登場",
+        "body": "OpenAIの公式発表によると、企業はAWS Marketplaceを通じてChatGPT Enterpriseを発見、購入、管理できるようになった。AWSとの既存の購買・請求関係を利用でき、適格な支出はAWSの契約上のコミットメントに算入できる。直接OpenAIから購入する場合と同じモデル、機能、更新タイミングが提供されるとしている。AWS経由だから新機能の提供が遅れる、という説明ではない。"
+      },
+      {
+        "title": "Bedrockとは用途が異なる",
+        "body": "今回の対象は、従業員が日常業務で利用するChatGPT Enterpriseだ。OpenAIは、Amazon Bedrockで提供されるOpenAIモデルは開発者がAIアプリやエージェントを構築するための選択肢であり、ChatGPT Enterpriseは業務チーム向けの利用環境だと位置づける。両者は競合する購入窓口というより、用途が異なる。調達担当者は従業員向け利用とシステム組み込みを分けて評価する必要がある。"
+      },
+      {
+        "title": "導入前に確認したい契約条件",
+        "body": "企業にとっての利点は、AIツールを既存のクラウド調達フローへ載せられる可能性だ。複数部署の導入、請求の集約、予算管理に関係する。ただし公式発表は全企業への一律適用や具体的な価格、既存契約からの移行条件まで保証していない。AWSコミットメントへの充当は「適格な支出」に限られる。HealthcareやFinancial Services向けChatGPTも対象顧客に提供されるが、適格性確認が必要だ。導入前にOpenAIまたはAWS担当者へ見積もり、利用資格、契約範囲を確認したい。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "publication_key": "b5429405c3408476e1473e52dc43ab56c3814f35b4093eb5d037ffd947d9eb85",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-claude-fable-mythos-52",
     "title": "Anthropic、Claude Fable 5.2とMythos 5.2を発表──高難度業務向けAIの性能・価格・利用条件",
     "summary": "Anthropicは11月9日、高度なソフトウェア開発や研究向けの「Claude Fable 5.2」「Claude Mythos 5.2」を発表した。両者は同じ基盤モデルを用いるが、利用者に開放される機能と安全上の制約が異なる。入力100万トークン当たり8ドル、出力100万トークン当たり40ドル。企業が注目すべきなのは最高性能の宣伝だけでなく、タスク別の費用と利用条件だ。",

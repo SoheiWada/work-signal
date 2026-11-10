@@ -11,6 +11,9 @@ const mime={'.html':'text/html','.css':'text/css','.js':'text/javascript','.mjs'
 const server=http.createServer(async(req,res)=>{
  try{
   const path=decodeURIComponent(new URL(req.url,'http://localhost').pathname);
+  if(path==='/__verification-font.ttf'){
+   res.setHeader('Content-Type','font/ttf');res.end(await readFile(resolve('assets/fonts/NotoSansJP.ttf')));return;
+  }
   const file=resolve(root,'.'+path+(path.endsWith('/')?'index.html':''));
   if(!file.startsWith(root+'/'))throw Error();
   res.setHeader('Content-Type',mime[extname(file)]||'application/octet-stream');res.end(await readFile(file));
@@ -28,6 +31,10 @@ try{
   const page=await browser.newPage({viewport:{width,height:950},deviceScaleFactor:1});
   await page.route('**/*',r=>r.request().url().startsWith(base+'/')?r.continue():r.abort());
   await page.goto(base+'/articles/'+article.id+'/',{waitUntil:'networkidle'});
+  // The CI image lacks Japanese system fonts and external traffic is blocked.
+  // Use the repository's licensed Noto font for accurate Japanese layout QA.
+  await page.addStyleTag({content:"@font-face{font-family:'Noto Sans JP';src:url('/__verification-font.ttf') format('truetype');font-weight:100 900;font-display:block}"});
+  await page.evaluate(async()=>{await document.fonts.load("16px 'Noto Sans JP'");await document.fonts.ready;});
   const result=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,
    links:document.querySelectorAll('.article-reading-rail li a').length,
    author:document.querySelector('.article-byline')?.innerText,

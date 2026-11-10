@@ -4,11 +4,11 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const actions = fs.readFileSync(new URL('../../assets/js/article-actions.js', import.meta.url), 'utf8');
-function followClick({gtag, platform = 'threads', href = 'https://www.threads.com/@work_signal_japan', preview = false} = {}) {
+function followClick({gtag, platform = 'threads', href = 'https://www.threads.com/@work_signal_japan', preview = false, placement} = {}) {
   let handler;
   const context = {document: {addEventListener: (_, fn) => { handler = fn; }}, window: {gtag}};
   vm.runInNewContext(actions, context);
-  const attrs = {'data-social-follow': platform, href, 'data-article-id': 'test-article'};
+  const attrs = {'data-social-follow': platform, href, 'data-article-id': 'test-article', 'data-follow-placement':placement};
   const link = {href, getAttribute: key => attrs[key], closest: () => preview ? {} : null};
   let prevented = false;
   return handler({target: {closest: selector => selector === '[data-social-follow]' ? link : null},
@@ -29,6 +29,27 @@ test('a click on a follow-link child records one click and leaves navigation unt
 test('missing or failed analytics never blocks the follow link', async () => {
   assert.equal(await followClick(), false);
   assert.equal(await followClick({gtag: () => { throw Error('unavailable'); }}), false);
+});
+test('follow hub is measured as a click, not a completed subscription', async () => {
+  const calls=[];
+  await followClick({gtag:(...args)=>calls.push(args),placement:'follow_page'});
+  assert.equal(calls[0][1],'social_follow_click');assert.equal(calls[0][2].placement,'follow_page');
+});
+test('RSS copy gives truthful success or manual fallback without requiring analytics', async () => {
+  for(const success of [true,false]){
+    let handler;const feedback={textContent:''},calls=[];
+    const button={getAttribute:()=> 'https://signal.amberlight.co.jp/feed.xml'};
+    const document={addEventListener:(_,fn)=>handler=fn,querySelector:()=>feedback,
+      createElement:()=>({setAttribute(){},style:{},focus(){},select(){},remove(){}}),
+      body:{appendChild(){}},execCommand:()=>false};
+    const context={document,window:{gtag:(...args)=>calls.push(args)},
+      navigator:{clipboard:{writeText:async()=>{if(!success)throw Error('denied');}}}};
+    vm.runInNewContext(actions,context);
+    await handler({target:{closest:s=>s==='[data-copy-rss-url]'?button:null},preventDefault(){}});
+    assert.match(feedback.textContent,success?/コピーしました/:/コピーできませんでした/);
+    assert.equal(calls.length,success?1:0);
+    if(success)assert.equal(calls[0][1],'rss_url_copy');
+  }
 });
 
 test('preview, unknown platform and changed destination do not count as official follow clicks', async () => {

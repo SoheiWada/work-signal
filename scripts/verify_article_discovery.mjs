@@ -45,6 +45,25 @@ try{
   await page.locator('.article-reading-rail').screenshot({path:out+'/'+article.id+'-'+width+'-rail.png'});
   results.push({article_id:article.id,width,...result});await page.close();
  }
+ for(const width of [390,1440]){
+  const page=await browser.newPage({viewport:{width,height:950},deviceScaleFactor:1});
+  await page.route('**/*',r=>r.request().url().startsWith(base+'/')?r.continue():r.abort());
+  await page.goto(base+'/follow/',{waitUntil:'networkidle'});
+  await page.addStyleTag({content:"@font-face{font-family:'Noto Sans JP';src:url('/__verification-font.ttf') format('truetype');font-weight:100 900;font-display:block}"});
+  await page.evaluate(async()=>{await document.fonts.load("16px 'Noto Sans JP'");await document.fonts.ready;});
+  assert.equal(await page.locator('[data-social-follow]').count(),3);
+  assert.equal(await page.locator('form').count(),0);
+  await page.context().grantPermissions(['clipboard-read','clipboard-write']);
+  await page.locator('[data-copy-rss-url]').click();
+  await page.waitForFunction(()=>document.querySelector('[data-rss-feedback]').textContent.includes('コピーしました'));
+  assert.equal(await page.evaluate(()=>navigator.clipboard.readText()),'https://signal.amberlight.co.jp/feed.xml');
+  assert(!await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth));
+  await page.screenshot({path:out+'/follow-'+width+'.png',fullPage:true});
+  await page.goto(base+'/',{waitUntil:'networkidle'});
+  assert.equal(await page.locator('.subscribe-strip a[href="/follow/"]').count(),1);
+  assert(!await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth));
+  results.push({page:'follow-and-home',width,overflow:false,channels:3,rss_copy:true});await page.close();
+ }
  await import('node:fs/promises').then(fs=>fs.writeFile(out+'/results.json',JSON.stringify(results,null,2)));
  console.log('ARTICLE_DISCOVERY_BROWSER_OK',JSON.stringify(results));
 }finally{await browser?.close();await new Promise(r=>server.close(r));}

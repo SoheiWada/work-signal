@@ -18,6 +18,27 @@
   }
 
   document.addEventListener('click', async function (event) {
+    const rssButton = event.target.closest('[data-copy-rss-url]');
+    if (rssButton && rssButton.getAttribute('data-copy-rss-url') === 'https://signal.amberlight.co.jp/feed.xml') {
+      event.preventDefault();
+      const url = rssButton.getAttribute('data-copy-rss-url');
+      let copied = false;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(url); copied = true;
+        } else copied = fallbackCopy(url);
+      } catch (error) { copied = fallbackCopy(url); }
+      const feedback = document.querySelector('[data-rss-feedback]');
+      if (feedback) feedback.textContent = copied
+        ? '購読URLをコピーしました。RSSリーダーに貼り付けて登録してください。'
+        : 'コピーできませんでした。表示された購読URLを選択してコピーしてください。';
+      if (copied) {
+        try { if (typeof window.gtag === 'function') window.gtag('event', 'rss_url_copy', {
+          placement: 'follow_page', transport_type: 'beacon'
+        }); } catch (error) { /* Copy remains usable without analytics. */ }
+      }
+      return;
+    }
     const follow = event.target.closest('[data-social-follow]');
     if (follow && !follow.closest('.article-end--preview')) {
       const platform = follow.getAttribute('data-social-follow');
@@ -32,7 +53,8 @@
           if (typeof window.gtag === 'function') window.gtag('event', 'social_follow_click', {
             platform: platform,
             article_id: follow.getAttribute('data-article-id') || '',
-            placement: 'article_end',
+            placement: ['follow_page', 'home'].includes(follow.getAttribute('data-follow-placement'))
+              ? follow.getAttribute('data-follow-placement') : 'article_end',
             link_url: follow.href,
             transport_type: 'beacon'
           });

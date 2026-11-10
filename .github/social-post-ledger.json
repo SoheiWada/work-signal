@@ -3866,10 +3866,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DflCut_D-BU"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-10T23:04:23+00:00",
+      "status": "published",
+      "updated_at": "2026-11-10T23:04:28+00:00",
       "stage": "publish_requested",
-      "container_id": "18160809319488337"
+      "container_id": "18160809319488337",
+      "remote_id": "17878108914584624",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4027637730385004078"
     }
   }
 }

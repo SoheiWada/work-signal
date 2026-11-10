@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261110-adobe-disney-ai-alliance",
+    "title": "AdobeとDisneyが複数年提携、専用生成AIを制作工程へ──一般利用の解禁とは異なる",
+    "summary": "AdobeとThe Walt Disney Companyは11月9日、AI技術を含む複数年の戦略提携を発表した。Disney向けの専用生成AIや制作ツール、技術者の支援を組み合わせ、アイデアの検討や制作工程を支える。Disneyのキャラクターを誰でも生成・商用利用できるという発表ではない。",
+    "category": "AI",
+    "score": 82,
+    "published_at": "2026-11-10",
+    "published_at_time": "2026-11-10T02:53:23.602Z",
+    "source_url": "https://news.adobe.com/news/2026/11/adobe-and-the-walt-disney-company-alliance",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "AdobeとThe Walt Disney Companyは11月9日、AI技術を含む複数年の戦略提携を発表した。Disney向けの専用生成AIや制作ツール、技術者の支援を組み合わせ、アイデアの検討や制作工程を支える。Disneyのキャラクターを誰でも生成・商用利用できるという発表ではない。",
+    "sections": [
+      {
+        "title": "専用モデルと制作ツールを組み合わせる",
+        "body": "Adobeの発表によると、提携にはFirefly、専用モデルを扱うFirefly Foundry、Premiere、Photoshopなどへの早期アクセスと研究・開発支援が含まれる。Disneyの作品や世界観に合わせたモデルを両社で検討・活用し、創作チームの工程を支援する方針だ。"
+      },
+      {
+        "title": "構想づくりから組織内の制作工程へ",
+        "body": "Walt Disney Imagineeringの研究開発部門では、手描きの構想を2Dコンセプトアートに変えるモデルなどの利用が既に進むという。StudioLABやESPN Edgeでも協業を行う。これらは両社が説明する取り組みであり、一般企業でも同じ効果が得られると実証した比較試験ではない。"
+      },
+      {
+        "title": "制作会社が確認したいのは権利と運用条件",
+        "body": "ここからは編集部の分析だ。専用AIの導入では、利用できる素材、生成物の確認者、社外への持ち出し範囲を制作工程とともに設計する必要がある。今回の提携はDisney内部の利用を含むもので、一般利用者へのキャラクター利用許諾を示さない。契約金額や一般向けの提供時期は、今回の発表からは確認できない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "publication_key": "99fb23d9d1a1a68a76961c8c8c366f857ad87b612fd9ee815471174b8ca1aa45",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-japan-household-spending-september",
     "title": "9月の家計消費は実質6.8％減、10か月連続マイナス──収入増と支出減をどう読むか",
     "summary": "総務省統計局が11月10日に公表した9月の家計調査では、二人以上の世帯の消費支出が前年同月比で実質6.8％減り、10か月連続の減少となった。勤労者世帯の実収入は増えたが、収入と消費では集計対象が異なる。売上計画では、名目額と実質の変化、顧客層の違いを分けて確認したい。",

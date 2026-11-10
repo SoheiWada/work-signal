@@ -3625,8 +3625,8 @@
   "20261110-pocket-id-email-verification": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-10T10:32:23+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-11-10T10:32:25+00:00",
+      "stage": "publish_requested",
       "container_id": "18134596909690068"
     }
   }

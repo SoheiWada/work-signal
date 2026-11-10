@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261111-openai-businesses-chatgpt-business-hub",
+    "title": "OpenAIが企業向けBusiness Hubをベータ提供──ChatGPT上の情報管理と顧客接点が変わる",
+    "summary": "OpenAIは11月10日、企業がChatGPT上の自社情報を管理する「Businesses in ChatGPT」をベータ版として発表した。Business Hubでは企業情報の確認・更新、商品フィードの提供、言及やサイトへのクリックに関する集計情報の確認が可能になる。一方、顧客と対話するBusiness Agentは当初、米国の対象事業者に限定される。",
+    "category": "AI",
+    "score": 91,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-10T22:58:04.580Z",
+    "source_url": "https://openai.com/index/introducing-businesses-chatgpt/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは11月10日、企業がChatGPT上の自社情報を管理する「Businesses in ChatGPT」をベータ版として発表した。Business Hubでは企業情報の確認・更新、商品フィードの提供、言及やサイトへのクリックに関する集計情報の確認が可能になる。一方、顧客と対話するBusiness Agentは当初、米国の対象事業者に限定される。",
+    "sections": [
+      {
+        "title": "Business Hubで企業ができること",
+        "body": "企業はBusiness Hubで自社の登録を申請し、確認後に主要情報を更新できる。商品価格や在庫状況を含むセルフサービスの商品フィードも追加可能だ。Shopify加盟店にはBusiness HubまたはShopify管理画面からの連携手段が用意される。対象となる企業は、ChatGPTを利用できる地域でBusiness Hubへの登録を申請できる。ただし登録の申請と確認完了、すべての機能の提供開始は同じ意味ではない。"
+      },
+      {
+        "title": "AI経由の集客を把握する新たな指標",
+        "body": "Business Hubは、ChatGPT内で企業が言及された件数やWebサイトへのクリック数、引用されたWebサイトに関連する話題などの集計インサイトを提供する。個別の利用者の会話やBusiness Agentとの会話を企業に渡すものではなく、十分な件数が集まった場合に限って集計を表示するという。企業は自社情報の正確性と、AI経由の流入を分けて管理する必要がある。"
+      },
+      {
+        "title": "Business Agentは米国の対象企業から",
+        "body": "Business Agentは、ChatGPT内で企業が提供内容について顧客の質問に答えられる専用の対話体験だ。利用者が開始を選択する形式で、通常のChatGPT回答とは区別して表示される。開始時点の提供対象は米国の条件を満たすEC事業者とオンラインサービス企業であり、日本のすべての企業が直ちに導入できるわけではない。"
+      },
+      {
+        "title": "企業がまず確認すべきこと",
+        "body": "広報・マーケティング担当者は、公式に掲載される会社名・サービス内容・URL・商品情報の整合性を点検したい。利用可能な場合は登録申請と情報更新を検討し、集計インサイトを既存のWeb解析と照合する。ただしChatGPT内の表示順位や送客数の改善は保証されていない。今回の発表はベータ段階であり、提供地域と対象業種の拡大は今後の計画である。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "企業の広報・マーケティング担当者に新しい確認事項です。OpenAIが「Businesses in ChatGPT」を発表。企業はBusiness Hubで自社情報を確認・更新し、商品フィードやChatGPT内での言及・サイトクリックの集計を扱えるようになります。一方、顧客と直接対話するBusiness Agentは当初米国の対象事業者向け。日本企業が今できることと、まだ使えない機能を分けて整理しました。\nhttps://signal.amberlight.co.jp/articles/20261111-openai-businesses-chatgpt-business-hub/\nhttps://openai.com/index/introducing-businesses-chatgpt/",
+    "publication_key": "66cdb5a28b6fa5555bc68706aff31bebb1cf461ece4ed052dfa64686e001685b",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-openai-upwork-freelance-ai-work-shift",
     "title": "OpenAI・Upwork調査、AI関連の外注案件は業務の組み合わせが多様化──63分野を分析",
     "summary": "AIの普及は、フリーランスの仕事を単純に減らすだけなのか。OpenAIとUpworkが11月10日に公表した共同研究は、発注される仕事の組み合わせが変わり、AI関連案件ではより幅広い技能が求められていることを示した。採用担当者や外注先を選ぶ企業にとって、職種名より成果物と工程を明確にする重要性が増している。",

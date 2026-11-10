@@ -3570,10 +3570,12 @@
   },
   "20261110-google-tpu-8tx-8i-max": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-10T05:06:18+00:00",
+      "status": "published",
+      "updated_at": "2026-11-10T05:06:21+00:00",
       "stage": "publish_requested",
-      "container_id": "18083255216717417"
+      "container_id": "18083255216717417",
+      "remote_id": "18083255216717417",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfjHbEqFNP3"
     }
   }
 }

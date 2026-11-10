@@ -3606,10 +3606,12 @@
   },
   "20261110-fastapi-code-generator-route-rce": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-10T10:31:36+00:00",
+      "status": "published",
+      "updated_at": "2026-11-10T10:31:44+00:00",
       "stage": "publish_requested",
-      "container_id": "18134596708690068"
+      "container_id": "18134596708690068",
+      "remote_id": "18155039740541557",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dfjsp4eoD6u"
     }
   }
 }

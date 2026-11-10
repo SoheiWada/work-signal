@@ -3714,10 +3714,12 @@
   },
   "20261110-mhlw-overseas-worker-health-survey": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-10T11:32:16+00:00",
+      "status": "published",
+      "updated_at": "2026-11-10T11:32:19+00:00",
       "stage": "publish_requested",
-      "container_id": "18134242468877962"
+      "container_id": "18134242468877962",
+      "remote_id": "18134242468877962",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dfjzl5DFdXy"
     }
   }
 }

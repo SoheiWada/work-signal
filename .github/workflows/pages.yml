@@ -57,6 +57,7 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_topic_pages.py'
           python3 -m unittest discover -s tests -p 'test_related_articles.py'
           python3 -m unittest discover -s tests -p 'test_article_discovery.py'
+          python3 -m unittest discover -s tests -p 'test_subscription.py'
           python3 -m unittest discover -s tests -p 'test_build_site.py'
           python3 -m unittest discover -s tests -p 'test_security_watch.py'
           python3 -m unittest discover -s tests -p 'test_approved_social_event.py'

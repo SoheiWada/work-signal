@@ -1,0 +1,21 @@
+.subscribe-strip{display:flex;align-items:center;justify-content:flex-end;gap:18px;flex-wrap:wrap;padding:16px 0;border-bottom:1px solid var(--line,#d6d0c2);font-size:11px;line-height:1.8}
+.subscribe-strip span{color:var(--muted,#666)}
+.subscribe-strip a{font-weight:700;text-underline-offset:5px}
+.follow-main{padding:65px 0 90px}.follow-return{font-size:12px;text-underline-offset:5px}
+.follow-kicker{font:700 11px var(--sans);letter-spacing:.15em;color:#8b6d10}
+.follow-main h1{font-family:var(--jp);font-size:clamp(32px,5vw,64px);line-height:1.5;letter-spacing:-.055em;margin:25px 0}
+.follow-lead{font-size:15px;line-height:2.1;margin:25px 0 44px;color:#4e4a40}
+.follow-options{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.follow-options section{min-width:0;padding:28px;background:#fffdf5;border-top:3px solid #b69a3c}
+.follow-number{font:700 10px var(--sans);letter-spacing:.12em;color:#80703c}
+.follow-options h2{font-size:22px;line-height:1.65;letter-spacing:-.03em;margin:18px 0}
+.follow-options p{font-size:13px;line-height:2;max-width:720px}
+.follow-options a{display:inline-block;min-height:44px;padding:12px 0;font-size:13px;font-weight:700;text-underline-offset:5px}
+.follow-options .follow-rss{grid-column:1/-1;background:#f7efd2}
+.rss-copy{display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin-top:24px}
+.rss-copy code{font-size:12px;line-height:1.8;overflow-wrap:anywhere}
+.rss-copy button{border:1px solid #8b793e;background:transparent;padding:12px 18px;font:700 12px var(--jp);color:var(--ink,#222);cursor:pointer;min-height:44px}
+[data-rss-feedback]{min-height:1.8em;color:#5e5129}.follow-note{margin-top:45px;font-size:12px;line-height:2}
+.follow-reading{display:flex;flex-wrap:wrap;gap:18px;font-size:12px;line-height:2}
+.follow-page a:focus-visible,.rss-copy button:focus-visible,.subscribe-strip a:focus-visible{outline:2px solid #8b6d10;outline-offset:5px}
+@media(max-width:650px){.follow-main{padding:36px 0 60px}.follow-options{grid-template-columns:1fr;gap:18px}.follow-options .follow-rss{grid-column:auto}.follow-options section{padding:23px 20px}.subscribe-strip{justify-content:flex-start;gap:6px 14px;font-size:10px}.follow-lead{font-size:14px}.rss-copy code{font-size:11px}}

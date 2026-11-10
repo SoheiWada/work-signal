@@ -86,7 +86,7 @@ class StaticPublishingTests(unittest.TestCase):
             urls = [node.text for node in sitemap.iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
             topics = active_topics([self.article])
             topic_urls = ([BASE + 'topics/'] + [BASE + 'topics/' + topic['id'] + '/' for topic in topics]) if topics else []
-            self.assertEqual(urls, [BASE, BASE + 'about/', BASE + 'privacy/', BASE + 'contact/', BASE + 'security/', BASE + 'archive/'] + topic_urls + [BASE + path])
+            self.assertEqual(urls, [BASE, BASE + 'about/', BASE + 'privacy/', BASE + 'contact/', BASE + 'security/', BASE + 'follow/', BASE + 'archive/'] + topic_urls + [BASE + path])
             self.assertIn(BASE + path, home)
             self.assertIn('href="/archive/"', home)
             self.assertIn('1 / 1 SIGNALS', home)

@@ -959,7 +959,8 @@ def article_end(article):
         'data-article-id="' + esc(article['id']) + '" aria-label="公式Instagramを開く（新しいタブ）">'
         '<strong>INSTAGRAM</strong><span>@work_signal_japan</span></a>'
         '<a class="article-follow-rss" href="/feed.xml" data-social-follow="rss" '
-        'data-article-id="' + esc(article['id']) + '">RSSで更新を受け取る</a></nav></div>'
+        'data-article-id="' + esc(article['id']) + '">RSSで更新を受け取る</a>'
+        '<a class="article-follow-rss" href="/follow/">更新の受け取り方を選ぶ</a></nav></div>'
         '<div class="article-share"><p class="article-share-title">SHARE THIS SIGNAL</p>'
         '<h3 class="article-share-heading">誰かの判断材料に、なりそうなら。</h3>'
         '<nav class="article-share-list" aria-label="この記事を共有する">'
@@ -1243,6 +1244,49 @@ def topic_page(topic, articles, home_html):
             + esc(heading) + '<span style="color:var(--orange)">.</span></h1></div></div>'
             + content + '</section></main></div>' + footer + '</body></html>')
 
+def follow_page(home_html):
+    """Existing official channels only: no form, tracking URL or paid service."""
+    style = re.search(r'<style>.*?</style>', home_html, re.S).group()
+    fonts = re.search(r'<link rel="preconnect".*?<style>', home_html, re.S).group().removesuffix('<style>')
+    title = '更新を受け取る｜Threads・Instagram・RSS — WORK SIGNAL'
+    description = 'WORK SIGNALの更新をThreads、Instagram、RSSで受け取る。自分に合った方法で、AI・仕事・経済の変化を追えます。'
+    schema = {'@context':'https://schema.org','@type':'WebPage','name':title,'url':BASE+'follow/',
+              'description':description,'isPartOf':{'@type':'WebSite','url':BASE,'name':'WORK SIGNAL'}}
+    return ('<!doctype html><html lang="ja"><head><meta charset="utf-8">'
+            '<meta name="viewport" content="width=device-width,initial-scale=1">'
+            '<title>'+esc(title)+'</title><meta name="description" content="'+esc(description)+'">'
+            '<link rel="canonical" href="'+BASE+'follow/">'
+            '<link rel="alternate" type="application/rss+xml" title="WORK SIGNAL RSS" href="/feed.xml">'
+            + favicon_links()+json_ld(schema)+fonts+style
+            + '<link rel="stylesheet" href="/assets/css/subscription.css?v=20261111">'
+            + listing_analytics(home_html)
+            + '<script defer src="/assets/js/article-actions.js?v=20261111-subscribe"></script>'
+            + '</head><body class="follow-page"><div class="topline"></div><div class="shell">'
+            '<header class="masthead"><a class="brand" href="/" aria-label="WORK SIGNALホーム">WORK<span class="dot">.</span>SIGNAL</a>'
+            '<a href="/#latest" class="follow-return">最新の記事</a></header>'
+            '<main class="follow-main"><p class="follow-kicker">FOLLOW THE SIGNAL</p>'
+            '<h1>次の変化も、<br>自分のペースで。</h1>'
+            '<p class="follow-lead">AI・仕事・経済のニュースを、一次情報から。<br>ふだん使う場所で、新しい判断材料を受け取れます。</p>'
+            '<div class="follow-options"><section><span class="follow-number">01 / THREADS</span>'
+            '<h2>要点を、会話の中で。</h2><p>ニュースの要点と仕事への影響を。投稿の記事リンクから、背景や一次情報を確認できます。</p>'
+            '<a href="https://www.threads.com/@work_signal_japan" target="_blank" rel="noopener noreferrer" '
+            'data-social-follow="threads" data-follow-placement="follow_page">公式Threadsを開く</a></section>'
+            '<section><span class="follow-number">02 / INSTAGRAM</span><h2>ストーリーズで、変化を追う。</h2>'
+            '<p>記事の入口をストーリーズで。気になったニュースの詳しい解説は、プロフィールのサイトリンクから。</p>'
+            '<a href="https://www.instagram.com/work_signal_japan/" target="_blank" rel="noopener noreferrer" '
+            'data-social-follow="instagram" data-follow-placement="follow_page">公式Instagramを開く</a></section>'
+            '<section class="follow-rss"><span class="follow-number">03 / RSS</span><h2>新着を、まとめて読む。</h2>'
+            '<p>RSSリーダーに購読URLを登録すると、新着記事を一覧で確認できます。WORK SIGNALへの会員登録は不要です。</p>'
+            '<div class="rss-copy"><code>https://signal.amberlight.co.jp/feed.xml</code>'
+            '<button type="button" data-copy-rss-url="https://signal.amberlight.co.jp/feed.xml">購読URLをコピー</button></div>'
+            '<p role="status" aria-live="polite" data-rss-feedback></p>'
+            '<a href="/feed.xml" data-social-follow="rss" data-follow-placement="follow_page">RSSを開く</a></section></div>'
+            '<p class="follow-note">SNSから来た方も、サイトで続きが読めます。</p>'
+            '<nav class="follow-reading" aria-label="サイトの記事を読む"><a href="/#latest">最新の記事を読む</a>'
+            '<a href="/topics/">テーマから読む</a><a href="/about/#editorial-policy">編集方針</a></nav>'
+            '</main></div></body></html>')
+
+
 def write_rss(output, articles):
     """Generate an RSS 2.0 summary feed from approved published articles."""
     rss = ET.Element('rss', {'version': '2.0'})
@@ -1261,7 +1305,7 @@ def write_rss(output, articles):
     ET.SubElement(channel, '{' + atom_ns + '}link', {
         'href': BASE + 'feed.xml', 'rel': 'self', 'type': 'application/rss+xml'
     })
-    for article in sorted(articles, key=lambda item: (item['published_at'], item['id']), reverse=True):
+    for article in sorted(articles, key=lambda item: (_clock_text(item.get('published_at_time')) or item['published_at'], item['id']), reverse=True):
         item = ET.SubElement(channel, 'item')
         for tag, value in (
             ('title', article['title']),
@@ -1274,8 +1318,11 @@ def write_rss(output, articles):
             element.text = value
             if tag == 'guid':
                 element.set('isPermaLink', 'true')
-        published = datetime.combine(date.fromisoformat(article['published_at']), datetime.min.time(), tzinfo=timezone.utc)
-        ET.SubElement(item, 'pubDate').text = published.strftime('%a, %d %b %Y %H:%M:%S +0000')
+        # Preserve actual publication precision. A legacy date is not midnight UTC.
+        recorded = article.get('published_at_time')
+        if recorded and (_clock_text(recorded) or '')[:10] == article['published_at']:
+            published = datetime.fromisoformat(recorded.replace('Z','+00:00')).astimezone(timezone.utc)
+            ET.SubElement(item, 'pubDate').text = published.strftime('%a, %d %b %Y %H:%M:%S +0000')
     ET.ElementTree(rss).write(output / 'feed.xml', encoding='utf-8', xml_declaration=True)
 
 
@@ -1311,7 +1358,7 @@ def build(output, feed=None):
     discovery_style = output / 'assets/css/article-discovery.css'
     shutil.copyfile(ROOT / 'assets/css/article-discovery.css', discovery_style)
     # Explicit allowlist: no server source, test specimens or credentials enter Pages.
-    for asset in ('assets/css/hero-market.css', 'assets/js/hero-market.mjs', 'assets/js/market-model.mjs',
+    for asset in ('assets/css/subscription.css', 'assets/css/hero-market.css', 'assets/js/hero-market.mjs', 'assets/js/market-model.mjs',
                   'assets/js/free-market-client.mjs', 'assets/js/free-market-feeds.mjs'):
         destination = output / asset
         destination.parent.mkdir(parents=True, exist_ok=True)
@@ -1323,6 +1370,10 @@ def build(output, feed=None):
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / 'nba' / asset, destination)
     index = (ROOT / 'index.html').read_text()
+    index = index.replace('<a href="#latest">LATEST</a>', '<a href="#latest">LATEST</a><a href="/follow/">FOLLOW</a>', 1)
+    index = index.replace('<main><section class="hero"', '<nav class="subscribe-strip" aria-label="更新を受け取る"><span>次の変化も、追うなら。</span><a href="/follow/">Threads・Instagram・RSS</a></nav><main><section class="hero"', 1)
+    index = index.replace('</head>', '<link rel="stylesheet" href="/assets/css/subscription.css?v=20261111">'
+                          '<script defer src="/assets/js/article-actions.js?v=20261111-subscribe"></script></head>', 1)
     # SECURITY WATCH: independent alert feed; article publication dates remain unchanged.
     security_feed = merged_security_feed(articles, json.loads((ROOT / 'data/security-watch.json').read_text()))
     (output / 'data').mkdir(exist_ok=True)
@@ -1513,6 +1564,8 @@ def build(output, feed=None):
         raise ValueError('Home pagination progress marker is missing')
     index = index.replace(progress_marker, f'{min(len(home_articles), HOME_PAGE_SIZE)} / {len(home_articles)} SIGNALS', 1)
     (output / 'index.html').write_text(index)
+    (output / 'follow').mkdir(exist_ok=True)
+    (output / 'follow/index.html').write_text(follow_page(index))
     archive_urls = []
     for page in range(1, max(1, math.ceil(len(articles) / ARCHIVE_PAGE_SIZE)) + 1):
         relative = Path('archive') if page == 1 else Path('archive/page') / str(page)
@@ -1578,7 +1631,7 @@ def build(output, feed=None):
     sitemap = ET.Element('{' + ns + '}urlset')
     by_url = {article_url(item): item for item in articles}
     home_modified = latest_date([modified[item['id']] or item['published_at'] for item in articles])
-    for url in [BASE, BASE + 'about/', BASE + 'privacy/', BASE + 'contact/', BASE + 'security/'] + archive_urls + topic_urls + [article_url(article) for article in articles]:
+    for url in [BASE, BASE + 'about/', BASE + 'privacy/', BASE + 'contact/', BASE + 'security/', BASE + 'follow/'] + archive_urls + topic_urls + [article_url(article) for article in articles]:
         entry = ET.SubElement(sitemap, '{' + ns + '}url')
         ET.SubElement(entry, '{' + ns + '}loc').text = url
         item = by_url.get(url)

@@ -3804,10 +3804,12 @@
   },
   "20261111-nec-websam-winshare-remote-system-rce": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-10T18:28:57+00:00",
+      "status": "published",
+      "updated_at": "2026-11-10T18:28:59+00:00",
       "stage": "publish_requested",
-      "container_id": "18132231847836472"
+      "container_id": "18132231847836472",
+      "remote_id": "18132231847836472",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfkjR7FFC24"
     }
   }
 }

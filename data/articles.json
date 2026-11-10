@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261110-fastapi-code-generator-summary-rce",
+    "title": "fastapi-code-generatorにコード実行の脆弱性（CVE-2026-63470）、0.8.1へ更新を",
+    "summary": "PythonのAPIコード生成ツールfastapi-code-generatorに、OpenAPI定義を通じて生成コードへ意図しない処理が入り込む重大な脆弱性が確認された。CVE-2026-63470はGitHub Reviewed AdvisoryでCRITICAL（CVSS v4.0 9.3）。0.8.1未満が対象で、修正版0.8.1が公開されている。",
+    "category": "SECURITY",
+    "score": 88,
+    "published_at": "2026-11-10",
+    "published_at_time": "2026-11-10T10:25:54.321Z",
+    "source_url": "https://github.com/advisories/GHSA-h667-4jj2-cgv4",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "PythonのAPIコード生成ツールfastapi-code-generatorに、OpenAPI定義を通じて生成コードへ意図しない処理が入り込む重大な脆弱性が確認された。CVE-2026-63470はGitHub Reviewed AdvisoryでCRITICAL（CVSS v4.0 9.3）。0.8.1未満が対象で、修正版0.8.1が公開されている。",
+    "sections": [
+      {
+        "title": "どの条件で影響するか",
+        "body": "GitHubの公式勧告によると、OpenAPIのoperation summaryの取り扱いが不十分で、外部から影響を受けるOpenAPI仕様書を使ってアプリケーションを生成した場合、生成された該当APIハンドラーの呼び出し時に意図しないコードが実行される可能性がある。問題はコード生成ツールと生成物の組み合わせにあり、FastAPIそのものの全利用者が直ちに影響するという意味ではない。"
+      },
+      {
+        "title": "開発・運用担当者が確認すること",
+        "body": "fastapi-code-generatorの利用有無とバージョンを調べ、0.8.1未満なら修正版0.8.1以降へ更新する。信頼できないOpenAPI定義を用いたコード生成を停止し、過去に生成したアプリケーションの入力元と生成物を点検する。ツールを更新するだけで既存の生成コードが安全に書き換わるとは限らないため、必要に応じて信頼済み仕様書から再生成・再レビューする。"
+      },
+      {
+        "title": "確認済みの範囲と留保",
+        "body": "GitHub Reviewed AdvisoryはCVSS v4.0 9.3、CRITICAL、影響版0.8.1未満、修正版0.8.1と記載する。脆弱性の再現検証は記載されているが、実環境での悪用確認やCISA KEV登録は本稿では確認できていない。開発元の初出は7月1日で、11月9日のGitHub掲載・更新を新規発見日とは扱わない。別の2件のCVEと混同せず本件の条件を確認する。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "fastapi-code-generator（pip）0.8.1未満",
+    "social_security_action": "fastapi-code-generator 0.8.1以降へ更新し、信頼できないOpenAPI定義の利用を停止して既存の生成物を点検する。",
+    "publication_key": "130415b014da7134422b1a81ec41367c386778a7f9661805cc3e82977584fb6a",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-fastapi-code-generator-response-rce",
     "title": "fastapi-code-generatorにコード実行の脆弱性（CVE-2026-63469）、0.8.1へ更新を",
     "summary": "PythonのAPIコード生成ツールfastapi-code-generatorに、OpenAPI定義を通じて生成コードへ意図しない処理が入り込む重大な脆弱性が確認された。CVE-2026-63469はGitHub Reviewed AdvisoryでCRITICAL（CVSS v4.0 9.3）。0.8.1未満が対象で、修正版0.8.1が公開されている。",

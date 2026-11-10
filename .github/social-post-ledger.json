@@ -3841,7 +3841,9 @@
   "20261111-openai-upwork-freelance-ai-work-shift": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-10T22:07:12+00:00"
+      "updated_at": "2026-11-10T22:07:30+00:00",
+      "stage": "container_created",
+      "container_id": "18134661160690068"
     }
   }
 }

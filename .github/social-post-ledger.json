@@ -3499,7 +3499,9 @@
   "20261109-microsoft-pdd-kit-formal-verification": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-10T03:01:21+00:00"
+      "updated_at": "2026-11-10T03:01:45+00:00",
+      "stage": "container_created",
+      "container_id": "18134560162690068"
     }
   }
 }

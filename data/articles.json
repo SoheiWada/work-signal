@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261110-northern-trust-ai-onboarding",
+    "title": "金融データ移行を約2.5週間から3日に、Northern TrustのAI事例──人の確認工程は残す",
+    "summary": "Microsoftは11月9日、Northern Trustと共同で機関投資家の取引データ移行を支援するAIを開発した事例を紹介した。データ整理にかかる時間は従来約2.5週間から3日に短縮したという。人による確認や最終照合を含む工程の改善として報告されており、業務全体の完全自動化を示す数字ではない。",
+    "category": "仕事",
+    "score": 87,
+    "published_at": "2026-11-10",
+    "published_at_time": "2026-11-10T02:53:36.919Z",
+    "source_url": "https://news.microsoft.com/source/features/digital-transformation/northern-trust-finance-microsoft-partner-ai/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Microsoftは11月9日、Northern Trustと共同で機関投資家の取引データ移行を支援するAIを開発した事例を紹介した。データ整理にかかる時間は従来約2.5週間から3日に短縮したという。人による確認や最終照合を含む工程の改善として報告されており、業務全体の完全自動化を示す数字ではない。",
+    "sections": [
+      {
+        "title": "業務の専門家とエンジニアがルールを作る",
+        "body": "案件では形式や用語の異なる取引履歴を、社内基盤で扱える形へ整理するAIを開発した。Microsoftの技術者とNorthern Trustの金融実務担当者が、用語や分類のルールを共同で整備。過去案件の匿名化データと継続的なフィードバックを使い、判断基準を調整したと説明する。"
+      },
+      {
+        "title": "3日という成果には確認と例外処理も含む",
+        "body": "発表の注記によると、短縮時間は実際の顧客受け入れ案件で測定され、データ変換だけでなく担当者の確認、例外処理、最終検証も含む。AIが判断しきれない項目は人へ回し、稼働前には従来の照合を行う。記事には対象件数や独立した比較検証の詳細がなく、一般的な導入効果としてそのまま使えない。"
+      },
+      {
+        "title": "導入評価では人へ戻る仕事まで測る",
+        "body": "ここからは編集部の分析だ。自社のAI導入でも、生成処理の速さだけでなく確認、差し戻し、例外対応を含めた完了時間を測ると実務上の効果を判断しやすい。担当者が持つ用語や例外の知識をルールにし、判断できない処理を人へ戻す設計が参考になる。ただし、金融機関の一事例が自社の費用削減や正確性を保証するわけではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "publication_key": "b931865698bb7b684943c9af5a12b31bef6b4b7973d2116fb68317c93080e834",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-adobe-disney-ai-alliance",
     "title": "AdobeとDisneyが複数年提携、専用生成AIを制作工程へ──一般利用の解禁とは異なる",
     "summary": "AdobeとThe Walt Disney Companyは11月9日、AI技術を含む複数年の戦略提携を発表した。Disney向けの専用生成AIや制作ツール、技術者の支援を組み合わせ、アイデアの検討や制作工程を支える。Disneyのキャラクターを誰でも生成・商用利用できるという発表ではない。",

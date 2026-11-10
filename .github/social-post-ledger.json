@@ -3732,10 +3732,12 @@
   },
   "20261110-freeswitch-cve-2026-116779": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-10T12:30:00+00:00",
+      "status": "published",
+      "updated_at": "2026-11-10T12:30:02+00:00",
       "stage": "publish_requested",
-      "container_id": "18232320838331318"
+      "container_id": "18232320838331318",
+      "remote_id": "18232320838331318",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dfj6Mi6HDVe"
     }
   }
 }

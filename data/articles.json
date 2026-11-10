@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261110-openssh-cve-2026-123158-kev",
+    "title": "OpenSSHの認証回避脆弱性がCISA悪用確認リストに、Alpine Linuxは修正とsshd再起動を",
+    "summary": "OpenSSHのパスワード認証を回避できるCVE-2026-123158が、米CISAの「実際に悪用された脆弱性」リスト（KEV）に11月9日付で追加された。影響は全OpenSSH環境ではなく、musl libcを使用しPAMを無効にしたLinuxの特定設定に限定される。Alpine Linuxは修正パッケージへの更新だけでなく、稼働中のsshd再起動を呼びかけている。",
+    "category": "SECURITY",
+    "score": 95,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-10T15:46:05.514Z",
+    "source_url": "https://alpinelinux.org/posts/2026-11-05-openssh-password-authentication-bypass/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenSSHのパスワード認証を回避できるCVE-2026-123158が、米CISAの「実際に悪用された脆弱性」リスト（KEV）に11月9日付で追加された。影響は全OpenSSH環境ではなく、musl libcを使用しPAMを無効にしたLinuxの特定設定に限定される。Alpine Linuxは修正パッケージへの更新だけでなく、稼働中のsshd再起動を呼びかけている。",
+    "sections": [
+      {
+        "title": "何が起き、どの条件で成立するか",
+        "body": "OpenSSH開発元は11月5日にPortable OpenSSH 10.6p2を公開し、PAMを無効にしてビルド・運用する一部Linux環境でのパスワード認証回避を修正した。Alpine Linuxの公式勧告によると、パスワード認証が有効で、パスワード欄が「*」のアカウントと、特定形式のパスワードハッシュを持つ別アカウントが共存する場合、長いパスワード入力で認証が通る恐れがある。musl libcやPAMの条件を満たさない環境まで一律に脆弱とはいえない。"
+      },
+      {
+        "title": "管理者が優先して行う対応",
+        "body": "Alpine Linuxでは3.24系の修正済みopensshは10.3_p1-r2、3.23系は10.2_p1-r1、3.22系は10.0_p1-r11、edgeは10.6_p2-r0。公式勧告は3.16〜3.21系についても個別の修正版を示している。運用中のディストリビューションに適合する修正パッケージへ更新し、必ずsshdを再起動する。更新まで時間が必要なら、SSH鍵で接続できることを確認した上でPasswordAuthentication noを設定し、設定検証後に再起動する。設定変更時は現在の接続を維持し、新規接続を検証する。"
+      },
+      {
+        "title": "悪用確認と留保",
+        "body": "CISA公式GitHubミラーの2026年11月9日版ではCVE-2026-123158が同日付でKEVに登録されている。KEV登録は悪用の証拠があることを示すが、被害組織数や日本国内の被害発生を意味しない。Red HatはCVSS v3.1で8.1（HIGH）と評価する一方、自社製品はglibcとPAMの構成のため影響を受けないと説明している。管理者は製品名だけで判断せず、libc・PAM・sshdの認証設定とパッケージ版を確認したい。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "Linuxのmusl libc環境でPAM無効のOpenSSH sshd（Portable OpenSSH 10.6p2未満、Alpine Linux 3.16〜3.24およびedgeの該当未修正パッケージ）",
+    "social_security_action": "Portable OpenSSH 10.6p2またはAlpine各ブランチの修正済みパッケージに更新しsshdを再起動。更新できなければPasswordAuthentication noを設定し再起動",
+    "publication_key": "103d95c6483732ea435528dd8451c9ccfc87a52786b4508455a62bc340b34702",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-us-october-cpi-missing-yoy",
     "title": "米10月CPIは前月比0.4％、食品0.5％上昇──前年比を公表できない統計上の理由",
     "summary": "米労働統計局（BLS）が11月10日に発表した2026年10月の消費者物価指数（CPI）は、季節調整済みの前月比で0.4％上昇し、9月の0.6％から伸びが鈍化した。食品は0.5％、エネルギーは0.7％上昇。一方、2025年10月の調査データが一部欠けるため、総合指数などの前年比は公表できない。企業の価格判断や金融政策の見通しでは、この欠測を通常の物価鈍化と混同しないことが重要だ。",

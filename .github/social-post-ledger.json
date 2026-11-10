@@ -3715,7 +3715,9 @@
   "20261110-mhlw-overseas-worker-health-survey": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-10T11:32:07+00:00"
+      "updated_at": "2026-11-10T11:32:16+00:00",
+      "stage": "publish_requested",
+      "container_id": "18134242468877962"
     }
   }
 }

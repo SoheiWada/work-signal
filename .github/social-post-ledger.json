@@ -3768,10 +3768,12 @@
   },
   "20261110-ibm-aspera-faspex-cve-2026-123218": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-10T15:51:20+00:00",
+      "status": "published",
+      "updated_at": "2026-11-10T15:51:23+00:00",
       "stage": "publish_requested",
-      "container_id": "18122587406068959"
+      "container_id": "18122587406068959",
+      "remote_id": "18122587406068959",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfkRPa_EeNM"
     }
   }
 }

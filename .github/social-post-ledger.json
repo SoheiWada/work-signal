@@ -3822,10 +3822,12 @@
   },
   "20261111-barracuda-esg-kev-exploited-auth-bypass": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-10T20:30:28+00:00",
+      "status": "published",
+      "updated_at": "2026-11-10T20:30:31+00:00",
       "stage": "publish_requested",
-      "container_id": "18130779787874177"
+      "container_id": "18130779787874177",
+      "remote_id": "18130779787874177",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfkxLt5D0Ia"
     }
   }
 }

@@ -3741,7 +3741,9 @@
     },
     "instagram_story": {
       "status": "attempting",
-      "updated_at": "2026-11-10T12:30:07+00:00"
+      "updated_at": "2026-11-10T12:30:13+00:00",
+      "stage": "container_created",
+      "container_id": "18160675447488337"
     }
   }
 }

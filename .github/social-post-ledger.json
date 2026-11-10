@@ -3750,10 +3750,12 @@
   },
   "20261110-openssh-cve-2026-123158-kev": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-10T15:50:43+00:00",
+      "status": "published",
+      "updated_at": "2026-11-10T15:50:46+00:00",
       "stage": "publish_requested",
-      "container_id": "18035633366903974"
+      "container_id": "18035633366903974",
+      "remote_id": "18035633366903974",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfkRKwHEQVj"
     }
   }
 }

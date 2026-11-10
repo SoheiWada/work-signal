@@ -3729,5 +3729,11 @@
       "remote_id": "18146010697578293",
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4027289531665734455"
     }
+  },
+  "20261110-freeswitch-cve-2026-116779": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-10T12:29:50+00:00"
+    }
   }
 }

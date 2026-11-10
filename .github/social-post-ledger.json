@@ -3516,10 +3516,12 @@
   },
   "20261110-northern-trust-ai-onboarding": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-10T03:02:46+00:00",
+      "status": "published",
+      "updated_at": "2026-11-10T03:02:48+00:00",
       "stage": "publish_requested",
-      "container_id": "18075885593760385"
+      "container_id": "18075885593760385",
+      "remote_id": "18075885593760385",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dfi5SPnjbpi"
     }
   }
 }

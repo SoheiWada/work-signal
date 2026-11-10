@@ -3596,10 +3596,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/Dfjsis_ICWW"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-10T10:31:07+00:00",
+      "status": "published",
+      "updated_at": "2026-11-10T10:31:11+00:00",
       "stage": "publish_requested",
-      "container_id": "18160649056488337"
+      "container_id": "18160649056488337",
+      "remote_id": "18104093369453825",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4027258586527729241"
     }
   }
 }

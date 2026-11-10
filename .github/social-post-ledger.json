@@ -3462,10 +3462,12 @@
   },
   "20261109-boj-tankan-wage-survey": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-10T03:00:33+00:00",
+      "status": "published",
+      "updated_at": "2026-11-10T03:00:37+00:00",
       "stage": "publish_requested",
-      "container_id": "18129706702921758"
+      "container_id": "18129706702921758",
+      "remote_id": "18129706702921758",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dfi5CFkjMp2"
     }
   }
 }

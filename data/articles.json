@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261110-gpustack-auth-bypass-cve-2026-102895",
+    "title": "GPUStackに認証回避の重大脆弱性、管理者権限への不正アクセスと実悪用を開発元が確認",
+    "summary": "AIモデルの運用基盤GPUStackに、認証なしで管理者権限を得られる重大な脆弱性CVE-2026-102895が確認されている。開発元は実環境での悪用も報告。影響する2.2.0未満の利用者は、更新と公開経路・認証設定の点検を急ぎたい。",
+    "category": "SECURITY",
+    "score": 91,
+    "published_at": "2026-11-10",
+    "published_at_time": "2026-11-10T10:24:12.453Z",
+    "source_url": "https://github.com/gpustack/gpustack/security/advisories/GHSA-gj9m-f8ph-pmhr",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "AIモデルの運用基盤GPUStackに、認証なしで管理者権限を得られる重大な脆弱性CVE-2026-102895が確認されている。開発元は実環境での悪用も報告。影響する2.2.0未満の利用者は、更新と公開経路・認証設定の点検を急ぎたい。",
+    "sections": [
+      {
+        "title": "ローカル通信の信頼が管理者権限につながる",
+        "body": "GPUStackの開発元が公開したGHSA-gj9m-f8ph-pmhrによると、2.2.0未満では、通信元をループバックと判断すると組み込み管理者として扱う処理があった。既定のforce_auth_localhost=falseの下で、同一ホストのリバースプロキシを介した外部リクエストや、送信元IPを誤認させるヘッダーによって、認証なしの管理者アクセスにつながる可能性がある。影響はユーザーやモデル設定の改変、認証情報の閲覧などに及ぶ。開発元の評価はCVSS v3.1で9.8、CRITICALだ。"
+      },
+      {
+        "title": "修正版2.2.0以降へ更新、入口の設定も確認",
+        "body": "開発元はGPUStack 2.2.0でループバック由来の自動管理者扱いを廃止し、転送ヘッダーの取り扱いを強化した。運用担当者はまず導入版を確認し、2.2.0以降への更新を優先する。直ちに更新できない場合は、開発元が示すforce_auth_localhost=trueによる認証必須化、外部入力の転送ヘッダー除去、APIへのアクセス制限を組み合わせる。リバースプロキシの存在だけで全環境が侵害されたと断定するものではない。"
+      },
+      {
+        "title": "実悪用は確認、各組織への侵害は別途調査が必要",
+        "body": "開発元勧告には、GPUStack 2.1.1の導入環境で悪用が観測されたとの記載がある。これは実際の攻撃事例があることを示す一方、すべての脆弱な環境が侵害済みであることを意味しない。影響版を公開運用していた組織は、管理者APIキーの発行、ユーザー・モデル・バックエンド設定変更、関連する認証情報の利用履歴を確認し、異常があればインシデント対応へ移行する必要がある。\n\n出典：https://github.com/gpustack/gpustack/security/advisories/GHSA-gj9m-f8ph-pmhr"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "GPUStack 2.2.0未満",
+    "social_security_action": "GPUStack 2.2.0以降へ更新。直ちに更新できない場合は公式の認証必須化・転送ヘッダー制御・APIアクセス制限を確認する。",
+    "publication_key": "bb30289d5719f3b1d57497143596804ebc3edb3ecdc1306746ea6eacfdeec54d",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-google-tpu-8tx-8i-max",
     "title": "GoogleがTPU 8tx・8i Maxを発表、機密AI処理と長文エージェント向けに基盤を分化",
     "summary": "Googleは11月9日、第8世代TPUの新システム「8tx」と「8i Max」を発表した。前者は機密データを扱うAI推論の保護、後者は大量の文脈を処理するAIエージェントの計算密度を重視する。企業のAI導入ではモデル性能だけでなく、データ保護と処理基盤の選択が重要になっている。",

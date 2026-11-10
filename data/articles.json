@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261110-ibm-aspera-faspex-cve-2026-123218",
+    "title": "IBM Aspera Faspexに管理者権限を奪われる重大脆弱性、CISAが悪用確認リストへ追加",
+    "summary": "IBMのファイル転送基盤Aspera Faspexに、認可を回避して管理者権限を得られる重大脆弱性（CVE-2026-123218）が公表された。IBMは5.0.0〜5.0.19を影響対象とし、5.0.19 PL1への更新を推奨。CISAは11月9日付で実際に悪用された脆弱性のカタログへ追加した。利用企業は更新とアクセス記録の確認を急ぎたい。",
+    "category": "SECURITY",
+    "score": 94,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-10T15:45:16.256Z",
+    "source_url": "https://www.ibm.com/support/pages/node/7295921",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "IBMのファイル転送基盤Aspera Faspexに、認可を回避して管理者権限を得られる重大脆弱性（CVE-2026-123218）が公表された。IBMは5.0.0〜5.0.19を影響対象とし、5.0.19 PL1への更新を推奨。CISAは11月9日付で実際に悪用された脆弱性のカタログへ追加した。利用企業は更新とアクセス記録の確認を急ぎたい。",
+    "sections": [
+      {
+        "title": "認可回避で管理者権限に到達する",
+        "body": "IBMが11月7日に公表したセキュリティ情報によると、Aspera Faspex 5で、認証済み利用者が細工したメッセージを送信し、ユーザー認可を回避して完全な管理者権限を得られる可能性がある。対象は5.0.0から5.0.19。IBMの評価はCVSS v3.1で9.8（CRITICAL）。公式の説明は「認証済み利用者による悪用」だが、公開CVSSベクトルはPR:Nと記載されている。この条件の不一致は解消されたとみなさず、実際の成立条件を断定しない。"
+      },
+      {
+        "title": "更新先は5.0.19 PL1、代替回避策はなし",
+        "body": "IBMはLinux向けの5.0.19 PL1への更新を推奨し、faspex-coreコンテナイメージが5.0.19（1ce4b13、Fix Pack: 1）であることの検証を求めている。IBMの勧告に公式回避策は「なし」と明記されている。運用担当者は導入版とコンテナの修正状態を確認し、管理者操作や不審な認可エラーなどの監査ログを調査する必要がある。ログ調査は一般的な防御上の提案であり、IBMが特定の侵害指標を提示したものではない。"
+      },
+      {
+        "title": "CISAは実悪用確認としてKEVに登録",
+        "body": "CISAが公開するKnown Exploited Vulnerabilities（KEV）の公式GitHubミラー（developブランチ、カタログ版2026.11.09）には、CVE-2026-123218が11月9日付で登録されている。KEV登録は実際の悪用を示すが、攻撃者、被害規模、発生場所を明らかにするものではない。公式ミラーは本体との同期に時間差があり得るため、今回の確認は当該版の収録情報に限られる。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "IBM Aspera Faspex 5.0.0〜5.0.19",
+    "social_security_action": "IBM Aspera Faspex 5.0.19 PL1へ更新し、faspex-coreコンテナの修正適用を確認する",
+    "publication_key": "13b82510e5b46a53421ca530b79ac2b2c62a8273c512f651638d5aad81e11aaa",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-freeswitch-cve-2026-116779",
     "title": "FreeSWITCHの重大脆弱性がCISA悪用確認リストに追加、1.11.3への更新を推奨",
     "summary": "オープンソースの電話基盤FreeSWITCHにある重大なコマンド実行の脆弱性が、米CISAの「実際に悪用された脆弱性」リストに11月9日付で登録された。開発元はすでに実環境での悪用を認めており、影響する1.11.2以前の運用者には1.11.3以降への更新が必要だ。",

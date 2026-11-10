@@ -3751,7 +3751,9 @@
   "20261110-openssh-cve-2026-123158-kev": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-10T15:50:34+00:00"
+      "updated_at": "2026-11-10T15:50:43+00:00",
+      "stage": "publish_requested",
+      "container_id": "18035633366903974"
     }
   }
 }

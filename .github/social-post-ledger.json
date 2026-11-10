@@ -3434,10 +3434,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/Dfi46aSDK91"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-10T02:59:47+00:00",
+      "status": "published",
+      "updated_at": "2026-11-10T02:59:50+00:00",
       "stage": "publish_requested",
-      "container_id": "18160563772488337"
+      "container_id": "18160563772488337",
+      "remote_id": "17865843888694651",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4027031437047514658"
     }
   }
 }

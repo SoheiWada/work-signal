@@ -3588,10 +3588,12 @@
   },
   "20261110-fastapi-code-generator-response-rce": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-10T10:30:45+00:00",
+      "status": "published",
+      "updated_at": "2026-11-10T10:30:47+00:00",
       "stage": "publish_requested",
-      "container_id": "18138168970678617"
+      "container_id": "18138168970678617",
+      "remote_id": "18138168970678617",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dfjsis_ICWW"
     }
   }
 }

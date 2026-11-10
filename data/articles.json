@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261110-pocket-id-email-verification",
+    "title": "Pocket IDのメール検証不備、連携アプリでアカウント乗っ取りの恐れ—修正版2.12.0",
+    "summary": "オープンソースのIDプロバイダーPocket IDに、メールアドレスの確認済み状態を誤って付与できる重大な脆弱性が報告された。連携先アプリが確認済みメールアドレスを本人識別に利用する場合、別人のアカウントへの不正な紐付けにつながる恐れがある。修正版v2.12.0が案内されている。",
+    "category": "SECURITY",
+    "score": 89,
+    "published_at": "2026-11-10",
+    "published_at_time": "2026-11-10T10:24:56.961Z",
+    "source_url": "https://github.com/pocket-id/pocket-id/security/advisories/GHSA-rm8c-2cv8-jwf6",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "オープンソースのIDプロバイダーPocket IDに、メールアドレスの確認済み状態を誤って付与できる重大な脆弱性が報告された。連携先アプリが確認済みメールアドレスを本人識別に利用する場合、別人のアカウントへの不正な紐付けにつながる恐れがある。修正版v2.12.0が案内されている。",
+    "sections": [
+      {
+        "title": "メール検証と連携アプリの信頼境界",
+        "body": "開発元の勧告によると、メールアドレス変更前に発行された検証トークンが変更後も有効なため、利用者が所有を証明していないメールアドレスを「検証済み」として扱わせることができる。Pocket IDがOIDCのemail_verified属性を連携先へ渡すと、その属性をメールアドレスによる自動アカウント紐付けの根拠とするアプリでは、第三者のアカウントへのアクセスにつながる恐れがある。"
+      },
+      {
+        "title": "影響する条件と修正",
+        "body": "対象はPocket ID backendのv2.2.0以上、v2.12.0未満。攻撃成立には通常の利用者アカウント、メール検証の利用、本人によるメール変更の許可などの条件がある。連携先がメールアドレスとemail_verifiedを信頼して既存アカウントへ自動紐付けする場合に危険が増す。一方、安定したOIDC sub識別子だけで紐付けるアプリでは、この連携先アカウント乗っ取りの影響は受けないと説明されている。開発元はv2.12.0を修正版として掲示している。"
+      },
+      {
+        "title": "管理者が確認すべきことと限界",
+        "body": "Pocket ID管理者は稼働バージョンを確認し、修正版v2.12.0以降への更新を優先したい。連携先の認証実装で、検証済みメールアドレスだけを根拠に既存アカウントへ自動連携していないかも点検対象となる。開発元の勧告は再現検証を記載しているが、実環境での攻撃発生や被害件数を証明するものではない。脆弱性の公表日は7月29日であり、11月9日のデータベース掲載を新規発見日と混同しない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Pocket ID backend v2.2.0以上、v2.12.0未満",
+    "social_security_action": "Pocket ID v2.12.0以降へ更新し、連携先のメールアドレスによる自動アカウント紐付けを点検する。",
+    "publication_key": "36846da1548e9dd58e13e4bf35f626d9c3e71ce187d0a2eee65e4fe5b60e20b0",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-kubeflow-pipelines-cve-2026-77596",
     "title": "Kubeflow PipelinesにCRITICAL 9.6の認可不備、共有パイプライン改変を2.18.0で修正",
     "summary": "AIの学習・推論ワークフローを共有するKubeflow Pipelinesで、権限のない利用者が共有パイプラインを作成・変更できる重大な認可不備が公表された。公式評価はCVSS 9.6（CRITICAL）。複数利用者モードの管理者は2.18.0への更新と、共有パイプラインや定期実行の設定確認が必要だ。",

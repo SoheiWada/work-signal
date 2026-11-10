@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261110-google-tpu-8tx-8i-max",
+    "title": "GoogleがTPU 8tx・8i Maxを発表、機密AI処理と長文エージェント向けに基盤を分化",
+    "summary": "Googleは11月9日、第8世代TPUの新システム「8tx」と「8i Max」を発表した。前者は機密データを扱うAI推論の保護、後者は大量の文脈を処理するAIエージェントの計算密度を重視する。企業のAI導入ではモデル性能だけでなく、データ保護と処理基盤の選択が重要になっている。",
+    "category": "AI",
+    "score": 87,
+    "published_at": "2026-11-10",
+    "published_at_time": "2026-11-10T05:01:37.196Z",
+    "source_url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/tpu-8i-max-and-8tx/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Googleは11月9日、第8世代TPUの新システム「8tx」と「8i Max」を発表した。前者は機密データを扱うAI推論の保護、後者は大量の文脈を処理するAIエージェントの計算密度を重視する。企業のAI導入ではモデル性能だけでなく、データ保護と処理基盤の選択が重要になっている。",
+    "sections": [
+      {
+        "title": "8txは機密情報を処理中にも保護",
+        "body": "Googleの公式説明によれば、TPU 8txはTPU 8tと同じシリコンを用い、第5世代AMD EPYCホストと組み合わせる。保存中や転送中だけでなく、処理中の機密データやモデルの重みをハードウェア層で保護・分離する設計だ。規制産業や政府機関が独自モデルやAIエージェントを運用する用途を想定する。Googleは8tとの比較で最大2倍の低遅延をうたうが、実運用での改善幅は構成や負荷に依存する。"
+      },
+      {
+        "title": "8i Maxは長文脈のAI処理に対応",
+        "body": "TPU 8i Maxは低遅延のTPU 8iチップ2基を単一パッケージに統合する。Googleによると、8iに対して演算能力、SRAM、HBM帯域幅がそれぞれ2倍になる。大規模なコードベースや長時間の動画などを複数エージェントが参照する処理を想定し、既存ラック面積で計算密度を高める。これらは構成上の仕様であり、すべての業務で処理時間が半減するという意味ではない。"
+      },
+      {
+        "title": "導入判断ではモデル・データ・コストをセットで比較",
+        "body": "企業の情報システム部門は、機密情報を扱うか、長文脈を必要とするか、モデルの移植性があるかで基盤を評価できる。GoogleはPyTorch対応、TPU向け開発支援ツールのプレビュー、Cloud Pathwaysの一般提供なども説明している。ただし新システムの利用可能地域、提供時期、契約価格、実際の費用対効果はこの発表だけでは一律に確定できない。既存GPU環境との比較には、同一モデル・同一負荷での検証が必要だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "publication_key": "4562bb1de9b8a0545fc690a2b6d0e1b8519e1594137f2130559571a059da500f",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-northern-trust-ai-onboarding",
     "title": "金融データ移行を約2.5週間から3日に、Northern TrustのAI事例──人の確認工程は残す",
     "summary": "Microsoftは11月9日、Northern Trustと共同で機関投資家の取引データ移行を支援するAIを開発した事例を紹介した。データ整理にかかる時間は従来約2.5週間から3日に短縮したという。人による確認や最終照合を含む工程の改善として報告されており、業務全体の完全自動化を示す数字ではない。",

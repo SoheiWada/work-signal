@@ -3661,8 +3661,8 @@
   "20261110-gpustack-auth-bypass-cve-2026-102895": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-10T10:33:43+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-11-10T10:33:45+00:00",
+      "stage": "publish_requested",
       "container_id": "18134597251690068"
     }
   }

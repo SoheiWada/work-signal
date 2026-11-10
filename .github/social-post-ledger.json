@@ -3463,7 +3463,9 @@
   "20261109-boj-tankan-wage-survey": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-10T03:00:25+00:00"
+      "updated_at": "2026-11-10T03:00:33+00:00",
+      "stage": "publish_requested",
+      "container_id": "18129706702921758"
     }
   }
 }

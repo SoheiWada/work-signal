@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261109-microsoft-pdd-kit-formal-verification",
+    "title": "Microsoft ResearchがPDD Kitを公開、AI生成コードを仕様と数学的証明で検証",
+    "summary": "Microsoft Researchは11月5日、AIエージェントが生成したコードを、自然言語の要件から形式仕様へ変換して検証する「PDD Kit」を紹介した。Rust製のサンプルWebアプリではログイン処理を検証し、既存の不具合も発見した。AI開発の品質管理を「生成コードの行単位レビュー」から「要求仕様と検証根拠の確認」へ移す試みだ。",
+    "category": "AI",
+    "score": 85,
+    "published_at": "2026-11-10",
+    "published_at_time": "2026-11-10T02:47:50.343Z",
+    "source_url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Microsoft Researchは11月5日、AIエージェントが生成したコードを、自然言語の要件から形式仕様へ変換して検証する「PDD Kit」を紹介した。Rust製のサンプルWebアプリではログイン処理を検証し、既存の不具合も発見した。AI開発の品質管理を「生成コードの行単位レビュー」から「要求仕様と検証根拠の確認」へ移す試みだ。",
+    "sections": [
+      {
+        "title": "何を検証する仕組みか",
+        "body": "PDD Kitは開発者の意図を質問と意思決定の記録に整理し、形式化できる条件をVerusの仕様へ変換する。証明できる性質は数学的な検証を行い、外部ライブラリやUIなど証明の届かない部分はテストを使う。両者の結果を区別して提示する点が重要だ。"
+      },
+      {
+        "title": "ログイン処理で示した成果",
+        "body": "Microsoft Researchは約5,000行のRust製サンプルWebアプリ「Pet Store」でログイン処理を検証した。正しいパスワードだけがトークンを得ること、管理者だけが管理者トークンを得ることを要求に据え、曖昧な自然言語を追加質問で明確化した。研究チームは既存のバグを見つけ、仕様に対するログイン処理の性質を証明したと説明する。"
+      },
+      {
+        "title": "開発組織への意味と限界",
+        "body": "AIに実装を任せる際、レビュー対象をソースコードの全行だけに限定せず、要件の定義、証明された範囲、テストに委ねた範囲、信頼する外部部品に分けて管理する考え方を示す。ただし証明は仕様が正しいことまで保証しない。紹介された実証は特定のRustアプリのログイン処理であり、あらゆる言語やシステムで同等の効果が確認されたわけではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "publication_key": "f685217f5d61c2676526e133699edbdbd6a50819e4a37e2c3fda49bb808851d3",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261107-us-october-jobs-165k-unemployment",
     "title": "米10月雇用は16.5万人増、失業率4.1％──採用回復と不本意な短時間就業の増加",
     "summary": "米労働統計局が11月6日に公表した10月の雇用統計では、非農業部門の雇用者数が前月比16万5,000人増え、失業率は4.1％でほぼ横ばいだった。専門・企業向けサービスや医療が採用を支えた一方、希望するフルタイム職を得られず短時間で働く人は増加した。雇用者数だけでは労働市場の強さを測れない。",

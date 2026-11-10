@@ -1,5 +1,48 @@
 [
   {
+    "id": "20261111-nec-websam-winshare-remote-system-rce",
+    "title": "NEC WebSAM WinShareに重大な遠隔コード実行脆弱性2件、SYSTEM権限を奪われる恐れ",
+    "summary": "NECのリモート操作製品「WebSAM WinShare」で、細工された通信パケットにより操作対象PC上でSYSTEM権限の任意コマンド・コードを実行される恐れがある重大脆弱性2件が公表された。対象バージョンを使用する組織は、NECが案内する修正モジュールの適用を優先したい。",
+    "category": "SECURITY",
+    "score": 92,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-10T18:24:14.808Z",
+    "source_url": "https://jpn.nec.com/security-info/secinfo/nv26-006.html",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "NECのリモート操作製品「WebSAM WinShare」で、細工された通信パケットにより操作対象PC上でSYSTEM権限の任意コマンド・コードを実行される恐れがある重大脆弱性2件が公表された。対象バージョンを使用する組織は、NECが案内する修正モジュールの適用を優先したい。",
+    "sections": [
+      {
+        "title": "何が起きるのか",
+        "body": "NECは2026年11月9日、WebSAM WinShareのセキュリティ情報NV26-006を公開した。CVE-2026-113363は通信パケット処理の不備により、細工されたパケットを受けるとリモート操作対象PCでSYSTEM権限の任意コマンド実行につながる。CVE-2026-113364は受信処理のバッファオーバーフローで、同じくSYSTEM権限で任意コードが実行され得る。JVNは両件をCVSS v4.0基本値9.3、v3.0基本値9.8と評価している。"
+      },
+      {
+        "title": "影響するバージョンと条件",
+        "body": "CVE-2026-113363の対象はVer 7.2.0～7.5.0、7.6.0、7.7.0～7.7.2。CVE-2026-113364はVer 7.5.0以前、7.6.0、7.7.0～7.7.2が対象だ。リモート操作対象（リモートPC）での被害が想定される。NECの告知は細工されたパケットの送信による影響を説明しているが、実環境での悪用確認や攻撃発生件数は記載していない。"
+      },
+      {
+        "title": "管理者が取るべき対応",
+        "body": "まず導入中のWinShareのバージョンとリモート操作対象PCを棚卸しする。NECはVer7.6用・Ver7.7用の修正モジュールを案内し、いずれもVer7.5.0以下に適用できるとしている。配布先はNECサポートポータルでログインが必要だ。適用可否と作業手順はNECの案内で確認し、未修正環境の管理用通信経路は必要最小限に制限する。通信制限は一般的なリスク低減策であり、公式修正モジュールの代替として検証された回避策ではない。"
+      },
+      {
+        "title": "確認できたことと留保",
+        "body": "同じ告知には別件のローカル権限昇格CVE-2026-113362もあるが、本稿は遠隔実行につながる上記2件を対象とした。CVSSの版による数値差を混同せず、実悪用の有無は未確認として扱う。NECの公表日は11月9日で、時刻の記載は確認できない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "NECのリモート操作製品「WebSAM WinShare」に重大な脆弱性2件。細工された通信パケットにより、操作対象PCでSYSTEM権限の任意コマンドやコードを実行される恐れがあります。JVNの評価は両件ともCVSS v4.0で9.3。対象は7.7.2以前の一部バージョンで、版ごとに影響条件が異なります。NECは修正モジュールを案内しています。企業のIT管理担当者は導入版と適用状況を確認してください。実際の悪用は公式資料で未確認です。\nhttps://signal.amberlight.co.jp/articles/20261111-nec-websam-winshare-remote-system-rce/\nhttps://jpn.nec.com/security-info/secinfo/nv26-006.html",
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "NEC WebSAM WinShare。CVE-2026-113363はVer 7.2.0～7.5.0、7.6.0、7.7.0～7.7.2。CVE-2026-113364はVer 7.5.0以前、7.6.0、7.7.0～7.7.2",
+    "social_security_action": "NEC公式のWinShare Ver7.6用またはVer7.7用修正モジュールを適用。NECはこれらを7.5.0以下にも適用可能と案内。サポートポータルへのログインが必要",
+    "publication_key": "125d424ed2de0fd0fa91961ac6fbfbce14e7f614fd1236ed7e89a9ef8e045dba",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-openssh-cve-2026-123158-kev",
     "title": "OpenSSHの認証回避脆弱性がCISA悪用確認リストに、Alpine Linuxは修正とsshd再起動を",
     "summary": "OpenSSHのパスワード認証を回避できるCVE-2026-123158が、米CISAの「実際に悪用された脆弱性」リスト（KEV）に11月9日付で追加された。影響は全OpenSSH環境ではなく、musl libcを使用しPAMを無効にしたLinuxの特定設定に限定される。Alpine Linuxは修正パッケージへの更新だけでなく、稼働中のsshd再起動を呼びかけている。",

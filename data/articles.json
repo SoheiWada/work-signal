@@ -1,5 +1,48 @@
 [
   {
+    "id": "20261111-barracuda-esg-kev-exploited-auth-bypass",
+    "title": "Barracuda ESGの認証回避とコマンド注入がKEV登録、実悪用を確認",
+    "summary": "Barracudaのメールセキュリティ機器などに存在する認証回避・コマンド注入の脆弱性2件が、11月10日付で米CISAの「悪用が確認された脆弱性」カタログに追加された。開発元も少数の組織で悪用活動を確認。管理画面への到達が攻撃の前提となるため、企業のIT管理者は修正適用と管理UIのアクセス制限を急ぎたい。",
+    "category": "SECURITY",
+    "score": 94,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-10T20:24:36.887Z",
+    "source_url": "https://trust.barracuda.com/security/pre-authentication-authorization-bypass-command-injection",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Barracudaのメールセキュリティ機器などに存在する認証回避・コマンド注入の脆弱性2件が、11月10日付で米CISAの「悪用が確認された脆弱性」カタログに追加された。開発元も少数の組織で悪用活動を確認。管理画面への到達が攻撃の前提となるため、企業のIT管理者は修正適用と管理UIのアクセス制限を急ぎたい。",
+    "sections": [
+      {
+        "title": "何が新しく確認されたのか",
+        "body": "Barracudaは2026年11月2日にCVE-2026-116606（認証前の認可回避）とCVE-2026-111560（コマンド注入）を公表した。米東部時間11月9日21時の更新では、少数組織に影響する悪用活動を確認したと追記。CISAのKEVカタログ2026年11月10日版にも両CVEが新規登録された。二つを組み合わせると、管理画面へアクセス可能な攻撃者が認可を回避し機器のroot権限を得る可能性がある。"
+      },
+      {
+        "title": "対象製品と攻撃成立条件",
+        "body": "CVE-2026-116606はEmail Security Gateway（ESG）に影響し、認証なしで悪用できるが管理UIへの到達が必要。CVE-2026-111560はESG、Load Balancer ADC、Message Archiver、WAF Control Center、Web Application Firewall、Web Security Gatewayに影響し、開発元は単独の攻撃条件を管理者アクセス必要と説明している。Barracudaの製品別資料ではESGの全ファームウェア版を修正前の影響対象と記載。開発元の文章評価は両件HIGH、CVSSスコアは順に9.3と8.6であり、評価表現の違いを混同しない。"
+      },
+      {
+        "title": "直ちに確認する対応",
+        "body": "ESGの管理者はファームウェア9.4.0.029以降への更新と、機器画面上での適用確認を行う。古いファームウェアからは段階的更新が必要な場合がある。その他の対象製品ではBarracudaの製品別パッチ案内に従い、適用状況を確認する。管理UIは信頼できる内部ネットワークからのみアクセスできるよう制限する。これは攻撃面の縮小策であり、修正パッチの代替ではない。"
+      },
+      {
+        "title": "事実と留保",
+        "body": "開発元は悪用活動を確認しているが、影響組織の詳細や攻撃規模の全容は公表していない。KEV登録は悪用の確認を示すが、すべての導入環境が侵害されたことを意味しない。管理UIの露出とパッチ適用状況を優先して確認する必要がある。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Barracudaのメールセキュリティ機器などで、認証回避とコマンド注入の脆弱性2件が実際に悪用されています。開発元は少数の組織での攻撃を確認し、米CISAも11月10日にKEVへ追加しました。2件を組み合わせると機器のroot権限取得につながる恐れがあります。攻撃には管理画面への到達が必要です。企業のIT担当者は管理UIの公開範囲を見直し、ESGなら9.4.0.029以降への更新と適用確認を優先してください。公式評価はHIGHです。\nhttps://signal.amberlight.co.jp/articles/20261111-barracuda-esg-kev-exploited-auth-bypass/\nhttps://trust.barracuda.com/security/pre-authentication-authorization-bypass-command-injection",
+    "social_security_severity": "HIGH",
+    "social_security_product": "Barracuda Email Security Gateway（ESG）の全ファームウェア版（修正適用前）。CVE-2026-116606はESG、CVE-2026-111560はESGのほかADC・BMA・WCC・WAF・WSGにも影響",
+    "social_security_action": "ESGはBarracuda公式の修正済みファームウェア9.4.0.029以降へ更新し適用を確認。管理UIを信頼できる内部ネットワークに制限。他製品は公式製品別パッチを適用",
+    "publication_key": "475a5fe601df778a92988eaa129df7e7a0ab69625dc616c59deb409e7df921f0",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-nec-websam-winshare-remote-system-rce",
     "title": "NEC WebSAM WinShareに重大な遠隔コード実行脆弱性2件、SYSTEM権限を奪われる恐れ",
     "summary": "NECのリモート操作製品「WebSAM WinShare」で、細工された通信パケットにより操作対象PC上でSYSTEM権限の任意コマンド・コードを実行される恐れがある重大脆弱性2件が公表された。対象バージョンを使用する組織は、NECが案内する修正モジュールの適用を優先したい。",

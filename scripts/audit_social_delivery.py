@@ -58,19 +58,50 @@ def story_image_checks(articles, ledger, stories, *, target_ids=()):
             raise RuntimeError("Unexpected Story aspect ratio")
         return picture.resize((1080, 1920)).crop((65, 550, 1015, 1370)).resize((160, 160))
     live = [(item, image(item["media_url"])) for item in stories]
-    controls = [a for a in articles if ledger.get(a["id"], {}).get("instagram_story", {}).get("remote_id")
-                in {str(x[0].get("id")) for x in live}][:3]
+    live_ids = {str(item["id"]) for item, _ in live}
+    bindings = {}
+    for a in articles:
+        entry = ledger.get(a["id"], {}).get("instagram_story", {})
+        remote = str(entry.get("remote_id", ""))
+        if entry.get("status") == "published" and remote in live_ids:
+            bindings.setdefault(remote, []).append(a)
+    controls = [bound[0] for bound in bindings.values() if len(bound) == 1][:3]
     targets = [a for a in articles if a["id"] in target_ids or
                ledger.get(a["id"], {}).get("instagram_story", {}).get("status") == "needs_review"]
+    expected_images = {}
+    def expected_image(a):
+        if a["id"] not in expected_images:
+            expected_images[a["id"]] = image(social.story_image_url(a), own=True)
+        return expected_images[a["id"]]
+    def difference(a, b):
+        return sum(ImageStat.Stat(ImageChops.difference(a, b)).mean) / 3
     output = {}
     for a in controls + targets:
-        expected = image(social.story_image_url(a), own=True)
-        scores = [(sum(ImageStat.Stat(ImageChops.difference(expected, picture)).mean) / 3, item) for item, picture in live]
+        expected = expected_image(a)
+        scores, known_other = [], []
+        for item, picture in live:
+            score = difference(expected, picture)
+            bound = bindings.get(str(item["id"]), [])
+            # Similar headlines (e.g. adjacent CVE numbers) can pass the
+            # coarse image threshold. A confirmed remote ID belongs to ONE
+            # delivery. Exclude it only when its distinct original asset also
+            # matches the live image measurably better. Unknown, duplicated,
+            # identical and visually ambiguous bindings remain candidates.
+            if score < 4.0 and len(bound) == 1 and bound[0]["id"] != a["id"]:
+                other = expected_image(bound[0])
+                own_score = difference(other, picture)
+                if (ImageChops.difference(expected, other).getbbox() is not None
+                        and own_score <= 2.0 and own_score + 0.1 < score):
+                    known_other.append(str(item["id"]))
+                    continue
+            scores.append((score, item))
         scores.sort(key=lambda x: x[0])
         best, item = scores[0] if scores else (None, {})
         output[a["id"]] = {"closest_difference": round(best, 4) if best is not None else None,
                            "closest_id": item.get("id"), "is_control": a in controls,
                            "matching_ids": [x.get("id") for score, x in scores if score <= 2.0],
+                           "known_other_ids": known_other,
+                           "unresolved_images_inspected": len(scores),
                            "all_images_inspected": len(live)}
     control_ok = any(x["is_control"] and
                      str(ledger[aid]["instagram_story"]["remote_id"]) in
@@ -78,7 +109,9 @@ def story_image_checks(articles, ledger, stories, *, target_ids=()):
                      for aid, x in output.items())
     for a in targets:
         row = output[a["id"]]
-        row["absence_verified"] = bool(control_ok and live and row["closest_difference"] is not None and row["closest_difference"] >= 4.0)
+        row["absence_verified"] = bool(control_ok and live and (
+            row["unresolved_images_inspected"] == 0 or
+            (row["closest_difference"] is not None and row["closest_difference"] >= 4.0)))
     return output
 
 

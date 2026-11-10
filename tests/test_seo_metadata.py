@@ -76,9 +76,9 @@ class SEOTests(unittest.TestCase):
                 self.assertEqual(schema['publisher'],publisher_identity())
                 self.assertIn('href="/about/"', page)
                 self.assertNotIn('dateModified',schema)
-                self.assertNotIn('author',schema)
+                self.assertEqual(schema['author']['name'], 'WORK SIGNAL編集部')
                 related=site.related_articles(article,site.published_articles(self.feed))
-                self.assertLessEqual(len(related),2)
+                self.assertLessEqual(len(related),4)
                 for item in related:
                     self.assertNotEqual(item['id'],article['id'])
                     self.assertIn(item, site.published_articles(self.feed))

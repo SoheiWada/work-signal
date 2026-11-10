@@ -3840,10 +3840,12 @@
   },
   "20261111-openai-upwork-freelance-ai-work-shift": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-10T22:07:32+00:00",
+      "status": "published",
+      "updated_at": "2026-11-10T22:07:37+00:00",
       "stage": "publish_requested",
-      "container_id": "18134661160690068"
+      "container_id": "18134661160690068",
+      "remote_id": "18122157889755487",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dfk8TKnlsHZ"
     }
   }
 }

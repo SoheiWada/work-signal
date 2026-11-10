@@ -3553,7 +3553,9 @@
   "20261110-japan-household-spending-september": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-10T03:03:36+00:00"
+      "updated_at": "2026-11-10T03:03:43+00:00",
+      "stage": "publish_requested",
+      "container_id": "18033428027883625"
     }
   }
 }

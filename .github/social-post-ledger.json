@@ -3643,7 +3643,9 @@
   "20261110-kubeflow-pipelines-cve-2026-77596": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-10T10:32:51+00:00"
+      "updated_at": "2026-11-10T10:33:00+00:00",
+      "stage": "publish_requested",
+      "container_id": "18119630500814735"
     }
   }
 }

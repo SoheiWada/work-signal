@@ -3535,7 +3535,9 @@
   "20261110-adobe-disney-ai-alliance": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-10T03:03:07+00:00"
+      "updated_at": "2026-11-10T03:03:15+00:00",
+      "stage": "publish_requested",
+      "container_id": "18035691422886277"
     }
   }
 }

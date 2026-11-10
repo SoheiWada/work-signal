@@ -3733,7 +3733,9 @@
   "20261110-freeswitch-cve-2026-116779": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-10T12:29:50+00:00"
+      "updated_at": "2026-11-10T12:30:00+00:00",
+      "stage": "publish_requested",
+      "container_id": "18232320838331318"
     }
   }
 }

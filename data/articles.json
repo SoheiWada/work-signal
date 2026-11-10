@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261110-freeswitch-cve-2026-116779",
+    "title": "FreeSWITCHの重大脆弱性がCISA悪用確認リストに追加、1.11.3への更新を推奨",
+    "summary": "オープンソースの電話基盤FreeSWITCHにある重大なコマンド実行の脆弱性が、米CISAの「実際に悪用された脆弱性」リストに11月9日付で登録された。開発元はすでに実環境での悪用を認めており、影響する1.11.2以前の運用者には1.11.3以降への更新が必要だ。",
+    "category": "SECURITY",
+    "score": 94,
+    "published_at": "2026-11-10",
+    "published_at_time": "2026-11-10T12:24:19.502Z",
+    "source_url": "https://github.com/signalwire/freeswitch/security/advisories/GHSA-mg63-h38w-8p9p",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "オープンソースの電話基盤FreeSWITCHにある重大なコマンド実行の脆弱性が、米CISAの「実際に悪用された脆弱性」リストに11月9日付で登録された。開発元はすでに実環境での悪用を認めており、影響する1.11.2以前の運用者には1.11.3以降への更新が必要だ。",
+    "sections": [
+      {
+        "title": "電話システムに及ぶ影響",
+        "body": "FreeSWITCHのSIP MESSAGE処理に、受信メッセージから内部APIの実行へつながる不備がある。開発元SignalWireの10月28日付勧告は、FreeSWITCHプロセスの権限でコマンドが実行され、設定情報や認証情報の漏えい、通話制御に影響し得ると説明する。対象は1.11.2以前で、SIP MESSAGEを受け付けるプロファイル。標準構成でもチャット処理が有効な場合がある。"
+      },
+      {
+        "title": "CISAが実悪用を確認した脆弱性に登録",
+        "body": "開発元はこの経路の実悪用を明記している。CISAの公式GitHubミラーにある2026年11月9日版KEVでも、CVE-2026-116779が11月9日追加として確認できる。これは脆弱性が11月9日に初めて発見されたという意味ではない。実際の被害件数、被害組織、攻撃規模は公式資料からは特定できない。"
+      },
+      {
+        "title": "管理者が優先すべき対応",
+        "body": "開発元は1.11.3以降を修正版として示す。運用者は利用中のFreeSWITCHの版とSIPプロファイル設定を確認し、速やかに更新したい。直ちに更新できない場合、不要なSIPチャットを受け付けるプロファイルでenable-chat=falseとする回避策が示されている。ただしチャット配信機能が停止するため業務影響を確認する必要がある。開発元は認証設定の強化だけでは完全な解消にならないとも警告している。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "FreeSWITCH 1.11.2以前（SIP MESSAGEを受け付けるプロファイル）",
+    "social_security_action": "FreeSWITCH 1.11.3以降へ更新。更新までの間、不要なSIPプロファイルでenable-chat=falseを設定（SIPチャット機能停止の影響に注意）",
+    "publication_key": "1cdfa59363ce0bdb5b9e342ddd2a11e6b0c1173cfcb2c183fd3c848742698a8d",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-mhlw-overseas-worker-health-survey",
     "title": "海外派遣者の健康管理を実態調査へ、厚労相が企業向け指針の作成方針──開始時期は未定",
     "summary": "厚生労働相は11月10日の会見で、海外派遣者の健康管理や労災保険の特別加入の実態を調査し、その結果を踏まえて企業向けのガイドラインを作成する方針を示した。調査開始時期は予算との関係で未定。少なくとも年度内に調査項目の検討を進める考えだ。",

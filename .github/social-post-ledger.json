@@ -3805,7 +3805,9 @@
   "20261111-nec-websam-winshare-remote-system-rce": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-10T18:28:50+00:00"
+      "updated_at": "2026-11-10T18:28:57+00:00",
+      "stage": "publish_requested",
+      "container_id": "18132231847836472"
     }
   }
 }

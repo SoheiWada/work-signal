@@ -1,0 +1,89 @@
+name: Impeccable UI audit (isolated pilot)
+
+on:
+  push:
+    branches:
+      - audit/impeccable-readonly-20261103
+    paths:
+      - .github/workflows/impeccable-audit-pilot.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: impeccable-readonly-pilot-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  design-audit:
+    if: github.ref == 'refs/heads/audit/impeccable-readonly-20261103' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Check browser availability
+        id: browser
+        run: |
+          command -v google-chrome || command -v chromium || command -v chromium-browser || true
+      - name: Read-only detector scans (no install, hooks, live or source edits)
+        env:
+          DO_NOT_TRACK: '1'
+          CI: 'true'
+        shell: bash
+        run: |
+          set -uo pipefail
+          mkdir -p impeccable-audit-results
+          failed=0
+          echo "## Impeccable 4.8.0 read-only detector" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Target | Exit status |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          targets=(
+            "index.html"
+            "article.html"
+            "assets/css/signal-interactions.css"
+            "assets/css/hero-market.css"
+            "https://signal.amberlight.co.jp/"
+            "https://signal.amberlight.co.jp/"
+          )
+          labels=(index article interactions market home-desktop home-mobile)
+          for i in "${!targets[@]}"; do
+            target="${targets[$i]}"
+            label="${labels[$i]}"
+            viewport_args=()
+            if [[ "$label" == "home-mobile" ]]; then viewport_args=(--viewport 390x844); fi
+            if npx --yes impeccable@4.8.0 detect --json "${viewport_args[@]}" "$target" > "impeccable-audit-results/$label.json" 2> "impeccable-audit-results/$label.stderr.txt"; then
+              status=0
+            else
+              status=$?
+            fi
+            if [[ $status -eq 0 ]]; then
+              result="complete: no primary findings"
+            elif [[ $status -eq 2 ]]; then
+              result="complete: primary findings present"
+            else
+              result="scan failed (exit $status)"
+              failed=1
+            fi
+            echo "| `$label` | $result |" >> "$GITHUB_STEP_SUMMARY"
+            echo "$label exit=$status" | tee "impeccable-audit-results/$label.status.txt"
+          done
+          if [[ "$failed" -ne 0 ]]; then
+            echo "At least one scan was not completed. Inspect artifact stderr." >&2
+            exit 1
+          fi
+      - name: Upload detector reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: impeccable-readonly-audit
+          path: impeccable-audit-results/
+          if-no-files-found: warn
+          retention-days: 14

@@ -4074,10 +4074,12 @@
   },
   "20261111-google-registry-eat-fly-here": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-11T06:08:04+00:00",
+      "status": "published",
+      "updated_at": "2026-11-11T06:08:07+00:00",
       "stage": "publish_requested",
-      "container_id": "18149290285560759"
+      "container_id": "18149290285560759",
+      "remote_id": "18149290285560759",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DflzSPUDg0P"
     }
   }
 }

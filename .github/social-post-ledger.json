@@ -3967,7 +3967,9 @@
   "20261111-google-adobe-acrobat-gemini-integration": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-11T03:01:08+00:00"
+      "updated_at": "2026-11-11T03:01:34+00:00",
+      "stage": "container_created",
+      "container_id": "18134683300690068"
     }
   }
 }

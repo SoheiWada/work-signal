@@ -4093,7 +4093,9 @@
   "20261111-openai-education-ai-guidance-gap": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-11T07:02:48+00:00"
+      "updated_at": "2026-11-11T07:02:56+00:00",
+      "stage": "publish_requested",
+      "container_id": "18132582859827517"
     }
   }
 }

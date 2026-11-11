@@ -1,5 +1,44 @@
 [
   {
+    "id": "20261112-checkmk-cve-2026-120495",
+    "title": "Checkmk Robotmkログのパストラバーサルでコード実行、CRITICAL 9.4──修正版公開",
+    "summary": "CheckmkがCVE-2026-120495をCRITICAL（CVSS v4.0 9.4）と評価し、修正版2.5.0p19／2.4.0p40を提供した。RobotmkのHTMLログ生成時にテストケース名を十分に検証せず、細工したエージェント出力から任意パスへのファイル書き込みとコード実行につながる。監視対象ホストのエージェント出力を改変でき、さらに自動サービス検出が有効または管理者がサービスを追加する必要がある。運用担当者は使用版と攻撃前提を確認し、対応版へ更新する必要がある。",
+    "category": "SECURITY",
+    "score": 87,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-11T23:19:12.131Z",
+    "source_url": "https://checkmk.com/werk/22624",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "CheckmkがCVE-2026-120495をCRITICAL（CVSS v4.0 9.4）と評価し、修正版2.5.0p19／2.4.0p40を提供した。RobotmkのHTMLログ生成時にテストケース名を十分に検証せず、細工したエージェント出力から任意パスへのファイル書き込みとコード実行につながる。監視対象ホストのエージェント出力を改変でき、さらに自動サービス検出が有効または管理者がサービスを追加する必要がある。運用担当者は使用版と攻撃前提を確認し、対応版へ更新する必要がある。",
+    "sections": [
+      {
+        "title": "脆弱性の内容と影響条件",
+        "body": "RobotmkのHTMLログ生成時にテストケース名を十分に検証せず、細工したエージェント出力から任意パスへのファイル書き込みとコード実行につながる。監視対象ホストのエージェント出力を改変でき、さらに自動サービス検出が有効または管理者がサービスを追加する必要がある。公式のCVSSはv4.0で9.4（CRITICAL）。この評価を別バージョンのCVSSへ読み替えない。悪用が実際に確認されたという開発元の記載は確認していないため、実際の悪用状況は未確認とする。"
+      },
+      {
+        "title": "管理者が取るべき対応",
+        "body": "Checkmk 2.5.0p19または2.4.0p40以降へ更新。2.3.0はサポート対象系列へ移行。公式Werkでは2.5.0p19と2.4.0p40が修正を含む。2.3.0はEOLであり修正版が提供されない。管理者は稼働版、影響する機能・権限・構成を棚卸しし、適用後に監視動作を確認する。修正版が存在することと自社環境で適用済みであることは別である。"
+      },
+      {
+        "title": "根拠と留保",
+        "body": "開発元公式Werk: https://checkmk.com/werk/22624\n修正版提供の公式告知: https://forum.checkmk.com/t/upcoming-checkmk-security-release-2-4-0p40-and-2-5-0p19/60794\nWerkの日付は修正履歴の記載日であり、11月11日のパッチ公開日と区別する。CISA KEVの確認版は2026.11.10で、11月11日以降の掲載有無は未確認。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "監視基盤CheckmkにCRITICAL 9.4の脆弱性。CVE-2026-120495ではRobotmkのHTMLログ生成時にテストケース名を十分に検証せず、細工したエージェント出力から任意パスへのファイル書き込みとコード実行につながる。ただし全利用者が同じ条件で攻撃されるわけではありません。監視対象ホストのエージェント出力を改変でき、さらに自動サービス検出が有効または管理者がサービスを追加する必要がある。Checkmkは2.5.0p19と2.4.0p40を提供済み。サポート終了の2.3.0利用者は対応系列への移行が必要です。対象構成、更新先、確認事項を記事に整理しました。\nhttps://signal.amberlight.co.jp/articles/20261112-checkmk-cve-2026-120495/\nhttps://checkmk.com/werk/22624",
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Checkmk Pro／Ultimate／Cloud／Ultimate MTの2.5.0〜2.5.0p18、2.4.0〜2.4.0p39、2.3.0（サポート終了）。Robotmkテストサービスを利用する環境",
+    "social_security_action": "Checkmk 2.5.0p19または2.4.0p40以降へ更新。2.3.0はサポート対象系列へ移行",
+    "publication_key": "aa6c5e51abee1b0d3952f2e1dc5a0fca18a3aecbdf0ba679ba07ad36dadbb4f8",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-checkmk-cve-2026-121374",
     "title": "Checkmkの監視ルールからコード実行、CRITICAL 9.4──Kubernetes監視なしでも影響",
     "summary": "CheckmkがCVE-2026-121374をCRITICAL（CVSS v4.0 9.4）と評価し、修正版2.5.0p19／2.4.0p40を提供した。Kubernetes special agentの除外ノードロール値がコマンドライン引数として解釈され、ルール編集可能なユーザーが任意の書き込み可能ファイルを作成しサイトユーザー権限でコード実行できる。Kubernetes監視を利用していなくても、フォルダでルール編集権限を持つユーザーが攻撃条件を満たす。運用担当者は使用版と攻撃前提を確認し、対応版へ更新する必要がある。",

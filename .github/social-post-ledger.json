@@ -3985,7 +3985,9 @@
   "20261111-dotnet-pdb-heap-overflow-cve-2026-118745": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-11T03:26:46+00:00"
+      "updated_at": "2026-11-11T03:27:07+00:00",
+      "stage": "container_created",
+      "container_id": "18134685112690068"
     }
   }
 }

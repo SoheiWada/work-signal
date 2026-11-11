@@ -4254,10 +4254,12 @@
   },
   "20261111-dotnet-coff-pdb-rce-cve-2026-114152": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-11T14:29:55+00:00",
+      "status": "published",
+      "updated_at": "2026-11-11T14:30:00+00:00",
       "stage": "publish_requested",
-      "container_id": "17958292659277957"
+      "container_id": "17958292659277957",
+      "remote_id": "17958292659277957",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dfmst3nkRrn"
     }
   }
 }

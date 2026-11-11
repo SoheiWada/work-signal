@@ -4056,10 +4056,12 @@
   },
   "20261111-airbyte-connector-builder-rce-ghsa-g35w": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-11T05:23:39+00:00",
+      "status": "published",
+      "updated_at": "2026-11-11T05:23:41+00:00",
       "stage": "publish_requested",
-      "container_id": "18134841445805814"
+      "container_id": "18134841445805814",
+      "remote_id": "18134841445805814",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfluNEjDoRm"
     }
   }
 }

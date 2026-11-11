@@ -4200,10 +4200,12 @@
   },
   "20261111-bitcoinjs-lib-merkle-root-duplicate-cve-2026-107846": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-11T12:26:16+00:00",
+      "status": "published",
+      "updated_at": "2026-11-11T12:26:18+00:00",
       "stage": "publish_requested",
-      "container_id": "17996203719107510"
+      "container_id": "17996203719107510",
+      "remote_id": "17996203719107510",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfmekepFkJ7"
     }
   }
 }

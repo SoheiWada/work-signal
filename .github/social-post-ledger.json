@@ -4182,10 +4182,12 @@
   },
   "20261111-gpustack-saml-auth-bypass-cve-2026-102894": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-11T12:25:49+00:00",
+      "status": "published",
+      "updated_at": "2026-11-11T12:25:51+00:00",
       "stage": "publish_requested",
-      "container_id": "18176717116477994"
+      "container_id": "18176717116477994",
+      "remote_id": "18176717116477994",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfmehG6llmn"
     }
   }
 }

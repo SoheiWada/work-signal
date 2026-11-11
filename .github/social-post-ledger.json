@@ -4038,10 +4038,12 @@
   },
   "20261111-google-mka-visual-knowledge-work-benchmark": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-11T05:06:53+00:00",
+      "status": "published",
+      "updated_at": "2026-11-11T05:06:55+00:00",
       "stage": "publish_requested",
-      "container_id": "18136065079788447"
+      "container_id": "18136065079788447",
+      "remote_id": "18136065079788447",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DflsSRJjhNw"
     }
   }
 }

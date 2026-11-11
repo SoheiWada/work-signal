@@ -4164,10 +4164,12 @@
   },
   "20261111-mongoose-countdocuments-sanitizefilter-cve-2026-125120": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-11T11:26:52+00:00",
+      "status": "published",
+      "updated_at": "2026-11-11T11:26:55+00:00",
       "stage": "publish_requested",
-      "container_id": "18076092803760949"
+      "container_id": "18076092803760949",
+      "remote_id": "18076092803760949",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfmXxNjG2Bm"
     }
   }
 }

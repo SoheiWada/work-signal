@@ -3895,7 +3895,9 @@
   "20261111-chrome-xml-use-after-free-kev": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-11T00:26:47+00:00"
+      "updated_at": "2026-11-11T00:26:55+00:00",
+      "stage": "publish_requested",
+      "container_id": "17985314636904290"
     }
   }
 }

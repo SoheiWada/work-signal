@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261111-mongoose-countdocuments-sanitizefilter-cve-2026-125120",
+    "title": "MongooseのcountDocumentsでsanitizeFilterが適用されず──CVE-2026-125120、各系列に修正版",
+    "summary": "Node.js向けMongoDBライブラリMongooseで、クエリ演算子の注入を抑えるsanitizeFilter設定がcountDocuments()に適用されない脆弱性が明らかになった。CVE-2026-125120はGitHub ReviewedでCRITICAL、CVSS v3.1 9.8。外部入力を件数取得の条件に渡すアプリでは、意図しない条件で件数が計算され、権限制御などの業務ロジックに影響する可能性がある。",
+    "category": "SECURITY",
+    "score": 88,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-11T11:21:26.824Z",
+    "source_url": "https://github.com/advisories/GHSA-pcrw-h46h-c93h",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Node.js向けMongoDBライブラリMongooseで、クエリ演算子の注入を抑えるsanitizeFilter設定がcountDocuments()に適用されない脆弱性が明らかになった。CVE-2026-125120はGitHub ReviewedでCRITICAL、CVSS v3.1 9.8。外部入力を件数取得の条件に渡すアプリでは、意図しない条件で件数が計算され、権限制御などの業務ロジックに影響する可能性がある。",
+    "sections": [
+      {
+        "title": "件数取得の条件にフィルタ防御が効かない",
+        "body": "Mongooseの開発元勧告によると、sanitizeFilterを有効にしていても、旧版のcountDocuments()では攻撃者が制御するオブジェクト内のクエリ演算子を文字列として無害化できない。結果として、想定より広い条件で件数が返る可能性があり、件数に基づく認可やアプリケーションロジックを誤らせる恐れがある。データベース全体の任意操作が必ず成立するという意味ではない。実際の悪用事例は公式勧告で確認できない。"
+      },
+      {
+        "title": "各メジャー系列で修正版が提供",
+        "body": "影響するのは6.13.11未満、7.0.0以上7.8.12未満、8.0.0以上8.24.3未満、9.0.0以上9.9.2未満。修正版はそれぞれ6.13.11、7.8.12、8.24.3、9.9.2。countDocuments()に外部入力を渡す箇所とsanitizeFilter設定を確認し、系列に応じて更新する。開発元はミドルウェアでフィルタを適用する回避例も示すが、恒久対策は修正版への更新だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "MongoDB向けのMongooseで、sanitizeFilterによるクエリ演算子の防御がcountDocuments()には適用されないCRITICAL脆弱性が確認されました。外部入力を件数取得に渡し、その結果を認可などの判断に利用する構成は注意が必要です。6系・7系・8系・9系それぞれに修正版が提供されています。全てのMongoose利用が直ちに侵害されるという意味ではなく、利用関数と入力経路の確認が重要です。\nhttps://signal.amberlight.co.jp/articles/20261111-mongoose-countdocuments-sanitizefilter-cve-2026-125120/\nhttps://github.com/advisories/GHSA-pcrw-h46h-c93h",
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "mongoose 6.13.11未満、7.0.0〜7.8.11、8.0.0〜8.24.2、9.0.0〜9.9.1",
+    "social_security_action": "利用系列に応じ6.13.11、7.8.12、8.24.3、9.9.2以降へ更新",
+    "publication_key": "1cf80668d54c8e9e759f8c75b11c182efef034d741bf02b7c7b5e9c43fa1e0f6",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-singapore-airlines-openai-customer-service-productivity",
     "title": "シンガポール航空、AI導入で顧客満足度2倍・応対時間約10％減──成果を生んだ業務設計",
     "summary": "シンガポール航空は11月10日、OpenAIのモデルを顧客対応や社内業務に組み込んだ成果を公表した。チャットボット「Kris」の顧客満足度指標は従来比2倍、AI支援を受ける担当者の平均応対時間は約10％減少したという。導入効果の数字だけでなく、データ接続・人への引き継ぎ・検証の仕組みが重要だ。",

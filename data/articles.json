@@ -1,5 +1,44 @@
 [
   {
+    "id": "20261112-dotnet-portable-pdb-heap-overflow-cve-2026-114159",
+    "title": "Windows版.NETのPDB文書名処理にHIGH脆弱性、自己完結型アプリも再配布が必要（CVE-2026-114159）",
+    "summary": "Microsoftは11月10日、Windows版.NETのPortable PDB処理に関するHIGH脆弱性CVE-2026-114159を公表しました。過大な文書名を処理するとヒープ領域外書き込みが生じる可能性があります。影響する.NETランタイムとSDKの更新に加え、自己完結型アプリは再ビルドと再配布が必要です。",
+    "category": "SECURITY",
+    "score": 89,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-11T19:21:28.892Z",
+    "source_url": "https://github.com/advisories/GHSA-3cgx-w6gm-fqrx",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Microsoftは11月10日、Windows版.NETのPortable PDB処理に関するHIGH脆弱性CVE-2026-114159を公表しました。過大な文書名を処理するとヒープ領域外書き込みが生じる可能性があります。影響する.NETランタイムとSDKの更新に加え、自己完結型アプリは再ビルドと再配布が必要です。",
+    "sections": [
+      {
+        "title": "どの処理が危険なのか",
+        "body": "MicrosoftのGitHub Reviewed Advisoryによると、Portable PDBに含まれる過大な文書名がメモリ割り当て時に切り詰められ、ヒープ領域外書き込みを引き起こす可能性があります。対象はWindowsのx86、x64、Arm64で、Microsoft.DiaSymReader.Nativeを使って該当するPortable PDBを読み込む処理です。Windowsランタイムのネイティブスタックトレースリーダーがフォールバック経路から到達する場合があります。ライブラリが存在するだけですべてのアプリが脆弱になるわけではありません。\n\nGitHub Reviewedの公式表示はHIGH、CVSS v3.1基本値8.8です。攻撃にはユーザー操作が必要とされます。実際の悪用確認について同勧告に明示はなく、悪用済みと断定しません。"
+      },
+      {
+        "title": "対象バージョンと更新手順",
+        "body": "Windows版.NET 8は8.0.34、9は9.0.23、10は10.0.15、11のプレビュー系列は11.0.0が修正版です。SDKも導入済みfeature bandごとに更新します。8.0.1xxは8.0.134、8.0.4xxは8.0.428、9.0.1xxは9.0.124、9.0.3xxは9.0.321、10.0.1xxは10.0.115、10.0.4xxは10.0.404、11.0.1xxは11.0.100が公式の修正先です。\n\nVisual Studio経由でSDKを導入している場合はVisual Studioも更新してください。自己完結型アプリはマシン全体のランタイム更新では組み込みランタイムが置換されないため、修正版を使って再ビルド・再配布する必要があります。該当リーダーを読み込んだプロセスは再起動してください。"
+      },
+      {
+        "title": "確認上の留保",
+        "body": "本件はCVE-2026-114152など、同時期に公表された別のPDB関連脆弱性とは異なる識別子です。製品名が同じという理由で重複扱いせず、各CVEに対応するパッチ範囲を確認する必要があります。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Windows版.NETのPDB読み取り処理に、ヒープ領域外書き込みを起こし得るHIGH脆弱性が公表されました。CVE-2026-114159は.NET 8〜11の該当Windows版が対象です。ランタイムの更新だけで済まないケースがあり、Visual Studio経由のSDKや、ランタイムを同梱する自己完結型アプリの再ビルド・再配布にも注意が必要です。すべての.NETアプリが直ちに影響するわけではなく、該当するPDB読み取り経路が条件です。対策の確認点を整理しました。\nhttps://signal.amberlight.co.jp/articles/20261112-dotnet-portable-pdb-heap-overflow-cve-2026-114159/\nhttps://github.com/advisories/GHSA-3cgx-w6gm-fqrx",
+    "social_security_severity": "HIGH",
+    "social_security_product": "Windows版.NET 8.0.0〜8.0.33、9.0.0〜9.0.22、10.0.0〜10.0.14、11.0 preview.1〜正式版前（x86/x64/Arm64、該当PDBネイティブリーダー利用時）",
+    "social_security_action": ".NETランタイム8.0.34／9.0.23／10.0.15／11.0.0以降へ更新し、導入済みSDK各feature bandも公式修正版へ更新。自己完結型アプリは修正版で再ビルド・再配布",
+    "publication_key": "636d5ac3a9a9c30037a2236006f2d31cf6865b46e65a28a63bfac696b007fff2",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-dotnet-pdb-decimal-rce-cve-2026-114151",
     "title": "Windows版.NETのPDB解析にHIGH脆弱性、CVE-2026-114151──8.0.34などへ更新",
     "summary": "Microsoftは2026年11月10日、Windows版.NETのPDBシンボル解析に関するHIGH脆弱性CVE-2026-114151を公表した。細工されたPDBのLF_DECIMALデータを特定のネイティブ解析APIが処理すると、スタック領域外への書き込みが起こる可能性がある。対象の.NET 8・9・10・11系列には修正版が提供され、自己完結型アプリでは再ビルド・再配布も必要だ。",

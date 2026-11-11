@@ -4287,5 +4287,11 @@
       "remote_id": "17957295474295008",
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4028132799823564601"
     }
+  },
+  "20261112-dotnet-portable-pdb-heap-overflow-cve-2026-114159": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-11T19:26:26+00:00"
+    }
   }
 }

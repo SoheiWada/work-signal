@@ -4237,7 +4237,9 @@
   "20261111-aspire-cli-config-disclosure-cve-2026-120792": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-11T13:23:17+00:00"
+      "updated_at": "2026-11-11T13:23:26+00:00",
+      "stage": "publish_requested",
+      "container_id": "17974616319184388"
     }
   }
 }

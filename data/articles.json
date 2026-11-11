@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261111-google-mka-visual-knowledge-work-benchmark",
+    "title": "Google、図面・表計算・資料を扱うAIの新評価MKAを公開──200課題で実務品質を測定",
+    "summary": "Google DeepMindは11月10日、図面、表計算、スライドなどを横断してAIエージェントの実務能力を測る「Multimodal Knowledge Agent（MKA）」を発表した。10分野・83職種をもとに200課題を設計し、事実の正確性と見た目の品質を採点する。AI導入企業が注目すべきなのは、回答の流暢さではなく成果物を検査できるかという点だ。",
+    "category": "AI",
+    "score": 92,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-11T05:02:06.213Z",
+    "source_url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Google DeepMindは11月10日、図面、表計算、スライドなどを横断してAIエージェントの実務能力を測る「Multimodal Knowledge Agent（MKA）」を発表した。10分野・83職種をもとに200課題を設計し、事実の正確性と見た目の品質を採点する。AI導入企業が注目すべきなのは、回答の流暢さではなく成果物を検査できるかという点だ。",
+    "sections": [
+      {
+        "title": "10分野・83職種から200の実務課題",
+        "body": "GoogleはArtificial Analysisと協力し、建築図面、技術図、報告書、スライド、表計算など、視覚情報の解釈を要する作業を対象に評価セットを作った。10分野・83職種の専門家が作成した200課題は、熟練者なら各3〜8時間を要する複数工程の作業を想定する。採点基準は1課題あたり約70の二択チェックで、重みは事実正確性75％、視覚デザイン25％。同一のオープンソース実行環境・ツール・ターン予算でモデルを比較する。"
+      },
+      {
+        "title": "Geminiの結果と比較上の限界",
+        "body": "GoogleによればGemini 4 Carbonは比較モデル中で品質2位、最高得点モデルに対し平均タスク費用が約6分の1だった。ただし、これはMKAの課題・費用算定条件に依存する結果であり、あらゆる実務で6倍安いことを保証しない。自動評価器と人間の専門家の採点一致率は96％と報告されたが、残る不一致もあり、顧客提出物の最終確認を省略する根拠にはならない。"
+      },
+      {
+        "title": "導入担当が確認したいこと",
+        "body": "AIツールの選定では、文章の正答率に加えて、表計算の数式、図面の読み違い、スライドの構成、作業時間とタスク単価を実データで検証したい。MKAの本評価200課題は非公開で、公開されるのは別の10課題。社内の機密資料を使った独自検証では、権限とデータ保護条件も別途確認が必要だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "図面やスライド、表計算をAIに任せるとき、文章が自然でも成果物が正しいとは限りません。Googleが発表したMKAは、10分野・83職種の専門家による200の実務課題で、正確性75％とデザイン25％を評価します。Gemini 4 Carbonは品質2位、最高得点モデルの約6分の1の費用と報告。ただし特定ベンチマーク上の比較です。導入時に何を検証すべきか整理しました。\nhttps://signal.amberlight.co.jp/articles/20261111-google-mka-visual-knowledge-work-benchmark/\nhttps://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark/",
+    "publication_key": "f98ccabd16d362ec462d8ca7d61de1d1c9d311db2c50b1bb1c1a7652d0c854e8",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-sap-november-four-critical-netweaver-gateway",
     "title": "SAPの11月修正でCVSS 10.0が4件、NetWeaver・Web Dispatcher・Gatewayの影響版を確認",
     "summary": "SAPは2026年11月10日のSecurity Patch Dayで35件の新規セキュリティノートと4件のGitHub Advisoryを公開した。うち4件はCVSS 10.0のCRITICALで、NetWeaverの通信処理、Web Dispatcher、Gateway、SAML2認証に関わる。管理者は製品名だけでなくKERNELやSAP_BASISなどのコンポーネント版を確認し、対応するSAP Security Noteの修正を優先適用する必要がある。",

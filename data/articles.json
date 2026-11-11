@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261112-dotnet-pdb-decimal-rce-cve-2026-114151",
+    "title": "Windows版.NETのPDB解析にHIGH脆弱性、CVE-2026-114151──8.0.34などへ更新",
+    "summary": "Microsoftは2026年11月10日、Windows版.NETのPDBシンボル解析に関するHIGH脆弱性CVE-2026-114151を公表した。細工されたPDBのLF_DECIMALデータを特定のネイティブ解析APIが処理すると、スタック領域外への書き込みが起こる可能性がある。対象の.NET 8・9・10・11系列には修正版が提供され、自己完結型アプリでは再ビルド・再配布も必要だ。",
+    "category": "SECURITY",
+    "score": 89,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-11T15:21:00.087Z",
+    "source_url": "https://github.com/advisories/GHSA-fpxj-5c99-g7vj",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Microsoftは2026年11月10日、Windows版.NETのPDBシンボル解析に関するHIGH脆弱性CVE-2026-114151を公表した。細工されたPDBのLF_DECIMALデータを特定のネイティブ解析APIが処理すると、スタック領域外への書き込みが起こる可能性がある。対象の.NET 8・9・10・11系列には修正版が提供され、自己完結型アプリでは再ビルド・再配布も必要だ。",
+    "sections": [
+      {
+        "title": "どの処理に問題があるか",
+        "body": "Microsoftの開発元アドバイザリーによると、細工されたPDBのLF_DECIMALペイロードをDIAが処理する際にスタック領域外への書き込みが発生し得る。CVSS v3.1は8.8（HIGH）。影響するのは、攻撃者由来のPDBからMicrosoft.DiaSymReader.NativeのISymUnmanagedConstant.GetValueを使って定数を読み取る特定の経路である。通常の.NETランタイムのネイティブスタックトレース読み取り経路は同APIを呼ばないが、この限定はWindows版.NET製品全体が対象外という意味ではない。利用者操作が必要な評価ベクトルであり、実環境での悪用確認は公式勧告からは確認できない。"
+      },
+      {
+        "title": "更新先と自己完結型アプリの注意",
+        "body": "影響するWindows版.NETランタイムは8.0.34未満、9.0.23未満、10.0.15未満、11.0.0より前のプレビュー系列。各修正版8.0.34、9.0.23、10.0.15、11.0.0以降へ更新する。導入済みSDKのfeature bandも点検し、Visual Studio経由で導入した場合はVisual Studioも更新する。自己完結型アプリに内包されたランタイムはマシン全体のランタイム更新では置き換わらないため、修正版を使った再ビルドと再配布が必要となる。対象となるPDB入力の有無と利用APIを確認し、影響を一律に断定しない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Windows版.NETのPDB解析に、細工されたLF_DECIMALデータでスタック領域外への書き込みが起こり得るHIGH脆弱性が報告されました。CVE-2026-114151は、攻撃者由来のPDBを特定のシンボル読み取り処理に渡す場合が問題です。通常のスタックトレース経路は問題のAPIを呼びませんが、Windowsの対象.NET製品は更新対象です。8系は8.0.34、9系は9.0.23、10系は10.0.15、11系は11.0.0へ。自己完結型アプリは再ビルドと再配布が必要です。\nhttps://signal.amberlight.co.jp/articles/20261112-dotnet-pdb-decimal-rce-cve-2026-114151/\nhttps://github.com/advisories/GHSA-fpxj-5c99-g7vj",
+    "social_security_severity": "HIGH",
+    "social_security_product": "Windows版.NET 8.0.0〜8.0.33、9.0.0〜9.0.22、10.0.0〜10.0.14、11.0.0-preview.1〜11.0.0未満の該当ランタイム製品",
+    "social_security_action": ".NET 8.0.34／9.0.23／10.0.15／11.0.0以降へ更新し、自己完結型アプリは修正ランタイムで再ビルド・再配布",
+    "publication_key": "2175eb09de63827c4741d78c83138e378d0defaabcf64fef2ce935c864a15ad4",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-dotnet-coff-pdb-rce-cve-2026-114152",
     "title": "Windows版.NETのPDB/COFF処理にHIGHのRCEリスク、CVE-2026-114152──SDKと同梱ランタイムも更新",
     "summary": "Windows版.NETのデバッグ情報を読み取る処理に、細工されたPDBとCOFFオブジェクトを介してスタック領域外への書き込みを引き起こす脆弱性が公表された。CVE-2026-114152はMicrosoftの公式評価でHIGH、CVSS v3.1は8.8。攻撃成立には利用者による操作が必要で、一般の.NETアプリすべてが直ちに攻撃可能という意味ではない。",

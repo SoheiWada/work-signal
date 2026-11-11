@@ -4272,10 +4272,12 @@
   },
   "20261112-dotnet-pdb-decimal-rce-cve-2026-114151": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-11T15:27:39+00:00",
+      "status": "published",
+      "updated_at": "2026-11-11T15:27:42+00:00",
       "stage": "publish_requested",
-      "container_id": "17883431700630640"
+      "container_id": "17883431700630640",
+      "remote_id": "17883431700630640",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfmzUrzlTt8"
     }
   }
 }

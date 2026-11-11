@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261112-cogent-ai-remediation-governance",
+    "title": "OpenAI活用のCogent、脆弱性修正時間75％短縮を報告──AIエージェントに必要な権限管理とは",
+    "summary": "OpenAIは11月10日、企業の脆弱性対応を自動化するCogent Securityの導入事例を公表した。ある自動車関連企業では重大な脆弱性の平均修正時間が75％短縮し、別のITサービス企業では調査処理量が5倍になったと報告している。いずれも個別顧客の事例で、あらゆる企業で同じ成果が得られることを示すものではない。",
+    "category": "AI",
+    "score": 86,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-11T22:01:55.586Z",
+    "source_url": "https://openai.com/index/cogent-security/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは11月10日、企業の脆弱性対応を自動化するCogent Securityの導入事例を公表した。ある自動車関連企業では重大な脆弱性の平均修正時間が75％短縮し、別のITサービス企業では調査処理量が5倍になったと報告している。いずれも個別顧客の事例で、あらゆる企業で同じ成果が得られることを示すものではない。",
+    "sections": [
+      {
+        "title": "修正時間75％短縮と調査量5倍は別の顧客事例",
+        "body": "OpenAIの11月10日付事例によると、Cogent Securityの「Cyber Defense Factories」は企業の資産、脆弱性、ID、システム間依存関係を統合した知識基盤を利用し、調査から修正、結果確認までを支援する。Fortune 1000の自動車関連顧客では重大な脆弱性の平均修正時間が75％減り、Fortune 500のITサービス顧客では脆弱性のトリアージ処理量が5倍になったとされる。指標の対象企業は異なり、比較試験や一般的な効果を保証する数字ではない。"
+      },
+      {
+        "title": "自律実行を制御する3つの仕組み",
+        "body": "Cogentは顧客ごとの許可範囲と承認要件をAgent Policiesで定義し、TRACEというルールエンジンがツール操作を決定論的に確認する。別のAgent Gatewayで認可を検査し、リスクの高い作業は隔離環境で行えるという。顧客は調査のみ委任、変更時に承認、限定された自動修正の許可を選べる。AIの判断に全権を与える設計ではない。"
+      },
+      {
+        "title": "導入前に確認したいこと",
+        "body": "企業のIT部門は、修正対象の特定精度、変更による業務停止リスク、承認ログ、修正後の再検証、例外時の停止方法を評価する必要がある。OpenAIによる顧客事例紹介であり、第三者による独立検証や全顧客の平均値は提示されていない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "AIがセキュリティの問題を見つけるだけでなく、修正まで進める時代に。OpenAIが紹介したCogentの導入事例では、ある企業の重大な脆弱性の平均修正時間が75％短縮し、別の企業の調査処理量が5倍になりました。ただし個別顧客の実績で、一般的な効果ではありません。重要なのはAIへの権限の渡し方。変更の承認、操作の検査、修正後の確認をどう設計しているのかを整理しました。\nhttps://signal.amberlight.co.jp/articles/20261112-cogent-ai-remediation-governance/\nhttps://openai.com/index/cogent-security/",
+    "publication_key": "7ec73c740e21a44a73e33bb9c046d2c46c4cbcfc963e7b406e3826b139f1400e",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-google-gemini-healthcare-preview",
     "title": "Google、医療業務向け「Gemini for healthcare」を発表──電子カルテ連携と人の最終判断を両立",
     "summary": "Google Cloudは11月10日、医療機関と保険者向けのAI業務基盤「Gemini for healthcare」を発表した。電子カルテや保険給付情報など複数のシステムを接続し、診療記録の要約、受診前準備、給付確認といった作業を支援する。現段階はプレビュー提供であり、医療判断の自動化や日本国内での一般提供が始まったことを意味しない。",

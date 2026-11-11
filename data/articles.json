@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261111-dotnet-coff-pdb-rce-cve-2026-114152",
+    "title": "Windows版.NETのPDB/COFF処理にHIGHのRCEリスク、CVE-2026-114152──SDKと同梱ランタイムも更新",
+    "summary": "Windows版.NETのデバッグ情報を読み取る処理に、細工されたPDBとCOFFオブジェクトを介してスタック領域外への書き込みを引き起こす脆弱性が公表された。CVE-2026-114152はMicrosoftの公式評価でHIGH、CVSS v3.1は8.8。攻撃成立には利用者による操作が必要で、一般の.NETアプリすべてが直ちに攻撃可能という意味ではない。",
+    "category": "SECURITY",
+    "score": 89,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-11T14:24:43.776Z",
+    "source_url": "https://github.com/dotnet/runtime/security/advisories/GHSA-xf35-v9jh-g65w",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Windows版.NETのデバッグ情報を読み取る処理に、細工されたPDBとCOFFオブジェクトを介してスタック領域外への書き込みを引き起こす脆弱性が公表された。CVE-2026-114152はMicrosoftの公式評価でHIGH、CVSS v3.1は8.8。攻撃成立には利用者による操作が必要で、一般の.NETアプリすべてが直ちに攻撃可能という意味ではない。",
+    "sections": [
+      {
+        "title": "PDBから参照されるCOFFオブジェクトのオフセットが問題",
+        "body": "Microsoftの11月10日付勧告によると、攻撃者が制御するCOFF relocation offsetがDiaObjectFile::ApplyFixupのスタック領域外書き込みにつながる。Microsoft.DiaSymReader.Nativeの18.9.1-beta1.26515.1より前の版で、攻撃者の影響を受けるCOFFオブジェクトを参照するPDBからドキュメント情報を読み込む場合に露出する。対象プラットフォームはWindowsのx86、x64、Arm64。ネットワーク経由の攻撃ベクトルだが、CVSSは利用者操作が必要と評価している。実際の悪用確認は勧告に明記されていない。"
+      },
+      {
+        "title": "ランタイムだけでなくSDKと自己完結型アプリも点検",
+        "body": "影響する.NET 8/9/10/11のWindows向け系列は、順に8.0.34、9.0.23、10.0.15、11.0.0が修正版。SDKは8.0.134／8.0.428、9.0.124／9.0.321、10.0.115／10.0.404、11.0.100など利用中のfeature bandごとに更新先が異なる。Visual Studio経由でSDKを導入した場合はVisual Studioも更新する。自己完結型アプリは端末の共有ランタイムを更新しても同梱分が置き換わらないため、修正済みランタイムで再ビルド・再配布する必要がある。既報CVE-2026-118745はPDBのLF_DECIMAL処理に関する別の不備であり、本件のCOFF relocation offset問題とは混同しない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Windows版.NETのPDB/COFF読み取り処理にHIGHの脆弱性CVE-2026-114152が公表されました。攻撃者の影響を受けるCOFFオブジェクトを参照するPDBの処理で、スタック領域外書き込みが起きる可能性があります。更新先は.NET 8.0.34、9.0.23、10.0.15、11.0.0。SDKのfeature bandごとの更新も必要です。特に自己完結型アプリはPCのランタイム更新だけでは直らず、再ビルドと再配布が必要です。対象条件と既報の別CVEとの違いを整理しました。\nhttps://signal.amberlight.co.jp/articles/20261111-dotnet-coff-pdb-rce-cve-2026-114152/\nhttps://github.com/dotnet/runtime/security/advisories/GHSA-xf35-v9jh-g65w",
+    "social_security_severity": "HIGH",
+    "social_security_product": "Windows版.NET 8.0.0〜8.0.33、9.0.0〜9.0.22、10.0.0〜10.0.14、11.0 preview.1〜正式版未満（x86/x64/Arm64）、該当SDK系列および自己完結型ランタイム",
+    "social_security_action": ".NET 8.0.34／9.0.23／10.0.15／11.0.0以降と、利用中のSDK feature bandの公式修正版へ更新。自己完結型アプリは再ビルド・再配布",
+    "publication_key": "92b7544050b19b97faf38b3e751b3a9e0abf76e648079d2dcd82370a76376f18",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-aspire-cli-build-privilege-cve-2026-120778",
     "title": "Microsoft Aspire CLIの生成ビルドに権限昇格リスク、CVE-2026-120778──13.6.5で修正",
     "summary": "Microsoft Aspire CLIに、ローカルの攻撃者が関与するHIGHの脆弱性（CVE-2026-120778）が公表された。攻撃者が書き込める一時ディレクトリの影響でMSBuild応答ファイル探索が操作され、CLIを実行する開発者の権限でコードが実行される可能性がある。修正版は13.6.5。すべての.NETアプリが影響するわけではなく、CLIの版と共有ディレクトリの利用条件を確認する必要がある。",

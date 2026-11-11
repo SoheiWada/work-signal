@@ -4110,10 +4110,12 @@
   },
   "20261111-movable-type-dynamic-publishing-cve-2026-117687": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-11T08:30:53+00:00",
+      "status": "published",
+      "updated_at": "2026-11-11T08:31:00+00:00",
       "stage": "publish_requested",
-      "container_id": "18134710090690068"
+      "container_id": "18134710090690068",
+      "remote_id": "18117360905110157",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfmDoy5ltV-"
     }
   }
 }

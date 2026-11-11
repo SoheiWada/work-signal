@@ -4092,10 +4092,12 @@
   },
   "20261111-openai-education-ai-guidance-gap": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-11T07:02:56+00:00",
+      "status": "published",
+      "updated_at": "2026-11-11T07:02:58+00:00",
       "stage": "publish_requested",
-      "container_id": "18132582859827517"
+      "container_id": "18132582859827517",
+      "remote_id": "18132582859827517",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dfl5kPulpAL"
     }
   }
 }

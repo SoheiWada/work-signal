@@ -4118,10 +4118,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfmDoy5ltV-"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-11T08:31:19+00:00",
+      "status": "published",
+      "updated_at": "2026-11-11T08:31:23+00:00",
       "stage": "publish_requested",
-      "container_id": "18160914160488337"
+      "container_id": "18160914160488337",
+      "remote_id": "18082017107739278",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4027923077308800369"
     }
   }
 }

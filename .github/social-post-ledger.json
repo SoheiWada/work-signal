@@ -4146,10 +4146,12 @@
   },
   "20261111-singapore-airlines-openai-customer-service-productivity": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-11T10:10:55+00:00",
+      "status": "published",
+      "updated_at": "2026-11-11T10:10:58+00:00",
       "stage": "publish_requested",
-      "container_id": "18116021345604187"
+      "container_id": "18116021345604187",
+      "remote_id": "18116021345604187",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfmPE_iGwY4"
     }
   }
 }

@@ -3912,10 +3912,12 @@
   },
   "20261111-cisco-broadworks-xxe-kev": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-11T00:27:42+00:00",
+      "status": "published",
+      "updated_at": "2026-11-11T00:27:44+00:00",
       "stage": "publish_requested",
-      "container_id": "18124453780937744"
+      "container_id": "18124453780937744",
+      "remote_id": "18124453780937744",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DflMVHJjj9P"
     }
   }
 }

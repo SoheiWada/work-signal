@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261112-aspire-apphost-cookie-cve-2026-120006",
+    "title": "Aspire AppHostでDashboard認証Cookieが漏えいする脆弱性、13.6.5への更新が必要（CVE-2026-120006）",
+    "summary": "Microsoftは11月10日、AspireのAppHostに関する権限昇格の脆弱性CVE-2026-120006を公表した。macOS上でDashboardに認証した開発者が、攻撃者の管理するコンテナへつながるリソースリンクを開く特定の構成では、認証Cookieが漏えいし、開発者権限でコードを実行される可能性がある。修正にはAppHost側の依存パッケージ更新が必要だ。",
+    "category": "SECURITY",
+    "score": 84,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-11T21:24:38.538Z",
+    "source_url": "https://github.com/advisories/GHSA-f7vh-h5g3-7jrh",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Microsoftは11月10日、AspireのAppHostに関する権限昇格の脆弱性CVE-2026-120006を公表した。macOS上でDashboardに認証した開発者が、攻撃者の管理するコンテナへつながるリソースリンクを開く特定の構成では、認証Cookieが漏えいし、開発者権限でコードを実行される可能性がある。修正にはAppHost側の依存パッケージ更新が必要だ。",
+    "sections": [
+      {
+        "title": "何が問題なのか",
+        "body": "Microsoftの勧告によると、Aspire Dashboardの認証Cookieがリンク先サービスに渡り、攻撃者制御のコンテナにより認証済みセッションが再利用されるおそれがある。報告された成立条件は、macOS（x64/Arm64）上のDashboard認証済みAppHost、攻撃者制御コンテナ、HTTPSのYARPゲートウェイを経由するリソースリンクの組み合わせだ。全てのAspire利用環境で無条件に成立するわけではない。公式評価はHIGH、CVSS v3.1 7.5。実際の悪用確認について勧告は明示していない。"
+      },
+      {
+        "title": "影響範囲と必要な更新",
+        "body": "影響するのはAspire.HostingおよびAspire.Hosting.AppHostの13.6.5未満で、13.6.4までの公開版が含まれる。AppHostプロジェクトのAspire.Hosting.AppHostを13.6.5以上へ更新し、Aspire.AppHost.Sdkを通じた暗黙参照や中央管理のバージョン固定も同じ修正版へ揃える。その後、依存関係を復元し、再ビルドしてAppHostを再起動する。.NETランタイム、SDK、Aspire CLI、Dashboardだけの更新ではAppHost側の依存関係は置き換わらない。開発者はプロジェクトの実際の解決済み依存関係を確認する必要がある。"
+      },
+      {
+        "title": "根拠と留保",
+        "body": "Microsoftが2026年11月10日に公表した開発元勧告と、同日付の公式アナウンスを確認した。CVSSはMicrosoftのv3.1評価をそのまま記載した。現実の攻撃発生、被害規模、上記以外の成立条件は確認できていない。\n一次情報: https://github.com/advisories/GHSA-f7vh-h5g3-7jrh\n補助一次情報: https://github.com/dotnet/announcements/issues/503"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "Aspire.Hosting / Aspire.Hosting.AppHost 13.6.5未満（macOS x64/Arm64の該当AppHost構成）",
+    "social_security_action": "Aspire.Hosting.AppHost、Aspire.Hostingおよび暗黙参照のAspire.AppHost.Sdkを13.6.5以上に更新し、依存関係復元・再ビルド・AppHost再起動",
+    "publication_key": "ea5a8a7a3bcaec1395997a832b3f99d8f1f9472a82b4bcba7df3215e39f607bf",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-dotnet-portable-pdb-heap-overflow-cve-2026-114159",
     "title": "Windows版.NETのPDB文書名処理にHIGH脆弱性、自己完結型アプリも再配布が必要（CVE-2026-114159）",
     "summary": "Microsoftは11月10日、Windows版.NETのPortable PDB処理に関するHIGH脆弱性CVE-2026-114159を公表しました。過大な文書名を処理するとヒープ領域外書き込みが生じる可能性があります。影響する.NETランタイムとSDKの更新に加え、自己完結型アプリは再ビルドと再配布が必要です。",

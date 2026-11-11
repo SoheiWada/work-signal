@@ -1,5 +1,48 @@
 [
   {
+    "id": "20261111-chrome-xml-use-after-free-kev",
+    "title": "ChromeのXML脆弱性CVE-2026-125350がKEV登録、Googleは実悪用を確認",
+    "summary": "Google ChromeのXML処理に関するメモリ解放後使用（use-after-free）の脆弱性CVE-2026-125350が、11月10日付で米CISAのKEVカタログに追加された。Google自身も実環境で悪用する攻撃コードの存在を確認している。Windows、macOS、LinuxのChrome利用者は、修正済みバージョンへの更新とブラウザー再起動を優先したい。",
+    "category": "SECURITY",
+    "score": 96,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-11T00:21:19.108Z",
+    "source_url": "https://chromereleases.googleblog.com/2026/11/stable-channel-update-for-desktop_018223192.html",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Google ChromeのXML処理に関するメモリ解放後使用（use-after-free）の脆弱性CVE-2026-125350が、11月10日付で米CISAのKEVカタログに追加された。Google自身も実環境で悪用する攻撃コードの存在を確認している。Windows、macOS、LinuxのChrome利用者は、修正済みバージョンへの更新とブラウザー再起動を優先したい。",
+    "sections": [
+      {
+        "title": "Googleの発表とKEV登録",
+        "body": "Googleは2026年11月9日のChrome Stable Channel更新で9件のセキュリティ修正を案内し、そのうちCVE-2026-125350をHIGHのXML use-after-freeと明示した。Googleは当該CVEの悪用コードが実環境に存在することを認識していると公表。翌11月10日付のCISA KEVにも追加された。攻撃の被害件数や具体的な悪用経路は、Googleの発表からは確認できない。"
+      },
+      {
+        "title": "影響する版と修正版",
+        "body": "Googleが案内するDesktop Stableの修正版はWindows/macOSが157.0.8103.50/.51、Linuxが157.0.8103.50。Extended StableのWindows/macOS向けには156.0.8078.96が案内され、同CVEが修正対象に含まれる。Android版157.0.8103.50も同日公表され、Googleは対応するDesktop版と同じセキュリティ修正を含むと説明している。ChromeOSや他社Chromium系ブラウザーの修正状況はこの発表だけでは確定できない。"
+      },
+      {
+        "title": "管理者と利用者の対応",
+        "body": "Chromeのメニューから更新を確認し、対象OSと配信チャネルに対応する修正版を適用する。更新後はブラウザーを再起動し、実際のバージョン番号を確認する。Googleは更新を数日から数週間かけて展開すると説明しているため、公開日だけで全端末への適用完了を判断しない。組織では端末管理台帳と実際の稼働版を突き合わせる。"
+      },
+      {
+        "title": "確認上の留保",
+        "body": "GoogleはCVE-2026-125350の詳細な悪用手法や侵害範囲を公開していない。同じ更新に含まれる別のXML脆弱性CVE-2026-125346とは区別する。GoogleのHIGHという文章評価を、別機関のスコアからCRITICALに置き換えない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Chromeの脆弱性CVE-2026-125350が11月10日、米CISAのKEVに登録されました。Googleも実際に悪用する攻撃コードの存在を認めています。XML処理のメモリ解放後使用が原因で、公式評価はHIGH。Windows・MacのStableは157.0.8103.50/.51、Linuxは157.0.8103.50が修正版です。Extended StableのWindows・Macは156.0.8078.96。更新が配信されたかだけでなく、再起動後の実際のバージョンまで確認してください。\nhttps://signal.amberlight.co.jp/articles/20261111-chrome-xml-use-after-free-kev/\nhttps://chromereleases.googleblog.com/2026/11/stable-channel-update-for-desktop_018223192.html",
+    "social_security_severity": "HIGH",
+    "social_security_product": "Google Chrome Desktop StableのWindows/macOS 157.0.8103.50/.51未満、Linux 157.0.8103.50未満。Extended StableのWindows/macOSは156.0.8078.96未満",
+    "social_security_action": "Desktop StableはWindows/macOS 157.0.8103.50/.51、Linux 157.0.8103.50へ更新。Extended StableのWindows/macOSは156.0.8078.96へ更新し再起動後に版を確認",
+    "publication_key": "60aeaab89850eb99869744dec0faa5bc20d463b8fe4ddf3d5f599414416acc26",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-cisco-broadworks-xxe-kev",
     "title": "Cisco BroadWorksの情報流出脆弱性がCISA KEV入り、修正版RI.2026.07への更新を",
     "summary": "Cisco BroadWorksのXML解析に関する脆弱性CVE-2026-20320が、米CISAの「悪用が確認された脆弱性」カタログへ11月10日に追加された。認証前の攻撃者が細工したXMLを送信し、システムの機密設定ファイルなどを読み取る恐れがある。Ciscoは修正版RI.2026.07を案内しており、公式な回避策はない。",

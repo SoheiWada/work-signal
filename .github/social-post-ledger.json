@@ -4308,10 +4308,12 @@
   },
   "20261112-aspire-apphost-cookie-cve-2026-120006": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-11T21:32:28+00:00",
+      "status": "published",
+      "updated_at": "2026-11-11T21:32:31+00:00",
       "stage": "publish_requested",
-      "container_id": "18117731603033000"
+      "container_id": "18117731603033000",
+      "remote_id": "18117731603033000",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfndE2YFKjY"
     }
   }
 }

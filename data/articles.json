@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261111-anthropic-ipo-roadshow-price-range",
+    "title": "Anthropic、IPOの売出条件を公表──想定価格70〜78ドル、最大約9.49億株の募集枠",
+    "summary": "AI企業Anthropicは11月10日、米国で計画する新規株式公開（IPO）のロードショー開始と、1株70〜78ドルの想定価格帯を発表した。基本募集8億2,500万株のうち約8億135万株が同社の新株、約2,365万株が既存株主による売出しだ。上場は未成立であり、提示価格を確定した取引価格と混同してはいけない。",
+    "category": "お金",
+    "score": 88,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-11T05:02:14.231Z",
+    "source_url": "https://www.anthropic.com/news/roadshow-launch",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "AI企業Anthropicは11月10日、米国で計画する新規株式公開（IPO）のロードショー開始と、1株70〜78ドルの想定価格帯を発表した。基本募集8億2,500万株のうち約8億135万株が同社の新株、約2,365万株が既存株主による売出しだ。上場は未成立であり、提示価格を確定した取引価格と混同してはいけない。",
+    "sections": [
+      {
+        "title": "想定価格帯と株式の内訳",
+        "body": "Anthropicの公式発表によると、募集予定はクラスA普通株式8億2,500万株。内訳は会社が発行する8億135万1,354株と既存株主が売り出す2,364万8,646株。引受会社に最大1億2,375万株の追加取得オプション（30日間）を与える予定だ。想定価格帯は1株70〜78ドルで、Nasdaq Global Select Marketに「ANT」の銘柄記号で上場を申請している。"
+      },
+      {
+        "title": "企業の調達額と既存株主の売却代金は違う",
+        "body": "基本募集の全株が想定価格帯で販売された場合、売出総額の単純計算は577億5,000万〜643億5,000万ドルとなる。ただしこれは引受手数料・経費控除前の機械的試算であり、実際の調達額ではない。既存株主が売る約2,365万株の代金はAnthropicに入らない。追加オプションの行使や最終価格、募集条件により結果は変わる。"
+      },
+      {
+        "title": "まだ販売開始でも上場完了でもない",
+        "body": "公式発表はSECへの登録届出書が未発効であると明記し、効力発生前の株式販売や購入申込みの受理はできないとしている。投資判断では正式な目論見書、希薄化、議決権構造、業績とリスク要因を確認する必要がある。AI産業の資金調達動向として重要だが、上場日・確定価格・将来株価を予測する記事ではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "AnthropicがIPOの想定価格を1株70〜78ドルと公表しました。募集予定は8億2,500万株ですが、その全てが会社への資金調達になるわけではありません。約2,365万株は既存株主の売出しで、代金はAnthropicに入りません。追加取得オプションもあり、最終条件は未確定です。SECへの登録はまだ発効しておらず、上場済みでも販売開始でもありません。数字の読み方と注意点を整理しました。\nhttps://signal.amberlight.co.jp/articles/20261111-anthropic-ipo-roadshow-price-range/\nhttps://www.anthropic.com/news/roadshow-launch",
+    "publication_key": "3ba967ecb054cd839c56e64ef741f5c191ce37b451c926f83dc45ccd564e54c8",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-google-mka-visual-knowledge-work-benchmark",
     "title": "Google、図面・表計算・資料を扱うAIの新評価MKAを公開──200課題で実務品質を測定",
     "summary": "Google DeepMindは11月10日、図面、表計算、スライドなどを横断してAIエージェントの実務能力を測る「Multimodal Knowledge Agent（MKA）」を発表した。10分野・83職種をもとに200課題を設計し、事実の正確性と見た目の品質を採点する。AI導入企業が注目すべきなのは、回答の流暢さではなく成果物を検査できるかという点だ。",

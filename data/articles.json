@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261111-bitcoinjs-lib-merkle-root-duplicate-cve-2026-107846",
+    "title": "bitcoinjs-libのMerkle root検証にCRITICAL脆弱性、重複取引を誤受理──5.2.1／6.1.8／7.0.2で修正",
+    "summary": "bitcoinjs-libのブロック検証に、取引の重複を含む改変済みブロックを正当と判定し得る重大な問題が見つかった。CVE-2026-107846はGitHub ReviewedでCRITICAL、CVSS v4.0は9.3。影響するのは同ライブラリのMerkle root検証を信頼する実装で、すべてのBitcoin利用者に直接影響するという意味ではない。",
+    "category": "SECURITY",
+    "score": 91,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-11T12:20:41.647Z",
+    "source_url": "https://github.com/advisories/GHSA-8vv3-6qpc-gpw6",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "bitcoinjs-libのブロック検証に、取引の重複を含む改変済みブロックを正当と判定し得る重大な問題が見つかった。CVE-2026-107846はGitHub ReviewedでCRITICAL、CVSS v4.0は9.3。影響するのは同ライブラリのMerkle root検証を信頼する実装で、すべてのBitcoin利用者に直接影響するという意味ではない。",
+    "sections": [
+      {
+        "title": "Merkle rootが同じでも取引一覧が異なる",
+        "body": "開発元勧告では、奇数個のノードを埋めるハッシュ処理と重複取引の検出不足により、異なる取引一覧でも同じMerkle rootとブロックIDを持つケースを説明する。ブロック検証をcheckTxRootsに依存するエクスプローラー、取引所のインデクサー、SPVクライアントなどでは、重複取引の誤受理が会計処理に影響する可能性がある。Bitcoin Core自体が本件で脆弱だという発表ではない。"
+      },
+      {
+        "title": "系列別修正版と利用範囲の点検",
+        "body": "影響版は2.3.0以上5.2.1未満、6.0.0以上6.1.8未満、7.0.0-rc.0以上7.0.2未満。修正版は5.2.1、6.1.8、7.0.2。ブロック検証に該当APIを使っているかを先に確認し、系列別に更新する。公開された再現例は攻撃成立可能性の技術的実証であり、実環境での悪用確認とは区別する。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Bitcoin関連のJavaScriptライブラリbitcoinjs-libにCRITICALの検証不備が見つかりました。取引一覧が異なる改変ブロックでも同じMerkle rootとブロックIDを持ち、特定の検証処理が受け入れる可能性があります。取引所のインデクサーやブロックエクスプローラーなど、ブロックの整合性をこのライブラリで確認する構成が焦点です。修正版は5.2.1、6.1.8、7.0.2。一般のBitcoin取引全体への影響と混同せず、依存関係と利用APIを点検してください。\nhttps://signal.amberlight.co.jp/articles/20261111-bitcoinjs-lib-merkle-root-duplicate-cve-2026-107846/\nhttps://github.com/advisories/GHSA-8vv3-6qpc-gpw6",
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "bitcoinjs-lib 2.3.0〜5.2.0、6.0.0〜6.1.7、7.0.0-rc.0〜7.0.1",
+    "social_security_action": "使用系列に応じ5.2.1、6.1.8、7.0.2以降へ更新し、ブロック検証への利用有無を確認",
+    "publication_key": "76c6fd4b7bac53d2742ff470509ebcdbb68dc3dee630c76b69927d5c0233e6ab",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-mongoose-countdocuments-sanitizefilter-cve-2026-125120",
     "title": "MongooseのcountDocumentsでsanitizeFilterが適用されず──CVE-2026-125120、各系列に修正版",
     "summary": "Node.js向けMongoDBライブラリMongooseで、クエリ演算子の注入を抑えるsanitizeFilter設定がcountDocuments()に適用されない脆弱性が明らかになった。CVE-2026-125120はGitHub ReviewedでCRITICAL、CVSS v3.1 9.8。外部入力を件数取得の条件に渡すアプリでは、意図しない条件で件数が計算され、権限制御などの業務ロジックに影響する可能性がある。",

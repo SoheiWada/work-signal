@@ -4021,7 +4021,9 @@
   "20261111-anthropic-ipo-roadshow-price-range": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-11T05:06:12+00:00"
+      "updated_at": "2026-11-11T05:06:20+00:00",
+      "stage": "publish_requested",
+      "container_id": "18169907242487591"
     }
   }
 }

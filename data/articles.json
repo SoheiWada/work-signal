@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261111-google-adobe-acrobat-gemini-integration",
+    "title": "GoogleとAdobeが連携拡大、Gmail・DriveからAcrobatへ──Geminiにも制作ツールを統合",
+    "summary": "Googleは11月10日、Adobeとの提携拡大を発表した。Google DriveやGmailからAdobe Acrobatへ直接つながる編集導線を設け、GeminiやGoogle検索のAI ModeにもAdobeの制作・文書処理ツールを広げる構想だ。ただし、多くは今後の提供予定であり、すべての利用者が直ちに使える機能ではない。",
+    "category": "AI",
+    "score": 87,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-11T02:57:09.077Z",
+    "source_url": "https://blog.google/company-news/inside-google/company-announcements/adobe-google-partnership-integration/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Googleは11月10日、Adobeとの提携拡大を発表した。Google DriveやGmailからAdobe Acrobatへ直接つながる編集導線を設け、GeminiやGoogle検索のAI ModeにもAdobeの制作・文書処理ツールを広げる構想だ。ただし、多くは今後の提供予定であり、すべての利用者が直ちに使える機能ではない。",
+    "sections": [
+      {
+        "title": "GmailとDriveからAcrobatへ、文書編集の移動を短縮",
+        "body": "Googleの発表によると、Google DriveとGmailからAdobe Acrobatへ進める直接の導線を今後設ける。ファイルのプレビューに「Edit with」の入口を表示する構想も含む。PDFを開くたびに別アプリを探す手間を減らす狙いだが、発表には具体的な一般提供開始日や対象プランの一覧は示されていない。"
+      },
+      {
+        "title": "Geminiと検索にもAdobeのツールを広げる",
+        "body": "AdobeはGeminiとGemini Enterprise向けのコネクターをAcrobatや追加の制作ツールに拡張する計画。Google検索のAI ModeにもAdobeの制作ツールを導入する方針だ。さらに企業向けには、画像制作・PDF処理・マーケティング施策を支援するAdobeの「CX Enterprise Coworker」エージェントをGemini Enterpriseで利用できるようにする構想を説明している。"
+      },
+      {
+        "title": "Photoshop向けの新しい画像編集は研究段階",
+        "body": "Google DeepMindとAdobeは、Photoshopでほぼリアルタイムの編集を可能にし得る画像モデルを起点として、新しい編集体験を検討する。これは研究・探索段階の説明であり、既に一般提供された機能と混同できない。"
+      },
+      {
+        "title": "企業が確認すべき導入条件",
+        "body": "制作担当者や広報・マーケティング部門にとって、文書・画像・AIアシスタントを横断する作業が減る可能性がある。一方、利用可能な地域、プラン、料金、管理者設定、データの扱い、提供時期は公式発表だけでは確定しない。導入判断では、実際の提供条件と社内の情報管理方針を確認する必要がある。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "PDFや画像の編集でGmail、Drive、Acrobat、生成AIを行き来する制作・広報担当者に関係する発表です。GoogleとAdobeが11月10日に提携拡大を発表。DriveやGmailからAcrobatへ直接進める導線を用意し、Geminiや検索のAI ModeにもAdobeのツールを広げる計画です。企業向けAIエージェントの連携も構想に含まれます。ただし、多くは今後の提供予定。導入前に開始時期や対象プラン、情報管理条件を確認する必要があります。\nhttps://signal.amberlight.co.jp/articles/20261111-google-adobe-acrobat-gemini-integration/\nhttps://blog.google/company-news/inside-google/company-announcements/adobe-google-partnership-integration/",
+    "publication_key": "58ac80257c7e47ce02be7d718e1e3e42a78ccb2e6a431f7e14736050d0004f9f",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-siemens-simatic-ntlm-relay-cve-2026-58114",
     "title": "SiemensのSCADA・PCS 7に認証中継の脆弱性、修正未提供の製品はSQL通信暗号化を",
     "summary": "Siemensは11月10日、SIMATIC WinCCやPCS 7など産業制御・監視製品のNTLM認証を悪用した中継攻撃の脆弱性CVE-2026-58114を公表した。攻撃者が通信経路上に介在すると、正規利用者になりすまして、その権限で操作やコード実行につながる恐れがある。対象製品には修正版が未提供のものがあり、公式に案内されたSQL Server通信の暗号化設定とネットワーク防御の確認が急がれる。",

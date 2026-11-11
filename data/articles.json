@@ -1,5 +1,44 @@
 [
   {
+    "id": "20261111-siemens-simatic-ntlm-relay-cve-2026-58114",
+    "title": "SiemensのSCADA・PCS 7に認証中継の脆弱性、修正未提供の製品はSQL通信暗号化を",
+    "summary": "Siemensは11月10日、SIMATIC WinCCやPCS 7など産業制御・監視製品のNTLM認証を悪用した中継攻撃の脆弱性CVE-2026-58114を公表した。攻撃者が通信経路上に介在すると、正規利用者になりすまして、その権限で操作やコード実行につながる恐れがある。対象製品には修正版が未提供のものがあり、公式に案内されたSQL Server通信の暗号化設定とネットワーク防御の確認が急がれる。",
+    "category": "SECURITY",
+    "score": 91,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-11T02:23:47.992Z",
+    "source_url": "https://cert-portal.siemens.com/productcert/html/ssa-970803.html",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Siemensは11月10日、SIMATIC WinCCやPCS 7など産業制御・監視製品のNTLM認証を悪用した中継攻撃の脆弱性CVE-2026-58114を公表した。攻撃者が通信経路上に介在すると、正規利用者になりすまして、その権限で操作やコード実行につながる恐れがある。対象製品には修正版が未提供のものがあり、公式に案内されたSQL Server通信の暗号化設定とネットワーク防御の確認が急がれる。",
+    "sections": [
+      {
+        "title": "何が起こるのか",
+        "body": "Siemens ProductCERTのSSA-970803によると、対象システムでは旧来のNTLMを使うリモートユーザー認証の保護が不十分である。攻撃者が通信の中間に入り、NTLM認証を中継すると正規ユーザーを装う可能性がある。被害の程度は攻撃者がアクセスできるサービスと被害者の権限に依存し、たとえばWinCCが利用するSQL Serverが関係する。無条件にインターネットから認証なしで侵入できると解釈してはいけない。SiemensはCVSS v3.1を7.5、v4.0を7.7と別々に示した。"
+      },
+      {
+        "title": "対象と対応策",
+        "body": "公式対象表ではSIMATIC BATCH V9.1、PCS 7 V9.1、WinCC V7.5／V8.0／V8.1、WinCC Runtime Professional V17〜V21、Information Server 2020／2022、Process Historian 2020／2022の全バージョンが該当する。2026年11月10日の勧告では修正版が未提供または提供予定なしとされている。SiemensはSQL Server Databaseの通信暗号化を手動設定する具体的緩和策を案内している。加えて、制御系へのネットワークアクセスを適切に保護し、運用ガイドラインに沿った分離・制限を行うことを推奨する。"
+      },
+      {
+        "title": "現場での確認と留保",
+        "body": "設備・OT管理者は製品名と版を資産台帳で突き合わせ、SQL Server通信の暗号化設定と接続経路を確認したい。一般的なWindows更新だけで当該Siemens製品が修正されたと判断しない。開発元の今回の勧告には実環境での悪用確認や被害件数は示されていない。修正モジュールの公開状況は今後変わる可能性があるため、製品別の公式勧告を継続確認する。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Siemensが11月10日、SIMATIC WinCCやPCS 7などの認証中継脆弱性CVE-2026-58114を公表しました。通信経路上の攻撃者がNTLM認証を中継すると、正規利用者の権限を悪用される恐れがあります。公式CVSSはv3.1が7.5、v4.0が7.7。対象には修正版未提供の製品があり、SQL Server通信の暗号化と制御ネットワークのアクセス制限が重要です。実際の悪用は公式には確認されていません。製品ごとの影響版と緩和策を整理しました。\nhttps://signal.amberlight.co.jp/articles/20261111-siemens-simatic-ntlm-relay-cve-2026-58114/\nhttps://cert-portal.siemens.com/productcert/html/ssa-970803.html",
+    "social_security_severity": "HIGH",
+    "social_security_product": "SIMATIC BATCH V9.1、PCS 7 V9.1、WinCC V7.5/V8.0/V8.1、WinCC Runtime Professional V17〜V21、Information Server 2020/2022、Process Historian 2020/2022の各全バージョン",
+    "social_security_action": "Siemensの公式緩和策に従いSQL Serverデータベースの通信暗号化を手動設定し、制御ネットワークへのアクセスを制限する。2026年11月10日時点で当該製品の修正版は未提供または予定なし",
+    "publication_key": "9a1ab3ac8d87424b0c67dff97afa2b242a0ec9e31aee7966fe3f05fe57ca6ce1",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-us-october-real-earnings-flat",
     "title": "米10月の実質時給は横ばい、名目0.4％増を物価上昇が相殺──週給も伸びず",
     "summary": "米労働統計局（BLS）が11月10日に公表した10月の実質賃金統計では、民間非農業部門の全従業員の実質平均時給が前月比横ばいだった。名目平均時給は0.4％増えたが、消費者物価も0.4％上昇。週当たりの実質賃金も横ばいで、給与額の増加がそのまま購買力の改善を意味しない状況を示した。",

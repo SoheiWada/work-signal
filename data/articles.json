@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261111-sap-november-four-critical-netweaver-gateway",
+    "title": "SAPの11月修正でCVSS 10.0が4件、NetWeaver・Web Dispatcher・Gatewayの影響版を確認",
+    "summary": "SAPは2026年11月10日のSecurity Patch Dayで35件の新規セキュリティノートと4件のGitHub Advisoryを公開した。うち4件はCVSS 10.0のCRITICALで、NetWeaverの通信処理、Web Dispatcher、Gateway、SAML2認証に関わる。管理者は製品名だけでなくKERNELやSAP_BASISなどのコンポーネント版を確認し、対応するSAP Security Noteの修正を優先適用する必要がある。",
+    "category": "SECURITY",
+    "score": 95,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-11T04:18:14.267Z",
+    "source_url": "https://support.sap.com/en/my-support/knowledge-base/security-notes-news/november-2026.html",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "SAPは2026年11月10日のSecurity Patch Dayで35件の新規セキュリティノートと4件のGitHub Advisoryを公開した。うち4件はCVSS 10.0のCRITICALで、NetWeaverの通信処理、Web Dispatcher、Gateway、SAML2認証に関わる。管理者は製品名だけでなくKERNELやSAP_BASISなどのコンポーネント版を確認し、対応するSAP Security Noteの修正を優先適用する必要がある。",
+    "sections": [
+      {
+        "title": "CVSS 10.0の4件は通信処理と認証・アクセス制御に集中",
+        "body": "SAP公式一覧によると、CVE-2026-76964はNetWeaver AS ABAPのInternet Communication Managerのメモリ破壊で、対象はKRNL64UC 7.53およびKERNEL 7.53、7.54、7.77、7.93、9.16、9.18、9.20。Security Noteは3778530。CVE-2026-89126はSAP Web Dispatcherのメモリ破壊で、WEBDISP 7.53、7.54、7.77、7.93、9.16などが対象。Noteは3778556。\n\nCVE-2026-89103はSAP Gatewayのアクセス制御不備で、KERNEL 7.22、7.53、7.54、7.77、7.93、8.04、9.16、9.20、9.21などが対象。Noteは3798345。CVE-2026-120017はNetWeaver AS ABAP／ABAP PlatformのSAML2 Service Providerの認証欠落で、SAP_BASIS 702、731、740、750～758、816、920～922が対象。Noteは3849308。いずれもSAP公式の優先度はCritical、CVSSは10.0。評価版は公開一覧の数値に従い、異なる評価体系の値へ換算しない。"
+      },
+      {
+        "title": "運用担当者は適用対象のコンポーネントを照合",
+        "body": "SAPは11月10日に新規Security Note 35件とGitHub Advisory 4件、既存Note更新3件を公表し、修正の優先適用を勧めている。今回の4件についても一律の「SAP最新版」ではなく、SAP for Meで各Noteの修正内容と自社のコンポーネント版を照合する必要がある。公開一覧は影響版を示すが、全環境共通の修正版番号や代替回避策を明示していないため、ここでは推測しない。\n\n実際の攻撃による悪用はSAPの当該公表から確認できない。「悪用なし」の確定ではない。CISA KEV公式GitHubミラーの2026.11.10版（1,779件）にも4件の登録を確認していないが、ミラー同期遅延の可能性があり、KEV非掲載を安全性の根拠とはしない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "SAPが11月10日に公開した月例セキュリティ更新では、最高評価CVSS 10.0の脆弱性が4件。NetWeaverの通信処理、Web Dispatcher、Gateway、SAML2認証が対象です。企業の基幹システムに関わるため、単にSAPを利用しているかだけでなく、KERNELやSAP_BASISの該当版を確認する必要があります。修正ノートは3778530、3778556、3798345、3849308。実悪用は公式公表から確認できません。対象版と対応の確認ポイントを整理しました。\nhttps://signal.amberlight.co.jp/articles/20261111-sap-november-four-critical-netweaver-gateway/\nhttps://support.sap.com/en/my-support/knowledge-base/security-notes-news/november-2026.html",
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "SAP NetWeaver AS ABAP（KRNL64UC 7.53、KERNEL 7.53/7.54/7.77/7.93/9.16/9.18/9.20）、SAP Web Dispatcher（WEBDISP 7.53/7.54/7.77/7.93/9.16ほか）、SAP Gateway（KERNEL 7.22/7.53/7.54/7.77/7.93/8.04/9.16/9.20/9.21ほか）、NetWeaver AS ABAP・ABAP Platform SAML2（SAP_BASIS 702/731/740/750～758/816/920～922）。全対象コンポーネント版は公式一覧を参照",
+    "social_security_action": "SAP公式Security Note 3778530・3778556・3798345・3849308の修正をSAP for Meで確認し、該当する製品・コンポーネントへ優先適用する。公開情報だけで一律の更新先バージョンは確定しない",
+    "publication_key": "d69bec42b7a5838fe48fd1c54ec2fe6581a414c164bc2a7b0275195159e68c74",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-dotnet-pdb-heap-overflow-cve-2026-118745",
     "title": "Windows版.NETのPDB解析にHIGH脆弱性、自己完結型アプリも再ビルドが必要",
     "summary": "Microsoftは11月10日、Windows版.NETのPDBデバッグ情報の読み取り処理で、細工されたメタデータによってヒープ領域外への書き込みが起こり得る脆弱性CVE-2026-118745を公表した。公式評価はHIGH、CVSS v3.1は8.8。対象ランタイムとSDKの更新に加え、ランタイムを同梱する自己完結型アプリは再ビルドと再配布が必要になる。",

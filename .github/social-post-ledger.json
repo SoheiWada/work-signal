@@ -4218,10 +4218,12 @@
   },
   "20261111-aspire-cli-build-privilege-cve-2026-120778": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-11T13:22:39+00:00",
+      "status": "published",
+      "updated_at": "2026-11-11T13:22:42+00:00",
       "stage": "publish_requested",
-      "container_id": "17913642192594197"
+      "container_id": "17913642192594197",
+      "remote_id": "17913642192594197",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfmlBEBm0Ik"
     }
   }
 }

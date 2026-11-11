@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261110-gemini-intelligence-japan-task-automation",
+    "title": "GoogleのGeminiが日本でアプリ操作を自動化へ──配車・予約・注文、対応端末と条件に注意",
+    "summary": "Googleは2026年11月10日、Android向け「Gemini Intelligence」の対応機種と機能を拡大すると発表した。配車、飲食注文、予約などをアプリ横断で支援する「task automation」の対象地域に日本が加わる。もっとも、対応機種・国・言語・年齢などの制約があり、全利用者が直ちに使えるという発表ではない。",
+    "category": "AI",
+    "score": 87,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-11T09:02:47.774Z",
+    "source_url": "https://blog.google/products-and-platforms/platforms/android/gemini-intelligence-november-features-devices/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Googleは2026年11月10日、Android向け「Gemini Intelligence」の対応機種と機能を拡大すると発表した。配車、飲食注文、予約などをアプリ横断で支援する「task automation」の対象地域に日本が加わる。もっとも、対応機種・国・言語・年齢などの制約があり、全利用者が直ちに使えるという発表ではない。",
+    "sections": [
+      {
+        "title": "日本が「task automation」の拡大対象に",
+        "body": "Googleによると、Gemini Intelligenceのtask automationは、Geminiに依頼して飲食注文、配車、予約などの手続きを対応アプリで支援する機能だ。今回、英国・インド・日本へ対象地域を拡大する。これは対応地域の拡大であり、すべてのアプリや手続きが自動実行可能になったことを意味しない。脚注ではGeminiアプリでの利用、18歳以上、対応国・言語、利用上限や一部の有料プラン条件が示されている。"
+      },
+      {
+        "title": "Pixel 10にも展開、自然言語でウィジェット作成",
+        "body": "同時にPixel 10、Pixel 10 Pro XL、Pixel 10 Pro FoldへのGemini Intelligence機能拡大を案内。話した内容を整理されたテキストにするRamblerの対象も広がる。さらに「Create My Widget」は今後数週間で順次展開予定。自然言語の説明から、Gmail、Calendar、Searchの情報を活用するホーム画面ウィジェットを作れるという。端末や国・言語によって提供状況は異なる。"
+      },
+      {
+        "title": "業務利用では権限と最終確認が重要",
+        "body": "日程調整や予約などの定型作業をAIへ任せる可能性が広がるが、発表は日本での業務成果や時間削減率を実証したものではない。組織で使う場合は対応アプリ、アクセス権、個人情報の扱い、予約・注文確定前の確認操作、失敗時の責任分担を検証したい。Android 17以降など特定機能の端末条件も、機能別に確認する必要がある。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Googleが11月10日、Gemini Intelligenceの機能拡張を発表。アプリをまたいで配車・飲食注文・予約などを支援する「task automation」の対象地域に日本が加わります。Pixel 10シリーズへの機能拡大、Gmail・カレンダー情報からホーム画面のウィジェットを作る新機能も案内。ただし全Android端末・全アプリで即日利用できるわけではなく、対応機種・国・言語・年齢・利用枠の条件があります。仕事での導入前に何を確認すべきか整理しました。\nhttps://signal.amberlight.co.jp/articles/20261110-gemini-intelligence-japan-task-automation/\nhttps://blog.google/products-and-platforms/platforms/android/gemini-intelligence-november-features-devices/",
+    "publication_key": "cb6bd03bafc16e68861ddfc4acaf9afe5323a2e3197738055f3ba24699cce8d5",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-movable-type-dynamic-publishing-cve-2026-117687",
     "title": "Movable Typeの動的公開機能にコード注入、PHP実行の恐れ──8.8.7などへ更新（CVE-2026-117687）",
     "summary": "シックス・アパートのCMS「Movable Type」のダイナミックパブリッシング機能に、外部から任意のPHPコードを実行される可能性がある脆弱性が公表された。CVE-2026-117687のCVSS v3.0は7.3、v4.0は6.9と評価方式で異なる。11月11日付のJVNによると、8.8系・8.0系とPremium 2系の対象版に修正版が提供されている。",

@@ -4251,5 +4251,11 @@
       "remote_id": "17915250933559124",
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4028070248415200604"
     }
+  },
+  "20261111-dotnet-coff-pdb-rce-cve-2026-114152": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-11T14:29:46+00:00"
+    }
   }
 }

@@ -3877,7 +3877,9 @@
   "20261111-japan-labor-force-detailed-q3": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-11T00:05:28+00:00"
+      "updated_at": "2026-11-11T00:05:39+00:00",
+      "stage": "publish_requested",
+      "container_id": "18490571860129826"
     }
   }
 }

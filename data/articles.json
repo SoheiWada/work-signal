@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261111-singapore-airlines-openai-customer-service-productivity",
+    "title": "シンガポール航空、AI導入で顧客満足度2倍・応対時間約10％減──成果を生んだ業務設計",
+    "summary": "シンガポール航空は11月10日、OpenAIのモデルを顧客対応や社内業務に組み込んだ成果を公表した。チャットボット「Kris」の顧客満足度指標は従来比2倍、AI支援を受ける担当者の平均応対時間は約10％減少したという。導入効果の数字だけでなく、データ接続・人への引き継ぎ・検証の仕組みが重要だ。",
+    "category": "仕事",
+    "score": 89,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-11T10:05:07.144Z",
+    "source_url": "https://openai.com/index/singapore-airlines-travel-work/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "シンガポール航空は11月10日、OpenAIのモデルを顧客対応や社内業務に組み込んだ成果を公表した。チャットボット「Kris」の顧客満足度指標は従来比2倍、AI支援を受ける担当者の平均応対時間は約10％減少したという。導入効果の数字だけでなく、データ接続・人への引き継ぎ・検証の仕組みが重要だ。",
+    "sections": [
+      {
+        "title": "チャットボットの満足度2倍、応対時間は約10％減",
+        "body": "同社は従来の事前定義型チャットボットを、OpenAI APIを利用した大規模言語モデル型の対話システムへ移行。社内ナレッジを根拠に複数の話題へ対応し、必要に応じて担当者へ文脈を渡す。公式事例によると、Krisの顧客満足度指標（CSAT）は2倍になった。別途、問い合わせ要約などのAI支援を受ける顧客対応担当者の平均処理時間は約10％減った。両者は異なる指標であり、全業務の生産性が10％向上したという意味ではない。"
+      },
+      {
+        "title": "社内AIは月間利用率6割超、開発業務にも活用",
+        "body": "社内プラットフォーム「Jarvis」は文書要約、ファイル横断の検索、業務ワークフロー作成などに利用され、従業員の60％超が毎月使っているという。旅行提案サービス「Flight Recommender」の月間利用者数は過去1年で約3倍。ソフトウェア開発の一部工程では最大20％の生産性改善が報告されたが、選定工程に限定した数字である。"
+      },
+      {
+        "title": "管理職が確認すべきは業務単位の指標と統制",
+        "body": "導入検討では「顧客満足度」「平均応対時間」「月間利用者」「手戻り率」などを分けて測り、導入前後の比較期間と対象業務を明示したい。同社は個人情報の取り扱い、入力・出力の検証、権限を持つデータへの限定アクセス、人間による確認を組み合わせている。今回の数値は企業・提供元が公表した事例で、比較実験や他社での再現性を証明するものではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "AI導入の成果は「何人が使ったか」だけでは測れません。シンガポール航空は、生成AIを組み込んだ顧客対応チャットで満足度指標が2倍、オペレーターの平均応対時間が約10％短縮したと発表。社内AIも従業員の6割超が月次利用しています。重要なのは、回答の根拠となる社内データ、本人確認、人的引き継ぎ、検証を業務設計に組み込んだこと。数字は企業事例の報告で、他社への再現性が証明されたわけではありません。\nhttps://signal.amberlight.co.jp/articles/20261111-singapore-airlines-openai-customer-service-productivity/\nhttps://openai.com/index/singapore-airlines-travel-work/",
+    "publication_key": "80dd6ba9a9bb41a769420cd30433d853fb809cbca630f665df05bc1d9402dd35",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-gemini-intelligence-japan-task-automation",
     "title": "GoogleのGeminiが日本でアプリ操作を自動化へ──配車・予約・注文、対応端末と条件に注意",
     "summary": "Googleは2026年11月10日、Android向け「Gemini Intelligence」の対応機種と機能を拡大すると発表した。配車、飲食注文、予約などをアプリ横断で支援する「task automation」の対象地域に日本が加わる。もっとも、対応機種・国・言語・年齢などの制約があり、全利用者が直ちに使えるという発表ではない。",

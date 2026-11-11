@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261111-google-registry-eat-fly-here",
+    "title": "Googleが「.eat」「.fly」「.here」を開始──11月17日までの早期登録には追加料金",
+    "summary": "Google Registryは11月10日、新しいトップレベルドメイン「.eat」「.fly」「.here」の登録開始を発表した。11月17日16:00 UTCまでは早期アクセス期間で、通常の登録費用とは別に日ごとに下がる一時金がかかる。飲食店、旅行サービス、地域事業者が新しいWebアドレスを検討する際は、取得時期と維持費を分けて比較したい。",
+    "category": "仕事",
+    "score": 83,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-11T06:02:25.186Z",
+    "source_url": "https://blog.google/products-and-platforms/products/registry/new-google-domains-eat-fly-here/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Google Registryは11月10日、新しいトップレベルドメイン「.eat」「.fly」「.here」の登録開始を発表した。11月17日16:00 UTCまでは早期アクセス期間で、通常の登録費用とは別に日ごとに下がる一時金がかかる。飲食店、旅行サービス、地域事業者が新しいWebアドレスを検討する際は、取得時期と維持費を分けて比較したい。",
+    "sections": [
+      {
+        "title": "飲食・移動・場所を示す3種類",
+        "body": "Google Registryは、飲食関連を想起させる「.eat」、旅行・移動分野の「.fly」、場所やサービスを示す「.here」を発表した。公式発表では、飲食のWingstopによるwingstop.eat、旅行アシスタントのcaddy.fly、不動産サービスのrent.hereなどを導入事例として挙げている。既存の「.com」等を廃止する発表ではなく、事業内容を短いURLで伝える選択肢の追加だ。"
+      },
+      {
+        "title": "早期アクセスの追加料金と11月17日の切り替え",
+        "body": "11月10日から各登録事業者を通じて取得可能な名称は早期アクセスプログラムの対象となり、日ごとに低下する追加の一時金が発生する。Googleの公表では、2026年11月17日16:00 UTC（日本時間11月18日1:00）に、追加の一時金なしの基本年額価格で一般登録が始まる。基本年額価格そのものや各登録事業者の販売価格は本発表では一律の金額として示されていない。"
+      },
+      {
+        "title": "企業の担当者が確認すること",
+        "body": "新しいドメインはキャンペーンサイトやブランド別の短いURLに向く可能性がある。ただし、取得可否、初年度と更新時の費用、既存サイトからの転送、商標との衝突、メール運用は登録事業者と社内で確認が必要だ。早く確保したい名称がある場合と、追加料金がなくなる時点まで待つ場合で、費用と取得機会を比較するのが実務的だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Googleが新しいドメイン「.eat」「.fly」「.here」の登録開始を発表しました。飲食店、旅行サービス、地域ビジネスのWebアドレスに新しい選択肢が増えます。注目したいのは取得時期による費用の違い。11月17日16時UTCまでは早期アクセスの追加料金がかかり、その後は基本年額価格での一般登録へ移行します。既存ドメインをすぐ切り替える必要はなく、更新費用や商標、転送設定も含めて比較するのが大切です。\nhttps://signal.amberlight.co.jp/articles/20261111-google-registry-eat-fly-here/\nhttps://blog.google/products-and-platforms/products/registry/new-google-domains-eat-fly-here/",
+    "publication_key": "04fd0f6ddbfa0a4b9888190da65bd127dda59377d483ef11a20c8f691e090bd5",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-airbyte-connector-builder-rce-ghsa-g35w",
     "title": "AirbyteのConnector BuilderにCRITICALのコード実行脆弱性、2.2.0未満は更新を",
     "summary": "データ連携基盤AirbyteのConnector Builderに、意図しないPythonクラスを読み込ませてコンテナ内でコードを実行できる脆弱性がある。開発元の評価はCRITICAL（CVSS v3.1 9.9）。10月17日に開発元が公表し、11月10日にはJVNが影響版情報を更新した。Airbyte 2.2.0未満の自己管理環境は、構成に応じたアクセス制限と更新が必要だ。",

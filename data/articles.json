@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261112-google-gemini-healthcare-preview",
+    "title": "Google、医療業務向け「Gemini for healthcare」を発表──電子カルテ連携と人の最終判断を両立",
+    "summary": "Google Cloudは11月10日、医療機関と保険者向けのAI業務基盤「Gemini for healthcare」を発表した。電子カルテや保険給付情報など複数のシステムを接続し、診療記録の要約、受診前準備、給付確認といった作業を支援する。現段階はプレビュー提供であり、医療判断の自動化や日本国内での一般提供が始まったことを意味しない。",
+    "category": "AI",
+    "score": 88,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-11T22:01:46.512Z",
+    "source_url": "https://www.googlecloudpresscorner.com/2026-11-10-Google-Cloud-Launches-Gemini-for-Healthcare",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Google Cloudは11月10日、医療機関と保険者向けのAI業務基盤「Gemini for healthcare」を発表した。電子カルテや保険給付情報など複数のシステムを接続し、診療記録の要約、受診前準備、給付確認といった作業を支援する。現段階はプレビュー提供であり、医療判断の自動化や日本国内での一般提供が始まったことを意味しない。",
+    "sections": [
+      {
+        "title": "電子カルテと事務システムを横断する",
+        "body": "Google Cloudの11月10日付発表によると、Gemini for healthcareは電子カルテ、請求・給付、診療ガイドラインなどの情報を連携し、記録の要約や受診前の準備、保険適用確認などを複数工程で支援する。EpicとOracle Healthの電子カルテには読み取り連携を用意し、診療記録の整合性を守るため電子カルテへの書き戻しは行わないと説明している。NextGen Healthcare連携は開発中であり、すべての接続先が同時に利用可能という意味ではない。"
+      },
+      {
+        "title": "プレビュー段階、導入には権限と人の監督が必要",
+        "body": "提供は当初プレビューで、HCA HealthcareやNorthwell Healthなどがローンチ顧客に含まれる。Googleは既存のロールベースアクセス制御、監査ログ、出典追跡、人による監督を設計上の要件としている。Gemini Enterprise Standard／Plus向けの提供を案内しているが、日本の医療機関が直ちに利用できるとは発表していない。発表にある医療従事者の事務負担時間は別調査の推計であり、本製品による削減実績ではない。"
+      },
+      {
+        "title": "医療以外の企業にも通じる導入の論点",
+        "body": "業務AIを評価する際は、接続対象、閲覧・変更権限、承認が必要な処理、監査証跡、試験運用の範囲を切り分ける必要がある。Googleの発表は製品の構想とプレビュー提供を示すもので、診療成果や費用対効果の改善を実証したものではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Googleが医療機関向けの「Gemini for healthcare」を発表しました。電子カルテ、保険給付、診療ガイドラインなど、別々のシステムに散らばった情報をつなぎ、診療記録の要約や事務手続きを支援します。ただし現段階はプレビュー提供。電子カルテへの書き戻しはせず、権限管理や人による確認を前提にしています。医療AIを導入するときに何を確認すべきか、連携先と提供条件を整理しました。\nhttps://signal.amberlight.co.jp/articles/20261112-google-gemini-healthcare-preview/\nhttps://www.googlecloudpresscorner.com/2026-11-10-Google-Cloud-Launches-Gemini-for-Healthcare",
+    "publication_key": "e21441b1bc67ec51ab16b518e6bb4d6ed5808e356ea0b833832989b6297f0975",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-aspire-apphost-cookie-cve-2026-120006",
     "title": "Aspire AppHostでDashboard認証Cookieが漏えいする脆弱性、13.6.5への更新が必要（CVE-2026-120006）",
     "summary": "Microsoftは11月10日、AspireのAppHostに関する権限昇格の脆弱性CVE-2026-120006を公表した。macOS上でDashboardに認証した開発者が、攻撃者の管理するコンテナへつながるリソースリンクを開く特定の構成では、認証Cookieが漏えいし、開発者権限でコードを実行される可能性がある。修正にはAppHost側の依存パッケージ更新が必要だ。",

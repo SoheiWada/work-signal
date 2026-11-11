@@ -1,5 +1,44 @@
 [
   {
+    "id": "20261111-airbyte-connector-builder-rce-ghsa-g35w",
+    "title": "AirbyteのConnector BuilderにCRITICALのコード実行脆弱性、2.2.0未満は更新を",
+    "summary": "データ連携基盤AirbyteのConnector Builderに、意図しないPythonクラスを読み込ませてコンテナ内でコードを実行できる脆弱性がある。開発元の評価はCRITICAL（CVSS v3.1 9.9）。10月17日に開発元が公表し、11月10日にはJVNが影響版情報を更新した。Airbyte 2.2.0未満の自己管理環境は、構成に応じたアクセス制限と更新が必要だ。",
+    "category": "SECURITY",
+    "score": 84,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-11T05:18:38.581Z",
+    "source_url": "https://github.com/airbytehq/airbyte/security/advisories/GHSA-g35w-6r6v-h4r7",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "データ連携基盤AirbyteのConnector Builderに、意図しないPythonクラスを読み込ませてコンテナ内でコードを実行できる脆弱性がある。開発元の評価はCRITICAL（CVSS v3.1 9.9）。10月17日に開発元が公表し、11月10日にはJVNが影響版情報を更新した。Airbyte 2.2.0未満の自己管理環境は、構成に応じたアクセス制限と更新が必要だ。",
+    "sections": [
+      {
+        "title": "どの権限と構成で悪用されるか",
+        "body": "開発元によると、宣言的マニフェストのカスタムコンポーネント指定を通じ、Connector BuilderやManifest Serverのコンテナ内で意図しないPythonオブジェクトが呼び出される。2.xではWorkspace ReaderまたはOrganization Reader以上の認証済み利用者が攻撃条件となる。一方、旧Helm chartで展開された1.xのConnector Builderは認証設定を継承しない構成があり、サービスにネットワーク到達できる第三者が認証なしで悪用できる場合がある。コンテナの権限範囲内で秘密情報の参照や内部サービスへのアクセスにつながり得る。"
+      },
+      {
+        "title": "修正版と暫定対策",
+        "body": "開発元はAirbyte 2.2.0で修正したと明記する。1.x向けの修正は提供されず、2.2.0以降への移行が必要。直ちに更新できない場合はConnector Builder／Manifest Serverへの到達経路をAirbyteサーバーなど必要最小限に絞り、Reader権限を信頼できる利用者に限定する。Airbyte Cloudの利用者は開発元によれば追加対応不要である。"
+      },
+      {
+        "title": "悪用情報と評価の読み方",
+        "body": "JVNは11月10日更新の国内注意情報で悪用が確認されたと記載する。ただし開発元勧告は被害組織数や攻撃時期を示していないため、実被害の規模は断定できない。開発元のCRITICAL 9.9（CVSS v3.1）とJVN掲載のCVSS v4.0 8.7／v3系8.8は別評価として扱う。まず自己管理版の導入形態、影響版、外部からの到達性、権限付与を点検したい。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "データ連携基盤AirbyteのConnector Builderで、細工されたマニフェストを通じてコンテナ内のコードが実行される脆弱性が公表されています。開発元はCRITICAL（CVSS v3.1 9.9）と評価。2.xではReader以上の権限が攻撃条件ですが、旧1.xの一部Helm構成では認証なしでも成立し得ます。JVNは11月10日に影響版情報を更新し、悪用確認も記載。自己管理環境は2.2.0以降への更新とアクセス制限を優先してください。Cloud利用者は開発元によれば追加対応不要です。\nhttps://signal.amberlight.co.jp/articles/20261111-airbyte-connector-builder-rce-ghsa-g35w/\nhttps://github.com/airbytehq/airbyte/security/advisories/GHSA-g35w-6r6v-h4r7",
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Airbyte 2.2.0未満（2.xのManifest Server、1.x旧Helm chartのConnector Builderを含む）",
+    "social_security_action": "Airbyte 2.2.0以降へ更新。直ちに更新できない場合はConnector Builder／Manifest Serverへのネットワークアクセスを制限し、Reader権限を信頼できる利用者に限定",
+    "publication_key": "32a763410d0a590e4e22816ff543937f9ca76eb83490160e1090b3371effeee6",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-anthropic-ipo-roadshow-price-range",
     "title": "Anthropic、IPOの売出条件を公表──想定価格70〜78ドル、最大約9.49億株の募集枠",
     "summary": "AI企業Anthropicは11月10日、米国で計画する新規株式公開（IPO）のロードショー開始と、1株70〜78ドルの想定価格帯を発表した。基本募集8億2,500万株のうち約8億135万株が同社の新株、約2,365万株が既存株主による売出しだ。上場は未成立であり、提示価格を確定した取引価格と混同してはいけない。",

@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261111-gpustack-saml-auth-bypass-cve-2026-102894",
+    "title": "GPUStackのSAMLコールバックで認証回避、管理者アカウント乗っ取りの恐れ──2.2.2で修正",
+    "summary": "AIモデル配信基盤を管理するGPUStackに、認証されていないSAML応答を信頼してセッションを発行する重大な脆弱性が公表された。CVE-2026-102894はGitHub ReviewedでCRITICAL。ネットワークから特定のコールバックへ到達できる場合、管理者を含む既存ユーザーになりすます恐れがあり、SAMLを設定していない環境も対象となる。",
+    "category": "SECURITY",
+    "score": 94,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-11T12:20:51.869Z",
+    "source_url": "https://github.com/advisories/GHSA-62m9-f875-rqw6",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "AIモデル配信基盤を管理するGPUStackに、認証されていないSAML応答を信頼してセッションを発行する重大な脆弱性が公表された。CVE-2026-102894はGitHub ReviewedでCRITICAL。ネットワークから特定のコールバックへ到達できる場合、管理者を含む既存ユーザーになりすます恐れがあり、SAMLを設定していない環境も対象となる。",
+    "sections": [
+      {
+        "title": "SAML未設定でも認証処理を悪用される",
+        "body": "開発元勧告によると、/auth/saml/callbackがSAML署名・発行者・宛先・有効期限を検証せず、応答内のユーザー識別情報からセッションを発行していた。既存の管理者名を指定するとそのユーザーのセッションを取得できる可能性がある。成立条件は当該エンドポイントへのネットワーク到達性で、SAML SSOが設定済みである必要はない。実環境での悪用を確認したとの公式記載は見当たらない。"
+      },
+      {
+        "title": "2.2への更新と一時的な経路遮断",
+        "body": "影響するGPUStackは0.7.1以上2.2.2未満。2.2.2ではSAML応答の署名や条件を検証し、利用中の認証プロバイダーに応じた経路制御を追加した。設定画面でSAMLを無効にするだけでは旧版の回避策にならない。更新までの間はリバースプロキシやIngressで/auth/saml/callbackへの到達を遮断することが公式に案内されている。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "AI基盤のGPUStackで、管理者アカウントの乗っ取りにつながるCRITICAL脆弱性が報告されています。SAMLの応答を十分に検証しないままログインセッションを発行する問題で、SAML認証を有効にしていない構成も影響対象です。対象は0.7.1以上2.2.2未満。修正版2.2.2へ更新し、更新までの間は/auth/saml/callbackへのアクセスを遮断するよう公式勧告が案内しています。AI運用基盤の管理者は構成を確認してください。\nhttps://signal.amberlight.co.jp/articles/20261111-gpustack-saml-auth-bypass-cve-2026-102894/\nhttps://github.com/advisories/GHSA-62m9-f875-rqw6",
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "GPUStack 0.7.1以上2.2.2未満",
+    "social_security_action": "GPUStack 2.2.2以降へ更新。更新までリバースプロキシ等で/auth/saml/callbackへのネットワークアクセスを遮断",
+    "publication_key": "a0cafb5df053ee82ca37b4d4b568933f0085245cbca04b62284b2ca4f2791284",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-bitcoinjs-lib-merkle-root-duplicate-cve-2026-107846",
     "title": "bitcoinjs-libのMerkle root検証にCRITICAL脆弱性、重複取引を誤受理──5.2.1／6.1.8／7.0.2で修正",
     "summary": "bitcoinjs-libのブロック検証に、取引の重複を含む改変済みブロックを正当と判定し得る重大な問題が見つかった。CVE-2026-107846はGitHub ReviewedでCRITICAL、CVSS v4.0は9.3。影響するのは同ライブラリのMerkle root検証を信頼する実装で、すべてのBitcoin利用者に直接影響するという意味ではない。",

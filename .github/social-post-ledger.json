@@ -3956,10 +3956,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DflaTemFnt-"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-11T02:30:11+00:00",
+      "status": "published",
+      "updated_at": "2026-11-11T02:30:16+00:00",
       "stage": "publish_requested",
-      "container_id": "18160849822488337"
+      "container_id": "18160849822488337",
+      "remote_id": "18138475615732337",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4027741300644539777"
     }
   }
 }

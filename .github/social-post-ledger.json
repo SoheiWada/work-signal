@@ -4075,7 +4075,9 @@
   "20261111-google-registry-eat-fly-here": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-11T06:07:55+00:00"
+      "updated_at": "2026-11-11T06:08:04+00:00",
+      "stage": "publish_requested",
+      "container_id": "18149290285560759"
     }
   }
 }

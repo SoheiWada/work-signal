@@ -4380,10 +4380,12 @@
   },
   "20261112-checkmk-cve-2026-121374": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-11T23:25:50+00:00",
+      "status": "published",
+      "updated_at": "2026-11-11T23:25:54+00:00",
       "stage": "publish_requested",
-      "container_id": "17939670660401544"
+      "container_id": "17939670660401544",
+      "remote_id": "17939670660401544",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfnqDG9Gx-t"
     }
   }
 }

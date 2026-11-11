@@ -4111,7 +4111,9 @@
   "20261111-movable-type-dynamic-publishing-cve-2026-117687": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-11T08:30:35+00:00"
+      "updated_at": "2026-11-11T08:30:52+00:00",
+      "stage": "container_created",
+      "container_id": "18134710090690068"
     }
   }
 }

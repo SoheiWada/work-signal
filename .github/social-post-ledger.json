@@ -4179,5 +4179,11 @@
       "remote_id": "18018424988959620",
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4028011630097553028"
     }
+  },
+  "20261111-gpustack-saml-auth-bypass-cve-2026-102894": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-11T12:25:42+00:00"
+    }
   }
 }

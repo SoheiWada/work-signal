@@ -3931,7 +3931,9 @@
   "20261111-us-october-real-earnings-flat": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-11T01:06:58+00:00"
+      "updated_at": "2026-11-11T01:07:18+00:00",
+      "stage": "container_created",
+      "container_id": "18134673109690068"
     }
   }
 }

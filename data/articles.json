@@ -1,5 +1,48 @@
 [
   {
+    "id": "20261111-cisco-broadworks-xxe-kev",
+    "title": "Cisco BroadWorksの情報流出脆弱性がCISA KEV入り、修正版RI.2026.07への更新を",
+    "summary": "Cisco BroadWorksのXML解析に関する脆弱性CVE-2026-20320が、米CISAの「悪用が確認された脆弱性」カタログへ11月10日に追加された。認証前の攻撃者が細工したXMLを送信し、システムの機密設定ファイルなどを読み取る恐れがある。Ciscoは修正版RI.2026.07を案内しており、公式な回避策はない。",
+    "category": "SECURITY",
+    "score": 92,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-11T00:21:09.177Z",
+    "source_url": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-bworks-xxe-uwUd7CEt",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Cisco BroadWorksのXML解析に関する脆弱性CVE-2026-20320が、米CISAの「悪用が確認された脆弱性」カタログへ11月10日に追加された。認証前の攻撃者が細工したXMLを送信し、システムの機密設定ファイルなどを読み取る恐れがある。Ciscoは修正版RI.2026.07を案内しており、公式な回避策はない。",
+    "sections": [
+      {
+        "title": "11月10日に何が変わったか",
+        "body": "CISAは2026年11月10日付のKEVカタログにCVE-2026-20320を追加した。脆弱性自体のCisco初報は8月19日であり、新たな発見・新規パッチ公開ではなく「悪用が確認された脆弱性」への登録が今回の更新点だ。Ciscoはこの問題をHIGH、CVSS v3.1で7.5と評価する。Ciscoの初報ではPSIRTは悪用を認識していないと記載していたが、その記述は8月時点のものであり、11月のCISA登録と同一時点の評価ではない。"
+      },
+      {
+        "title": "影響するシステムと攻撃経路",
+        "body": "BroadWorksのOpen Client Interface（OCI）XMLパーサーが外部エンティティ参照を適切に制限せず、認証されていないリモート攻撃者がOCI-Pサービスに細工したXMLを送信すると、BroadWorksユーザーの権限で機密ファイルを読み取る可能性がある。Ciscoが列挙する対象はApplication Delivery Platform、Application Server、Profile Server、Xtended Services Platformの脆弱なリリース。いずれもRI.2026.07より前が該当し、ADPにはOCS・OCIOverSoapに関する注記がある。"
+      },
+      {
+        "title": "管理者が優先すべき対応",
+        "body": "導入中のBroadWorksのコンポーネントとリリースを棚卸しし、Ciscoが最初の修正版とするRI.2026.07以降への更新を計画・適用する。Ciscoは本脆弱性に有効な回避策はないと明記している。更新の可否や互換性は公式勧告とサポート窓口で確認し、更新済みとみなす前に稼働版を検証する。"
+      },
+      {
+        "title": "確認できていないこと",
+        "body": "KEV登録から個別企業の侵害件数、攻撃手法の詳細、被害範囲は確定できない。CISAの登録とCisco初報の悪用状況の文言は確認時点が異なるため、どちらかを無断で書き換えない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Cisco BroadWorksの脆弱性CVE-2026-20320が、11月10日に米CISAのKEVへ登録されました。認証なしで細工したXMLを送ると、機密設定ファイルなどが読み取られる恐れがあります。対象はApplication Serverなど4系統のRI.2026.07より前のリリース。Ciscoは公式評価HIGH（CVSS 7.5）とし、修正版RI.2026.07を公開しています。有効な回避策はないため、通信事業者やシステム管理者は稼働版と更新状況を優先確認してください。\nhttps://signal.amberlight.co.jp/articles/20261111-cisco-broadworks-xxe-kev/\nhttps://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-bworks-xxe-uwUd7CEt",
+    "social_security_severity": "HIGH",
+    "social_security_product": "Cisco BroadWorks Application Delivery Platform、Application Server、Profile Server、Xtended Services PlatformのRI.2026.07より前のリリース（ADPはOCS・OCIOverSoapに関する注記あり）",
+    "social_security_action": "Cisco公式の修正済みBroadWorks RI.2026.07以降へ更新する。公式に有効な回避策はない",
+    "publication_key": "6fa69bdc24a5b1a47fcc6de6fef125b223576a3a1590f838b17c368fad188e5d",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-japan-labor-force-detailed-q3",
     "title": "非正規雇用2136万人、長期失業59万人に増加──総務省7〜9月労働力調査が示す採用の課題",
     "summary": "総務省統計局が11月10日に公表した2026年7〜9月期の労働力調査（詳細集計）によると、正規雇用は3744万人、非正規雇用は2136万人で、いずれも前年同期より増えた。一方、失業期間1年以上の人は59万人と11万人増加した。人手不足を語る際には、雇用者の総数だけでなく、求職期間や希望する働き方の違いを見る必要がある。",

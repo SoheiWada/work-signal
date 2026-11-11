@@ -4129,7 +4129,9 @@
   "20261110-gemini-intelligence-japan-task-automation": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-11T09:08:38+00:00"
+      "updated_at": "2026-11-11T09:08:48+00:00",
+      "stage": "publish_requested",
+      "container_id": "17967982379981259"
     }
   }
 }

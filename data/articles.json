@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261111-aspire-cli-config-disclosure-cve-2026-120792",
+    "title": "Microsoft Aspire CLIの一時ファイルから設定情報漏えい、CVE-2026-120792──13.6.5へ更新",
+    "summary": "Microsoft Aspire CLIに、ローカルの攻撃者が関与するHIGHの脆弱性（CVE-2026-120792）が公表された。非推奨MCP設定スキャナーが共用一時ディレクトリの固定パスに構成情報を含む診断を残し、同一ホストの別ユーザーに機密設定を読まれる可能性がある。修正版は13.6.5。すべての.NETアプリが影響するわけではなく、CLIの版と共有ディレクトリの利用条件を確認する必要がある。",
+    "category": "SECURITY",
+    "score": 86,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-11T13:18:06.134Z",
+    "source_url": "https://github.com/dotnet/announcements/issues/518",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Microsoft Aspire CLIに、ローカルの攻撃者が関与するHIGHの脆弱性（CVE-2026-120792）が公表された。非推奨MCP設定スキャナーが共用一時ディレクトリの固定パスに構成情報を含む診断を残し、同一ホストの別ユーザーに機密設定を読まれる可能性がある。修正版は13.6.5。すべての.NETアプリが影響するわけではなく、CLIの版と共有ディレクトリの利用条件を確認する必要がある。",
+    "sections": [
+      {
+        "title": "影響する構成と攻撃条件",
+        "body": "Microsoftの公式勧告によると、Linux・macOSで複数ユーザーが共有する一時ディレクトリを使い、Aspire CLIのagentまたはMCP初期化コマンドを実行する構成が問題となる。非推奨MCP設定スキャナーが共用一時ディレクトリの固定パスに構成情報を含む診断を残し、同一ホストの別ユーザーに機密設定を読まれる可能性がある。リモートから無条件に攻撃できる問題ではなく、ローカルアクセスや攻撃者によるファイル操作などの条件が必要となる。Microsoftの公式HIGH評価はCVSS v3.1 7.3で、MSRCの文章評価はImportant。実際の悪用確認については公表資料から断定できない。"
+      },
+      {
+        "title": "修正版13.6.5を導入し、CLIの実体を確認",
+        "body": "NuGetのAspire.Cliは13.2.0以上13.6.5未満、OS別NuGetは13.3.0以上13.6.5未満、npmの@microsoft/aspire-cliおよびOS別パッケージは13.4.2以上13.6.5未満が対象。各系列とも13.6.5で修正された。Aspire CLIは.NETランタイムと独立して配布されるため、CLIの実際のインストール版とプラットフォーム依存パッケージを確認して更新する。共有一時領域での開発・ビルド実行構成も併せて点検したい。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Microsoft Aspire CLIにHIGHの脆弱性（CVE-2026-120792）が公表されました。非推奨MCP設定スキャナーが共用一時ディレクトリの固定パスに構成情報を含む診断を残し、同一ホストの別ユーザーに機密設定を読まれる可能性があります。対象はLinux・macOSの共有一時ディレクトリを利用する特定構成です。NuGet版・npm版で影響する開始バージョンが異なりますが、修正版はいずれも13.6.5。通常の.NET SDK更新だけではAspire CLIの更新を保証できません。開発チームはCLI本体とOS別依存パッケージを確認してください。\nhttps://signal.amberlight.co.jp/articles/20261111-aspire-cli-config-disclosure-cve-2026-120792/\nhttps://github.com/dotnet/announcements/issues/518",
+    "social_security_severity": "HIGH",
+    "social_security_product": "Microsoft Aspire CLI（NuGet Aspire.Cli 13.2.0以上13.6.5未満、OS別NuGetパッケージ13.3.0以上13.6.5未満、npm @microsoft/aspire-cliおよびOS別パッケージ13.4.2以上13.6.5未満）",
+    "social_security_action": "Aspire CLI本体とOS別依存パッケージを13.6.5以降へ更新。通常の.NET SDK更新だけでは修正を保証しない。",
+    "publication_key": "8afd180aa58442f6418ec235d62d195ba86842ce90d74e3c636084688edb147b",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-gpustack-saml-auth-bypass-cve-2026-102894",
     "title": "GPUStackのSAMLコールバックで認証回避、管理者アカウント乗っ取りの恐れ──2.2.2で修正",
     "summary": "AIモデル配信基盤を管理するGPUStackに、認証されていないSAML応答を信頼してセッションを発行する重大な脆弱性が公表された。CVE-2026-102894はGitHub ReviewedでCRITICAL。ネットワークから特定のコールバックへ到達できる場合、管理者を含む既存ユーザーになりすます恐れがあり、SAMLを設定していない環境も対象となる。",

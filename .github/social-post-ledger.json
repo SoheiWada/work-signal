@@ -4003,7 +4003,9 @@
   "20261111-sap-november-four-critical-netweaver-gateway": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-11T04:23:04+00:00"
+      "updated_at": "2026-11-11T04:23:13+00:00",
+      "stage": "publish_requested",
+      "container_id": "18613285477067029"
     }
   }
 }

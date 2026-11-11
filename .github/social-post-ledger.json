@@ -3949,7 +3949,9 @@
   "20261111-siemens-simatic-ntlm-relay-cve-2026-58114": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-11T02:29:38+00:00"
+      "updated_at": "2026-11-11T02:29:47+00:00",
+      "stage": "publish_requested",
+      "container_id": "18058384043661525"
     }
   }
 }

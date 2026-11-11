@@ -1,5 +1,44 @@
 [
   {
+    "id": "20261111-movable-type-dynamic-publishing-cve-2026-117687",
+    "title": "Movable Typeの動的公開機能にコード注入、PHP実行の恐れ──8.8.7などへ更新（CVE-2026-117687）",
+    "summary": "シックス・アパートのCMS「Movable Type」のダイナミックパブリッシング機能に、外部から任意のPHPコードを実行される可能性がある脆弱性が公表された。CVE-2026-117687のCVSS v3.0は7.3、v4.0は6.9と評価方式で異なる。11月11日付のJVNによると、8.8系・8.0系とPremium 2系の対象版に修正版が提供されている。",
+    "category": "SECURITY",
+    "score": 90,
+    "published_at": "2026-11-11",
+    "published_at_time": "2026-11-11T08:25:17.268Z",
+    "source_url": "https://jvn.jp/jp/JVN11786640/index.html",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "シックス・アパートのCMS「Movable Type」のダイナミックパブリッシング機能に、外部から任意のPHPコードを実行される可能性がある脆弱性が公表された。CVE-2026-117687のCVSS v3.0は7.3、v4.0は6.9と評価方式で異なる。11月11日付のJVNによると、8.8系・8.0系とPremium 2系の対象版に修正版が提供されている。",
+    "sections": [
+      {
+        "title": "認証不要の細工されたリクエストでPHPコード実行の可能性",
+        "body": "JVNと開発元の調整による公式情報では、ダイナミックパブリッシングが処理するリクエストを細工することで、サーバー上で任意のPHPコードが実行される可能性がある。識別子はCVE-2026-117687、CWE-94。CVSS v3.0は7.3（HIGH相当）、CVSS v4.0は6.9で、数値を同一評価として扱わない。公開時点で実環境での悪用が確認されたという記載はなく、攻撃の発生状況は未確認だ。"
+      },
+      {
+        "title": "対象系列ごとに修正版を確認",
+        "body": "影響するのはMovable Type 8.8.6以前の8.8.x系、8.0.13以前の8.0.x系（Advancedを含む）、Movable Type Premium 2.18以前の2.x系（Advanced Editionを含む）。サポート終了済みのMovable Type 8.4.x系・7.x系も影響を受ける。Movable Type 9は影響しないと明記されている。修正版はそれぞれ8.8.7、8.0.14、Premium 2.19。運用担当者は実際の導入系列とダイナミックパブリッシングの使用有無を確認し、対応する修正版へ更新する必要がある。"
+      },
+      {
+        "title": "開発元が示す追加設定と運用上の留保",
+        "body": "開発元はデザインテンプレート内のPHPコード実行を抑制するため、環境変数 `DynamicTemplateAllowPHP` を `0` に設定することも推奨している。ただし、この設定だけで当該脆弱性を完全に修正できると公式文面が保証しているわけではない。まず修正版適用を優先し、設定変更は既存テンプレートへの影響を検証して行う。サポート終了系列は現行サポート対象への移行計画も必要となる。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "国内CMSのMovable Typeで、細工されたリクエストによりサーバー上でPHPコードを実行される恐れのある脆弱性が11月11日に公表されました。影響するのは8.8系・8.0系とPremium 2系の対象バージョン。修正版は8.8.7、8.0.14、Premium 2.19です。Movable Type 9は対象外と明記されています。運用担当者は利用版と動的公開機能を確認し、更新を優先してください。悪用の実例は公式勧告では確認できません。\nhttps://signal.amberlight.co.jp/articles/20261111-movable-type-dynamic-publishing-cve-2026-117687/\nhttps://jvn.jp/jp/JVN11786640/index.html",
+    "social_security_severity": "HIGH",
+    "social_security_product": "Movable Type 8.8.xの8.8.6以前、8.0.xの8.0.13以前（各Advancedを含む）、Movable Type Premium 2.xの2.18以前（Advanced Editionを含む）。サポート終了の8.4.x・7.xも影響。Movable Type 9は対象外",
+    "social_security_action": "Movable Type 8.8.7／8.0.14、Movable Type Premium 2.19へ系列に応じて更新。DynamicTemplateAllowPHP=0の設定も開発元が推奨",
+    "publication_key": "9ca64727b32c1fff9eb50d3d54ce677fa1f1fe8993e07359387a913808d842df",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-openai-education-ai-guidance-gap",
     "title": "OpenAI調査、欧州の生徒79％が宿題にAI利用──指導経験は47％、学校の「使い方教育」に課題",
     "summary": "OpenAIは11月10日、欧州・中東・アフリカ（EMEA）の教育現場に関する報告書を公開した。引用されたThinkYoungの調査では、欧州10カ国の13～19歳の生徒5,000人のうち79％が宿題や課題でAIを利用した一方、そうした用途での使い方を教わったと答えたのは47％だった。AIの導入だけでなく、使い方を指導し、学習効果を測る体制が問われている。",

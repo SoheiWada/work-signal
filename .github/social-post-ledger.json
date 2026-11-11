@@ -4161,5 +4161,11 @@
       "remote_id": "18095447717680575",
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4027973406675397692"
     }
+  },
+  "20261111-mongoose-countdocuments-sanitizefilter-cve-2026-125120": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-11T11:26:43+00:00"
+    }
   }
 }

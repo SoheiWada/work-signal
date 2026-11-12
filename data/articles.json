@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261112-openai-caregiver-ai-skills-jam",
+    "title": "介護の予定整理や情報検索をAIで支援──OpenAI、米5都市で実践講座",
+    "summary": "OpenAIは11月10日、米国5都市で介護者向けの無料AI実践講座を行うと発表しました。予定整理や情報探しを支援する内容で、医療判断をAIに任せる取り組みではありません。",
+    "category": "AI",
+    "score": 82,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T06:18:42.516Z",
+    "source_url": "https://openai.com/index/helping-caregivers-use-ai-in-everyday-life/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは11月10日、米国5都市で介護者向けの無料AI実践講座を行うと発表しました。予定整理や情報探しを支援する内容で、医療判断をAIに任せる取り組みではありません。",
+    "sections": [
+      {
+        "title": "米国5都市で介護者向けの実践講座",
+        "body": "OpenAI Academyは介護支援団体などと協力し、オークランド、タンパ、ピッツバーグ、アトランタ、デトロイトで対面講座を案内しました。発表で示す開催日は11月10日です。技術やプログラミングの経験は不要としています。"
+      },
+      {
+        "title": "仕事と介護の両立に生かせる着眼点",
+        "body": "講座では予定表や確認リストの整理、信頼できる資料の平易な説明、地域の支援先探しなどを扱います。WORK SIGNALの見方として、職場でもこうした周辺作業を支える使い方は検討できます。ただし、この発表は負担軽減の効果を実証した研究ではありません。"
+      },
+      {
+        "title": "個人情報と判断の境界を確認する",
+        "body": "公式発表は個人情報の保護とAIの限界も学習内容に含めています。医療などの専門家への相談を補助する位置づけです。今回の開催地域は米国で、日本向けの受講案内は記載されていません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "介護の予定整理や支援先探しを、AIで手伝う。\nOpenAIが米5都市で介護者向けの実践講座を案内しました。仕事と介護の両立を考えるヒントになる事例です。医療判断を任せるものではなく、個人情報の保護も学習内容に含まれます。\nhttps://signal.amberlight.co.jp/articles/20261112-openai-caregiver-ai-skills-jam/\nhttps://openai.com/index/helping-caregivers-use-ai-in-everyday-life/",
+    "publication_key": "5393776ed7c59163929615beaf59b14b4e2ced68a8fdf9b46479ed8097d89ccb",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261105-undici-intermediate-redirect-cache-poisoning",
     "title": "undiciの共有キャッシュで利用者間の情報漏えい・汚染、7.30.2／8.12.4で修正（CVE-2026-116592）",
     "summary": "Node.js向けHTTPクライアント「undici」に、共有キャッシュを経由して別の利用者の応答が漏えいしたり、キャッシュが汚染されたりする脆弱性が公表された。開発元はHIGH（CVSS 7.4）と評価し、7.30.2および8.12.4で修正。影響するのは特定のリダイレクト・キャッシュ構成に限られる。",

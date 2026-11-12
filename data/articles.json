@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261110-new-york-raise-act-portal-nycairr",
+    "title": "NY州、AI安全法の登録ポータルを開設──大規模開発者は2027年1月1日までに登録",
+    "summary": "ニューヨーク州知事室は2026年11月10日、RAISE法に基づく登録ポータルを案内しました。大規模フロンティアAI開発者の登録期限は2027年1月1日です。AI安全性を独立に評価する研究センターの取り組みも発表しています。",
+    "category": "AI",
+    "score": 88,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T12:24:22.745Z",
+    "source_url": "https://www.governor.ny.gov/news/governor-hochul-declares-ny-will-lead-nation-ai-science-and-safety-launches-new-research",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "ニューヨーク州知事室は2026年11月10日、RAISE法に基づく登録ポータルを案内しました。大規模フロンティアAI開発者の登録期限は2027年1月1日です。AI安全性を独立に評価する研究センターの取り組みも発表しています。",
+    "sections": [
+      {
+        "title": "登録と安全性・透明性の義務",
+        "body": "州はDIGITの新ポータルを通じた大規模開発者の登録を求めています。1月からの安全フレームワーク公表や、重大な安全事故の報告、モデル透明性報告にも言及しています。利用企業一般のすべてが一律に登録対象になるとの発表ではありません。"
+      },
+      {
+        "title": "研究センターと規制執行を区別する",
+        "body": "NYCAIRRはSUNYビンガムトン大学を拠点に、80人超の研究者が参加する構想です。先端AIの独立テストや安全性研究を進め、DIGITへ知見を提供します。研究センター自体を法執行の規制当局と同一視しないようにします。"
+      },
+      {
+        "title": "事業者が確認する範囲",
+        "body": "WORK SIGNALの見方として、ニューヨーク州で先端AIを開発・提供する場合は、対象の定義と自社の立場を公式要件で確認する必要があります。本稿は知事室の発表の要約で、個別企業の該当性や法的な結論を判定したものではありません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "NY州がRAISE法の登録ポータルを案内。大規模フロンティアAI開発者の登録期限は2027年1月1日です。\n安全フレームワークの公表や事故報告などの要件も示されています。AIを使う企業すべてが一律に登録対象という意味ではなく、対象の定義と自社の立場の確認が必要です。\nhttps://signal.amberlight.co.jp/articles/20261110-new-york-raise-act-portal-nycairr/\nhttps://www.governor.ny.gov/news/governor-hochul-declares-ny-will-lead-nation-ai-science-and-safety-launches-new-research",
+    "publication_key": "43521064456606ea0e2070a3277fdb2141bb0332d25c6c27b1d6497f4e33e930",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-chatgpt-advanced-standard-voice-retirement",
     "title": "ChatGPTの旧音声モード、12月11日に終了──GPT-Liveへ自動移行、動画・画面共有は例外",
     "summary": "OpenAIの公式ヘルプは、ChatGPTのAdvanced VoiceとStandard Voiceを2026年12月11日に終了すると案内しています。旧モードを選んでいる利用者はGPT-Liveへ自動移行します。動画と画面共有には例外があります。",

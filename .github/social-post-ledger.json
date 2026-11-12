@@ -4902,10 +4902,12 @@
   },
   "20261112-openai-child-safety-research-funding": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T13:12:15+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T13:12:22+00:00",
       "stage": "publish_requested",
-      "container_id": "18106560284528815"
+      "container_id": "18106560284528815",
+      "remote_id": "18106560284528815",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfpIn-5m0UZ"
     }
   }
 }

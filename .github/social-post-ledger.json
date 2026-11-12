@@ -4542,10 +4542,12 @@
   },
   "20261112-openai-caregiver-ai-skills-jam": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T06:27:00+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T06:27:02+00:00",
       "stage": "publish_requested",
-      "container_id": "18155584855468368"
+      "container_id": "18155584855468368",
+      "remote_id": "18155584855468368",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfoaPwlG32D"
     }
   }
 }

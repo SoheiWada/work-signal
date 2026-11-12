@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261110-boe-lombardelli-low-gear-labour-market",
+    "title": "英中銀副総裁、労働市場の採用減を指摘──失業率だけでは見えない若者の就職難",
+    "summary": "英中銀のロンバルデリ副総裁は2026年11月10日、英国の労働市場の冷え込みについて、解雇の急増よりも採用の弱さが重要だと説明しました。若者の就職や転職のしやすさを含め、雇用の動きを見る必要性を示しています。",
+    "category": "経済",
+    "score": 90,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T12:50:21.662Z",
+    "source_url": "https://www.bankofengland.co.uk/speech/2026/november/clare-lombardelli-speech-at-the-bank-watchers-conference",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "英中銀のロンバルデリ副総裁は2026年11月10日、英国の労働市場の冷え込みについて、解雇の急増よりも採用の弱さが重要だと説明しました。若者の就職や転職のしやすさを含め、雇用の動きを見る必要性を示しています。",
+    "sections": [
+      {
+        "title": "採用が少ない状態で起きること",
+        "body": "講演で示す失業率は2026年8月までの3か月で4.7％です。副総裁は、雇用の調整が主に採用の減少を通じて進むと説明しています。仕事を持つ人の離職が少なくても、これから入職する人に機会が十分あるとは限りません。"
+      },
+      {
+        "title": "労働移動と生産性を関連づける",
+        "body": "職場を移る動きの鈍化は、人と仕事の組み合わせや、新しい技術への適応にも関わります。講演は、AIが仕事を変える中で労働者が新しい機会へ移れるかという、雇用の総数とは異なる論点を示しています。"
+      },
+      {
+        "title": "採用計画への読み替えには限界もある",
+        "body": "WORK SIGNALの見方として、失業率だけで採用の難易度を決めず、求人、入職、離職、若年層の状況を併せて見ることが必要です。これは英国の講演の整理であり、日本企業の状況や将来の政策金利を直接予測するものではありません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "雇用が安定して見えても、新たに仕事を探す人の機会は十分でしょうか。英中銀副総裁は、解雇増より採用減で進む労働市場の冷え込みを指摘。失業率に加え、入職・離職や若年層の状況を見る視点を整理しました。\nhttps://signal.amberlight.co.jp/articles/20261110-boe-lombardelli-low-gear-labour-market/\nhttps://www.bankofengland.co.uk/speech/2026/november/clare-lombardelli-speech-at-the-bank-watchers-conference",
+    "publication_key": "46ba8755934c7d97dee3a800e168a17889d4b20bdc63c0d14c76a4729ad1aeba",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-google-workspace-gemini-skills",
     "title": "Google WorkspaceにGemini skills──定型作業を共有、英語限定や権限の条件も",
     "summary": "Googleは2026年11月10日、Google Workspaceで定型作業を共有・再利用するGemini skillsを案内しました。Workspace StudioやDocsで作成でき、Gmailなどで呼び出せますが、利用できるアプリや言語には条件があります。",

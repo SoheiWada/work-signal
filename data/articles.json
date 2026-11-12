@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261110-fed-bowman-inflation-still-work-to-do",
+    "title": "FRBボウマン副議長、10月コアPCEを3.3％と推計──正式な公表値とは区別",
+    "summary": "FRBのボウマン副議長は2026年11月10日の講演で、10月のコアPCE物価上昇率が前年比3.3％へ上がった可能性が高いとの見方を示しました。当日公表のCPIに基づく推計であり、PCEの正式な公表値ではありません。",
+    "category": "経済",
+    "score": 86,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T12:50:56.955Z",
+    "source_url": "https://www.federalreserve.gov/newsevents/speech/bowman20261110a.htm",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "FRBのボウマン副議長は2026年11月10日の講演で、10月のコアPCE物価上昇率が前年比3.3％へ上がった可能性が高いとの見方を示しました。当日公表のCPIに基づく推計であり、PCEの正式な公表値ではありません。",
+    "sections": [
+      {
+        "title": "推計の対象と根拠を分ける",
+        "body": "コアPCEは食品とエネルギーを除く個人消費支出の物価指数です。ボウマン氏は当日のCPIを踏まえ、10月の前年比を3.3％と見込んでいます。CPIとPCEは別の統計で、講演中の推計をPCEの確定値として引用することはできません。"
+      },
+      {
+        "title": "政策の変更は追加情報を見て判断",
+        "body": "同氏は10月会合で政策金利の誘導目標を3.75〜4％に据え置く判断を支持したと説明しました。インフレ抑制を優先しながら、経済状況と金利変更の影響をさらに確認する姿勢を示しています。これを次回会合の決定や利上げを行わない約束と解釈することはできません。"
+      },
+      {
+        "title": "見通しと実績を同じ欄に置かない",
+        "body": "WORK SIGNALの見方として、物価の数字を事業計画へ使う際は、対象月、指数の種類、実績か推計かを併記することが重要です。本稿は講演時点の見方を整理しており、後日公表のPCEや為替・金利を予測するものではありません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "ボウマンFRB副議長の「10月コアPCE3.3％」は、CPIを踏まえた講演時点の推計です。PCEの正式な公表値とは区別が必要。対象月・指数・実績か見通しかを分け、政策への見方も整理しました。\nhttps://signal.amberlight.co.jp/articles/20261110-fed-bowman-inflation-still-work-to-do/\nhttps://www.federalreserve.gov/newsevents/speech/bowman20261110a.htm",
+    "publication_key": "9574153eb5814cd797c5d6e1b2135b90e77586db558c9359a3e56da02be18bc3",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-boe-lombardelli-low-gear-labour-market",
     "title": "英中銀副総裁、労働市場の採用減を指摘──失業率だけでは見えない若者の就職難",
     "summary": "英中銀のロンバルデリ副総裁は2026年11月10日、英国の労働市場の冷え込みについて、解雇の急増よりも採用の弱さが重要だと説明しました。若者の就職や転職のしやすさを含め、雇用の動きを見る必要性を示しています。",

@@ -4885,7 +4885,9 @@
   "20261109-openai-control-room-research-kill-switch": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T13:00:43+00:00"
+      "updated_at": "2026-11-12T13:00:50+00:00",
+      "stage": "publish_requested",
+      "container_id": "18139414123653808"
     }
   }
 }

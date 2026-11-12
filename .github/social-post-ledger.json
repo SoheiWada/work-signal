@@ -4597,7 +4597,9 @@
   "20261112-holiday-extras-codex-app-rebuild": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T12:12:38+00:00"
+      "updated_at": "2026-11-12T12:12:45+00:00",
+      "stage": "publish_requested",
+      "container_id": "18138748780709903"
     }
   }
 }

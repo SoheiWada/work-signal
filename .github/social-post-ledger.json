@@ -4917,5 +4917,11 @@
       "remote_id": "18021844070947838",
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4028789557357677886"
     }
+  },
+  "20261112-softbank-air-terminal6-command-injection-cve-2026-101107": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-12T13:26:46+00:00"
+    }
   }
 }

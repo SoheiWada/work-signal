@@ -4614,10 +4614,12 @@
   },
   "20261112-anthropic-usage-policy-effective": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T12:32:23+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T12:32:27+00:00",
       "stage": "publish_requested",
-      "container_id": "18087070829512126"
+      "container_id": "18087070829512126",
+      "remote_id": "18087070829512126",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfpED9dmwcQ"
     }
   }
 }

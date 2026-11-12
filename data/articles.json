@@ -1,5 +1,44 @@
 [
   {
+    "id": "20261112-rails-activestorage-cve-2026-126186",
+    "title": "Rails Active Storageにファイル読取・コード実行の恐れ──アップロード処理の条件を確認",
+    "summary": "Rails開発元は、Active Storageでアップロードファイルを処理する際の脆弱性CVE-2026-126186を公表しています。公式評価はHIGH、CVSS v3.1は8.8。11月10日に更新された勧告を基に、対象と対策を整理します。",
+    "category": "SECURITY",
+    "score": 89,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T06:19:26.315Z",
+    "source_url": "https://github.com/rails/rails/security/advisories/GHSA-v924-7rp8-4mxh",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Rails開発元は、Active Storageでアップロードファイルを処理する際の脆弱性CVE-2026-126186を公表しています。公式評価はHIGH、CVSS v3.1は8.8。11月10日に更新された勧告を基に、対象と対策を整理します。",
+    "sections": [
+      {
+        "title": "アップロードを解析する環境が対象",
+        "body": "攻撃者が選んだ拡張子により、FFmpegやImageMagickが意図しない処理を選ぶ恐れがあります。信頼できない利用者からアップロードを受け入れ、動画・音声の解析、動画プレビュー、またはImageMagickでの画像処理を行う構成を確認してください。"
+      },
+      {
+        "title": "修正済みの系列へ更新する",
+        "body": "対象はactivestorage 8.0.5.2未満、または8.1以上8.1.4.1未満です。対応する系列の8.0.5.2または8.1.4.1へ更新します。アップロード受付の有無だけでなく、裏で動く解析・プレビュー処理も確認する必要があります。"
+      },
+      {
+        "title": "AviSynthの追加条件と漏えい後の対応",
+        "body": "AviSynth経由の攻撃には、対応ビルドのFFmpegとAviSynthPlus実行環境も必要です。AviSynthを無効にするだけではImageMagick側の問題を網羅できません。勧告はこの追加条件を満たす環境について、更新に加えて読み取り可能だった秘密情報の変更を求めています。すべてのRails環境でコード実行が成立するとの意味ではなく、実際の悪用状況は勧告から断定できません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "【SECURITY WATCH】Rails Active StorageにHIGHの脆弱性（CVE-2026-126186、CVSS 8.8）。\n信頼できないアップロードの動画・音声解析や画像処理を使う環境は、activestorage 8.0.5.2／8.1.4.1への更新を確認してください。コード実行には構成上の条件があります。\nhttps://signal.amberlight.co.jp/articles/20261112-rails-activestorage-cve-2026-126186/\nhttps://github.com/rails/rails/security/advisories/GHSA-v924-7rp8-4mxh",
+    "social_security_severity": "HIGH",
+    "social_security_product": "Rails Active Storage（activestorage）",
+    "social_security_action": "対応する系列のactivestorage 8.0.5.2または8.1.4.1へ更新し、アップロード解析の構成と秘密情報の扱いを確認する",
+    "publication_key": "8a0085e4c3b9e0ceec4d6604387e43f342586b2316f8c3fccc62cf5067bad14d",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-openai-caregiver-ai-skills-jam",
     "title": "介護の予定整理や情報検索をAIで支援──OpenAI、米5都市で実践講座",
     "summary": "OpenAIは11月10日、米国5都市で介護者向けの無料AI実践講座を行うと発表しました。予定整理や情報探しを支援する内容で、医療判断をAIに任せる取り組みではありません。",

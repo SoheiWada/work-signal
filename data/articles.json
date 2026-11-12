@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261113-aspire-dashboard-auth-bypass-cve-2026-118740",
+    "title": "Aspire Dashboardに認証回避の重大脆弱性、13.6.5への更新を推奨",
+    "summary": "MicrosoftはAspire Dashboardの認証制御不備（CVE-2026-118740）をCRITICAL、CVSS v3.1で9.1と評価した。認証なしでテレメトリが削除される可能性があり、単独運用の一部構成ではブラウザトークンの露出も起こり得る。影響するDashboardは13.6.5未満で、修正版への更新と実際に稼働するバージョンの確認が必要だ。",
+    "category": "SECURITY",
+    "score": 86,
+    "published_at": "2026-11-13",
+    "published_at_time": "2026-11-12T19:21:27.579Z",
+    "source_url": "https://github.com/microsoft/aspire/security/advisories/GHSA-4g86-54fm-h9h8",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "MicrosoftはAspire Dashboardの認証制御不備（CVE-2026-118740）をCRITICAL、CVSS v3.1で9.1と評価した。認証なしでテレメトリが削除される可能性があり、単独運用の一部構成ではブラウザトークンの露出も起こり得る。影響するDashboardは13.6.5未満で、修正版への更新と実際に稼働するバージョンの確認が必要だ。",
+    "sections": [
+      {
+        "title": "認証不要の経路が削除操作を許す",
+        "body": "Microsoftの開発元勧告によると、Aspire Dashboardの認証不要のNotFoundルートに不備があり、単独配置とAppHostから起動した配置の双方でテレメトリ削除が可能になる。単独配置でブラウザトークン認証を使用する場合は、そのトークンが露出する可能性もある。公式識別子はCVE-2026-118740、GHSA-4g86-54fm-h9h8。CVSS v3.1は9.1（CRITICAL）で、認証なし・利用者操作なしの条件を含む。悪用が実際に確認されたとの公式記述は今回の原典では確認できず、悪用済みと断定しない。"
+      },
+      {
+        "title": "修正版は13.6.5、アプリ更新だけでは不十分な場合も",
+        "body": "MicrosoftはAspire DashboardとDashboard SDKの13.6.5未満を影響範囲として示し、13.6.5以上への更新を案内している。13.6.3と13.6.4は修正版ではない。コンテナでは `mcr.microsoft.com/aspire/dashboard:13.6.5` を明示し、マニフェストを含めて再デプロイする。AppHost経由なら、明示・暗黙のSDK参照を更新し、依存パッケージを復元・再ビルドしたうえで稼働中のDashboardを確認する。CLI同梱版やカスタムパスのDashboardを使う場合、その実体も個別に更新する必要がある。.NETランタイムやSDKだけを更新してもDashboardが置き換わるとは限らない。"
+      },
+      {
+        "title": "運用担当者の確認点",
+        "body": "単独Dashboard、AppHost、コンテナのいずれで動かしているかを特定し、配備済みのDashboard本体・イメージタグ・解決済みDashboard SDKのバージョンを点検する。対象なら13.6.5以上へ更新し、再起動・再配備後に実行版を再確認する。これは同じ製品群の別CVEとは異なる認証制御不備であり、脆弱性ID単位で対応を管理したい。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Aspire DashboardおよびAspire.Dashboard.Sdk各プラットフォーム版 13.6.5未満（公式の影響範囲）",
+    "social_security_action": "Aspire Dashboardを13.6.5以上に更新。コンテナは13.6.5イメージを指定して再デプロイし、AppHostは解決済みDashboard SDK版と実行中のDashboardを確認",
+    "publication_key": "36aceb6b756c6f51c426b2eeeb57dc1faaf66d8e6239accfb7d2473f0efc7e57",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-softbank-air-terminal6-command-injection-cve-2026-101107",
     "title": "SoftBank Airターミナル6にOSコマンド注入の脆弱性、修正ファームウェアは自動配信",
     "summary": "ソフトバンクのAirターミナル6で、管理画面にログインできる利用者がroot権限で任意のコマンドを実行できる脆弱性が公表されました。影響するのはファームウェアv1.01.80以前。修正版はすでに自動配信され、通常は利用者による更新操作は不要と案内されています。",

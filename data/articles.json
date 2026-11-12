@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261110-chatgpt-advanced-standard-voice-retirement",
+    "title": "ChatGPTの旧音声モード、12月11日に終了──GPT-Liveへ自動移行、動画・画面共有は例外",
+    "summary": "OpenAIの公式ヘルプは、ChatGPTのAdvanced VoiceとStandard Voiceを2026年12月11日に終了すると案内しています。旧モードを選んでいる利用者はGPT-Liveへ自動移行します。動画と画面共有には例外があります。",
+    "category": "AI",
+    "score": 89,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T12:24:12.285Z",
+    "source_url": "https://help.openai.com/en/articles/20001638-retiring-advanced-and-standard-voice-in-chatgpt",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIの公式ヘルプは、ChatGPTのAdvanced VoiceとStandard Voiceを2026年12月11日に終了すると案内しています。旧モードを選んでいる利用者はGPT-Liveへ自動移行します。動画と画面共有には例外があります。",
+    "sections": [
+      {
+        "title": "通知日と切り替え日",
+        "body": "公式スケジュールでは利用者への通知が11月10日、終了が12月11日です。終了後は設定の音声モデル選択から旧モードが外れ、利用者はGPT-Liveへ切り替わります。通知日とヘルプページ自体の初回公開日は区別しています。"
+      },
+      {
+        "title": "動画と画面共有は当面継続",
+        "body": "ライブ動画と画面共有は、GPT-Liveが対応するまでAdvanced Voiceで継続します。カスタムGPTの音声も12月11日の終了まではAdvanced Voiceを使います。例外の機能がすべて同日に終了すると解釈することはできません。"
+      },
+      {
+        "title": "既存の会話と利用準備",
+        "body": "過去の会話は履歴に残り、テキストやGPT-Liveの音声で続けられます。WORK SIGNALの見方として、仕事で音声を使う場合は、現在の設定と重要な用途の挙動を切り替え前に確認しておくとよいでしょう。利用プラン別の上限や対応時期を、この案内だけから追加で推測していません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "ChatGPTのAdvanced Voice・Standard Voiceは2026年12月11日に終了し、GPT-Liveへ自動移行する案内です。\n動画と画面共有は、GPT-Liveが対応するまでAdvanced Voiceで継続。過去の会話も履歴に残ります。仕事で使う方は、設定と普段の用途の挙動を事前に確認しておくと安心です。\nhttps://signal.amberlight.co.jp/articles/20261110-chatgpt-advanced-standard-voice-retirement/\nhttps://help.openai.com/en/articles/20001638-retiring-advanced-and-standard-voice-in-chatgpt",
+    "publication_key": "c8d411b644a29a6eafd71f23165f3c44fd4c971d048ed794e300da8df85c8632",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-google-gemini-decisions-api-decision-1",
     "title": "Google「Gemini Decisions API」発表──最大1,000問の判定、入力100万トークン0.10ドル",
     "summary": "Googleは2026年11月11日、Gemini Decisions APIを発表しました。選択肢を評価するモデルGemini Decision 1で、文章を生成せず、最大1,000問をまとめて判定します。問い合わせの振り分けやツール選択などが想定用途です。",

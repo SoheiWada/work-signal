@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261104-meta-conductor-cloud-shutdown",
+    "title": "MetaがConductorを買収、Cloudは13日に読み取り専用・20日に終了──終了前に書き出しを",
+    "summary": "AIコーディングエージェントを並行して動かす「Conductor」がMetaに加わる。開発元の公式発表では、Conductor Cloudは11月13日に読み取り専用となり、11月20日に終了してCloud利用者データの削除が始まる。13日以降も閲覧と書き出しは可能であり、書き出しは20日の終了前に済ませる必要がある。",
+    "category": "AI",
+    "score": 88,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T02:04:20.602Z",
+    "source_url": "https://conductor.build/announcement",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "AIコーディングエージェントを並行して動かす「Conductor」がMetaに加わる。開発元の公式発表では、Conductor Cloudは11月13日に読み取り専用となり、11月20日に終了してCloud利用者データの削除が始まる。13日以降も閲覧と書き出しは可能であり、書き出しは20日の終了前に済ませる必要がある。",
+    "sections": [
+      {
+        "title": "13日の読み取り専用化と20日の終了は別の期限",
+        "body": "公式日程表によると、11月4日に新規登録とアプリのダウンロードを停止。既存の無料利用者はProへアップグレードできなくなる一方、Pro利用者は有料機能を無料で使い続けられる。11月13日にはCloudのワークスペースが読み取り専用となり、新しいメッセージは送れなくなる。ただし、過去のチャットの閲覧とデータの書き出しは引き続き可能だ。有効な購読者には返金するとしている。\n11月20日にはCloudが終了し、Cloud利用者データの削除が始まる。公式発表はこの日より前の書き出しを求めている。13日を過ぎたら書き出せないという意味ではないが、終了直前に移行作業が集中しないよう、早めの準備が必要だ。"
+      },
+      {
+        "title": "書き出しとローカル移行の操作",
+        "body": "公式FAQは、全データのアーカイブを取得する方法として「Settings → Account → Export data」を案内している。CloudのワークスペースとチャットをMacへ移すには、対象のワークスペースを右クリックして「Transfer to local」を選ぶ。これは単に新しいメッセージの送信を終えることとは別の作業である。チームで履歴を保管している場合は、必要なデータが取得できたか、利用する端末で参照できるかまで確認したい。"
+      },
+      {
+        "title": "ローカル版の扱いと留保",
+        "body": "ローカル版は当面通常どおり利用でき、新しいモデルへの対応と重大な不具合修正は2027年初めまで続けるとしている。Cloudの11月20日の終了を、同日にローカル版も利用できなくなるという意味で捉えてはいけない。後継となる新しいインターフェースは来年初めの提供を目指すとしているが、現行機能が引き継がれるかは明らかでない。\n終了日程の時刻・タイムゾーンは公式発表に記載されていない。日本時間の特定の時刻まで利用できるとは断定せず、20日より前に必要なデータの移行を済ませるのが実務上の対応になる。買収金額や詳細な条件は本記事では確認できていない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ],
+    "social_threads_text": "Conductor Cloudを使っている方は、記録の書き出しと移行の確認を。Metaへの合流に伴い、11月13日に読み取り専用、20日に終了してCloudデータの削除が始まります。13日以降も閲覧と書き出しは可能ですが、新しいメッセージは送れません。公式案内は20日より前の書き出しを求めています。全データはSettings → Account → Export dataから取得できます。時刻・タイムゾーンは未公表です。\nhttps://signal.amberlight.co.jp/articles/20261104-meta-conductor-cloud-shutdown/\nhttps://conductor.build/announcement",
+    "publication_key": "eed876fd2026f2882186055cd0e24ba6a0ab57fa2bc5cfcf42f42a0427eeb111",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261111-react-server-components-rce-cve-2026-126187",
     "title": "React Server Componentsに認証不要のRCE、CVE-2026-126187──19.0.9などへ更新",
     "summary": "React Server Components（RSC）を利用する一部のサーバーアプリに、認証なしでリモートコード実行につながる重大な脆弱性が公表された。CVE-2026-126187はGitHub ReviewedでCRITICAL、CVSS v4.0 9.5。特定の型付き配列を含む応答など非常に限定された条件で成立する問題で、Reactを使う全サイトが影響を受けるわけではない。",

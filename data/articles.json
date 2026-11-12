@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261110-google-workspace-gemini-skills",
+    "title": "Google WorkspaceにGemini skills──定型作業を共有、英語限定や権限の条件も",
+    "summary": "Googleは2026年11月10日、Google Workspaceで定型作業を共有・再利用するGemini skillsを案内しました。Workspace StudioやDocsで作成でき、Gmailなどで呼び出せますが、利用できるアプリや言語には条件があります。",
+    "category": "AI",
+    "score": 86,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T12:50:10.564Z",
+    "source_url": "https://workspaceupdates.googleblog.com/2026/11/skills-in-workspace.html",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Googleは2026年11月10日、Google Workspaceで定型作業を共有・再利用するGemini skillsを案内しました。Workspace StudioやDocsで作成でき、Gmailなどで呼び出せますが、利用できるアプリや言語には条件があります。",
+    "sections": [
+      {
+        "title": "作った手順を複数のアプリで使う",
+        "body": "スキルはWorkspace StudioとGoogle Docsで作成・テスト・共有できます。ウェブ版のStudio、Gmail、Docs、Slides、Drive、Chatと、Android・iOSのChatで呼び出せます。現時点ではSheetsとMeetには対応せず、プロンプトと指示は英語のみです。"
+      },
+      {
+        "title": "共有スキルとファイルの権限は別",
+        "body": "共有されたスキルは独立したコピーとして使われます。スキルの共有だけで、参照するDriveファイルへのアクセス権限が付くわけではありません。また、Workspaceで作るスキルはGeminiアプリのスキルやGemsと自動同期しません。"
+      },
+      {
+        "title": "展開日と管理者設定を確認する",
+        "body": "Rapid Releaseは11月9日、Scheduled Releaseは11月30日から段階的に展開し、表示まで最大15日を見込んでいます。対象エディションでは既定で有効ですが、管理者が無効にできます。WORK SIGNALの見方として、手順の共有とデータへのアクセスを別々に点検することが、導入時の誤解を減らします。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Gemini skillsで、チームの定型作業をWorkspace内で共有・再利用。現時点では英語のみで、SheetsとMeetには未対応です。スキルの共有とDriveファイルの閲覧権限は別。展開日と管理者設定も確認が必要です。\nhttps://signal.amberlight.co.jp/articles/20261110-google-workspace-gemini-skills/\nhttps://workspaceupdates.googleblog.com/2026/11/skills-in-workspace.html",
+    "publication_key": "763b4df753efe067de64c6f809e088cd78504b2771b16b7f6dfd94b9eb9994ed",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-fed-waller-december-rate-hike-signal",
     "title": "FRBウォラー理事、12月の25bp利上げを支持する方向──50bp検討には物価条件",
     "summary": "FRBのウォラー理事は2026年11月10日の講演で、12月会合では25ベーシスポイント（0.25％ポイント）の利上げを支持する方向だと述べました。50bpの検討にも言及していますが、講演時点で未公表だった10月CPIの結果を条件とする個人の見解です。",

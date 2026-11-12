@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261109-meta-instagram-ai-age-estimation-global",
+    "title": "Meta、InstagramのAI年齢推定を世界展開──成人用の誕生日でもTeen Accountへ",
+    "summary": "Metaは2026年11月9日、InstagramでAIによる年齢推定を世界へ広げると発表しました。成人用の誕生日を登録していても、10代と推定した利用者をTeen Accountの保護へ配置する取り組みです。",
+    "category": "AI",
+    "score": 93,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T12:32:18.673Z",
+    "source_url": "https://about.fb.com/news/2026/11/expanding-teen-account-protections-to-teens-around-the-world/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Metaは2026年11月9日、InstagramでAIによる年齢推定を世界へ広げると発表しました。成人用の誕生日を登録していても、10代と推定した利用者をTeen Accountの保護へ配置する取り組みです。",
+    "sections": [
+      {
+        "title": "自己申告だけに頼らない保護",
+        "body": "Teen Accountは連絡できる相手、表示される内容、利用時間などに制限を設けます。Metaは、年齢を偽って登録した場合も保護に含めると説明しています。個別の利用者を完全に正しく判定できると保証するものではありません。"
+      },
+      {
+        "title": "FacebookとThreadsの時期を区別",
+        "body": "Facebookでは展開を続けており、Threadsでは2026年内に同様の技術を世界へ導入する予定です。Instagramへの拡大を、すべてのアプリで導入済みという意味に広げないことが必要です。"
+      },
+      {
+        "title": "運用への影響と限界",
+        "body": "WORK SIGNALの見方として、若年層向けの情報発信やサービス運営では、年齢に応じた連絡・表示の条件を確認する必要があります。発表は具体的な精度や誤判定率を示していないため、AIによる推定と年齢の確定を同一視できません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "InstagramのAI年齢推定が世界へ拡大。Metaは、成人用の誕生日で登録していても、10代と推定した利用者をTeen Accountの保護へ配置すると説明しています。\nFacebookでは展開継続、Threadsは年内導入の予定。アプリごとの時期を分けて見る必要があり、推定精度の具体値は発表されていません。\nhttps://signal.amberlight.co.jp/articles/20261109-meta-instagram-ai-age-estimation-global/\nhttps://about.fb.com/news/2026/11/expanding-teen-account-protections-to-teens-around-the-world/",
+    "publication_key": "877881afb959f7f853cdb7b64cd8a594a9e692a90512fa35859e025ef76606ab",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-anthropic-usage-policy-effective",
     "title": "Anthropicの改定利用ポリシー、11月12日施行──対応地域や高リスク用途の条件を明確化",
     "summary": "Anthropicは2026年10月8日に公表した改定利用ポリシーを、11月12日から適用すると案内しています。対応地域、高リスク用途、欺瞞的な活動などの条件を明確にしたもので、既存の要件を説明し直した項目もあります。",

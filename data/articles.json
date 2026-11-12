@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261112-anthropic-usage-policy-effective",
+    "title": "Anthropicの改定利用ポリシー、11月12日施行──対応地域や高リスク用途の条件を明確化",
+    "summary": "Anthropicは2026年10月8日に公表した改定利用ポリシーを、11月12日から適用すると案内しています。対応地域、高リスク用途、欺瞞的な活動などの条件を明確にしたもので、既存の要件を説明し直した項目もあります。",
+    "category": "AI",
+    "score": 88,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T12:25:16.554Z",
+    "source_url": "https://www.anthropic.com/news/2026-usage-policy-update",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Anthropicは2026年10月8日に公表した改定利用ポリシーを、11月12日から適用すると案内しています。対応地域、高リスク用途、欺瞞的な活動などの条件を明確にしたもので、既存の要件を説明し直した項目もあります。",
+    "sections": [
+      {
+        "title": "施行日と新設・明確化を分ける",
+        "body": "発表は10月8日、適用開始は11月12日です。偽アカウント等による欺瞞的活動をまとめた項目を設ける一方、武器や監視などでは従来の運用を明確にする説明があります。記載された制限のすべてが今回初めて始まるわけではありません。"
+      },
+      {
+        "title": "地域と高リスク用途の条件",
+        "body": "非対応地域にいる人、そこに設立・本拠を置く組織、当該地域の人や組織が多数所有・支配する組織による利用を禁じると説明しています。高リスク用途における適切な人の確認やAI利用の告知は、従来からの要件であるとしています。"
+      },
+      {
+        "title": "モデルへの虐待に関する範囲",
+        "body": "新たな禁止は、目的なく継続する極端な虐待的行為を対象としています。一般的な不満や反論、モデルの試験・研究などまで同じ扱いにする説明ではありません。WORK SIGNALの見方として、業務導入では利用地域と人の確認体制を見直し、実際の運用条件を公式ポリシーで確かめることが重要です。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Anthropicの改定利用ポリシーが11月12日から適用。\n対応地域や高リスク用途などの条件を明確にしています。人による確認・AI利用の告知は、従来からの要件と説明されています。業務導入では、今回新しく加わる項目と、既存ルールの明確化を分けて確認することが大切です。\nhttps://signal.amberlight.co.jp/articles/20261112-anthropic-usage-policy-effective/\nhttps://www.anthropic.com/news/2026-usage-policy-update",
+    "publication_key": "43f0a0e210a31963559a7a53079a184b91a48aa2eae42c7f6d7e0e16e53ef921",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-new-york-raise-act-portal-nycairr",
     "title": "NY州、AI安全法の登録ポータルを開設──大規模開発者は2027年1月1日までに登録",
     "summary": "ニューヨーク州知事室は2026年11月10日、RAISE法に基づく登録ポータルを案内しました。大規模フロンティアAI開発者の登録期限は2027年1月1日です。AI安全性を独立に評価する研究センターの取り組みも発表しています。",

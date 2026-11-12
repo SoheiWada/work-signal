@@ -4992,10 +4992,12 @@
   },
   "20261112-microsoft-idc-ai-roi-governance-skills": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T22:08:25+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T22:08:27+00:00",
       "stage": "publish_requested",
-      "container_id": "17873912445646773"
+      "container_id": "17873912445646773",
+      "remote_id": "17873912445646773",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfqF-t9mWd_"
     }
   }
 }

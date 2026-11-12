@@ -4921,7 +4921,9 @@
   "20261112-softbank-air-terminal6-command-injection-cve-2026-101107": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T13:26:46+00:00"
+      "updated_at": "2026-11-12T13:26:54+00:00",
+      "stage": "publish_requested",
+      "container_id": "18166208701494851"
     }
   }
 }

@@ -4903,7 +4903,9 @@
   "20261112-openai-child-safety-research-funding": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T13:12:07+00:00"
+      "updated_at": "2026-11-12T13:12:15+00:00",
+      "stage": "publish_requested",
+      "container_id": "18106560284528815"
     }
   }
 }

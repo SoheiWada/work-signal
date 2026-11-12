@@ -4453,7 +4453,9 @@
   "20261112-gilbert-tobin-ai-adoption-87": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T02:11:45+00:00"
+      "updated_at": "2026-11-12T02:11:52+00:00",
+      "stage": "publish_requested",
+      "container_id": "18016221368992865"
     }
   }
 }

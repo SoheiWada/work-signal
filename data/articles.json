@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261110-australia-ai-safety-regulator-mandatory-reporting",
+    "title": "豪州、先端AIの安全対策を法制化へ──独立評価・事故報告など6項目を提案",
+    "summary": "豪州政府は2026年11月10日、先端AI企業に安全対策を義務づける法制化方針を発表しました。独立評価や迅速な事故報告など6項目を挙げ、新たな規制当局による執行を提案しています。施行済みの制度とは区別が必要です。",
+    "category": "AI",
+    "score": 92,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T12:32:28.563Z",
+    "source_url": "https://www.pm.gov.au/media/new-australian-ai-safety-and-security-protections",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "豪州政府は2026年11月10日、先端AI企業に安全対策を義務づける法制化方針を発表しました。独立評価や迅速な事故報告など6項目を挙げ、新たな規制当局による執行を提案しています。施行済みの制度とは区別が必要です。",
+    "sections": [
+      {
+        "title": "先端AI企業向けの六つの義務",
+        "body": "開発・展開を通じた安全管理、深刻なリスクの特定と管理、独立評価の受け入れ、政府への迅速な事故通知、安全フレームワークの維持・公表、技術の変化に応じた基準への対応を示しています。"
+      },
+      {
+        "title": "新たな当局の設置を提案",
+        "body": "政府はAI安全研究所と協力する専任の規制当局を提案しています。対象は豪州で事業を行いたい先端AI企業と説明していますが、制度の詳細は今後の作業と協議で明らかにするとしています。すでにすべての義務が施行されたとの発表ではありません。"
+      },
+      {
+        "title": "実務で備える範囲",
+        "body": "WORK SIGNALの見方として、関連する事業者は事故の把握・報告経路と安全評価の記録を整理し、法案の対象定義や施行時期を追う必要があります。元稿にあった特定の侵入事件との因果関係は、今回読んだ公式発表では確認できないため掲載していません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "豪州が先端AIの安全対策を法制化する方針を発表。\n独立評価の受け入れや事故の迅速な通知など6項目を示し、新たな規制当局を提案しています。すべて施行済みという話ではありません。対象の定義や施行時期など、今後の法案・協議内容の確認が必要です。\nhttps://signal.amberlight.co.jp/articles/20261110-australia-ai-safety-regulator-mandatory-reporting/\nhttps://www.pm.gov.au/media/new-australian-ai-safety-and-security-protections",
+    "publication_key": "4acc5e944b9396942b2f71d737ef5730167f9f67defd8b70329a84f1b79cde4e",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261109-meta-instagram-ai-age-estimation-global",
     "title": "Meta、InstagramのAI年齢推定を世界展開──成人用の誕生日でもTeen Accountへ",
     "summary": "Metaは2026年11月9日、InstagramでAIによる年齢推定を世界へ広げると発表しました。成人用の誕生日を登録していても、10代と推定した利用者をTeen Accountの保護へ配置する取り組みです。",

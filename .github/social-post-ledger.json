@@ -4953,5 +4953,11 @@
       "remote_id": "18079612211441864",
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4028977813096718293"
     }
+  },
+  "20261113-aspnetcore-signalr-redis-dos-cve-2026-114147": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-12T20:26:15+00:00"
+    }
   }
 }

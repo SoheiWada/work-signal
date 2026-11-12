@@ -4435,7 +4435,9 @@
   "20261104-meta-conductor-cloud-shutdown": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T02:11:17+00:00"
+      "updated_at": "2026-11-12T02:11:24+00:00",
+      "stage": "publish_requested",
+      "container_id": "18399472474207445"
     }
   }
 }

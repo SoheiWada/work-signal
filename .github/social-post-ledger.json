@@ -4794,10 +4794,12 @@
   },
   "20261110-fed-bowman-inflation-still-work-to-do": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T12:57:09+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T12:57:12+00:00",
       "stage": "publish_requested",
-      "container_id": "18037622723899546"
+      "container_id": "18037622723899546",
+      "remote_id": "18037622723899546",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfpG5VsmzEL"
     }
   }
 }

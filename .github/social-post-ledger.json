@@ -4830,10 +4830,12 @@
   },
   "20261110-google-workspace-gemini-skills": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T12:58:13+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T12:58:15+00:00",
       "stage": "publish_requested",
-      "container_id": "18126538441918519"
+      "container_id": "18126538441918519",
+      "remote_id": "18126538441918519",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfpHBKzEdYg"
     }
   }
 }

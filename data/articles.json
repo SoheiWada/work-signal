@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261112-holiday-extras-codex-app-rebuild",
+    "title": "Codex導入でアプリ改修が6か月から2週間へ──Holiday Extrasの成果と注意点",
+    "summary": "旅行予約サービスのHoliday Extrasが、OpenAIのCodexを使ったアプリ再構築事例を11月12日に公表した。従来6か月超かかった規模の開発を2週間で動作する状態にし、予約への転換率も改善したという。ただし数字は導入企業の事例で、一般企業に同じ効果が出る保証ではない。",
+    "category": "AI",
+    "score": 88,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T12:06:31.353Z",
+    "source_url": "https://openai.com/business/customer-stories/holidays-extras-codex/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "旅行予約サービスのHoliday Extrasが、OpenAIのCodexを使ったアプリ再構築事例を11月12日に公表した。従来6か月超かかった規模の開発を2週間で動作する状態にし、予約への転換率も改善したという。ただし数字は導入企業の事例で、一般企業に同じ効果が出る保証ではない。",
+    "sections": [
+      {
+        "title": "開発の速度だけでなく、予約成果にも変化",
+        "body": "OpenAIが公開したHoliday Extrasの事例では、主力アプリの再構築において、以前なら6か月超かかる開発規模を2週間で動作する状態にした。再構築後、アプリを開いてから予約に至る転換率は32.5％増加し、エラー率は19％から9％に低下したと報告している。主要なアプリ更新も、従来の年1回規模から、再構築後の最初の1か月には週次リリースへ移行した。\n\n重要なのは、これらがすべて同一指標ではないことだ。32.5％は転換率の相対的な増加であり、32.5ポイントの増加ではない。エラー率は19％から9％への10ポイント減である。公表ページは従来版と再構築版を異なる期間で比較しており、季節性や利用者構成などを統制した因果効果は示していない。"
+      },
+      {
+        "title": "現場の知識を開発へつなぎ、専門家の統制を残す",
+        "body": "同社は顧客対応や旅行業務を知る社員が改善案をソフトウェアに落とし込み、エンジニアがアーキテクチャ、API、セキュリティ、開発ワークフローを担う体制を説明している。顧客チャットから対応チケットを作る業務改善も紹介された。\n\n企業が参考にすべきなのは「AIでエンジニアが不要」という結論ではない。小さく文書化した開発単位を再利用し、業務担当者の知識と技術者の品質管理を組み合わせることだ。導入評価では開発日数だけでなく、転換率・障害率・変更頻度を別々に追い、比較期間や母数も明示する必要がある。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "AIを使った開発は、単に「コードを書く時間」を短縮するだけではありません。旅行予約サービスHoliday Extrasは、Codexを使ったアプリ再構築で、以前なら6か月超の規模を2週間で動作させたと発表。予約転換率は32.5％増、エラー率は19％から9％へ。ただし異なる期間の比較であり、AIだけの因果効果とは断定できません。業務担当者とエンジニアの役割分担、成果指標の読み方を整理しました。\nhttps://signal.amberlight.co.jp/articles/20261112-holiday-extras-codex-app-rebuild/\nhttps://openai.com/business/customer-stories/holidays-extras-codex/",
+    "publication_key": "89125f7d7c9886f8f0ac2193fd30b56a922b0f7e640e37455299da50488bb4f3",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-aspnetcore-signalr-identity-cve-2026-114146",
     "title": "ASP.NET CoreのSignalRに権限昇格の重大脆弱性、修正版8.0.34などを公開",
     "summary": "MicrosoftはASP.NET CoreのSignalR接続で、接続開始時に確立した利用者IDとの結び付けが一貫せず、注入されたメッセージが被害者の権限でHub処理を実行し得る脆弱性CVE-2026-114146を公表した。公式評価はCRITICAL（CVSS v3.1で9.0）。影響するランタイムと単独パッケージを確認し、修正版への更新が必要だ。",

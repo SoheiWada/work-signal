@@ -4561,7 +4561,9 @@
   "20261112-aspnetcore-multipart-header-limit-cve-2026-114149": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T07:26:38+00:00"
+      "updated_at": "2026-11-12T07:26:47+00:00",
+      "stage": "publish_requested",
+      "container_id": "18123002005933408"
     }
   }
 }

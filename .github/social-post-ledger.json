@@ -4434,10 +4434,12 @@
   },
   "20261104-meta-conductor-cloud-shutdown": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T02:11:24+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T02:11:26+00:00",
       "stage": "publish_requested",
-      "container_id": "18399472474207445"
+      "container_id": "18399472474207445",
+      "remote_id": "18399472474207445",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dfn8_4Lludo"
     }
   }
 }

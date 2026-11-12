@@ -1,5 +1,44 @@
 [
   {
+    "id": "20261105-undici-intermediate-redirect-cache-poisoning",
+    "title": "undiciの共有キャッシュで利用者間の情報漏えい・汚染、7.30.2／8.12.4で修正（CVE-2026-116592）",
+    "summary": "Node.js向けHTTPクライアント「undici」に、共有キャッシュを経由して別の利用者の応答が漏えいしたり、キャッシュが汚染されたりする脆弱性が公表された。開発元はHIGH（CVSS 7.4）と評価し、7.30.2および8.12.4で修正。影響するのは特定のリダイレクト・キャッシュ構成に限られる。",
+    "category": "SECURITY",
+    "score": 84,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T05:47:12.183Z",
+    "source_url": "https://github.com/nodejs/undici/security/advisories/GHSA-mqg3-3v4r-cm32",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Node.js向けHTTPクライアント「undici」に、共有キャッシュを経由して別の利用者の応答が漏えいしたり、キャッシュが汚染されたりする脆弱性が公表された。開発元はHIGH（CVSS 7.4）と評価し、7.30.2および8.12.4で修正。影響するのは特定のリダイレクト・キャッシュ構成に限られる。",
+    "sections": [
+      {
+        "title": "中間リダイレクトの扱いで共有キャッシュが汚染される",
+        "body": "2026年11月5日、undici開発元はCVE-2026-116592（GHSA-mqg3-3v4r-cm32）を公開した。複数のリダイレクトを経由したとき、最終的な転送先だけを見てキャッシュ可否を判断し、中間経路にあるキャッシュ制御や利用者ごとの応答の区別を失う問題だ。認証情報などに応じて異なる内容が返される応答が、別の利用者へ提供される可能性がある。開発元評価はHIGH、CVSS v3.1で7.4。"
+      },
+      {
+        "title": "影響するのは特定のAgentとインターセプター構成",
+        "body": "すべてのundici利用者が影響を受けるわけではない。開発元が示す成立条件は、originを固定しないAgent、共有キャッシュ、そして `compose(redirect(), cache())` の組み合わせだ。特定のリダイレクト先を攻撃者が制御できる場合にキャッシュ汚染や利用者間の情報開示が起こり得る。一方、originを固定したClient/Poolや、逆順の `compose(cache(), redirect())` は対象外と説明されている。"
+      },
+      {
+        "title": "修正版への更新と共有キャッシュ設定の確認",
+        "body": "影響バージョンはundici 7.30.1、および8.12.2以上8.12.4未満。修正版は7.30.2と8.12.4だ。利用組織は依存関係とAgent・キャッシュ構成を確認し、該当する場合は更新を優先したい。直ちに更新できない場合、開発元はインターセプターの順序変更、originごとのディスパッチャーとキャッシュの分離、リダイレクトを伴う要求での共有キャッシュ無効化を挙げている。修正版ではSqliteCacheStoreの形式も更新され、脆弱な版が作成したエントリーの再利用を防ぐ。実際の攻撃発生や被害件数は公式勧告からは確認できない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Node.jsのundiciで、共有キャッシュとリダイレクトを組み合わせている開発者・運用者は設定を確認してください。公式HIGHのCVE-2026-116592は、特定のAgentとインターセプター構成で、別の利用者への応答漏えいやキャッシュ汚染につながります。修正版は7.30.2と8.12.4。すべてのundici利用が対象ではありません。構成と更新先、直ちに更新できない場合の公式回避策を記事に整理しました。実環境での悪用は公式勧告から確認できません。\nhttps://signal.amberlight.co.jp/articles/20261105-undici-intermediate-redirect-cache-poisoning/\nhttps://github.com/nodejs/undici/security/advisories/GHSA-mqg3-3v4r-cm32",
+    "social_security_severity": "HIGH",
+    "social_security_product": "undici 7.30.1、および8.12.2以上8.12.4未満",
+    "social_security_action": "7.30.2または8.12.4へ更新。直ちに更新できなければ compose(cache(), redirect()) 等の公式回避策を検討",
+    "publication_key": "1ab6d99b87ce416c9ec7c10b5081924071d1b118f2f075dd98a0fc74a4e6e9b4",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-apache-http2-cve-2026-119618",
     "title": "Apache HTTP ServerのHTTP/2に重大なRCE脆弱性、2.4.71で修正──CVE-2026-119618",
     "summary": "Apache Software Foundationは2026年11月11日、Apache HTTP Serverのmod_http2における競合状態に起因するメモリ破損とリモートコード実行（RCE）の脆弱性CVE-2026-119618を修正した2.4.71を公開しました。公式深刻度はcritical。影響する2.4.55～2.4.70を運用する管理者は、HTTP/2の利用状況と更新計画を優先確認する必要があります。",

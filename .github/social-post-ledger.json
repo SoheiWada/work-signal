@@ -4939,7 +4939,9 @@
   "20261113-aspire-dashboard-auth-bypass-cve-2026-118740": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T19:26:13+00:00"
+      "updated_at": "2026-11-12T19:26:28+00:00",
+      "stage": "publish_requested",
+      "container_id": "18079850510441370"
     }
   }
 }

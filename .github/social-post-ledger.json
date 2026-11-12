@@ -4416,10 +4416,12 @@
   },
   "20261111-react-server-components-rce-cve-2026-126187": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T02:10:46+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T02:10:49+00:00",
       "stage": "publish_requested",
-      "container_id": "18130591147914274"
+      "container_id": "18130591147914274",
+      "remote_id": "18130591147914274",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dfn87IWlnx2"
     }
   }
 }

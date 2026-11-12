@@ -1,5 +1,44 @@
 [
   {
+    "id": "20261112-apache-http2-cve-2026-119618",
+    "title": "Apache HTTP ServerのHTTP/2に重大なRCE脆弱性、2.4.71で修正──CVE-2026-119618",
+    "summary": "Apache Software Foundationは2026年11月11日、Apache HTTP Serverのmod_http2における競合状態に起因するメモリ破損とリモートコード実行（RCE）の脆弱性CVE-2026-119618を修正した2.4.71を公開しました。公式深刻度はcritical。影響する2.4.55～2.4.70を運用する管理者は、HTTP/2の利用状況と更新計画を優先確認する必要があります。",
+    "category": "SECURITY",
+    "score": 94,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T03:21:35.899Z",
+    "source_url": "https://httpd.apache.org/security/vulnerabilities_24",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Apache Software Foundationは2026年11月11日、Apache HTTP Serverのmod_http2における競合状態に起因するメモリ破損とリモートコード実行（RCE）の脆弱性CVE-2026-119618を修正した2.4.71を公開しました。公式深刻度はcritical。影響する2.4.55～2.4.70を運用する管理者は、HTTP/2の利用状況と更新計画を優先確認する必要があります。",
+    "sections": [
+      {
+        "title": "何が発表されたのか",
+        "body": "Apache Software Foundationのセキュリティチームは、Apache HTTP Serverのmod_http2内のassign_headers()で共有資源の同期が適切に行われない脆弱性CVE-2026-119618を公表しました。競合状態によるヒープメモリ破損が発生し、遠隔コード実行につながる可能性があります。開発元の深刻度はcriticalです。2026年11月11日公開のApache HTTP Server 2.4.71で修正されました。"
+      },
+      {
+        "title": "影響範囲と管理者が取るべき対応",
+        "body": "開発元が示す影響版はApache HTTP Server 2.4.55から2.4.70までです。独立配布のmod_h2 2.0.8～2.0.42にも影響すると記載されています。Apache HTTP Serverを利用する組織は、インストール済みのバージョン、mod_http2の利用状況、配布元の更新提供状況を確認し、2.4.71への更新と事後テストを進めてください。公式勧告にはこのCVEの悪用確認の記述がなく、悪用が確認されたとは断定できません。CISA KEVの確認済み2026.11.10版にもこのCVEは掲載されていませんが、同ミラーの同期には遅延があり得ます。"
+      },
+      {
+        "title": "情報の時点と留保",
+        "body": "開発元の記載による修正日と公開日は2026年11月11日です。発見報告は2026年10月26日と11月3日で、公開日と混同しません。Apacheの公式評価criticalを採用し、他の評価機関のCVSS値を推測して補っていません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Apache HTTP ServerのHTTP/2処理に、遠隔コード実行につながる重大な脆弱性が公表されました。CVE-2026-119618はmod_http2の共有資源の同期不備に起因するメモリ破損で、開発元評価はcritical。影響版は2.4.55〜2.4.70です。11月11日に公開された2.4.71で修正されました。Webサーバー管理者は導入版、HTTP/2モジュールの利用、更新後の動作確認を優先してください。悪用の有無は公式資料から確認できていません。\nhttps://signal.amberlight.co.jp/articles/20261112-apache-http2-cve-2026-119618/\nhttps://httpd.apache.org/security/vulnerabilities_24",
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Apache HTTP Server 2.4.55～2.4.70（mod_http2）",
+    "social_security_action": "Apache HTTP Server 2.4.71へ更新し、HTTP/2設定と動作を確認",
+    "publication_key": "811e7c5be8d0a75a4ff0b1b174552a39030b5bfcea488230f9ac47c186b96683",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-jiostar-ai-video-discovery-evaluation",
     "title": "JioStar、5億人規模の動画サービスに対話型AI検索──8週間で15言語超に対応、評価と監視が鍵",
     "summary": "インドのメディア企業JioStarは、動画・スポーツ配信サービスJioHotstarにOpenAI APIを用いた対話型検索を組み込んだ。11月11日に公開された経営者インタビューによると、15言語超への対応を約8週間で開発。5億人超の利用者を抱える事業で、AIを実運用へ移す際の評価・監視・権限設計の課題が見えてくる。",

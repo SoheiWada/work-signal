@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261110-tsmc-october-revenue-586-billion",
+    "title": "TSMCの10月売上高、前年比59.7％増の5,868.9億台湾ドル──月次値で分かる範囲",
+    "summary": "TSMCは2026年11月10日、10月の連結売上高を約5,868.9億台湾ドルと発表しました。前年同月比59.7％増、前月比14.7％増です。月次の総売上高であり、この数字だけでAI向けの売上や利益を切り分けることはできません。",
+    "category": "経済",
+    "score": 88,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T12:33:06.659Z",
+    "source_url": "https://pr.tsmc.com/english/news/3349",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "TSMCは2026年11月10日、10月の連結売上高を約5,868.9億台湾ドルと発表しました。前年同月比59.7％増、前月比14.7％増です。月次の総売上高であり、この数字だけでAI向けの売上や利益を切り分けることはできません。",
+    "sections": [
+      {
+        "title": "月次と累計を分けて確認",
+        "body": "1〜10月の連結売上高は約4兆4,856.2億台湾ドルで、前年同期比43.3％増です。10月単月の前年比と累計の伸び率は、比較する期間が異なります。いずれも台湾ドル建ての会社発表値です。"
+      },
+      {
+        "title": "AI需要との因果は月次値だけでは決まらない",
+        "body": "半導体需要を考える材料になりますが、このリリースは用途別の売上内訳や月次の利益率を示していません。総売上高の増加を、そのままAI単独の効果や利益の同率増加と解釈することはできません。"
+      },
+      {
+        "title": "仕事で使うときの着眼点",
+        "body": "WORK SIGNALの見方として、供給計画や業界動向を判断する際は、月次の変化を四半期説明や用途別データと組み合わせて確認することが重要です。10月の結果だけから年末まで同じ成長が続くとも断定していません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "TSMCの2026年10月売上高は約5,868.9億台湾ドル。前年同月比59.7％増、前月比14.7％増と発表しました。\n1〜10月累計は前年比43.3％増。ただし総売上高の数字なので、AI向けの売上内訳や利益率まで同じように伸びたとは判断できません。比較期間と単位を分けて読みたい発表です。\nhttps://signal.amberlight.co.jp/articles/20261110-tsmc-october-revenue-586-billion/\nhttps://pr.tsmc.com/english/news/3349",
+    "publication_key": "791813708b33906d864feeb4a477d4d8239d25712a95bfcebbf31b938f2b3109",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261109-meta-muse-ember-efficient-agent-model",
     "title": "Meta、軽量AI「Muse Ember」を公開──定型のエージェント作業向け、長文入力では料金が変わる",
     "summary": "Metaは2026年11月9日、軽量モデルMuse Emberを発表しました。ツール呼び出しや分類、コードの部分作業など、繰り返し実行するエージェント作業を想定しています。料金は入力の長さによって異なります。",

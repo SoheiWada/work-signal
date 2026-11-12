@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261112-microsoft-idc-ai-roi-governance-skills",
+    "title": "AI導入の成果は出ても全社展開は48％──Microsoft・IDC調査が示す人材育成と統制の壁",
+    "summary": "Microsoftが2026年11月12日に公開した、IDCによる世界の企業幹部5,204人への調査では、AIで大きな成果が出たとする組織が66％に達する一方、複数部門へ価値を広げているのは48％だった。管理職に問われるのはツールの導入率だけでなく、効果測定、人材育成、AIエージェントの統制を仕事の仕組みに組み込めているかだ。",
+    "category": "マネジメント",
+    "score": 89,
+    "published_at": "2026-11-13",
+    "published_at_time": "2026-11-12T22:01:17.230Z",
+    "source_url": "https://blogs.microsoft.com/blog/2026/11/12/scaling-ai-value-without-losing-control-lessons-from-frontier-firms/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Microsoftが2026年11月12日に公開した、IDCによる世界の企業幹部5,204人への調査では、AIで大きな成果が出たとする組織が66％に達する一方、複数部門へ価値を広げているのは48％だった。管理職に問われるのはツールの導入率だけでなく、効果測定、人材育成、AIエージェントの統制を仕事の仕組みに組み込めているかだ。",
+    "sections": [
+      {
+        "title": "成果の実感と全社展開には18ポイントの差",
+        "body": "Microsoftの公式記事が紹介するIDCの調査は、28業種のIT・事業部門の上級リーダー5,204人を対象とする。AIが「大きな、または変革的な成果」をもたらしたと回答した割合は66％だが、複数の事業部門へ価値を拡大しているのは48％。61％はAIの事業価値と投資収益率（ROI）を高い確信を持って測定できると回答した。AIエージェントの統制プロセスがある組織は65％でも、セキュリティ・ガバナンスのリスク対応に高い確信を持つのは60％にとどまる。"
+      },
+      {
+        "title": "人材育成を「導入後」に回さない",
+        "body": "AIに対する従業員の信頼が高いと回答した組織は67％だった一方、全社的で包括的なAIスキル育成戦略を持つのは20％だった。成熟度上位10％の「Frontier Firms」では、全社的な育成戦略が80％、エージェント統制のプロセスが87％とされる。比較対象の低成熟組織では、それぞれ3％と51％だった。これは、研修や統制が成果を直接引き起こしたという因果関係の証明ではない。"
+      },
+      {
+        "title": "管理職が最初に設定できる3つの指標",
+        "body": "実務では、①AI導入前後の作業時間・品質・顧客対応を同じ条件で比較する、②誰がAIの出力・実行を承認するか決める、③職種別の教育計画と利用状況を追跡する、という順で進めたい。Microsoftは成熟度上位群のAI投資リターンを平均4倍、低成熟群を2.7倍と紹介するが、これは回答者による申告値であり、投資額や業種を揃えた因果効果ではない。調査はMicrosoft委託・協賛であり、全企業への一般化には注意が必要だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "AIを導入して成果を感じても、全社に広がるとは限りません。Microsoftが11月12日に公表したIDC調査では、66％がAIによる大きな成果を報告する一方、複数部門で価値を拡大できているのは48％。包括的な全社AI研修戦略がある組織も20％でした。管理職がまず確認したいのは、導入前後の業務時間と品質、AIの判断を承認する人、職種別の教育計画です。調査は企業幹部の自己申告であり、相関を因果と混同しないことも重要です。\nhttps://signal.amberlight.co.jp/articles/20261112-microsoft-idc-ai-roi-governance-skills/\nhttps://blogs.microsoft.com/blog/2026/11/12/scaling-ai-value-without-losing-control-lessons-from-frontier-firms/",
+    "publication_key": "55f1521b7cbaaac46a86449224dbeb394234f41293a352e49f387b2f8733eaf4",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261113-dotnet-pdb-cve-2026-114158",
     "title": ".NETのWindows向けPDB処理にHIGH脆弱性、8・9・10・11系の更新を確認",
     "summary": "Microsoftは2026年11月10日、Windows版.NETにおけるPortable PDBの読み取りに関するHIGH脆弱性CVE-2026-114158を公表した。対象となるのは特定のネイティブ読み取り処理を使う環境で、全ての.NETアプリが一律に攻撃可能という意味ではない。運用担当者は実行環境と自己完結配布物を分けて更新状況を確認したい。",

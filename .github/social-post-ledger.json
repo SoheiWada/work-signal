@@ -4974,10 +4974,12 @@
   },
   "20261113-dotnet-pdb-cve-2026-114158": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T21:32:15+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T21:32:17+00:00",
       "stage": "publish_requested",
-      "container_id": "18031413389877370"
+      "container_id": "18031413389877370",
+      "remote_id": "18031413389877370",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfqB2CEiTMF"
     }
   }
 }

@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261113-aspnetcore-signalr-redis-dos-cve-2026-114147",
+    "title": "ASP.NET CoreのSignalR Redis連携にDoS脆弱性、修正版8.0.34など公開（CVE-2026-114147）",
+    "summary": "Microsoftは2026年11月10日、ASP.NET CoreのSignalR Redisスケールアウト構成にサービス拒否（DoS）につながる脆弱性CVE-2026-114147を公表しました。公式評価はHIGH、CVSS v3.1で7.5。Redis連携を使用する運用担当者は、ランタイムだけでなくアプリが参照するパッケージのバージョンも確認する必要があります。",
+    "category": "SECURITY",
+    "score": 85,
+    "published_at": "2026-11-13",
+    "published_at_time": "2026-11-12T20:19:42.064Z",
+    "source_url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-wr8v-9x5q-ggcm",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Microsoftは2026年11月10日、ASP.NET CoreのSignalR Redisスケールアウト構成にサービス拒否（DoS）につながる脆弱性CVE-2026-114147を公表しました。公式評価はHIGH、CVSS v3.1で7.5。Redis連携を使用する運用担当者は、ランタイムだけでなくアプリが参照するパッケージのバージョンも確認する必要があります。",
+    "sections": [
+      {
+        "title": "グループ解除時の処理がリソースを圧迫",
+        "body": "公式勧告によると、SignalRのRedisスケールアウトで大文字・小文字が一致しないグループ解除を処理する際、購読状態が不適切に残り、リソースの継続的な増幅を通じてDoSを招く可能性があります。MicrosoftはCWE-401（メモリ解放の不備）と分類し、CVSS v3.1を7.5（HIGH）としています。ネットワーク経由、攻撃者の事前権限や利用者操作を必要としない評価ですが、実際の悪用確認はこの原典では示されていません。"
+      },
+      {
+        "title": "修正版と実務上の確認点",
+        "body": "対象のSignalR RedisパッケージとASP.NET Coreランタイムについて、8系は8.0.34、9系は9.0.23、10系は10.0.15、11系は11.0.0が修正版として示されています。実際の影響範囲は公式表にある各プレビュー版・パッケージ・配備形態によって異なります。運用者はアプリの解決済みMicrosoft.AspNetCore.SignalR.StackExchangeRedisバージョンと配備ランタイムを突き合わせ、両方を更新してください。自己完結型アプリは修正ランタイムでの再ビルド・再配備が必要です。マシン全体のSDK更新だけではアプリの独立パッケージ参照は更新されません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "ASP.NET CoreのSignalRをRedisでスケールアウトしているサービスに、DoSにつながるHIGHの脆弱性が公表されました。問題はグループ解除時の購読管理で、リソースが継続的に増幅する可能性があります。修正版は8.0.34、9.0.23、10.0.15、11.0.0。ランタイムだけでなくSignalR Redisパッケージも更新が必要です。自己完結型アプリは再ビルドと再配備まで確認してください。実際の悪用は公式原典では未確認です。\nhttps://signal.amberlight.co.jp/articles/20261113-aspnetcore-signalr-redis-dos-cve-2026-114147/\nhttps://github.com/dotnet/aspnetcore/security/advisories/GHSA-wr8v-9x5q-ggcm",
+    "social_security_severity": "HIGH",
+    "social_security_product": "ASP.NET Core 8.0.33以前、9.0.22以前、10.0.14以前、11.0 RC3以前の該当SignalR Redis scale-out実装（公式記載の影響範囲に限定）",
+    "social_security_action": "ASP.NET CoreランタイムとMicrosoft.AspNetCore.SignalR.StackExchangeRedisを8.0.34／9.0.23／10.0.15／11.0.0または対応する修正済み版へ更新。アプリを再ビルド・再配備し、必要に応じ再起動。",
+    "publication_key": "44cae7b5748d95ff84b815ea9d1adbb2dc98bccaee2fb390fe39f2554b69e1ec",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261113-aspire-dashboard-auth-bypass-cve-2026-118740",
     "title": "Aspire Dashboardに認証回避の重大脆弱性、13.6.5への更新を推奨",
     "summary": "MicrosoftはAspire Dashboardの認証制御不備（CVE-2026-118740）をCRITICAL、CVSS v3.1で9.1と評価した。認証なしでテレメトリが削除される可能性があり、単独運用の一部構成ではブラウザトークンの露出も起こり得る。影響するDashboardは13.6.5未満で、修正版への更新と実際に稼働するバージョンの確認が必要だ。",

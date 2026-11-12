@@ -4938,10 +4938,12 @@
   },
   "20261113-aspire-dashboard-auth-bypass-cve-2026-118740": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T19:26:28+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T19:26:31+00:00",
       "stage": "publish_requested",
-      "container_id": "18079850510441370"
+      "container_id": "18079850510441370",
+      "remote_id": "18079850510441370",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfpzcL7j-I0"
     }
   }
 }

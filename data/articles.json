@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261112-openai-child-safety-research-funding",
+    "title": "OpenAI、子どものAI安全研究に200万ドル拠出へ──独立した検証と年齢別保護が焦点",
+    "summary": "OpenAIは2026年11月12日、子どもへのAIの影響を調べる国際的な研究活動に200万米ドルを拠出すると発表した。研究結果は否定的・不確実なものも公表する方針で、AIの安全性を企業の自己評価だけに委ねない仕組みづくりが焦点となる。",
+    "category": "AI",
+    "score": 83,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T13:04:58.295Z",
+    "source_url": "https://openai.com/index/children-first-declaration/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは2026年11月12日、子どもへのAIの影響を調べる国際的な研究活動に200万米ドルを拠出すると発表した。研究結果は否定的・不確実なものも公表する方針で、AIの安全性を企業の自己評価だけに委ねない仕組みづくりが焦点となる。",
+    "sections": [
+      {
+        "title": "200万ドルは「安全性の証明」ではなく研究への支援",
+        "body": "OpenAIは、パリ平和フォーラムで子ども向けの安全なAIに関する憲章に署名し、AI時代の子どもの権利・保護に関する連合の科学研究ネットワークを支援するため200万米ドルを拠出すると説明した。対象は、子どもへのAIのリスクと機会を研究者が測定するための共通ツールや知見の整備だ。今回の発表は新たな研究支援の約束であり、個別製品の安全性が検証済みになったという意味ではない。"
+      },
+      {
+        "title": "学校・企業が確認すべき評価の観点",
+        "body": "公式発表では、研究チームが結論を自ら決定し、否定的または結論の出ない結果も公表するとしている。年齢に応じた初期設定の保護、保護者向けツール、定期的なリスク評価と対策、説明責任も重視した。学校や企業が未成年者向けAIを検討する際は、機能の便利さだけでなく、年齢別の保護策、検証結果の公開範囲、問題発見後の対応を確認する必要がある。具体的な研究成果や制度化の時期は、この発表だけでは確定しない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "子どもがAIを使う機会が広がるなか、安全性をどう確かめるのか。OpenAIは2026年11月12日、国際的な研究活動に200万ドルを拠出すると発表しました。注目したいのは金額だけではありません。研究者が結論を独立して決め、否定的・不確実な結果も公開するという方針です。学校や企業がAIを導入するときも、年齢別の保護、評価結果の透明性、問題発生時の対応を確認する必要があります。今回の発表は安全性の実証完了ではなく、そのための研究支援です。\nhttps://signal.amberlight.co.jp/articles/20261112-openai-child-safety-research-funding/\nhttps://openai.com/index/children-first-declaration/",
+    "publication_key": "b5fc7878f72485395bcfcc98ece171a0caba80a3030ed063edb155efbd01e263",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261109-openai-control-room-research-kill-switch",
     "title": "OpenAI、研究用モデルの出力停止基盤を説明──停止判断から35秒以内、障害時も出力を拒否",
     "summary": "OpenAIは、研究用モデルの処理を中央で追跡し、安全上の懸念がある場合に出力を止めるControl Roomを説明しています。示す35秒は問題の発生からではなく、停止を判断して指示した後の時間です。",

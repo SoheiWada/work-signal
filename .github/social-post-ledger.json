@@ -4741,7 +4741,9 @@
   "20261109-meta-muse-ember-efficient-agent-model": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T12:40:06+00:00"
+      "updated_at": "2026-11-12T12:40:13+00:00",
+      "stage": "publish_requested",
+      "container_id": "18418844638094926"
     }
   }
 }

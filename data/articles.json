@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261113-dotnet-pdb-cve-2026-114158",
+    "title": ".NETのWindows向けPDB処理にHIGH脆弱性、8・9・10・11系の更新を確認",
+    "summary": "Microsoftは2026年11月10日、Windows版.NETにおけるPortable PDBの読み取りに関するHIGH脆弱性CVE-2026-114158を公表した。対象となるのは特定のネイティブ読み取り処理を使う環境で、全ての.NETアプリが一律に攻撃可能という意味ではない。運用担当者は実行環境と自己完結配布物を分けて更新状況を確認したい。",
+    "category": "SECURITY",
+    "score": 88,
+    "published_at": "2026-11-13",
+    "published_at_time": "2026-11-12T21:26:07.403Z",
+    "source_url": "https://github.com/dotnet/runtime/security/advisories/GHSA-r8h3-p8p6-ggp7",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Microsoftは2026年11月10日、Windows版.NETにおけるPortable PDBの読み取りに関するHIGH脆弱性CVE-2026-114158を公表した。対象となるのは特定のネイティブ読み取り処理を使う環境で、全ての.NETアプリが一律に攻撃可能という意味ではない。運用担当者は実行環境と自己完結配布物を分けて更新状況を確認したい。",
+    "sections": [
+      {
+        "title": "細工したPDBの読み取りが問題に",
+        "body": "Microsoftの公式勧告によると、Portable PDBのEmbeddedSourceレコードに不正な親RIDが含まれると、Microsoft.DiaSymReader.Nativeの初期化時に境界外書き込みが発生し得る。公式CVSS 3.1基本値は8.8、重大度はHIGH。対象はWindowsのx86、x64、Arm64環境で、ネイティブ読み取り処理に到達する条件が必要だ。公開時点の悪用確認については、参照した勧告に明示的な確認情報がないため断定しない。"
+      },
+      {
+        "title": "更新先と自己完結アプリの注意点",
+        "body": "Windows版.NET 8系は8.0.34、9系は9.0.23、10系は10.0.15、11系は11.0.0が修正版として示されている。SDKもインストール済みの機能帯ごとに勧告の修正版を確認する必要がある。Visual Studio経由でSDKを導入している場合はVisual Studioも更新する。\n\n特に自己完結配布のアプリは、端末にインストールした共有ランタイムを更新しても同梱ランタイムが置き換わらない。修正版でビルドし直して再配備し、該当するネイティブ読み取り処理をロードしたプロセスを再起動することが必要だ。資産管理ではWindows環境、配布形態、SDKとランタイムの両方を点検する。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Windows版.NETのPDB読み取り処理に、公式HIGH（CVSS 3.1で8.8）の脆弱性が公表されました。8系・9系・10系・11系の修正版が示されています。特に注意したいのは自己完結配布アプリ。PCの共有ランタイムを更新するだけでは同梱された古いランタイムが残る可能性があります。影響条件と更新先、運用担当者が確認すべき点を整理しました。\nhttps://signal.amberlight.co.jp/articles/20261113-dotnet-pdb-cve-2026-114158/\nhttps://github.com/dotnet/runtime/security/advisories/GHSA-r8h3-p8p6-ggp7",
+    "social_security_severity": "HIGH",
+    "social_security_product": "Windows版.NET 8.0.0以上8.0.34未満、9.0.0以上9.0.23未満、10.0.0以上10.0.15未満、11.0プレビュー版",
+    "social_security_action": ".NET 8.0.34、9.0.23、10.0.15、11.0.0以降へ更新。自己完結アプリは修正版で再ビルド・再配備",
+    "publication_key": "096ff17e74593357eb7faa6568215be327802912152298d0ecdaaf895a8d066e",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261113-aspnetcore-signalr-redis-dos-cve-2026-114147",
     "title": "ASP.NET CoreのSignalR Redis連携にDoS脆弱性、修正版8.0.34など公開（CVE-2026-114147）",
     "summary": "Microsoftは2026年11月10日、ASP.NET CoreのSignalR Redisスケールアウト構成にサービス拒否（DoS）につながる脆弱性CVE-2026-114147を公表しました。公式評価はHIGH、CVSS v3.1で7.5。Redis連携を使用する運用担当者は、ランタイムだけでなくアプリが参照するパッケージのバージョンも確認する必要があります。",

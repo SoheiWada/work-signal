@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261109-meta-muse-ember-efficient-agent-model",
+    "title": "Meta、軽量AI「Muse Ember」を公開──定型のエージェント作業向け、長文入力では料金が変わる",
+    "summary": "Metaは2026年11月9日、軽量モデルMuse Emberを発表しました。ツール呼び出しや分類、コードの部分作業など、繰り返し実行するエージェント作業を想定しています。料金は入力の長さによって異なります。",
+    "category": "AI",
+    "score": 91,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T12:32:58.210Z",
+    "source_url": "https://research.meta.ai/blog/muse-ember",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Metaは2026年11月9日、軽量モデルMuse Emberを発表しました。ツール呼び出しや分類、コードの部分作業など、繰り返し実行するエージェント作業を想定しています。料金は入力の長さによって異なります。",
+    "sections": [
+      {
+        "title": "繰り返す処理向けのモデル",
+        "body": "Muse CodeとMeta Model APIでmuse-ember-1.0として提供します。Metaは複雑な仕事の計画を上位モデルへ任せ、反復する処理にEmberを組み合わせる使い方を示しています。安価であることと、すべての業務で同じ品質が出ることは別です。"
+      },
+      {
+        "title": "200Kトークンを境に料金が変化",
+        "body": "公表価格は、200Kトークンまでの入力で100万トークン当たり入力0.10ドル・出力0.50ドル。それを超える長い入力は入力0.30ドル・出力1.50ドルです。100万トークンのコンテキストを扱えることと、すべて同じ単価で使えることを混同しないようにします。"
+      },
+      {
+        "title": "自社の総コストで確認する",
+        "body": "WORK SIGNALの見方として、反復作業では処理回数や再試行も含めた料金と、誤りを検出する工数の両方を見る必要があります。Metaの性能比較は条件を伴う評価で、個別の自社業務における品質や費用削減を保証しません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Metaの軽量AI「Muse Ember」は、ツール呼び出しやコードの部分作業など、反復する処理を想定したモデルです。\n料金は200Kトークンまでの入力と、それを超える長文で異なります。100万トークンのコンテキスト対応を、全範囲で同じ料金と取り違えず、再試行と確認工数も含めて比べたいところです。\nhttps://signal.amberlight.co.jp/articles/20261109-meta-muse-ember-efficient-agent-model/\nhttps://research.meta.ai/blog/muse-ember",
+    "publication_key": "a9f38748182daba2b9e2c494c149c0b1d4a09ff049b08345740f912368472c9f",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-australia-ai-safety-regulator-mandatory-reporting",
     "title": "豪州、先端AIの安全対策を法制化へ──独立評価・事故報告など6項目を提案",
     "summary": "豪州政府は2026年11月10日、先端AI企業に安全対策を義務づける法制化方針を発表しました。独立評価や迅速な事故報告など6項目を挙げ、新たな規制当局による執行を提案しています。施行済みの制度とは区別が必要です。",

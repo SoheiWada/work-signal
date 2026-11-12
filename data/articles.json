@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261111-google-gemini-decisions-api-decision-1",
+    "title": "Google「Gemini Decisions API」発表──最大1,000問の判定、入力100万トークン0.10ドル",
+    "summary": "Googleは2026年11月11日、Gemini Decisions APIを発表しました。選択肢を評価するモデルGemini Decision 1で、文章を生成せず、最大1,000問をまとめて判定します。問い合わせの振り分けやツール選択などが想定用途です。",
+    "category": "AI",
+    "score": 90,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T12:23:27.784Z",
+    "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Googleは2026年11月11日、Gemini Decisions APIを発表しました。選択肢を評価するモデルGemini Decision 1で、文章を生成せず、最大1,000問をまとめて判定します。問い合わせの振り分けやツール選択などが想定用途です。",
+    "sections": [
+      {
+        "title": "判断のための専用API",
+        "body": "テキスト・画像・音声・動画・PDFを入力し、二択、選択肢、段階付き採点を扱います。入力は最大256Kトークン、質問は最大1,000問。確率や信頼度を返す仕組みで、曖昧な結果を人の確認へ回す設計ができます。"
+      },
+      {
+        "title": "料金と速度の条件",
+        "body": "公式価格は入力100万トークン当たり0.10ドルで、出力トークンの課金はありません。Google AI Studioには試作用の無料枠があります。公表する150〜250ミリ秒の遅延は、ベンチマークの入力長などの条件を伴う自社評価で、すべての処理時間を保証する値ではありません。"
+      },
+      {
+        "title": "実務では自社の判定基準で検証する",
+        "body": "WORK SIGNALの見方として、分類や振り分けを切り出す際は、誤判定の影響と人へ戻す条件を先に決めることが重要です。信頼度が付くことは、個々の答えの正しさを保証しません。公式本文で確定できない発表時刻や細かな無料枠の制限値は記載していません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Googleが判断用の「Gemini Decisions API」を発表。\n最大1,000問をまとめて判定し、文章生成を介さず問い合わせの振り分けやツール選択に使う設計です。価格は入力100万トークン当たり0.10ドル、出力課金なし。信頼度が付いても、誤判定の影響と人へ戻す条件の検証は必要です。\nhttps://signal.amberlight.co.jp/articles/20261111-google-gemini-decisions-api-decision-1/\nhttps://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+    "publication_key": "c0be1985b4c5189650c86b07da9674822326c79b027f6cb39cb8788d6ec658d4",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-google-gemini-4-carbon-general-availability",
     "title": "Google「Gemini 4 Carbon」を一般提供──APIとUltraで展開、導入価格は11月末まで",
     "summary": "Googleは2026年11月10日、Gemini 4 Carbonの提供拡大を発表しました。有料APIとGoogle AI Ultraなどが対象です。一般提供モデルのAPI導入価格は11月30日までで、その後の料金も明示されています。",

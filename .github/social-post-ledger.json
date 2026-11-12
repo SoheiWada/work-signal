@@ -4496,10 +4496,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfoFizLETA5"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T03:26:26+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T03:26:33+00:00",
       "stage": "publish_requested",
-      "container_id": "18161136751488337"
+      "container_id": "18161136751488337",
+      "remote_id": "18121924001055541",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4028494399772110469"
     }
   }
 }

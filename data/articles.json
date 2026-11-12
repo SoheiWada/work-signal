@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261109-openai-control-room-research-kill-switch",
+    "title": "OpenAI、研究用モデルの出力停止基盤を説明──停止判断から35秒以内、障害時も出力を拒否",
+    "summary": "OpenAIは、研究用モデルの処理を中央で追跡し、安全上の懸念がある場合に出力を止めるControl Roomを説明しています。示す35秒は問題の発生からではなく、停止を判断して指示した後の時間です。",
+    "category": "AI",
+    "score": 85,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T12:51:07.847Z",
+    "source_url": "https://openai.com/index/control-room/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは、研究用モデルの処理を中央で追跡し、安全上の懸念がある場合に出力を止めるControl Roomを説明しています。示す35秒は問題の発生からではなく、停止を判断して指示した後の時間です。",
+    "sections": [
+      {
+        "title": "止めるのは対象のモデル出力",
+        "body": "研究用の処理にIDを付け、推論エンジンが実行の許可を確認する仕組みです。停止されたIDに対する許可を拒否し、その処理への新たなモデル出力を止めます。研究用のプロセス自体が動き続ける場合があり、他の許可済み処理まで一律に終了するものではありません。"
+      },
+      {
+        "title": "35秒の範囲と障害時の動作",
+        "body": "OpenAIは、停止指示から進行を止めるまでの最大時間を35秒と説明しています。許可確認のキャッシュがこの遅れを生みます。Control Room自体が停止した場合も推論要求を拒否する設計で、問題の検知を必ず35秒以内に終えるという保証ではありません。"
+      },
+      {
+        "title": "監視と停止権限を分けて考える",
+        "body": "WORK SIGNALの見方として、自動処理では異常に気づく仕組みと、継続を止める仕組みを分けて確認することが必要です。発表は研究基盤の仕組みであり、外部向けサービス全体を同じ方式で停止するという説明へ広げることはできません。本稿ではページ上で明示されない初回発表日を断定していません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "OpenAIのControl Roomは、研究用モデルの出力を停止指示から最大35秒で止める仕組み。「異常の発生から35秒」ではありません。処理自体が残る場合や、停止基盤の障害時には出力を拒否する設計も含めて整理しました。\nhttps://signal.amberlight.co.jp/articles/20261109-openai-control-room-research-kill-switch/\nhttps://openai.com/index/control-room/",
+    "publication_key": "2de05cf3d2b6b3e04ba4e9b9d1edecede151fbb7641cefed71b7352c1c2a8ffb",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-fed-bowman-inflation-still-work-to-do",
     "title": "FRBボウマン副議長、10月コアPCEを3.3％と推計──正式な公表値とは区別",
     "summary": "FRBのボウマン副議長は2026年11月10日の講演で、10月のコアPCE物価上昇率が前年比3.3％へ上がった可能性が高いとの見方を示しました。当日公表のCPIに基づく推計であり、PCEの正式な公表値ではありません。",

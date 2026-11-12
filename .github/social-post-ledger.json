@@ -4633,7 +4633,9 @@
   "20261110-new-york-raise-act-portal-nycairr": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T12:32:56+00:00"
+      "updated_at": "2026-11-12T12:33:13+00:00",
+      "stage": "container_created",
+      "container_id": "18134855263690068"
     }
   }
 }

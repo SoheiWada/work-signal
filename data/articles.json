@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261112-aspnetcore-signalr-identity-cve-2026-114146",
+    "title": "ASP.NET CoreのSignalRに権限昇格の重大脆弱性、修正版8.0.34などを公開",
+    "summary": "MicrosoftはASP.NET CoreのSignalR接続で、接続開始時に確立した利用者IDとの結び付けが一貫せず、注入されたメッセージが被害者の権限でHub処理を実行し得る脆弱性CVE-2026-114146を公表した。公式評価はCRITICAL（CVSS v3.1で9.0）。影響するランタイムと単独パッケージを確認し、修正版への更新が必要だ。",
+    "category": "SECURITY",
+    "score": 92,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T10:23:29.768Z",
+    "source_url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-67wp-ghc2-fw2g",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "MicrosoftはASP.NET CoreのSignalR接続で、接続開始時に確立した利用者IDとの結び付けが一貫せず、注入されたメッセージが被害者の権限でHub処理を実行し得る脆弱性CVE-2026-114146を公表した。公式評価はCRITICAL（CVSS v3.1で9.0）。影響するランタイムと単独パッケージを確認し、修正版への更新が必要だ。",
+    "sections": [
+      {
+        "title": "SignalRの接続ID確認に問題",
+        "body": "Microsoftの開発元勧告によると、SignalRの接続は開始時に交渉した利用者IDに一貫して結び付けられず、注入されたメッセージが被害者のIDとしてHub呼び出しを実行し得る。CVE-2026-114146の公式深刻度はCRITICAL、CVSS v3.1基本値9.0。攻撃成立の前提を示すベクトルには権限と利用者操作が含まれる。公式勧告は実際の悪用を確認したとは述べておらず、悪用確認済みと扱わない。"
+      },
+      {
+        "title": "影響版と実務対応",
+        "body": "公式の影響範囲はASP.NET Coreランタイムの8.0.33以前、9.0.22以前、10.0.14以前、11.0.0の正式版より前の指定プレビュー／RC版で、各系列の開始版にも条件がある。修正版はそれぞれ8.0.34、9.0.23、10.0.15、11.0.0。単独配布のMicrosoft.AspNetCore.Http.Connections 1.2.0〜1.2.13は1.2.14へ更新する。Windows、Linux、macOSにまたがるため、開発環境だけでなく本番コンテナや配備ランタイム、依存パッケージを確認したい。修正版への更新と、SignalR Hubの権限設定・利用状況の点検を分けて実施する。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "ASP.NET CoreのSignalRに重大な権限昇格の脆弱性CVE-2026-114146。Microsoft公式評価はCRITICAL、CVSS v3.1で9.0です。接続時の認証IDとの紐付け不備により、注入メッセージが被害者としてHub処理を実行する可能性があります。対象は.NET 8/9/10/11の一部ランタイムと旧Http.Connectionsパッケージ。利用版を棚卸しし、8.0.34／9.0.23／10.0.15／11.0.0などへ更新してください。悪用確認の有無は公式資料で確認できず、既に攻撃されているとは断定しません。\nhttps://signal.amberlight.co.jp/articles/20261112-aspnetcore-signalr-identity-cve-2026-114146/\nhttps://github.com/dotnet/aspnetcore/security/advisories/GHSA-67wp-ghc2-fw2g",
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "ASP.NET Core SignalR / Microsoft.AspNetCore.App.Runtime 8.0.33以前、9.0.22以前、10.0.14以前、11.0.0-rc.3以前（公式記載の各プレビュー版以降に限る）、Microsoft.AspNetCore.Http.Connections 1.2.0〜1.2.13",
+    "social_security_action": "対象ランタイムを8.0.34／9.0.23／10.0.15／11.0.0へ、単独Http.Connectionsを1.2.14へ更新",
+    "publication_key": "589debcc1a2b707b2d2428134e91741b5e2381a976eb2f039e6cf5626c89c9cd",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-aspnetcore-multipart-header-limit-cve-2026-114149",
     "title": "ASP.NET Coreのmultipart処理にDoS脆弱性、ヘッダー数制限を回避──8.0.34などで修正（CVE-2026-114149）",
     "summary": "Microsoftは2026年11月10日、ASP.NET Coreのmultipartフォーム処理におけるサービス運用妨害（DoS）の脆弱性CVE-2026-114149を公表した。ヘッダー数の制限を回避する細工されたリクエストが過剰な資源消費を招く可能性がある。開発元はHIGH（CVSS v3.1、7.5）と評価し、各サポート系列の修正版を示している。",

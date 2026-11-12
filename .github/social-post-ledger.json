@@ -4615,7 +4615,9 @@
   "20261112-anthropic-usage-policy-effective": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T12:32:14+00:00"
+      "updated_at": "2026-11-12T12:32:23+00:00",
+      "stage": "publish_requested",
+      "container_id": "18087070829512126"
     }
   }
 }

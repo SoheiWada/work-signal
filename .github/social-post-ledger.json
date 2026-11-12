@@ -4776,10 +4776,12 @@
   },
   "20261109-meta-instagram-ai-age-estimation-global": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T12:41:06+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T12:41:08+00:00",
       "stage": "publish_requested",
-      "container_id": "18151483696563132"
+      "container_id": "18151483696563132",
+      "remote_id": "18151483696563132",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfpFD1BmyTz"
     }
   }
 }

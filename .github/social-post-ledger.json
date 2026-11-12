@@ -4704,10 +4704,12 @@
   },
   "20261110-ai-productivity-jcurve-qantas-rba-boe": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T12:39:11+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T12:39:13+00:00",
       "stage": "publish_requested",
-      "container_id": "18373660954215009"
+      "container_id": "18373660954215009",
+      "remote_id": "18373660954215009",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfpE11HlTXC"
     }
   }
 }

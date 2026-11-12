@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261111-react-server-components-rce-cve-2026-126187",
+    "title": "React Server Componentsに認証不要のRCE、CVE-2026-126187──19.0.9などへ更新",
+    "summary": "React Server Components（RSC）を利用する一部のサーバーアプリに、認証なしでリモートコード実行につながる重大な脆弱性が公表された。CVE-2026-126187はGitHub ReviewedでCRITICAL、CVSS v4.0 9.5。特定の型付き配列を含む応答など非常に限定された条件で成立する問題で、Reactを使う全サイトが影響を受けるわけではない。",
+    "category": "SECURITY",
+    "score": 95,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T02:02:11.030Z",
+    "source_url": "https://github.com/react/react/security/advisories/GHSA-xqc2-xf4c-x3h3",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "React Server Components（RSC）を利用する一部のサーバーアプリに、認証なしでリモートコード実行につながる重大な脆弱性が公表された。CVE-2026-126187はGitHub ReviewedでCRITICAL、CVSS v4.0 9.5。特定の型付き配列を含む応答など非常に限定された条件で成立する問題で、Reactを使う全サイトが影響を受けるわけではない。",
+    "sections": [
+      {
+        "title": "対象はReact Server Componentsの通信処理",
+        "body": "開発元の勧告によると、RSCに対応するフレームワークで、複数の型付き配列と攻撃者が制御する値が関係する特殊なペイロードを処理する場合、リモートコード実行に至る可能性がある。影響するパッケージはreact-server-dom-webpack、react-server-dom-parcel、react-server-dom-turbopack。RSCを使わないクライアントのみのReactアプリは対象外である。実環境での悪用は公式勧告で確認できない。"
+      },
+      {
+        "title": "4系列の修正版へ更新",
+        "body": "対象は19.0.0〜19.0.8、19.1.0〜19.1.9、19.2.0〜19.2.8、19.3.0。修正版は19.0.9、19.1.10、19.2.9、19.3.1。依存関係にRSC対応パッケージが含まれるかを調べ、導入系列に対応する修正版へ更新する。単にReactを使っているという理由だけで全アプリを脆弱と判定せず、実際のサーバー構成を確認する。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "React Server Componentsに認証不要のリモートコード実行につながるCRITICAL脆弱性が報告されました。対象はreact-server-dom-webpack／parcel／turbopackの特定の19系バージョン。修正版は19.0.9、19.1.10、19.2.9、19.3.1です。成立条件は限定的で、サーバー機能を使わないReactアプリは影響しません。RSCの採用有無と依存パッケージを点検し、更新してください。\nhttps://signal.amberlight.co.jp/articles/20261111-react-server-components-rce-cve-2026-126187/\nhttps://github.com/react/react/security/advisories/GHSA-xqc2-xf4c-x3h3",
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "react-server-dom-webpack／parcel／turbopackの19.0.0〜19.0.8、19.1.0〜19.1.9、19.2.0〜19.2.8、19.3.0",
+    "social_security_action": "利用系列に応じ19.0.9、19.1.10、19.2.9、19.3.1以降へ更新",
+    "publication_key": "f97846bc4f5a8eadd82f5a04de45a08ee715b8c3785f6dd9f2e17f9728c065b2",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-gilbert-tobin-ai-adoption-87",
     "title": "豪法律事務所、ChatGPT利用対象者の87％がアクティブ──AI定着を支えた経営者の実践と統制",
     "summary": "豪州の法律事務所Gilbert + Tobinは、ChatGPTを利用できる従業員のうち87％がアクティブ利用していると明らかにした。経営者自身の活用、業務別の実演、機密情報の入力ルールを組み合わせたという。AI導入を「アカウント配布」で終わらせないための実践を読み解く。",

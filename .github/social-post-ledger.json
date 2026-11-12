@@ -4975,7 +4975,9 @@
   "20261113-dotnet-pdb-cve-2026-114158": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T21:32:05+00:00"
+      "updated_at": "2026-11-12T21:32:15+00:00",
+      "stage": "publish_requested",
+      "container_id": "18031413389877370"
     }
   }
 }

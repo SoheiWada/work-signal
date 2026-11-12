@@ -4956,10 +4956,12 @@
   },
   "20261113-aspnetcore-signalr-redis-dos-cve-2026-114147": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T20:26:27+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T20:26:30+00:00",
       "stage": "publish_requested",
-      "container_id": "18132126616880509"
+      "container_id": "18132126616880509",
+      "remote_id": "18132126616880509",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dfp6T65nyyQ"
     }
   }
 }

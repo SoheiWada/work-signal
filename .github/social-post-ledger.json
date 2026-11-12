@@ -4686,10 +4686,12 @@
   },
   "20261110-google-gemini-4-carbon-general-availability": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T12:34:56+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T12:34:58+00:00",
       "stage": "publish_requested",
-      "container_id": "17895826470683554"
+      "container_id": "17895826470683554",
+      "remote_id": "17895826470683554",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfpEWpQG_zZ"
     }
   }
 }

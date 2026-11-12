@@ -5000,10 +5000,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfqF-t9mWd_"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T22:08:47+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T22:08:51+00:00",
       "stage": "publish_requested",
-      "container_id": "18161359873488337"
+      "container_id": "18161359873488337",
+      "remote_id": "18080139857737797",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4029059296059303737"
     }
   }
 }

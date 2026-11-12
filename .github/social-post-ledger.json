@@ -4471,7 +4471,9 @@
   "20261112-jiostar-ai-video-discovery-evaluation": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T03:02:30+00:00"
+      "updated_at": "2026-11-12T03:02:40+00:00",
+      "stage": "publish_requested",
+      "container_id": "17956236408295413"
     }
   }
 }

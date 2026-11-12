@@ -4485,5 +4485,11 @@
       "remote_id": "18393166003225600",
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4028482690567395156"
     }
+  },
+  "20261112-apache-http2-cve-2026-119618": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-12T03:25:57+00:00"
+    }
   }
 }

@@ -4470,10 +4470,12 @@
   },
   "20261112-jiostar-ai-video-discovery-evaluation": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T03:02:40+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T03:02:42+00:00",
       "stage": "publish_requested",
-      "container_id": "17956236408295413"
+      "container_id": "17956236408295413",
+      "remote_id": "17956236408295413",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfoC3KjlKVF"
     }
   }
 }

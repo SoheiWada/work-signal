@@ -4723,7 +4723,9 @@
   "20261110-tsmc-october-revenue-586-billion": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T12:39:37+00:00"
+      "updated_at": "2026-11-12T12:39:45+00:00",
+      "stage": "publish_requested",
+      "container_id": "18135056104761580"
     }
   }
 }

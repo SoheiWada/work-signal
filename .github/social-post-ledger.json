@@ -4525,7 +4525,9 @@
   "20261112-rails-activestorage-cve-2026-126186": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T06:26:05+00:00"
+      "updated_at": "2026-11-12T06:26:15+00:00",
+      "stage": "publish_requested",
+      "container_id": "18130334522490888"
     }
   }
 }

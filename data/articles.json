@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261110-anthropic-claude-meetings-sheets-whiteboards-data",
+    "title": "Claudeに表計算とホワイトボード──Dataは一般提供、企業プランの初期設定に違い",
+    "summary": "Anthropicは2026年11月10日、Claude WhiteboardsとClaude Sheetsのベータ提供、Claude Dataの一般提供を発表しました。全有料プランが対象ですが、Enterpriseでは機能ごとに初期設定と展開日が異なります。",
+    "category": "AI",
+    "score": 92,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T12:49:22.648Z",
+    "source_url": "https://claude.com/resources/articles/sheets-whiteboards-data",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Anthropicは2026年11月10日、Claude WhiteboardsとClaude Sheetsのベータ提供、Claude Dataの一般提供を発表しました。全有料プランが対象ですが、Enterpriseでは機能ごとに初期設定と展開日が異なります。",
+    "sections": [
+      {
+        "title": "三つの機能で作成と共同作業を支える",
+        "body": "Whiteboardsはチームで考えを整理する共有ボード、Sheetsは数式や書式などを備えた表計算です。Sheetsは現時点で基本的な機能に限られ、必要に応じて.xlsxやCSVへ書き出せます。旧DashboardsはClaude Dataとなり、認証されたクエリや最新の結果を共有する機能を加えます。Data本体の一般提供と、認証クエリ・ライブ共有のベータ提供は区別が必要です。"
+      },
+      {
+        "title": "TeamとEnterpriseで初期状態が異なる",
+        "body": "Teamでは三つとも初期状態で有効です。EnterpriseではWhiteboardsとSheetsは初期状態で無効、Dataは2026年11月19日に初期状態で有効になります。管理者は組織設定で変更できます。Dataの利用にはデータ接続が必要です。"
+      },
+      {
+        "title": "導入前に確認すること",
+        "body": "WORK SIGNALの見方として、全有料プランが対象という説明だけで導入済みと判断せず、管理者設定、接続先、共有結果を閲覧できる人を確認することが必要です。ライブ共有は承認したクエリ結果を見せる機能で、閲覧者に接続元で任意の照会を行う権限を与えるものではありません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Claudeに表計算とホワイトボードが加わり、Dataは一般提供へ。対象は全有料プランですが、TeamとEnterpriseでは初期設定が異なります。EnterpriseのDataは11月19日に初期状態で有効化。管理者設定と共有範囲の確認が先です。\nhttps://signal.amberlight.co.jp/articles/20261110-anthropic-claude-meetings-sheets-whiteboards-data/\nhttps://claude.com/resources/articles/sheets-whiteboards-data",
+    "publication_key": "ada3a5dfc1a3930f40b95e5686ec7d8cd43f549cb6f7c854132a14acbb46a228",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-ai-productivity-jcurve-qantas-rba-boe",
     "title": "AIの生産性効果はいつ出るのか──豪英中銀が示す投資・組織変更とリスクの時間差",
     "summary": "AIへの投資が増えても、経済全体の生産性がすぐ改善するとは限りません。2026年11月9日の豪英中銀の講演を比べると、導入に伴う組織変更と、効果を見込む側の期待の速さに違いがあります。企業の導入評価にも、この時間差を見る視点が必要です。",

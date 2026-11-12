@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261110-fed-waller-december-rate-hike-signal",
+    "title": "FRBウォラー理事、12月の25bp利上げを支持する方向──50bp検討には物価条件",
+    "summary": "FRBのウォラー理事は2026年11月10日の講演で、12月会合では25ベーシスポイント（0.25％ポイント）の利上げを支持する方向だと述べました。50bpの検討にも言及していますが、講演時点で未公表だった10月CPIの結果を条件とする個人の見解です。",
+    "category": "経済",
+    "score": 91,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T12:49:32.835Z",
+    "source_url": "https://www.federalreserve.gov/newsevents/speech/waller20261110a.htm",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "FRBのウォラー理事は2026年11月10日の講演で、12月会合では25ベーシスポイント（0.25％ポイント）の利上げを支持する方向だと述べました。50bpの検討にも言及していますが、講演時点で未公表だった10月CPIの結果を条件とする個人の見解です。",
+    "sections": [
+      {
+        "title": "25bp支持と50bpの条件を分ける",
+        "body": "ウォラー氏は、10月のインフレ率が改善しても25bpの利上げを支持すると説明しました。一方、10月コアCPIの前月比が過去2回と同様に0.3％前後かそれ以上なら、50bpの利上げを検討すべきだとしています。条件つきの発言を、50bpが決定したという意味へ広げることはできません。"
+      },
+      {
+        "title": "雇用の安定だけでは健全さを測れない",
+        "body": "講演では、採用と離職がともに少ない労働市場についても論じています。雇用の総数が安定していても、新たに仕事を探す人や長期失業者には難しさが残り得るという問題提起です。"
+      },
+      {
+        "title": "企業が読む際の注意点",
+        "body": "WORK SIGNALの見方として、資金調達や採用計画では、政策決定、理事個人の意見、経済指標に基づく条件を分けて扱う必要があります。本稿は講演の条件を整理したもので、講演後のCPIで条件が満たされたかの判定や、12月の決定予測は行っていません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "ウォラーFRB理事は12月の25bp利上げを支持する方向。50bpの検討にも言及しましたが、講演時点で未公表だった10月コアCPIを条件とする発言です。個人の見解とFOMCの決定、条件と結果を分けて整理しました。\nhttps://signal.amberlight.co.jp/articles/20261110-fed-waller-december-rate-hike-signal/\nhttps://www.federalreserve.gov/newsevents/speech/waller20261110a.htm",
+    "publication_key": "f5060041a632f530e751c546f4027ff639c2baae1180f6968d3628fbc185cda5",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261110-anthropic-claude-meetings-sheets-whiteboards-data",
     "title": "Claudeに表計算とホワイトボード──Dataは一般提供、企業プランの初期設定に違い",
     "summary": "Anthropicは2026年11月10日、Claude WhiteboardsとClaude Sheetsのベータ提供、Claude Dataの一般提供を発表しました。全有料プランが対象ですが、Enterpriseでは機能ごとに初期設定と展開日が異なります。",

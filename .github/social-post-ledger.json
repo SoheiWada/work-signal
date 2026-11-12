@@ -4579,8 +4579,8 @@
   "20261112-aspnetcore-signalr-identity-cve-2026-114146": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T10:30:24+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-11-12T10:30:26+00:00",
+      "stage": "publish_requested",
       "container_id": "18134845645690068"
     }
   }

@@ -4867,8 +4867,8 @@
   "20261110-anthropic-claude-meetings-sheets-whiteboards-data": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T12:59:37+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-11-12T12:59:39+00:00",
+      "stage": "publish_requested",
       "container_id": "18134858671690068"
     }
   }

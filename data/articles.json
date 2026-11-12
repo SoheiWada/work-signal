@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261110-google-gemini-4-carbon-general-availability",
+    "title": "Google「Gemini 4 Carbon」を一般提供──APIとUltraで展開、導入価格は11月末まで",
+    "summary": "Googleは2026年11月10日、Gemini 4 Carbonの提供拡大を発表しました。有料APIとGoogle AI Ultraなどが対象です。一般提供モデルのAPI導入価格は11月30日までで、その後の料金も明示されています。",
+    "category": "AI",
+    "score": 91,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T12:23:14.818Z",
+    "source_url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Googleは2026年11月10日、Gemini 4 Carbonの提供拡大を発表しました。有料APIとGoogle AI Ultraなどが対象です。一般提供モデルのAPI導入価格は11月30日までで、その後の料金も明示されています。",
+    "sections": [
+      {
+        "title": "一般提供の対象",
+        "body": "Google AI Studioの有料APIやGemini for businessで利用でき、Ultra向けにも順次展開します。Googleは複雑な長時間作業向けと位置づけ、通常のソフトウェア開発や知識労働にはArgonが適すると説明しています。"
+      },
+      {
+        "title": "API価格の適用期間を分けて確認",
+        "body": "導入価格は100万トークン当たり入力2ドル・出力10ドル。公式脚注は11月30日に導入期間が終わり、以降は入力4ドル・出力20ドルとしています。対象は一般公開向けCarbonモデルで、Ultraの月額料金が倍になるという意味ではありません。"
+      },
+      {
+        "title": "仕事で試すときの留保",
+        "body": "WORK SIGNALの見方として、同じ業務を用いて精度と実際の総料金を比較することが重要です。提供の順次展開や対象条件を確認し、Googleの性能評価だけから自社での効果を断定しないようにします。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Gemini 4 Carbonの一般提供が拡大。有料APIとUltraなどが対象です。\n注意したいのはAPIの導入価格。100万トークン当たり入力2ドル・出力10ドルは11月30日までで、その後は4ドル・20ドルになります。Ultraの月額料金の話とは区別が必要です。\nhttps://signal.amberlight.co.jp/articles/20261110-google-gemini-4-carbon-general-availability/\nhttps://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/",
+    "publication_key": "382d3102856362a39887358a848090674c5e028cc59827fd0851a1b87e33b072",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-holiday-extras-codex-app-rebuild",
     "title": "Codex導入でアプリ改修が6か月から2週間へ──Holiday Extrasの成果と注意点",
     "summary": "旅行予約サービスのHoliday Extrasが、OpenAIのCodexを使ったアプリ再構築事例を11月12日に公表した。従来6か月超かかった規模の開発を2週間で動作する状態にし、予約への転換率も改善したという。ただし数字は導入企業の事例で、一般企業に同じ効果が出る保証ではない。",

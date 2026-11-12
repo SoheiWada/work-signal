@@ -4650,10 +4650,12 @@
   },
   "20261110-chatgpt-advanced-standard-voice-retirement": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T12:33:52+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T12:33:55+00:00",
       "stage": "publish_requested",
-      "container_id": "18117443381012919"
+      "container_id": "18117443381012919",
+      "remote_id": "18117443381012919",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfpEPDsG0TV"
     }
   }
 }

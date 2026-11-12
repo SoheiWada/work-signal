@@ -5010,10 +5010,12 @@
   },
   "20261113-amplitude-wave-product-improvement-ai": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T23:03:00+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T23:03:02+00:00",
       "stage": "publish_requested",
-      "container_id": "18091538510697629"
+      "container_id": "18091538510697629",
+      "remote_id": "18091538510697629",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfqMOiEmFqn"
     }
   }
 }

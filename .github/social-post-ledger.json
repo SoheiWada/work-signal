@@ -4543,7 +4543,9 @@
   "20261112-openai-caregiver-ai-skills-jam": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-12T06:26:51+00:00"
+      "updated_at": "2026-11-12T06:27:00+00:00",
+      "stage": "publish_requested",
+      "container_id": "18155584855468368"
     }
   }
 }

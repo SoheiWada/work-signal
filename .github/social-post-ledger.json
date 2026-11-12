@@ -4452,10 +4452,12 @@
   },
   "20261112-gilbert-tobin-ai-adoption-87": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T02:11:52+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T02:11:54+00:00",
       "stage": "publish_requested",
-      "container_id": "18016221368992865"
+      "container_id": "18016221368992865",
+      "remote_id": "18016221368992865",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dfn9DRBltR0"
     }
   }
 }

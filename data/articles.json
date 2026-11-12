@@ -1,5 +1,44 @@
 [
   {
+    "id": "20261112-aspnetcore-multipart-header-limit-cve-2026-114149",
+    "title": "ASP.NET Coreのmultipart処理にDoS脆弱性、ヘッダー数制限を回避──8.0.34などで修正（CVE-2026-114149）",
+    "summary": "Microsoftは2026年11月10日、ASP.NET Coreのmultipartフォーム処理におけるサービス運用妨害（DoS）の脆弱性CVE-2026-114149を公表した。ヘッダー数の制限を回避する細工されたリクエストが過剰な資源消費を招く可能性がある。開発元はHIGH（CVSS v3.1、7.5）と評価し、各サポート系列の修正版を示している。",
+    "category": "SECURITY",
+    "score": 86,
+    "published_at": "2026-11-12",
+    "published_at_time": "2026-11-12T07:21:09.873Z",
+    "source_url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-x33c-w48q-qrgc",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Microsoftは2026年11月10日、ASP.NET Coreのmultipartフォーム処理におけるサービス運用妨害（DoS）の脆弱性CVE-2026-114149を公表した。ヘッダー数の制限を回避する細工されたリクエストが過剰な資源消費を招く可能性がある。開発元はHIGH（CVSS v3.1、7.5）と評価し、各サポート系列の修正版を示している。",
+    "sections": [
+      {
+        "title": "何が問題なのか",
+        "body": "開発元の勧告によると、multipartフォーム処理で設定済みのヘッダー数上限を回避でき、過剰なリソース消費につながる。攻撃条件はネットワーク経由、攻撃複雑性低、認証不要、ユーザー操作不要と評価され、可用性への影響がHIGHとされる。一方、機密性と完全性への直接影響はこの評価では示されていない。実際の悪用確認は勧告で確認できず、悪用済みと断定しない。"
+      },
+      {
+        "title": "影響範囲と推奨対応",
+        "body": "対象はMicrosoft.AspNetCore.App.RuntimeのWindows、Linux、macOS向け各種配布物とMicrosoft.AspNetCore.WebUtilities。開発元が列挙する影響系列は8.0.33以前、9.0.22以前、10.0.14以前、および11.0.0 RC3以前の該当プレビューを含む。修正版は順に8.0.34、9.0.23、10.0.15、11.0.0。すべての古い版が無条件に影響するという意味ではなく、公式勧告のパッケージ別範囲と照合する。アプリケーションのNuGet依存関係、配備したランタイム、コンテナイメージを確認し、適合する修正版へ更新する。"
+      },
+      {
+        "title": "根拠と留保",
+        "body": "Microsoftの公式GitHubセキュリティ勧告GHSA-x33c-w48q-qrgcを一次資料として確認した。重大度はMicrosoftのCVSS v3.1 HIGH 7.5であり、CVSS v4など別評価と混同しない。公開時点の攻撃観測件数は確認できない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "ASP.NET Coreのmultipartフォーム処理に、サービス停止につながる可能性のある脆弱性が公表されました。CVE-2026-114149は、ヘッダー数の制限を回避するリクエストによってサーバ資源を過剰消費させる問題です。MicrosoftはHIGH（CVSS 7.5）と評価。8.0系は8.0.34、9.0系は9.0.23、10.0系は10.0.15、11.0系は正式版11.0.0が修正版です。フォーム受付を持つサービスは、NuGet依存関係と実際の配備ランタイムを両方点検してください。悪用が確認されたという情報ではありません。\nhttps://signal.amberlight.co.jp/articles/20261112-aspnetcore-multipart-header-limit-cve-2026-114149/\nhttps://github.com/dotnet/aspnetcore/security/advisories/GHSA-x33c-w48q-qrgc",
+    "social_security_severity": "HIGH",
+    "social_security_product": "ASP.NET Core / Microsoft.AspNetCore.WebUtilitiesおよびMicrosoft.AspNetCore.App.Runtime（8.0.33以前、9.0.22以前、10.0.14以前、11.0.0 RC3以前の該当版）",
+    "social_security_action": "使用する系列に応じて8.0.34、9.0.23、10.0.15、11.0.0以降の修正版へ更新し、配備済みランタイムとアプリ依存パッケージの両方を確認する",
+    "publication_key": "459c13cf9df9614fec77b8465e10e74783e31c96bdd2dbfb00490693cf858b27",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-rails-activestorage-cve-2026-126186",
     "title": "Rails Active Storageにファイル読取・コード実行の恐れ──アップロード処理の条件を確認",
     "summary": "Rails開発元は、Active Storageでアップロードファイルを処理する際の脆弱性CVE-2026-126186を公表しています。公式評価はHIGH、CVSS v3.1は8.8。11月10日に更新された勧告を基に、対象と対策を整理します。",

@@ -4668,10 +4668,12 @@
   },
   "20261111-google-gemini-decisions-api-decision-1": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-12T12:34:24+00:00",
+      "status": "published",
+      "updated_at": "2026-11-12T12:34:26+00:00",
       "stage": "publish_requested",
-      "container_id": "18287947987289787"
+      "container_id": "18287947987289787",
+      "remote_id": "18287947987289787",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfpES1kG_do"
     }
   }
 }

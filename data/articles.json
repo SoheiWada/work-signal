@@ -1,5 +1,44 @@
 [
   {
+    "id": "20261114-unrealircd-kev-cve-2026-114713",
+    "title": "UnrealIRCdのコマンド注入がKEV入り──CNA評価HIGH、6.2.7.1等の修正適用を確認",
+    "summary": "CISAの公式KEVミラーに2026年11月13日、UnrealIRCdのCVE-2026-114713が追加された。連携するIRCサーバー間の通信にコマンドを注入し、IRCのサーバー権限で実行させる問題だ。修正の公表は11月7日で、今回の新しい動きはKEVへの追加である。CNAの評価はCVSS v3.1で8.6（HIGH）。",
+    "category": "SECURITY",
+    "score": 90,
+    "published_at": "2026-11-14",
+    "published_at_time": "2026-11-13T22:04:35.499Z",
+    "source_url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/114xxx/CVE-2026-114713.json",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "CISAの公式KEVミラーに2026年11月13日、UnrealIRCdのCVE-2026-114713が追加された。連携するIRCサーバー間の通信にコマンドを注入し、IRCのサーバー権限で実行させる問題だ。修正の公表は11月7日で、今回の新しい動きはKEVへの追加である。CNAの評価はCVSS v3.1で8.6（HIGH）。",
+    "sections": [
+      {
+        "title": "IRCサーバー間の通信を悪用する問題",
+        "body": "CNAの公式CVE記録によると、UnrealIRCdのlabeled-responseモジュールがIRCv3のlabelタグを適切に処理しないため、2台以上のサーバーを連携させたネットワークで、通常の利用者がサーバー間通信にコマンドを注入できる。実行権限はIRCサーバーやIRCオペレーターの権限であり、この記事はOSの管理者権限で任意のプログラムを実行できると述べているわけではない。\n\nCNAの数値評価はHIGH・8.6。一方、開発元は公開勧告でcriticalと表現している。本稿のseverityはCNAの数値評価に合わせ、開発元の表現と区別する。KEVへの収録は実際の悪用が確認された脆弱性としての扱いであり、導入している全組織が被害を受けたという意味ではない。ミラーのknownRansomwareCampaignUseはUnknownで、ランサムウェア利用を確認したとはしない。"
+      },
+      {
+        "title": "修正版、ホットパッチと適用確認",
+        "body": "開発元の11月8日付けoss-security投稿は、11月7日に修正版6.2.7.1とホットパッチを公表したと説明する。6.0.0〜6.2.7の6系にはbundle-20261107の適用手順と、labeled-responseモジュールの状態を確認する方法が示されている。Windowsやホットパッチに失敗する環境では、6.2.7.1への更新を案内している。\n\n運用者は、更新したつもりで終えず、すべての関連サーバーで修正が有効かを開発元の確認手順で点検したい。開発元はサポート終了済み5系も本問題の影響を受けるとし、暫定的なモジュール無効化と再起動にも言及するが、サポート対象の6系への移行を求めている。他の古い系統は未検証としており、影響なしとは断定できない。"
+      },
+      {
+        "title": "KEV追加日と修正公表日を分けて追う",
+        "body": "今回取得したCISA公式ミラーは2026.11.13版・全1,781件で、このCVEのdateAddedは11月13日だった。これは修正版の新発売日ではない。ミラーのCISA本体との同期鮮度は未確認であり、全世界でこの2件以外に新たな悪用がないという判断にも使わない。\n\n同じ更新でCheck Pointの別CVEも追加されたが、対象製品や修正版は別問題である。本記事の対応版を流用してはいけない。UnrealIRCdについては、利用バージョン、サーバー連携の構成、更新またはパッチの適用状態を照合することが優先される。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "CISAの公式KEVミラーに11月13日、UnrealIRCdのCVE-2026-114713が追加されました。通常の利用者が、連携するIRCサーバー間の通信へコマンドを注入できる問題です。CNA評価はHIGH（8.6）。修正公表は11月7日で、今回の新情報はKEV収録です。6系の6.2.7.1への更新、または開発元ホットパッチの適用状態を確認してください。OSでの任意コード実行や全利用者の被害確認とは区別します。\nhttps://signal.amberlight.co.jp/articles/20261114-unrealircd-kev-cve-2026-114713/\nhttps://github.com/CVEProject/cvelistV5/blob/main/cves/2026/114xxx/CVE-2026-114713.json",
+    "social_security_severity": "HIGH",
+    "social_security_product": "UnrealIRCd 6系6.0.0〜6.2.7の未修正環境。EOL5系も開発元が影響を明記。",
+    "social_security_action": "6.2.7.1へ更新、または対応する6系へ開発元bundle-20261107ホットパッチを適用し各サーバーの適用状態を確認。Windows/パッチ失敗時は更新。",
+    "publication_key": "4dabfbe450a879387be5724f8052288227edfd44fefe4cc61e16aabc5431a73b",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261114-us-october-ppi-final-demand-65-percent",
     "title": "米10月PPIは前月比0.3％、前年比6.5％──伸びの鈍化と高い価格水準を分けて読む",
     "summary": "米労働統計局（BLS）は2026年11月13日、10月の最終需要の生産者物価指数（PPI）が前月比0.3％上昇したと発表した。前年比は6.5％上昇で、2022年11月以来の大きさとなった。前月比の伸びは9月の改定値1.4％から縮小したが、価格が下がったことを示す数字ではない。",

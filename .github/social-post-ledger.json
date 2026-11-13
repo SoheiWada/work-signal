@@ -5190,10 +5190,12 @@
   },
   "20261114-us-october-ppi-final-demand-65-percent": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-13T22:10:59+00:00",
+      "status": "published",
+      "updated_at": "2026-11-13T22:11:02+00:00",
       "stage": "publish_requested",
-      "container_id": "18140677747650189"
+      "container_id": "18140677747650189",
+      "remote_id": "18140677747650189",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfsrEjpCeSt"
     }
   }
 }

@@ -1,5 +1,39 @@
 [
   {
+    "id": "20261113-soupsieve-descendant-combinator-dos-cve-2026-126190",
+    "title": "Soup SieveにHIGHのDoS脆弱性、HTML解析サービスは4.0への更新を",
+    "summary": "PythonのHTML解析で使われるSoup Sieveに、少量の深く入れ子になったHTMLなどを処理するだけでCPU負荷が長時間高まるサービス拒否（DoS）脆弱性が確認されました。開発元は2026年11月4日にHIGHとして公表し、GitHub Reviewed Advisoryには11月13日に登録されています。対象は4.0未満で、更新または入力制限が推奨されます。",
+    "category": "SECURITY",
+    "score": 87,
+    "published_at": "2026-11-13",
+    "published_at_time": "2026-11-13T08:22:56.289Z",
+    "source_url": "https://github.com/facelessuser/soupsieve/security/advisories/GHSA-mmhr-3c5m-f64f",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "PythonのHTML解析で使われるSoup Sieveに、少量の深く入れ子になったHTMLなどを処理するだけでCPU負荷が長時間高まるサービス拒否（DoS）脆弱性が確認されました。開発元は2026年11月4日にHIGHとして公表し、GitHub Reviewed Advisoryには11月13日に登録されています。対象は4.0未満で、更新または入力制限が推奨されます。",
+    "sections": [
+      {
+        "title": "どの処理が危険なのか",
+        "body": "CVE-2026-126190（GHSA-mmhr-3c5m-f64f）は、Soup SieveのCSSセレクターで子孫結合子（空白で区切る指定）を使う際、深い階層の文書に対する照合処理が多項式時間に増える問題です。Beautiful Soupのselect()やselect_one()などから間接的に利用する場合も対象になります。開発元の検証では、旧版3.0.4で4KBの入れ子HTMLを「section div div」で照合すると約53秒かかった例が示されています。これは開発元の試験条件下の値であり、全環境の実測値ではありません。\n\n非信頼のHTML/XMLを利用者がアップロードしたり、外部サイトから取得して解析したりするWebサービスやスクレイパーでは、比較的小さな入力でも処理ワーカーを占有するおそれがあります。一方、信頼できる文書だけを処理する用途には、この攻撃条件は当てはまりません。実際の悪用事例は今回確認した開発元勧告には記載されていません。"
+      },
+      {
+        "title": "影響範囲と対応",
+        "body": "影響するのはsoupsieve 4.0未満です。開発元は4.0で照合結果のキャッシュを導入し、問題を修正しています。Python環境で直接またはBeautiful Soupの依存として導入されているsoupsieveの実バージョンを確認し、4.0以上への更新を検討してください。\n\n直ちに更新できない場合は、非信頼文書のサイズ・入れ子深さを制限し、可能なら子孫結合子ではなく子結合子を用い、解析処理に停止可能な時間制限を設ける方法が開発元から案内されています。4.0のNOCACHEフラグは従来のキャッシュなし動作を使うため、非信頼入力と子孫結合子の組み合わせでは注意が必要です。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "Python soupsieve 4.0未満（Beautiful Soup経由での利用を含む）",
+    "social_security_action": "soupsieve 4.0以上へ更新。更新できない場合は非信頼HTML/XMLの深さ・サイズ制限、セレクターの子結合子利用、処理時間制限",
+    "publication_key": "0b5a332fe9f67660652bde15e9c1622e251cc87c468f2fb7f6988260d7264c13",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261113-generic-drug-stable-supply-company-evaluation",
     "title": "後発医薬品185社の供給体制を厚労省が評価──C区分44.9％、品質や欠品率との混同に注意",
     "summary": "厚生労働省は2026年11月13日、後発医薬品企業185社の安定供給に向けた取組の評価結果を公表した。A区分38社、B区分64社、C区分83社。情報公開や供給余力などを企業単位で評価した結果であり、個別の薬の品質や現在の欠品率を直接示す数字ではない。調達先を確認するための新しい公開情報として整理する。",

@@ -5100,10 +5100,12 @@
   },
   "20261113-soupsieve-descendant-combinator-dos-cve-2026-126190": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-13T08:29:39+00:00",
+      "status": "published",
+      "updated_at": "2026-11-13T08:29:41+00:00",
       "stage": "publish_requested",
-      "container_id": "17950134168074416"
+      "container_id": "17950134168074416",
+      "remote_id": "17950134168074416",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfrNFAVlUHe"
     }
   }
 }

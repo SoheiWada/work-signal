@@ -5046,10 +5046,12 @@
   },
   "20261113-gondola-codex-small-team-productivity": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-13T02:08:53+00:00",
+      "status": "published",
+      "updated_at": "2026-11-13T02:08:55+00:00",
       "stage": "publish_requested",
-      "container_id": "17915883951285809"
+      "container_id": "17915883951285809",
+      "remote_id": "17915883951285809",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfqhgPfm5_J"
     }
   }
 }

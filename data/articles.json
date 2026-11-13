@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261113-gondola-codex-small-team-productivity",
+    "title": "Gondola、Codex導入で開発量25％増──小規模チームのAI活用と売上倍増の関係",
+    "summary": "米国のクリエイター支援企業Gondolaは、Codexを導入してから開発チーム全体の月間成果が25％増え、主任エンジニアのマージ済み変更数は50％増えたと報告した。2026年11月12日公開のOpenAI公式事例では、売上の前年比2倍超も紹介されている。ただし、売上増加をAIだけの効果とみなすことはできない。",
+    "category": "仕事",
+    "score": 86,
+    "published_at": "2026-11-13",
+    "published_at_time": "2026-11-13T02:03:51.991Z",
+    "source_url": "https://openai.com/business/customer-stories/gondola/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "米国のクリエイター支援企業Gondolaは、Codexを導入してから開発チーム全体の月間成果が25％増え、主任エンジニアのマージ済み変更数は50％増えたと報告した。2026年11月12日公開のOpenAI公式事例では、売上の前年比2倍超も紹介されている。ただし、売上増加をAIだけの効果とみなすことはできない。",
+    "sections": [
+      {
+        "title": "企画担当が動く試作品を作る",
+        "body": "Gondolaは、クリエイターの実績を可視化して企業との仕事につなぐサービスを運営する。従来、営業や事業開発の担当者は要件を文書化し、技術者の空きを待っていた。現在はCodex Cloudを使い、業務担当者自身が画面や業務フローの試作品を作り、エンジニアが完成度と安全性を高める。案件管理機能「Programs」や、ワールドカップ開催都市の制作者を探す地図機能がその事例だ。"
+      },
+      {
+        "title": "成果の数字と因果関係を分ける",
+        "body": "公式事例によれば、2026年初めからCodexを採用した後、チーム全体の月間開発成果は25％増、主任技術者のマージ済み変更数は約50％増。技術者の人数は変えていない。売上は前年比2倍超、ブランドに採用されたクリエイター数は2.5倍となった。一方、これらは企業側が示した観測値であり、比較対象を設けた因果実験ではない。売上増をCodexだけに帰属させることはできない。"
+      },
+      {
+        "title": "管理職が応用できる分担",
+        "body": "Gondolaでは事業担当が試作品を作って課題の解像度を上げ、エンジニアは設計、セキュリティ、データ処理、本番公開の責任を維持する。ChatGPTは提案書や日次報告の準備にも使うが、重要な対外送信や経営判断の前には人が確認する。小規模チームが参考にすべきなのは「AIに全工程を任せる」ことではなく、試作の待ち時間を減らし、責任分界を明確にする設計だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "小規模企業のAI導入は、単なる文章作成から「事業担当者が動く試作品を作る」段階へ。GondolaはCodexを活用し、開発チーム全体の月間成果が25％、主任技術者のマージ済み変更数が50％増えたと報告しています。売上も前年比2倍超ですが、これはAIだけの効果とは断定できません。重要なのは、営業・企画が試作を進めても、設計やセキュリティ、本番公開は技術者が責任を持つ役割分担。管理職が評価すべき指標も整理しました。\nhttps://signal.amberlight.co.jp/articles/20261113-gondola-codex-small-team-productivity/\nhttps://openai.com/business/customer-stories/gondola/",
+    "publication_key": "510dbace9c2fa0aae5b6f640da3c4d7980ba386a8b31d492f51c4c503c6ac6e0",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261113-gemini4-hydrogen-agentic-workflows",
     "title": "GoogleがGemini 4 Hydrogenを公開──100万トークン一律料金とAIモデル分業の実務",
     "summary": "Googleは2026年11月12日、日常のコーディングやAIエージェントの処理に向けた「Gemini 4 Hydrogen」を発表した。100万トークンのコンテキスト窓全体で一律のAPI単価を掲げ、複数モデルを切り替えるOrchestratorも紹介した。高性能モデルを一律に使うのではなく、処理の難度とコストで役割を分ける設計が焦点となる。",

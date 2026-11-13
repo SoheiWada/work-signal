@@ -3,12 +3,12 @@
   "provider": "balldontlie",
   "season": 2026,
   "throughDate": "2026-11-12",
-  "fetchedAt": "2026-11-12T18:24:22.123Z",
-  "lastAttemptAt": "2026-11-12T18:24:22.123Z",
+  "fetchedAt": "2026-11-13T02:40:56.287Z",
+  "lastAttemptAt": "2026-11-13T02:40:56.287Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 170,
+  "countedGames": 171,
   "standingsReason": null,
   "teams": [
     {
@@ -169,7 +169,7 @@
       "code": "PHI",
       "name": "Philadelphia 76ers",
       "conference": "East",
-      "wins": 9,
+      "wins": 10,
       "losses": 3
     },
     {
@@ -205,7 +205,7 @@
       "name": "Toronto Raptors",
       "conference": "East",
       "wins": 5,
-      "losses": 6
+      "losses": 7
     },
     {
       "code": "UTA",
@@ -223,6 +223,18 @@
     }
   ],
   "sets": [
+    [
+      {
+        "id": "21718091",
+        "date": "2026-11-12",
+        "home": "PHI",
+        "away": "TOR",
+        "homeScore": 123,
+        "awayScore": 112,
+        "competition": "regular",
+        "countsForStandings": true
+      }
+    ],
     [
       {
         "id": "21718090",
@@ -701,28 +713,6 @@
         "away": "WAS",
         "homeScore": 139,
         "awayScore": 132,
-        "competition": "regular",
-        "countsForStandings": true
-      }
-    ],
-    [
-      {
-        "id": "21718042",
-        "date": "2026-11-05",
-        "home": "GSW",
-        "away": "MIA",
-        "homeScore": 120,
-        "awayScore": 100,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21718041",
-        "date": "2026-11-05",
-        "home": "PHX",
-        "away": "ORL",
-        "homeScore": 117,
-        "awayScore": 104,
         "competition": "regular",
         "countsForStandings": true
       }

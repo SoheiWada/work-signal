@@ -5083,7 +5083,9 @@
   "20261113-generic-drug-stable-supply-company-evaluation": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-13T06:26:39+00:00"
+      "updated_at": "2026-11-13T06:26:48+00:00",
+      "stage": "publish_requested",
+      "container_id": "17913089109574600"
     }
   }
 }

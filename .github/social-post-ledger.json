@@ -5155,8 +5155,8 @@
   "20261113-fuji-electric-otc-pickup-machine-pilot": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-13T14:05:28+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-11-13T14:05:30+00:00",
+      "stage": "publish_requested",
       "container_id": "18134977537690068"
     }
   }

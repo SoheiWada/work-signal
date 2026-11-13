@@ -5029,7 +5029,9 @@
   "20261113-gemini4-hydrogen-agentic-workflows": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-13T00:11:34+00:00"
+      "updated_at": "2026-11-13T00:11:43+00:00",
+      "stage": "publish_requested",
+      "container_id": "18098552927124434"
     }
   }
 }

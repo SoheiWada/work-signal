@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261113-google-search-gemini4-hydrogen-intent-query-fanout",
+    "title": "Google検索にGemini 4 Hydrogen──複数条件の質問と比較表示を強化、情報源の確認は引き続き必要",
+    "summary": "Googleは2026年11月12日、検索にGemini 4 Hydrogenを導入すると発表した。複数の条件を含む質問への対応、関連する論点を並行して調べる処理、画像や比較表などの表示を強化するという。業務の下調べでは質問をまとめやすくなる一方、生成された回答と根拠となるWebサイトを分けて確認する姿勢が必要になる。",
+    "category": "AI",
+    "score": 85,
+    "published_at": "2026-11-13",
+    "published_at_time": "2026-11-13T10:13:29.797Z",
+    "source_url": "https://blog.google/products-and-platforms/products/search/gemini-4-hydrogen-search-upgrade/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Googleは2026年11月12日、検索にGemini 4 Hydrogenを導入すると発表した。複数の条件を含む質問への対応、関連する論点を並行して調べる処理、画像や比較表などの表示を強化するという。業務の下調べでは質問をまとめやすくなる一方、生成された回答と根拠となるWebサイトを分けて確認する姿勢が必要になる。",
+    "sections": [
+      {
+        "title": "複雑な質問を一度に扱う検索へ",
+        "body": "Google検索の担当者Robby Stein氏による公式発表では、Gemini 4 Hydrogenによって、複数の要素を含む質問、入力の誤り、細かな条件を伴う依頼をより正確に理解すると説明している。指示への追従とツール利用も改善し、質問の各部分に対応する回答を目指すという。\n\n同社は検索で世界の利用者向けに提供を開始したと説明している。ただし本記事では、日本の個別アカウントや端末での表示を実測していない。対応言語の説明も、AI Modeがサポートする言語の範囲であり、すべての言語への新規対応を意味しない。"
+      },
+      {
+        "title": "関連する論点を並行検索し、比較表や画像を表示",
+        "body": "強化する機能の一つがquery fan-outだ。質問を関連する複数の論点へ広げて同時に検索し、これまで見つけにくかった関連サイトやリンクへつなぐとGoogleは説明している。回答には画像、構造化された情報、比較表、その問いに応じたツールなどを表示するとしている。\n\nこれは検索機能の改善に関する同社の説明であり、すべての質問で情報の正確性や網羅性が保証されるという意味ではない。今回の発表には、企業の調査時間や意思決定の品質が何％改善するかを裏付ける実業務の測定値は示されていない。"
+      },
+      {
+        "title": "業務では条件整理と根拠確認を分ける",
+        "body": "たとえばサービス比較の下調べなら、利用人数、必要な機能、予算、対応言語などを一つの質問に含め、比較の観点を明示する使い方が考えられる。これは本記事の活用例であり、特定の回答精度を保証するものではない。\n\n表や要約を出発点にしつつ、価格、提供地域、契約条件、発表日などはリンク先の公式資料で確認したい。今回の発表は検索への導入が主題で、既報のGemini API単価や開発用Orchestratorの性能評価とは利用経路も判断材料も異なる。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Googleが11月12日、検索へのGemini 4 Hydrogen導入を発表しました。複数条件の質問を理解し、関連する論点を並行検索して、画像や比較表などで回答する機能を強化すると説明しています。業務の下調べでは条件をまとめて伝えやすくなる一方、価格や提供条件はリンク先の公式資料で確認したいところ。API料金の発表とは分けて整理しました。\nhttps://signal.amberlight.co.jp/articles/20261113-google-search-gemini4-hydrogen-intent-query-fanout/\nhttps://blog.google/products-and-platforms/products/search/gemini-4-hydrogen-search-upgrade/",
+    "publication_key": "af5ac1ecd4d649a1b88d935f9d808f499eb49f10072b40368adc4d01b6c5c1e8",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261113-rucio-ssh-challenge-auth-bypass-cve-2026-100397",
     "title": "RucioのSSHチャレンジ認証にCRITICAL脆弱性、管理者なりすましの恐れ",
     "summary": "大規模データ管理ソフトウェアRucioの認証処理に、SSHチャレンジ用トークンを通常のログイン認証情報として受け付ける重大な欠陥があります。開発元は2026年8月11日にCRITICALとして公表しており、認証前の攻撃者が管理者を含む任意のアカウントとしてAPIを操作できるおそれがあります。11月13日の候補再検出を新規公表日と混同せず、影響する運用環境の更新状況を確認します。",

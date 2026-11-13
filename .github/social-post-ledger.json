@@ -5064,10 +5064,12 @@
   },
   "20261113-microsoft-ai-workflow-redesign-500-projects": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-13T05:13:12+00:00",
+      "status": "published",
+      "updated_at": "2026-11-13T05:13:13+00:00",
       "stage": "publish_requested",
-      "container_id": "18068443928513069"
+      "container_id": "18068443928513069",
+      "remote_id": "18068443928513069",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dfq2mNAEUg6"
     }
   }
 }

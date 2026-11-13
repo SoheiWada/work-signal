@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261113-gemini4-hydrogen-agentic-workflows",
+    "title": "GoogleがGemini 4 Hydrogenを公開──100万トークン一律料金とAIモデル分業の実務",
+    "summary": "Googleは2026年11月12日、日常のコーディングやAIエージェントの処理に向けた「Gemini 4 Hydrogen」を発表した。100万トークンのコンテキスト窓全体で一律のAPI単価を掲げ、複数モデルを切り替えるOrchestratorも紹介した。高性能モデルを一律に使うのではなく、処理の難度とコストで役割を分ける設計が焦点となる。",
+    "category": "AI",
+    "score": 91,
+    "published_at": "2026-11-13",
+    "published_at_time": "2026-11-13T00:04:54.062Z",
+    "source_url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Googleは2026年11月12日、日常のコーディングやAIエージェントの処理に向けた「Gemini 4 Hydrogen」を発表した。100万トークンのコンテキスト窓全体で一律のAPI単価を掲げ、複数モデルを切り替えるOrchestratorも紹介した。高性能モデルを一律に使うのではなく、処理の難度とコストで役割を分ける設計が焦点となる。",
+    "sections": [
+      {
+        "title": "高速処理を担うモデルと一律の単価",
+        "body": "Googleの11月12日付公式発表によれば、Gemini 4 Hydrogenは日常的なコーディング、ツール利用、複数段階のエージェント処理を対象とする。API価格は入力100万トークン当たり1.50米ドル、出力100万トークン当たり7.50米ドルで、100万トークンまでのコンテキスト窓で一律と説明する。これはAPIのトークン単価であり、個別サービスのサブスクリプション料金や企業の総運用費ではない。Google AI Studio、Gemini API、企業向け環境、Geminiアプリ、検索などに展開するが、利用経路や有料契約の条件はそれぞれ異なる。"
+      },
+      {
+        "title": "深い判断と高速実行をモデルで分担",
+        "body": "Googleは複雑な設計・長時間推論をCarbonやArgonに、日常の実装や検証をHydrogenに振り分ける運用を示した。Google AntigravityのOrchestratorはモデルを自動切り替えし、Terminal-Bench 4.0ではCarbonに近い課題成功率を保ちながら、平均でクォータ消費を24％抑え、実行時間を19％短縮したと報告する。数値は特定のベンチマークにおける同社発表値であり、すべての企業業務で同じ改善が出ることを意味しない。"
+      },
+      {
+        "title": "導入判断はタスク別に検証",
+        "body": "実務では「難しい設計判断」「大量の定型処理」「検証」の各工程で、成功率・待ち時間・入力出力トークン・人によるレビュー工数を別々に測ることが重要だ。モデルの単価だけでなく、やり直しや承認にかかる費用も含めて比較する必要がある。Googleはプロンプトインジェクション耐性の改善も主張するが、実際の導入では機密情報へのアクセス権と操作承認を別途設計すべきだ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Googleが11月12日、Gemini 4 Hydrogenを発表。日常のコーディングやAIエージェント処理を担うモデルで、APIは入力100万トークン1.50ドル、出力7.50ドルの一律単価です。複数モデルを切り替えるOrchestratorは特定の開発ベンチマークでクォータ消費24％減、実行時間19％短縮と報告。ただし実業務での効果を保証する数字ではありません。企業は設計・実装・検証を分けてコストと成功率を測る必要があります。\nhttps://signal.amberlight.co.jp/articles/20261113-gemini4-hydrogen-agentic-workflows/\nhttps://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/",
+    "publication_key": "6f4e5212cd93e155145c2b539765846f076c23600f738b366a0ef3cc6c45084c",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261113-amplitude-wave-product-improvement-ai",
     "title": "Amplitude、AIで製品改善を「約1か月から1〜2日」へ──成果測定と人の承認をつなぐ設計",
     "summary": "Amplitudeの製品改善エージェント「Wave」について、OpenAIは2026年11月12日に導入事例を公開した。Amplitudeは改善案の発見から実装までを従来の約1か月から1〜2日に短縮できると見積もる。自社サイトのA/Bテストでは提案カード経由の送信が対照群より160％増えた。重要なのはAIが提案するだけでなく、効果検証と人の承認を同じ工程に組み込んでいる点だ。",

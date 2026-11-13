@@ -5133,5 +5133,11 @@
       "remote_id": "18134031046844530",
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4029400150913146477"
     }
+  },
+  "20261113-google-search-gemini4-hydrogen-intent-query-fanout": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-13T10:18:24+00:00"
+    }
   }
 }

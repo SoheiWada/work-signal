@@ -5136,10 +5136,12 @@
   },
   "20261113-google-search-gemini4-hydrogen-intent-query-fanout": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-13T10:18:35+00:00",
+      "status": "published",
+      "updated_at": "2026-11-13T10:18:38+00:00",
       "stage": "publish_requested",
-      "container_id": "18439858264182080"
+      "container_id": "18439858264182080",
+      "remote_id": "18439858264182080",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfrZil5kZ1_"
     }
   }
 }

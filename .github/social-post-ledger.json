@@ -5173,7 +5173,9 @@
   "20261114-unrealircd-kev-cve-2026-114713": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-13T22:10:15+00:00"
+      "updated_at": "2026-11-13T22:10:24+00:00",
+      "stage": "publish_requested",
+      "container_id": "18110444477637955"
     }
   }
 }

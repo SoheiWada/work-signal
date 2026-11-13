@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261113-microsoft-ai-workflow-redesign-500-projects",
+    "title": "AI導入は「試す」から「業務を作り直す」へ──Microsoftが示した500件近い実践の共通点",
+    "summary": "Microsoftは2026年11月12日、28か国・200超の顧客と約500件のAI関連プロジェクトに取り組んだと公表した。導入効果を左右するのはモデル性能だけではなく、業務の再設計、現場との共同開発、統制とコスト管理だという。企業のAI投資を実務成果につなぐ視点を整理する。",
+    "category": "仕事",
+    "score": 87,
+    "published_at": "2026-11-13",
+    "published_at_time": "2026-11-13T05:06:13.698Z",
+    "source_url": "https://blogs.microsoft.com/blog/2026/11/12/from-ai-ambition-to-business-impact/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Microsoftは2026年11月12日、28か国・200超の顧客と約500件のAI関連プロジェクトに取り組んだと公表した。導入効果を左右するのはモデル性能だけではなく、業務の再設計、現場との共同開発、統制とコスト管理だという。企業のAI投資を実務成果につなぐ視点を整理する。",
+    "sections": [
+      {
+        "title": "約500件の案件で見えた、AIの導入障壁",
+        "body": "Microsoftの公式ブログによると、同社のFrontier Company部門は28か国、200超の顧客と約500件のプロジェクトに関わった。顧客の初期案件が完了した後、追加の案件に戻る例が多いという。ただし、これらは同社の事業活動の実績であり、全案件の投資収益率や成功率を示す数字ではない。\n\n同社が挙げた障壁は、技術そのものよりも、価値を生む業務の特定、信頼性とガバナンス、業務運営の変更、人材の働き方にある。3Mでは与信確認や受注管理を支援するエージェントの構築を進め、人による確認と監視画面を組み込んでいる。これは完成後の効果を確約する発表ではない。"
+      },
+      {
+        "title": "導入を評価する四つの実務基準",
+        "body": "Microsoftは、技術選定より事業価値から始めること、個別作業ではなく業務プロセス全体を再設計すること、現場と短い改善サイクルを回すこと、初期段階からセキュリティ・統制・コスト管理を組み込むことを挙げた。\n\n管理職が検討する際は、AI利用者数だけでなく、処理時間、差し戻し率、人の承認が必要な箇所、運用費用を導入前後で測定するとよい。Microsoftが紹介するIDC調査の66%・48%などはMicrosoftがスポンサーの調査に由来し、全企業に一般化できる確定値ではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "企業のAI活用は、デモの成功だけでは評価できなくなっています。Microsoftは11月12日、28か国・200超の顧客と約500件の案件に関わった経験から、成果を左右するのは業務全体の再設計、現場との改善サイクル、ガバナンスとコスト管理だと説明しました。3Mの受注管理では、人の承認を残す仕組みも設計されています。管理職が見るべきはAIの利用回数ではなく、処理時間や手戻り、統制の質です。なお、同社の案件数は成功率を意味しません。\nhttps://signal.amberlight.co.jp/articles/20261113-microsoft-ai-workflow-redesign-500-projects/\nhttps://blogs.microsoft.com/blog/2026/11/12/from-ai-ambition-to-business-impact/",
+    "publication_key": "10cd6385e2722d89f9a278a851dbefc80b83d1358549f7b181835bf32ace10de",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261113-gondola-codex-small-team-productivity",
     "title": "Gondola、Codex導入で開発量25％増──小規模チームのAI活用と売上倍増の関係",
     "summary": "米国のクリエイター支援企業Gondolaは、Codexを導入してから開発チーム全体の月間成果が25％増え、主任エンジニアのマージ済み変更数は50％増えたと報告した。2026年11月12日公開のOpenAI公式事例では、売上の前年比2倍超も紹介されている。ただし、売上増加をAIだけの効果とみなすことはできない。",

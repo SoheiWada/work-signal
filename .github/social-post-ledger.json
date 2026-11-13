@@ -5191,7 +5191,9 @@
   "20261114-us-october-ppi-final-demand-65-percent": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-13T22:10:49+00:00"
+      "updated_at": "2026-11-13T22:10:59+00:00",
+      "stage": "publish_requested",
+      "container_id": "18140677747650189"
     }
   }
 }

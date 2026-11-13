@@ -5082,10 +5082,12 @@
   },
   "20261113-generic-drug-stable-supply-company-evaluation": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-13T06:26:48+00:00",
+      "status": "published",
+      "updated_at": "2026-11-13T06:26:51+00:00",
       "stage": "publish_requested",
-      "container_id": "17913089109574600"
+      "container_id": "17913089109574600",
+      "remote_id": "17913089109574600",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dfq_BNFEdh5"
     }
   }
 }

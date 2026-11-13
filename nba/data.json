@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-11-12",
-  "fetchedAt": "2026-11-13T02:40:56.287Z",
-  "lastAttemptAt": "2026-11-13T02:40:56.287Z",
+  "throughDate": "2026-11-13",
+  "fetchedAt": "2026-11-13T17:52:00.838Z",
+  "lastAttemptAt": "2026-11-13T17:52:00.838Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 171,
+  "countedGames": 174,
   "standingsReason": null,
   "teams": [
     {
@@ -37,7 +37,7 @@
       "name": "Charlotte Hornets",
       "conference": "East",
       "wins": 4,
-      "losses": 7
+      "losses": 8
     },
     {
       "code": "CHI",
@@ -58,7 +58,7 @@
       "name": "Dallas Mavericks",
       "conference": "West",
       "wins": 7,
-      "losses": 4
+      "losses": 5
     },
     {
       "code": "DEN",
@@ -71,7 +71,7 @@
       "code": "DET",
       "name": "Detroit Pistons",
       "conference": "East",
-      "wins": 7,
+      "wins": 8,
       "losses": 3
     },
     {
@@ -134,7 +134,7 @@
       "code": "MIN",
       "name": "Minnesota Timberwolves",
       "conference": "West",
-      "wins": 8,
+      "wins": 9,
       "losses": 3
     },
     {
@@ -176,7 +176,7 @@
       "code": "PHX",
       "name": "Phoenix Suns",
       "conference": "West",
-      "wins": 4,
+      "wins": 5,
       "losses": 6
     },
     {
@@ -219,11 +219,41 @@
       "name": "Washington Wizards",
       "conference": "East",
       "wins": 4,
-      "losses": 8
+      "losses": 9
     }
   ],
   "sets": [
     [
+      {
+        "id": "21718094",
+        "date": "2026-11-12",
+        "home": "PHX",
+        "away": "CHA",
+        "homeScore": 101,
+        "awayScore": 96,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718093",
+        "date": "2026-11-12",
+        "home": "MIN",
+        "away": "DAL",
+        "homeScore": 133,
+        "awayScore": 94,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718092",
+        "date": "2026-11-12",
+        "home": "WAS",
+        "away": "DET",
+        "homeScore": 140,
+        "awayScore": 144,
+        "competition": "regular",
+        "countsForStandings": true
+      },
       {
         "id": "21718091",
         "date": "2026-11-12",

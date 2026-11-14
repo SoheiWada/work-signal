@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261112-anthropic-claude-for-manufacturing",
+    "title": "Anthropic、製造業向け「Claude for Manufacturing」──見積・品質報告を17のスキルで下書き、設備は動かさない",
+    "summary": "Anthropicは2026年11月12日、製造業向けプラグイン「Claude for Manufacturing」を発表した。17のスキルと4つのコネクタで見積や品質報告の下書きを支援し、責任者が確認・承認するところまで工程をつなぐ。",
+    "category": "AI",
+    "score": 89,
+    "published_at": "2026-11-14",
+    "published_at_time": "2026-11-14T14:41:18.078Z",
+    "source_url": "https://claude.com/resources/articles/claude-for-manufacturing",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Anthropicは2026年11月12日、製造業向けプラグイン「Claude for Manufacturing」を発表した。17のスキルと4つのコネクタで見積や品質報告の下書きを支援し、責任者が確認・承認するところまで工程をつなぐ。",
+    "sections": [
+      {
+        "title": "既存記録から下書きする",
+        "body": "Autodesk Fusion、Infor、Microsoft 365、Oracle NetSuiteに接続する。コネクタのないシステムでは、Microsoft 365に保存した出力ファイルを使う方法も案内されている。TeamまたはEnterpriseプランで導入できる。"
+      },
+      {
+        "title": "標準コネクタと別プラグインを区別",
+        "body": "製造業向けのInforコネクタは記録を照会する。一方、別のInforプラグインでは、利用者の承認と既存権限に従って発注や生産日程を変更できるという。すべての接続が読み取り専用という意味ではない。"
+      },
+      {
+        "title": "設備の自律運転とは異なる",
+        "body": "このプラグインは設備を操作しない。見積の発行や是正措置の検証は人が担う。導入時は文書作成、業務システムへの変更、設備制御の範囲を分け、どこで承認するかを確認することが実務上の論点となる。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Anthropicは2026年11月12日、製造業向けプラグイン「Claude for Manufacturing」を発表した。17のスキルと4つのコネクタで見積や品質報告の下書きを支援し、責任者が確認・承認するところまで工程をつなぐ。\nhttps://signal.amberlight.co.jp/articles/20261112-anthropic-claude-for-manufacturing/\nhttps://claude.com/resources/articles/claude-for-manufacturing",
+    "publication_key": "0a42b0c66736e7c703c5f4a1e6fb0d25d599ec2e817d8e0ddf08f193671fe4f2",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-nvidia-ceo-transition-huang-resigns-kress-interim",
     "title": "エヌビディアのフアンCEOが辞任、クレースCFOが暫定CEOに──理由は示さず、17日の決算が次の焦点",
     "summary": "NVIDIAは2026年11月12日、ジェンスン・フアン氏が社長・CEO・取締役を即時辞任したと発表した。コレット・クレースCFOが暫定CEOを兼務し、取締役会は社内外から後任を探す。発表は辞任理由を示していない。",

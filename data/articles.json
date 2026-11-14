@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261112-samsung-google-intelligent-eyewear-gemini",
+    "title": "Samsung×GoogleのAIメガネ、12月10日発売──Gemini内蔵で395ドルから、録画ランプと顔の自動ぼかしも",
+    "summary": "Samsungは2026年11月12日、Geminiを組み込んだAIメガネを12月10日に発売すると発表した。米国ではWarby ParkerとGentle Monsterの両コレクション、韓国ではGentle Monsterを展開する。日本での発売時期・価格は示していない。",
+    "category": "AI",
+    "score": 86,
+    "published_at": "2026-11-14",
+    "published_at_time": "2026-11-14T14:41:51.260Z",
+    "source_url": "https://news.samsung.com/global/samsung-announces-december-release-for-intelligent-eyewear-bringing-a-smarter-way-to-see-the-world",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Samsungは2026年11月12日、Geminiを組み込んだAIメガネを12月10日に発売すると発表した。米国ではWarby ParkerとGentle Monsterの両コレクション、韓国ではGentle Monsterを展開する。日本での発売時期・価格は示していない。",
+    "sections": [
+      {
+        "title": "価格と対応地域を分ける",
+        "body": "米国価格はWarby Parkerが395ドルから、Gentle Monsterは449〜489ドル。ホワイトボードの要約保存や翻訳などを案内しているが、機能は言語・地域・サービスなどの条件で変わる。"
+      },
+      {
+        "title": "撮影表示と利用条件",
+        "body": "撮影時の外側LEDが覆われたり機能しなかったりすると、撮影を無効にする設計だという。Geminiへの視界の質問では周囲の人の顔を自動的にぼかすとしている。対象は18歳以上。これらはメーカーの設計説明で、周囲の人の同意や職場の撮影ルールを不要にするものではない。"
+      },
+      {
+        "title": "仕様は利用条件とセットで確認",
+        "body": "公称の電池持続時間は単体最大9時間、充電ケース併用で最大72時間で、実使用の保証値ではない。対応するGalaxy、Pixel、iPhoneの機種・OSには条件がある。職場で検討する際は、現地での提供状況と対応端末、撮影を認める範囲を先に確認したい。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Samsungは2026年11月12日、Geminiを組み込んだAIメガネを12月10日に発売すると発表した。米国ではWarby ParkerとGentle Monsterの両コレクション、韓国ではGentle Monsterを展開する。日本での発売時期・価格は示していない。\nhttps://signal.amberlight.co.jp/articles/20261112-samsung-google-intelligent-eyewear-gemini/\nhttps://news.samsung.com/global/samsung-announces-december-release-for-intelligent-eyewear-bringing-a-smarter-way-to-see-the-world",
+    "publication_key": "a1da5f7281d6f29c8e3026da5710e69c1d6777152492fa0fff1b1424a1f97972",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-anthropic-claude-for-manufacturing",
     "title": "Anthropic、製造業向け「Claude for Manufacturing」──見積・品質報告を17のスキルで下書き、設備は動かさない",
     "summary": "Anthropicは2026年11月12日、製造業向けプラグイン「Claude for Manufacturing」を発表した。17のスキルと4つのコネクタで見積や品質報告の下書きを支援し、責任者が確認・承認するところまで工程をつなぐ。",

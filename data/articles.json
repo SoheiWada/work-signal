@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261114-chatgpt-wallet-agent-payments",
+    "title": "OpenAIがChatGPT Wallet発表──AIによる購入を本人承認と決済トークンで管理、米国Pro向けに限定開始",
+    "summary": "OpenAIは2026年11月13日、AIエージェントがユーザーの代わりに支払いを行う「ChatGPT Wallet」を発表した。購入ごとに本人の承認を求め、カード番号そのものをエージェントや加盟店に渡さない設計だ。まず米国の対象ユーザーに限定して提供され、日本での利用開始は発表されていない。",
+    "category": "AI",
+    "score": 91,
+    "published_at": "2026-11-14",
+    "published_at_time": "2026-11-14T03:05:33.520Z",
+    "source_url": "https://openai.com/index/introducing-chatgpt-wallet/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは2026年11月13日、AIエージェントがユーザーの代わりに支払いを行う「ChatGPT Wallet」を発表した。購入ごとに本人の承認を求め、カード番号そのものをエージェントや加盟店に渡さない設計だ。まず米国の対象ユーザーに限定して提供され、日本での利用開始は発表されていない。",
+    "sections": [
+      {
+        "title": "支払いは「AIの判断だけ」では完了しない",
+        "body": "OpenAIの公式発表によると、利用者はカードを登録し、購入の都度、商品・合計金額・選択したカードを確認する。Face IDや指紋認証などのセキュリティ確認を伴う承認後、決済ネットワークが実際のカード情報に代わる決済トークンを提供する。利用者の承認記録を残す仕組みで、AIエージェントが無制限に自律購入できるという発表ではない。\n\n提携先としてAmerican Express、Mastercard、Visaが挙げられている。対象となるカードの既存のポイントや、条件を満たす取引上の保護は維持されるという。ただし個別の紛争や補償の適用条件まで一律に保証するものではない。"
+      },
+      {
+        "title": "EC事業者は商品データと不正検知の見直しが論点",
+        "body": "OpenAIは事業者向けにCommerce Partner Playbookも案内した。商品情報の正確さ、AIエージェントの正当なアクセスを遮断しない設定、決済・不正検知システムが正規のエージェント購入を誤拒否しないかが実務上の確認項目となる。\n\n初期提供は米国の18歳以上のChatGPT Pro契約者で、対象となる米国発行カードを持ち、dots経由で利用する人に限定される。日本の一般利用者が現時点で使えると解釈してはいけない。将来的な事前承認型の委任購入も構想として示されたが、今回提供される機能とは区別が必要だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "AIが商品を探すだけでなく、購入まで進める時代へ。OpenAIが11月13日に発表したChatGPT Walletは、購入のたびに利用者が金額とカードを確認し、生体認証などで承認する設計です。カードの実情報はAIや加盟店に渡さず、決済トークンを使います。EC事業者にとっては、商品情報の整備だけでなく、正規のAIアクセスや決済を誤って遮断しないことが新たな課題に。開始対象は米国の一部Pro利用者で、日本提供は未発表です。\nhttps://signal.amberlight.co.jp/articles/20261114-chatgpt-wallet-agent-payments/\nhttps://openai.com/index/introducing-chatgpt-wallet/",
+    "publication_key": "5022f6f72e01f60333b88aa6ff0c45d7a71e6a0bdff7b4bb4a2a2d27f09b1158",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261114-jilpt-worker-cooperatives-case-study-309",
     "title": "協同労働は「話し合い」と採算をどう両立するか──JILPTが10団体の事例研究を公表",
     "summary": "労働政策研究・研修機構（JILPT）は2026年11月13日、資料シリーズNo.309として労働者協同組合の事例研究を公表した。公式概要は、フリーランスや高齢者、地域活動の担い手が協働する可能性と、採算・人材育成・合意形成の課題を整理している。新刊の公表日と、実態を聞き取った調査時期は分けて読む必要がある。",

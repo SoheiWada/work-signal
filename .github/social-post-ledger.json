@@ -5252,10 +5252,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/Dftik70jsrN"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-14T06:16:14+00:00",
+      "status": "published",
+      "updated_at": "2026-11-14T06:16:18+00:00",
       "stage": "publish_requested",
-      "container_id": "18161696236488337"
+      "container_id": "18161696236488337",
+      "remote_id": "17993473547862318",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4030029416587231547"
     }
   }
 }

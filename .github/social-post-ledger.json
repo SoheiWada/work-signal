@@ -5270,10 +5270,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/Dft_wl1la3D"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-14T10:31:19+00:00",
+      "status": "published",
+      "updated_at": "2026-11-14T10:31:23+00:00",
       "stage": "publish_requested",
-      "container_id": "18161746666488337"
+      "container_id": "18161746666488337",
+      "remote_id": "17884326945652006",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4030157803754985225"
     }
   }
 }

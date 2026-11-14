@@ -5353,7 +5353,9 @@
   "20261113-google-gemini-wallet-personal-finance": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-14T15:16:02+00:00"
+      "updated_at": "2026-11-14T15:16:12+00:00",
+      "stage": "publish_requested",
+      "container_id": "18124613663283484"
     }
   }
 }

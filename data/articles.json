@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261114-shield-forge-legacy-portal-ai",
+    "title": "AIに任せる範囲を技術者が決める──Shield、旧式ITポータルで画面操作を活用",
+    "summary": "OpenAIは2026年11月13日、ITサービス事業者向け基盤「Forge」を提供するShieldの事例を公開した。GPT-6 Astraが画面を読み、クリックや入力で旧式ポータルを操作する。技術者は、AIが単独で行える操作と、人の確認・承認が必要な操作を決める。",
+    "category": "AI",
+    "score": 86,
+    "published_at": "2026-11-14",
+    "published_at_time": "2026-11-14T06:10:13.671Z",
+    "source_url": "https://openai.com/business/customer-stories/shield/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは2026年11月13日、ITサービス事業者向け基盤「Forge」を提供するShieldの事例を公開した。GPT-6 Astraが画面を読み、クリックや入力で旧式ポータルを操作する。技術者は、AIが単独で行える操作と、人の確認・承認が必要な操作を決める。",
+    "sections": [
+      {
+        "title": "APIがない工程にも画面から接続",
+        "body": "IT支援では、チケットや端末、ソフトウェアライセンスを扱う既存ポータルが残る。Forgeは対応するブラウザー作業を画面操作エージェントへ振り分け、手動でしか進められなかった工程をつなぐ。"
+      },
+      {
+        "title": "改善数値は導入企業の報告",
+        "body": "Shield担当者は、同社が以前使っていたモデルに比べ画面操作が平均35〜40％速くなったと説明する。OpenAI掲載の導入事例であり、第三者の比較実験や、他社でも同じ効果が出る保証ではない。\n\n電話や現場作業には人の関与が残る。リモートデスクトップでの、より複雑な操作は試験中で、既に提供するブラウザー処理と区別されている。"
+      },
+      {
+        "title": "承認する地点も設計する",
+        "body": "実務で参考になるのは、既存システムへの接続だけでなく、人が確認する地点も決める点だ。自社へ応用する際は、操作権限と承認条件を先に整理する視点がある。これは編集部の示唆で、事例を基に全面無人化を勧めるものではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "APIのない旧式ポータルでも、AIが画面を操作してIT支援業務を進める。OpenAIが11月13日に公開したShieldの事例です。Forgeでは技術者がAIに任せる操作と承認が必要な操作を決めます。35〜40％速くなったとの数値は同社の従来モデル比較で、独立検証ではありません。電話や現場対応まで無人化した事例とも区別が必要です。\nhttps://signal.amberlight.co.jp/articles/20261114-shield-forge-legacy-portal-ai/\nhttps://openai.com/business/customer-stories/shield/",
+    "publication_key": "8ca2d995521586a4fc7c45795b6badda6e08b1b38ae685c4b4003a4f98b626fe",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261114-chatgpt-wallet-agent-payments",
     "title": "OpenAIがChatGPT Wallet発表──AIによる購入を本人承認と決済トークンで管理、米国Pro向けに限定開始",
     "summary": "OpenAIは2026年11月13日、AIエージェントがユーザーの代わりに支払いを行う「ChatGPT Wallet」を発表した。購入ごとに本人の承認を求め、カード番号そのものをエージェントや加盟店に渡さない設計だ。まず米国の対象ユーザーに限定して提供され、日本での利用開始は発表されていない。",

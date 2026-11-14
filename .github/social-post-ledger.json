@@ -5298,10 +5298,12 @@
   },
   "20261112-anthropic-claude-for-manufacturing": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-14T14:48:56+00:00",
+      "status": "published",
+      "updated_at": "2026-11-14T14:48:59+00:00",
       "stage": "publish_requested",
-      "container_id": "18349638223255501"
+      "container_id": "18349638223255501",
+      "remote_id": "18349638223255501",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfudR2zG0IV"
     }
   }
 }

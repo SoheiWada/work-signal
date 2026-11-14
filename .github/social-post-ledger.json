@@ -5244,10 +5244,12 @@
   },
   "20261114-shield-forge-legacy-portal-ai": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-14T06:15:59+00:00",
+      "status": "published",
+      "updated_at": "2026-11-14T06:16:00+00:00",
       "stage": "publish_requested",
-      "container_id": "18171373648478402"
+      "container_id": "18171373648478402",
+      "remote_id": "18171373648478402",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dftik70jsrN"
     }
   }
 }

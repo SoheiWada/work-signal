@@ -5262,10 +5262,12 @@
   },
   "20261114-boj-asada-nagasaki-hike-pace": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-14T10:30:56+00:00",
+      "status": "published",
+      "updated_at": "2026-11-14T10:31:01+00:00",
       "stage": "publish_requested",
-      "container_id": "18135075850690068"
+      "container_id": "18135075850690068",
+      "remote_id": "17972483244240380",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Dft_wl1la3D"
     }
   }
 }

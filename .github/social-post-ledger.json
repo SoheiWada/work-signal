@@ -5299,7 +5299,9 @@
   "20261112-anthropic-claude-for-manufacturing": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-14T14:48:48+00:00"
+      "updated_at": "2026-11-14T14:48:56+00:00",
+      "stage": "publish_requested",
+      "container_id": "18349638223255501"
     }
   }
 }

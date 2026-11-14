@@ -5352,10 +5352,12 @@
   },
   "20261113-google-gemini-wallet-personal-finance": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-14T15:16:12+00:00",
+      "status": "published",
+      "updated_at": "2026-11-14T15:16:15+00:00",
       "stage": "publish_requested",
-      "container_id": "18124613663283484"
+      "container_id": "18124613663283484",
+      "remote_id": "18124613663283484",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfugZZQnMKm"
     }
   }
 }

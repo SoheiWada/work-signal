@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261112-openai-daybreak-red-team-defense-factory",
+    "title": "OpenAI、AIエージェントが侵入テストと修正の下書きを行うDaybreak 2製品──人の承認を前提に",
+    "summary": "OpenAIは11月12日の「Cyber at the Frontier」で、AIによる侵入テストのDaybreak Red Teamと、修正案を作るDefense Factoryを紹介した。攻撃経路の検証からパッチの再テストまでを支援する一方、修正のマージ前には技術者のレビューとテストを置く。",
+    "category": "AI",
+    "score": 84,
+    "published_at": "2026-11-15",
+    "published_at_time": "2026-11-14T15:08:52.325Z",
+    "source_url": "https://openai.com/daybreak/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは11月12日の「Cyber at the Frontier」で、AIによる侵入テストのDaybreak Red Teamと、修正案を作るDefense Factoryを紹介した。攻撃経路の検証からパッチの再テストまでを支援する一方、修正のマージ前には技術者のレビューとテストを置く。",
+    "sections": [
+      {
+        "title": "侵入テストで、修正が効くかまで検証する",
+        "body": "早期アクセスのRed TeamはWebアプリ向け。エージェントがコードとアプリの文脈を使って脆弱性を検証し、パッチが悪用を防ぐかを再テストする。隔離環境とGuardian審査で到達先を制限する設計だ。対象と権限を明確にした検査として扱う必要がある。"
+      },
+      {
+        "title": "修正案を作り、人がレビューする",
+        "body": "Defense Factoryは指摘をコード内で追跡してパッチ案を作り、技術者がマージ前にレビュー・テストする。新しいコミットの検査や定期チェックも想定する。導入を検討するチームにとっては、検証の証拠を誰が確認し、修正を誰が受け入れるかという担当の整理が重要になる。これは公式の工程から読める実務上の示唆だ。"
+      },
+      {
+        "title": "発表と利用可能性を区別する",
+        "body": "公式ホームはイベント日を2026年11月12日と表示し、企業ページは同イベントで両製品を紹介したと説明している。ただし発表日は、全利用者への一般提供開始を意味しない。Red Teamは早期アクセスで、導入可否や条件の確認が必要だ。本稿では、公式本文で確認できなかった基盤モデルや課金方式、定量的な性能を断定していない。\n\nhttps://openai.com/daybreak/"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "OpenAIのDaybreak Red TeamはWebアプリの脆弱性と修正の有効性を検証し、Defense Factoryはパッチ案を作ります。修正のマージ前には技術者のレビューとテストを置く設計。Red Teamは早期アクセスで、発表を一般提供開始とは区別して読む必要があります。\nhttps://signal.amberlight.co.jp/articles/20261112-openai-daybreak-red-team-defense-factory/\nhttps://openai.com/daybreak/",
+    "publication_key": "f63518ae243123900d12885e4377d6845ca2c791ce17a78b03bfccaf28de7eba",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261113-google-gemini-wallet-personal-finance",
     "title": "GeminiにGoogle Wallet接続──家計を分析、口座情報は読み取り専用",
     "summary": "Googleは2026年11月13日、GeminiからGoogle Walletを接続し、支出に基づく家計の回答を得る機能を発表した。米国の利用者向けに段階展開し、銀行やカード口座の追加連携は任意。口座情報は読み取り専用で、Geminiがお金を動かすことはできない。",

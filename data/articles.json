@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261113-google-gemini-wallet-personal-finance",
+    "title": "GeminiにGoogle Wallet接続──家計を分析、口座情報は読み取り専用",
+    "summary": "Googleは2026年11月13日、GeminiからGoogle Walletを接続し、支出に基づく家計の回答を得る機能を発表した。米国の利用者向けに段階展開し、銀行やカード口座の追加連携は任意。口座情報は読み取り専用で、Geminiがお金を動かすことはできない。",
+    "category": "AI",
+    "score": 88,
+    "published_at": "2026-11-15",
+    "published_at_time": "2026-11-14T15:07:32.885Z",
+    "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/google-wallet-gemini-app/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Googleは2026年11月13日、GeminiからGoogle Walletを接続し、支出に基づく家計の回答を得る機能を発表した。米国の利用者向けに段階展開し、銀行やカード口座の追加連携は任意。口座情報は読み取り専用で、Geminiがお金を動かすことはできない。",
+    "sections": [
+      {
+        "title": "支出の確認と予算づくりを会話で行う",
+        "body": "Google Walletは、接続したアプリの情報で回答を個人化する「Personal Intelligence」に加わる。Googleが示す用途は、支出の可視化、定期請求や値上がりの確認、過去の取引を使った予算提案。銀行・カード口座は、利用者が選べばPlaid経由でWalletへ追加連携できる。提供先は米国のGeminiアプリ利用者で、ウェブとAndroid・iOSへ段階的に展開する。"
+      },
+      {
+        "title": "情報を読む権限と、お金を動かす権限を分ける",
+        "body": "公式説明では、Geminiは口座情報を読み取れるが、資金の移動・管理・投資はできない。接続は任意で、設定からオン・オフを切り替えられる。読み取り専用でも取引履歴は機微な情報だ。利用を検討する際は、必要なデータの範囲と解除方法を確認したい。企業がAIに業務データを接続するときも、閲覧権限と実行権限を分ける設計は参考になる、というのが本稿の見方だ。"
+      },
+      {
+        "title": "提供地域と判断の限界",
+        "body": "今回の発表対象は米国で、日本への提供時期は本文に示されていない。段階展開の発表であり、対象者への即時利用を保証するものではない。ここで扱うのは公式ブログに明記された機能と権限の範囲。個別口座の対応状況や詳細な利用条件は、実際の設定画面と公式案内の確認が必要になる。AIの回答を金融上の判断の保証として扱うことはできない。\n\nhttps://blog.google/innovation-and-ai/products/gemini-app/google-wallet-gemini-app/"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "GoogleがGeminiにGoogle Wallet接続を追加。米国向けに段階展開し、支出の可視化や定期請求の確認、予算提案に使えます。口座連携は任意で、情報は読み取り専用。Geminiが資金を移動・管理・投資することはできません。日本への提供時期は未提示です。\nhttps://signal.amberlight.co.jp/articles/20261113-google-gemini-wallet-personal-finance/\nhttps://blog.google/innovation-and-ai/products/gemini-app/google-wallet-gemini-app/",
+    "publication_key": "669e9669349af6c9b3bb907ffdf02fef2b1945165d1a67c27360b47fe72e5b7b",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-samsung-google-intelligent-eyewear-gemini",
     "title": "Samsung×GoogleのAIメガネ、12月10日発売──Gemini内蔵で395ドルから、録画ランプと顔の自動ぼかしも",
     "summary": "Samsungは2026年11月12日、Geminiを組み込んだAIメガネを12月10日に発売すると発表した。米国ではWarby ParkerとGentle Monsterの両コレクション、韓国ではGentle Monsterを展開する。日本での発売時期・価格は示していない。",

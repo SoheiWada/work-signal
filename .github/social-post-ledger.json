@@ -5288,10 +5288,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DfudNatmyEk"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-14T14:48:41+00:00",
+      "status": "published",
+      "updated_at": "2026-11-14T14:48:45+00:00",
       "stage": "publish_requested",
-      "container_id": "18161801314488337"
+      "container_id": "18161801314488337",
+      "remote_id": "17997391266051962",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4030287331907597887"
     }
   }
 }

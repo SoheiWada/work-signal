@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261112-nvidia-ceo-transition-huang-resigns-kress-interim",
+    "title": "エヌビディアのフアンCEOが辞任、クレースCFOが暫定CEOに──理由は示さず、17日の決算が次の焦点",
+    "summary": "NVIDIAは2026年11月12日、ジェンスン・フアン氏が社長・CEO・取締役を即時辞任したと発表した。コレット・クレースCFOが暫定CEOを兼務し、取締役会は社内外から後任を探す。発表は辞任理由を示していない。",
+    "category": "経済",
+    "score": 92,
+    "published_at": "2026-11-14",
+    "published_at_time": "2026-11-14T14:41:08.729Z",
+    "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-ceo-transition",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "NVIDIAは2026年11月12日、ジェンスン・フアン氏が社長・CEO・取締役を即時辞任したと発表した。コレット・クレースCFOが暫定CEOを兼務し、取締役会は社内外から後任を探す。発表は辞任理由を示していない。",
+    "sections": [
+      {
+        "title": "暫定体制で事業継続を説明",
+        "body": "クレース氏は恒久的な後任が決まるまでCFOも兼務する。ハービー・C・ジョーンズ氏が同社初の取締役会会長に就いた。取締役会は事業運営、顧客との約束、製品ロードマップが中断なく続くと見込むとしている。これは会社側の見通しであり、個々の納期を保証する発表ではない。"
+      },
+      {
+        "title": "次の確認点は決算と後任選び",
+        "body": "第3四半期の決算は米国時間11月17日に予定通り発表するとしている。辞任の理由や後任の決定時期は、この発表からは分からない。背景の憶測や株価の反応を人事の確定情報と混同せず、取引先としては自社契約と今後の公式説明を確認したい。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "NVIDIAは2026年11月12日、ジェンスン・フアン氏が社長・CEO・取締役を即時辞任したと発表した。コレット・クレースCFOが暫定CEOを兼務し、取締役会は社内外から後任を探す。発表は辞任理由を示していない。\nhttps://signal.amberlight.co.jp/articles/20261112-nvidia-ceo-transition-huang-resigns-kress-interim/\nhttps://nvidianews.nvidia.com/news/nvidia-announces-ceo-transition",
+    "publication_key": "602039c7467bf8eb8761f6753f1bab6ad4aa4bebf88c65ef87fb7b38743ecbba",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261114-boj-asada-nagasaki-hike-pace",
     "title": "日銀・浅田委員、利上げペースに慎重姿勢──利下げ提案の意図は否定",
     "summary": "日本銀行が2026年11月13日に公表した記者会見記録で、浅田審議委員は追加利上げのペースに慎重な判断が必要との考えを示した。一方、現時点で利下げを提案する意図はないと説明した。会見は11月12日に長崎市で開かれたもので、公表日と開催日は異なる。",

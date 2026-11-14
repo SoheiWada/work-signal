@@ -5316,10 +5316,12 @@
   },
   "20261112-nvidia-ceo-transition-huang-resigns-kress-interim": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-14T14:49:27+00:00",
+      "status": "published",
+      "updated_at": "2026-11-14T14:49:30+00:00",
       "stage": "publish_requested",
-      "container_id": "17970318516197563"
+      "container_id": "17970318516197563",
+      "remote_id": "17970318516197563",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfudVxBG95U"
     }
   }
 }

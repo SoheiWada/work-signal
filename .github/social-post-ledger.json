@@ -5226,10 +5226,12 @@
   },
   "20261114-chatgpt-wallet-agent-payments": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-14T03:10:55+00:00",
+      "status": "published",
+      "updated_at": "2026-11-14T03:10:58+00:00",
       "stage": "publish_requested",
-      "container_id": "18118075718127382"
+      "container_id": "18118075718127382",
+      "remote_id": "18118075718127382",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DftNZV6jSpg"
     }
   }
 }

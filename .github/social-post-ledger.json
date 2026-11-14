@@ -5281,7 +5281,9 @@
   "20261112-samsung-google-intelligent-eyewear-gemini": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-14T14:48:11+00:00"
+      "updated_at": "2026-11-14T14:48:22+00:00",
+      "stage": "publish_requested",
+      "container_id": "18359381188175837"
     }
   }
 }

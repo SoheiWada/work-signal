@@ -5263,8 +5263,8 @@
   "20261114-boj-asada-nagasaki-hike-pace": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-14T10:30:54+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-11-14T10:30:56+00:00",
+      "stage": "publish_requested",
       "container_id": "18135075850690068"
     }
   }

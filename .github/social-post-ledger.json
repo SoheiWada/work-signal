@@ -5209,7 +5209,9 @@
   "20261114-jilpt-worker-cooperatives-case-study-309": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-14T02:15:07+00:00"
+      "updated_at": "2026-11-14T02:15:17+00:00",
+      "stage": "publish_requested",
+      "container_id": "18155741053537288"
     }
   }
 }

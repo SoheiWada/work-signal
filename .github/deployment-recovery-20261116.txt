@@ -1,0 +1,5 @@
+WORK SIGNAL manual publication deployment reconciliation
+Date: 2026-11-16 JST
+Target article data commit: 9207d59780341241f435e623b3f0e8efd975f4a6
+Reason: Trigger Pages build for source-reviewed issues #369 and #366 after article data updates.
+No SNS ledger reset or direct social publishing.

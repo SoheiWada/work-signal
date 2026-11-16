@@ -5388,10 +5388,12 @@
   },
   "20261112-openai-openclaw-persistent-agents-controls-codex-sandbox": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-16T12:02:10+00:00",
+      "status": "published",
+      "updated_at": "2026-11-16T12:02:12+00:00",
       "stage": "publish_requested",
-      "container_id": "18085687646710464"
+      "container_id": "18085687646710464",
+      "remote_id": "18085687646710464",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfzTx_nG6bw"
     }
   }
 }

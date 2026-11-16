@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261115-cloudflare-workers-spend-management",
+    "title": "Cloudflare、Workersの支出上限をベータ提供──超過時は実行停止、運用停止リスクにも注意",
+    "summary": "Cloudflareは2026年11月13日、WorkersとDurable Objectsの従量課金向けに「Spend Management」のベータ提供を発表した。請求額が設定した上限に達すると、警告だけでなく課金対象の実行を停止できる。ただし、コスト抑制とサービス継続の両立には注意が必要だ。",
+    "category": "仕事",
+    "score": 86,
+    "published_at": "2026-11-16",
+    "published_at_time": "2026-11-16T03:54:14.260Z",
+    "source_url": "https://blog.cloudflare.com/spend-management",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Cloudflareは2026年11月13日、WorkersとDurable Objectsの従量課金向けに「Spend Management」のベータ提供を発表した。請求額が設定した上限に達すると、警告だけでなく課金対象の実行を停止できる。ただし、コスト抑制とサービス継続の両立には注意が必要だ。",
+    "sections": [
+      {
+        "title": "アラートから実行停止へ",
+        "body": "Cloudflare公式発表によると、対象は従量課金（PayGo）の顧客で、初期対応製品はWorkersとDurable Objects。ダッシュボードのManage Account > Billing > Spend limitsから、製品ごとの上限と通知閾値、通知先メールを設定できる。CLIとREST APIでも管理可能。費用表示はおおむね10分未満の遅延で更新されるが、請求サイクルは契約開始日を起点とし、暦月と一致するとは限らない。"
+      },
+      {
+        "title": "上限到達時に止まる処理",
+        "body": "設定上限に達すると課金対象の新しい実行が拒否される。WorkersではCron TriggersやQueue consumerの呼び出しも停止対象になる一方、静的アセットの配信は継続する。再開には上限の引き上げ、停止ポリシーの無効化・削除、または次の請求周期まで待つ方法がある。制御は集計・判定から世界各地への非同期配布を経るため、厳密なリアルタイム遮断や超過請求ゼロを保証する仕組みとは解釈できない。"
+      },
+      {
+        "title": "導入時に確認すべきこと",
+        "body": "予算超過でバッチや予約処理まで止まれば、コストは抑えられても業務が停止する可能性がある。上限を設定する前に、止まってよい処理と止められない処理を分け、監視と復旧担当を決めたい。AI Gatewayの推論予算制御は別の仕組みであり、今回の対象製品を超えるアプリ全体の横断予算管理は今後の構想段階。ベータ版の対象と制約を確認してから導入する必要がある。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "CloudflareがWorkersとDurable Objects向けに支出上限のベータ版を提供。従来の通知だけでなく、上限到達時に課金対象の実行を停止できるようになりました。ただし停止は非同期で、超過を厳密に防ぐ保証ではありません。CronやQueue consumerも止まり得る一方、静的アセットは継続。業務システムでは予算と可用性を一緒に設計する必要があります。設定対象は従量課金ユーザーで、請求周期は暦月とは限りません。導入前に停止時の代替手段を確認してください。\nhttps://signal.amberlight.co.jp/articles/20261115-cloudflare-workers-spend-management/\nhttps://blog.cloudflare.com/spend-management",
+    "publication_key": "9c72d92a819dd8715a2d0d14a7a899b26633a55f438367a54bacfe21ff3934f7",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-openai-daybreak-red-team-defense-factory",
     "title": "OpenAI、AIエージェントが侵入テストと修正の下書きを行うDaybreak 2製品──人の承認を前提に",
     "summary": "OpenAIは11月12日の「Cyber at the Frontier」で、AIによる侵入テストのDaybreak Red Teamと、修正案を作るDefense Factoryを紹介した。攻撃経路の検証からパッチの再テストまでを支援する一方、修正のマージ前には技術者のレビューとテストを置く。",

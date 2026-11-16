@@ -5371,7 +5371,9 @@
   "20261115-cloudflare-workers-spend-management": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-16T04:01:36+00:00"
+      "updated_at": "2026-11-16T04:01:44+00:00",
+      "stage": "publish_requested",
+      "container_id": "18340378486273528"
     }
   }
 }

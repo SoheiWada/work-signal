@@ -2,20 +2,20 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-11-15",
-  "fetchedAt": "2026-11-16T02:14:39.657Z",
-  "lastAttemptAt": "2026-11-16T02:14:39.657Z",
+  "throughDate": "2026-11-16",
+  "fetchedAt": "2026-11-16T20:33:53.015Z",
+  "lastAttemptAt": "2026-11-16T20:33:53.015Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 194,
+  "countedGames": 197,
   "standingsReason": null,
   "teams": [
     {
       "code": "ATL",
       "name": "Atlanta Hawks",
       "conference": "East",
-      "wins": 7,
+      "wins": 8,
       "losses": 6
     },
     {
@@ -85,7 +85,7 @@
       "code": "HOU",
       "name": "Houston Rockets",
       "conference": "West",
-      "wins": 10,
+      "wins": 11,
       "losses": 3
     },
     {
@@ -128,7 +128,7 @@
       "name": "Milwaukee Bucks",
       "conference": "East",
       "wins": 1,
-      "losses": 12
+      "losses": 13
     },
     {
       "code": "MIN",
@@ -155,7 +155,7 @@
       "code": "OKC",
       "name": "Oklahoma City Thunder",
       "conference": "West",
-      "wins": 8,
+      "wins": 9,
       "losses": 5
     },
     {
@@ -191,7 +191,7 @@
       "name": "Sacramento Kings",
       "conference": "West",
       "wins": 1,
-      "losses": 11
+      "losses": 12
     },
     {
       "code": "SAS",
@@ -219,11 +219,41 @@
       "name": "Washington Wizards",
       "conference": "East",
       "wins": 4,
-      "losses": 9
+      "losses": 10
     }
   ],
   "sets": [
     [
+      {
+        "id": "21718117",
+        "date": "2026-11-15",
+        "home": "SAC",
+        "away": "OKC",
+        "homeScore": 103,
+        "awayScore": 125,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718116",
+        "date": "2026-11-15",
+        "home": "MIL",
+        "away": "ATL",
+        "homeScore": 106,
+        "awayScore": 113,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718115",
+        "date": "2026-11-15",
+        "home": "WAS",
+        "away": "HOU",
+        "homeScore": 119,
+        "awayScore": 147,
+        "competition": "regular",
+        "countsForStandings": true
+      },
       {
         "id": "21718114",
         "date": "2026-11-15",
@@ -718,5 +748,5 @@
       }
     ]
   ],
-  "requests": 6
+  "requests": 7
 }

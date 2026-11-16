@@ -1,5 +1,38 @@
 [
   {
+    "id": "20261112-microsoft-purview-data-governance-retirement",
+    "title": "Microsoft、Purview Data Governanceを廃止へ──2027年11月にサポート終了、移行先はFabricとOneLakeカタログ",
+    "summary": "Microsoftは2026年11月12日、Microsoft Purview Data Governanceを廃止すると発表した。サポート終了は2027年11月12日で、対象はUnified Catalog、Data Map、Workflows、Azure Purviewソリューションを含む。移行先はMicrosoft FabricとOneLakeカタログだ。Purviewのデータセキュリティとコンプライアンスの提供は変わらない。ガバナンスを使っている企業は、1年の猶予のあいだに移行の計画を立てる必要がある。11月17日から始まるMicrosoft Igniteでは、OneLakeカタログの追加発表が見込まれており、移行の具体像はそこでさらに明らかになる。",
+    "category": "AI",
+    "score": 82,
+    "published_at": "2026-11-16",
+    "published_at_time": "2026-11-16T11:32:12.225Z",
+    "source_url": "https://learn.microsoft.com/en-gb/partner-center/announcements/2026-november",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Microsoft Purview Data Governanceは2027年11月12日にサポート終了予定。Unified Catalogなどの移行先はFabricとOneLakeカタログで、Purviewのセキュリティ・コンプライアンス機能は継続する。",
+    "sections": [
+      {
+        "title": "何が廃止されるのか──ガバナンス機能、2027年11月12日にサポート終了",
+        "body": "MicrosoftのPartner Centerの発表によれば、2026年11月12日をもってMicrosoft Purview Data Governanceは廃止に向かう。サポート終了は2027年11月12日だ。対象はUnified Catalog、Data Map、Workflows、Microsoft Azure Purviewソリューションで、データガバナンスの中核だった機能が含まれる。Microsoftは、データガバナンスの議論の中心をMicrosoft FabricとOneLakeカタログに移すよう、パートナーに求めている。\n一方で、Purview Data Securityとコンプライアンスの提供は変更されない。Microsoft 365、Azure、Fabricにおけるデータセキュリティの取り組みは、これまでどおりPurviewを中心に進める。廃止されるのはガバナンスの側であり、セキュリティとコンプライアンスの側ではない。この切り分けが、移行計画の出発点になる。"
+      },
+      {
+        "title": "企業が今やるべきこと──移行の計画は今、具体像はIgniteで",
+        "body": "Microsoftの発表が求めるのは、既存のPurview Data Governanceの顧客との移行計画の開始だ。FabricとOneLakeカタログへの移行のためのサービスを、サポート終了までに見定める必要がある。1年の猶予はあるが、データガバナンスの移行は、カタログの作り直しやワークフローの再設計を伴うため、着手は早いほうがよい。\n具体像の次の節目は、11月17〜20日に開かれるMicrosoft Igniteだ。OneLakeカタログの追加発表が見込まれており、移行先の機能の全体像はそこで明らかになる。Igniteの前倒しで結論を急ぐ必要はないが、Igniteの発表を見てから移行計画を固める段取りを、今のうちに決めておくのがよい。移行の対象となるデータ資産の棚卸しと、現行のガバナンスのワークフローの洗い出しは、Igniteを待たずに始められる。"
+      },
+      {
+        "title": "読者への具体的な影響",
+        "body": "Purview Data Governanceを使っている企業にとって、まずやるべきは3つだ。第1に、自社が使っているPurviewの機能のうち、廃止対象（Unified Catalog、Data Map、Workflows、Azure Purview）と、変更されないもの（Data Security、コンプライアンス）を切り分けること。第2に、FabricとOneLakeカタログへの移行に必要な作業の規模を見積もるため、現行のカタログとワークフローの棚卸しを始めること。第3に、11月17〜20日のIgniteでOneLakeカタログの追加発表を確認し、そのうえで移行計画を固めること。\nパートナー企業やSIerにとっては、顧客への移行支援そのものが仕事になる。Microsoftが発表で示したのは、パートナー向けの移行支援の機会でもある。顧客ごとに、ガバナンスの現状とFabricへの移行の道筋を整理し、サポート終了の2027年11月12日までの計画を提案するのがよい。Purviewのセキュリティとコンプライアンスが変わらないことを、顧客に正しく伝えることも重要だ。ガバナンスの廃止が、Purview全体の廃止だと誤解されないよう、切り分けを明確に説明すべきだ。"
+      },
+      {
+        "title": "不確実性・留保",
+        "body": "本記事はMicrosoft Partner Centerの2026年11月発表ページ（「Update on the Microsoft Data Governance strategy」、Date: November 12, 2026）を本回で直接照合し、発表年（2026年）を確認した。サポート終了は2027年11月12日で、Unified Catalog・Data Map・Workflows・Azure Purviewソリューションが対象、Purview Data Securityとコンプライアンスは変更なし、という内容は同ページの記載による。移行先のOneLakeカタログの具体的な機能や移行の手順は、同ページでは示されておらず、11月17〜20日のMicrosoft Igniteでの追加発表が見込まれる段階だ。本稿は持越しプールからの再検証によるもので、初回確認は2026年11月14日朝回、再検証は2026年11月15日午後回である。"
+      }
+    ],
+    "social_publish": false,
+    "social_platforms": []
+  },
+  {
     "id": "20261113-microsoft-aion-instruct-local-ai-windows-gpu",
     "title": "Microsoft、オンデバイスAIを「Aion Instruct」へ──Phi Silicaから移行、GPUにも拡大",
     "summary": "Microsoftは2026年11月13日、Windowsのオンデバイス言語モデルを「Phi Silica」から「Aion Instruct」へ移行すると発表した。パラメータ数は3.8Bから2.3Bへ小さくなる一方、入力コンテキストは3.5Kトークンから32Kトークンへと約9倍に広がる。11月下旬からWindows Insider Program経由で対応デバイスへの提供が始まり、2027年1月下旬の一般提供を目指す。さらに、従来のNPU搭載機に加え、NVIDIAのRTXシリーズやAMDのRDNA4世代などのGPUにも対応を広げる。WindowsアプリのAI機能の土台が入れ替わる変更で、独自のプロンプトやカスタムLoRAに依存するアプリは、動作の検証が必要になる。",

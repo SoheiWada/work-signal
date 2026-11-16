@@ -5406,10 +5406,12 @@
   },
   "20261112-anthropic-claude-meetings-beta-google-meet": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-16T12:02:45+00:00",
+      "status": "published",
+      "updated_at": "2026-11-16T12:02:47+00:00",
       "stage": "publish_requested",
-      "container_id": "17968544582984926"
+      "container_id": "17968544582984926",
+      "remote_id": "17968544582984926",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DfzT2bmG0gG"
     }
   }
 }

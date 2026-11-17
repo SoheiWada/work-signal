@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261117-microsoft-ignite-copilot-workspaces-iq",
+    "title": "Microsoft、IgniteでCopilot WorkspacesとSalesforce連携を発表──企業AIの共有文脈と統制が焦点",
+    "summary": "Microsoftは2026年11月17日、年次イベントIgniteの基調講演で、複数の人とAIエージェントが文脈を共有する「Copilot Workspaces」や、社内外の情報をつなぐ「Microsoft IQ」の構想を説明した。Dynamics 365向けプラグインとSalesforceとの連携も発表。企業がAIを導入する際、単独作業の効率化だけでなく、情報の権限管理と共同作業の設計が重要になる。",
+    "category": "AI",
+    "score": 88,
+    "published_at": "2026-11-18",
+    "published_at_time": "2026-11-17T23:01:43.590Z",
+    "source_url": "https://blogs.microsoft.com/blog/2026/11/17/ignite-2026-building-the-frontier-ecosystem/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Microsoftは2026年11月17日、年次イベントIgniteの基調講演で、複数の人とAIエージェントが文脈を共有する「Copilot Workspaces」や、社内外の情報をつなぐ「Microsoft IQ」の構想を説明した。Dynamics 365向けプラグインとSalesforceとの連携も発表。企業がAIを導入する際、単独作業の効率化だけでなく、情報の権限管理と共同作業の設計が重要になる。",
+    "sections": [
+      {
+        "title": "Copilotを個人利用から共同作業へ",
+        "body": "11月17日付のMicrosoft公式ブログは、Satya Nadella CEOによるIgnite基調講演の編集版を公開した。Copilot Workspacesについて、人間と複数のAIエージェントが共有された文脈の中で共同作業する仕組みとして紹介している。CopilotにはChat、Cowork、Code、Autopilotなどの機能をまとめ、Work IQを通じて組織の文書、メール、会議、プロジェクトなどの業務文脈を扱う方向性を示した。\n\nこれは全企業で直ちに利用可能になったという意味ではない。今回確認した基調講演本文だけでは、Copilot Workspacesの一般提供日や個別料金、利用条件を確定できないため、導入判断では正式な製品仕様と契約条件の追加確認が必要となる。"
+      },
+      {
+        "title": "Microsoft IQとSalesforce連携、企業が確認すべきこと",
+        "body": "MicrosoftはMicrosoft IQを、Fabric、Foundry、Microsoft 365と外部システムの情報をつなぐ基盤として説明し、数百の新たなコネクターを発表した。また、Dynamics 365向けの新プラグインと、SalesforceをCopilotにつなぐ協業を明らかにした。\n\n業務担当者にとっての論点は、情報を集約できることだけではない。顧客情報や人事情報へのアクセス権、AIが実行できる操作、承認履歴、出力の検証方法を設計しなければならない。今回の発表は連携方針を示すものであり、既存の権限設定が自動的に適切になることや、業務成果の改善を保証するものではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Microsoftが11月17日のIgniteで、Copilotを個人のAI助手からチームの共同作業基盤へ広げる方針を示しました。新たに紹介したCopilot Workspacesは、人と複数のAIエージェントが文脈を共有して働く仕組みです。Microsoft IQでは社内外の情報を接続し、Salesforceとの連携も発表。重要なのはAIをつなぐだけでなく、顧客データへのアクセス権、実行承認、結果の検証をどう管理するか。一般提供時期や個別料金は別途確認が必要です。\nhttps://signal.amberlight.co.jp/articles/20261117-microsoft-ignite-copilot-workspaces-iq/\nhttps://blogs.microsoft.com/blog/2026/11/17/ignite-2026-building-the-frontier-ecosystem/",
+    "publication_key": "d42327cbc7838999cf2be4e860a57d8ce2c82b5d82abf5e115407350316d275e",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261118-kubeshark-mcp-argument-injection",
     "title": "KubesharkのMCP引数処理にHIGH脆弱性──管理権限付き実行でクラスタ侵害の恐れ、v53.4.0で修正",
     "summary": "KubesharkのMCPツールに、入力値がコマンドのオプションとして解釈される脆弱性（CVE-2026-129236）が確認された。公式評価はHIGH（CVSS 3.1で7.2）。管理権限を持つ環境で破壊的操作を明示許可した場合、悪意ある入力が特権コンテナの配置につながる可能性がある。修正版はv53.4.0。",

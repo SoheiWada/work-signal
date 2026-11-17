@@ -5540,10 +5540,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/Df1CDZAFWCO"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-17T04:05:59+00:00",
+      "status": "published",
+      "updated_at": "2026-11-17T04:06:03+00:00",
       "stage": "publish_requested",
-      "container_id": "18162527977488337"
+      "container_id": "18162527977488337",
+      "remote_id": "17913876354595235",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4032138182632251871"
     }
   }
 }

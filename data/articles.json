@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261118-kubeshark-mcp-argument-injection",
+    "title": "KubesharkのMCP引数処理にHIGH脆弱性──管理権限付き実行でクラスタ侵害の恐れ、v53.4.0で修正",
+    "summary": "KubesharkのMCPツールに、入力値がコマンドのオプションとして解釈される脆弱性（CVE-2026-129236）が確認された。公式評価はHIGH（CVSS 3.1で7.2）。管理権限を持つ環境で破壊的操作を明示許可した場合、悪意ある入力が特権コンテナの配置につながる可能性がある。修正版はv53.4.0。",
+    "category": "SECURITY",
+    "score": 85,
+    "published_at": "2026-11-18",
+    "published_at_time": "2026-11-17T23:01:29.768Z",
+    "source_url": "https://github.com/advisories/GHSA-8vf2-hxg5-crqh",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "KubesharkのMCPツールに、入力値がコマンドのオプションとして解釈される脆弱性（CVE-2026-129236）が確認された。公式評価はHIGH（CVSS 3.1で7.2）。管理権限を持つ環境で破壊的操作を明示許可した場合、悪意ある入力が特権コンテナの配置につながる可能性がある。修正版はv53.4.0。",
+    "sections": [
+      {
+        "title": "何が問題なのか",
+        "body": "MCPのstart_kubesharkは、利用者から渡されるpod_regexをkubeshark tapの位置引数に追加していた。オプション終端の区切りがなかったため、特定の入力がHelm設定の上書きとして解釈され、攻撃者が指定するコンテナイメージを配備させる恐れがあった。特権DaemonSetがホストへアクセスできるため、条件次第でクラスタ管理権限の侵害につながる。"
+      },
+      {
+        "title": "影響条件と管理者の対応",
+        "body": "公式のHIGH評価はCVSS 3.1で7.2。影響はv53.1.0からv53.4.0未満。攻撃成立には、MCPを--allow-destructiveで起動し、対象ホストが特権DaemonSetを配備できるkubeconfig権限を持ち、攻撃者由来の入力がツール呼出しに到達する等の条件がある。通常のMCP実行すべてが直ちにクラスタ侵害となるわけではない。v53.4.0では引数末尾に--を挿入する修正が施された。更新とともに、破壊的操作の許可・入力の信頼境界・クラスタ権限を点検する。"
+      },
+      {
+        "title": "日付と限界",
+        "body": "開発元勧告は2026年8月13日に公開され、GitHub Reviewedデータベースには11月16日に登録された。11月の新規発見と混同しない。実際の悪用確認は公式原典からは確認できず、既知の悪用事例があるとは記さない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "HIGH",
+    "social_security_product": "Kubeshark MCP CLI v53.1.0以上、v53.4.0未満（Goモジュール該当範囲は公式GHSAを参照）",
+    "social_security_action": "Kubeshark v53.4.0以上へ更新し、--allow-destructiveの使用を必要時に限定。MCP入力とkubeconfig権限を制限する。",
+    "publication_key": "869f28773ca7150b53ae5fc3f5007e1ec4d0e89b5d0c7956c0cd55c82778dc97",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261117-openai-nato-daybreak-cyber-defense",
     "title": "OpenAI、NATOのサイバー防衛にAI提供──月最大3000億トークン利用、脆弱性検証を支援",
     "summary": "OpenAIは2026年11月17日、NATO通信情報庁（NCIA）と協力し、NATOの中核機関へ高度なサイバー防衛用AIモデルを提供していると公表した。月最大3000億の入出力トークンを利用する規模に達しており、脆弱性の検証や修正の支援を進める。AIの防御業務への実装と、人間による監督の両立が焦点となる。",

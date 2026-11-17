@@ -5451,7 +5451,9 @@
     },
     "instagram_story": {
       "status": "attempting",
-      "updated_at": "2026-11-17T01:21:01+00:00"
+      "updated_at": "2026-11-17T01:21:05+00:00",
+      "stage": "container_created",
+      "container_id": "18162492181488337"
     }
   },
   "20261112-anthropic-self-hosted-claude-managed-agents": {

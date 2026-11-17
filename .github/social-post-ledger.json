@@ -5497,7 +5497,9 @@
   "20261117-fuji-tellus-v9-cve-2026-107902": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-17T02:28:26+00:00"
+      "updated_at": "2026-11-17T02:28:35+00:00",
+      "stage": "publish_requested",
+      "container_id": "17906291571362963"
     }
   }
 }

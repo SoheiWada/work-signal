@@ -13,6 +13,30 @@ except ImportError:
     from audit_social_delivery import collect, matches, story_image_checks
 
 
+def recent_story_window(article, current=None):
+    """Allow a recent first Story across JST midnight only with an exact timestamp.
+
+    Date-only legacy articles remain limited to their publication JST date.
+    Do not infer absence or rearm any attempted/uncertain delivery here.
+    """
+    current = current or datetime.now(timezone.utc)
+    day = article.get("published_at")
+    if not isinstance(day, str):
+        return False
+    if "published_at_time" in article:
+        stamp = article["published_at_time"]
+        try:
+            published = datetime.fromisoformat(stamp.replace("Z", "+00:00"))
+        except (AttributeError, ValueError, TypeError):
+            return False
+        if published.tzinfo is None:
+            return False
+        if published.astimezone(timezone(timedelta(hours=9))).date().isoformat() != day:
+            return False
+        return timedelta(0) <= current - published < timedelta(hours=24)
+    return day == current.astimezone(timezone(timedelta(hours=9))).date().isoformat()
+
+
 class DeliveryPreflight:
     def __init__(self, articles, rows, credentials, *, target_ids=()):
         self.articles, self.rows, self.credentials = articles, rows, credentials
@@ -45,16 +69,8 @@ class DeliveryPreflight:
                 # image comparison. Permit only fresh, unclaimed deliveries,
                 # and reject contradictions with known <24h published stories.
                 current = datetime.now(timezone.utc)
-                today = current.astimezone(timezone(timedelta(hours=9))).date().isoformat()
                 entry = self.rows.get(article["id"], {}).get(kind, {})
-                fresh = article.get("published_at") == today
-                stamp = article.get("published_at_time")
-                if stamp:
-                    try:
-                        published = datetime.fromisoformat(stamp.replace("Z", "+00:00"))
-                        fresh = fresh and published.tzinfo is not None and timedelta(0) <= current - published < timedelta(hours=24)
-                    except (TypeError, ValueError):
-                        fresh = False
+                fresh = recent_story_window(article, current)
                 uncertain = entry.get("status") in ("attempting", "needs_review") or any(
                     entry.get(key) for key in ("remote_id", "container_id", "previous_attempt"))
                 recent_known = False
@@ -79,10 +95,9 @@ class DeliveryPreflight:
             found = [x for x in items if str(x["id"]) in ids]
             if not found:
                 # An active-story endpoint cannot exclude an expired story.
-                # First-publication dates have day precision, so only today's
-                # unclaimed stories have a safe <24h observation window.
-                today = datetime.now(timezone(timedelta(hours=9))).date().isoformat()
-                if article.get("published_at") != today or not evidence.get("absence_verified"):
+                # Use a trusted exact publication timestamp across JST midnight,
+                # otherwise conservatively require a same-day date-only article.
+                if not recent_story_window(article) or not evidence.get("absence_verified"):
                     raise RuntimeError("Story absence not verified within 24h; manual review required")
         else:
             found = matches(article, kind, items)

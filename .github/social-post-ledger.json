@@ -5677,7 +5677,9 @@
   "20261117-microsoft-ignite-copilot-workspaces-iq": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-17T23:15:50+00:00"
+      "updated_at": "2026-11-17T23:15:58+00:00",
+      "stage": "publish_requested",
+      "container_id": "18139096852660240"
     }
   }
 }

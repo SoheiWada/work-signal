@@ -5435,7 +5435,9 @@
   "20261113-microsoft-aion-instruct-local-ai-windows-gpu": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-17T01:05:04+00:00"
+      "updated_at": "2026-11-17T01:05:14+00:00",
+      "stage": "publish_requested",
+      "container_id": "17972100332963407"
     }
   }
 }

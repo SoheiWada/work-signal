@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261117-openai-academic-researchers-50000-grants",
+    "title": "OpenAI、研究者向けChatGPT Plusを最大15万人に無償提供へ──11月23日から5万件の申請受付",
+    "summary": "OpenAIは2026年11月16日、研究者支援プログラムの拡大を発表した。11月23日から適格な研究者の申請を先着順で5万件受け付け、採択者と共同研究者最大2人にChatGPT Plusを無償提供する。新規枠は最大15万人分で、プログラム全体では20万人への提供を目指す。",
+    "category": "AI",
+    "score": 87,
+    "published_at": "2026-11-17",
+    "published_at_time": "2026-11-17T11:59:53.706Z",
+    "source_url": "https://openai.com/index/expanding-chatgpt-for-academic-researchers/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは2026年11月16日、研究者支援プログラムの拡大を発表した。11月23日から適格な研究者の申請を先着順で5万件受け付け、採択者と共同研究者最大2人にChatGPT Plusを無償提供する。新規枠は最大15万人分で、プログラム全体では20万人への提供を目指す。",
+    "sections": [
+      {
+        "title": "11月23日から先着5万件、最大15万人が対象",
+        "body": "OpenAIが11月16日に公表した「Broadening access to AI for scientists」によると、ChatGPT for Academic Researchersの次回申請受付は11月23日（月）に始まる。対象条件を満たす申請を先着順に5万件採択する方式で、従来の抽選方式から変更する。1件の採択につき、本人と共同研究者最大2人がChatGPT Plusを無償利用できるため、新規採択枠の支援対象は最大15万人となる。プログラム全体の目標は20万人であり、今回新たに20万人を採択するという意味ではない。"
+      },
+      {
+        "title": "先行試行の実績と、利用上の注意",
+        "body": "7月開始の試行には33カ国・地域から2万人の研究者が参加した。試行ではChatGPT Proが提供されたが、利用実績を踏まえ、新規採択分はPlusへ変更される。OpenAIはプログラム内で共有されたデータをデフォルトではモデル学習に使用しないとしている。ただし研究データの機密性、所属機関の規程、研究倫理上の取り扱いは利用者側でも確認が必要だ。既に待機リストに登録し条件を満たす研究者には、受付前に案内メールを送るとしている。対象となる国・地域、個別の応募資格や利用期間については、公式の申請案内で確認したい。"
+      },
+      {
+        "title": "研究機関への示唆",
+        "body": "この施策は研究機関がAI利用を試す初期コストを抑える可能性がある一方、支援枠は応募資格と先着順に左右される。研究管理者は11月23日の受付開始に向けて、対象資格、共同研究者の扱い、機密データの入力ルールを事前に整理することが実務上有効だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "研究者向けのChatGPT無償支援が拡大します。OpenAIは11月23日から5万件の申請を先着順で受け付け、採択された研究者と共同研究者最大2人にChatGPT Plusを提供します。最大15万人分の新規枠で、プログラム全体の目標は20万人。抽選から先着順に変わる点が重要です。研究室や大学の担当者は、申請条件だけでなく、研究データの扱いと共同研究者の利用ルールも確認しておきたいところ。記事では数字の違いと申請前の注意点を整理しました。\nhttps://signal.amberlight.co.jp/articles/20261117-openai-academic-researchers-50000-grants/\nhttps://openai.com/index/expanding-chatgpt-for-academic-researchers/",
+    "publication_key": "f022f8cd6da0c702d4e66bda2ed192fed2600f0e0692588cc5f1d1ecc460df1e",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261116-japan-gdp-q3-real-flat-nominal-growth",
     "title": "日本の7〜9月GDP、実質成長率は前期比ほぼゼロ──名目0.4％増との違い",
     "summary": "内閣府が2026年11月16日に公表した7〜9月期GDPの1次速報では、実質成長率は前期比マイナス0.0％と、ほぼ横ばいだった。一方、名目成長率は0.4％増。企業が景況感や売上を評価するときは、金額の増加と物価の影響を除いた経済活動の伸びを区別する必要がある。速報値は今後改定され得る。",

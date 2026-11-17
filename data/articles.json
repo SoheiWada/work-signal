@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261118-elecom-router-cve-2026-101113",
+    "title": "エレコム製ルーター3機種にOSコマンド実行の脆弱性、対策版2.2.3以降へ更新",
+    "summary": "エレコムは2026年11月17日、無線LANルーター3機種の管理画面に関連する脆弱性CVE-2026-101113を公表した。ログイン可能な攻撃者が任意のOSコマンドを実行する恐れがある。対象機種では対策済みファームウェアVer.2.2.3以降への更新が必要だ。",
+    "category": "SECURITY",
+    "score": 88,
+    "published_at": "2026-11-18",
+    "published_at_time": "2026-11-17T23:05:35.630Z",
+    "source_url": "https://www.elecom.co.jp/news/security/20261117-01/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "エレコムは2026年11月17日、無線LANルーター3機種の管理画面に関連する脆弱性CVE-2026-101113を公表した。ログイン可能な攻撃者が任意のOSコマンドを実行する恐れがある。対象機種では対策済みファームウェアVer.2.2.3以降への更新が必要だ。",
+    "sections": [
+      {
+        "title": "対象は3機種、管理画面にログインできる攻撃者が対象",
+        "body": "エレコムの2026年11月17日付セキュリティ告知によると、WRC-BE36QS-B、WRC-BE36QSD-B、WRC-W701-Bの3機種にOSコマンドインジェクションの脆弱性（CVE-2026-101113）がある。JVNは影響版を各機種のv2.1.3以前とし、CVSS v4.0基本値8.6、v3.1基本値7.2と評価した。評価方式が異なる数値を同一指標として比較しない。攻撃には設定画面へアクセスしてログインできる権限が必要であり、誰でもインターネットから無条件に実行できるという意味ではない。"
+      },
+      {
+        "title": "対策版と利用者の確認事項",
+        "body": "開発元は対策済みファームウェアをVer.2.2.3以降と明示した。工場出荷時の設定では自動更新されるが、設定を変更した利用者や更新状態が不明な利用者は、管理画面などからファームウェアのバージョンを確認し、必要なら公式案内に従って更新する。公表資料は実際の悪用を確認したとは述べておらず、悪用発生を断定しない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "エレコム製Wi-Fiルーター3機種に、管理画面へログインできる攻撃者がOSコマンドを実行し得る脆弱性が公表されました。対象はWRC-BE36QS-B、WRC-BE36QSD-B、WRC-W701-Bのv2.1.3以前。対策版はVer.2.2.3以降です。通常設定では自動更新されますが、設定を変えている場合はバージョン確認が重要です。攻撃が実際に起きたと断定する情報ではありません。\nhttps://signal.amberlight.co.jp/articles/20261118-elecom-router-cve-2026-101113/\nhttps://www.elecom.co.jp/news/security/20261117-01/",
+    "social_security_severity": "HIGH",
+    "social_security_product": "WRC-BE36QS-B / WRC-BE36QSD-B / WRC-W701-B、いずれもv2.1.3以前",
+    "social_security_action": "エレコム公式の対策済みファームウェアVer.2.2.3以降へ更新",
+    "publication_key": "aefa0397ac3024bf183727e38f96a2ac674030f8f5c6540d113fb32f3116e632",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261117-microsoft-ignite-copilot-workspaces-iq",
     "title": "Microsoft、IgniteでCopilot WorkspacesとSalesforce連携を発表──企業AIの共有文脈と統制が焦点",
     "summary": "Microsoftは2026年11月17日、年次イベントIgniteの基調講演で、複数の人とAIエージェントが文脈を共有する「Copilot Workspaces」や、社内外の情報をつなぐ「Microsoft IQ」の構想を説明した。Dynamics 365向けプラグインとSalesforceとの連携も発表。企業がAIを導入する際、単独作業の効率化だけでなく、情報の権限管理と共同作業の設計が重要になる。",

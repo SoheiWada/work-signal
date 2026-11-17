@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261117-revolut-ai-codex-fincrime-workflow",
+    "title": "Revolut、AIで開発時間を30〜60％短縮──不正取引調査も自動化、最終判断は人間が担う",
+    "summary": "金融サービス企業RevolutのAI活用事例をOpenAIが2026年11月16日に公表した。Codexを用いた開発では、作業開始から機能のマージまでの時間が30〜60％短縮したと説明する。不正取引の調査にもAIエージェントを使う一方、コードの品質や重要な判断は人間が担う。効果の数字は企業事例の自己申告であり、業界全体の平均値ではない。",
+    "category": "AI",
+    "score": 87,
+    "published_at": "2026-11-17",
+    "published_at_time": "2026-11-17T07:04:22.312Z",
+    "source_url": "https://openai.com/business/customer-stories/revolut/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "金融サービス企業RevolutのAI活用事例をOpenAIが2026年11月16日に公表した。Codexを用いた開発では、作業開始から機能のマージまでの時間が30〜60％短縮したと説明する。不正取引の調査にもAIエージェントを使う一方、コードの品質や重要な判断は人間が担う。効果の数字は企業事例の自己申告であり、業界全体の平均値ではない。",
+    "sections": [
+      {
+        "title": "開発時間の短縮は「作業開始からマージまで」の指標",
+        "body": "OpenAIが11月16日に公開したRevolutの事例では、Codex導入後の開発時間が30〜60％短くなったという。これはRevolut側が説明する作業開始から機能マージまでの所要時間であり、全社の生産性が同率で向上したことを示す数字ではない。社内コードレビュー用サービスの実装を複数のエージェントへ分担させ、担当エンジニアが設計とレビューに集中した例も紹介された。約7年分のデザイン文書をAIが参照しやすい形へ整理した作業は1日で完了したとされる。"
+      },
+      {
+        "title": "金融犯罪の調査を支援、承認責任は残す",
+        "body": "Revolutは不正取引対策にOpenAIモデルを用いたFinCrimeエージェントを導入し、ルールに基づく情報確認や初期調査を自動化している。OpenAI掲載の担当者説明によると、取引量の増加に対して調査担当者数を同じ比率で増やさず対応することが狙いだ。一方、フィッシング調査などではAIが証拠を整理しても、原資料の確認と対応の承認は人間が担う。"
+      },
+      {
+        "title": "導入企業が検討すべき境界線",
+        "body": "この事例から読み取れる実務上の論点は、AIに渡す情報、アクセス可能なツール、実行できる操作、失敗時の処理、担当者の承認範囲を先に設計することだ。30〜60％という短縮率やレビュー作業での1〜2日削減は、OpenAIの顧客事例として報告された数値であり、独立監査済みの比較試験や一般企業への再現性を示すものではない。金融規制や個人情報の扱いも各社の運用条件に応じて別途確認が必要だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "金融サービスのRevolutが、AIによる業務変革の実例を公開。Codexを使った開発では、作業開始からマージまでの時間を30〜60％短縮したと説明しています。不正取引の初期調査にもAIを導入していますが、重要なのは「自動化＝責任の移転」ではないこと。原資料の確認、コード品質、最終承認は人間が担います。効果の数字は企業側の事例報告で、すべての会社に当てはまるわけではありません。\nhttps://signal.amberlight.co.jp/articles/20261117-revolut-ai-codex-fincrime-workflow/\nhttps://openai.com/business/customer-stories/revolut/",
+    "publication_key": "e09e1100cf57a2cb64b2b082edfb5aec97ff7f74b207e0189b4ece8d86090906",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261116-openai-embedded-independent-assessments",
     "title": "OpenAI、外部4組織に内部モデル評価を委ねる──安全性検証の透明性と限界",
     "summary": "OpenAIは2026年11月16日、Apollo Research、METR、Transluce、Goodfireの4組織と、モデルの安全性を内部から検証する初期段階の契約を結んだと発表した。評価者には条件に応じて未公開モデルや学習・監視資料へのアクセスを認める一方、評価範囲や公開時の機密情報の扱いには制約が残る。",

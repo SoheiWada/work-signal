@@ -5658,10 +5658,12 @@
   },
   "20261118-openai-gpt62-astra-sol": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-17T23:15:26+00:00",
+      "status": "published",
+      "updated_at": "2026-11-17T23:15:31+00:00",
       "stage": "publish_requested",
-      "container_id": "18135501643690068"
+      "container_id": "18135501643690068",
+      "remote_id": "18116564231043285",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df3FojnmuVh"
     }
   }
 }

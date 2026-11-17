@@ -5605,8 +5605,8 @@
   "20261117-openai-nato-daybreak-cyber-defense": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-17T13:14:36+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-11-17T13:14:38+00:00",
+      "stage": "publish_requested",
       "container_id": "18135459934690068"
     }
   }

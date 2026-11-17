@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261117-openai-nato-daybreak-cyber-defense",
+    "title": "OpenAI、NATOのサイバー防衛にAI提供──月最大3000億トークン利用、脆弱性検証を支援",
+    "summary": "OpenAIは2026年11月17日、NATO通信情報庁（NCIA）と協力し、NATOの中核機関へ高度なサイバー防衛用AIモデルを提供していると公表した。月最大3000億の入出力トークンを利用する規模に達しており、脆弱性の検証や修正の支援を進める。AIの防御業務への実装と、人間による監督の両立が焦点となる。",
+    "category": "AI",
+    "score": 86,
+    "published_at": "2026-11-17",
+    "published_at_time": "2026-11-17T13:07:46.884Z",
+    "source_url": "https://openai.com/index/strengthening-nato-allied-cyber-defences-ai/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは2026年11月17日、NATO通信情報庁（NCIA）と協力し、NATOの中核機関へ高度なサイバー防衛用AIモデルを提供していると公表した。月最大3000億の入出力トークンを利用する規模に達しており、脆弱性の検証や修正の支援を進める。AIの防御業務への実装と、人間による監督の両立が焦点となる。",
+    "sections": [
+      {
+        "title": "NATOの中核機関が利用、月最大3000億トークン",
+        "body": "OpenAIの11月17日付公式発表によると、同社はNATOの通信情報庁（NCIA）と連携し、NATOの中核機関が高度なサイバーセキュリティモデルを利用できるようにしている。NATOはこの取り組みで、月当たり最大3000億の入力・出力トークンを使用したと説明される。これは利用規模を示す数値であり、検出した攻撃件数や防御の成功率ではない。\n\nDaybreakを通じた用途には、認可されたソフトウェアの点検、不審な活動の調査、脆弱性の検証、修正案の開発・試験が含まれる。2026年のNATO関連演習「Crossed Swords」では、参加者がAIエージェントを構築・評価する訓練も行われ、人間による監督が重視された。"
+      },
+      {
+        "title": "EU機関での検証と、導入企業が見るべき限界",
+        "body": "OpenAIは欧州連合のENISAや各国のサイバー機関への提供も説明している。ENISAとCERT-EUの共同報告に関連し、27のソフトウェアプロジェクトを対象としたレビューで、保守担当者が評価した潜在的問題88件のうち95%が実際の問題と確認されたと紹介した。ただし、この割合はレビュー対象の潜在的問題についての確認率であり、AIがすべての脆弱性を95%の確率で検出するという意味ではない。\n\n企業のセキュリティ担当者にとっては、AIが提案する検出結果や修正を誰が承認し、どの範囲で実行を認可するかが重要だ。今回の発表は防御用途の導入例であって、完全自動防御の実現や攻撃防止の保証を示すものではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "OpenAIは11月17日、NATOの通信情報庁（NCIA）と協力し、NATOの中核機関へサイバー防衛用AIモデルを提供していると発表しました。利用規模は月最大3000億の入出力トークン。ソフトウェアの点検や脆弱性の検証、修正案の開発などを支援します。EUのENISAなどにも展開し、人間による確認を前提とした運用を強調。これはAIが防御を完全自動化したという発表ではありません。企業のセキュリティ部門にとっても、AI導入時の監督と検証の設計が重要になります。\nhttps://signal.amberlight.co.jp/articles/20261117-openai-nato-daybreak-cyber-defense/\nhttps://openai.com/index/strengthening-nato-allied-cyber-defences-ai/",
+    "publication_key": "e797bbf01dbe14fee26c332dc0fa9b7a5b25cd787b266fd6193aa83811a47a15",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261117-openai-academic-researchers-50000-grants",
     "title": "OpenAI、研究者向けChatGPT Plusを最大15万人に無償提供へ──11月23日から5万件の申請受付",
     "summary": "OpenAIは2026年11月16日、研究者支援プログラムの拡大を発表した。11月23日から適格な研究者の申請を先着順で5万件受け付け、採択者と共同研究者最大2人にChatGPT Plusを無償提供する。新規枠は最大15万人分で、プログラム全体では20万人への提供を目指す。",

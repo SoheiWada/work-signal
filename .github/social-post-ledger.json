@@ -5659,7 +5659,9 @@
   "20261118-openai-gpt62-astra-sol": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-17T23:15:06+00:00"
+      "updated_at": "2026-11-17T23:15:24+00:00",
+      "stage": "container_created",
+      "container_id": "18135501643690068"
     }
   }
 }

@@ -2,7 +2,7 @@ import unittest
 from datetime import datetime, timezone, timedelta
 from unittest.mock import patch
 from scripts import publish_social as social
-from scripts.social_delivery_preflight import DeliveryPreflight
+from scripts.social_delivery_preflight import DeliveryPreflight, recent_story_window
 from scripts.audit_social_delivery import collect
 from tests.test_delivery_reliability import MemoryLedger
 from tests.test_scheduled_social import article
@@ -104,6 +104,38 @@ class SocialPreflightTests(unittest.TestCase):
                 preflight = DeliveryPreflight([self.a], {}, self.credentials)
                 with self.assertRaises(RuntimeError):
                     preflight.existing({**self.a,"published_at_time":stamp}, "instagram_story")
+
+    def test_exact_story_age_survives_jst_midnight_without_weakening_24h_limit(self):
+        checked = datetime(2026, 11, 17, 1, 5, tzinfo=timezone.utc)  # 10:05 JST
+        article = {**self.a, "published_at": "2026-11-16",
+                   "published_at_time": "2026-11-16T11:27:11.683Z"}  # 20:27 JST
+        self.assertTrue(recent_story_window(article, checked))
+        self.assertFalse(recent_story_window(article, checked + timedelta(hours=12)))
+        self.assertFalse(recent_story_window({**article, "published_at": "2026-11-17"}, checked))
+        self.assertFalse(recent_story_window({**article, "published_at_time": "invalid"}, checked))
+        self.assertFalse(recent_story_window({**article, "published_at_time": "2026-11-17T01:06:00Z"}, checked))
+        self.assertFalse(recent_story_window({"published_at": "2026-11-16"}, checked))
+        self.assertTrue(recent_story_window({"published_at": "2026-11-17"}, checked))
+
+    def test_visual_story_absence_across_midnight_remains_evidence_gated(self):
+        current = datetime.now(timezone.utc)
+        jst = timezone(timedelta(hours=9))
+        yesterday = current.astimezone(jst).date() - timedelta(days=1)
+        # A publication at yesterday 23:59 JST remains <24h old today.
+        prior = datetime.combine(yesterday, datetime.min.time(), tzinfo=jst) + timedelta(hours=23, minutes=59)
+        article = {**self.a, "published_at": yesterday.isoformat(),
+                   "published_at_time": prior.astimezone(timezone.utc).isoformat()}
+        with (patch("scripts.social_delivery_preflight.collect", return_value=([{"id": "other"}], True)),
+              patch("scripts.social_delivery_preflight.story_image_checks", return_value={
+                  article["id"]: {"absence_verified": True, "matching_ids": []}})):
+            verified = DeliveryPreflight([article], {}, self.credentials, target_ids=[article["id"]])
+            self.assertIsNone(verified.existing(article, "instagram_story"))
+            no_evidence = DeliveryPreflight([article], {}, self.credentials, target_ids=[article["id"]])
+        with (patch("scripts.social_delivery_preflight.collect", return_value=([{"id": "other"}], True)),
+              patch("scripts.social_delivery_preflight.story_image_checks", return_value={
+                  article["id"]: {"absence_verified": False, "matching_ids": []}})):
+            with self.assertRaises(RuntimeError):
+                no_evidence.existing(article, "instagram_story")
 
 
 if __name__ == "__main__":

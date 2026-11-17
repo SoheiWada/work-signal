@@ -170,7 +170,7 @@ jobs:
         run: gh workflow run social-publish.yml --ref main -f "continuation_depth=$NEXT_DEPTH"
       - name: Keep per-platform completion report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: work-signal-social-delivery-status
           path: |
@@ -227,7 +227,7 @@ jobs:
         run: python scripts/publish_x.py --live
       - name: Keep independent X completion report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: work-signal-x-delivery-status
           path: x-delivery-status.json

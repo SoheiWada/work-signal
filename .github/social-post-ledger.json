@@ -5568,10 +5568,12 @@
   },
   "20261116-japan-gdp-q3-real-flat-nominal-growth": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-17T10:11:14+00:00",
+      "status": "published",
+      "updated_at": "2026-11-17T10:11:15+00:00",
       "stage": "publish_requested",
-      "container_id": "18203166715390740"
+      "container_id": "18203166715390740",
+      "remote_id": "18203166715390740",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df1r4YWlWeE"
     }
   }
 }

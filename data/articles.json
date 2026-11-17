@@ -115,8 +115,11 @@
         "body": "本記事はMicrosoft Partner Centerの2026年11月発表ページ（「Update on the Microsoft Data Governance strategy」、Date: November 12, 2026）を本回で直接照合し、発表年（2026年）を確認した。サポート終了は2027年11月12日で、Unified Catalog・Data Map・Workflows・Azure Purviewソリューションが対象、Purview Data Securityとコンプライアンスは変更なし、という内容は同ページの記載による。移行先のOneLakeカタログの具体的な機能や移行の手順は、同ページでは示されておらず、11月17〜20日のMicrosoft Igniteでの追加発表が見込まれる段階だ。本稿は持越しプールからの再検証によるもので、初回確認は2026年11月14日朝回、再検証は2026年11月15日午後回である。"
       }
     ],
-    "social_publish": false,
-    "social_platforms": []
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ]
   },
   {
     "id": "20261113-microsoft-aion-instruct-local-ai-windows-gpu",
@@ -152,8 +155,11 @@
         "body": "本記事はMicrosoftのFoundry on Windows開発者ブログを本回で直接照合し、Published: 2026-11-13T19:10:34Z（更新 2026-11-13T23:39:53Z）で発表年（2026年）を確認した。パラメータ数・コンテキスト長・展開時期・GPU対応・ウォーターマークの内容は同ブログの記載による。技術レポートは未公開で、詳細な性能評価は今後の公開待ちである。展開時期（11月下旬のInsider提供、2027年1月下旬の一般提供）はいずれも計画であり、変更の可能性がある。Igniteの関連セッションTHR888は11月17日（火）開催予定で、本稿執筆時点では未開催のため、その内容は反映されていない。本稿は持越しプールからの再検証によるもので、初回確認は2026年11月14日朝回、再検証は2026年11月15日午後回と本回（2026年11月16日朝回）である。再検証は実行開始時の08:27 JSTに行い、プールの有効期限（2026年11月16日 08:34 JST）内であった。"
       }
     ],
-    "social_publish": false,
-    "social_platforms": []
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ]
   },
   {
     "id": "20261115-cloudflare-workers-spend-management",

@@ -1,5 +1,44 @@
 [
   {
+    "id": "20261117-fuji-tellus-v9-cve-2026-107902",
+    "title": "富士電機TELLUSに2件の脆弱性、細工したV9ファイルでコード実行の恐れ",
+    "summary": "富士電機の遠隔監視ソフトTELLUSとTELLUS Liteで、細工されたV9形式ファイルを開くと情報漏えいや任意コード実行につながる恐れのある脆弱性2件が公表された。対象はVer 5.0.5.0以前。利用企業は導入端末とファイルの取り扱いを確認し、メーカーが示すパッチ適用を進めたい。",
+    "category": "SECURITY",
+    "score": 87,
+    "published_at": "2026-11-17",
+    "published_at_time": "2026-11-17T02:21:50.290Z",
+    "source_url": "https://jvn.jp/vu/JVNVU97628215/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "富士電機の遠隔監視ソフトTELLUSとTELLUS Liteで、細工されたV9形式ファイルを開くと情報漏えいや任意コード実行につながる恐れのある脆弱性2件が公表された。対象はVer 5.0.5.0以前。利用企業は導入端末とファイルの取り扱いを確認し、メーカーが示すパッチ適用を進めたい。",
+    "sections": [
+      {
+        "title": "影響するバージョンと攻撃条件",
+        "body": "JPCERT/CCとIPAのJVNが2026年11月17日に公開した情報によると、TELLUSおよびTELLUS LiteのVer 5.0.5.0以前が対象。境界外読み取りのCVE-2026-107901はCVSS v4.0で6.8、解放済みメモリの使用に関するCVE-2026-107902は同8.4と評価されている。後者はHIGH相当であり、2件を一律にHIGHと扱うものではない。攻撃者が細工したV9形式ファイルを対象製品で開くことで、情報漏えいや任意コード実行の可能性がある。ネットワーク経由で無操作のまま侵害されるとの発表ではない。"
+      },
+      {
+        "title": "現場で優先する確認と対応",
+        "body": "管理者はTELLUSとTELLUS Liteの利用端末・バージョンを棚卸しし、V9ファイルを外部から受け取る業務を確認する。JVNは開発者の情報に従うパッチ適用を推奨している。富士電機の公式資料には2026年11月発行の「TELLUS and V-Server 改善情報 Ver.5.0.6.0」が掲載されているが、個別環境への適用方法は提供元の手順で確認する必要がある。今回の公式情報には実際の悪用確認は示されておらず、未確認の攻撃事例を既成事実として扱わない。"
+      },
+      {
+        "title": "公式資料",
+        "body": "https://jvn.jp/vu/JVNVU97628215/\nhttps://felib.fujielectric.co.jp/ja/M10010/M20060/document_detail/40d94dc2-2391-4c02-840f-baa85c41a25c"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "富士電機の遠隔監視ソフトTELLUS／TELLUS Liteで、細工されたV9形式ファイルを開くと任意コード実行や情報漏えいにつながる恐れがある脆弱性2件が公表されました。対象はVer 5.0.5.0以前。現場で使用している端末のバージョンを確認し、提供元の改善情報とパッチ適用手順を確認する必要があります。特に外部から受け取ったV9ファイルの取り扱いを見直してください。公開資料には実際の悪用確認は記載されていません。\nhttps://signal.amberlight.co.jp/articles/20261117-fuji-tellus-v9-cve-2026-107902/\nhttps://jvn.jp/vu/JVNVU97628215/",
+    "social_security_severity": "HIGH",
+    "social_security_product": "富士電機 TELLUS / TELLUS Lite Ver 5.0.5.0およびそれ以前",
+    "social_security_action": "富士電機が案内するVer 5.0.6.0の改善情報を確認し、提供元の指示に従ってパッチを適用",
+    "publication_key": "16c30d81805ac5e6454fb9294ff0aeb9ef3860e44f1b9136366bdbe103ebfd8d",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261112-anthropic-self-hosted-claude-managed-agents",
     "title": "Anthropic、Claude Managed Agentsを自社運用可能に──プライベートベータで提供開始",
     "summary": "Anthropicは2026年11月12日、エージェント基盤「Claude Managed Agents」を自社環境で運用できる「自己ホスト型」をプライベートベータで提供すると発表した。これまでManaged AgentsはAnthropicがインフラを運用するホスト型だったが、自己ホスト型ではハーネス（制御部）、サンドボックス、認証情報の保管、セッション履歴まで、サービスの全体を自社のクラウドやオンプレミスで動かせる。コードや社内システムに直接触れるエージェントの実行基盤と履歴を自社で管理したい企業が対象だ。モデルへのリクエスト先はAnthropicのほか、Amazon Bedrock、GoogleのAgent Platform、Microsoft Foundry、あるいは自社のゲートウェイから選べる。",

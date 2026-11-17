@@ -1,5 +1,43 @@
 [
   {
+    "id": "20261113-google-cloud-agent-observability-bigquery-looker",
+    "title": "エージェントの「見える化」が本格化──Google Cloud、BigQuery・Looker横断の可観測性と支出上限を拡張",
+    "summary": "Google Cloudは2026年11月13日、BigQueryとLookerを使うAIエージェントの監視・評価機能の拡張を発表した。会話ログやダッシュボードの一般提供と、日次トークン上限などのプレビューを区別して確認したい。",
+    "category": "AI",
+    "score": 84,
+    "published_at": "2026-11-17",
+    "published_at_time": "2026-11-17T03:05:15.728Z",
+    "source_url": "https://cloud.google.com/blog/products/data-analytics/enterprise-ai-agent-observability-with-bigquery-and-looker",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Google Cloudは2026年11月13日、BigQueryとLookerを使うAIエージェントの監視・評価機能の拡張を発表した。会話ログやダッシュボードの一般提供と、日次トークン上限などのプレビューを区別して確認したい。",
+    "sections": [
+      {
+        "title": "何が起きたか",
+        "body": "Google製のデータエージェントと、ADK・LangGraphなどで構築したエージェントの運用情報をBigQueryへ集める枠組みを拡張する。会話ログとBigQuery Studio・Lookerの監視ダッシュボードは一般提供（GA）。独自エージェントにはSDKでの計装が必要だ。"
+      },
+      {
+        "title": "会話を記録する場合の注意",
+        "body": "集計指標・加工済みトレースと、プロンプトや応答を含む会話ログは別に管理される。会話ログはエージェントごとに有効化する方式で、顧客所有のBigQueryテーブルに保存する。監視を導入する際は、記録内容と閲覧権限、取り込み・保存費用を先に確認したい。"
+      },
+      {
+        "title": "費用と品質を管理する",
+        "body": "クエリごとの読み取り量上限に加え、日次の入出力トークン上限はプレビューで提供する。オープンソースのPrismは、変更前の評価に使える。業務では、プロンプトやデータ構造の変更時に評価結果と本番の記録を比較する運用が考えられる。"
+      },
+      {
+        "title": "確認しておきたいこと",
+        "body": "公式ブログの日付表示は11月13日。機能ごとの提供段階は異なる。監視を設定するだけで費用や正確性が保証されるわけではなく、プレビューの仕様も変わり得る。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram_story"
+    ],
+    "publication_key": "e7fc642f9ed6aa3d19660729d93f051d2fdb826b863a517cb66582c302d0fc0e",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261117-fuji-tellus-v9-cve-2026-107902",
     "title": "富士電機TELLUSに2件の脆弱性、細工したV9ファイルでコード実行の恐れ",
     "summary": "富士電機の遠隔監視ソフトTELLUSとTELLUS Liteで、細工されたV9形式ファイルを開くと情報漏えいや任意コード実行につながる恐れのある脆弱性2件が公表された。対象はVer 5.0.5.0以前。利用企業は導入端末とファイルの取り扱いを確認し、メーカーが示すパッチ適用を進めたい。",

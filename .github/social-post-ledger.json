@@ -5676,10 +5676,12 @@
   },
   "20261117-microsoft-ignite-copilot-workspaces-iq": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-17T23:15:58+00:00",
+      "status": "published",
+      "updated_at": "2026-11-17T23:16:00+00:00",
       "stage": "publish_requested",
-      "container_id": "18139096852660240"
+      "container_id": "18139096852660240",
+      "remote_id": "18139096852660240",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df3FsJ-msuH"
     }
   }
 }

@@ -42,7 +42,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_delivery_channel_outcomes.py'
       - name: Offline copy preview (existing articles are not queued)
         run: python scripts/publish_x.py > x-offline-preview.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: work-signal-x-offline-preview
           path: x-offline-preview.json

@@ -5444,10 +5444,12 @@
   },
   "20261112-anthropic-self-hosted-claude-managed-agents": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-17T01:19:56+00:00",
+      "status": "published",
+      "updated_at": "2026-11-17T01:19:58+00:00",
       "stage": "publish_requested",
-      "container_id": "18187955224419938"
+      "container_id": "18187955224419938",
+      "remote_id": "18187955224419938",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df0vEqPFEuy"
     }
   }
 }

@@ -5425,7 +5425,9 @@
   "20261112-microsoft-purview-data-governance-retirement": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-17T01:04:48+00:00"
+      "updated_at": "2026-11-17T01:04:58+00:00",
+      "stage": "publish_requested",
+      "container_id": "18292903546295138"
     }
   }
 }

@@ -5523,8 +5523,8 @@
     },
     "instagram_story": {
       "status": "attempting",
-      "updated_at": "2026-11-17T03:13:16+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-11-17T03:13:22+00:00",
+      "stage": "publish_requested",
       "container_id": "18162515845488337"
     }
   }

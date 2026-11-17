@@ -5463,7 +5463,9 @@
   "20261110-google-november-2026-core-update": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-17T01:20:17+00:00"
+      "updated_at": "2026-11-17T01:20:27+00:00",
+      "stage": "publish_requested",
+      "container_id": "18121268516323100"
     }
   }
 }

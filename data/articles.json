@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261116-openai-embedded-independent-assessments",
+    "title": "OpenAI、外部4組織に内部モデル評価を委ねる──安全性検証の透明性と限界",
+    "summary": "OpenAIは2026年11月16日、Apollo Research、METR、Transluce、Goodfireの4組織と、モデルの安全性を内部から検証する初期段階の契約を結んだと発表した。評価者には条件に応じて未公開モデルや学習・監視資料へのアクセスを認める一方、評価範囲や公開時の機密情報の扱いには制約が残る。",
+    "category": "AI",
+    "score": 84,
+    "published_at": "2026-11-17",
+    "published_at_time": "2026-11-17T03:58:53.274Z",
+    "source_url": "https://openai.com/index/our-first-phase-of-embedded-assessments/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは2026年11月16日、Apollo Research、METR、Transluce、Goodfireの4組織と、モデルの安全性を内部から検証する初期段階の契約を結んだと発表した。評価者には条件に応じて未公開モデルや学習・監視資料へのアクセスを認める一方、評価範囲や公開時の機密情報の扱いには制約が残る。",
+    "sections": [
+      {
+        "title": "4組織が異なる観点から検証",
+        "body": "OpenAIによると、Apollo Researchはモデルが開発者の意図に反する行動を隠して実行する可能性と監視の検出力を検証する。METRは強化学習中の不整合行動と監視体制、Transluceは学習後のアラインメント評価の品質・網羅性、Goodfireはモデル内部の解釈と学習過程の監視をそれぞれ扱う。検証対象には条件に応じてモデルのチェックポイント、評価記録、監視システム、技術資料が含まれる。"
+      },
+      {
+        "title": "独立性と情報公開には条件がある",
+        "body": "評価者は一定の独立性を持つが、対象範囲は個別に合意し、機密性の高い情報は社内環境で扱う。OpenAIは機密情報の編集・削除や安全上の問題への対応のための公表延期を求める権利を保持する。監督委員会は編集前の報告書を閲覧できる。報酬についても、Apollo ResearchとGoodfireは報酬を受け取る一方、METRとTransluceは評価業務への金銭報酬を受け取らないと明示されている。現時点で安全性の合格判定や検証結果が出たとする発表ではない。"
+      },
+      {
+        "title": "AI導入企業が確認したい点",
+        "body": "AIサービスを導入する企業は、第三者評価の有無だけでなく、対象モデル・評価範囲・失敗事例の公開条件・監督主体を分けて確認する必要がある。今回の発表は評価体制の開始であり、実際の評価結果とその再現可能性は今後の公表を待つ段階だ。\n\n一次情報: https://openai.com/index/our-first-phase-of-embedded-assessments/"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "publication_key": "966ad8485ea07fcb639e064b276e4c0378c717801d46c8588940e16af1df3a0f",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261113-google-cloud-agent-observability-bigquery-looker",
     "title": "エージェントの「見える化」が本格化──Google Cloud、BigQuery・Looker横断の可観測性と支出上限を拡張",
     "summary": "Google Cloudは2026年11月13日、BigQueryとLookerを使うAIエージェントの監視・評価機能の拡張を発表した。会話ログやダッシュボードの一般提供と、日次トークン上限などのプレビューを区別して確認したい。",

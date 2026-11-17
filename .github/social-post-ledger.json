@@ -5532,10 +5532,12 @@
   },
   "20261116-openai-embedded-independent-assessments": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-17T04:05:44+00:00",
+      "status": "published",
+      "updated_at": "2026-11-17T04:05:45+00:00",
       "stage": "publish_requested",
-      "container_id": "17978565840171676"
+      "container_id": "17978565840171676",
+      "remote_id": "17978565840171676",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df1CDZAFWCO"
     }
   }
 }

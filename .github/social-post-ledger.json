@@ -5640,10 +5640,12 @@
   },
   "20261118-kubeshark-mcp-argument-injection": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-17T23:14:44+00:00",
+      "status": "published",
+      "updated_at": "2026-11-17T23:14:46+00:00",
       "stage": "publish_requested",
-      "container_id": "18139387858637013"
+      "container_id": "18139387858637013",
+      "remote_id": "18139387858637013",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df3Fi9umm9v"
     }
   }
 }

@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261118-openai-gpt62-astra-sol",
+    "title": "OpenAI、GPT-6.2 AstraとSolを発表──業務成果物の品質とAPIコストをどう見極めるか",
+    "summary": "OpenAIはGPT-6.2 AstraとSolを発表した。複雑な専門業務を担うAstraと、日常業務向けのSolを分け、資料作成・コーディング・エージェント作業の品質と効率を訴求する。導入企業が確認すべきなのはベンチマークの順位だけでなく、用途ごとの実作業品質、API単価、評価条件の違いだ。",
+    "category": "AI",
+    "score": 91,
+    "published_at": "2026-11-18",
+    "published_at_time": "2026-11-17T23:05:49.532Z",
+    "source_url": "https://openai.com/index/introducing-gpt-6-2-astra-sol/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIはGPT-6.2 AstraとSolを発表した。複雑な専門業務を担うAstraと、日常業務向けのSolを分け、資料作成・コーディング・エージェント作業の品質と効率を訴求する。導入企業が確認すべきなのはベンチマークの順位だけでなく、用途ごとの実作業品質、API単価、評価条件の違いだ。",
+    "sections": [
+      {
+        "title": "高難度の成果物はAstra、日常業務はSol",
+        "body": "OpenAIの公式発表によると、GPT-6.2 Astraはスライド、表計算、文書、コード、Webデザインなど複雑な専門業務での品質向上を重点に置く。一方、GPT-6.2 Solは幅広い日常業務に向けた効率的なモデルと位置づけられた。AstraについてはAgents’ Last Examで従来のGPT-6 Astraより5.2ポイント高い結果を、同社は報告している。これは特定の評価環境での比較であり、全業務で同率の改善を保証するものではない。"
+      },
+      {
+        "title": "API費用と実運用の比較軸",
+        "body": "公式説明ではAstraのAPI料金は入力100万トークン当たり8ドル、キャッシュ入力0.40ドル、出力40ドル。従来のGPT-6 Astraより入出力の単価が20%低いとされる。SolのAPI単価はGPT-6.1 Solから据え置き。モデルの採用判断では、単価だけでなく成果物の修正回数、レビュー工数、タスク成功率、情報の取り扱い条件を同じ業務サンプルで比較したい。公式ベンチマークは参考になるが、組織固有の資料形式や承認フローへの適合性は個別検証が必要だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "OpenAIがGPT-6.2 AstraとSolを発表。高難度の資料作成や開発を担うAstraと、日常業務向けのSolを分ける構成です。AstraのAPI価格は入力100万トークン8ドル、出力40ドル。単価だけで判断せず、社内資料の修正回数やレビュー時間まで測ることが導入判断の鍵になります。ベンチマークは条件付きの比較であり、実務での成果を保証するものではありません。\nhttps://signal.amberlight.co.jp/articles/20261118-openai-gpt62-astra-sol/\nhttps://openai.com/index/introducing-gpt-6-2-astra-sol/",
+    "publication_key": "d36d6da251b688652a681d00ed291853da918eafa3a6a208f266730cc5cfec59",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261118-elecom-router-cve-2026-101113",
     "title": "エレコム製ルーター3機種にOSコマンド実行の脆弱性、対策版2.2.3以降へ更新",
     "summary": "エレコムは2026年11月17日、無線LANルーター3機種の管理画面に関連する脆弱性CVE-2026-101113を公表した。ログイン可能な攻撃者が任意のOSコマンドを実行する恐れがある。対象機種では対策済みファームウェアVer.2.2.3以降への更新が必要だ。",

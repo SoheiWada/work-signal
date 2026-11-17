@@ -5514,10 +5514,12 @@
   },
   "20261113-google-cloud-agent-observability-bigquery-looker": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-17T03:13:06+00:00",
+      "status": "published",
+      "updated_at": "2026-11-17T03:13:07+00:00",
       "stage": "publish_requested",
-      "container_id": "18212483245370284"
+      "container_id": "18212483245370284",
+      "remote_id": "18212483245370284",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df08BygDoLY"
     }
   }
 }

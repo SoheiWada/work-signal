@@ -5445,7 +5445,9 @@
   "20261112-anthropic-self-hosted-claude-managed-agents": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-17T01:19:43+00:00"
+      "updated_at": "2026-11-17T01:19:56+00:00",
+      "stage": "publish_requested",
+      "container_id": "18187955224419938"
     }
   }
 }

@@ -5857,7 +5857,9 @@
   "20261117-nvidia-hugging-face-acquisition-open-platform": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-18T12:58:34+00:00"
+      "updated_at": "2026-11-18T12:58:51+00:00",
+      "stage": "container_created",
+      "container_id": "18135551842690068"
     }
   }
 }

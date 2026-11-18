@@ -96,7 +96,7 @@ class FacebookTests(unittest.TestCase):
             fb.existing(lambda *a, **k: {'data':[LIVE, LIVE]}, ARTICLE, 'test', URL)
 
     def test_wrong_user_token_or_wrong_page_fails(self):
-        for identity in ['personal-user', '99999']:
+        for identity in ['personal-user', '99999', '61596301937684']:
             with self.assertRaises(RuntimeError):
                 fb.verify_account(lambda *a, **k: {'id':identity,'name':'WORK-SIGNAL.jp'}, 'test')
 

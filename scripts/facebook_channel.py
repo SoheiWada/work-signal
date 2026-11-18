@@ -8,7 +8,7 @@ import re
 from datetime import datetime, timezone, timedelta
 from urllib.parse import urlencode, urlsplit, parse_qsl
 
-PAGE_ID = '61596301937684'
+PAGE_ID = '1522891270900103'
 API = 'https://graph.facebook.com/v27.0'
 FIELDS = 'id,from,is_published,message,permalink_url,attachments{url,target,subattachments}'
 

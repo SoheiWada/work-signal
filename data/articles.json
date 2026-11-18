@@ -1,5 +1,39 @@
 [
   {
+    "id": "20261118-cisa-kev-puppet-enterprise-cve-2026-115731",
+    "title": "CISA、Puppet Enterpriseのコード実行脆弱性CVE-2026-115731をKEVに追加",
+    "summary": "米CISAは2026年11月17日、Puppet Enterpriseのコード実行脆弱性CVE-2026-115731を、悪用が確認された脆弱性の一覧「KEV」に追加した。開発元が11月3日に修正版を公開していた問題で、Puppet Serverを運用する組織は利用版と証明書の署名設定を確認し、該当系列の修正版へ更新する必要がある。",
+    "category": "SECURITY",
+    "score": 92,
+    "published_at": "2026-11-18",
+    "published_at_time": "2026-11-18T01:24:45.197Z",
+    "source_url": "https://github.com/cisagov/kev-data/blob/develop/known_exploited_vulnerabilities.json",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "米CISAは2026年11月17日、Puppet Enterpriseのコード実行脆弱性CVE-2026-115731を、悪用が確認された脆弱性の一覧「KEV」に追加した。開発元が11月3日に修正版を公開していた問題で、Puppet Serverを運用する組織は利用版と証明書の署名設定を確認し、該当系列の修正版へ更新する必要がある。",
+    "sections": [
+      {
+        "title": "CISAが11月17日にKEVへ追加、脆弱性の公表とは別の新事実",
+        "body": "CISAの公式GitHubミラーにある2026.11.17版KEVカタログ（1782件）には、CVE-2026-115731がdateAdded「2026-11-17」で収録された。対象はPerforceのPuppet Enterpriseで、Puppet Serverのレポート処理における信頼できないデータのデシリアライズが問題となる。CA署名済みエージェント証明書を持つクライアントが細工したレポートを送ることで、Puppet Serverのサービスユーザー権限で任意コード実行に至るおそれがある。証明書の自動署名設定が弱い環境では、攻撃者が必要な証明書を取得できる可能性もある。CISAのKEV登録は悪用確認の重要なシグナルだが、被害組織数や攻撃主体を示すものではない。"
+      },
+      {
+        "title": "修正版は11月3日に公開済み、運用中の系列を確認",
+        "body": "Puppet公式のリリース案内では、2026年11月3日公開のPuppet Enterprise 2023.8.13、2025.12.1、2026.0.1がCVE-2026-115731とCVE-2026-115732を修正したと明記している。該当する旧系列を運用している場合は対応する修正版へ更新し、修正コードを反映するためPuppet Serverの再起動も確認する。CISAは組織に開発元の緩和策を適用するよう求め、米連邦機関向けの対応期限を2026年12月1日としている。期限は一般企業に一律適用されるものではないが、影響調査と更新を優先する根拠になる。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Puppet Enterprise 2023.8.0以上2023.8.13未満、2025.0.0以上2025.12.1未満、2026.0.0（2026.0.1未満）",
+    "social_security_action": "Puppet Enterprise 2023.8.13／2025.12.1／2026.0.1の該当系列修正版へ更新し、Puppet Serverの再起動・CA署名運用と公開範囲を確認する。",
+    "publication_key": "88d47a1f3967e552d37a5e7525da3bc3e507444a283db202cbd5e1d87c4b6605",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261118-openai-chatgpt-for-sales",
     "title": "OpenAI、営業向けChatGPTを発表──30超の連携プラグインで商談準備からCRM更新まで",
     "summary": "OpenAIは2026年11月17日、営業部門向けの「ChatGPT for Sales」を発表した。新しいSalesプラグインと30超の新規・拡張パートナープラグインを組み合わせ、見込み顧客の調査、商談準備、提案作成、面談後のフォローアップをChatGPT上で支援する。CRMや会議記録などの情報を扱う際には、連携権限と人による確認が重要になる。",

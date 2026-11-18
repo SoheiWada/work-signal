@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261117-anthropic-s1a3-amazon-google-stakes",
+    "title": "Anthropicの修正目論見書、Amazon・Googleの保有比率を提示──合計28.4%、議決権と経済持分を分離",
+    "summary": "Anthropicが2026年11月17日に米SECへ提出したIPO目論見書の第3修正版では、募集と同時私募の完了後、Amazonが発行済株式の14.7%、Googleが13.7%を保有する想定が示された。合計28.4%となる一方、両社が持つClass N株式には原則として議決権がない。経済的な持分と経営への支配権を分けた構造だ。",
+    "category": "AI",
+    "score": 87,
+    "published_at": "2026-11-18",
+    "published_at_time": "2026-11-18T12:44:58.528Z",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/2130357/000162828026074338/anthropicpbc-sx1ax3.htm",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Anthropicが2026年11月17日に米SECへ提出したIPO目論見書の第3修正版では、募集と同時私募の完了後、Amazonが発行済株式の14.7%、Googleが13.7%を保有する想定が示された。合計28.4%となる一方、両社が持つClass N株式には原則として議決権がない。経済的な持分と経営への支配権を分けた構造だ。",
+    "sections": [
+      {
+        "title": "4%は上場後を想定した比率",
+        "body": "目論見書は、AmazonのClass N株式を1,920,511,218株、Googleを1,789,598,269株とする。Class N内の比率はそれぞれ33.9%、31.6%、発行済株式全体では14.7%、13.7%となる。これは目論見書の前提に基づく募集・同時私募完了後の想定で、取引完了済みの実績ではない。\nClass Nには法令上必要な場合を除いて議決権がない。持分比率を足して、そのまま株主総会の議決権比率や経営権と読むことはできない。"
+      },
+      {
+        "title": "創業者と長期利益信託の役割",
+        "body": "創業者7人を構成員とするFounder LLCのClass F株式は、一般的な株主議決事項について議決権の50.1%を持つ。ただし、Class T取締役の選任は別の仕組みで扱われる。長期利益信託（LTBT）が選ぶClass T取締役が、取締役会の過半数を占める設計だ。\nこのため、創業者の議決権、取締役の選任権、AmazonやGoogleの経済持分は、それぞれ分けて読む必要がある。大きな投資額だけで、特定の投資家が会社を支配すると断定することはできない。"
+      },
+      {
+        "title": "募集条件と260億ドルの同時私募",
+        "body": "予備目論見書は8億2,500万株、1株70〜78ドルという募集条件を示す。またAMD、Broadcom、Google、Micron、Microsoft、NVIDIA、TSMC Partnersの7社が、合計260億ドルのClass N株式をIPO価格で購入する契約を記載している。同時私募は募集の完了などの条件に依存し、募集直後の完了を予定する。\nこれは最終価格や上場取引開始の確定発表ではない。Claudeを調達する企業にとっては、投資家と計算基盤・流通の相手が重なる構造を把握する材料になるが、サービス条件の変更が決まったことを意味しない。"
+      },
+      {
+        "title": "確認範囲と留保",
+        "body": "出典はSEC EDGAR掲載のForm S-1/A Amendment No.3、登録番号333-299633、11月17日提出分。保有比率の前提、株式ごとの権利、募集条件、同時私募の当事者を照合した。各社別の私募金額、注文倍率、価格決定日や取引開始日の報道は、本稿の直接確認範囲に含めていない。予備目論見書の条件は変更され得る。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Anthropicが2026年11月17日に米SECへ提出したIPO目論見書の第3修正版では、募集と同時私募の完了後、Amazonが発行済株式の14.7%、Googleが13.7%を保有する想定が示された。合計28.4%となる一方、両社が持つClass N株式には原則として議決権がない。経済的な持分と経営への支配権を分けた構造だ。\nhttps://signal.amberlight.co.jp/articles/20261117-anthropic-s1a3-amazon-google-stakes/\nhttps://www.sec.gov/Archives/edgar/data/2130357/000162828026074338/anthropicpbc-sx1ax3.htm",
+    "publication_key": "6efb91badefaf16b1a168f38a79dcdcb028144a185adac65bfa7305caa8e847c",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261117-nvidia-q3-fy27-earnings-1158b-hugging-face",
     "title": "NVIDIA、四半期売上高1,158億ドルで前年比103%増──Vera Rubin出荷、次四半期は1,300億ドルを予想",
     "summary": "NVIDIAは2026年11月17日、2027年度第3四半期の売上高が1,158億ドル、前年同期比103%増になったと発表した。データセンター売上高は1,076億ドルで同110%増。Vera Rubin NVL72の出荷開始も公表し、第4四半期の売上高を1,300億ドル、上下3%の範囲と予想している。",

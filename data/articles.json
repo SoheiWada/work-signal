@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261117-oregon-ag-sues-openai-teen-safety-2035b",
+    "title": "オレゴン州、ChatGPTの子どもへの安全性表示をめぐりOpenAIを提訴──約20億ドルの法的措置",
+    "summary": "米オレゴン州司法長官Dan Rayfield氏は2026年11月17日、ChatGPTの子どもへの安全性についてOpenAIが公衆を誤解させたとして、20億3,500万ドルの法的措置を発表した。州司法省によると、訴訟はマルノマ郡巡回裁判所に提起された。以下は提訴段階の州の主張であり、裁判所が違法性や因果関係を認定したという意味ではない。",
+    "category": "AI",
+    "score": 88,
+    "published_at": "2026-11-18",
+    "published_at_time": "2026-11-18T12:45:13.391Z",
+    "source_url": "https://www.doj.state.or.us/media-home/news-media-releases/ag-rayfield-files-2b-lawsuit-against-open-ai-launches-keeping-kids-safe-initiative/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "米オレゴン州司法長官Dan Rayfield氏は2026年11月17日、ChatGPTの子どもへの安全性についてOpenAIが公衆を誤解させたとして、20億3,500万ドルの法的措置を発表した。州司法省によると、訴訟はマルノマ郡巡回裁判所に提起された。以下は提訴段階の州の主張であり、裁判所が違法性や因果関係を認定したという意味ではない。",
+    "sections": [
+      {
+        "title": "州が問題にする安全性の表示",
+        "body": "州は、OpenAIがChatGPTの子どもへの安全性について公衆を誤解させ、深刻な安全上の問題を開示せず製品を販売し、子どもや10代に不公正な方法で売り込んだと主張する。根拠として挙げるのは州の不公正取引慣行法で、過失、不当利得、公的不法妨害も主張している。\n公式発表は、自傷や自殺などに関する有害な応答、感情的な依存を促す設計、年齢確認の不備を問題として挙げる。これらはいずれも州側の説明であり、OpenAIの責任を本稿が独立に認定するものではない。"
+      },
+      {
+        "title": "金銭だけでなく、表示の是正と保護策を求める",
+        "body": "州は、子どもの安全について誤解を招く表示をやめ、実際に機能する保護策を導入するよう裁判所に求めている。今回の発表は、子どものオンライン・オフラインの安全を扱うKeeping Kids Safe Initiativeの一環だ。\n同イニシアチブは、Metaとの1億2,500万ドルの和解、Discordへの調査、児童に対するインターネット犯罪への捜査体制の拡充なども含む。ただし、別企業への措置とOpenAIへの請求は同じ手続きではない。"
+      },
+      {
+        "title": "導入側は何を確認するか",
+        "body": "未成年者向けのサービスにAIを組み込む企業や学校は、安全性について外部に説明している内容と、年齢確認、利用制限、保護者向け設定の実際の機能を照合したい。これは今回の争点を踏まえた編集部の実務的な観点で、個別の法的義務を断定するものではない。\n州司法省は保護者に対し、子どもがAIチャットボットを利用しているか、どのような会話をしているかを確認し、保護者向け設定や年齢確認がすべてを防ぐとは考えないよう促している。"
+      },
+      {
+        "title": "確認範囲と留保",
+        "body": "本稿は11月17日付オレゴン州司法省の公式発表を確認した。訴状全文、OpenAI側の反論、裁判所による判断は今回の直接確認範囲に含まれない。訴状の頁数や他州の事件との比較は掲載していない。金額は州が発表した法的措置の規模であり、確定した賠償額ではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "米オレゴン州司法長官Dan Rayfield氏は2026年11月17日、ChatGPTの子どもへの安全性についてOpenAIが公衆を誤解させたとして、20億3,500万ドルの法的措置を発表した。州司法省によると、訴訟はマルノマ郡巡回裁判所に提起された。以下は提訴段階の州の主張であり、裁判所が違法性や因果関係を認定したという意味ではない。\nhttps://signal.amberlight.co.jp/articles/20261117-oregon-ag-sues-openai-teen-safety-2035b/\nhttps://www.doj.state.or.us/media-home/news-media-releases/ag-rayfield-files-2b-lawsuit-against-open-ai-launches-keeping-kids-safe-initiative/",
+    "publication_key": "ee8ecca7ec65ff0d0c70b7c64a7c35038892d8bce47f163bacce592a5a6a536c",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261117-anthropic-s1a3-amazon-google-stakes",
     "title": "Anthropicの修正目論見書、Amazon・Googleの保有比率を提示──合計28.4%、議決権と経済持分を分離",
     "summary": "Anthropicが2026年11月17日に米SECへ提出したIPO目論見書の第3修正版では、募集と同時私募の完了後、Amazonが発行済株式の14.7%、Googleが13.7%を保有する想定が示された。合計28.4%となる一方、両社が持つClass N株式には原則として議決権がない。経済的な持分と経営への支配権を分けた構造だ。",

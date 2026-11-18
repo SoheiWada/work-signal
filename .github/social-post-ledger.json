@@ -5802,10 +5802,12 @@
   },
   "20261117-anthropic-s1a3-amazon-google-stakes": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-18T12:56:20+00:00",
+      "status": "published",
+      "updated_at": "2026-11-18T12:56:22+00:00",
       "stage": "publish_requested",
-      "container_id": "18113811413522169"
+      "container_id": "18113811413522169",
+      "remote_id": "18113811413522169",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df4jk17IIZ2"
     }
   }
 }

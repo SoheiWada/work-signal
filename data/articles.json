@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261118-openai-astra-for-law-enterprise",
+    "title": "OpenAI、法律特化「Astra for Law」をEnterprise全顧客の申請対象に──法務AIの精度と限界",
+    "summary": "OpenAIは2026年11月17日、法律調査向けの「Astra for Law」を更新し、すべてのChatGPT Enterprise契約企業が専用プログラムを通じて利用申請できるようにした。ベンチマークでは一般モデルより高い完遂率を示したが、満点の割合は約2割の試験もある。企業法務にとって重要なのは、性能向上と利用条件を分けて評価することだ。",
+    "category": "AI",
+    "score": 85,
+    "published_at": "2026-11-18",
+    "published_at_time": "2026-11-18T09:05:16.877Z",
+    "source_url": "https://openai.com/index/astra-law-6-2/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは2026年11月17日、法律調査向けの「Astra for Law」を更新し、すべてのChatGPT Enterprise契約企業が専用プログラムを通じて利用申請できるようにした。ベンチマークでは一般モデルより高い完遂率を示したが、満点の割合は約2割の試験もある。企業法務にとって重要なのは、性能向上と利用条件を分けて評価することだ。",
+    "sections": [
+      {
+        "title": "法律専用の検索と推論を組み合わせる",
+        "body": "Astra for LawはGPT-6.2 Astraを基盤に、法律文献の検索索引と法的根拠を比較して回答を組み立てるための設定を組み合わせた構成だ。OpenAIによると検索索引は9月以降34%拡大し、3億1,000万超のURLを収録する。2026年11月17日から、ChatGPT Enterpriseの全契約企業はTrusted Access Programを通じて利用を申請でき、API利用も申請対象となった。申請可能であることは、すべての利用者に即時提供されたことを意味しない。"
+      },
+      {
+        "title": "ベンチマークの数字が示すこと",
+        "body": "Harveyが開発した120課題を用いるLAB-AAでは、要求をすべて満たした割合がAstra for Lawで20.8%、一般のGPT-6.2 Astraで15.0%、Muse Wonder Fullで13.1%だった。別のVals AI Legal Research Benchでは、11月16日の評価で208問中112問が全要件を満たし、53.8%となった。9月の約46%から改善している。一方、課題や採点方式が異なる二つの数値を同じ指標として比較してはならない。"
+      },
+      {
+        "title": "企業法務が確認すべき導入条件",
+        "body": "法律文書の調査や論点整理では、参照した法域・判例の鮮度、引用の正確性、秘密情報の取り扱い、最終的な人間のレビューが重要になる。今回の発表は法律実務の無条件の自動化や正確性保証を示すものではない。導入検討では、利用申請の可否に加え、自社の法域・案件を用いた検証、弁護士による根拠確認、情報管理を別々に評価する必要がある。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "OpenAIが法律特化AI「Astra for Law」を更新。ChatGPT Enterpriseの全契約企業が利用申請できるようになりました。ただし、全員への即時提供ではありません。法律課題120件のベンチマークでは、すべての要件を満たした割合が20.8%。一般のGPT-6.2 Astraの15.0%を上回りましたが、残る課題も大きい数字です。法務部門が見るべきなのは、単なるモデルの性能比較ではなく、出典の確認、法域、機密情報、専門家レビューの運用設計。導入条件と実測値を整理しました。\nhttps://signal.amberlight.co.jp/articles/20261118-openai-astra-for-law-enterprise/\nhttps://openai.com/index/astra-law-6-2/",
+    "publication_key": "fecd068ff5cdc8d7d8f8b54dca5aefd0974d1c23edc9fb5308d63c560152db77",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261117-google-gemini-tasks-calls-payments",
     "title": "Geminiが電話予約・支払いまで代行へ──日本でも無料展開、重要操作は確認が前提",
     "summary": "Googleは2026年11月17日、Geminiが電話での予約調整や支払いなど、複数のアプリをまたぐ作業を代行する機能を発表した。日本を含む6か国で無料提供の展開が始まるが、すべての機能が全地域で直ちに利用できるわけではない。利用者が確認すべき権限と操作条件を整理する。",

@@ -5821,8 +5821,8 @@
   "20261117-nvidia-q3-fy27-earnings-1158b-hugging-face": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-18T12:57:02+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-11-18T12:57:03+00:00",
+      "stage": "publish_requested",
       "container_id": "18135551653690068"
     }
   }

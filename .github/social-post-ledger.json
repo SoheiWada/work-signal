@@ -5820,10 +5820,12 @@
   },
   "20261117-nvidia-q3-fy27-earnings-1158b-hugging-face": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-18T12:57:03+00:00",
+      "status": "published",
+      "updated_at": "2026-11-18T12:57:09+00:00",
       "stage": "publish_requested",
-      "container_id": "18135551653690068"
+      "container_id": "18135551653690068",
+      "remote_id": "18183661480448863",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df4jqSaoEI-"
     }
   }
 }

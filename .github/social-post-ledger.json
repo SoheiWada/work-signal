@@ -5712,10 +5712,12 @@
   },
   "20261118-cisa-kev-puppet-enterprise-cve-2026-115731": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-18T01:32:41+00:00",
+      "status": "published",
+      "updated_at": "2026-11-18T01:32:44+00:00",
       "stage": "publish_requested",
-      "container_id": "17905068192607489"
+      "container_id": "17905068192607489",
+      "remote_id": "17905068192607489",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df3VVV8ADOu"
     }
   }
 }

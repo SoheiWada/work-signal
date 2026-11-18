@@ -5856,10 +5856,12 @@
   },
   "20261117-nvidia-hugging-face-acquisition-open-platform": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-18T12:58:52+00:00",
+      "status": "published",
+      "updated_at": "2026-11-18T12:58:57+00:00",
       "stage": "publish_requested",
-      "container_id": "18135551842690068"
+      "container_id": "18135551842690068",
+      "remote_id": "18278816737305866",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df4j3sZluJA"
     }
   }
 }

@@ -5892,10 +5892,12 @@
   },
   "20261119-openai-frontier-ai-risk-lifecycle": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-18T23:14:48+00:00",
+      "status": "published",
+      "updated_at": "2026-11-18T23:14:50+00:00",
       "stage": "publish_requested",
-      "container_id": "17873977461646631"
+      "container_id": "17873977461646631",
+      "remote_id": "17873977461646631",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df5qWU5kSOh"
     }
   }
 }

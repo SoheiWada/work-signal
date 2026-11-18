@@ -29,7 +29,7 @@ def evaluate(summary, feed, ledger):
     active_feed_hold = any(social.active_instagram_action_block(
         entry.get("instagram", {})) for entry in ledger.values()
         if isinstance(entry, dict))
-    counters = {"threads":0, "instagram_story":0, "feed_published":0,
+    counters = {"threads":0, "instagram_story":0, "facebook":0, "feed_published":0,
                 "feed_held":0, "feed_pending_other":0, "feed_freshness_held":0, "operator_paused":0, "feed_paced":0}
     errors = []
     feed_only_holds = set()
@@ -40,14 +40,18 @@ def evaluate(summary, feed, ledger):
             errors.append("Missing delivery evidence for " + aid)
             continue
         selected = social.requested_platforms(article)
-        for ch in ("threads", "instagram_story"):
+        for ch in ("threads", "instagram_story", "facebook"):
             if ch not in selected:
                 continue
             if (ch in social.paused_platforms() and status.get(ch) == "paused" and
                     ledger.get(aid, {}).get(ch, {}).get("status", "pending") in ("pending", "deferred")):
                 counters["operator_paused"] += 1
                 continue
-            if status.get(ch) != "published":
+            entry = ledger.get(aid, {}).get(ch, {})
+            facebook_verified = (ch != "facebook" or (entry.get("status") == "published"
+                and social.facebook.valid_id(entry.get("remote_id"))
+                and social.facebook.safe_permalink(entry.get("permalink"))))
+            if status.get(ch) != "published" or not facebook_verified:
                 errors.append("Incomplete " + ch + " " + aid)
             else:
                 counters[ch] += 1
@@ -103,7 +107,7 @@ def main():
     rows, _ = ledger.read()
     ok, error, counts = evaluate(summary, feed, rows)
     print("CHANNEL_HEALTH", json.dumps({
-        "threads":counts.get("threads",0),"stories":counts.get("instagram_story",0),
+        "facebook":counts.get("facebook",0), "threads":counts.get("threads",0),"stories":counts.get("instagram_story",0),
         "instagram_feed_published":counts.get("feed_published",0),
         "instagram_feed_on_protective_hold":counts.get("feed_held",0),
         "other_incomplete_feed":counts.get("feed_pending_other",0),

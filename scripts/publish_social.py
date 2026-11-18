@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Fail-closed official Meta social publisher for explicitly approved WORK SIGNAL articles.
 
-Requires --live, SOCIAL_PUBLISH_ENABLED=true, and secrets for BOTH accounts.
+Requires --live, SOCIAL_PUBLISH_ENABLED=true, and verified per-channel credentials.
 Never retries an uncertain Meta write automatically: a durable GitHub ledger is
 marked 'attempting' before any Meta publishing call.
 """
@@ -24,7 +24,7 @@ class NoCredentialRedirect(HTTPRedirectHandler):
         return None  # A redirect is not proof that a write was rejected.
 
 _CREDENTIAL_OPENER = build_opener(NoCredentialRedirect())
-_API_HOSTS = frozenset(("api.github.com", "graph.threads.net", "graph.instagram.com"))
+_API_HOSTS = frozenset(("api.github.com", "graph.threads.net", "graph.instagram.com", "graph.facebook.com"))
 
 def urlopen(request, timeout=30):
     """Do not forward API credentials to a redirect destination."""
@@ -39,8 +39,10 @@ def urlopen(request, timeout=30):
 
 
 try:
+    from scripts import facebook_channel as facebook
     from scripts.instagram_feed_pacing import feed_pacing_state, restriction_metadata, safe_pacing_deferral
 except ImportError:
+    import facebook_channel as facebook
     from instagram_feed_pacing import feed_pacing_state, restriction_metadata, safe_pacing_deferral
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -232,7 +234,7 @@ def request_json(url, *, token="", data=None, method="GET"):
 
 class GithubLedger:
     """Optimistic SHA updates to a durable, non-deployed ledger in the repo."""
-    platforms = ("threads", "instagram", "instagram_story")
+    platforms = ("threads", "instagram", "instagram_story", "facebook")
 
     def validate_history(self, existing):
         remaining_platforms(existing)
@@ -628,11 +630,12 @@ def publish_instagram_story(url, token, user_id, progress=None):
     return published_id
 
 
-SOCIAL_PLATFORMS = ("threads", "instagram", "instagram_story")
+LEGACY_DEFAULT_PLATFORMS = ("threads", "instagram", "instagram_story")
+SOCIAL_PLATFORMS = LEGACY_DEFAULT_PLATFORMS + ("facebook",)
 
 
 def requested_platforms(article):
-    selected = article.get("social_platforms", list(SOCIAL_PLATFORMS))
+    selected = article.get("social_platforms", list(LEGACY_DEFAULT_PLATFORMS))
     if not isinstance(selected, list) or not selected or any(p not in SOCIAL_PLATFORMS for p in selected) or len(set(selected)) != len(selected):
         raise ValueError("Invalid explicit social platform selection")
     return selected
@@ -649,7 +652,15 @@ def paused_platforms():
 
 
 def delivery_platforms(article):
-    return [p for p in requested_platforms(article) if p not in paused_platforms()]
+    return [p for p in requested_platforms(article) if p not in paused_platforms()
+            and (p != "facebook" or facebook_eligible(article))]
+
+
+def facebook_eligible(article):
+    try:
+        return facebook.eligible(article, ROOT)
+    except RuntimeError:
+        return False  # A damaged rollout never broadens authorization.
 
 
 def remaining_platforms(existing, now=None):
@@ -705,7 +716,7 @@ def active_instagram_action_block(entry):
 
 def delivery_report(articles, rows, failures=()):
     pending, review, published, paused = 0, 0, 0, 0
-    table = ["| Article | Threads | Feed | Story |", "|---|---|---|---|"]
+    table = ["| Article | Threads | Feed | Story | Facebook |", "|---|---|---|---|---|"]
     details = []
     for article in articles:
         state = rows.get(article["id"], {})
@@ -742,7 +753,7 @@ def run(articles, ledger, credentials):
         print("Social posting disabled or no explicitly approved articles. No posts.")
         return 0
     if not any(credentials.get(token) and credentials.get(uid) for token, uid in (
-        ("THREADS_ACCESS_TOKEN", "THREADS_USER_ID"), ("INSTAGRAM_ACCESS_TOKEN", "INSTAGRAM_USER_ID"))):
+        ("THREADS_ACCESS_TOKEN", "THREADS_USER_ID"), ("INSTAGRAM_ACCESS_TOKEN", "INSTAGRAM_USER_ID"))) and not credentials.get("FACEBOOK_PAGE_ACCESS_TOKEN"):
         print("No requested Meta account is connected.", file=sys.stderr)
         return 1
     rows, _ = ledger.read()
@@ -776,6 +787,16 @@ def run(articles, ledger, credentials):
             profiles[group] = verify_account(base, credentials[token_key], credentials[user_key], instagram=group == "instagram")
         except RuntimeError as exc:
             failures.append(str(exc))
+    if "facebook" in needed:
+        try:
+            if credentials.get("FACEBOOK_PUBLISH_ENABLED") != "true":
+                raise RuntimeError("Facebook activation disabled; no Facebook writes")
+            if not credentials.get("FACEBOOK_PAGE_ACCESS_TOKEN"):
+                raise RuntimeError("Facebook Page credentials incomplete")
+            facebook.policy(ROOT)
+            profiles["facebook"] = facebook.verify_account(request_json, credentials["FACEBOOK_PAGE_ACCESS_TOKEN"])
+        except RuntimeError as exc:
+            failures.append(str(exc))
     budget = 0
     if "instagram" in profiles:
         try:
@@ -784,7 +805,7 @@ def run(articles, ledger, credentials):
             failures.append(str(exc))
     # SECURITY WATCH first; within each group preserve oldest-first delivery.
     ordered = sorted(enumerate(approved), key=lambda pair: (0 if pair[1].get("social_security_severity") else 1, -pair[0]))
-    processed = {"threads": set(), "instagram": set()}
+    processed = {"threads": set(), "instagram": set(), "facebook": set()}
     feed_attempted_this_run = False
     for _, article in ordered:
         identifier = article["id"]
@@ -798,7 +819,7 @@ def run(articles, ledger, credentials):
                 failures.append(identifier + ": freshness review expired; delivery held")
                 continue
         for kind in remaining:
-            group = "threads" if kind == "threads" else "instagram"
+            group = kind if kind in ("threads", "facebook") else "instagram"
             if kind in blocked_ig_platforms:
                 message = kind + " protective action block 4/2207051; delivery held pending review"
                 if message not in failures:
@@ -822,7 +843,7 @@ def run(articles, ledger, credentials):
                 if message not in failures:
                     failures.append(message)
                 continue
-            if kind != "threads" and budget <= 0:
+            if kind in ("instagram", "instagram_story") and budget <= 0:
                 ledger.record(identifier, kind, "deferred", reason="instagram_quota",
                               next_attempt_at=(datetime.now(timezone.utc) + timedelta(minutes=30)).isoformat(timespec="seconds"))
                 continue
@@ -830,6 +851,8 @@ def run(articles, ledger, credentials):
                 verify_live(article_url(article))
                 if kind == "threads":
                     text = threads_text(article)
+                elif kind == "facebook":
+                    text = facebook.text(article, article_url(article))
                 elif kind == "instagram":
                     text = instagram_text(article)
                     verify_live(image_url(article), jpg=True)
@@ -841,9 +864,10 @@ def run(articles, ledger, credentials):
                 failures.append(identifier + ": " + kind + " preflight " + str(exc))
                 continue
             existing = None
-            if preflight:
+            if preflight or kind == "facebook":
                 try:
-                    existing = preflight.existing(article, kind)
+                    existing = (facebook.existing(request_json, article, credentials["FACEBOOK_PAGE_ACCESS_TOKEN"], article_url(article))
+                                if kind == "facebook" else preflight.existing(article, kind))
                 except Exception as exc:
                     detail = str(exc) if isinstance(exc, RuntimeError) else type(exc).__name__
                     failures.append(identifier + ": " + kind + " history preflight " + detail)
@@ -898,6 +922,8 @@ def run(articles, ledger, credentials):
                                 # external preview that may also be blocked.
                                 remote = publish_threads(text, token, uid, **options)
                                 print("THREADS_TEXT_ONLY_FALLBACK", identifier)
+                elif kind == "facebook":
+                    remote = facebook.publish(request_json, article, credentials["FACEBOOK_PAGE_ACCESS_TOKEN"], article_url(article), progress)
                 elif kind == "instagram":
                     budget -= 1  # Reserve even when the publish response is lost.
                     remote = publish_instagram(text, image_url(article), credentials["INSTAGRAM_ACCESS_TOKEN"], credentials["INSTAGRAM_USER_ID"], **options)
@@ -910,6 +936,9 @@ def run(articles, ledger, credentials):
                         raise RuntimeError("Threads live confirmation unavailable")
                     remote = str(live["id"])
                     ledger.record(identifier, kind, "published", remote_id=remote, permalink=live.get("permalink", ""))
+                elif kind == "facebook":
+                    live = facebook.verify(request_json, article, credentials["FACEBOOK_PAGE_ACCESS_TOKEN"], article_url(article), remote)
+                    ledger.record(identifier, kind, "published", remote_id=str(live["id"]), permalink=live["permalink"])
                 else:
                     instagram_checked = True
                     live = verify_instagram_delivery(article, credentials["INSTAGRAM_ACCESS_TOKEN"],
@@ -920,6 +949,15 @@ def run(articles, ledger, credentials):
                                   permalink=live.get("permalink", ""))
                 print("PUBLISHED", identifier, kind, remote)
             except Exception as exc:
+                if kind == "facebook" and claimed and publish_requested:
+                    try:
+                        live = facebook.verify(request_json, article, credentials["FACEBOOK_PAGE_ACCESS_TOKEN"], article_url(article), remote or "")
+                        if live:
+                            ledger.record(identifier, kind, "published", remote_id=str(live["id"]), permalink=live["permalink"])
+                            print("RECONCILED_FACEBOOK", identifier, live["id"])
+                            continue
+                    except Exception:
+                        pass  # Read-only recovery failed: preserve the unknown write, never resend.
                 if kind == "threads" and claimed:
                     # An API error or a lost response does NOT prove that Meta
                     # failed to publish. Reconcile read-only before holding;
@@ -936,11 +974,11 @@ def run(articles, ledger, credentials):
                             continue
                     except Exception:
                         pass
-                action_block = (kind != "threads" and isinstance(exc, MetaAPIError)
+                action_block = (kind in ("instagram", "instagram_story") and isinstance(exc, MetaAPIError)
                                 and exc.code == 4 and exc.subcode == 2207051)
                 if action_block:
                     blocked_ig_platforms.add(kind)
-                if (kind != "threads" and claimed and publish_requested and not instagram_checked):
+                if (kind in ("instagram", "instagram_story") and claimed and publish_requested and not instagram_checked):
                     # Only the publish boundary can produce a new live delivery.
                     # Preserve the protective error even if its write succeeded.
                     try:
@@ -960,7 +998,7 @@ def run(articles, ledger, credentials):
                         pass  # Uncertain reads leave the durable claim in review.
                 if claimed:
                     try:
-                        if kind != "threads" and isinstance(exc, MetaAPIError) and exc.code == 9 and exc.subcode == 2207042:
+                        if kind in ("instagram", "instagram_story") and isinstance(exc, MetaAPIError) and exc.code == 9 and exc.subcode == 2207042:
                             budget = 0
                             ledger.record(identifier, kind, "deferred", reason="instagram_quota_rejected", error=exc.metadata(),
                                           next_attempt_at=(datetime.now(timezone.utc) + timedelta(hours=1)).isoformat(timespec="seconds"))

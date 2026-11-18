@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261117-nvidia-q3-fy27-earnings-1158b-hugging-face",
+    "title": "NVIDIA、四半期売上高1,158億ドルで前年比103%増──Vera Rubin出荷、次四半期は1,300億ドルを予想",
+    "summary": "NVIDIAは2026年11月17日、2027年度第3四半期の売上高が1,158億ドル、前年同期比103%増になったと発表した。データセンター売上高は1,076億ドルで同110%増。Vera Rubin NVL72の出荷開始も公表し、第4四半期の売上高を1,300億ドル、上下3%の範囲と予想している。",
+    "category": "AI",
+    "score": 93,
+    "published_at": "2026-11-18",
+    "published_at_time": "2026-11-18T12:42:26.891Z",
+    "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-third-quarter-fiscal-2027",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "NVIDIAは2026年11月17日、2027年度第3四半期の売上高が1,158億ドル、前年同期比103%増になったと発表した。データセンター売上高は1,076億ドルで同110%増。Vera Rubin NVL72の出荷開始も公表し、第4四半期の売上高を1,300億ドル、上下3%の範囲と予想している。",
+    "sections": [
+      {
+        "title": "売上高の約93%をデータセンターが占める",
+        "body": "対象四半期は2026年10月25日まで。売上高は前四半期比20%増で、データセンター事業が全体の約93%を占めた。GAAP純利益は653億ドル、前年同期比105%増。GAAPの希薄化後1株利益は2.70ドル、非GAAPでは2.68ドルだった。粗利益率はGAAPで74.8%、非GAAPで74.9%となった。\n公式発表で暫定CEO兼CFOとしてコメントしたのはColette Kress氏。製品ロードマップとVera Rubinの立ち上げへの自信を示した。ただし、経営者の見通しは将来の実績を保証しない。"
+      },
+      {
+        "title": "Vera Rubinの出荷と、第4四半期の条件",
+        "body": "同社によるとVera Rubin NVL72は量産と出荷を開始し、CoreWeave、Google Cloud、Microsoft Azure、Oracle Cloud Infrastructure、Nebiusでラックが稼働している。立ち上がりが同社史上最速という説明は、NVIDIA自身による評価だ。\n第4四半期には通常より1週多く含まれる。売上高予想は1,300億ドル、上下3%の範囲で、中国からのデータセンター向け計算製品の売上高は見込んでいない。GAAP・非GAAPの粗利益率予想はいずれも71〜72%である。四半期の長さや対象市場の前提をそろえて比較する必要がある。"
+      },
+      {
+        "title": "企業のAI調達で見るべき数字",
+        "body": "今回の実績はAI計算基盤への需要の大きさを示す。一方、メーカー全体の売上増は、個々の企業が希望する構成の即納や値下がりを意味しない。導入側は、クラウドの提供リージョン、利用できる構成、契約期間、納期を各事業者に確認したい。\nHugging Face買収への言及もあるが、9月発表の合意を決算のハイライトに記載したもので、今回新たに合意したという意味ではない。買収完了を示す発表でもない。"
+      },
+      {
+        "title": "確認範囲と留保",
+        "body": "本稿はNVIDIA公式の11月17日付決算発表に基づく。市場予想との比較、2028年度の成長率予測、決算説明会での取締役の発言は、本稿では独立に照合しておらず掲載しない。第4四半期の数値は会社予想であり、投資判断の推奨ではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "NVIDIAは2026年11月17日、2027年度第3四半期の売上高が1,158億ドル、前年同期比103%増になったと発表した。データセンター売上高は1,076億ドルで同110%増。Vera Rubin NVL72の出荷開始も公表し、第4四半期の売上高を1,300億ドル、上下3%の範囲と予想している。\nhttps://signal.amberlight.co.jp/articles/20261117-nvidia-q3-fy27-earnings-1158b-hugging-face/\nhttps://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-third-quarter-fiscal-2027",
+    "publication_key": "3e3de8b988099323b671a1ad181018d15b114208db7f121b955effcf2d8ead8e",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261118-fsb-cross-border-payments-progress",
     "title": "国際送金の改善はなお道半ば──FSBが2026年進捗報告、2027年目標へ実装を要請",
     "summary": "海外取引や国際送金のコスト改善は、国際的な政策合意だけでは進まない。金融安定理事会（FSB）は11月16日、2026年の統合進捗報告を公表し、送金の費用・速度・利用しやすさ・透明性について、利用者が実感できる改善は地域や送金区分によって不均一だと指摘した。",

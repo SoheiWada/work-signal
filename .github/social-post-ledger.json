@@ -5874,10 +5874,12 @@
   },
   "20261116-google-gemini-history-training-retention-2months": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-18T12:59:28+00:00",
+      "status": "published",
+      "updated_at": "2026-11-18T12:59:30+00:00",
       "stage": "publish_requested",
-      "container_id": "17973118643962404"
+      "container_id": "17973118643962404",
+      "remote_id": "17973118643962404",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df4j700lpBe"
     }
   }
 }

@@ -1,5 +1,36 @@
 [
   {
+    "id": "20261118-fsb-cross-border-payments-progress",
+    "title": "国際送金の改善はなお道半ば──FSBが2026年進捗報告、2027年目標へ実装を要請",
+    "summary": "海外取引や国際送金のコスト改善は、国際的な政策合意だけでは進まない。金融安定理事会（FSB）は11月16日、2026年の統合進捗報告を公表し、送金の費用・速度・利用しやすさ・透明性について、利用者が実感できる改善は地域や送金区分によって不均一だと指摘した。",
+    "category": "経済",
+    "score": 82,
+    "published_at": "2026-11-18",
+    "published_at_time": "2026-11-18T12:42:14.233Z",
+    "source_url": "https://www.fsb.org/2026/11/further-work-by-jurisdictional-authorities-and-private-sector-necessary-to-enhance-cross-border-payments/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "海外取引や国際送金のコスト改善は、国際的な政策合意だけでは進まない。金融安定理事会（FSB）は11月16日、2026年の統合進捗報告を公表し、送金の費用・速度・利用しやすさ・透明性について、利用者が実感できる改善は地域や送金区分によって不均一だと指摘した。",
+    "sections": [
+      {
+        "title": "国際的な制度整備から、各国の実装へ",
+        "body": "FSBはG20のクロスボーダー送金改善ロードマップに関する2026年の進捗を報告した。国際機関による提言や実装支援は進んだ一方、利用者に届く成果は緩やかで、地域や送金区分ごとの差が残るという。FSBはG20加盟国に限らず各国当局に具体的な行動計画を促し、民間の決済事業者にも既存システムの近代化や新技術の導入を求めている。"
+      },
+      {
+        "title": "海外取引を持つ企業が確認したいこと",
+        "body": "送金手数料の表示だけでなく、受取側に着金するまでの時間、途中で発生する費用、送金状況の追跡可能性を取引先や決済事業者と確認することが実務上重要になる。これはFSBが掲げる費用・速度・アクセス・透明性という四つの改善軸から導かれる実務上の観点であり、特定のサービスが改善したという発表ではない。\n\nロードマップは2027年末を主要な目標時点としている。ただし、今回の発表だけで国別の達成率や日本の国際送金コストが何％改善したかは判断できない。個別の料金・送金時間の比較には、各事業者の最新条件と報告書の指標を別途確認する必要がある。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "publication_key": "ff9f1b600f0b678323f15a08ae8e32dbce1de2f04ae4d7e27eb4b2fa6b8f8ea1",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261118-openai-astra-for-law-enterprise",
     "title": "OpenAI、法律特化「Astra for Law」をEnterprise全顧客の申請対象に──法務AIの精度と限界",
     "summary": "OpenAIは2026年11月17日、法律調査向けの「Astra for Law」を更新し、すべてのChatGPT Enterprise契約企業が専用プログラムを通じて利用申請できるようにした。ベンチマークでは一般モデルより高い完遂率を示したが、満点の割合は約2割の試験もある。企業法務にとって重要なのは、性能向上と利用条件を分けて評価することだ。",

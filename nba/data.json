@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-11-17",
-  "fetchedAt": "2026-11-18T03:44:22.375Z",
-  "lastAttemptAt": "2026-11-18T03:44:22.375Z",
+  "throughDate": "2026-11-18",
+  "fetchedAt": "2026-11-18T18:53:24.367Z",
+  "lastAttemptAt": "2026-11-18T18:53:24.367Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 208,
+  "countedGames": 210,
   "standingsReason": null,
   "teams": [
     {
@@ -37,7 +37,7 @@
       "name": "Charlotte Hornets",
       "conference": "East",
       "wins": 4,
-      "losses": 9
+      "losses": 10
     },
     {
       "code": "CHI",
@@ -100,13 +100,13 @@
       "name": "LA Clippers",
       "conference": "West",
       "wins": 4,
-      "losses": 8
+      "losses": 9
     },
     {
       "code": "LAL",
       "name": "Los Angeles Lakers",
       "conference": "West",
-      "wins": 12,
+      "wins": 13,
       "losses": 2
     },
     {
@@ -211,7 +211,7 @@
       "code": "UTA",
       "name": "Utah Jazz",
       "conference": "West",
-      "wins": 1,
+      "wins": 2,
       "losses": 13
     },
     {
@@ -224,6 +224,26 @@
   ],
   "sets": [
     [
+      {
+        "id": "21718130",
+        "date": "2026-11-17",
+        "home": "LAC",
+        "away": "UTA",
+        "homeScore": 107,
+        "awayScore": 132,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718129",
+        "date": "2026-11-17",
+        "home": "LAL",
+        "away": "CHA",
+        "homeScore": 118,
+        "awayScore": 114,
+        "competition": "regular",
+        "countsForStandings": true
+      },
       {
         "id": "21718128",
         "date": "2026-11-17",

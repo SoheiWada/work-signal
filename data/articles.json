@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261117-google-gemini-tasks-calls-payments",
+    "title": "Geminiが電話予約・支払いまで代行へ──日本でも無料展開、重要操作は確認が前提",
+    "summary": "Googleは2026年11月17日、Geminiが電話での予約調整や支払いなど、複数のアプリをまたぐ作業を代行する機能を発表した。日本を含む6か国で無料提供の展開が始まるが、すべての機能が全地域で直ちに利用できるわけではない。利用者が確認すべき権限と操作条件を整理する。",
+    "category": "AI",
+    "score": 88,
+    "published_at": "2026-11-18",
+    "published_at_time": "2026-11-18T03:05:39.601Z",
+    "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Googleは2026年11月17日、Geminiが電話での予約調整や支払いなど、複数のアプリをまたぐ作業を代行する機能を発表した。日本を含む6か国で無料提供の展開が始まるが、すべての機能が全地域で直ちに利用できるわけではない。利用者が確認すべき権限と操作条件を整理する。",
+    "sections": [
+      {
+        "title": "電話・買い物・日程調整まで、AIが作業を進める",
+        "body": "Googleの公式発表によると、Geminiは車の整備予約のために店舗へ電話し、予定表を参照して予約を調整する例や、請求書とメールの情報を使って支出を分析する例を紹介した。Google Payとの連携による買い物、対応アプリを介した注文も挙げている。Googleは新しいGemini 4 Hydrogenモデルを使い、米国、日本、韓国、カナダ、豪州、インドで無料の機能展開を始めると説明する。ただし高度な機能の一部は米国から先行提供され、電話やSMSには地域・通信事業者などの条件がある。"
+      },
+      {
+        "title": "企業と個人が確認すべき権限の境界",
+        "body": "今回の変化は、回答を読むだけのAIから、外部サービスへ実際に働きかけるAIへの移行だ。Googleは購入など重要な操作の前に確認または事前承認を求める設計とし、利用者が上限金額を設定できると説明している。作業中の追加指示や連携解除も可能という。一方、同社は失敗や途中で人の操作に戻るケースがあると明記しており、予約・決済の完了を無条件に保証していない。導入時には接続先アプリ、許可する操作、金額上限、最終確認の責任者を明確にしたい。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "Googleは11月17日、Geminiに電話予約、請求書確認、買い物などの作業を委ねられる新機能を発表しました。日本を含む6か国で無料展開を開始する一方、米国先行の機能や利用条件があります。AIが実際に外部サービスを操作する時代に、何を任せ、どこで確認すべきかを整理しました。\n\n詳しくはこちら：https://signal.amberlight.co.jp/articles/20261117-google-gemini-tasks-calls-payments/\nhttps://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features/",
+    "publication_key": "c004a5ac4f2f515a2364b9b7b63b2c0ad683eb0b5519dfd3d798b632d31073a3",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261118-cisa-kev-puppet-enterprise-cve-2026-115731",
     "title": "CISA、Puppet Enterpriseのコード実行脆弱性CVE-2026-115731をKEVに追加",
     "summary": "米CISAは2026年11月17日、Puppet Enterpriseのコード実行脆弱性CVE-2026-115731を、悪用が確認された脆弱性の一覧「KEV」に追加した。開発元が11月3日に修正版を公開していた問題で、Puppet Serverを運用する組織は利用版と証明書の署名設定を確認し、該当系列の修正版へ更新する必要がある。",

@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261118-openai-chatgpt-for-sales",
+    "title": "OpenAI、営業向けChatGPTを発表──30超の連携プラグインで商談準備からCRM更新まで",
+    "summary": "OpenAIは2026年11月17日、営業部門向けの「ChatGPT for Sales」を発表した。新しいSalesプラグインと30超の新規・拡張パートナープラグインを組み合わせ、見込み顧客の調査、商談準備、提案作成、面談後のフォローアップをChatGPT上で支援する。CRMや会議記録などの情報を扱う際には、連携権限と人による確認が重要になる。",
+    "category": "AI",
+    "score": 88,
+    "published_at": "2026-11-18",
+    "published_at_time": "2026-11-18T00:04:32.709Z",
+    "source_url": "https://openai.com/index/introducing-chatgpt-for-sales/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは2026年11月17日、営業部門向けの「ChatGPT for Sales」を発表した。新しいSalesプラグインと30超の新規・拡張パートナープラグインを組み合わせ、見込み顧客の調査、商談準備、提案作成、面談後のフォローアップをChatGPT上で支援する。CRMや会議記録などの情報を扱う際には、連携権限と人による確認が重要になる。",
+    "sections": [
+      {
+        "title": "顧客情報をつなぎ、商談前後の作業を支援",
+        "body": "OpenAIの11月17日付発表によると、ChatGPT for Salesには営業担当者向けの専用Salesプラグインが含まれ、30超の新規・拡張パートナープラグインを利用できる。Salesforce、HubSpot、Close CRM、monday CRMなどから顧客・案件の文脈を参照し、商談前のブリーフィングや優先顧客の選定を支援する。会議記録を使った合意事項の整理、フォローアップ文案の作成、案件リスクの分析も想定される。\n\n同社は、商談後の次のアクションをCRMへ保存する例も紹介している。ただし、すべての外部システムで同じ操作ができるわけではなく、利用するプラグインと接続先の権限によって実行可能な操作は異なる。"
+      },
+      {
+        "title": "導入前に確認したい権限と効果測定",
+        "body": "企業が導入を検討する際は、まず顧客情報の閲覧範囲、CRMへの書き込み権限、営業担当者による承認手順を整理したい。管理者はChatGPT Business・EnterpriseのAdmin ConsoleからSalesプラグインなどを有効化できるが、機能や利用可能な連携先はプラン、地域、ワークスペース設定によって異なると公式発表は明記している。\n\n効果の測定では、生成した提案書の数だけでなく、商談準備に要する時間、CRM更新の正確性、フォローアップ漏れの減少を比較することが実務的だ。公式ページに掲載された個別企業の効率改善事例を、すべての導入企業に当てはまる成果として扱うことはできない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "OpenAIが営業部門向けの「ChatGPT for Sales」を発表しました。Sales専用プラグインと30超の連携プラグインを通じて、CRMの顧客情報、会議記録、案件状況をまとめ、商談準備やフォローアップを支援します。注目したいのは文章生成の便利さより、誰がどの顧客情報を閲覧し、CRMへ何を書き込めるのかという権限設計。企業導入では、作業時間の短縮と更新精度を合わせて評価する必要があります。\nhttps://signal.amberlight.co.jp/articles/20261118-openai-chatgpt-for-sales/\nhttps://openai.com/index/introducing-chatgpt-for-sales/",
+    "publication_key": "c11801dc6e21b42a673a40f51aad4b92e507dc67e7e3bf1faf9b747980b54ed2",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261118-openai-gpt62-astra-sol",
     "title": "OpenAI、GPT-6.2 AstraとSolを発表──業務成果物の品質とAPIコストをどう見極めるか",
     "summary": "OpenAIはGPT-6.2 AstraとSolを発表した。複雑な専門業務を担うAstraと、日常業務向けのSolを分け、資料作成・コーディング・エージェント作業の品質と効率を訴求する。導入企業が確認すべきなのはベンチマークの順位だけでなく、用途ごとの実作業品質、API単価、評価条件の違いだ。",

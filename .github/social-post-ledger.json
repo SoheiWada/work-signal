@@ -5731,7 +5731,9 @@
   "20261117-google-gemini-tasks-calls-payments": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-18T03:13:57+00:00"
+      "updated_at": "2026-11-18T03:14:07+00:00",
+      "stage": "publish_requested",
+      "container_id": "18123385271076897"
     }
   }
 }

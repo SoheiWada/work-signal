@@ -5784,10 +5784,12 @@
   },
   "20261117-oregon-ag-sues-openai-teen-safety-2035b": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-18T12:55:45+00:00",
+      "status": "published",
+      "updated_at": "2026-11-18T12:55:50+00:00",
       "stage": "publish_requested",
-      "container_id": "18135551500690068"
+      "container_id": "18135551500690068",
+      "remote_id": "18113303288241930",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df4jgu3IHTh"
     }
   }
 }

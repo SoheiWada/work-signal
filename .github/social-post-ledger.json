@@ -5882,10 +5882,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/Df4j700lpBe"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-18T12:59:43+00:00",
+      "status": "published",
+      "updated_at": "2026-11-18T12:59:48+00:00",
       "stage": "publish_requested",
-      "container_id": "18162829264488337"
+      "container_id": "18162829264488337",
+      "remote_id": "17913460383595377",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4033131597260023208"
     }
   }
 }

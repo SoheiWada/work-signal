@@ -178,7 +178,7 @@ class XPublisherTests(unittest.TestCase):
 
     def test_x_history_never_changes_meta_remaining_channels(self):
         self.assertEqual(social.remaining_platforms({'x': {'status': 'needs_review'}}),
-                         ['threads', 'instagram', 'instagram_story'])
+                         ['threads', 'instagram', 'instagram_story', 'facebook'])
 
     def test_baseline_requires_real_ancestor_commit_not_arbitrary_ref(self):
         with self.assertRaises(ValueError):

@@ -34,6 +34,8 @@ def collect(base, path, token, fields, *, pages=8):
 
 
 def matches(article, kind, items):
+    if kind == "facebook":
+        return social.facebook.matches(article, items, social.article_url(article))
     if kind == "threads":
         needle = social.article_url(article)
         return [x for x in items if needle in (x.get("text") or "")]
@@ -155,6 +157,15 @@ def main():
         except Exception as exc:
             result["collections"][key] = {"error": str(exc) if isinstance(exc, RuntimeError) else type(exc).__name__, "complete": False}
     try:
+        token = os.environ["FACEBOOK_PAGE_ACCESS_TOKEN"]
+        profile = social.facebook.verify_account(social.request_json, token)
+        items = social.facebook.history(social.request_json, token)
+        streams["facebook"] = items
+        result["accounts"]["facebook"] = {"verified": True, "page_id": profile["id"]}
+        result["collections"]["facebook"] = {"count": len(items), "complete": True}
+    except Exception as exc:
+        result["collections"]["facebook"] = {"error": type(exc).__name__, "complete": False}
+    try:
         quota = social.request_json(social.IG_API + "/" + os.environ["INSTAGRAM_USER_ID"] + "/content_publishing_limit?fields=config,quota_usage", token=os.environ["INSTAGRAM_ACCESS_TOKEN"])
         result["quota"] = quota.get("data")
     except Exception as exc:
@@ -170,7 +181,7 @@ def main():
         state = rows.get(aid, {})
         if not (article.get("social_publish") is True or article.get("social_security_severity")):
             continue
-        row = {"id": aid, "approved": article.get("social_publish") is True, "platforms": article.get("social_platforms", list(social.SOCIAL_PLATFORMS)), "ledger": state, "matches": {}}
+        row = {"id": aid, "approved": article.get("social_publish") is True, "platforms": article.get("social_platforms", list(social.LEGACY_DEFAULT_PLATFORMS)), "ledger": state, "matches": {}}
         row["remote_id_seen"] = {kind: bool(state.get(kind, {}).get("remote_id")
                                      and state[kind]["remote_id"] in {str(x.get("id")) for x in items})
                                  for kind, items in streams.items()}
@@ -216,7 +227,10 @@ def main():
     out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
     print("AUDIT_SUMMARY", json.dumps({k: result[k] for k in ("checked_at", "accounts", "quota", "collections")}, ensure_ascii=False))
     print("Read-only audit finished; no Meta posts and no ledger writes")
-    return 0 if all(result["accounts"].get(k, {}).get("verified") for k in ("threads", "instagram")) else 1
+    required = ["threads", "instagram"]
+    if any("facebook" in social.requested_platforms(a) for a in social.approved_articles(articles)):
+        required.append("facebook")
+    return 0 if all(result["accounts"].get(k, {}).get("verified") for k in required) else 1
 
 
 if __name__ == "__main__":

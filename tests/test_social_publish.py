@@ -83,19 +83,19 @@ class SocialPublisherTests(unittest.TestCase):
             ledger.record("id", "threads", "retry")
 
 
-    def test_three_distinct_platforms_and_never_retry_ambiguous_results(self):
+    def test_distinct_platforms_and_never_retry_ambiguous_results(self):
         self.assertEqual(remaining_platforms({}),
-                         ["threads", "instagram", "instagram_story"])
+                         ["threads", "instagram", "instagram_story", "facebook"])
         current = {
             "threads": {"status": "published"},
             "instagram": {"status": "needs_review"},
             "instagram_story": {"status": "attempting"},
         }
-        self.assertEqual(remaining_platforms(current), [])
+        self.assertEqual(remaining_platforms(current), ["facebook"])
         self.assertEqual(remaining_platforms({
             "threads": {"status": "published"},
             "instagram": {"status": "published"},
-        }), ["instagram_story"])
+        }), ["instagram_story", "facebook"])
         self.assertTrue(story_image_url(self.story).endswith("/20261026-approved-test.jpg"))
 
     def test_only_unposted_story_runs_and_existing_posts_stay_untouched(self):

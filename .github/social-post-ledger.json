@@ -5839,7 +5839,9 @@
   "20261118-fsb-cross-border-payments-progress": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-18T12:57:31+00:00"
+      "updated_at": "2026-11-18T12:57:41+00:00",
+      "stage": "publish_requested",
+      "container_id": "18120149359790721"
     }
   }
 }

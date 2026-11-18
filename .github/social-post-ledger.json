@@ -5838,10 +5838,12 @@
   },
   "20261118-fsb-cross-border-payments-progress": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-18T12:57:41+00:00",
+      "status": "published",
+      "updated_at": "2026-11-18T12:57:43+00:00",
       "stage": "publish_requested",
-      "container_id": "18120149359790721"
+      "container_id": "18120149359790721",
+      "remote_id": "18120149359790721",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df4juZBoFNx"
     }
   }
 }

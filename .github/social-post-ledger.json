@@ -5748,10 +5748,12 @@
   },
   "20261118-openai-astra-for-law-enterprise": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-18T09:13:49+00:00",
+      "status": "published",
+      "updated_at": "2026-11-18T09:13:51+00:00",
       "stage": "publish_requested",
-      "container_id": "18158155474530193"
+      "container_id": "18158155474530193",
+      "remote_id": "18158155474530193",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df4KG68Fpix"
     }
   }
 }

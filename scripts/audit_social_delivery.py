@@ -227,7 +227,10 @@ def main():
     out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
     print("AUDIT_SUMMARY", json.dumps({k: result[k] for k in ("checked_at", "accounts", "quota", "collections")}, ensure_ascii=False))
     print("Read-only audit finished; no Meta posts and no ledger writes")
-    return 0 if all(result["accounts"].get(k, {}).get("verified") for k in ("threads", "instagram")) else 1
+    required = ["threads", "instagram"]
+    if any("facebook" in social.requested_platforms(a) for a in social.approved_articles(articles)):
+        required.append("facebook")
+    return 0 if all(result["accounts"].get(k, {}).get("verified") for k in required) else 1
 
 
 if __name__ == "__main__":

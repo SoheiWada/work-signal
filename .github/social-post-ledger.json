@@ -5695,7 +5695,9 @@
   "20261118-openai-chatgpt-for-sales": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-18T00:12:32+00:00"
+      "updated_at": "2026-11-18T00:12:54+00:00",
+      "stage": "container_created",
+      "container_id": "18135504478690068"
     }
   }
 }

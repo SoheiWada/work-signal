@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261119-sumitomo-life-chatgpt-enterprise-roi",
+    "title": "住友生命、ChatGPT Enterprise週次利用率8割超──ROI524%の読み方",
+    "summary": "住友生命でChatGPT Enterpriseの週次利用率が80%を超えたと、OpenAIが2026年11月18日に事例を公表した。月101回以上使う従業員の推計ROIは524%だが、これは全社員の平均ではない。経営層による利用の後押しと、従業員の自己申告による時間削減を基にした推計という条件を押さえる必要がある。",
+    "category": "AI",
+    "score": 86,
+    "published_at": "2026-11-19",
+    "published_at_time": "2026-11-19T01:57:12.128Z",
+    "source_url": "https://openai.com/business/customer-stories/sumitomo-life/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "住友生命でChatGPT Enterpriseの週次利用率が80%を超えたと、OpenAIが2026年11月18日に事例を公表した。月101回以上使う従業員の推計ROIは524%だが、これは全社員の平均ではない。経営層による利用の後押しと、従業員の自己申告による時間削減を基にした推計という条件を押さえる必要がある。",
+    "sections": [
+      {
+        "title": "週次利用率80%超、導入は段階的に拡大",
+        "body": "OpenAIの公式事例によると、住友生命は2023年から業務で生成AIを利用し、2025年には経営層や企画部門など約100〜150人でChatGPT Businessを試行した。2026年6月にChatGPT Enterpriseへ移行。金融機関としてアクセス管理や機能権限、業務データの扱いを検討しながら、数千人規模への展開を進めた。\n\n企画部門では国内外の保険会社に関する調査と経営提案の準備、運用部門ではリスク分析用コードの下書きなどに使っている。経営層が先に利用し、社内で活用を促したことも導入の特徴だ。"
+      },
+      {
+        "title": "524%は「月101回以上使う人」の推計",
+        "body": "公表値は週次利用率80%超、全体の推計ROI平均203%、月101回以上使う従業員の推計ROI平均524%だ。月8〜15回では55%、16〜30回では231%と報告されている。\n\nただしROIは従業員が自己申告した時間削減を基に推計したもので、監査済みの財務利益や因果効果を示す数値ではない。頻繁に使う人ほど成果を得やすい可能性はあるが、元々業務適性や習熟度が高い人が頻繁に使っている可能性も排除できない。"
+      },
+      {
+        "title": "管理職が確認すべき導入指標",
+        "body": "他社がこの事例を参考にするなら、アカウント配布数だけでなく、週次の実利用、職種別の用途、成果物の品質、削減時間の測定方法を分けて追うことが重要だ。自己申告のROIをそのまま投資回収額として予算計上せず、検証可能な業務指標と組み合わせたい。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "住友生命のChatGPT Enterprise週次利用率が80%超に。OpenAIの11月18日付事例では、月101回以上利用する社員の推計ROIが524%と紹介されました。ただし全体平均は203%で、いずれも従業員の自己申告による時間削減を基にした推計です。管理職が注目すべきは数字の大きさだけでなく、経営層の先行利用、用途の定着、測定条件。導入数と成果を混同しないための視点を整理しました。\nhttps://signal.amberlight.co.jp/articles/20261119-sumitomo-life-chatgpt-enterprise-roi/\nhttps://openai.com/business/customer-stories/sumitomo-life/",
+    "publication_key": "c1b70d347c434791866c5100a6fbfa7b4b2ccbab418b7fdd9ecd7d2b5273a71a",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261118-google-gemini-android-go-low-memory",
     "title": "Google、低メモリーAndroid Go端末にGeminiを拡大──45超の言語で音声AIを利用可能に",
     "summary": "Googleは2026年11月18日、メモリー容量の少ないAndroid（Go edition）端末の対象機種にもGeminiアプリを提供すると発表した。音声対話や画像生成などのAI機能を、従来はハードウェアの制約が大きかった端末にも広げる。利用には対応機種などの条件があり、すべてのAndroid Go端末で直ちに使えるという発表ではない。",

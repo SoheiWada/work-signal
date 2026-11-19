@@ -5964,10 +5964,12 @@
   },
   "20261119-mssql-mcp-sql-injection-cve-2026-63129": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-19T02:26:06+00:00",
+      "status": "published",
+      "updated_at": "2026-11-19T02:26:09+00:00",
       "stage": "publish_requested",
-      "container_id": "18113296019225324"
+      "container_id": "18113296019225324",
+      "remote_id": "18113296019225324",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df6APkXDFrJ"
     }
   }
 }

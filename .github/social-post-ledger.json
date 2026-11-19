@@ -6163,5 +6163,11 @@
       "status": "needs_review",
       "updated_at": "2026-11-19T15:18:53+00:00"
     }
+  },
+  "20261120-openai-performance-factory-regression": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-19T22:14:43+00:00"
+    }
   }
 }

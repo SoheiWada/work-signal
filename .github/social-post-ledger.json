@@ -5979,5 +5979,11 @@
       "remote_id": "18118056239154585",
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4033537626866466066"
     }
+  },
+  "20261119-miren-runtime-rpc-auth-bypass-cve-2026-75521": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-19T03:30:28+00:00"
+    }
   }
 }

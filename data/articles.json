@@ -1,5 +1,39 @@
 [
   {
+    "id": "20261119-miren-runtime-rpc-auth-bypass-cve-2026-75521",
+    "title": "Miren RuntimeのRPC認証回避、0.11.1未満にCRITICALの脆弱性",
+    "summary": "Miren RuntimeのRPC認証に、偽造した自己署名クライアント証明書でクラスタの管理者権限を取得できる重大な問題が確認されています。開発元は2026年7月8日に公表し、0.11.1で修正しました。GitHub Reviewedの11月19日候補として改めて検出したもので、11月の新規発表ではありません。",
+    "category": "SECURITY",
+    "score": 88,
+    "published_at": "2026-11-19",
+    "published_at_time": "2026-11-19T03:23:27.521Z",
+    "source_url": "https://github.com/mirendev/runtime/security/advisories/GHSA-8fh7-7q4q-cq52",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Miren RuntimeのRPC認証に、偽造した自己署名クライアント証明書でクラスタの管理者権限を取得できる重大な問題が確認されています。開発元は2026年7月8日に公表し、0.11.1で修正しました。GitHub Reviewedの11月19日候補として改めて検出したもので、11月の新規発表ではありません。",
+    "sections": [
+      {
+        "title": "証明書を提示するだけで管理者扱いになる問題",
+        "body": "開発元のGHSA-8fh7-7q4q-cq52によると、Miren RuntimeのRPCサーバーはQUIC/HTTP3を使用し、標準ポートは8443です。脆弱な実装ではクライアント証明書の発行元CAへの連鎖を検証しないまま、証明書由来のIDにRBACを回避する権限を付与していました。RPCポートへ到達できる第三者が偽造した自己署名証明書を提示すると、クラスタのスーパーユーザーとして操作できる可能性があります。開発元の公式評価はCRITICAL、対象は0.11.1未満です。"
+      },
+      {
+        "title": "更新と公開範囲の制限を優先",
+        "body": "修正版0.11.1では証明書チェーンの検証を追加しています。運用者は修正版に更新したうえでサーバーを再起動し、RPCポート8443をインターネットへ開放しないよう管理ネットワークに制限してください。ネットワーク制限は暫定的な封じ込めであり、根本修正ではありません。開発元は不正なRPCアクセスを検知できないことから、アプリケーションの再デプロイと環境変数で参照する認証情報のローテーションも推奨しています。実際の悪用確認について、当該原典には断定できる記述がありません。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "Miren Runtime（miren）0.11.1未満",
+    "social_security_action": "0.11.1以降へ更新しサーバーを再起動。RPCポート8443へのアクセスを信頼済み管理ネットワークに制限。環境変数内の認証情報をローテーションし、アプリを再デプロイすることを開発元が推奨",
+    "publication_key": "557352a9ef9b269fb3206af8685677aa224ae0aab66f86991ec55f0b7ddaa5a9",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261119-mssql-mcp-sql-injection-cve-2026-63129",
     "title": "SQL Server向けMCPツールにSQLインジェクション、GitHubがHIGHとして審査済み登録",
     "summary": "SQL Serverを操作するMCPツール群に、外部から与えられたテーブル名や検索条件がSQL文に組み込まれる脆弱性があります。開発元が7月に公表したCVE-2026-63129について、GitHub Advisory Databaseは11月19日にReviewed登録しました。公式評価はHIGH（CVSS v3.1 8.8）。導入企業はパッケージのバージョンを確認する必要があります。",

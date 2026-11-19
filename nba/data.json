@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-11-18",
-  "fetchedAt": "2026-11-19T03:39:42.606Z",
-  "lastAttemptAt": "2026-11-19T03:39:42.606Z",
+  "throughDate": "2026-11-19",
+  "fetchedAt": "2026-11-19T19:02:34.320Z",
+  "lastAttemptAt": "2026-11-19T19:02:34.320Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 219,
+  "countedGames": 222,
   "standingsReason": null,
   "teams": [
     {
@@ -23,7 +23,7 @@
       "name": "Boston Celtics",
       "conference": "East",
       "wins": 11,
-      "losses": 3
+      "losses": 4
     },
     {
       "code": "BKN",
@@ -64,7 +64,7 @@
       "code": "DEN",
       "name": "Denver Nuggets",
       "conference": "West",
-      "wins": 7,
+      "wins": 8,
       "losses": 5
     },
     {
@@ -107,7 +107,7 @@
       "name": "Los Angeles Lakers",
       "conference": "West",
       "wins": 13,
-      "losses": 2
+      "losses": 3
     },
     {
       "code": "MEM",
@@ -176,7 +176,7 @@
       "code": "PHX",
       "name": "Phoenix Suns",
       "conference": "West",
-      "wins": 6,
+      "wins": 7,
       "losses": 7
     },
     {
@@ -191,7 +191,7 @@
       "name": "Sacramento Kings",
       "conference": "West",
       "wins": 1,
-      "losses": 12
+      "losses": 13
     },
     {
       "code": "SAS",
@@ -211,7 +211,7 @@
       "code": "UTA",
       "name": "Utah Jazz",
       "conference": "West",
-      "wins": 2,
+      "wins": 3,
       "losses": 13
     },
     {
@@ -225,12 +225,42 @@
   "sets": [
     [
       {
+        "id": "21718142",
+        "date": "2026-11-18",
+        "home": "SAC",
+        "away": "PHX",
+        "homeScore": 107,
+        "awayScore": 128,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718141",
+        "date": "2026-11-18",
+        "home": "LAL",
+        "away": "UTA",
+        "homeScore": 97,
+        "awayScore": 109,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
         "id": "21718140",
         "date": "2026-11-18",
         "home": "DAL",
         "away": "GSW",
         "homeScore": 116,
         "awayScore": 94,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718139",
+        "date": "2026-11-18",
+        "home": "DEN",
+        "away": "BOS",
+        "homeScore": 105,
+        "awayScore": 101,
         "competition": "regular",
         "countsForStandings": true
       },

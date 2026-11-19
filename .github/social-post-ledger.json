@@ -6113,7 +6113,9 @@
     },
     "facebook": {
       "status": "attempting",
-      "updated_at": "2026-11-19T15:15:12+00:00"
+      "updated_at": "2026-11-19T15:15:13+00:00",
+      "stage": "publish_requested",
+      "container_id": ""
     }
   }
 }

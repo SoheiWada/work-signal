@@ -6065,9 +6065,9 @@
     },
     "facebook": {
       "status": "attempting",
-      "updated_at": "2026-11-19T15:13:49+00:00",
-      "stage": "publish_requested",
-      "container_id": ""
+      "updated_at": "2026-11-19T15:13:53+00:00",
+      "stage": "publish_response_received",
+      "container_id": "1522891270900103_122109340029543397"
     }
   }
 }

@@ -212,12 +212,16 @@ def instagram_story_card(output, article):
               font=card_font(23, 600), fill=quiet, anchor='rt')
 
     title = article['title'].replace('\\n', ' ').strip()
+    # Keep room for the divider, summary and call to action below the headline.
+    divider_base_y = 625 + 76
+    divider_max_y = 1330
     fitted = None
     for size in range(79, 33, -2):
         font = card_font(size, 800)
         lines = wrap_title(title, font, 906)
         leading = round(size * 1.46)
-        if len(lines) * leading <= 690 and all(font.getlength(line) <= 906 for line in lines):
+        if (divider_base_y + len(lines) * leading <= divider_max_y
+                and all(font.getlength(line) <= 906 for line in lines)):
             fitted = (font, lines, leading)
             break
     if fitted is None:
@@ -228,9 +232,7 @@ def instagram_story_card(output, article):
                   font=font, fill=paper, anchor='lt')
 
     # Signal line / divider sits safely below variable-height headlines.
-    wave_y = max(1235, 625 + len(lines) * leading + 76)
-    if wave_y > 1330:
-        raise ValueError('Instagram Story lacks space for signal footer')
+    wave_y = max(1235, divider_base_y + len(lines) * leading)
     draw.line([(80, wave_y), (345, wave_y), (375, wave_y - 46),
                (406, wave_y + 56), (436, wave_y - 85),
                (468, wave_y + 48), (504, wave_y),

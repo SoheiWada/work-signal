@@ -5836,13 +5836,28 @@
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4033130416564128857"
     },
     "instagram": {
-      "status": "attempting",
-      "updated_at": "2026-11-19T06:18:20+00:00",
+      "status": "published",
+      "updated_at": "2026-11-19T06:18:25+00:00",
       "probe_request_id": "feed-probe-20261118-nvidia-q3",
       "caption_sha256": "51c70969c747654ea30d80c03354e761a2202d5ed586efe612016bfebb130d85",
       "feed_attempted_at": "2026-11-19T06:18:07+00:00",
       "stage": "publish_requested",
-      "container_id": "18162986419488337"
+      "container_id": "18162986419488337",
+      "remote_id": "18183386806453424",
+      "permalink": "https://www.instagram.com/p/Df6az_wkTP7/",
+      "error": {
+        "http_status": 403,
+        "code": 4,
+        "subcode": 2207051,
+        "type": "OAuthException",
+        "fbtrace_id": "AfYfLC4e5Nlf9sAVKAiCwrX",
+        "is_transient": false,
+        "message": "Application request limit reached",
+        "error_user_msg": "We restrict certain activity to protect our community. Tell us if you think we made a mistake.",
+        "error_user_title": "action is blocked"
+      },
+      "action_block_hold": true,
+      "restricted_until": "2026-11-21T06:18:24+00:00"
     }
   },
   "20261118-fsb-cross-border-payments-progress": {

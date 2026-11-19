@@ -5928,10 +5928,12 @@
   },
   "20261118-google-gemini-android-go-low-memory": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-19T01:05:18+00:00",
+      "status": "published",
+      "updated_at": "2026-11-19T01:05:20+00:00",
       "stage": "publish_requested",
-      "container_id": "17955260442305978"
+      "container_id": "17955260442305978",
+      "remote_id": "17955260442305978",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df52_vuCaeE"
     }
   }
 }

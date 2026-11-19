@@ -1,5 +1,38 @@
 [
   {
+    "id": "20261120-openai-performance-factory-regression",
+    "title": "OpenAI、ChatGPTの性能劣化調査をAIで自動化──3か月で1,700件超を調査",
+    "summary": "OpenAIは11月19日、ChatGPTの性能劣化をCodexで調査し、修正案の作成から復旧確認まで追跡する社内システム「Performance Factory」を紹介した。3か月強で1,700件超の調査を扱い、600件超の根本原因を特定したという。一方、診断の正確性や変更承認には人間と別のAIによる検証を残している。",
+    "category": "AI",
+    "score": 88,
+    "published_at": "2026-11-20",
+    "published_at_time": "2026-11-19T22:06:09.195Z",
+    "source_url": "https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは11月19日、ChatGPTの性能劣化をCodexで調査し、修正案の作成から復旧確認まで追跡する社内システム「Performance Factory」を紹介した。3か月強で1,700件超の調査を扱い、600件超の根本原因を特定したという。一方、診断の正確性や変更承認には人間と別のAIによる検証を残している。",
+    "sections": [
+      {
+        "title": "アラートから復旧確認までを一つのタスクに",
+        "body": "OpenAIが2026年11月19日に公開した技術記事によると、Performance Factoryはタスク管理サービス、作業を割り当てるディスパッチループ、クラウド上のCodex実行環境、変更イベントを受け取る購読機構の4要素で構成される。性能アラートが発生すると、エージェントがログやトレース、デプロイ変更などを調べ、原因を推定し、修正プルリクエストを提案する。エンジニアがレビューと配備を担当し、その後のエージェントが性能の回復を確認する。回復しなければ調査へ戻す。\n\nOpenAIの報告では、3か月強で1,700件を超える調査を追跡し、600件超の原因を特定した。これは同社の内部運用実績であり、他社環境で同じ成果を保証する数値ではない。"
+      },
+      {
+        "title": "誤診を前提に反証と人間の判断を組み込む",
+        "body": "同社は100件の原因診断案を人手で評価し、70%を正確と判定したと説明する。初期のエージェントは最初のもっともらしい原因で調査を止めることがあったため、別のCodexセッションが反証を試みる工程を追加した。修正案についても、複雑化や新たな不具合を防ぐために別途レビューする。\n\n企業が参考にできるのは、障害対応の自動化率そのものより、調査記録を次工程へ引き継ぐ仕組み、担当者が介入すべき判断点、配備後の効果測定を明確に分ける設計だ。OpenAIは将来、アラート発生前の最適化候補の発見にも広げる方針を示すが、これは現時点の実装成果と区別する必要がある。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story",
+      "facebook"
+    ],
+    "social_threads_text": "ChatGPTの速度低下を、AIが調査し、修正案を作り、復旧まで追跡する仕組みをOpenAIが公開しました。3か月強で1,700件超を調査し、600件超の原因を特定したと報告しています。ただし100件の診断案の人手評価では正確とされたのは70%。自動化の成果だけでなく、別のAIによる反証と人間による変更承認を組み込んでいる点が重要です。障害対応をAIに任せる企業にとって、タスクの状態管理と再検証の設計が参考になります。\nhttps://signal.amberlight.co.jp/articles/20261120-openai-performance-factory-regression/\nhttps://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast/",
+    "publication_key": "fc824e48406faecffb8e74f260f8f93ef08461ec6d88247166950c214e4258b9",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261117-anthropic-claude-linked-billing",
     "title": "Anthropic、APIキーを渡さずに第三者ツールでClaudeの利用料を払える「リンク課金」をベータ開始",
     "summary": "Anthropicが、第三者のAIツール上でClaudeの利用料を払う新しい仕組みを始めた。APIキーを渡す必要がない。コーディングエージェントや自動化ツールにAPIキーを預ける運用は、漏えいすれば請求も情報も相手任せになる。リンク課金では、顧客は自分のClaude Platformの組織を結び付け、利用料を自分の請求先で払い、月額上限を決め、いつでも解除できる。エージェント経由のAPI利用が広がるなか、鍵を渡さないための実務的な一手だ。",

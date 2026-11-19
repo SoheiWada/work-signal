@@ -1,5 +1,40 @@
 [
   {
+    "id": "20261119-mssql-mcp-sql-injection-cve-2026-63129",
+    "title": "SQL Server向けMCPツールにSQLインジェクション、GitHubがHIGHとして審査済み登録",
+    "summary": "SQL Serverを操作するMCPツール群に、外部から与えられたテーブル名や検索条件がSQL文に組み込まれる脆弱性があります。開発元が7月に公表したCVE-2026-63129について、GitHub Advisory Databaseは11月19日にReviewed登録しました。公式評価はHIGH（CVSS v3.1 8.8）。導入企業はパッケージのバージョンを確認する必要があります。",
+    "category": "SECURITY",
+    "score": 87,
+    "published_at": "2026-11-19",
+    "published_at_time": "2026-11-19T02:19:07.844Z",
+    "source_url": "https://github.com/advisories/GHSA-2m9m-6cr5-9x25",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "SQL Serverを操作するMCPツール群に、外部から与えられたテーブル名や検索条件がSQL文に組み込まれる脆弱性があります。開発元が7月に公表したCVE-2026-63129について、GitHub Advisory Databaseは11月19日にReviewed登録しました。公式評価はHIGH（CVSS v3.1 8.8）。導入企業はパッケージのバージョンを確認する必要があります。",
+    "sections": [
+      {
+        "title": "読み取り専用設定でも安全とは限らない",
+        "body": "開発元の勧告によると、更新・削除・挿入・トランザクションなどのツールで、テーブル名やWHERE条件などが十分に検証されずSQL文に埋め込まれていました。確認・プレビュー処理より前にSQLが実行される経路もあり、想定された確認手順を迂回できるおそれがあります。読み取り用のlist_databasesにも入力値を直接組み込む箇所があり、READONLY=trueだけでは完全な防御になりません。\n\n攻撃者がMCPクライアントの引数を操作できる場合、データの閲覧・改変・削除などにつながる可能性があります。OSコマンド実行は、権限の強いSQLログインとxp_cmdshellの有効化など追加条件に依存します。実際の悪用確認について、参照した開発元勧告は断定していません。"
+      },
+      {
+        "title": "影響版と更新先",
+        "body": "影響対象はcore 0.5.0以下、reader 0.4.2以下、server 0.5.2以下、writer 0.4.2以下です。修正版はそれぞれcore 0.6.0、reader 0.5.0、server 0.6.0、writer 0.5.0。修正では識別子の検証と引用、WHERE条件の構造化・パラメータ化が導入されています。変更により従来の自由形式whereClauseは利用できなくなるため、呼び出し側も互換性を確認してください。\n\n更新までの暫定措置として、SQL接続権限の最小化、xp_cmdshellの無効化、MCPクライアントの接続制限が推奨されます。ただし開発元はアップグレードのみが完全な修正と説明しています。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "SQL Server連携のMCPツールにSQLインジェクションの脆弱性。GitHubは11月19日、CVE-2026-63129をHIGH（CVSS 8.8）としてReviewed登録しました。開発元の最初の公表は7月です。読み取り専用の設定でも影響する経路があり、更新・削除の確認画面があっても安全とは限りません。core 0.6.0、reader/writer 0.5.0、server 0.6.0への更新と、SQL権限の最小化を確認してください。\nhttps://signal.amberlight.co.jp/articles/20261119-mssql-mcp-sql-injection-cve-2026-63129/\nhttps://github.com/advisories/GHSA-2m9m-6cr5-9x25",
+    "social_security_severity": "HIGH",
+    "social_security_product": "@connorbritain/mssql-mcp-core 0.5.0以下、mssql-mcp-reader 0.4.2以下、mssql-mcp-server 0.5.2以下、mssql-mcp-writer 0.4.2以下",
+    "social_security_action": "core 0.6.0、reader 0.5.0、server 0.6.0、writer 0.5.0以降の修正版へ更新",
+    "publication_key": "211829c1458da3074cce012d60d97f10c0e91ab2b9b44a8e394ef002422e08dc",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261119-sumitomo-life-chatgpt-enterprise-roi",
     "title": "住友生命、ChatGPT Enterprise週次利用率8割超──ROI524%の読み方",
     "summary": "住友生命でChatGPT Enterpriseの週次利用率が80%を超えたと、OpenAIが2026年11月18日に事例を公表した。月101回以上使う従業員の推計ROIは524%だが、これは全社員の平均ではない。経営層による利用の後押しと、従業員の自己申告による時間削減を基にした推計という条件を押さえる必要がある。",

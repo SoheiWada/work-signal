@@ -6024,10 +6024,12 @@
   },
   "20261118-nvidia-rtx-spark-compact-desktops": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-19T15:12:38+00:00",
+      "status": "published",
+      "updated_at": "2026-11-19T15:12:40+00:00",
       "stage": "publish_requested",
-      "container_id": "18124997233902200"
+      "container_id": "18124997233902200",
+      "remote_id": "18124997233902200",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df7X9rZIDaN"
     }
   }
 }

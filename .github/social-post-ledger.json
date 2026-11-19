@@ -6048,10 +6048,12 @@
   },
   "20261118-openai-amd-chip-design-14ppa": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-19T15:13:24+00:00",
+      "status": "published",
+      "updated_at": "2026-11-19T15:13:27+00:00",
       "stage": "publish_requested",
-      "container_id": "18204083683385470"
+      "container_id": "18204083683385470",
+      "remote_id": "18204083683385470",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df7YDeUILZX"
     }
   }
 }

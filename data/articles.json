@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261118-google-gemini-android-go-low-memory",
+    "title": "Google、低メモリーAndroid Go端末にGeminiを拡大──45超の言語で音声AIを利用可能に",
+    "summary": "Googleは2026年11月18日、メモリー容量の少ないAndroid（Go edition）端末の対象機種にもGeminiアプリを提供すると発表した。音声対話や画像生成などのAI機能を、従来はハードウェアの制約が大きかった端末にも広げる。利用には対応機種などの条件があり、すべてのAndroid Go端末で直ちに使えるという発表ではない。",
+    "category": "AI",
+    "score": 85,
+    "published_at": "2026-11-19",
+    "published_at_time": "2026-11-19T00:58:05.795Z",
+    "source_url": "https://blog.google/innovation-and-ai/products/gemini-app/gemini-lower-memory-devices/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Googleは2026年11月18日、メモリー容量の少ないAndroid（Go edition）端末の対象機種にもGeminiアプリを提供すると発表した。音声対話や画像生成などのAI機能を、従来はハードウェアの制約が大きかった端末にも広げる。利用には対応機種などの条件があり、すべてのAndroid Go端末で直ちに使えるという発表ではない。",
+    "sections": [
+      {
+        "title": "低メモリー端末にも生成AIを提供",
+        "body": "Googleの公式発表によると、対象となるAndroid（Go edition）端末でGeminiアプリを利用できるようにする。低メモリー環境でも中核的なGemini体験が動作するよう、アプリを再設計したという。これまで基本的な音声コマンドに限られがちだった端末でも、より幅広いAI機能にアクセスできることが今回の変更点だ。\n\n同社が紹介する機能には、45を超える言語で利用できるGemini Liveによる音声対話、カメラで撮影したメモや書類の理解・翻訳、Nano Bananaによる画像生成が含まれる。例として、面接練習や小規模店舗のチラシ制作が挙げられている。"
+      },
+      {
+        "title": "利用条件と企業・教育現場への影響",
+        "body": "利用方法として、Google Playからのアプリ取得、対応機種での電源ボタン長押し、Transsionなどのパートナー企業による今後のプリインストール端末が案内されている。ただし、対応端末や地域ごとの提供状況、すべての機能の利用可否を一律に保証する記載ではない。\n\n現場で重要なのは、AIの導入可否を高性能端末の保有だけで判断しないことだ。教育・店舗運営・多言語サポートでは低価格帯端末への対応が選択肢を広げる一方、導入前には機種対応、通信環境、データの取り扱い、利用可能機能を個別に確認する必要がある。Googleの「数億人規模」という説明は潜在的な利用対象についての表現であり、実利用者数の実績と混同しない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story"
+    ],
+    "social_threads_text": "高性能スマホがなくても、生成AIを使える人が増えるかもしれません。Googleは11月18日、低メモリーのAndroid Go対象端末にもGeminiアプリを広げると発表。45超の言語での音声対話、カメラを使った翻訳、画像生成などを紹介しています。教育現場や小規模店舗では、端末の買い替えを前提にせずAI導入を検討する余地が広がります。ただし、全機種・全地域での提供保証ではありません。\nhttps://signal.amberlight.co.jp/articles/20261118-google-gemini-android-go-low-memory/\nhttps://blog.google/innovation-and-ai/products/gemini-app/gemini-lower-memory-devices/",
+    "publication_key": "1b0f89f3b1b815c332611383462858d3b643a6a393490d4e564521ce1e74c1cf",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261119-openai-research-acceleration-jagged-frontier",
     "title": "OpenAI、AI研究の2〜4時間タスク自律完了率46%を報告──業務別の格差も明示",
     "summary": "OpenAIは11月18日、社内研究でAIエージェントが担う作業の実測と調査結果を公表した。人間なら2〜4時間かかる研究タスクを人の介入なしで完了する推定割合は、3月の23%から10月の46%へ上昇。一方で、実験監視と推論基盤のコード開発では成功率に大きな差があり、「AIに仕事を任せる」際の適性評価の重要性が浮かぶ。",

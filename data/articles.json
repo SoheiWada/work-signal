@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261117-anthropic-claude-linked-billing",
+    "title": "Anthropic、APIキーを渡さずに第三者ツールでClaudeの利用料を払える「リンク課金」をベータ開始",
+    "summary": "Anthropicが、第三者のAIツール上でClaudeの利用料を払う新しい仕組みを始めた。APIキーを渡す必要がない。コーディングエージェントや自動化ツールにAPIキーを預ける運用は、漏えいすれば請求も情報も相手任せになる。リンク課金では、顧客は自分のClaude Platformの組織を結び付け、利用料を自分の請求先で払い、月額上限を決め、いつでも解除できる。エージェント経由のAPI利用が広がるなか、鍵を渡さないための実務的な一手だ。",
+    "category": "AI",
+    "score": 83,
+    "published_at": "2026-11-19",
+    "published_at_time": "2026-11-19T14:55:19.335Z",
+    "source_url": "https://claude.com/resources/articles/linked-billing-on-claude-platform",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Anthropicが、第三者のAIツール上でClaudeの利用料を払う新しい仕組みを始めた。APIキーを渡す必要がない。コーディングエージェントや自動化ツールにAPIキーを預ける運用は、漏えいすれば請求も情報も相手任せになる。リンク課金では、顧客は自分のClaude Platformの組織を結び付け、利用料を自分の請求先で払い、月額上限を決め、いつでも解除できる。エージェント経由のAPI利用が広がるなか、鍵を渡さないための実務的な一手だ。",
+    "sections": [
+      {
+        "title": "APIキーを渡さず、自分の請求先で払う",
+        "body": "Anthropicは2026年11月17日、Claude Platformの「リンク課金（linked billing）」をベータで開始した。第三者プラットフォーム上でClaude APIを使うとき、APIキーを第三者プラットフォームに渡す構成では、鍵の保管や更新が必要になる。APIキーはパスワードのようなもので、持つ者は誰でも顧客の請求でAPIを呼べる。プラットフォーム側は顧客の鍵を保管・暗号化・更新しなければならず、漏えいのリスクを抱えていた。\nリンク課金では、顧客はAPIキーの代わりに自分のClaude Platformの組織を結び付ける。利用料はその組織に直接請求される。顧客のAPIキーを共有せずに請求先を連携できる。顧客は、結び付けるプラットフォームを1件ずつ承認し、プラットフォームごとの月額上限を設定でき、Consoleからいつでも解除できる。既存のAnthropicの契約枠から使うことも、従量課金で払うこともできる。"
+      },
+      {
+        "title": "対応は19プラットフォーム──ただし適用されない設定がある",
+        "body": "開始時点で対応するプラットフォームは、Asana、ClickHouse、Factory、Gumloop、Harness、Higgsfield AI、Kilo Code、Linear、Major、Mintlify、Omni、OpenArt、Niteshift、Railway、Ramp、Runlayer、Tessera、Tines、Warpの19件だ。プラットフォーム側は、リクエストごとにプラットフォームが払うか顧客が払うかを選べる。利用状況は、リクエスト数・トークン使用量・モデル別にConsoleやUsage and Cost Analytics API（ベータ）で確認できる。\n注意点もある。リクエストはプラットフォーム側の組織で実行されるため、顧客の組織で設定したIP許可リスト、暗号化キー、データ保持の設定は適用されない。リンク課金を使う企業は、どの設定が引き継がれないかを事前に確認する必要がある。Anthropicは、リンク課金への対応を希望するプラットフォーム向けに、Consoleでのアプリ作成と手順書を用意している。"
+      },
+      {
+        "title": "読者への具体的な影響",
+        "body": "Claude APIを使う企業にとって、読むべきは3点ある。第1に、APIキーの管理負担が減る。外部ツールに鍵を預ける運用をやめ、鍵の保管・更新・漏えい時の対応というリスクを切り離せる。第2に、コストの見える化だ。プラットフォームごとの利用料と月額上限をConsoleで把握でき、エージェント経由のAPI費用が部門や案件ごとにどれだけかかっているかを追える。第3に、適用されない設定への注意だ。IP許可リストやデータ保持のポリシーを自社で厳格に運用している企業は、リンク課金経由のリクエストにはそれが及ばないことを踏まえ、利用するプラットフォームと用途を選ぶ必要がある。"
+      },
+      {
+        "title": "不確実性・留保",
+        "body": "提供はベータで、対応先の数は発表時点のもの。顧客側で承認と利用上限を管理できるが、処理はプラットフォーム側の組織で実行される。導入時は実行先のデータ保持条件を確認したい。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story",
+      "facebook"
+    ],
+    "publication_key": "8819e61dc7967b20ad278b148c6627b082611a8bf5c660d06ff9039191940cbf",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261118-nvidia-rtx-spark-compact-desktops",
     "title": "NVIDIA、RTX Sparkのコンパクトデスクトップを発売──128GBで1,200億パラメータをローカル実行、エージェントを24時間稼働",
     "summary": "NVIDIAのRTX Sparkが、ノートPCを飛び出して据え置き型デスクトップになった。ASUS・Dell・MSIの3社から発売されたコンパクトデスクトップは、最大128GBの統合メモリで1,200億パラメータ級のAIモデルを手元で動かす。個人AIエージェントを24時間走らせ続け、クラウドの従量課金を避ける。ローカルAIが、持ち運ぶ道具から「机に置く基盤」へ広がり始めた。",

@@ -1,5 +1,37 @@
 [
   {
+    "id": "20261120-gemini-tool-retrieval-on-demand",
+    "title": "Gemini APIに「Tool Retrieval」登場、AIエージェントのツール定義を必要時に読み込む",
+    "summary": "Googleは2026年11月19日、Gemini APIのInteractions API向けに「Tool Retrieval」をプレビュー公開した。AIエージェントに多数の外部ツールを接続する際、すべての引数定義を毎回渡す代わりに、必要なツールのスキーマを呼び出し時に読み込む仕組みだ。トークン消費と応答時間の削減を狙うが、実際の効果はツール構成や利用頻度によって変わる。",
+    "category": "AI",
+    "score": 89,
+    "published_at": "2026-11-20",
+    "published_at_time": "2026-11-19T23:04:54.146Z",
+    "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Googleは2026年11月19日、Gemini APIのInteractions API向けに「Tool Retrieval」をプレビュー公開した。AIエージェントに多数の外部ツールを接続する際、すべての引数定義を毎回渡す代わりに、必要なツールのスキーマを呼び出し時に読み込む仕組みだ。トークン消費と応答時間の削減を狙うが、実際の効果はツール構成や利用頻度によって変わる。",
+    "sections": [
+      {
+        "title": "大量のツール定義を、必要なときだけ読み込む",
+        "body": "Googleの公式発表によると、Tool RetrievalはGemini Interactions APIでプレビュー提供される。開発者は `tool_search` を指定し、遅延読み込みしたい関数に `defer_loading: true` を設定する。モデルは候補ツールの名前と説明を参照し、必要と判断したときだけパラメータスキーマを取得して関数を呼び出す。通常利用するツールは常時読み込みのままにできる。\n\nこの仕組みは、数十から数百のツールを抱えるエージェントで、毎回すべての定義を入力に含める負担を減らすためのもの。リモートMCPサーバーのツールにも対応する。独自のツール検索基盤がある場合には、クライアント側検索を選択できるが、その場合は追加の往復通信が発生する。"
+      },
+      {
+        "title": "導入判断は「総トークン」と「呼び出し回数」で",
+        "body": "ツール検索は無償の追加機能という意味ではない。GoogleはTool Retrieval自体に別料金を設けない一方、検索ツールの固定的な入力トークンと、読み込んだスキーマが通常の入力課金に含まれると説明する。使わずに済むスキーマが多いほど節約効果が期待できるが、頻繁に使う少数のツールまで遅延読み込みすると利点は小さくなる可能性がある。\n\n企業の導入担当者は、既存構成と新方式を同じタスクで比較し、入力トークン数、ツール選択の正確性、実行時間、失敗時の挙動を測定したい。プレビュー段階のため、本番環境への全面適用前に対応モデルとAPI仕様を確認する必要がある。公式発表ではGemini 3.6以降のモデルが対象とされている。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story",
+      "facebook"
+    ],
+    "publication_key": "e0661aecc3c22bff76a3e1fb72f1ec1c2f5e5ec44d71d556c425ac49207dae0d",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261120-openai-performance-factory-regression",
     "title": "OpenAI、ChatGPTの性能劣化調査をAIで自動化──3か月で1,700件超を調査",
     "summary": "OpenAIは11月19日、ChatGPTの性能劣化をCodexで調査し、修正案の作成から復旧確認まで追跡する社内システム「Performance Factory」を紹介した。3か月強で1,700件超の調査を扱い、600件超の根本原因を特定したという。一方、診断の正確性や変更承認には人間と別のAIによる検証を残している。",

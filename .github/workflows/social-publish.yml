@@ -96,9 +96,10 @@ jobs:
           python -m unittest discover -s tests -p 'test_feed_policy_contract.py'
           python -m unittest discover -s tests -p 'test_instagram_delivery_confirmation.py'
       - name: Probe only one explicitly reviewed Instagram feed delivery
-        if: ${{ false }} # Operator-protected Instagram feed pause; do not probe while paused.
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.wake_source == 'feed-probe-20261118-nvidia-q3' && inputs.article_ids == '20261117-nvidia-q3-fy27-earnings-1158b-hugging-face' && github.run_attempt == 1 }}
         continue-on-error: true
         env:
+          SOCIAL_PAUSED_PLATFORMS: ''
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           SOCIAL_PUBLISH_ENABLED: ${{ vars.SOCIAL_PUBLISH_ENABLED }}

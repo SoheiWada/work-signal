@@ -6190,10 +6190,12 @@
   },
   "20261120-gemini-tool-retrieval-on-demand": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-19T23:10:59+00:00",
+      "status": "published",
+      "updated_at": "2026-11-19T23:11:00+00:00",
       "stage": "publish_requested",
-      "container_id": "18048918548822150"
+      "container_id": "18048918548822150",
+      "remote_id": "18048918548822150",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df8OtU4ibzu"
     }
   }
 }

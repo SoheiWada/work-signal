@@ -6121,7 +6121,9 @@
   "20261118-anthropic-ipo-priced-83-biggest-ever": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-19T15:15:22+00:00"
+      "updated_at": "2026-11-19T15:15:32+00:00",
+      "stage": "publish_requested",
+      "container_id": "18381726268242278"
     }
   }
 }

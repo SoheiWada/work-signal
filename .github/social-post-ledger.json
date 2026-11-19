@@ -5961,5 +5961,11 @@
       "remote_id": "17991126549082006",
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4033526840501642717"
     }
+  },
+  "20261119-mssql-mcp-sql-injection-cve-2026-63129": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-19T02:25:58+00:00"
+    }
   }
 }

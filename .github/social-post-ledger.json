@@ -6072,10 +6072,12 @@
   },
   "20261118-google-gemini-4-neon-coding-science": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-19T15:14:05+00:00",
+      "status": "published",
+      "updated_at": "2026-11-19T15:14:07+00:00",
       "stage": "publish_requested",
-      "container_id": "17931546660186576"
+      "container_id": "17931546660186576",
+      "remote_id": "17931546660186576",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df7YIi9oLPf"
     }
   }
 }

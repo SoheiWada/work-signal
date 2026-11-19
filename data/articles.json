@@ -1,5 +1,49 @@
 [
   {
+    "id": "20261118-nvidia-rtx-spark-compact-desktops",
+    "title": "NVIDIA、RTX Sparkのコンパクトデスクトップを発売──128GBで1,200億パラメータをローカル実行、エージェントを24時間稼働",
+    "summary": "NVIDIAのRTX Sparkが、ノートPCを飛び出して据え置き型デスクトップになった。ASUS・Dell・MSIの3社から発売されたコンパクトデスクトップは、最大128GBの統合メモリで1,200億パラメータ級のAIモデルを手元で動かす。個人AIエージェントを24時間走らせ続け、クラウドの従量課金を避ける。ローカルAIが、持ち運ぶ道具から「机に置く基盤」へ広がり始めた。",
+    "category": "AI",
+    "score": 85,
+    "published_at": "2026-11-19",
+    "published_at_time": "2026-11-19T14:55:04.271Z",
+    "source_url": "https://blogs.nvidia.com/blog/rtx-spark-desktop-local-ai-available-now/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "NVIDIAのRTX Sparkが、ノートPCを飛び出して据え置き型デスクトップになった。ASUS・Dell・MSIの3社から発売されたコンパクトデスクトップは、最大128GBの統合メモリで1,200億パラメータ級のAIモデルを手元で動かす。個人AIエージェントを24時間走らせ続け、クラウドの従量課金を避ける。ローカルAIが、持ち運ぶ道具から「机に置く基盤」へ広がり始めた。",
+    "sections": [
+      {
+        "title": "128GBの統合メモリで1,200億パラメータを手元に",
+        "body": "NVIDIAは2026年11月18日（米国時間）、RTX SparkのコンパクトデスクトップがASUS・Dell・MSIから発売されたと発表した。20コアのNVIDIA Grace CPUと、6,144のCUDAコアを持つBlackwell世代のRTX GPU、最大128GBの統合メモリを備え、FP4精度で最大1ペタフロップスのAI性能をうたう。1,200億パラメータの大規模言語モデルをローカルで動かし、90GB超の3Dシーンをリアルタイムで描画し、4:2:2の映像を滑らかに編集できるとしている。\n据え置き型の意味は、NVIDIA自身が明確にしている。専用デスクトップなら、エージェントや定時実行タスクを動かし続けながら、ノートPCを持ち出して別の仕事ができる。ASUS ProArt GR1XやMSI EdgeMesa N AI+シリーズが名指しされ、Acer・GIGABYTE・HPのミニPCとMicrosoft Surface RTX Spark Dev Boxも「近日登場」とされた。10ギガビットEthernetで、大きなデータセットやモデルファイルをネットワークストレージと速くやり取りできる。"
+      },
+      {
+        "title": "ローカルで回すから、料金とデータが手元に残る",
+        "body": "対応するモデルをローカルで動かせば、処理するコードやファイルはPCの外に出ず、その分のクラウドAPIの従量課金も発生しない。NVIDIAはこの点を、RTX Sparkの中心的な利点として打ち出している。Hermes AgentやNemoClawの設計図でエージェントを構築し、Unslothで対応モデルをファインチューニングできる。Hermesで利用できるSwitchyardは、日常のタスクをデバイス上で、高度な推論はクラウドで、と自動で振り分ける。\nただし、恩恵が及ぶのはローカルで処理する作業に限られる。ワークフロー全体が自動で安くなるわけではなく、クラウドモデルを使う高度な推論には引き続き料金がかかる。NVIDIAの発表文に価格の記載はない。導入を検討する際は機種ごとの価格と、使用予定のモデルでの処理速度を確認したい。"
+      },
+      {
+        "title": "創作ソフトとWindowsの土台も同時に拡充",
+        "body": "ハードウェアと並行して、ソフトウェア面の拡充も進む。Adobe PremiereはTensorRT-RTXでAI機能を加速し、PhotoshopはRemove Toolの高速化とネイティブのCamera Raw対応、Substance 3D Painter 12.2はRTX Sparkに初めてネイティブ対応した。IllustratorとInDesignもWindows on Armのネイティブ版が提供され、Illustratorはエミュレーション版より最大30%高速だという。\nBlender 5.3はDLSS 4.5 Ray ReconstructionをCyclesビューポートに統合し、ほぼ最終品質に近いライティングを対話的に確認できる。Microsoft Igniteで発表された動きとしては、Windows Server 2028がDGX Station for Windowsに対応し、Windows MLではHugging FaceのGGUFモデルをllama.cppバックエンドで動かせるようになった。ローカルAIの受け皿として、Windows側の整備も進んでいる。"
+      },
+      {
+        "title": "読者への具体的な影響",
+        "body": "企業と開発者にとって、読むべきは3点ある。第1に、AIエージェントの置き場所が変わる。常時稼働のエージェントや定時実行タスクを、クラウドの仮想マシンではなく机上の専用機に置く選択肢ができた。機密性の高い資料を扱う業務では、データを社内・手元に留める利点が大きい。第2に、コスト構造の見直しだ。ローカル処理分は従量課金が消えるが、本体価格は高額で、どの作業をローカルに寄せるかの設計が要る。第3に、開発環境の変化だ。Windows MLでのGGUF対応やWSL経由のLinux開発ツールにより、オープンなモデルをWindows上で動かす敷居が下がり、プロトタイピングや小規模な推論の現場で選択肢が広がる。"
+      },
+      {
+        "title": "不確実性・留保",
+        "body": "仕様・性能はNVIDIAの公表値。実行できるモデルや速度は、構成やモデルの量子化などに左右される。クラウドへルーティングする設定では、使用データの送信先と料金も別途確認が必要だ。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story",
+      "facebook"
+    ],
+    "publication_key": "cb9c5087a1beae486507f00248f8162eb4d5fd3f56b76d6c4b085431257faefb",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261118-openai-amd-chip-design-14ppa",
     "title": "OpenAI、AMDのGPU回路設計で最大14%のPPA改善を報告──一部を製造向け設計へ反映",
     "summary": "OpenAIは、AMDの主力GPU向け回路の一部で、電力・性能・面積（PPA）の設計指標が最大14%改善したと報告した。同社によると、AMDはモデルが提案した変更の一部を製造に送る設計に組み込んだ。AIの提案を採用するには、従来の設計ツールを使い、元の回路と同じ動作をするか確かめる工程が要る。",

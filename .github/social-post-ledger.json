@@ -6041,7 +6041,9 @@
     },
     "facebook": {
       "status": "attempting",
-      "updated_at": "2026-11-19T15:13:04+00:00"
+      "updated_at": "2026-11-19T15:13:06+00:00",
+      "stage": "publish_requested",
+      "container_id": ""
     }
   }
 }

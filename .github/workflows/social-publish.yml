@@ -32,7 +32,7 @@ on:
     - cron: '6,36 * * * *'
 
 env:
-  SOCIAL_PAUSED_PLATFORMS: ${{ vars.SOCIAL_PAUSED_PLATFORMS || 'instagram' }}
+  SOCIAL_LOAD_OPERATOR_PAUSE: 'true'
   FACEBOOK_PUBLISH_ENABLED: ${{ vars.FACEBOOK_PUBLISH_ENABLED }}
 
 permissions:

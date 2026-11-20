@@ -5,10 +5,12 @@ import unittest
 from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import patch
+from urllib.parse import urlencode
 from scripts import facebook_channel as fb
 from scripts import publish_social as social
 from scripts.check_social_channel_outcomes import evaluate
 from scripts.social_queue import batch_ids, backlog_report
+from scripts.reconcile_social_recovery import reconcile_facebook
 
 NOW = datetime(2026, 11, 19, 0, 0, tzinfo=timezone.utc)
 ARTICLE = dict(id='fresh-facebook', title='公式発表のタイトル', summary='重要な条件を照合した要約です。',
@@ -85,6 +87,40 @@ class FacebookTests(unittest.TestCase):
                        {'message':'different'}, {'permalink_url':'https://facebook.com.evil/post'},
                        {'attachments':{'data':[]}}]:
             self.assertFalse(fb.matches(ARTICLE, [{**LIVE, **change}], URL))
+
+    def test_feed_card_can_move_url_out_of_message_and_use_facebook_shim(self):
+        shim = 'https://l.facebook.com/l.php?' + urlencode({'u': URL+'?fbclid=abc', 'h': 'example'})
+        observed = {**LIVE, 'message': ARTICLE['title']+'\n\n'+ARTICLE['summary'],
+                    'attachments': {'data': [{'url': shim}]}}
+        self.assertEqual(fb.matches(ARTICLE, [observed], URL)[0]['id'], POST_ID)
+        for link in [shim.replace('l.facebook.com', 'l.facebook.com.invalid'),
+                     shim + '&u=' + URL, shim.replace('/l.php', '/else'),
+                     'https://l.facebook.com/l.php?' + urlencode({'u': URL+'?utm_source=test'})]:
+            self.assertFalse(fb.matches(ARTICLE, [{**observed, 'attachments': {'data':[{'url':link}]}}], URL))
+        with self.assertRaises(RuntimeError):
+            fb.existing(lambda *a, **k: {'data':[{**observed, 'message':'conflict'}]}, ARTICLE, 'test', URL)
+
+    def test_followup_reads_recorded_post_id_without_rearming_unknowns(self):
+        receipt = dict(status='needs_review', stage='publish_response_received', container_id=POST_ID)
+        unknown = dict(status='needs_review')
+        unseen = {**ARTICLE, 'id':'pre-send-failure'}
+        ledger = Ledger({'facebook':receipt})
+        ledger.rows[unseen['id']] = {'facebook':unknown}
+        def api(url, **kwargs):
+            self.assertEqual(kwargs.get('method', 'GET'), 'GET')
+            return {'id':fb.PAGE_ID,'name':'WORK-SIGNAL.jp'} if '/me?' in url else LIVE
+        with (
+            patch.object(social, 'request_json', side_effect=api) as request,
+            patch('scripts.reconcile_social_recovery.save_verified') as save,
+        ):
+            reconcile_facebook(ledger, [ARTICLE, unseen], 'test')
+        self.assertEqual(request.call_count, 2)
+        self.assertEqual(save.call_count, 1)
+        _, aid, platform, expected, replacement = save.call_args.args
+        self.assertEqual((aid, platform, expected), (ARTICLE['id'], 'facebook', receipt))
+        self.assertEqual(replacement['status'], 'published')
+        self.assertEqual(replacement['remote_id'], POST_ID)
+        self.assertEqual(ledger.rows[unseen['id']]['facebook'], unknown)
 
     def test_incomplete_pagination_or_conflicting_duplicate_withholds(self):
         def api(*args, **kwargs):

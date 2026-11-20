@@ -233,5 +233,81 @@ def main():
     return 0 if all(result["accounts"].get(k, {}).get("verified") for k in required) else 1
 
 
+
+def facebook_reconciliation_evidence():
+    """Read a complete Page history and check only the eight reviewed article IDs."""
+    import re
+    from urllib.parse import parse_qs, urlsplit
+
+    targets = ["20261118-nvidia-rtx-spark-compact-desktops","20261118-openai-amd-chip-design-14ppa","20261118-google-gemini-4-neon-coding-science","20261118-fomc-minutes-october-ai-debt-risks","20261118-anthropic-ipo-priced-83-biggest-ever","20261120-openai-performance-factory-regression","20261120-gemini-tool-retrieval-on-demand","20261117-anthropic-claude-linked-billing"]
+    articles = {row["id"]: row for row in json.loads(
+        (social.ROOT / "data/articles.json").read_text())}
+    ledger = social.GithubLedger(os.environ["GITHUB_REPOSITORY"], os.environ["GITHUB_TOKEN"])
+    rows, _ = ledger.read()
+    token = os.environ["FACEBOOK_PAGE_ACCESS_TOKEN"]
+    profile = social.facebook.verify_account(social.request_json, token)
+    items = social.facebook.history(social.request_json, token)
+    by_id = {item["id"]: item for item in items}
+    if len(by_id) != len(items):
+        raise RuntimeError("Duplicate post IDs in Facebook history")
+
+    def link_matches(url, canonical):
+        if social.facebook.canonical_link(url, canonical):
+            return True
+        parsed = urlsplit(url)
+        if (parsed.scheme == "https" and parsed.hostname in
+                ("l.facebook.com", "lm.facebook.com", "www.facebook.com", "facebook.com")
+                and parsed.path == "/l.php" and not parsed.username and not parsed.password):
+            links = parse_qs(parsed.query).get("u", [])
+            return len(links) == 1 and social.facebook.canonical_link(links[0], canonical)
+        return False
+
+    def facts(item, article, canonical):
+        message = str(item.get("message") or "")
+        urls = social.facebook.attachment_urls(item)
+        permalink = item.get("permalink_url")
+        return {
+            "id": item["id"],
+            "page_author_matches": str((item.get("from") or {}).get("id", "")) == profile["id"],
+            "published_flag": item.get("is_published"),
+            "body_matches": message == social.facebook.text(article, canonical),
+            "title_visible": article["title"].strip() in message,
+            "canonical_url_in_body": any(link_matches(url, canonical) for url in re.findall(r"https://[^\s<>]+", message)),
+            "canonical_attachment": any(social.facebook.canonical_link(link, canonical) for link in urls),
+            "canonical_attachment_or_shim": any(link_matches(link, canonical) for link in urls),
+            "permalink": permalink if social.facebook.safe_permalink(permalink) else None,
+        }
+
+    report = {"checked_at": social.now(), "page_id": profile["id"], "history_complete": True,
+              "history_post_count": len(items), "articles": {}}
+    for aid in targets:
+        article = articles[aid]
+        canonical = social.article_url(article)
+        entry = rows.get(aid, {}).get("facebook", {})
+        expected_id = entry.get("remote_id") or entry.get("container_id")
+        known = by_id.get(expected_id)
+        indexed = [facts(item, article, canonical) for item in items]
+        candidates = [x for x in indexed if x["canonical_url_in_body"]
+                      or x["canonical_attachment_or_shim"] or x["title_visible"]]
+        report["articles"][aid] = {"canonical_url": canonical, "expected_id": expected_id,
+                                   "matched_history_id": facts(known, article, canonical) if known else None,
+                                   "candidates": candidates}
+        if expected_id:
+            try:
+                item = social.request_json(social.facebook.API + "/" + expected_id + "?" +
+                                           urlencode({"fields": social.facebook.FIELDS}), token=token)
+                if item.get("id") == expected_id:
+                    report["articles"][aid]["current_exact_id"] = facts(item, article, canonical)
+            except social.MetaAPIError as exc:
+                report["articles"][aid]["exact_id_error"] = {
+                    "http_status": exc.http_status, "code": exc.code, "subcode": exc.subcode
+                }
+            except (RuntimeError, OSError, ValueError, TypeError, KeyError) as exc:
+                report["articles"][aid]["exact_id_error"] = {"type": type(exc).__name__}
+    (social.ROOT / "social-delivery-audit.json").write_text(
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+    print("FACEBOOK_RECONCILIATION_AUDIT", json.dumps(report, ensure_ascii=False))
+    return 0
+
 if __name__ == "__main__":
-    raise SystemExit(main())
+    raise SystemExit(facebook_reconciliation_evidence())

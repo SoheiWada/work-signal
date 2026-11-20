@@ -3,12 +3,12 @@
   "provider": "balldontlie",
   "season": 2026,
   "throughDate": "2026-11-19",
-  "fetchedAt": "2026-11-19T19:02:34.320Z",
-  "lastAttemptAt": "2026-11-19T19:02:34.320Z",
+  "fetchedAt": "2026-11-20T03:29:28.307Z",
+  "lastAttemptAt": "2026-11-20T03:29:28.307Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 222,
+  "countedGames": 226,
   "standingsReason": null,
   "teams": [
     {
@@ -79,7 +79,7 @@
       "name": "Golden State Warriors",
       "conference": "West",
       "wins": 8,
-      "losses": 7
+      "losses": 8
     },
     {
       "code": "HOU",
@@ -100,7 +100,7 @@
       "name": "LA Clippers",
       "conference": "West",
       "wins": 4,
-      "losses": 9
+      "losses": 10
     },
     {
       "code": "LAL",
@@ -113,7 +113,7 @@
       "code": "MEM",
       "name": "Memphis Grizzlies",
       "conference": "West",
-      "wins": 11,
+      "wins": 12,
       "losses": 4
     },
     {
@@ -128,14 +128,14 @@
       "name": "Milwaukee Bucks",
       "conference": "East",
       "wins": 1,
-      "losses": 14
+      "losses": 15
     },
     {
       "code": "MIN",
       "name": "Minnesota Timberwolves",
       "conference": "West",
       "wins": 11,
-      "losses": 4
+      "losses": 5
     },
     {
       "code": "NOP",
@@ -148,7 +148,7 @@
       "code": "NYK",
       "name": "New York Knicks",
       "conference": "East",
-      "wins": 8,
+      "wins": 9,
       "losses": 6
     },
     {
@@ -183,7 +183,7 @@
       "code": "POR",
       "name": "Portland Trail Blazers",
       "conference": "West",
-      "wins": 9,
+      "wins": 10,
       "losses": 5
     },
     {
@@ -197,7 +197,7 @@
       "code": "SAS",
       "name": "San Antonio Spurs",
       "conference": "West",
-      "wins": 12,
+      "wins": 13,
       "losses": 3
     },
     {
@@ -223,6 +223,48 @@
     }
   ],
   "sets": [
+    [
+      {
+        "id": "21718146",
+        "date": "2026-11-19",
+        "home": "SAS",
+        "away": "LAC",
+        "homeScore": 124,
+        "awayScore": 112,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718145",
+        "date": "2026-11-19",
+        "home": "MIN",
+        "away": "NYK",
+        "homeScore": 99,
+        "awayScore": 102,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718144",
+        "date": "2026-11-19",
+        "home": "MIL",
+        "away": "POR",
+        "homeScore": 114,
+        "awayScore": 124,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718143",
+        "date": "2026-11-19",
+        "home": "MEM",
+        "away": "GSW",
+        "homeScore": 126,
+        "awayScore": 98,
+        "competition": "regular",
+        "countsForStandings": true
+      }
+    ],
     [
       {
         "id": "21718142",
@@ -711,48 +753,6 @@
         "away": "NYK",
         "homeScore": 106,
         "awayScore": 104,
-        "competition": "regular",
-        "countsForStandings": true
-      }
-    ],
-    [
-      {
-        "id": "21718094",
-        "date": "2026-11-12",
-        "home": "PHX",
-        "away": "CHA",
-        "homeScore": 101,
-        "awayScore": 96,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21718093",
-        "date": "2026-11-12",
-        "home": "MIN",
-        "away": "DAL",
-        "homeScore": 133,
-        "awayScore": 94,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21718092",
-        "date": "2026-11-12",
-        "home": "WAS",
-        "away": "DET",
-        "homeScore": 140,
-        "awayScore": 144,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21718091",
-        "date": "2026-11-12",
-        "home": "PHI",
-        "away": "TOR",
-        "homeScore": 123,
-        "awayScore": 112,
         "competition": "regular",
         "countsForStandings": true
       }

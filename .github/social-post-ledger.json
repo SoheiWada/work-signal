@@ -6297,10 +6297,12 @@
   },
   "20261120-openai-codex-sandbox-permission-boundaries": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-20T03:12:25+00:00",
+      "status": "published",
+      "updated_at": "2026-11-20T03:12:27+00:00",
       "stage": "publish_requested",
-      "container_id": "18122067199988838"
+      "container_id": "18122067199988838",
+      "remote_id": "18122067199988838",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df8qVrHlfeY"
     }
   }
 }

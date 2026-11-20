@@ -6040,10 +6040,19 @@
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4033923429334824925"
     },
     "facebook": {
-      "status": "needs_review",
-      "updated_at": "2026-11-19T15:13:14+00:00",
+      "status": "published",
+      "updated_at": "2026-11-20T01:06:22.211Z",
       "stage": "publish_response_received",
-      "container_id": "1522891270900103_122109339663543397"
+      "container_id": "1522891270900103_122109339663543397",
+      "remote_id": "1522891270900103_122109339663543397",
+      "reconciled_at": "2026-11-20T01:06:22.211Z",
+      "recovery_review_id": "2026-11-20-facebook-owner-confirmed-seven",
+      "previous_attempt": {
+        "status": "needs_review",
+        "updated_at": "2026-11-19T15:13:14+00:00",
+        "stage": "publish_response_received",
+        "container_id": "1522891270900103_122109339663543397"
+      }
     }
   },
   "20261118-openai-amd-chip-design-14ppa": {
@@ -6064,10 +6073,19 @@
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4033923794893570451"
     },
     "facebook": {
-      "status": "needs_review",
-      "updated_at": "2026-11-19T15:13:55+00:00",
+      "status": "published",
+      "updated_at": "2026-11-20T01:06:22.211Z",
       "stage": "publish_response_received",
-      "container_id": "1522891270900103_122109340029543397"
+      "container_id": "1522891270900103_122109340029543397",
+      "remote_id": "1522891270900103_122109340029543397",
+      "reconciled_at": "2026-11-20T01:06:22.211Z",
+      "recovery_review_id": "2026-11-20-facebook-owner-confirmed-seven",
+      "previous_attempt": {
+        "status": "needs_review",
+        "updated_at": "2026-11-19T15:13:55+00:00",
+        "stage": "publish_response_received",
+        "container_id": "1522891270900103_122109340029543397"
+      }
     }
   },
   "20261118-google-gemini-4-neon-coding-science": {
@@ -6088,10 +6106,19 @@
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4033924138541308665"
     },
     "facebook": {
-      "status": "needs_review",
-      "updated_at": "2026-11-19T15:14:38+00:00",
+      "status": "published",
+      "updated_at": "2026-11-20T01:06:22.211Z",
       "stage": "publish_response_received",
-      "container_id": "1522891270900103_122109340407543397"
+      "container_id": "1522891270900103_122109340407543397",
+      "remote_id": "1522891270900103_122109340407543397",
+      "reconciled_at": "2026-11-20T01:06:22.211Z",
+      "recovery_review_id": "2026-11-20-facebook-owner-confirmed-seven",
+      "previous_attempt": {
+        "status": "needs_review",
+        "updated_at": "2026-11-19T15:14:38+00:00",
+        "stage": "publish_response_received",
+        "container_id": "1522891270900103_122109340407543397"
+      }
     }
   },
   "20261118-fomc-minutes-october-ai-debt-risks": {
@@ -6112,10 +6139,19 @@
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4033924497221418837"
     },
     "facebook": {
-      "status": "needs_review",
-      "updated_at": "2026-11-19T15:15:20+00:00",
+      "status": "published",
+      "updated_at": "2026-11-20T01:06:22.211Z",
       "stage": "publish_response_received",
-      "container_id": "1522891270900103_122109340701543397"
+      "container_id": "1522891270900103_122109340701543397",
+      "remote_id": "1522891270900103_122109340701543397",
+      "reconciled_at": "2026-11-20T01:06:22.211Z",
+      "recovery_review_id": "2026-11-20-facebook-owner-confirmed-seven",
+      "previous_attempt": {
+        "status": "needs_review",
+        "updated_at": "2026-11-19T15:15:20+00:00",
+        "stage": "publish_response_received",
+        "container_id": "1522891270900103_122109340701543397"
+      }
     }
   },
   "20261118-anthropic-ipo-priced-83-biggest-ever": {
@@ -6136,10 +6172,19 @@
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4033924867419077282"
     },
     "facebook": {
-      "status": "needs_review",
-      "updated_at": "2026-11-19T15:16:03+00:00",
+      "status": "published",
+      "updated_at": "2026-11-20T01:06:22.211Z",
       "stage": "publish_response_received",
-      "container_id": "1522891270900103_122109340857543397"
+      "container_id": "1522891270900103_122109340857543397",
+      "remote_id": "1522891270900103_122109340857543397",
+      "reconciled_at": "2026-11-20T01:06:22.211Z",
+      "recovery_review_id": "2026-11-20-facebook-owner-confirmed-seven",
+      "previous_attempt": {
+        "status": "needs_review",
+        "updated_at": "2026-11-19T15:16:03+00:00",
+        "stage": "publish_response_received",
+        "container_id": "1522891270900103_122109340857543397"
+      }
     }
   },
   "20261117-anthropic-claude-linked-billing": {
@@ -6182,10 +6227,19 @@
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4034135962117464915"
     },
     "facebook": {
-      "status": "needs_review",
-      "updated_at": "2026-11-19T22:15:32+00:00",
+      "status": "published",
+      "updated_at": "2026-11-20T01:06:22.211Z",
       "stage": "publish_response_received",
-      "container_id": "1522891270900103_122109492315543397"
+      "container_id": "1522891270900103_122109492315543397",
+      "remote_id": "1522891270900103_122109492315543397",
+      "reconciled_at": "2026-11-20T01:06:22.211Z",
+      "recovery_review_id": "2026-11-20-facebook-owner-confirmed-seven",
+      "previous_attempt": {
+        "status": "needs_review",
+        "updated_at": "2026-11-19T22:15:32+00:00",
+        "stage": "publish_response_received",
+        "container_id": "1522891270900103_122109492315543397"
+      }
     }
   },
   "20261120-gemini-tool-retrieval-on-demand": {
@@ -6206,10 +6260,19 @@
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4034164166385826384"
     },
     "facebook": {
-      "status": "needs_review",
-      "updated_at": "2026-11-19T23:11:28+00:00",
+      "status": "published",
+      "updated_at": "2026-11-20T01:06:22.211Z",
       "stage": "publish_response_received",
-      "container_id": "1522891270900103_122109508641543397"
+      "container_id": "1522891270900103_122109508641543397",
+      "remote_id": "1522891270900103_122109508641543397",
+      "reconciled_at": "2026-11-20T01:06:22.211Z",
+      "recovery_review_id": "2026-11-20-facebook-owner-confirmed-seven",
+      "previous_attempt": {
+        "status": "needs_review",
+        "updated_at": "2026-11-19T23:11:28+00:00",
+        "stage": "publish_response_received",
+        "container_id": "1522891270900103_122109508641543397"
+      }
     }
   }
 }

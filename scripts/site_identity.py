@@ -33,5 +33,11 @@ def publisher_identity():
             "@id": "https://signal.amberlight.co.jp/about/#operator",
             "name": "アンバーライト合同会社"
         },
-        "publishingPrinciples": "https://signal.amberlight.co.jp/about/#editorial-policy"
+        "publishingPrinciples": "https://signal.amberlight.co.jp/about/#editorial-policy",
+        "founder": {
+            "@type": "Person",
+            "@id": "https://signal.amberlight.co.jp/about/#editor-in-chief",
+            "name": "和田壮平",
+            "jobTitle": "編集責任者"
+        }
     }

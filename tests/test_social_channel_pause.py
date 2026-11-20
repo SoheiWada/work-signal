@@ -21,6 +21,12 @@ class Ledger:
 
 
 class ChannelPauseTests(unittest.TestCase):
+    def test_workflow_pause_uses_shared_file_and_explicit_step_override(self):
+        with patch.dict(os.environ, {"SOCIAL_LOAD_OPERATOR_PAUSE": "true"}, clear=True):
+            self.assertEqual(social.paused_platforms(), {"instagram"})
+            os.environ["SOCIAL_PAUSED_PLATFORMS"] = ""
+            self.assertFalse(social.paused_platforms())
+
     def setUp(self):
         env = patch.dict(os.environ, {"SOCIAL_PAUSED_PLATFORMS":"instagram,instagram_story"})
         env.start()

@@ -31,10 +31,8 @@ on:
   schedule:
     - cron: '6,36 * * * *'
 
-# Owner confirmed Instagram feed restored on 2026-11-06 JST and requested all
-# three media. Keep the operational pause available for a future explicit stop.
 env:
-  SOCIAL_PAUSED_PLATFORMS: 'instagram'
+  SOCIAL_LOAD_OPERATOR_PAUSE: 'true'
   FACEBOOK_PUBLISH_ENABLED: ${{ vars.FACEBOOK_PUBLISH_ENABLED }}
 
 permissions:
@@ -116,6 +114,14 @@ jobs:
           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
           INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
         run: python scripts/reconcile_social_recovery.py
+      - name: Confirm recorded Facebook post IDs without publishing
+        if: inputs.article_ids == '' && vars.FACEBOOK_PUBLISH_ENABLED == 'true'
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          FACEBOOK_PAGE_ACCESS_TOKEN: ${{ secrets.FACEBOOK_PAGE_ACCESS_TOKEN }}
+        run: python scripts/reconcile_social_recovery.py --facebook
       - name: Choose a bounded batch from the durable approved backlog
         id: scheduled
         env:

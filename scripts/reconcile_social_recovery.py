@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Reconcile only owner-reviewed delivery failures; never publish from this script."""
+"""Confirm positive Facebook evidence or process owner-reviewed recoveries. No Meta writes."""
+import argparse
 import base64
 import json
 import os
@@ -21,6 +22,10 @@ def save_verified(ledger, aid, kind, expected, replacement):
     current = rows.get(aid, {}).get(kind)
     if current != expected or current.get("status") != "needs_review":
         raise RuntimeError("Recovery lease changed; do not overwrite publication history")
+    if kind == "facebook" and any(other != aid and
+            (entry.get("facebook") or {}).get("remote_id") == replacement["remote_id"]
+            for other, entry in rows.items()):
+        raise RuntimeError("Facebook post ID is already recorded against another article")
     replacement["previous_attempt"] = expected
     rows[aid][kind] = replacement
     payload = {"message": "Reconcile verified social delivery " + aid + " " + kind,
@@ -59,7 +64,45 @@ def recovery_update(old, found, review_id, kind, visual=None):
             "recovery_review_id": review_id}
 
 
+def reconcile_facebook(ledger, articles, token):
+    rows, _ = ledger.read()
+    targets = []
+    for article in articles:
+        entry = rows.get(article["id"], {}).get("facebook", {})
+        remote = entry.get("container_id")
+        if (entry.get("status") == "needs_review" and entry.get("stage") == "publish_response_received"
+                and social.facebook.valid_id(remote) and article.get("social_publish") is True
+                and "facebook" in social.requested_platforms(article)):
+            targets.append((article, entry, remote))
+    if not targets:
+        return
+    social.facebook.verify_account(social.request_json, token)
+    # Bound the work per cycle and rotate through any unresolved backlog.
+    offset = int(datetime.now(timezone.utc).timestamp() // 1800) * 10 % len(targets)
+    for article, entry, remote in (targets[offset:] + targets[:offset])[:10]:
+        aid = article["id"]
+        try:
+            live = social.facebook.verify(social.request_json, article, token, social.article_url(article), remote)
+        except (RuntimeError, ValueError, TypeError, KeyError, AttributeError, OSError):
+            print("FACEBOOK_RECONCILIATION_HOLD", aid, "positive proof unavailable")
+            continue
+        stamp = social.now()
+        replacement = {**entry, "status": "published", "updated_at": stamp,
+                       "remote_id": live["id"], "permalink": live["permalink"],
+                       "reconciled_at": stamp}
+        save_verified(ledger, aid, "facebook", entry, replacement)
+        print("RECONCILED", aid, "facebook", "published")
+
+
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--facebook", action="store_true")
+    args = parser.parse_args()
+    if args.facebook:
+        articles = json.loads((social.ROOT / "data/articles.json").read_text())
+        ledger = social.GithubLedger(os.environ["GITHUB_REPOSITORY"], os.environ["GITHUB_TOKEN"])
+        reconcile_facebook(ledger, articles, os.environ["FACEBOOK_PAGE_ACCESS_TOKEN"])
+        return
     path = social.ROOT / ".github/social-recovery-review.json"
     if not path.is_file():
         print("No explicit recovery review. No reconciliation writes.")

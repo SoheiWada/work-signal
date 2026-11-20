@@ -644,9 +644,15 @@ def requested_platforms(article):
 
 def paused_platforms():
     """An explicit operator pause retains requested media and all ledger evidence."""
-    value = os.getenv("SOCIAL_PAUSED_PLATFORMS", "")
-    selected = [p.strip() for p in value.split(",") if p.strip()]
-    if any(p not in SOCIAL_PLATFORMS for p in selected):
+    value = os.getenv("SOCIAL_PAUSED_PLATFORMS")
+    if value is None and os.getenv("SOCIAL_LOAD_OPERATOR_PAUSE") == "true":
+        try:
+            selected = json.loads((ROOT / ".github/social-operator-pause.json").read_text())["paused_platforms"]
+        except (OSError, ValueError, KeyError, TypeError):
+            raise RuntimeError("Operator channel pause unavailable; no delivery authorized") from None
+    else:
+        selected = [p.strip() for p in (value or "").split(",") if p.strip()]
+    if not isinstance(selected, list) or any(p not in SOCIAL_PLATFORMS for p in selected):
         raise RuntimeError("Invalid operator channel pause; no delivery authorized")
     return frozenset(selected)
 
@@ -1004,6 +1010,8 @@ def run(articles, ledger, credentials):
                                           next_attempt_at=(datetime.now(timezone.utc) + timedelta(hours=1)).isoformat(timespec="seconds"))
                         else:
                             metadata = {"error": exc.metadata()} if isinstance(exc, MetaAPIError) else {}
+                            if kind == "facebook" and not publish_requested:
+                                metadata["reason"] = "facebook_publish_not_sent"
                             if action_block:
                                 metadata["reason"] = "instagram_protective_action_block"
                                 metadata["action_block_hold"] = True

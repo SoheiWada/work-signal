@@ -90,6 +90,22 @@ def canonical_link(value, canonical):
         return False
 
 
+def attachment_link(value, canonical):
+    if canonical_link(value, canonical):
+        return True
+    try:
+        shim = urlsplit(value)
+        if (shim.scheme != 'https' or shim.hostname not in
+                ('l.facebook.com', 'lm.facebook.com', 'www.facebook.com', 'facebook.com')
+                or shim.path != '/l.php' or shim.username or shim.password or shim.fragment
+                or shim.port not in (None, 443)):
+            return False
+        targets = [v for k, v in parse_qsl(shim.query, keep_blank_values=True) if k == 'u']
+        return len(targets) == 1 and canonical_link(targets[0], canonical)
+    except (TypeError, ValueError, AttributeError):
+        return False
+
+
 def attachment_urls(item):
     result = []
     def visit(node, depth=0):
@@ -111,12 +127,15 @@ def attachment_urls(item):
 
 def matches(article, items, canonical):
     body = text(article, canonical)
+    body_without_card_url = body.rsplit('\n\n', 1)[0]
     found = []
     for item in items:
+        message = item.get('message')
         if (valid_id(item.get('id')) and str((item.get('from') or {}).get('id', '')) == PAGE_ID
-                and item.get('is_published') is True and item.get('message') == body
+                and item.get('is_published') is True and isinstance(message, str)
+                and message.replace('\r\n', '\n').rstrip() in (body, body_without_card_url)
                 and safe_permalink(item.get('permalink_url'))
-                and any(canonical_link(url, canonical) for url in attachment_urls(item))):
+                and any(attachment_link(url, canonical) for url in attachment_urls(item))):
             found.append({**item, 'permalink': item['permalink_url']})
     return found
 
@@ -147,7 +166,7 @@ def history(request, token):
 def existing(request, article, token, canonical):
     items = history(request, token)
     found = matches(article, items, canonical)
-    linked = [item for item in items if any(canonical_link(url, canonical) for url in
+    linked = [item for item in items if any(attachment_link(url, canonical) for url in
               attachment_urls(item) + re.findall(r"https://[^\s]+", str(item.get('message') or '')))]
     if len(linked) != len(found):
         raise RuntimeError('Existing Facebook article link has conflicting/unverified content; manual review required')

@@ -6298,7 +6298,9 @@
   "20261120-openai-codex-sandbox-permission-boundaries": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-20T03:12:16+00:00"
+      "updated_at": "2026-11-20T03:12:25+00:00",
+      "stage": "publish_requested",
+      "container_id": "18122067199988838"
     }
   }
 }

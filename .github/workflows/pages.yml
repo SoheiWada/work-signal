@@ -63,6 +63,7 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_approved_social_event.py'
           python3 -m unittest discover -s tests -p 'test_scheduled_social.py'
           python3 -m unittest discover -s tests -p 'test_seo_metadata.py'
+          python3 -m unittest discover -s tests -p 'test_indexnow.py'
           python3 -m unittest discover -s tests -p 'test_publication_timeline.py'
           python3 -m unittest discover -s tests -p 'test_market_assets.py'
           python3 -m unittest discover -s tests -p 'test_market_preview.py'
@@ -85,6 +86,15 @@ jobs:
           path: article-discovery-browser
           retention-days: 7
           if-no-files-found: ignore
+      - name: Save approved IndexNow input
+        if: github.ref == 'refs/heads/main'
+        continue-on-error: true
+        uses: actions/upload-artifact@v7
+        with:
+          name: indexnow-approved-feed
+          path: _site/data/articles.json
+          retention-days: 2
+          if-no-files-found: error
       - uses: actions/upload-pages-artifact@v5
         with:
           path: _site

@@ -6052,7 +6052,9 @@
         "updated_at": "2026-11-19T15:13:14+00:00",
         "stage": "publish_response_received",
         "container_id": "1522891270900103_122109339663543397"
-      }
+      },
+      "permalink": "https://www.facebook.com/122108994201543397/posts/122109339663543397",
+      "verified_at": "2026-11-20T01:10:39+00:00"
     }
   },
   "20261118-openai-amd-chip-design-14ppa": {
@@ -6085,7 +6087,9 @@
         "updated_at": "2026-11-19T15:13:55+00:00",
         "stage": "publish_response_received",
         "container_id": "1522891270900103_122109340029543397"
-      }
+      },
+      "permalink": "https://www.facebook.com/122108994201543397/posts/122109340029543397",
+      "verified_at": "2026-11-20T01:10:39+00:00"
     }
   },
   "20261118-google-gemini-4-neon-coding-science": {
@@ -6118,7 +6122,9 @@
         "updated_at": "2026-11-19T15:14:38+00:00",
         "stage": "publish_response_received",
         "container_id": "1522891270900103_122109340407543397"
-      }
+      },
+      "permalink": "https://www.facebook.com/122108994201543397/posts/122109340407543397",
+      "verified_at": "2026-11-20T01:10:39+00:00"
     }
   },
   "20261118-fomc-minutes-october-ai-debt-risks": {
@@ -6151,7 +6157,9 @@
         "updated_at": "2026-11-19T15:15:20+00:00",
         "stage": "publish_response_received",
         "container_id": "1522891270900103_122109340701543397"
-      }
+      },
+      "permalink": "https://www.facebook.com/122108994201543397/posts/122109340701543397",
+      "verified_at": "2026-11-20T01:10:39+00:00"
     }
   },
   "20261118-anthropic-ipo-priced-83-biggest-ever": {
@@ -6184,7 +6192,9 @@
         "updated_at": "2026-11-19T15:16:03+00:00",
         "stage": "publish_response_received",
         "container_id": "1522891270900103_122109340857543397"
-      }
+      },
+      "permalink": "https://www.facebook.com/122108994201543397/posts/122109340857543397",
+      "verified_at": "2026-11-20T01:10:39+00:00"
     }
   },
   "20261117-anthropic-claude-linked-billing": {
@@ -6206,7 +6216,13 @@
     },
     "facebook": {
       "status": "needs_review",
-      "updated_at": "2026-11-19T15:18:53+00:00"
+      "updated_at": "2026-11-20T01:11:52.875Z",
+      "reviewed_at": "2026-11-20T01:10:39+00:00",
+      "review_reason": "facebook_publish_not_sent_claim_check_failed",
+      "review_error": "No active publication claim",
+      "review_workflow_run_id": 44552117219,
+      "review_workflow_run_attempt": 2,
+      "review_audit_run_id": 44651588792
     }
   },
   "20261120-openai-performance-factory-regression": {
@@ -6239,7 +6255,9 @@
         "updated_at": "2026-11-19T22:15:32+00:00",
         "stage": "publish_response_received",
         "container_id": "1522891270900103_122109492315543397"
-      }
+      },
+      "permalink": "https://www.facebook.com/122108994201543397/posts/122109492315543397",
+      "verified_at": "2026-11-20T01:10:39+00:00"
     }
   },
   "20261120-gemini-tool-retrieval-on-demand": {
@@ -6272,7 +6290,9 @@
         "updated_at": "2026-11-19T23:11:28+00:00",
         "stage": "publish_response_received",
         "container_id": "1522891270900103_122109508641543397"
-      }
+      },
+      "permalink": "https://www.facebook.com/122108994201543397/posts/122109508641543397",
+      "verified_at": "2026-11-20T01:10:39+00:00"
     }
   }
 }

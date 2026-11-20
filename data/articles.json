@@ -1,5 +1,38 @@
 [
   {
+    "id": "20261120-openai-codex-sandbox-permission-boundaries",
+    "title": "Codexのサンドボックス設計をOpenAIが解説──ネットワーク遮断と読み取り権限の注意点",
+    "summary": "OpenAIは11月18日、Codexが端末上でコマンドを実行する際のサンドボックス設計を公開した。既定のworkspace権限では作業領域への書き込みを許す一方、ネットワーク接続を遮断する。ただしファイルの読み取りは作業領域の外にも及ぶ場合があり、隔離だけで機密情報や実行環境のリスクが消えるわけではない。",
+    "category": "AI",
+    "score": 86,
+    "published_at": "2026-11-20",
+    "published_at_time": "2026-11-20T03:03:53.009Z",
+    "source_url": "https://openai.com/index/inside-the-codex-sandbox/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは11月18日、Codexが端末上でコマンドを実行する際のサンドボックス設計を公開した。既定のworkspace権限では作業領域への書き込みを許す一方、ネットワーク接続を遮断する。ただしファイルの読み取りは作業領域の外にも及ぶ場合があり、隔離だけで機密情報や実行環境のリスクが消えるわけではない。",
+    "sections": [
+      {
+        "title": "書き込みと通信を制限、読み取りは比較的広い",
+        "body": "OpenAIが2026年11月18日に公開した技術解説によると、Codexのworkspace権限プロファイルは、作業領域内の書き込みを許可しつつ、.gitや.codexなど一部のディレクトリを読み取り専用にする。ネットワーク接続は既定で無効となり、コマンドから外部へ直接アップロードする経路を制限する。一方、ビルドツールやSDKが作業領域外のファイルを必要とするため、OS権限の範囲で広い読み取りを許す設計だ。\n\nネットワーク遮断と機密ファイルの不可視化は同義ではない。業務利用では端末上の認証情報、作業ディレクトリ、ネットワーク例外を別々に点検する必要がある。"
+      },
+      {
+        "title": "サンドボックスだけでは防げないリスク",
+        "body": "公式解説は、エージェントがローカルの依存パッケージを書き換え、その後に別のアプリが当該コードを実行するような残余リスクを明示している。例えばGit管理対象外のnode_modulesに変更があってもgit statusには現れない場合がある。OpenAIはサンドボックスに加えて多層防御を採用すると説明する。\n\n実装はmacOS、Linux、WindowsのOS別隔離機構を共通APIで扱い、仮想マシンへの全面移行を前提としない。管理者は権限プロファイル、外部通信例外、端末上の機密情報を運用ルールに組み込むべきだ。全ての攻撃を防ぐという保証ではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story",
+      "facebook"
+    ],
+    "social_threads_text": "AIエージェントにPC上の作業を任せるなら、「何を編集できるか」と「何を読めるか」は分けて考える必要があります。OpenAIが11月18日に公開したCodexのサンドボックス解説では、既定のworkspace設定でネットワークを遮断し、書き込み先を制限。一方、SDKなどを利用するため作業領域外の読み取りは広く許す設計です。依存パッケージを書き換える残余リスクも明示されています。企業の導入前に確認したい権限設計を整理しました。\nhttps://signal.amberlight.co.jp/articles/20261120-openai-codex-sandbox-permission-boundaries/\nhttps://openai.com/index/inside-the-codex-sandbox/",
+    "publication_key": "09f4780527552bf0e6820df91c12c8d136ad7ca08b7197bed113d088db346c51",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261120-gemini-tool-retrieval-on-demand",
     "title": "Gemini APIに「Tool Retrieval」登場、AIエージェントのツール定義を必要時に読み込む",
     "summary": "Googleは2026年11月19日、Gemini APIのInteractions API向けに「Tool Retrieval」をプレビュー公開した。AIエージェントに多数の外部ツールを接続する際、すべての引数定義を毎回渡す代わりに、必要なツールのスキーマを呼び出し時に読み込む仕組みだ。トークン消費と応答時間の削減を狙うが、実際の効果はツール構成や利用頻度によって変わる。",

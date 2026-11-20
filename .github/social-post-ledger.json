@@ -6323,10 +6323,12 @@
   },
   "20261120-ruijie-command-injection-cve-2026-113347": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-20T05:29:21+00:00",
+      "status": "published",
+      "updated_at": "2026-11-20T05:29:23+00:00",
       "stage": "publish_requested",
-      "container_id": "18056301788816200"
+      "container_id": "18056301788816200",
+      "remote_id": "18056301788816200",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df86ARvAErA"
     }
   }
 }

@@ -8,6 +8,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+from time import sleep
 from urllib.parse import urlsplit
 
 try:
@@ -22,6 +23,10 @@ KEY_FILE = KEY + '.txt'
 HOST = urlsplit(BASE).netloc
 # Initial approved article snapshot, matched to the live feed before rollout.
 BOOTSTRAP_REVISION = '7e0a8d0b2b39f7ccbb42b4ec8c951a3babe79ae1'
+
+
+class LiveDeploymentPending(ValueError):
+    """The Pages artifact is deployed but the public edge has an older copy."""
 
 
 def read_json(path):
@@ -88,10 +93,10 @@ def submit(previous, deployed, deployment_id, fetch=request):
     query = '?indexnow_deploy=' + deployment_id
     status, body = fetch(HOST, 'GET', '/data/articles.json' + query)
     if status != 200 or article_snapshot(json.loads(body)) != deployed:
-        raise ValueError('The newly built article feed is not live yet')
+        raise LiveDeploymentPending('The newly built article feed is not live yet')
     status, body = fetch(HOST, 'GET', '/' + KEY_FILE + query)
     if status != 200 or body.strip() != KEY.encode('utf-8'):
-        raise ValueError('The IndexNow key file is not live yet')
+        raise LiveDeploymentPending('The IndexNow key file is not live yet')
     status, _ = fetch('api.indexnow.org', 'POST', '/IndexNow',
                       {'host': HOST, 'key': KEY, 'keyLocation': BASE + KEY_FILE, 'urlList': urls})
     if status not in (200, 202):
@@ -113,7 +118,16 @@ def main():
                 ['git', 'show', BOOTSTRAP_REVISION + ':data/articles.json'])
             previous = article_snapshot(json.loads(baseline))
         deployed = article_snapshot(read_json(args.feed))
-        status = submit(previous, deployed, args.deployment_id)
+        # Retry propagation checks only. A POST with an unknown outcome is left
+        # for the next successful deployment against the same saved baseline.
+        for delay in (2, 5):
+            try:
+                status = submit(previous, deployed, args.deployment_id)
+                break
+            except LiveDeploymentPending:
+                sleep(delay)
+        else:
+            status = submit(previous, deployed, args.deployment_id)
         if status is None:
             print('IndexNow: no new or changed articles')
             return

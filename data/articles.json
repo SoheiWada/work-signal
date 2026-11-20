@@ -1,5 +1,41 @@
 [
   {
+    "id": "20261120-ruijie-command-injection-cve-2026-113347",
+    "title": "Ruijie製無線機器にOSコマンド注入の脆弱性、JVNが注意喚起（CVE-2026-113347）",
+    "summary": "Ruijie Networksの業務用無線機器7モデルに、管理画面へのログイン権限を持つ攻撃者がOSコマンドを実行できる脆弱性が見つかった。JVNは2026年11月19日に国内向け情報を公開。開発元は11月12日に機種別の修正ファームウェアを提示しており、管理者は型番と現行バージョンを照合して更新する必要がある。",
+    "category": "SECURITY",
+    "score": 84,
+    "published_at": "2026-11-20",
+    "published_at_time": "2026-11-20T05:20:31.714Z",
+    "source_url": "https://jvn.jp/jp/JVN28897261/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Ruijie Networksの業務用無線機器7モデルに、管理画面へのログイン権限を持つ攻撃者がOSコマンドを実行できる脆弱性が見つかった。JVNは2026年11月19日に国内向け情報を公開。開発元は11月12日に機種別の修正ファームウェアを提示しており、管理者は型番と現行バージョンを照合して更新する必要がある。",
+    "sections": [
+      {
+        "title": "管理画面へのアクセス権が攻撃の前提",
+        "body": "JVN#28897261が公表したCVE-2026-113347は、Ruijieの一部無線機器で発生するOSコマンドインジェクションの脆弱性だ。開発元によると、機器のWeb管理画面へのログイン権限をすでに得た攻撃者がCLIを通じてコマンドを注入できる。匿名の外部利用者が無条件に攻撃できるという説明ではない。\n\nJVNはCVSS v4.0で8.6、CVSS v3.0で7.2と記載し、開発元はCVSS v3.1で7.2と評価する。評価方式が異なるため数値を一つに統一せず、公式のHIGH相当として扱う。実際の悪用が確認されたという記載は今回確認した原典にはない。"
+      },
+      {
+        "title": "対象機種ごとの更新ファイルを確認",
+        "body": "開発元が対象として挙げるのはRG-MA2610-AC、RG-MA2610-PE、RG-MA2810、RG-AP180-AC V4、RG-AP180-PE V4、RG-MA3511-AC、RG-MA3511-PEの7モデル。影響するリリース番号と修正用ファイルはモデルごとに異なる。例えばRG-MA2610系にはMA_1.3(1)B8P1_MA2610_[xiyuan-jp-ma2610]_13221212.bin、RG-MA2810にはMA_1.3(1)B12P1_MA2810_[xiyuan-jp-ma2810]_13221212.binが提示されている。\n\n管理者は製品名だけで一律に更新先を判断せず、開発元の「Software Versions and Fixes」表と機器の現在のファームウェアを突き合わせたい。更新ファイルは自動更新、Ruijie公式サイト、または販売・保守窓口を通じて入手する。すぐ更新できない場合、開発元はWeb管理画面への接続元IPの許可リスト設定と、12文字以上で大文字・小文字・数字・記号のうち3種類以上を組み合わせたパスワードを推奨している。これは恒久的な修正の代わりではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story",
+      "facebook"
+    ],
+    "social_threads_text": "Ruijieの業務用無線機器7モデルにOSコマンド注入の脆弱性。JVNが11月19日にCVE-2026-113347を公開しました。管理画面へのログイン権限を得た攻撃者によるコマンド実行が想定されます。開発元は11月12日に対象機種・影響版・修正ファイルを公表済み。管理者は型番とファームウェアを照合し、修正版への更新を。更新までの接続元IP制限も推奨されています。\nhttps://signal.amberlight.co.jp/articles/20261120-ruijie-command-injection-cve-2026-113347/\nhttps://jvn.jp/jp/JVN28897261/",
+    "social_security_severity": "HIGH",
+    "social_security_product": "Ruijie RG-MA2610-AC/PE、RG-MA2810、RG-AP180-AC/PE V4、RG-MA3511-AC/PEの開発元一覧記載ファームウェア",
+    "social_security_action": "開発元の機種別修正ファームウェアへ更新。更新まで管理画面への接続元IPをホワイトリスト制限し、12文字以上で3種類以上の文字を含む強固なパスワードを設定",
+    "publication_key": "e922d923047759b7a26bec66a3798525df209d268c76b5c6bb53adfcf01e14be",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261120-openai-codex-sandbox-permission-boundaries",
     "title": "Codexのサンドボックス設計をOpenAIが解説──ネットワーク遮断と読み取り権限の注意点",
     "summary": "OpenAIは11月18日、Codexが端末上でコマンドを実行する際のサンドボックス設計を公開した。既定のworkspace権限では作業領域への書き込みを許す一方、ネットワーク接続を遮断する。ただしファイルの読み取りは作業領域の外にも及ぶ場合があり、隔離だけで機密情報や実行環境のリスクが消えるわけではない。",

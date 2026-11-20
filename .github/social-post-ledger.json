@@ -6340,7 +6340,9 @@
     },
     "facebook": {
       "status": "attempting",
-      "updated_at": "2026-11-20T05:29:44+00:00"
+      "updated_at": "2026-11-20T05:29:46+00:00",
+      "stage": "publish_requested",
+      "container_id": ""
     }
   }
 }

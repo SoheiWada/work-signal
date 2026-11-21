@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-11-20",
-  "fetchedAt": "2026-11-21T03:16:59.905Z",
-  "lastAttemptAt": "2026-11-21T03:16:59.905Z",
+  "throughDate": "2026-11-21",
+  "fetchedAt": "2026-11-21T17:37:44.381Z",
+  "lastAttemptAt": "2026-11-21T17:37:44.381Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 230,
+  "countedGames": 235,
   "standingsReason": null,
   "teams": [
     {
@@ -44,7 +44,7 @@
       "name": "Chicago Bulls",
       "conference": "East",
       "wins": 4,
-      "losses": 10
+      "losses": 11
     },
     {
       "code": "CLE",
@@ -64,7 +64,7 @@
       "code": "DEN",
       "name": "Denver Nuggets",
       "conference": "West",
-      "wins": 8,
+      "wins": 9,
       "losses": 5
     },
     {
@@ -86,7 +86,7 @@
       "name": "Houston Rockets",
       "conference": "West",
       "wins": 12,
-      "losses": 4
+      "losses": 5
     },
     {
       "code": "IND",
@@ -106,7 +106,7 @@
       "code": "LAL",
       "name": "Los Angeles Lakers",
       "conference": "West",
-      "wins": 13,
+      "wins": 14,
       "losses": 3
     },
     {
@@ -142,7 +142,7 @@
       "name": "New Orleans Pelicans",
       "conference": "West",
       "wins": 5,
-      "losses": 11
+      "losses": 12
     },
     {
       "code": "NYK",
@@ -155,7 +155,7 @@
       "code": "OKC",
       "name": "Oklahoma City Thunder",
       "conference": "West",
-      "wins": 9,
+      "wins": 10,
       "losses": 6
     },
     {
@@ -176,7 +176,7 @@
       "code": "PHX",
       "name": "Phoenix Suns",
       "conference": "West",
-      "wins": 7,
+      "wins": 8,
       "losses": 7
     },
     {
@@ -191,7 +191,7 @@
       "name": "Sacramento Kings",
       "conference": "West",
       "wins": 1,
-      "losses": 13
+      "losses": 14
     },
     {
       "code": "SAS",
@@ -212,18 +212,68 @@
       "name": "Utah Jazz",
       "conference": "West",
       "wins": 3,
-      "losses": 13
+      "losses": 14
     },
     {
       "code": "WAS",
       "name": "Washington Wizards",
       "conference": "East",
-      "wins": 5,
+      "wins": 6,
       "losses": 11
     }
   ],
   "sets": [
     [
+      {
+        "id": "21718155",
+        "date": "2026-11-20",
+        "home": "LAL",
+        "away": "SAC",
+        "homeScore": 106,
+        "awayScore": 104,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718154",
+        "date": "2026-11-20",
+        "home": "DEN",
+        "away": "HOU",
+        "homeScore": 133,
+        "awayScore": 124,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718153",
+        "date": "2026-11-20",
+        "home": "UTA",
+        "away": "PHX",
+        "homeScore": 101,
+        "awayScore": 111,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718152",
+        "date": "2026-11-20",
+        "home": "OKC",
+        "away": "NOP",
+        "homeScore": 126,
+        "awayScore": 120,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718151",
+        "date": "2026-11-20",
+        "home": "CHI",
+        "away": "WAS",
+        "homeScore": 94,
+        "awayScore": 98,
+        "competition": "regular",
+        "countsForStandings": true
+      },
       {
         "id": "21718150",
         "date": "2026-11-20",

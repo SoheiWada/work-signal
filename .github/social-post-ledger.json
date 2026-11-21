@@ -6462,7 +6462,9 @@
     },
     "instagram_story": {
       "status": "attempting",
-      "updated_at": "2026-11-21T04:31:18+00:00"
+      "updated_at": "2026-11-21T04:31:23+00:00",
+      "stage": "container_created",
+      "container_id": "18163385629488337"
     }
   }
 }

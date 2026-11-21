@@ -1637,6 +1637,7 @@ def build(output, feed=None):
         destination = output / page
         destination.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / page / 'index.html', destination / 'index.html')
+    shutil.copyfile(ROOT / 'ads.txt', output / 'ads.txt')
     (output / 'data/articles.json').write_text(json.dumps(articles, ensure_ascii=False, indent=2) + '\n')
     listing_fields = ('id', 'title', 'summary', 'category', 'format', 'reading_format', 'score', 'status', 'source_url', 'published_at', 'published_at_time', 'first_registered_at', 'updated_at', 'card_image', 'card_image_alt')
     listing = [{**{key: article[key] for key in listing_fields if key in article},

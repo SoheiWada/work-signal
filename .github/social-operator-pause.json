@@ -1,3 +1,12 @@
 {
-  "paused_platforms": ["instagram"]
+  "paused_platforms": [
+    "instagram"
+  ],
+  "paused_details": {
+    "instagram": {
+      "state": "disabled",
+      "reason": "2026-11-09 owner decision to keep Instagram feed publishing paused",
+      "resume_condition": "Explicit owner instruction and verified channel review"
+    }
+  }
 }

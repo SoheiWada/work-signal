@@ -35,9 +35,15 @@ except ImportError:
     from topic_catalog import TOPICS, active_topics, topic_articles, article_topics
 
 try:
-    from .site_identity import BASE, publisher_identity
+    from .site_identity import BASE, OFFICIAL_PROFILES, publisher_identity
 except ImportError:
-    from site_identity import BASE, publisher_identity
+    from site_identity import BASE, OFFICIAL_PROFILES, publisher_identity
+
+try:
+    from .indexnow import KEY as INDEXNOW_KEY, KEY_FILE as INDEXNOW_KEY_FILE
+except ImportError:
+    from indexnow import KEY as INDEXNOW_KEY, KEY_FILE as INDEXNOW_KEY_FILE
+
 
 ROOT = Path(__file__).resolve().parents[1]
 HOME_PAGE_SIZE = 12
@@ -279,6 +285,50 @@ def json_ld(value):
     return '<script type="application/ld+json">' + json.dumps(
         value, ensure_ascii=False).replace("<", "\\u003c").replace(
             ">", "\\u003e").replace("&", "\\u0026") + '</script>'
+
+
+def render_publisher_identity(page):
+    """Use the same organization on the home page, About page and articles."""
+    identity = publisher_identity()
+
+    def update(match):
+        schema = json.loads(match.group(1))
+        if schema.get('@id') == identity['@id']:
+            schema = {'@context': schema['@context'], **identity}
+        elif schema.get('@type') == 'AboutPage':
+            schema['mainEntity'] = identity
+        else:
+            return match.group(0)
+        return json_ld(schema)
+
+    return re.sub(r'<script type="application/ld\+json">(.*?)</script>', update, page, flags=re.S)
+
+
+def write_llms_txt(output, articles):
+    about = BASE + 'about/'
+    lines = [
+        '# WORK SIGNAL', '',
+        '> ' + publisher_identity()['description'], '',
+        'カテゴリは ' + '、'.join(sorted(CATEGORIES)) + ' です。', '',
+        '## サイトと編集方針', '',
+        f'- [WORK SIGNAL]({BASE})',
+        f'- [運営者と公式アカウント]({about})',
+        f'- [編集方針]({about}#editorial-policy)',
+        f'- [SECURITY WATCH]({BASE}security/)',
+        f'- [記事アーカイブ]({BASE}archive/)',
+    ]
+    deep_dives = sorted(
+        (item for item in articles if item['reading_format'] == 'deep_dive'),
+        key=lambda item: (item['published_at'], item['id']), reverse=True,
+    )[:4]
+    if deep_dives:
+        lines.extend(['', '## SIGNAL DEEP DIVE', ''])
+        for item in deep_dives:
+            title = ' '.join(item['title'].split()).replace('[', '［').replace(']', '］')
+            lines.append(f'- [{title}]({article_url(item)})')
+    lines.extend(['', '## 公式SNS', ''])
+    lines.extend(f'- [{label}]({url})' for label, url in OFFICIAL_PROFILES.items())
+    (output / 'llms.txt').write_text('\n'.join(lines) + '\n', encoding='utf-8')
 
 
 def _clock_text(value):
@@ -1371,7 +1421,7 @@ def build(output, feed=None):
         destination = output / 'nba' / asset
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / 'nba' / asset, destination)
-    index = (ROOT / 'index.html').read_text()
+    index = render_publisher_identity((ROOT / 'index.html').read_text())
     index = index.replace('<a href="#latest">LATEST</a>', '<a href="#latest">LATEST</a><a href="/follow/">FOLLOW</a>', 1)
     index = index.replace('<main><section class="hero"', '<nav class="subscribe-strip" aria-label="更新を受け取る"><span>次の変化も、追うなら。</span><a href="/follow/">Threads・Instagram・RSS</a></nav><main><section class="hero"', 1)
     index = index.replace('</head>', '<link rel="stylesheet" href="/assets/css/subscription.css?v=20261111">'
@@ -1566,6 +1616,9 @@ def build(output, feed=None):
         raise ValueError('Home pagination progress marker is missing')
     index = index.replace(progress_marker, f'{min(len(home_articles), HOME_PAGE_SIZE)} / {len(home_articles)} SIGNALS', 1)
     (output / 'index.html').write_text(index)
+    (output / 'about').mkdir(exist_ok=True)
+    about = (ROOT / 'about/index.html').read_text()
+    (output / 'about/index.html').write_text(render_publisher_identity(about))
     (output / 'follow').mkdir(exist_ok=True)
     (output / 'follow/index.html').write_text(follow_page(index))
     archive_urls = []
@@ -1580,11 +1633,10 @@ def build(output, feed=None):
     # Preview is not linked or indexed; it is accessible to anyone who knows the URL.
     # Editorial previews remain local; do not deploy draft content or preview UI.
     (output / 'data').mkdir(exist_ok=True)
-    for page in ('about', 'privacy', 'contact'):
+    for page in ('privacy', 'contact'):
         destination = output / page
         destination.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / page / 'index.html', destination / 'index.html')
-    # ads.txt is a root-level crawler file, served verbatim like robots.txt.
     shutil.copyfile(ROOT / 'ads.txt', output / 'ads.txt')
     (output / 'data/articles.json').write_text(json.dumps(articles, ensure_ascii=False, indent=2) + '\n')
     listing_fields = ('id', 'title', 'summary', 'category', 'format', 'reading_format', 'score', 'status', 'source_url', 'published_at', 'published_at_time', 'first_registered_at', 'updated_at', 'card_image', 'card_image_alt')
@@ -1644,6 +1696,8 @@ def build(output, feed=None):
             ET.SubElement(entry, '{' + ns + '}lastmod').text = lastmod
     ET.ElementTree(sitemap).write(output / 'sitemap.xml', encoding='utf-8', xml_declaration=True)
     write_discovery_sitemaps(output, articles)
+    write_llms_txt(output, articles)
+    (output / INDEXNOW_KEY_FILE).write_text(INDEXNOW_KEY, encoding='utf-8')
     (output / 'robots.txt').write_text('User-agent: *\nAllow: /\n\n'+''.join('Sitemap: '+BASE+name+'\n' for name in ('sitemap.xml','news-sitemap.xml','image-sitemap.xml')))
     (output / '.nojekyll').touch()
     (output / 'CNAME').write_text(BASE.removeprefix('https://').rstrip('/') + '\n')

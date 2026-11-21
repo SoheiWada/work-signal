@@ -118,7 +118,7 @@ class SEOTests(unittest.TestCase):
 
 class BrandIdentityTests(unittest.TestCase):
     def schemas(self, path):
-        text = (site.ROOT / path).read_text()
+        text = site.render_publisher_identity((site.ROOT / path).read_text())
         return text, [json.loads(value) for value in re.findall(
             r'<script type="application/ld\+json">(.*?)</script>', text, re.S)]
 
@@ -163,5 +163,7 @@ class BrandIdentityTests(unittest.TestCase):
         publisher['sameAs'].clear()
         publisher['parentOrganization']['name'] = 'changed'
         fresh = publisher_identity()
-        self.assertEqual(len(fresh['sameAs']), 2)
+        self.assertIn('https://www.facebook.com/profile.php?id=61596301937684', fresh['sameAs'])
+        self.assertNotIn('https://note.com/amber_light', fresh['sameAs'])
+        self.assertIn('https://note.com/amber_light', fresh['parentOrganization']['sameAs'])
         self.assertEqual(fresh['parentOrganization']['name'], 'アンバーライト合同会社')

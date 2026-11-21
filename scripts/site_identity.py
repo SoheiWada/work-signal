@@ -4,6 +4,12 @@ The static home/about schemas are checked against these helpers by SEO tests.
 No article byline, publication timestamp or social delivery state belongs here.
 """
 BASE = "https://signal.amberlight.co.jp/"
+OFFICIAL_PROFILES = {
+    "Instagram": "https://www.instagram.com/work_signal_japan/",
+    "Threads": "https://www.threads.com/@work_signal_japan",
+    "Facebook": "https://www.facebook.com/profile.php?id=61596301937684",
+}
+OPERATOR_NOTE = "https://note.com/amber_light"
 
 
 def publisher_identity():
@@ -24,14 +30,12 @@ def publisher_identity():
             "width": 192,
             "height": 192
         },
-        "sameAs": [
-            "https://www.instagram.com/work_signal_japan/",
-            "https://www.threads.com/@work_signal_japan"
-        ],
+        "sameAs": list(OFFICIAL_PROFILES.values()),
         "parentOrganization": {
             "@type": "Organization",
             "@id": "https://signal.amberlight.co.jp/about/#operator",
-            "name": "アンバーライト合同会社"
+            "name": "アンバーライト合同会社",
+            "sameAs": [OPERATOR_NOTE]
         },
         "publishingPrinciples": "https://signal.amberlight.co.jp/about/#editorial-policy",
         "founder": {

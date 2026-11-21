@@ -6350,7 +6350,9 @@
   "20261118-ecb-financial-stability-review-ai-valuations": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-21T04:28:42+00:00"
+      "updated_at": "2026-11-21T04:28:49+00:00",
+      "stage": "publish_requested",
+      "container_id": "18341557720277463"
     }
   }
 }

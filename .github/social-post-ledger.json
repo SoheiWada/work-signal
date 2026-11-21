@@ -6496,7 +6496,9 @@
     },
     "facebook": {
       "status": "attempting",
-      "updated_at": "2026-11-21T04:32:35+00:00"
+      "updated_at": "2026-11-21T04:32:36+00:00",
+      "stage": "publish_requested",
+      "container_id": ""
     }
   }
 }

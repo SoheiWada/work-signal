@@ -6454,7 +6454,9 @@
   "20261120-japan-october-cpi-23-core-22": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-21T04:31:08+00:00"
+      "updated_at": "2026-11-21T04:31:15+00:00",
+      "stage": "publish_requested",
+      "container_id": "18642542836048711"
     }
   }
 }

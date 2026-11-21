@@ -6391,10 +6391,12 @@
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4035049222075964699"
     },
     "facebook": {
-      "status": "attempting",
-      "updated_at": "2026-11-21T04:29:52+00:00",
+      "status": "published",
+      "updated_at": "2026-11-21T04:29:54+00:00",
       "stage": "publish_response_received",
-      "container_id": "1522891270900103_122110052475543397"
+      "container_id": "1522891270900103_122110052475543397",
+      "remote_id": "1522891270900103_122110052475543397",
+      "permalink": "https://www.facebook.com/122108994201543397/posts/122110052475543397"
     }
   }
 }

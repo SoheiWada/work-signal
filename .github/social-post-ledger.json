@@ -6375,10 +6375,12 @@
   },
   "20261119-google-mirror-dimension-chrome-agents": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-21T04:29:27+00:00",
+      "status": "published",
+      "updated_at": "2026-11-21T04:29:29+00:00",
       "stage": "publish_requested",
-      "container_id": "18115592738136177"
+      "container_id": "18115592738136177",
+      "remote_id": "18115592738136177",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df_X81MDTtR"
     }
   }
 }

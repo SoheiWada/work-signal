@@ -6376,7 +6376,9 @@
   "20261119-google-mirror-dimension-chrome-agents": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-21T04:29:19+00:00"
+      "updated_at": "2026-11-21T04:29:27+00:00",
+      "stage": "publish_requested",
+      "container_id": "18115592738136177"
     }
   }
 }

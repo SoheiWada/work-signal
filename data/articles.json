@@ -1,5 +1,45 @@
 [
   {
+    "id": "20261122-vmware-vcenter-auth-bypass-cve-2026-123890",
+    "title": "VMware vCenterに認証回避の緊急脆弱性、Broadcomが修正版を公開（CVE-2026-123890）",
+    "summary": "VMware vCenterの認証を回避できる緊急脆弱性CVE-2026-123890について、Broadcomが修正版を公開した。公式評価はCVSSv3 9.8（CRITICAL）。ネットワーク経由でvCenterにアクセスできる攻撃者が認証を回避し、システムへ不正アクセスするおそれがある。米CISAの既知悪用脆弱性（KEV）カタログにも11月20日付で追加されており、仮想化基盤の管理者は利用版と修正状況の確認が必要だ。",
+    "category": "SECURITY",
+    "score": 92,
+    "published_at": "2026-11-22",
+    "published_at_time": "2026-11-21T20:27:07.100Z",
+    "source_url": "https://support.broadcom.com/web/ecx/support-content-notification/-/external/content/SecurityAdvisories/0/39495",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "VMware vCenterの認証を回避できる緊急脆弱性CVE-2026-123890について、Broadcomが修正版を公開した。公式評価はCVSSv3 9.8（CRITICAL）。ネットワーク経由でvCenterにアクセスできる攻撃者が認証を回避し、システムへ不正アクセスするおそれがある。米CISAの既知悪用脆弱性（KEV）カタログにも11月20日付で追加されており、仮想化基盤の管理者は利用版と修正状況の確認が必要だ。",
+    "sections": [
+      {
+        "title": "認証を迂回するvCenterの脆弱性",
+        "body": "Broadcomのセキュリティ勧告VMSA-2026-0009によると、CVE-2026-123890はVMware Directory Serviceの認証回避に関する問題だ。攻撃者がvCenterへネットワークアクセスできる場合、認証を回避して不正にシステムへアクセスできる可能性がある。BroadcomのCVSSv3基本値は9.8で、重大度はCritical。CISAの公式KEVカタログの2026年11月20日追加項目にも同CVEが収録されている。ただしKEV掲載は悪用実績に関するCISAの判断であり、個々の組織で侵害が発生したことを示すものではない。"
+      },
+      {
+        "title": "対象版と修正先を確認する",
+        "body": "BroadcomのResponse Matrixでは、VMware vCenter Server 8.0の修正先を8.0 U3m、VMware Cloud Foundation／vSphere FoundationのvCenter 9.0.x.xを9.0.2.0200、9.1.x.xを9.1.1.0200としている。Cloud Foundation 5.xでは5.2.5を示す。vCenter 7.0は延長サポート契約がある場合、Broadcomサポートへの連絡を案内している。Telco系構成では別のサポートKBを参照する必要がある。製品・構成ごとに適用先が異なるため、版番号だけを横断的に当てはめない。公式回避策は「None」であり、設定変更だけで修正済みと判断してはならない。"
+      },
+      {
+        "title": "運用上の優先事項",
+        "body": "まず管理対象のvCenter製品名・稼働版・ネットワーク到達範囲を棚卸しし、勧告のResponse Matrixと照合する。次に、バックアップと保守手順を確認したうえで該当パッチを適用する。パッチ適用後は実際のビルド番号を確認し、管理サービスのアクセスログや異常な認証イベントも点検したい。これらは防御上の実務提案であり、ログ点検だけで侵害の有無を断定できない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story",
+      "facebook"
+    ],
+    "social_threads_text": "VMware vCenterの認証を回避できる緊急脆弱性CVE-2026-123890が、米CISAの既知悪用脆弱性リストに追加されました。Broadcomの評価はCVSSv3 9.8。仮想化基盤の管理サーバーが対象です。修正先はvCenter 8.0なら8.0 U3m、9.0系なら9.0.2.0200、9.1系なら9.1.1.0200。製品構成ごとに異なるため、公式の対応表で確認を。回避策は提供されていません。\nhttps://signal.amberlight.co.jp/articles/20261122-vmware-vcenter-auth-bypass-cve-2026-123890/\nhttps://support.broadcom.com/web/ecx/support-content-notification/-/external/content/SecurityAdvisories/0/39495",
+    "social_security_severity": "CRITICAL",
+    "social_security_product": "VMware vCenter Server 8.0、VMware Cloud Foundation / vSphere FoundationのvCenter 9.0.x.x・9.1.x.x、および公式Response Matrixに列挙されたvCenter関連構成",
+    "social_security_action": "VMware vCenter Server 8.0は8.0 U3mへ、vCenter 9.0.x.xは9.0.2.0200へ、9.1.x.xは9.1.1.0200へ更新。Cloud Foundation 5.xは5.2.5を確認。vCenter 7.0は延長サポート契約がある場合Broadcomへ連絡。公式回避策なし。",
+    "publication_key": "e5ee59f36b88233070c69e5b3855cebe1a14e0e3dfb854ff3a339f19c9c20a72",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261121-openai-medchembench-drug-discovery-benchmark",
     "title": "OpenAI、創薬AIの評価基準「MedChemBench」を公開──99課題で構造理解と数値予測の差を可視化",
     "summary": "OpenAIは2026年11月20日、創薬研究でAIが化合物をどこまで評価できるかを測る「MedChemBench」を発表した。99課題で分子構造の再現、実験結果の解釈、候補化合物の選択、数値予測を評価する。高い得点は、実際の新薬発見や研究判断の改善を証明するものではない。",

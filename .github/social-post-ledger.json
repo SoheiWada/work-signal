@@ -6540,8 +6540,8 @@
     },
     "instagram_story": {
       "status": "attempting",
-      "updated_at": "2026-11-21T05:59:41+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-11-21T05:59:48+00:00",
+      "stage": "publish_requested",
       "container_id": "18163397791488337"
     }
   }

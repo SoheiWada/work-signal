@@ -6428,7 +6428,9 @@
   "20261120-rba-agentic-commerce-payment-regulation": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-21T04:30:31+00:00"
+      "updated_at": "2026-11-21T04:30:38+00:00",
+      "stage": "publish_requested",
+      "container_id": "17912715480667495"
     }
   }
 }

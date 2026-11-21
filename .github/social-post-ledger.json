@@ -6584,7 +6584,9 @@
   "20261122-vmware-vcenter-auth-bypass-cve-2026-123890": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-21T20:34:05+00:00"
+      "updated_at": "2026-11-21T20:34:13+00:00",
+      "stage": "publish_requested",
+      "container_id": "18115817546182465"
     }
   }
 }

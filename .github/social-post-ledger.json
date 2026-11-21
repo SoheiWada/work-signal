@@ -6402,7 +6402,9 @@
   "20261119-fed-jefferson-economic-shocks-ai": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-21T04:29:55+00:00"
+      "updated_at": "2026-11-21T04:30:02+00:00",
+      "stage": "publish_requested",
+      "container_id": "18123426574980179"
     }
   }
 }

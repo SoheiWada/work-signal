@@ -6383,10 +6383,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/Df_X81MDTtR"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-21T04:29:42+00:00",
+      "status": "published",
+      "updated_at": "2026-11-21T04:29:46+00:00",
       "stage": "publish_requested",
-      "container_id": "18163385365488337"
+      "container_id": "18163385365488337",
+      "remote_id": "17999511339020697",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4035049222075964699"
     }
   }
 }

@@ -6513,10 +6513,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/Df_cEDKFm_p"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-21T05:05:48+00:00",
+      "status": "published",
+      "updated_at": "2026-11-21T05:05:53+00:00",
       "stage": "publish_requested",
-      "container_id": "18163391191488337"
+      "container_id": "18163391191488337",
+      "remote_id": "18123246997982097",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4035067384008448125"
     }
   }
 }

@@ -1,5 +1,38 @@
 [
   {
+    "id": "20261121-openai-medchembench-drug-discovery-benchmark",
+    "title": "OpenAI、創薬AIの評価基準「MedChemBench」を公開──99課題で構造理解と数値予測の差を可視化",
+    "summary": "OpenAIは2026年11月20日、創薬研究でAIが化合物をどこまで評価できるかを測る「MedChemBench」を発表した。99課題で分子構造の再現、実験結果の解釈、候補化合物の選択、数値予測を評価する。高い得点は、実際の新薬発見や研究判断の改善を証明するものではない。",
+    "category": "AI",
+    "score": 87,
+    "published_at": "2026-11-21",
+    "published_at_time": "2026-11-21T06:09:44.742Z",
+    "source_url": "https://openai.com/index/introducing-medchembench/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは2026年11月20日、創薬研究でAIが化合物をどこまで評価できるかを測る「MedChemBench」を発表した。99課題で分子構造の再現、実験結果の解釈、候補化合物の選択、数値予測を評価する。高い得点は、実際の新薬発見や研究判断の改善を証明するものではない。",
+    "sections": [
+      {
+        "title": "分子の読み取りから候補選定まで",
+        "body": "OpenAIの説明では、117件の論文・特許と761種類の分子構造を用いる。モデルには研究のある時点までの構造と実験データを示し、その後の性質や候補選択を問う。薬効が高くても吸収性や代謝安定性が低い場合があり、複数の性質を同時に扱う必要がある。"
+      },
+      {
+        "title": "総合点だけで導入を判断しない",
+        "body": "発表ではGPT-6.2 Astraが最高水準の推論設定で84.5％の得点を得たとされる。別の共通比較条件ではGPT-6 Astraが83.3％、GPT-6.1 Solが82.0％であり、異なる設定の数値をそのまま同条件のランキングにしてはいけない。構造の再構成や実験結果の説明に強みがある一方、候補選定と物性値の予測には改善余地がある。\n\n研究機関が導入する際は、化学構造の正確さ、数値予測の誤差、候補選定の妥当性を別々に検証したい。OpenAI自身も公開済み研究への事前接触を排除できず、ベンチマークは現実の創薬成果や実験室での判断改善を証明しないと留保している。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story",
+      "facebook"
+    ],
+    "social_threads_text": "創薬研究でAIを使うなら、「説明がうまい」と「次に試す化合物を正しく選べる」は別の能力です。OpenAIが11月20日に発表したMedChemBenchは99課題で、分子構造の読み取り、実験の解釈、候補選定、数値予測を別々に評価します。高い総合点の一方で、候補選定と数値予測には課題が残りました。研究機関や企業がAIに何を任せ、何を人が検証するかを考える材料になります。\nhttps://signal.amberlight.co.jp/articles/20261121-openai-medchembench-drug-discovery-benchmark/\nhttps://openai.com/index/introducing-medchembench/",
+    "publication_key": "f8bece1eb3cc3cbbabc41cc812434b7b13c5fd9bfc2737d6b501aba1cc95b565",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261120-boj-household-inflation-expectations",
     "title": "家計の物価予想、短期は足元の実感・長期は過去の経験が左右──日銀掲載の研究",
     "summary": "家計が「来年の物価」をどう見るかは、足元の値上がりだけでは決まらない。日本銀行が11月20日に掲載した研究では、見通しの短期的な振れは最近の物価変動の実感で説明しやすく、長く続く変化や世代差には、それまでに経験してきた物価の動きが関係するという結果が出た。",

@@ -6349,10 +6349,12 @@
   },
   "20261118-ecb-financial-stability-review-ai-valuations": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-21T04:28:49+00:00",
+      "status": "published",
+      "updated_at": "2026-11-21T04:28:50+00:00",
       "stage": "publish_requested",
-      "container_id": "18341557720277463"
+      "container_id": "18341557720277463",
+      "remote_id": "18341557720277463",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df_X4SujRBS"
     }
   }
 }

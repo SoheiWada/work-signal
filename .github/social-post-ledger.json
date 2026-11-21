@@ -6531,10 +6531,12 @@
   },
   "20261120-boj-household-inflation-expectations": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-21T05:59:29+00:00",
+      "status": "published",
+      "updated_at": "2026-11-21T05:59:31+00:00",
       "stage": "publish_requested",
-      "container_id": "18186661588421369"
+      "container_id": "18186661588421369",
+      "remote_id": "18186661588421369",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/Df_iQHPFY4Z"
     }
   }
 }

@@ -3,12 +3,12 @@
   "provider": "balldontlie",
   "season": 2026,
   "throughDate": "2026-11-21",
-  "fetchedAt": "2026-11-21T17:37:44.381Z",
-  "lastAttemptAt": "2026-11-21T17:37:44.381Z",
+  "fetchedAt": "2026-11-22T02:19:50.879Z",
+  "lastAttemptAt": "2026-11-22T02:19:50.879Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 235,
+  "countedGames": 236,
   "standingsReason": null,
   "teams": [
     {
@@ -128,7 +128,7 @@
       "name": "Milwaukee Bucks",
       "conference": "East",
       "wins": 1,
-      "losses": 15
+      "losses": 16
     },
     {
       "code": "MIN",
@@ -169,7 +169,7 @@
       "code": "PHI",
       "name": "Philadelphia 76ers",
       "conference": "East",
-      "wins": 13,
+      "wins": 14,
       "losses": 3
     },
     {
@@ -223,6 +223,18 @@
     }
   ],
   "sets": [
+    [
+      {
+        "id": "21718156",
+        "date": "2026-11-21",
+        "home": "PHI",
+        "away": "MIL",
+        "homeScore": 132,
+        "awayScore": 129,
+        "competition": "regular",
+        "countsForStandings": true
+      }
+    ],
     [
       {
         "id": "21718155",
@@ -701,58 +713,6 @@
         "away": "IND",
         "homeScore": 131,
         "awayScore": 124,
-        "competition": "regular",
-        "countsForStandings": true
-      }
-    ],
-    [
-      {
-        "id": "21718108",
-        "date": "2026-11-14",
-        "home": "MIN",
-        "away": "CHI",
-        "homeScore": 106,
-        "awayScore": 117,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21718107",
-        "date": "2026-11-14",
-        "home": "MEM",
-        "away": "BKN",
-        "homeScore": 129,
-        "awayScore": 110,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21718106",
-        "date": "2026-11-14",
-        "home": "MIA",
-        "away": "DET",
-        "homeScore": 137,
-        "awayScore": 117,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21718105",
-        "date": "2026-11-14",
-        "home": "CLE",
-        "away": "DAL",
-        "homeScore": 127,
-        "awayScore": 117,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21718104",
-        "date": "2026-11-14",
-        "home": "NOP",
-        "away": "DEN",
-        "homeScore": 108,
-        "awayScore": 116,
         "competition": "regular",
         "countsForStandings": true
       }

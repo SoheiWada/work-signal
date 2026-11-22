@@ -6610,7 +6610,9 @@
   "20261119-google-suncatcher-blue-origin-new-glenn-launch": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-22T10:42:28+00:00"
+      "updated_at": "2026-11-22T10:42:37+00:00",
+      "stage": "publish_requested",
+      "container_id": "17960291535269805"
     }
   }
 }

@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-11-22",
-  "fetchedAt": "2026-11-23T02:54:07.960Z",
-  "lastAttemptAt": "2026-11-23T02:54:07.960Z",
+  "throughDate": "2026-11-23",
+  "fetchedAt": "2026-11-23T22:05:25.070Z",
+  "lastAttemptAt": "2026-11-23T22:05:25.070Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 246,
+  "countedGames": 248,
   "standingsReason": null,
   "teams": [
     {
@@ -23,7 +23,7 @@
       "name": "Boston Celtics",
       "conference": "East",
       "wins": 11,
-      "losses": 5
+      "losses": 6
     },
     {
       "code": "BKN",
@@ -78,7 +78,7 @@
       "code": "GSW",
       "name": "Golden State Warriors",
       "conference": "West",
-      "wins": 8,
+      "wins": 9,
       "losses": 8
     },
     {
@@ -93,7 +93,7 @@
       "name": "Indiana Pacers",
       "conference": "East",
       "wins": 5,
-      "losses": 11
+      "losses": 12
     },
     {
       "code": "LAC",
@@ -148,7 +148,7 @@
       "code": "NYK",
       "name": "New York Knicks",
       "conference": "East",
-      "wins": 10,
+      "wins": 11,
       "losses": 6
     },
     {
@@ -224,6 +224,26 @@
   ],
   "sets": [
     [
+      {
+        "id": "21718170",
+        "date": "2026-11-22",
+        "home": "GSW",
+        "away": "BOS",
+        "homeScore": 88,
+        "awayScore": 87,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718169",
+        "date": "2026-11-22",
+        "home": "NYK",
+        "away": "IND",
+        "homeScore": 113,
+        "awayScore": 106,
+        "competition": "regular",
+        "countsForStandings": true
+      },
       {
         "id": "21718167",
         "date": "2026-11-22",

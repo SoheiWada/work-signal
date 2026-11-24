@@ -272,6 +272,8 @@ class GithubLedger:
                 raise RuntimeError("Result without a prior claim")
             if prior == "published":
                 raise RuntimeError("Already published")
+            if status == "deferred" and prior == "attempting":
+                raise RuntimeError("An active claim cannot be deferred; its outcome is unknown")
             if status == "deferred" and prior == "needs_review":
                 raise RuntimeError("Uncertain results require explicit reconciliation")
             allowed = {"reason", "next_attempt_at", "error", "stage", "container_id",
@@ -726,7 +728,10 @@ def delivery_report(articles, rows, failures=()):
     details = []
     for article in articles:
         state = rows.get(article["id"], {})
-        selected = requested_platforms(article)
+        try:
+            selected = requested_platforms(article)
+        except ValueError:
+            selected = []  # Invalid selection already failed in run(); keep the report alive.
         statuses = {}
         for kind in SOCIAL_PLATFORMS:
             status = state.get(kind, {}).get("status", "pending" if kind in selected else "not requested")
@@ -772,10 +777,17 @@ def run(articles, ledger, credentials):
         # Include all articles to locate known positive Story controls.
         preflight = DeliveryPreflight(articles, rows, credentials,
                                       target_ids=[a["id"] for a in approved])
-    work = {a["id"]: [p for p in remaining_platforms(rows.get(a["id"], {}))
-                       if p in delivery_platforms(a)] for a in approved}
-    needed = set(p for kinds in work.values() for p in kinds)
     failures, profiles = [], {}
+    work = {}
+    for a in approved:
+        try:
+            work[a["id"]] = [p for p in remaining_platforms(rows.get(a["id"], {}))
+                             if p in delivery_platforms(a)]
+        except (ValueError, RuntimeError) as exc:
+            # One malformed article must not abort the whole run before any
+            # ledger write; isolate it and surface it as a per-article failure.
+            failures.append(a["id"] + ": platform validation " + str(exc))
+    needed = set(p for kinds in work.values() for p in kinds)
     blocked_ig_platforms = {kind for item in rows.values() for kind, entry in item.items()
                             if kind in ("instagram", "instagram_story") and active_instagram_action_block(entry)}
     for group, kinds, base, token_key, user_key in (
@@ -816,7 +828,11 @@ def run(articles, ledger, credentials):
     for _, article in ordered:
         identifier = article["id"]
         rows, _ = ledger.read()
-        remaining = [p for p in remaining_platforms(rows.get(identifier, {})) if p in delivery_platforms(article)]
+        try:
+            remaining = [p for p in remaining_platforms(rows.get(identifier, {})) if p in delivery_platforms(article)]
+        except (ValueError, RuntimeError) as exc:
+            failures.append(identifier + ": platform validation " + str(exc))
+            continue
         if not remaining:
             continue
         if article.get("social_review_valid_until"):
@@ -836,9 +852,14 @@ def run(articles, ledger, credentials):
                 gate = feed_pacing_state(gate_rows)
                 if not gate["allowed"] or feed_attempted_this_run:
                     if gate.get("reason") == "feed_pacing":
-                        ledger.record(identifier, kind, "deferred", reason="instagram_feed_pacing",
-                                      next_attempt_at=gate["next_attempt_at"])
-                        print("INSTAGRAM_FEED_DEFERRED", identifier, gate["next_attempt_at"])
+                        try:
+                            ledger.record(identifier, kind, "deferred", reason="instagram_feed_pacing",
+                                          next_attempt_at=gate["next_attempt_at"])
+                        except Exception as exc:
+                            detail = str(exc) if isinstance(exc, RuntimeError) else type(exc).__name__
+                            failures.append(identifier + ": " + kind + " deferred record " + detail)
+                        else:
+                            print("INSTAGRAM_FEED_DEFERRED", identifier, gate["next_attempt_at"])
                     else:
                         failures.append(identifier + ": instagram feed pacing/hold requires review")
                     continue
@@ -850,8 +871,12 @@ def run(articles, ledger, credentials):
                     failures.append(message)
                 continue
             if kind in ("instagram", "instagram_story") and budget <= 0:
-                ledger.record(identifier, kind, "deferred", reason="instagram_quota",
-                              next_attempt_at=(datetime.now(timezone.utc) + timedelta(minutes=30)).isoformat(timespec="seconds"))
+                try:
+                    ledger.record(identifier, kind, "deferred", reason="instagram_quota",
+                                  next_attempt_at=(datetime.now(timezone.utc) + timedelta(minutes=30)).isoformat(timespec="seconds"))
+                except Exception as exc:
+                    detail = str(exc) if isinstance(exc, RuntimeError) else type(exc).__name__
+                    failures.append(identifier + ": " + kind + " deferred record " + detail)
                 continue
             try:
                 verify_live(article_url(article))
@@ -1026,8 +1051,13 @@ def run(articles, ledger, credentials):
     outstanding = delivery_report(approved, rows, failures)
     for message in failures:
         print("DELIVERY INCOMPLETE", message, file=sys.stderr)
-    paced = sum(safe_pacing_deferral(rows.get(a["id"], {}).get("instagram", {}))
-                for a in approved if "instagram" in delivery_platforms(a))
+    paced = 0
+    for a in approved:
+        try:
+            if "instagram" in delivery_platforms(a):
+                paced += safe_pacing_deferral(rows.get(a["id"], {}).get("instagram", {}))
+        except (ValueError, RuntimeError):
+            continue  # Already surfaced above as a per-article validation failure.
     return 1 if outstanding > paced or failures else 0
 
 

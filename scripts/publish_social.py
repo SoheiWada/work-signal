@@ -664,10 +664,19 @@ def delivery_platforms(article):
             and (p != "facebook" or facebook_eligible(article))]
 
 
+_facebook_policy_error = None
+
+
 def facebook_eligible(article):
+    global _facebook_policy_error
     try:
         return facebook.eligible(article, ROOT)
-    except RuntimeError:
+    except RuntimeError as exc:
+        # A damaged rollout never broadens authorization, but it must not
+        # fail silently either: surface the cause once per run (see run()).
+        if _facebook_policy_error is None:
+            _facebook_policy_error = str(exc)
+            print("FACEBOOK_POLICY_UNAVAILABLE", _facebook_policy_error, file=sys.stderr)
         return False  # A damaged rollout never broadens authorization.
 
 
@@ -759,6 +768,8 @@ def delivery_report(articles, rows, failures=()):
 
 
 def run(articles, ledger, credentials):
+    global _facebook_policy_error
+    _facebook_policy_error = None  # Surface a damaged Facebook rollout once per run.
     approved = approved_in_scope(articles, credentials.get("SOCIAL_SCOPE_ARTICLE_IDS", ""))
     if not approved or credentials.get("SOCIAL_PUBLISH_ENABLED") != "true":
         print("Social posting disabled or no explicitly approved articles. No posts.")
@@ -787,6 +798,9 @@ def run(articles, ledger, credentials):
             # One malformed article must not abort the whole run before any
             # ledger write; isolate it and surface it as a per-article failure.
             failures.append(a["id"] + ": platform validation " + str(exc))
+    if _facebook_policy_error is not None:
+        failures.append("Facebook rollout policy unavailable: " + _facebook_policy_error
+                        + "; Facebook delivery held")
     needed = set(p for kinds in work.values() for p in kinds)
     blocked_ig_platforms = {kind for item in rows.values() for kind, entry in item.items()
                             if kind in ("instagram", "instagram_story") and active_instagram_action_block(entry)}

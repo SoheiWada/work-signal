@@ -1,5 +1,42 @@
 [
   {
+    "id": "20261123-richpanel-ai-support-automation",
+    "title": "Richpanel、AI顧客対応の30日以内50％自動化を保証──導入約300件で達成と説明",
+    "summary": "OpenAIは11月23日、顧客サポート向けAIを提供するRichpanelの導入事例を公開した。同社は、導入後30日以内に問い合わせ対応の50％を自動化できなければ返金する保証を設けている。約300件の導入でこの水準を達成したというが、数値は同社CEOの説明に基づく。鍵は高性能モデルだけでなく、業務手順の整備と社内ツールへの接続にある。",
+    "category": "仕事",
+    "score": 83,
+    "published_at": "2026-11-24",
+    "published_at_time": "2026-11-24T01:18:52.421Z",
+    "source_url": "https://openai.com/business/customer-stories/richpanel-ai-customer-support/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "OpenAIは11月23日、顧客サポート向けAIを提供するRichpanelの導入事例を公開した。同社は、導入後30日以内に問い合わせ対応の50％を自動化できなければ返金する保証を設けている。約300件の導入でこの水準を達成したというが、数値は同社CEOの説明に基づく。鍵は高性能モデルだけでなく、業務手順の整備と社内ツールへの接続にある。",
+    "sections": [
+      {
+        "title": "問い合わせを「回答するAI」から「処理を完了するAI」へ",
+        "body": "Richpanelは、顧客サポートの担当者が利用する複数のツールや、文書化されていない業務手順をAIに扱わせる仕組みを構築した。導入設定を支援する「Boss AI」が手順を記述し、現場の応対エージェントや担当者支援、品質保証のためのAIが必要なツールを呼び出せるようにする。OpenAI公式事例によれば、Boss AIにはGPT-6 AstraとGPT-6.1 Solを、顧客との大量の会話にはGPT-6 Lunaなどを使い分けている。設計や設定には高い推論能力を、反復的な応対には単価を抑えたモデルを使う構成だ。"
+      },
+      {
+        "title": "30日で50％という保証──数値の読み方",
+        "body": "OpenAIが11月23日に掲載した事例では、2026年10月の取材時点でRichpanelが過去6か月に約300件のAI顧客サポート導入を行ったと説明している。同社は導入後30日以内に50％の自動化率を達成しなければ返金する保証を設け、CEOは全案件で保証条件を達成したと述べた。ただし、この「約300件」と「全件達成」は企業経営者の申告であり、第三者が監査した統計とは示されていない。顧客満足度が人間の担当者を上回るとの主張についても、調査方法や母数は原典に明示されていない。"
+      },
+      {
+        "title": "導入企業が確認すべきこと",
+        "body": "自社への導入判断では、自動化率の定義を最初に固定したい。単純な一次回答と、返金・変更などの業務完了を同じ「自動化」に含めるかで成果は変わる。次に、必要な業務システムへの接続権限、誤処理時の人間への引き継ぎ、応対品質の測定を確認する。Richpanelの事例は設計思想を示すが、同じ成果をすべての企業が再現できることを保証するものではない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story",
+      "facebook"
+    ],
+    "social_threads_text": "AI顧客対応で重要なのは、質問への回答だけではなく「手続きを完了できるか」。Richpanelは、業務手順を作るAIと実際に応対するAIを分け、30日以内に50％の自動化率を達成しなければ返金する保証を提供しています。約300件で達成したとの説明は同社CEOによる申告で、第三者検証済みではありません。導入前に自動化率の定義と人への引き継ぎ条件を確認したい事例です。\nhttps://signal.amberlight.co.jp/articles/20261123-richpanel-ai-support-automation/\nhttps://openai.com/business/customer-stories/richpanel-ai-customer-support/",
+    "publication_key": "83ac23cd16bbfdc9cc09756dac5c091a6eef6a7a45d77af8388a10d4f9af456b",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261119-google-suncatcher-blue-origin-new-glenn-launch",
     "title": "Google、Blue Originと提携しAI衛星の大型打ち上げへ──2029年第1四半期、軌道上の太陽光で計算",
     "summary": "Googleは11月19日、Blue Originと提携し、AI衛星の初の大型打ち上げを行うと発表した。2029年第1四半期を目標に、Blue Originの大型ロケット「New Glenn」で、TPUを搭載した衛星を太陽同期軌道へ送る。各衛星はデータセンターラックおよそ1基分の計算能力を持つ計画だ。軌道上の太陽光を電源に活用する構想だ。Googleは試作衛星で、軌道上での熱ストレスや放射線に対するTPUの動作を検証する方針も示している。AIの計算を宇宙へ移す長期計画が、具体的な打ち上げ契約になった。",

@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-11-23",
-  "fetchedAt": "2026-11-23T22:05:25.070Z",
-  "lastAttemptAt": "2026-11-23T22:05:25.070Z",
+  "throughDate": "2026-11-24",
+  "fetchedAt": "2026-11-24T06:09:09.429Z",
+  "lastAttemptAt": "2026-11-24T06:09:09.429Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 248,
+  "countedGames": 258,
   "standingsReason": null,
   "teams": [
     {
@@ -30,20 +30,20 @@
       "name": "Brooklyn Nets",
       "conference": "East",
       "wins": 3,
-      "losses": 12
+      "losses": 13
     },
     {
       "code": "CHA",
       "name": "Charlotte Hornets",
       "conference": "East",
       "wins": 4,
-      "losses": 11
+      "losses": 12
     },
     {
       "code": "CHI",
       "name": "Chicago Bulls",
       "conference": "East",
-      "wins": 4,
+      "wins": 5,
       "losses": 12
     },
     {
@@ -51,7 +51,7 @@
       "name": "Cleveland Cavaliers",
       "conference": "East",
       "wins": 9,
-      "losses": 8
+      "losses": 9
     },
     {
       "code": "DAL",
@@ -85,14 +85,14 @@
       "code": "HOU",
       "name": "Houston Rockets",
       "conference": "West",
-      "wins": 12,
+      "wins": 13,
       "losses": 5
     },
     {
       "code": "IND",
       "name": "Indiana Pacers",
       "conference": "East",
-      "wins": 5,
+      "wins": 6,
       "losses": 12
     },
     {
@@ -100,20 +100,20 @@
       "name": "LA Clippers",
       "conference": "West",
       "wins": 4,
-      "losses": 11
+      "losses": 12
     },
     {
       "code": "LAL",
       "name": "Los Angeles Lakers",
       "conference": "West",
-      "wins": 14,
+      "wins": 15,
       "losses": 3
     },
     {
       "code": "MEM",
       "name": "Memphis Grizzlies",
       "conference": "West",
-      "wins": 12,
+      "wins": 13,
       "losses": 5
     },
     {
@@ -127,14 +127,14 @@
       "code": "MIL",
       "name": "Milwaukee Bucks",
       "conference": "East",
-      "wins": 1,
+      "wins": 2,
       "losses": 16
     },
     {
       "code": "MIN",
       "name": "Minnesota Timberwolves",
       "conference": "West",
-      "wins": 12,
+      "wins": 13,
       "losses": 5
     },
     {
@@ -142,7 +142,7 @@
       "name": "New Orleans Pelicans",
       "conference": "West",
       "wins": 5,
-      "losses": 13
+      "losses": 14
     },
     {
       "code": "NYK",
@@ -156,7 +156,7 @@
       "name": "Oklahoma City Thunder",
       "conference": "West",
       "wins": 10,
-      "losses": 7
+      "losses": 8
     },
     {
       "code": "ORL",
@@ -170,20 +170,20 @@
       "name": "Philadelphia 76ers",
       "conference": "East",
       "wins": 14,
-      "losses": 3
+      "losses": 4
     },
     {
       "code": "PHX",
       "name": "Phoenix Suns",
       "conference": "West",
-      "wins": 8,
+      "wins": 9,
       "losses": 7
     },
     {
       "code": "POR",
       "name": "Portland Trail Blazers",
       "conference": "West",
-      "wins": 10,
+      "wins": 11,
       "losses": 6
     },
     {
@@ -191,13 +191,13 @@
       "name": "Sacramento Kings",
       "conference": "West",
       "wins": 2,
-      "losses": 14
+      "losses": 15
     },
     {
       "code": "SAS",
       "name": "San Antonio Spurs",
       "conference": "West",
-      "wins": 14,
+      "wins": 15,
       "losses": 3
     },
     {
@@ -205,14 +205,14 @@
       "name": "Toronto Raptors",
       "conference": "East",
       "wins": 6,
-      "losses": 10
+      "losses": 11
     },
     {
       "code": "UTA",
       "name": "Utah Jazz",
       "conference": "West",
       "wins": 3,
-      "losses": 15
+      "losses": 16
     },
     {
       "code": "WAS",
@@ -223,6 +223,108 @@
     }
   ],
   "sets": [
+    [
+      {
+        "id": "21718180",
+        "date": "2026-11-23",
+        "home": "SAC",
+        "away": "SAS",
+        "homeScore": 107,
+        "awayScore": 123,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718179",
+        "date": "2026-11-23",
+        "home": "LAL",
+        "away": "UTA",
+        "homeScore": 109,
+        "awayScore": 94,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718178",
+        "date": "2026-11-23",
+        "home": "HOU",
+        "away": "LAC",
+        "homeScore": 116,
+        "awayScore": 104,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718177",
+        "date": "2026-11-23",
+        "home": "NOP",
+        "away": "PHX",
+        "homeScore": 119,
+        "awayScore": 123,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718176",
+        "date": "2026-11-23",
+        "home": "CHI",
+        "away": "CLE",
+        "homeScore": 122,
+        "awayScore": 108,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718175",
+        "date": "2026-11-23",
+        "home": "MIN",
+        "away": "BKN",
+        "homeScore": 142,
+        "awayScore": 116,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718174",
+        "date": "2026-11-23",
+        "home": "TOR",
+        "away": "MIL",
+        "homeScore": 111,
+        "awayScore": 116,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718173",
+        "date": "2026-11-23",
+        "home": "IND",
+        "away": "OKC",
+        "homeScore": 125,
+        "awayScore": 120,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718172",
+        "date": "2026-11-23",
+        "home": "PHI",
+        "away": "POR",
+        "homeScore": 111,
+        "awayScore": 128,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718171",
+        "date": "2026-11-23",
+        "home": "CHA",
+        "away": "MEM",
+        "homeScore": 111,
+        "awayScore": 117,
+        "competition": "regular",
+        "countsForStandings": true
+      }
+    ],
     [
       {
         "id": "21718170",
@@ -661,88 +763,6 @@
         "away": "NYK",
         "homeScore": 102,
         "awayScore": 111,
-        "competition": "regular",
-        "countsForStandings": true
-      }
-    ],
-    [
-      {
-        "id": "21718125",
-        "date": "2026-11-16",
-        "home": "DEN",
-        "away": "PHX",
-        "homeScore": 105,
-        "awayScore": 117,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21718124",
-        "date": "2026-11-16",
-        "home": "NOP",
-        "away": "GSW",
-        "homeScore": 115,
-        "awayScore": 94,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21718123",
-        "date": "2026-11-16",
-        "home": "MIN",
-        "away": "POR",
-        "homeScore": 106,
-        "awayScore": 98,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21718122",
-        "date": "2026-11-16",
-        "home": "MIA",
-        "away": "HOU",
-        "homeScore": 128,
-        "awayScore": 110,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21718121",
-        "date": "2026-11-16",
-        "home": "BKN",
-        "away": "PHI",
-        "homeScore": 123,
-        "awayScore": 135,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21718120",
-        "date": "2026-11-16",
-        "home": "WAS",
-        "away": "MEM",
-        "homeScore": 120,
-        "awayScore": 136,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21718119",
-        "date": "2026-11-16",
-        "home": "CLE",
-        "away": "CHI",
-        "homeScore": 126,
-        "awayScore": 115,
-        "competition": "regular",
-        "countsForStandings": true
-      },
-      {
-        "id": "21718118",
-        "date": "2026-11-16",
-        "home": "BOS",
-        "away": "ORL",
-        "homeScore": 105,
-        "awayScore": 115,
         "competition": "regular",
         "countsForStandings": true
       }

@@ -6635,10 +6635,12 @@
   },
   "20261123-richpanel-ai-support-automation": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-24T01:27:17+00:00",
+      "status": "published",
+      "updated_at": "2026-11-24T01:27:19+00:00",
       "stage": "publish_requested",
-      "container_id": "17876260470640826"
+      "container_id": "17876260470640826",
+      "remote_id": "17876260470640826",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DgGxfMWGucz"
     }
   }
 }

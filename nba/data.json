@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-11-24",
-  "fetchedAt": "2026-11-25T04:55:59.400Z",
-  "lastAttemptAt": "2026-11-25T04:55:59.400Z",
+  "throughDate": "2026-11-25",
+  "fetchedAt": "2026-11-25T19:58:32.700Z",
+  "lastAttemptAt": "2026-11-25T19:58:32.700Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 260,
+  "countedGames": 261,
   "standingsReason": null,
   "teams": [
     {
@@ -57,7 +57,7 @@
       "code": "DAL",
       "name": "Dallas Mavericks",
       "conference": "West",
-      "wins": 10,
+      "wins": 11,
       "losses": 7
     },
     {
@@ -65,7 +65,7 @@
       "name": "Denver Nuggets",
       "conference": "West",
       "wins": 10,
-      "losses": 5
+      "losses": 6
     },
     {
       "code": "DET",
@@ -224,6 +224,16 @@
   ],
   "sets": [
     [
+      {
+        "id": "21718183",
+        "date": "2026-11-24",
+        "home": "DEN",
+        "away": "DAL",
+        "homeScore": 101,
+        "awayScore": 120,
+        "competition": "regular",
+        "countsForStandings": true
+      },
       {
         "id": "21718182",
         "date": "2026-11-24",

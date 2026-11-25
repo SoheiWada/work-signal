@@ -1,5 +1,49 @@
 [
   {
+    "id": "20261119-nvidia-microsoft-vera-rubin-azure-nemotron",
+    "title": "NVIDIA×Microsoft、Vera Rubin NVL72をAzureで稼働──FoundryにNemotron 3.5、EY事例で精度55%改善",
+    "summary": "NVIDIAとMicrosoftは11月19日、Igniteに合わせて提携の拡大を発表した。AzureのデータセンターでNVIDIA Vera Rubin NVL72システムが顧客向け技術プレビューとして稼働し、Microsoft FoundryではNVIDIA Nemotron 3.5の提供と、企業が自社データでモデルを適応させるProgrammed Training（パブリックプレビュー）が始まった。EYの事例では、Nemotronを購買記録の分類に適応させ、評価データセットでの精度が55%改善し、コストは独自の最先端モデルと比べて15分の1になったという。あわせて、Foundry LocalやRTX Spark搭載のWindows PCで、モデルを企業の手元で動かす選択肢も広げた。クラウドの最先端インフラから現場のローカル実行までを、一つの発表で結んだ内容だ。",
+    "category": "AI",
+    "score": 86,
+    "published_at": "2026-11-25",
+    "published_at_time": "2026-11-25T13:55:06.445Z",
+    "source_url": "https://blogs.nvidia.com/blog/microsoft-ignite-accelerated-computing-azure-windows-pcs/",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "NVIDIAとMicrosoftは11月19日、Igniteに合わせて提携の拡大を発表した。AzureのデータセンターでNVIDIA Vera Rubin NVL72システムが顧客向け技術プレビューとして稼働し、Microsoft FoundryではNVIDIA Nemotron 3.5の提供と、企業が自社データでモデルを適応させるProgrammed Training（パブリックプレビュー）が始まった。EYの事例では、Nemotronを購買記録の分類に適応させ、評価データセットでの精度が55%改善し、コストは独自の最先端モデルと比べて15分の1になったという。あわせて、Foundry LocalやRTX Spark搭載のWindows PCで、モデルを企業の手元で動かす選択肢も広げた。クラウドの最先端インフラから現場のローカル実行までを、一つの発表で結んだ内容だ。",
+    "sections": [
+      {
+        "title": "Vera Rubin NVL72がAzureで稼働──プレビューで提供開始",
+        "body": "発表の中心は、AzureでNVIDIA Vera Rubin NVL72システムが稼働したことだ。推論、エージェント型アプリケーション、大規模なモデルの学習と推論を想定したインフラで、Azureの仮想マシンとして提供される。MicrosoftとNVIDIAは、機密コンピューティングをベアメタルとラック規模のAIインフラへ広げる協業や、データセンターの電力効率を高めるMaxLPSでの協業も進める。\n性能の裏づけとして、最新のMLPerfの結果も示された。MLPerf Training v6.1では、AzureがGB200 NVL72システムを10,240基のGPU規模で動かし、DeepSeek-V3で今回のラウンド最大の規模を記録した。MLPerf Inference v6.1では、AzureのGB300 NVL72システムが、DeepSeek-R1の対話型スループットでクラウド提出の首位となり、2位を10%以上上回ったとしている（Signal65による評価）。ただし、AzureでのVera Rubin NVL72はプレビュー段階で、価格、提供リージョン、一般提供の時期は発表されていない。"
+      },
+      {
+        "title": "FoundryでNemotron 3.5を提供──EY事例は精度55%改善・コスト15分の1",
+        "body": "もう一つの柱は、Microsoft Foundryを通じたオープンモデルの提供とカスタマイズだ。サーバーレスのProgrammed Training（パブリックプレビュー）では、開発者が事後学習のワークフローを制御し、基盤はFoundryが管理する。Foundry Managed Computeでは、カスタムのモデル重みを展開できるようになった。\nEYは、Programmed TrainingでNVIDIA Nemotronのオープンモデルを適応させ、企業の購買記録の分類で評価データセットの精度を55%改善し、コストを独自の最先端モデルと比べて15分の1に下げたという。提供されるNemotron 3.5は、長時間稼働するエージェント向けのSuper、高速応答向けのLightningのほか、情報検索用のEmbedとRerank、文書からの構造化情報抽出用のParse、有害コンテンツ検出用のContent Safetyが並ぶ。高スループット・低遅延の推論向けBoltと音声認識用のTranscribeは近日提供とされている。"
+      },
+      {
+        "title": "手元で動かす選択肢も拡大──Foundry Local、Jetson、RTX Spark搭載PC",
+        "body": "発表はクラウドだけにとどまらない。Foundry LocalではNemotron 3.5の展開が広がり、Azure LocalはNVIDIA RTX PRO 6000 Blackwell GPUや、Jetson ThorとJetson OrinのエッジAIプラットフォームにも対応する。科学研究では、BioNeMo Agent ToolkitとALCHEMI ToolkitがMicrosoft Discoveryのカタログに加わり、創薬や材料科学のモデルをエージェント型の研究基盤で使えるようになる。\nWindows PCでは、RTX Spark搭載機で大規模言語モデルをローカルで動かす体験をIgniteで披露した。GPU搭載のWindows 365 Cloud PCには、最大4K・60fpsの2ストリームに対応するDirect Stream機能が限定的なプレビューで提供され、2027年初頭にパブリックプレビューを予定している。Microsoft自身も、NVIDIA Dynamoを自社モデルの事後学習の推論に、RTX PRO 6000 Blackwell GPUをBingの検索モデルに使っている。"
+      },
+      {
+        "title": "読者への具体的な影響",
+        "body": "この発表が直接響くのは、AIインフラの調達と導入を検討する企業だ。第1に、AzureでVera Rubin NVL72が使えるようになったことで、最先端の推論・学習インフラを自前で持たずに試せる。ただしプレビュー段階で、価格と提供リージョン、一般提供の時期は未公表のため、本番の採用判断は時期を見極める必要がある。第2に、FoundryのProgrammed Training（パブリックプレビュー）とNemotron 3.5は、独自の最先端モデルを使わずに自社データへ適応させる道を示す。EYの事例は精度55%改善・コスト15分の1と大きいが、これはEYの評価データセットでの結果であり、自社の業務で同じ効果が出る保証はない。第3に、Foundry LocalやRTX Spark搭載PCは、データを社内や手元に置いたままエージェントを動かす選択肢を広げる。機密性の高い業務や現場での利用を考える企業は、クラウドとローカルの使い分けを検討する材料になる。"
+      },
+      {
+        "title": "不確実性・留保",
+        "body": "本記事はNVIDIA公式ブログを本回で直接照合し、Published: 2026-11-19T20:00:15Z を確認した。AzureでのVera Rubin NVL72の提供はプレビュー段階で、価格、提供リージョン、一般提供の時期は発表されていない。MLPerfの結果はNVIDIAの発表によるもので、Training v6.1の規模はAzureの提出、Inference v6.1の首位はSignal65の評価として示されている。EYの事例の精度55%改善・コスト15分の1は、EYの評価データセットと比較対象の独自モデルにおける結果であり、他社の業務への当てはまりは未確認である。Nemotron 3.5 BoltとTranscribeは近日提供とされており、提供時期は未定である。Windows 365 Cloud PCのDirect Streamは限定的なプレビューで、パブリックプレビューは2027年初頭の予定である。\n\n参考資料\n- https://www.microsoft.com/en-us/ignite （Microsoft Ignite 2026。NVIDIAとの提携拡大の発表の場）\n- https://www.nvidia.com/en-us/data-center/ （NVIDIAのデータセンター向け製品情報。Vera Rubin NVL72の位置づけの参考）"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story",
+      "facebook"
+    ],
+    "publication_key": "527ec5577472441eea8ba98e591fef39fcc7d033c68b3102b668d5541b7707bf",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261119-stlouis-fed-hyperscalers-financing-ai-investment-boom",
     "title": "ハイパースケーラーのAI投資、四半期平均で実質1,963.8億ドルに──営業CFとほぼ並び、借入は9倍超へ",
     "summary": "セントルイス連邦準備銀行は11月19日、ハイパースケーラーと呼ばれる大手テック企業がAI投資ブームをどう資金調達しているかを分析した記事を公表した。データセンター建設側の6社の四半期投資は、GDPデフレーターで実質化したドルで平均1,963.8億ドルに達し、営業キャッシュフロー1,975.2億ドルにほぼ並んだ。投資が営業キャッシュフローに接近する一方で、株主還元や現金蓄積など複数の資金需要も重なり、純借入は四半期平均32.3億ドルから301.7億ドルへと9倍以上に膨らんでいる。連銀の公式分析は、資金調達で外部資金への依存が強まりつつある姿を示した。",

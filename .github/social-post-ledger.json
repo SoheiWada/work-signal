@@ -6688,7 +6688,9 @@
   "20261124-anthropic-mcp-skills-tasks-elicitation": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-25T11:53:15+00:00"
+      "updated_at": "2026-11-25T11:53:26+00:00",
+      "stage": "publish_requested",
+      "container_id": "18117406886028444"
     }
   }
 }

@@ -15,7 +15,8 @@ jobs:
     if: >-
       github.event.workflow_run.head_repository.full_name == github.repository &&
       github.event.workflow_run.head_branch == 'main' &&
-      github.event.workflow_run.conclusion == 'timed_out' &&
+      (github.event.workflow_run.conclusion == 'timed_out' ||
+       github.event.workflow_run.conclusion == 'failure') &&
       github.event.workflow_run.run_attempt == 1
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -40,8 +41,17 @@ jobs:
             exit 0
           fi
           state=$(gh api "repos/$REPO/actions/runs/$RUN_ID" --jq '[.status,.conclusion,(.run_attempt|tostring)]|join(":")')
-          if [[ "$state" != "completed:timed_out:1" ]]; then
+          if [[ "$state" != "completed:timed_out:1" && "$state" != "completed:failure:1" ]]; then
             echo "Run no longer eligible; no retry." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          # A workflow may aggregate a timed-out job as failure. Never retry
+          # a failed validation job or an ambiguous mixed failure.
+          jobs=$(gh api --paginate "repos/$REPO/actions/runs/$RUN_ID/attempts/1/jobs?per_page=100" --jq '.jobs[] | .conclusion')
+          if ! grep -qx timed_out <<< "$jobs" || grep -Evq '^(success|skipped|timed_out) "repos/$REPO/actions/runs/$RUN_ID/rerun"
+          echo "One bounded retry requested; deployment is not yet confirmed." >> "$GITHUB_STEP_SUMMARY"
+ <<< "$jobs"; then
+            echo "No exclusively timed-out job failure; no retry." >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
           gh api --method POST "repos/$REPO/actions/runs/$RUN_ID/rerun"

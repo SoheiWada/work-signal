@@ -48,9 +48,7 @@ jobs:
           # A workflow may aggregate a timed-out job as failure. Never retry
           # a failed validation job or an ambiguous mixed failure.
           jobs=$(gh api --paginate "repos/$REPO/actions/runs/$RUN_ID/attempts/1/jobs?per_page=100" --jq '.jobs[] | .conclusion')
-          if ! grep -qx timed_out <<< "$jobs" || grep -Evq '^(success|skipped|timed_out) "repos/$REPO/actions/runs/$RUN_ID/rerun"
-          echo "One bounded retry requested; deployment is not yet confirmed." >> "$GITHUB_STEP_SUMMARY"
- <<< "$jobs"; then
+          if ! grep -qx timed_out <<< "$jobs" || grep -Evq '^(success|skipped|timed_out)$' <<< "$jobs"; then
             echo "No exclusively timed-out job failure; no retry." >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi

@@ -6755,10 +6755,12 @@
       "permalink": "https://www.instagram.com/stories/work_signal_japan/4038506954519585585"
     },
     "facebook": {
-      "status": "attempting",
-      "updated_at": "2026-11-25T22:59:48+00:00",
+      "status": "published",
+      "updated_at": "2026-11-25T22:59:50+00:00",
       "stage": "publish_response_received",
-      "container_id": "1522891270900103_122112054237543397"
+      "container_id": "1522891270900103_122112054237543397",
+      "remote_id": "1522891270900103_122112054237543397",
+      "permalink": "https://www.facebook.com/122108994201543397/posts/122112054237543397"
     }
   }
 }

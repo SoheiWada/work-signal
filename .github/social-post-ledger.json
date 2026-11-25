@@ -7026,7 +7026,9 @@
   "20261119-amazon-polly-voice-cloning": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-25T23:08:19+00:00"
+      "updated_at": "2026-11-25T23:08:28+00:00",
+      "stage": "publish_requested",
+      "container_id": "18131022574890283"
     }
   }
 }

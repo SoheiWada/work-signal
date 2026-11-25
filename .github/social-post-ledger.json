@@ -6662,7 +6662,9 @@
   "20261119-openai-gpt-live-1-1-api-standby": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-25T04:56:08+00:00"
+      "updated_at": "2026-11-25T04:56:17+00:00",
+      "stage": "publish_requested",
+      "container_id": "18575745481077327"
     }
   }
 }

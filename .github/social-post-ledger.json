@@ -6782,7 +6782,9 @@
     },
     "facebook": {
       "status": "attempting",
-      "updated_at": "2026-11-25T23:00:23+00:00"
+      "updated_at": "2026-11-25T23:00:25+00:00",
+      "stage": "publish_requested",
+      "container_id": ""
     }
   }
 }

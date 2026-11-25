@@ -1,5 +1,49 @@
 [
   {
+    "id": "20261124-anthropic-mcp-skills-tasks-elicitation",
+    "title": "Anthropic、MCPにスキル・長時間処理・途中確認を追加──公開2年でSDK月間7億件超",
+    "summary": "Anthropicは11月24日、AIエージェントと外部システムをつなぐ公開標準「モデルコンテキストプロトコル（MCP）」の拡張を発表した。MCPサーバーがツールと一緒に「スキル」を提供できる「Skills over MCP」が公開ベータとなり、長時間の作業を裏側で進める「Tasks」と、途中で利用者へ確認を求める「Elicitation」が一般提供となった。MCPの公開から2年で、SDKの月間ダウンロードは7億件を超え、Claude向けのコネクターは1万件を超えた。",
+    "category": "AI",
+    "score": 89,
+    "published_at": "2026-11-25",
+    "published_at_time": "2026-11-25T11:45:43.236Z",
+    "source_url": "https://claude.com/resources/articles/skills-over-mcp-tasks-and-more",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Anthropicは11月24日、AIエージェントと外部システムをつなぐ公開標準「モデルコンテキストプロトコル（MCP）」の拡張を発表した。MCPサーバーがツールと一緒に「スキル」を提供できる「Skills over MCP」が公開ベータとなり、長時間の作業を裏側で進める「Tasks」と、途中で利用者へ確認を求める「Elicitation」が一般提供となった。MCPの公開から2年で、SDKの月間ダウンロードは7億件を超え、Claude向けのコネクターは1万件を超えた。",
+    "sections": [
+      {
+        "title": "スキルをツールと一緒に届ける──Skills over MCPが公開ベータへ",
+        "body": "これまでMCPサーバーは、ツール名と説明で「何ができるか」をClaudeへ伝えていたが、特定の用途にどう対処するかまでは伝えられなかった。Skills over MCPでは、サーバーがスキルをツールと一緒に公開し、Claudeが複数段階にわたる長い作業に取り組めるようになる。スキルは必要なときにだけ読み込まれるため文脈の消費は抑えられ、サーバーと一緒に更新されるので利用者は別途インストールする必要がない。発表では、ShopifyがClaudeによるオンラインストアの設計・更新を端から端まで支援し、HubSpotが顧客の導入・設定を担い、Atlassianが組織の文脈を踏まえた洞察と作業分析に役立て、Cartaがアップロードした文書から株式の起案・発行を支援する（近日提供）とされた。Skills over MCPはClaudeとClaude Codeで公開ベータとなり、Pro・Max・Ultraプランでは既定で有効、Teamプランは管理者が有効化し、Enterpriseは近日対応予定である。"
+      },
+      {
+        "title": "長時間の仕事と途中の確認──TasksとElicitationが一般提供へ",
+        "body": "本番環境のエージェントは、より長く、より重大な仕事を担うようになっている。Tasksでは、サーバーが時間のかかる処理やエージェントのループ全体を裏側で実行し、Claudeはその間も作業を続けて結果が整ったときに受け取る。発表の例では、ZoomInfoが従来は複数のプロンプトを要した深い企業・連絡先調査をTasksで回す。Elicitationでは、費用の支出やデータの削除のように利用者の判断が必要な場面で、サーバーが処理を一時停止し、フォームやリンクを通じて利用者へ入力を求めてから再開する。Supabaseは有料プロジェクトの作成前と破壊的なSQLの実行前に費用を確認し、Railwayはサービスの削除など破壊的な変更の前に確認を求め、GitHubはエージェントがリポジトリを削除する前に利用者に名前の入力を求める。TasksとElicitationはClaudeとClaude Codeで一般提供となり、Pro・Max・Ultraプランが対象で、TeamとEnterpriseの組織へ順次展開される。ファイルをサーバーへ直接渡すFile Uploadsは近日展開予定である。"
+      },
+      {
+        "title": "2年で7億件のダウンロード──本番運用に向けた基盤整備",
+        "body": "MCPは2年前にAnthropicが公開した標準で、現在はAgentic AI Foundationが主催するオープン標準となっている。Anthropicによると、MCPのSDKは月間7億件を超えるダウンロードがあり、Claude向けのコネクターは1万件を超えた。過去1年の改善として、ツール検索により複数サーバー構成での文脈使用量を85%超削減できること、最新の仕様がステートレスで全Claude製品に対応すること、管理者が対応サーバーを一度承認すれば従業員が自動で接続できるEnterprise Managed Auth、会話の横や全画面にUIを埋め込むMCP Appsが挙げられた。発表は、これらの拡張もオープンなMCP仕様の一部であり、対応するサーバーはClaude以外の互換クライアントでも動くと述べている。"
+      },
+      {
+        "title": "読者への具体的な影響",
+        "body": "開発・運用の現場がこの発表から読むべきは3点ある。第1に、エージェントの仕事の単位が変わることだ。スキルがサーバー側から届くことで、手順書や組織の流儀を毎回プロンプトに書かずに済み、長い業務を委譲できる。ShopifyやHubSpot、Atlassianの例が示すように、業務システム側が「使い方」を持つ形になり、導入の手間が下がる。第2に、長時間処理と確認の仕組みが標準化されることだ。Tasksで裏側の処理を待たずに進め、Elicitationで支出や削除の前に利用者の承認を挟めるため、エージェントを本番の業務フローに入れる際の統制が組み立てやすくなる。第3に、MCPが事実上の共通基盤になりつつあることだ。月間7億件のダウンロードと1万件超のコネクターは、特定ベンダー依存ではなく標準に乗る判断を後押しする。ただしSkills over MCPはベータでEnterpriseは未対応、File Uploadsも未提供のため、導入は対象プランと時期を確認して進める必要がある。"
+      },
+      {
+        "title": "不確実性・留保",
+        "body": "本記事はAnthropicの公式記事を本回で直接照合し、Skills over MCPの公開ベータ、TasksとElicitationの一般提供、File Uploadsの近日展開、Shopify・HubSpot・Atlassian・Cartaの事例、ZoomInfo・Supabase・Railway・GitHubの事例、対象プランと展開範囲、月間7億件超のSDKダウンロードと1万件超のコネクター、MCP公開から2年の節目、ツール検索による文脈削減（85%超）を確認した。発表年（2026年）と発表日（2026-11-24）は発表ページのPublished表示で確認した。Cartaの株式起案・発行支援は「coming soon」とされ、提供時期は未定である。File Uploadsの具体的な提供開始日も発表に記載がない。文脈削減の85%超という数値はAnthropicの自己報告である。Skills over MCPの「公開ベータ」とTasks・Elicitationの「一般提供」は対象プランが異なり、Enterpriseの対応時期は発表に明記されていない。"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story",
+      "facebook"
+    ],
+    "publication_key": "3dc4849740f71c3130e957c89f84187d4324b0fb0779a4a41d3c0f6bb6dd81df",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261119-openai-gpt-live-1-1-api-standby",
     "title": "OpenAI、GPT-Live-1.1をAPIで提供開始──無音時は推論を一時停止、待機中は1分0.02ドルに",
     "summary": "OpenAIは11月19日、音声モデルGPT-Live-1.1をAPIで提供開始した。発音、アクセントの一貫性、多言語の音声会話における転写を改善したモデルで、既存のLiveセッション設定で利用できる。あわせて、GPT-Live-1とGPT-Live-1.1のWebRTCセッションに「スタンバイ」設定が加わり、無音の間は推論を一時停止し、話し始めたら再開する。OpenAIの公式価格表では待機中は1分あたり0.02ドルで、稼働時の0.05ドルと比べると、音声エージェントを待機させるコストが下がる。ChatGPT Plus/Proでは10月15日から同モデルが使われているが、開発者向けAPIでの提供は今回が初めてだ。",

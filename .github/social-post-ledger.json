@@ -7025,10 +7025,12 @@
   },
   "20261119-amazon-polly-voice-cloning": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-25T23:08:28+00:00",
+      "status": "published",
+      "updated_at": "2026-11-25T23:08:30+00:00",
       "stage": "publish_requested",
-      "container_id": "18131022574890283"
+      "container_id": "18131022574890283",
+      "remote_id": "18131022574890283",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DgLrMJvkcq1"
     }
   }
 }

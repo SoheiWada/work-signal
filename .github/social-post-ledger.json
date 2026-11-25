@@ -6870,7 +6870,9 @@
   "20261119-stlouis-fed-hyperscalers-financing-ai-investment-boom": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-25T23:03:25+00:00"
+      "updated_at": "2026-11-25T23:03:33+00:00",
+      "stage": "publish_requested",
+      "container_id": "17945729853383814"
     }
   }
 }

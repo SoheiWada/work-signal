@@ -1,5 +1,49 @@
 [
   {
+    "id": "20261120-microsoft-copilot-gpt62-sol-astra",
+    "title": "Microsoft CopilotにGPT-6.2 SolとAstra──SolはWord・Excel含め全面展開、AstraはCowork中心",
+    "summary": "Microsoftは11月20日、OpenAIの最新モデルGPT-6.2 SolとGPT-6.2 AstraをMicrosoft Copilotで提供開始したと発表した。SolはCopilot ChatやWord・Excel・PowerPoint内のCopilotなど、主要な画面すべてに対象ユーザーへ世界展開される。AstraはCopilot CoworkとCopilot Studioを中心に展開し、ChatとOfficeアプリでは先行プログラム「Frontier」のユーザーに限られる。日常の文書作成から複数ステップの業務委任まで、使うモデルを仕事に合わせて選べるようになる。",
+    "category": "AI",
+    "score": 90,
+    "published_at": "2026-11-25",
+    "published_at_time": "2026-11-25T12:11:35.904Z",
+    "source_url": "https://techcommunity.microsoft.com/blog/microsoft-copilot-blog/available-today-openais-gpt-6-2-sol-and-gpt-6-2-astra-in-microsoft-copilot/4574229",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Microsoftは11月20日、OpenAIの最新モデルGPT-6.2 SolとGPT-6.2 AstraをMicrosoft Copilotで提供開始したと発表した。SolはCopilot ChatやWord・Excel・PowerPoint内のCopilotなど、主要な画面すべてに対象ユーザーへ世界展開される。AstraはCopilot CoworkとCopilot Studioを中心に展開し、ChatとOfficeアプリでは先行プログラム「Frontier」のユーザーに限られる。日常の文書作成から複数ステップの業務委任まで、使うモデルを仕事に合わせて選べるようになる。",
+    "sections": [
+      {
+        "title": "Solは全面展開、AstraはCowork中心──どこでどちらが使えるか",
+        "body": "Microsoftの発表によると、GPT-6.2 Solは対象ユーザーに世界展開される。対象はCopilot Chat、Copilot Cowork、Copilot Studio、そしてExcel、PowerPoint、Word内のCopilotだ。GPT-6.2 AstraはCopilot CoworkとCopilot Studioに対象ユーザーへ世界展開され、Copilot ChatとExcel・PowerPoint・Word内ではFrontier（先行利用プログラム）のユーザーが使える。地域や組織によって利用可否が異なる場合があり、管理者はMicrosoft 365管理センターで組織の利用可否を設定できる。Microsoftは最新の展開状況についてCopilotロードマップとリリースノートを参照するよう案内している。展開の完了時期は発表に明記されていない。"
+      },
+      {
+        "title": "Work IQが文脈を付ける──モデルの性能と社内データの組み合わせ",
+        "body": "Microsoftは、Copilotに搭載される両モデルについて、Work IQがファイル・会議・チャット・業務データをもとに文脈を付けると説明する。モデルが自分の仕事の実際の内容を踏まえて推論するため、回答の精度が上がるという。Work IQは既存のアクセス権限の範囲内で動作し、各人がすでにアクセスできる内容だけをモデルの推論に使う。モデルを仕事に合わせるうえで、性能そのものだけでなく「どの文脈で動かすか」が決め手になるというのが、今回の発表の要点だ。"
+      },
+      {
+        "title": "価格差が示す使い分け──Solは日常、Astraは重い仕事",
+        "body": "OpenAIの公表価格では、Solは100万トークンあたり入力2ドル・出力10ドル、Astraは入力8ドル・出力40ドルとされる。MicrosoftがSolを全面展開し、AstraをCowork中心に絞ったのは、コストと性能の使い分けでもある。日常の文書作成やチャットではSol、複雑な推論やコーディングなど重い仕事ではAstraという構図だ。ただし価格は本発表の本文には含まれておらず、OpenAIの公表価格に基づく二次情報である。利用者は、自組織でどのモデルが有効化されているかを管理者に確認する必要がある。"
+      },
+      {
+        "title": "読者への具体的な影響",
+        "body": "企業がこの発表から読むべきは2点ある。第1に、Copilotの利用者は、使う画面によって使えるモデルが変わることだ。ChatやWord・Excel・PowerPointでは当面Solが中心で、Astraを使いたければCoworkかStudio、あるいはFrontierへの参加が条件になる。業務でAstraの性能を前提にした手順を作る前に、自組織での有効化状況を確認したい。第2に、管理者の設定が利用可否を左右することだ。Microsoft 365管理センターでの設定次第で、同じ組織内でも使える人と使えない人が分かれる。展開は順次進むため、使えない場合は「未提供」ではなく「未到達」の可能性もあり、ロードマップとリリースノートでの確認が要る。"
+      },
+      {
+        "title": "不確実性・留保",
+        "body": "本記事はMicrosoft Tech Communityの公式記事を本回で直接照合し、Published: 11/20/2026, 6:40:04 PM、Solの展開先（Copilot Chat・Cowork・Studio・Excel・PowerPoint・Word）、Astraの展開先（Cowork・Studioは対象ユーザーへ、ChatとOfficeアプリはFrontierユーザーに限定）、管理センターでの管理、Work IQの説明を確認した。発表年（2026年）を確認。GPT-6.2モデル自体の発表は2026年11月17日で、本サイトが11月18日に記事化済み（20261118-openai-gpt62-astra-sol）であり、本稿はCopilotへの搭載という別の発表の速報である。価格（Sol 2ドル／10ドル、Astra 8ドル／40ドル）はOpenAIの公表価格に基づく二次情報で、本発表の本文には含まれていない。管理者向け通知MC1560916に言及する二次情報（従量課金・ライセンスの扱い）も本発表の本文には含まれておらず、原稿では採用していない。展開の完了時期は未公表で、地域・組織による利用可否の差がある。\n\n参考資料\n- https://signal.amberlight.co.jp/articles/20261118-openai-gpt62-astra-sol/（本サイト記事「OpenAI、GPT-6.2 AstraとSolを発表」。GPT-6.2モデル自体の発表で、本稿のCopilot搭載とは別の発表）"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story",
+      "facebook"
+    ],
+    "publication_key": "fbff9cead9889df06a3b31e8aa290a5611972cd700196fb70f72eb279f6adf09",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261120-meta-open-source-ai-science-summit",
     "title": "Meta、科学向けオープンAIを拡充──脳データ2万5,000時間へ、原子モデルUMA Nitroを公開",
     "summary": "Metaは11月20日、基礎AI研究チームFAIRが主催した「Open Source AI for Science Summit」の成果を公表した。脳データのオープン収集の目標を1万5,000時間から2万5,000時間へ引き上げ、原子をシミュレーションするモデルの高速版「UMA Nitro」を公開した。化学の授業で使える可視化ツールや、数学の証明を計算機で検証するためのオープンライブラリも示された。最先端モデルそのものではなく、科学と教育の現場で使えるオープンな道具を広げる発表だ。",

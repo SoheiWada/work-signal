@@ -6877,10 +6877,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DgLqoQ4Fv1g"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-25T23:03:51+00:00",
+      "status": "published",
+      "updated_at": "2026-11-25T23:03:55+00:00",
       "stage": "publish_requested",
-      "container_id": "18164367136488337"
+      "container_id": "18164367136488337",
+      "remote_id": "18017725691971875",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4038509082013231324"
     }
   }
 }

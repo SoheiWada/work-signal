@@ -6808,9 +6808,9 @@
     },
     "facebook": {
       "status": "attempting",
-      "updated_at": "2026-11-25T23:01:07+00:00",
-      "stage": "publish_requested",
-      "container_id": ""
+      "updated_at": "2026-11-25T23:01:12+00:00",
+      "stage": "publish_response_received",
+      "container_id": "1522891270900103_122112054603543397"
     }
   }
 }

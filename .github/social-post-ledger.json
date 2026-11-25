@@ -6844,8 +6844,8 @@
   "20261119-nvidia-microsoft-vera-rubin-azure-nemotron": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-25T23:02:43+00:00",
-      "stage": "container_created",
+      "updated_at": "2026-11-25T23:02:45+00:00",
+      "stage": "publish_requested",
       "container_id": "18136279822690068"
     }
   }

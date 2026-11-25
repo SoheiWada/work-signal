@@ -6791,10 +6791,12 @@
   },
   "20261120-meta-open-source-ai-science-summit": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-25T23:00:42+00:00",
+      "status": "published",
+      "updated_at": "2026-11-25T23:00:44+00:00",
       "stage": "publish_requested",
-      "container_id": "17990294280088082"
+      "container_id": "17990294280088082",
+      "remote_id": "17990294280088082",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DgLqTTolbQJ"
     }
   }
 }

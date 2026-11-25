@@ -6658,5 +6658,11 @@
       "remote_id": "1522891270900103_122111312073543397",
       "permalink": "https://www.facebook.com/122108994201543397/posts/122111312073543397"
     }
+  },
+  "20261119-openai-gpt-live-1-1-api-standby": {
+    "threads": {
+      "status": "attempting",
+      "updated_at": "2026-11-25T04:56:08+00:00"
+    }
   }
 }

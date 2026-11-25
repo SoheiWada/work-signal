@@ -6912,7 +6912,9 @@
     },
     "facebook": {
       "status": "attempting",
-      "updated_at": "2026-11-25T23:04:37+00:00"
+      "updated_at": "2026-11-25T23:04:39+00:00",
+      "stage": "publish_requested",
+      "container_id": ""
     }
   }
 }

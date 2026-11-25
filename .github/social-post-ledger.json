@@ -6999,10 +6999,12 @@
   },
   "20261120-thinking-machines-inkling-2-mini-open-weights": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-25T23:07:40+00:00",
+      "status": "published",
+      "updated_at": "2026-11-25T23:07:44+00:00",
       "stage": "publish_requested",
-      "container_id": "17922386688465083"
+      "container_id": "17922386688465083",
+      "remote_id": "17922386688465083",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DgLrGO_kQB9"
     }
   }
 }

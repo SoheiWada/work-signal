@@ -6921,10 +6921,12 @@
   },
   "20261120-lagarde-acting-in-time-digital-euro-tokenization": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-25T23:04:55+00:00",
+      "status": "published",
+      "updated_at": "2026-11-25T23:04:57+00:00",
       "stage": "publish_requested",
-      "container_id": "18183745516444454"
+      "container_id": "18183745516444454",
+      "remote_id": "18183745516444454",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DgLqyVZluCJ"
     }
   }
 }

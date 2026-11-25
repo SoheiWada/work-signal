@@ -6974,7 +6974,9 @@
   "20261120-google-agent-anomaly-detection-multi-cloud": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-25T23:06:41+00:00"
+      "updated_at": "2026-11-25T23:06:50+00:00",
+      "stage": "publish_requested",
+      "container_id": "18104854616074380"
     }
   }
 }

@@ -6860,9 +6860,9 @@
     },
     "facebook": {
       "status": "attempting",
-      "updated_at": "2026-11-25T23:03:16+00:00",
-      "stage": "publish_requested",
-      "container_id": ""
+      "updated_at": "2026-11-25T23:03:21+00:00",
+      "stage": "publish_response_received",
+      "container_id": "1522891270900103_122112055323543397"
     }
   }
 }

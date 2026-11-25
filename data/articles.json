@@ -458,7 +458,7 @@
       },
       {
         "title": "不確実性・留保",
-        "body": "本記事はMicrosoft Tech Communityの公式記事を本回で直接照合し、Published: 11/20/2026, 6:40:04 PM、Solの展開先（Copilot Chat・Cowork・Studio・Excel・PowerPoint・Word）、Astraの展開先（Cowork・Studioは対象ユーザーへ、ChatとOfficeアプリはFrontierユーザーに限定）、管理センターでの管理、Work IQの説明を確認した。発表年（2026年）を確認。GPT-6.2モデル自体の発表は2026年11月17日で、本サイトが11月18日に記事化済み（20261118-openai-gpt62-astra-sol）であり、本稿はCopilotへの搭載という別の発表の速報である。価格（Sol 2ドル／10ドル、Astra 8ドル／40ドル）はOpenAIの公表価格に基づく二次情報で、本発表の本文には含まれていない。管理者向け通知MC1560916に言及する二次情報（従量課金・ライセンスの扱い）も本発表の本文には含まれておらず、原稿では採用していない。展開の完了時期は未公表で、地域・組織による利用可否の差がある。\n\n参考資料\n- https://signal.amberlight.co.jp/articles/20261118-openai-gpt62-astra-sol/（本サイト記事「OpenAI、GPT-6.2 AstraとSolを発表」。GPT-6.2モデル自体の発表で、本稿のCopilot搭載とは別の発表）"
+        "body": "本記事はMicrosoft Tech Communityの公式記事を本回で直接照合し、Published: 11/20/2026, 6:40:04 PM、Solの展開先（Copilot Chat・Cowork・Studio・Excel・PowerPoint・Word）、Astraの展開先（Cowork・Studioは対象ユーザーへ、ChatとOfficeアプリはFrontierユーザーに限定）、管理センターでの管理、Work IQの説明を確認した。発表年（2026年）を確認。GPT-6.2モデル自体の発表は2026年11月17日で、本サイトが11月18日に記事化済み（20261118-openai-gpt62-astra-sol）であり、本稿はCopilotへの搭載という別の発表の速報である。価格（Sol 2ドル／10ドル、Astra 8ドル／40ドル）はOpenAIの公表価格に基づく二次情報で、本発表の本文には含まれていない。管理者向け通知MC1560916に言及する二次情報（従量課金・ライセンスの扱い）も本発表の本文には含まれておらず、原稿では採用していない。展開の完了時期は未公表で、地域・組織による利用可否の差がある。\n\n参考資料\n- https://signal.amberlight.co.jp/articles/20261118-openai-gpt62-astra-sol/ （本サイト記事「OpenAI、GPT-6.2 AstraとSolを発表」。GPT-6.2モデル自体の発表で、本稿のCopilot搭載とは別の発表）"
       }
     ],
     "social_publish": true,
@@ -502,7 +502,7 @@
       },
       {
         "title": "不確実性・留保",
-        "body": "本記事はMeta Newsroomの公式記事を本回で直接照合し、Published: 2026-11-20、Digital Brain Projectの目標1万5,000時間→2万5,000時間、UMA Nitroの公開、UMA Playgroundの提供（Discovery Education：400万人超の教育者・4,500万人の生徒、RealChem：約100機関）、ATLAS（26冊の教科書、4万5,000超の定義と結果）を確認した。発表年（2026年）を確認。サミット自体は10月に米メンロパークで開催されたもので、本稿は11月20日付の公式まとめによる公表である。UMAによる結晶形の特定や酵素シミュレーションの成果はMetaの発表によるもので、独立した検証は確認していない。UMA Nitroの具体的な性能数値や提供形態（ライセンス・入手方法）は本記事には明記されていない。\n\n参考資料\n- https://signal.amberlight.co.jp/articles/20261109-meta-muse-ember-efficient-agent-model/（本サイト記事「Meta、Muse Emberを発表」。同じMetaのAI発表だが、エージェント向け小型モデルが主題で本稿とは別件）"
+        "body": "本記事はMeta Newsroomの公式記事を本回で直接照合し、Published: 2026-11-20、Digital Brain Projectの目標1万5,000時間→2万5,000時間、UMA Nitroの公開、UMA Playgroundの提供（Discovery Education：400万人超の教育者・4,500万人の生徒、RealChem：約100機関）、ATLAS（26冊の教科書、4万5,000超の定義と結果）を確認した。発表年（2026年）を確認。サミット自体は10月に米メンロパークで開催されたもので、本稿は11月20日付の公式まとめによる公表である。UMAによる結晶形の特定や酵素シミュレーションの成果はMetaの発表によるもので、独立した検証は確認していない。UMA Nitroの具体的な性能数値や提供形態（ライセンス・入手方法）は本記事には明記されていない。\n\n参考資料\n- https://signal.amberlight.co.jp/articles/20261109-meta-muse-ember-efficient-agent-model/ （本サイト記事「Meta、Muse Emberを発表」。同じMetaのAI発表だが、エージェント向け小型モデルが主題で本稿とは別件）"
       }
     ],
     "social_publish": true,

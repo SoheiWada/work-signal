@@ -6990,7 +6990,9 @@
     },
     "facebook": {
       "status": "attempting",
-      "updated_at": "2026-11-25T23:07:19+00:00"
+      "updated_at": "2026-11-25T23:07:21+00:00",
+      "stage": "publish_requested",
+      "container_id": ""
     }
   }
 }

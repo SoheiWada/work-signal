@@ -1,5 +1,49 @@
 [
   {
+    "id": "20261123-anthropic-claude-ship-pr-review-approve",
+    "title": "Anthropic、Claude Shipを発表──PRのレビュー・修正・承認をAIが担う、まず観察モードから",
+    "summary": "Anthropicは11月23日、Claude Ship（ベータ）を発表した。GitHub上のプルリクエスト（PR）について、AIがレビューし、問題を修正し、チームの方針が許す変更を承認する。すでに一般提供されているCode Reviewに、新たにベータのPR StewardとClaude Approvalsを組み合わせたものだ。Claude TeamとEnterpriseプランで利用でき、開発者はClaude Codeの新しい「/ship」コマンドから自分のPRに試すこともできる。エージェントがコードを書くだけでなく、出荷の判断まで担う時代の入り口になる。",
+    "category": "AI",
+    "score": 88,
+    "published_at": "2026-11-25",
+    "published_at_time": "2026-11-25T11:55:44.187Z",
+    "source_url": "https://claude.com/resources/articles/introducing-claude-ship",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "Anthropicは11月23日、Claude Ship（ベータ）を発表した。GitHub上のプルリクエスト（PR）について、AIがレビューし、問題を修正し、チームの方針が許す変更を承認する。すでに一般提供されているCode Reviewに、新たにベータのPR StewardとClaude Approvalsを組み合わせたものだ。Claude TeamとEnterpriseプランで利用でき、開発者はClaude Codeの新しい「/ship」コマンドから自分のPRに試すこともできる。エージェントがコードを書くだけでなく、出荷の判断まで担う時代の入り口になる。",
+    "sections": [
+      {
+        "title": "3つのエージェント──レビュー、修正、承認を一気通貫で",
+        "body": "Claude Shipは3つの要素で構成される。Code ReviewはPRをコードベースに照らして多角的に精査し、指摘を敵対的に検証して分類し、PRに投稿する。Quick・Standard・Deepの3段階のレビュー水準から選べる。AnthropicのClaude Codeチームでは、Code Reviewを広範な工程の一層として使う中で、6月から9月にマージされたPRが2倍以上に増え、差し戻しの割合が40%超減少したという。PR StewardはPRを「グリーン（健全）」に保つためのエージェントで、CIチェックの失敗、マージの競合、レビューへの指摘対応に取り組む。ただし承認やマージは行わない。変更のたびに何を変えたかと元に戻す方法をコメントし、「@claude」での指示や「@claude stop」での中断ができる。Claude Approvalsはチームがリポジトリ内のファイルとして記述した承認ポリシーを適用し、定型的な変更はAIが自ら承認し、人の判断が必要な場合は人の承認を求める。いわば「より賢いCODEOWNERSファイル」で、Code Reviewの指摘や自前の分類器も判断材料に使える。"
+      },
+      {
+        "title": "導入は「観察モード」から──承認の自動化は段階的に",
+        "body": "Anthropicは、承認ポリシーをまず観察専用（observe-only）モードで動かし、信頼が築けてからブランチ保護でClaude Approvalsの承認を必須にするよう推奨している。管理者はリポジトリ単位でCode ReviewとPR Stewardを有効化し、レビュー水準・実行タイミング・支出上限を設定する。既存のブランチ保護や必須チェックとも併用できる。開発者向けには、Claude Codeとデスクトップアプリで「/ship」コマンドの提供を開始した。変更ができたら「/ship」と打つと、Claudeがプッシュし、PRを開き、レビューと指摘・失敗チェックへの対応を進める。マージできるかどうかは開発者の権限とリポジトリのブランチ規則による。"
+      },
+      {
+        "title": "料金と対象外──トークン課金、ZDR組織は対象外",
+        "body": "Claude Shipの利用料はトークン単位で課金され、対象PRの数と規模、レビュー水準、実行頻度、PR Stewardの作業量によって変わる。管理者はCode ReviewとPR Stewardに支出上限を設定できる。Claude Approvals自体に基本料金はないが、ポリシー内の分類器はトークン単位で課金され、Claudeのレビューを使うポリシーは観察モードでもCode Reviewの課金が発生する。「/ship」の実行は通常のClaude Code利用として課金される。対象外もある。ゼロデータリテンション（ZDR）、HIPAA構成、顧客管理の暗号化キー（CMEK）を使う組織では利用できない。対象のEnterprise組織は、申請から30日以内に使える1万ドル以上のClaude Shipクレジットを請求でき、請求期限は2027年1月15日とされている。"
+      },
+      {
+        "title": "読者への具体的な影響",
+        "body": "開発組織がこの発表から読むべきは3点ある。第1に、コードレビューのボトルネックが変わることだ。エージェントがコードを書く速度に、レビューと承認の工程が追いついていなかった。Claude Shipはその工程を自動化し、チームの注意を「判断が必要な変更」に集中させる。導入すれば、PRの滞留時間とレビュー待ちの手戻りが減る可能性がある。第2に、承認の責任の置き場所だ。AIが承認する範囲はチームがポリシーファイルで決める。定型変更の自動承認から始め、観察モードで挙動を確認してから必須化する段階的な導入が推奨されており、いきなり全承認をAIに委ねるのは避けるべきだ。第3に、コストと対象範囲の確認だ。トークン課金のため、対象リポジトリを広げれば利用料が増える。支出上限の設定と、ZDR・HIPAA・CMEKの対象外条件を事前に確認したい。"
+      },
+      {
+        "title": "不確実性・留保",
+        "body": "本記事はClaude公式記事を本回で直接照合し、Published: 2026-11-23、ベータ提供、Claude Team・Enterpriseプラン・GitHubリポジトリ対象、Code Review（一般提供済み、Quick・Standard・Deepの3水準）、PR Steward（ベータ、承認・マージは行わない）、Claude Approvals（ベータ、ポリシーファイルによる承認、観察専用モード推奨）、「/ship」コマンドとClaude Code・デスクトップアプリでの提供開始、トークン課金と支出上限、ZDR・HIPAA構成・CMEK組織の対象外、1万ドル以上のクレジットと請求期限2027年1月15日、Claude CodeチームでのマージPR2倍超・差し戻し40%超減を確認した。発表年（2026年）を確認。記事内の図版に「Claude ShipはAIを使っており、バグやセキュリティ脆弱性などを見逃す場合がある」との注記がある。Anthropic社内の実績数値は同社の自己報告であり、第三者による検証は確認できていない。11月20日に発表されたClaudeのcomputer use Team・Enterpriseベータとは別の発表である。\n\n参考資料\n- https://claude.com/resources/articles/zero-data-retention-with-enterprise-frontier-safeguards（Anthropic公式記事「Zero data retention with Enterprise Frontier Safeguards is now in beta」。同日発表の別製品で、Claude Shipの対象外条件（ZDR組織）の背景）"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story",
+      "facebook"
+    ],
+    "publication_key": "f28cb1a9ad6b0db81b3b195b194318b2a8c0ad3fa9f97f898a9ec9a2cd2e82c1",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261124-anthropic-mcp-skills-tasks-elicitation",
     "title": "Anthropic、MCPにスキル・長時間処理・途中確認を追加──公開2年でSDK月間7億件超",
     "summary": "Anthropicは11月24日、AIエージェントと外部システムをつなぐ公開標準「モデルコンテキストプロトコル（MCP）」の拡張を発表した。MCPサーバーがツールと一緒に「スキル」を提供できる「Skills over MCP」が公開ベータとなり、長時間の作業を裏側で進める「Tasks」と、途中で利用者へ確認を求める「Elicitation」が一般提供となった。MCPの公開から2年で、SDKの月間ダウンロードは7億件を超え、Claude向けのコネクターは1万件を超えた。",

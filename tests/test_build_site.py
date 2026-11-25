@@ -23,6 +23,24 @@ class Document(HTMLParser):
         self.tags.append((tag, dict(attrs)))
 
 
+
+class InlineUrlDelimiterTests(unittest.TestCase):
+    def test_japanese_annotation_is_not_part_of_url(self):
+        from scripts.build_site import linked_text
+        url = BASE + 'articles/20261118-openai-gpt62-astra-sol/'
+        for suffix in ('（本サイト記事「OpenAI、GPT-6.2」）', '「関連記事」', '、補足', '。次の文'):
+            with self.subTest(suffix=suffix):
+                rendered = linked_text(url + suffix)
+                self.assertEqual([attrs['href'] for tag, attrs in Document(rendered).tags if tag == 'a'], [url])
+                self.assertTrue(rendered.endswith('</a>' + suffix))
+
+    def test_encoded_delimiters_and_query_are_preserved(self):
+        from scripts.build_site import linked_text
+        url = 'https://example.org/a%EF%BC%88b?x=1&y=2'
+        rendered = linked_text(url)
+        self.assertEqual([attrs['href'] for tag, attrs in Document(rendered).tags if tag == 'a'], [url])
+
+
 class StaticPublishingTests(unittest.TestCase):
     def setUp(self):
         self.article = next(a for a in json.loads((ROOT / 'data/articles.json').read_text()) if a.get('what_happened'))

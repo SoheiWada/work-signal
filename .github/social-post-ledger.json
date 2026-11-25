@@ -6687,10 +6687,12 @@
   },
   "20261124-anthropic-mcp-skills-tasks-elicitation": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-25T11:53:26+00:00",
+      "status": "published",
+      "updated_at": "2026-11-25T11:53:29+00:00",
       "stage": "publish_requested",
-      "container_id": "18117406886028444"
+      "container_id": "18117406886028444",
+      "remote_id": "18117406886028444",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DgKd73AlRFA"
     }
   }
 }

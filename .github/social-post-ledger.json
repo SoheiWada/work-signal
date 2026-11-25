@@ -6704,9 +6704,9 @@
     },
     "facebook": {
       "status": "attempting",
-      "updated_at": "2026-11-25T11:53:58+00:00",
-      "stage": "publish_requested",
-      "container_id": ""
+      "updated_at": "2026-11-25T11:54:05+00:00",
+      "stage": "publish_response_received",
+      "container_id": "1522891270900103_122111876367543397"
     }
   }
 }

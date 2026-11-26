@@ -3,7 +3,10 @@ import json
 import subprocess
 from datetime import datetime, timezone
 
-from discovery_sitemaps import news_publication
+try:
+    from .discovery_sitemaps import news_publication
+except ImportError:
+    from discovery_sitemaps import news_publication
 
 
 def classify(run, paths, articles, clock):
@@ -23,7 +26,7 @@ def classify(run, paths, articles, clock):
             return 'news_window_active'
         # Future publication dates or an expiry within the previous build
         # interval are conservatively treated as requiring a build.
-        if article.get('published_at', '') >= start.date().isoformat():
+        if article.get('published_at', '') >= (start.astimezone(timezone.utc).date()).isoformat():
             return 'news_window_uncertain'
     return 'potentially_redundant'
 

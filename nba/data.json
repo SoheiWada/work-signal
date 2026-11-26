@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-11-25",
-  "fetchedAt": "2026-11-26T04:12:15.948Z",
-  "lastAttemptAt": "2026-11-26T04:12:15.948Z",
+  "throughDate": "2026-11-26",
+  "fetchedAt": "2026-11-26T19:42:26.541Z",
+  "lastAttemptAt": "2026-11-26T19:42:26.541Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 268,
+  "countedGames": 270,
   "standingsReason": null,
   "teams": [
     {
@@ -78,7 +78,7 @@
       "code": "GSW",
       "name": "Golden State Warriors",
       "conference": "West",
-      "wins": 9,
+      "wins": 10,
       "losses": 8
     },
     {
@@ -183,7 +183,7 @@
       "code": "POR",
       "name": "Portland Trail Blazers",
       "conference": "West",
-      "wins": 11,
+      "wins": 12,
       "losses": 6
     },
     {
@@ -191,14 +191,14 @@
       "name": "Sacramento Kings",
       "conference": "West",
       "wins": 2,
-      "losses": 15
+      "losses": 16
     },
     {
       "code": "SAS",
       "name": "San Antonio Spurs",
       "conference": "West",
       "wins": 15,
-      "losses": 3
+      "losses": 4
     },
     {
       "code": "TOR",
@@ -224,6 +224,26 @@
   ],
   "sets": [
     [
+      {
+        "id": "21718192",
+        "date": "2026-11-25",
+        "home": "POR",
+        "away": "SAS",
+        "homeScore": 116,
+        "awayScore": 111,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718191",
+        "date": "2026-11-25",
+        "home": "GSW",
+        "away": "SAC",
+        "homeScore": 129,
+        "awayScore": 110,
+        "competition": "regular",
+        "countsForStandings": true
+      },
       {
         "id": "21718190",
         "date": "2026-11-25",

@@ -459,9 +459,9 @@ def write_favicons(output):
 
 
 try:
-    from .related_articles import related_articles, category_followups
+    from .related_articles import related_articles, category_followups, features
 except ImportError:
-    from related_articles import related_articles, category_followups
+    from related_articles import related_articles, category_followups, features
 
 try:
     from .discovery_sitemaps import write_discovery_sitemaps
@@ -1382,6 +1382,13 @@ def build(output, feed=None):
     if output.resolve() == ROOT.resolve() or ROOT.resolve().is_relative_to(output.resolve()):
         raise ValueError("Output must not overwrite the source repository")
     articles = [dict(a) for a in published_articles(feed if feed is not None else json.loads((ROOT / 'data/articles.json').read_text()))]
+    # Build-local cache: approved article text is stable throughout this build.
+    feature_cache = {}
+    def feature_lookup(item):
+        key = id(item)
+        if key not in feature_cache:
+            feature_cache[key] = features(item)
+        return feature_cache[key]
     history = article_modifications(ROOT)
     registered = article_publication_times(ROOT)
     modified = {item['id']: modification_date(item, history) for item in articles}
@@ -1667,7 +1674,7 @@ def build(output, feed=None):
                 instagram_story_card(output, article)
         folder = output / 'articles' / article['id']
         folder.mkdir(parents=True)
-        related = related_articles(article, articles)
+        related = related_articles(article, articles, feature_lookup=feature_lookup)
         (folder / 'index.html').write_text(article_page(article, template, modified[article['id']], related, article_topics(article), category_followups(article, articles, related)))
     topic_urls, topic_modified = [], {}
     active = active_topics(articles)

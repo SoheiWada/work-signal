@@ -65,14 +65,14 @@ def editorial_ids(article):
     return [item for item in value if isinstance(item, str)] if isinstance(value, list) else []
 
 
-def related_articles(article, articles):
+def related_articles(article, articles, *, feature_lookup=features):
     def publishable(item):
         score = item.get('score')
         approved = (item.get('format') in ('special_story', 'management_guide')
                     or (isinstance(score, (int, float)) and not isinstance(score, bool) and score >= 80))
         return item.get('status') == 'published' and approved
     eligible = [item for item in articles if publishable(item) and item.get('id') != article['id']]
-    products, cves, topics, words = features(article)
+    products, cves, topics, words = feature_lookup(article)
     chosen = []
     by_id = {item['id']: item for item in eligible}
     for identifier in editorial_ids(article):
@@ -84,7 +84,7 @@ def related_articles(article, articles):
     for item in eligible:
         if item['id'] in {selected['id'] for selected in chosen}:
             continue
-        other_products, other_cves, other_topics, other_words = features(item)
+        other_products, other_cves, other_topics, other_words = feature_lookup(item)
         shared_products = products & other_products
         shared_cves = cves & other_cves
         shared_topics = topics & other_topics

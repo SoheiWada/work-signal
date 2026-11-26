@@ -1,6 +1,6 @@
 """Regression cases for reader intent and safe related-link selection."""
 import unittest
-from scripts.related_articles import related_articles
+from scripts.related_articles import related_articles, features
 from scripts.build_site import archive_page, ROOT
 
 def article(identifier, title, **kw):
@@ -60,6 +60,27 @@ class RelatedArticlesTests(unittest.TestCase):
                         what_happened='CVE-2026-123456の問題')
         second = article('followup', '続報の解説', quick_take='CVE-2026-123456を修正')
         self.assertEqual([x['id'] for x in related_articles(first, [first, second])], ['followup'])
+
+    def test_build_local_feature_reuse_preserves_rank_and_eligibility(self):
+        rows = [
+            article('a', 'Bunの圧縮修正', related_article_ids=['c', 'draft']),
+            article('b', 'Bunの追加修正'),
+            article('c', '管理職の基礎', score=None, format='special_story'),
+            article('draft', 'Bunの非公開記事', status='draft'),
+            article('low', 'Bunの低スコア記事', score=79),
+        ]
+        cache = {}
+        calls = []
+        def lookup(item):
+            key = id(item)
+            if key not in cache:
+                calls.append(item['id'])
+                cache[key] = features(item)
+            return cache[key]
+        for row in rows[:3]:
+            self.assertEqual(related_articles(row, rows),
+                             related_articles(row, rows, feature_lookup=lookup))
+        self.assertCountEqual(calls, ['a', 'b', 'c'])
 
     def test_archive_analytics_reuses_existing_configuration_once(self):
         template = (ROOT / 'index.html').read_text()

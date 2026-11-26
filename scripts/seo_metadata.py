@@ -57,15 +57,15 @@ def publications_from_snapshots(snapshots):
     return first
 
 
-def article_modifications(root):
+def article_snapshots(root):
     """No network or data writes. Missing/shallow history never invents updates."""
     def git(*args):
         return subprocess.run(['git', '-C', str(root), *args], check=True, capture_output=True, text=True).stdout
     try:
         if git('rev-parse', '--show-toplevel').strip() != str(root.resolve()):
-            return {}
+            return []
         if git('rev-parse', '--is-shallow-repository').strip() == 'true':
-            return {}
+            return []
         records = git('log', '--first-parent', '--reverse', '--format=%H%x09%cI', '--', 'data/articles.json').splitlines()
         snapshots = []
         for record in records:
@@ -76,34 +76,22 @@ def article_modifications(root):
                 continue
             if isinstance(feed, list):
                 snapshots.append((timestamp, feed))
-        return modifications_from_snapshots(snapshots)
+        return snapshots
     except (OSError, subprocess.CalledProcessError, ValueError):
+        return []
+
+
+def article_modifications(root, *, snapshots=None):
+    try:
+        return modifications_from_snapshots(article_snapshots(root) if snapshots is None else snapshots)
+    except ValueError:
         return {}
 
 
-def article_publication_times(root):
-    """Read first Git registration times, but never invent Pages deployment hours."""
-    def git(*args):
-        return subprocess.run(['git', '-C', str(root), *args],
-                              check=True, capture_output=True, text=True).stdout
+def article_publication_times(root, *, snapshots=None):
     try:
-        if git('rev-parse', '--show-toplevel').strip() != str(root.resolve()):
-            return {}
-        if git('rev-parse', '--is-shallow-repository').strip() == 'true':
-            return {}
-        records = git('log', '--first-parent', '--reverse', '--format=%H%x09%cI',
-                      '--', 'data/articles.json').splitlines()
-        snapshots = []
-        for record in records:
-            revision, timestamp = record.split('\t', 1)
-            try:
-                feed = json.loads(git('show', revision + ':data/articles.json'))
-            except (subprocess.CalledProcessError, json.JSONDecodeError):
-                continue
-            if isinstance(feed, list):
-                snapshots.append((timestamp, feed))
-        return publications_from_snapshots(snapshots)
-    except (OSError, subprocess.CalledProcessError, ValueError):
+        return publications_from_snapshots(article_snapshots(root) if snapshots is None else snapshots)
+    except ValueError:
         return {}
 
 

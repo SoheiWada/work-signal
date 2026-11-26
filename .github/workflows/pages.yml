@@ -20,6 +20,43 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  validate-site:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-build.txt
+      - name: Install image build dependency
+        run: python -m pip install -r requirements-build.txt
+      # Website quality checks must not depend on Meta API publishing logic.
+      # Publisher safeguards remain enforced by social-publisher-ci.yml.
+      - name: Validate site generation, SEO and SECURITY WATCH assets
+        run: |
+          python3 -m unittest discover -s tests -p 'test_pages_recovery.py'
+          python3 -m unittest discover -s tests -p 'test_topic_pages.py'
+          python3 -m unittest discover -s tests -p 'test_related_articles.py'
+          python3 -m unittest discover -s tests -p 'test_article_discovery.py'
+          python3 -m unittest discover -s tests -p 'test_subscription.py'
+          python3 -m unittest discover -s tests -p 'test_build_site.py'
+          python3 -m unittest discover -s tests -p 'test_security_watch.py'
+          python3 -m unittest discover -s tests -p 'test_approved_social_event.py'
+          python3 -m unittest discover -s tests -p 'test_scheduled_social.py'
+          python3 -m unittest discover -s tests -p 'test_seo_metadata.py'
+          python3 -m unittest discover -s tests -p 'test_indexnow.py'
+          python3 -m unittest discover -s tests -p 'test_article_id_guard.py'
+          python3 -m unittest discover -s tests -p 'test_publication_timeline.py'
+          python3 -m unittest discover -s tests -p 'test_market_assets.py'
+          python3 -m unittest discover -s tests -p 'test_market_preview.py'
+          python3 -m unittest discover -s tests -p 'test_nba_assets.py'
+          python3 -m unittest discover -s tests -p 'test_social_asset_design.py'
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -58,27 +95,6 @@ jobs:
           python -m pip install pip-audit==2.10.1
           python -m pip_audit --disable-pip --no-deps -r requirements-build.txt --progress-spinner off
       - uses: actions/configure-pages@v6
-      # Website quality checks must not depend on Meta API publishing logic.
-      # Publisher safeguards remain enforced by social-publisher-ci.yml.
-      - name: Validate site generation, SEO and SECURITY WATCH assets
-        run: |
-          python3 -m unittest discover -s tests -p 'test_pages_recovery.py'
-          python3 -m unittest discover -s tests -p 'test_topic_pages.py'
-          python3 -m unittest discover -s tests -p 'test_related_articles.py'
-          python3 -m unittest discover -s tests -p 'test_article_discovery.py'
-          python3 -m unittest discover -s tests -p 'test_subscription.py'
-          python3 -m unittest discover -s tests -p 'test_build_site.py'
-          python3 -m unittest discover -s tests -p 'test_security_watch.py'
-          python3 -m unittest discover -s tests -p 'test_approved_social_event.py'
-          python3 -m unittest discover -s tests -p 'test_scheduled_social.py'
-          python3 -m unittest discover -s tests -p 'test_seo_metadata.py'
-          python3 -m unittest discover -s tests -p 'test_indexnow.py'
-          python3 -m unittest discover -s tests -p 'test_article_id_guard.py'
-          python3 -m unittest discover -s tests -p 'test_publication_timeline.py'
-          python3 -m unittest discover -s tests -p 'test_market_assets.py'
-          python3 -m unittest discover -s tests -p 'test_market_preview.py'
-          python3 -m unittest discover -s tests -p 'test_nba_assets.py'
-          python3 -m unittest discover -s tests -p 'test_social_asset_design.py'
       - name: Build crawlable pages
         run: python3 scripts/build_site.py
       - name: Verify website and SECURITY WATCH published output
@@ -110,7 +126,7 @@ jobs:
           path: _site
   deploy:
     if: github.ref == 'refs/heads/main'
-    needs: build
+    needs: [build, validate-site]
     runs-on: ubuntu-latest
     permissions:
       pages: write

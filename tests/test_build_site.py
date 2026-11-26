@@ -41,6 +41,29 @@ class InlineUrlDelimiterTests(unittest.TestCase):
         self.assertEqual([attrs['href'] for tag, attrs in Document(rendered).tags if tag == 'a'], [url])
 
 
+class ShareCardMeasurementTests(unittest.TestCase):
+    def test_cached_title_fit_matches_uncached_reference(self):
+        import math
+        from scripts.build_site import card_font, wrap_title, fit_title
+        for title in ('OpenAI GPT-6.2、仕事の変化を確認',
+                      '「日本語の句読点」と英語 AV office の混在',
+                      'ニュースは短く。\n意味は深く。',
+                      '長い見出しを確認するための文章です。' * 4):
+            with self.subTest(title=title):
+                expected = None
+                for size in range(84, 27, -2):
+                    font = card_font(size, 800)
+                    lines = wrap_title(title, font, 1072)
+                    leading = math.ceil(size * 1.3)
+                    if len(lines) * leading <= 290 and all(font.getlength(line) <= 1072 for line in lines):
+                        width = min(1072, sum(font.getlength(part) for part in title.split('\n')) / max(1, len(lines)) + size)
+                        balanced = wrap_title(title, font, width)
+                        expected = (font, balanced if len(balanced) <= len(lines) else lines, leading)
+                        break
+                self.assertIsNotNone(expected)
+                self.assertEqual(fit_title(title), expected)
+
+
 class StaticPublishingTests(unittest.TestCase):
     def setUp(self):
         self.article = next(a for a in json.loads((ROOT / 'data/articles.json').read_text()) if a.get('what_happened'))

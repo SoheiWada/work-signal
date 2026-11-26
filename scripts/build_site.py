@@ -61,12 +61,13 @@ def card_font(size, weight=700):
     return font
 
 
-def wrap_title(text, font, width):
+def wrap_title(text, font, width, *, measure=None):
+    measure = font.getlength if measure is None else measure
     lines = []
     for paragraph in text.split('\n'):
         line = ''
         for char in paragraph:
-            if line and font.getlength(line + char) > width:
+            if line and measure(line + char) > width:
                 carry = ''
                 # Keep Japanese opening/closing punctuation with its surrounding text.
                 if line[-1] in '「『（【〈《［(' or char in '、。，．！？：；」』）】〉》］!?.,:;)':
@@ -84,11 +85,14 @@ def wrap_title(text, font, width):
 def fit_title(text, width=1072, height=290):
     for size in range(84, 27, -2):
         font = card_font(size, 800)
-        lines = wrap_title(text, font, width)
+        # Reuse exact shaping measurements during fitting and balancing.
+        # Scope is one font size and one title; no cross-build state.
+        measure = lru_cache(maxsize=2048)(font.getlength)
+        lines = wrap_title(text, font, width, measure=measure)
         line_height = math.ceil(size * 1.3)
-        if len(lines) * line_height <= height and all(font.getlength(line) <= width for line in lines):
-            balanced_width = min(width, sum(font.getlength(part) for part in text.split('\n')) / max(1, len(lines)) + size)
-            balanced = wrap_title(text, font, balanced_width)
+        if len(lines) * line_height <= height and all(measure(line) <= width for line in lines):
+            balanced_width = min(width, sum(measure(part) for part in text.split('\n')) / max(1, len(lines)) + size)
+            balanced = wrap_title(text, font, balanced_width, measure=measure)
             if len(balanced) <= len(lines):
                 lines = balanced
             return font, lines, line_height

@@ -25,9 +25,9 @@ except ImportError:
         security_style, security_share_card, security_story_card
     )
 try:
-    from .seo_metadata import article_modifications, article_publication_times, modification_date, latest_date
+    from .seo_metadata import article_snapshots, article_modifications, article_publication_times, modification_date, latest_date
 except ImportError:
-    from seo_metadata import article_modifications, article_publication_times, modification_date, latest_date
+    from seo_metadata import article_snapshots, article_modifications, article_publication_times, modification_date, latest_date
 
 try:
     from .topic_catalog import TOPICS, active_topics, topic_articles, article_topics
@@ -1393,8 +1393,10 @@ def build(output, feed=None):
         if key not in feature_cache:
             feature_cache[key] = features(item)
         return feature_cache[key]
-    history = article_modifications(ROOT)
-    registered = article_publication_times(ROOT)
+    snapshots = article_snapshots(ROOT)
+    history = article_modifications(ROOT, snapshots=snapshots)
+    registered = article_publication_times(ROOT, snapshots=snapshots)
+    del snapshots
     modified = {item['id']: modification_date(item, history) for item in articles}
     # Editorial labels are derived from approved content without rewriting source.
     for item in articles:

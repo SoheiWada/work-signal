@@ -12,7 +12,7 @@ from PIL import Image
 from scripts import build_site as site
 from scripts.site_identity import publisher_identity
 from scripts.related_articles import features
-from scripts.seo_metadata import modifications_from_snapshots, publications_from_snapshots, modification_date, article_modifications, latest_date
+from scripts.seo_metadata import modifications_from_snapshots, publications_from_snapshots, modification_date, article_modifications, article_publication_times, article_snapshots, latest_date
 
 class SEOTests(unittest.TestCase):
     @classmethod
@@ -122,6 +122,18 @@ class SEOTests(unittest.TestCase):
             git('init');feed=copy.deepcopy([item for item in self.feed if item['published_at'] <= '2026-10-22'][:2]);(root/'data/articles.json').write_text(json.dumps(feed));git('add','data/articles.json');git('commit','-m','publish')
             feed[1]['summary']+=' 更新';(root/'data/articles.json').write_text(json.dumps(feed));git('add','data/articles.json');git('commit','-m','update second',stamp='2026-10-22T02:00:00+00:00')
             self.assertEqual(article_modifications(root),{feed[1]['id']:'2026-10-22T11:00:00+09:00'})
+            snapshots = article_snapshots(root)
+            expected = (article_modifications(root), article_publication_times(root))
+            with patch('scripts.seo_metadata.subprocess.run', side_effect=AssertionError('unexpected Git read')):
+                self.assertEqual((article_modifications(root, snapshots=snapshots),
+                                  article_publication_times(root, snapshots=snapshots)), expected)
+                self.assertEqual(article_modifications(root, snapshots=[]), {})
+                self.assertEqual(article_publication_times(root, snapshots=[]), {})
+
+    def test_shared_history_preserves_independent_invalid_date_handling(self):
+        snapshots = [('2026-10-22T01:00:00', [])]
+        self.assertEqual(article_modifications(site.ROOT, snapshots=snapshots), {})
+        self.assertEqual(article_publication_times(site.ROOT, snapshots=snapshots), {})
 
 
 class BrandIdentityTests(unittest.TestCase):

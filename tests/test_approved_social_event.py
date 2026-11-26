@@ -72,7 +72,11 @@ class ApprovedSocialEventTests(unittest.TestCase):
     def test_site_and_social_triggers_are_separate(self):
         pages = (ROOT / ".github/workflows/pages.yml").read_text()
         social = (ROOT / ".github/workflows/social-publish.yml").read_text()
-        self.assertIn("needs: build", pages)
+        deploy = pages.split("\n  deploy:\n", 1)[1]
+        self.assertIn("    needs: [build, validate-site]\n", deploy)
+        self.assertIn("    if: github.ref == 'refs/heads/main'\n", deploy)
+        self.assertNotIn("always()", deploy)
+        self.assertNotIn("continue-on-error: true", deploy)
         self.assertIn("group: pages-${{ github.ref }}", pages)
         self.assertNotIn("gh workflow run social-publish.yml", pages)
         self.assertIn('workflows: ["Build and deploy WORK SIGNAL"]', social)

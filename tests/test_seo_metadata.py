@@ -11,6 +11,7 @@ from xml.etree import ElementTree as ET
 from PIL import Image
 from scripts import build_site as site
 from scripts.site_identity import publisher_identity
+from scripts.related_articles import features
 from scripts.seo_metadata import modifications_from_snapshots, publications_from_snapshots, modification_date, article_modifications, latest_date
 
 class SEOTests(unittest.TestCase):
@@ -55,7 +56,14 @@ class SEOTests(unittest.TestCase):
         self.assertEqual(history, {})
 
     def test_all_published_articles_have_unique_canonical_and_complete_metadata(self):
-        for article in site.published_articles(self.feed):
+        published = site.published_articles(self.feed)
+        feature_cache = {}
+        def feature_lookup(item):
+            key = id(item)
+            if key not in feature_cache:
+                feature_cache[key] = features(item)
+            return feature_cache[key]
+        for article in published:
             with self.subTest(id=article['id']):
                 page=site.article_page(article,self.template)
                 self.assertEqual(page.count('<h1>'),1)
@@ -77,12 +85,12 @@ class SEOTests(unittest.TestCase):
                 self.assertIn('href="/about/"', page)
                 self.assertNotIn('dateModified',schema)
                 self.assertEqual(schema['author']['name'], 'WORK SIGNAL編集部')
-                related=site.related_articles(article,site.published_articles(self.feed))
+                related=site.related_articles(article,published,feature_lookup=feature_lookup)
                 self.assertLessEqual(len(related),4)
+                linked_page = site.article_page(article, self.template, related=related) if related else None
                 for item in related:
                     self.assertNotEqual(item['id'],article['id'])
-                    self.assertIn(item, site.published_articles(self.feed))
-                    linked_page = site.article_page(article, self.template, related=related)
+                    self.assertIn(item, published)
                     self.assertIn('href="' + site.article_url(item) + '"', linked_page)
                 self.assertEqual(len({item['id'] for item in related}), len(related))
 

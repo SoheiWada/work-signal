@@ -7077,10 +7077,12 @@
   },
   "20261124-google-workspace-mcp-servers-cli-ga": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-27T23:54:24+00:00",
+      "status": "published",
+      "updated_at": "2026-11-27T23:54:26+00:00",
       "stage": "publish_requested",
-      "container_id": "18171400120487326"
+      "container_id": "18171400120487326",
+      "remote_id": "18171400120487326",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DgQ6CgqFtxx"
     }
   }
 }

@@ -7078,7 +7078,9 @@
   "20261124-google-workspace-mcp-servers-cli-ga": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-27T23:54:17+00:00"
+      "updated_at": "2026-11-27T23:54:24+00:00",
+      "stage": "publish_requested",
+      "container_id": "18171400120487326"
     }
   }
 }

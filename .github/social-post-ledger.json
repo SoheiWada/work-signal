@@ -7051,10 +7051,12 @@
   },
   "20261125-fed-bowman-modernizing-bank-supervision": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-27T16:57:49+00:00",
+      "status": "published",
+      "updated_at": "2026-11-27T16:57:51+00:00",
       "stage": "publish_requested",
-      "container_id": "18094642544227560"
+      "container_id": "18094642544227560",
+      "remote_id": "18094642544227560",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DgQKWsMCTI6"
     }
   }
 }

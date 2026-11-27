@@ -7103,10 +7103,12 @@
   },
   "20261124-claude-install-artifact-as-app": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-27T23:55:02+00:00",
+      "status": "published",
+      "updated_at": "2026-11-27T23:55:04+00:00",
       "stage": "publish_requested",
-      "container_id": "18420997522095286"
+      "container_id": "18420997522095286",
+      "remote_id": "18420997522095286",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DgQ6HFxFva1"
     }
   }
 }

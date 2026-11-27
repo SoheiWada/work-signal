@@ -1,5 +1,49 @@
 [
   {
+    "id": "20261124-google-workspace-mcp-servers-cli-ga",
+    "title": "Google、WorkspaceのMCPサーバーとCLIを一般提供へ──AIエージェントは2027年2月からMCP必須に",
+    "summary": "AIエージェントがGmailやGoogleドライブを触るときの「公式の道」が決まった。Googleは11月24日、Google WorkspaceのMCPサーバーと公式CLI（Workspace CLI）を一般提供（GA）したと発表した。Gmail、Drive、Docs、Sheets、Slides、Calendar、Chat、Tasksの8サービスにGoogleがホストするMCPサーバーが用意され、エージェントは各サービスのREST APIに個別対応するコードを書かずにWorkspaceへ接続できる。あわせてAPI利用の2段階料金と、AIエージェントは2027年2月1日からMCP経由でWorkspaceデータにアクセスしなければならないとする強制方針も示された。エージェントを業務で使う企業と開発者は、2月1日までの移行計画が必要になる。",
+    "category": "AI",
+    "score": 90,
+    "published_at": "2026-11-28",
+    "published_at_time": "2026-11-27T23:50:39.660Z",
+    "source_url": "https://workspaceupdates.googleblog.com/2026/11/mcp-servers-cli-standardized-usage-tiers-now-available.html",
+    "status": "published",
+    "format": "brief",
+    "quick_take": "AIエージェントがGmailやGoogleドライブを触るときの「公式の道」が決まった。Googleは11月24日、Google WorkspaceのMCPサーバーと公式CLI（Workspace CLI）を一般提供（GA）したと発表した。Gmail、Drive、Docs、Sheets、Slides、Calendar、Chat、Tasksの8サービスにGoogleがホストするMCPサーバーが用意され、エージェントは各サービスのREST APIに個別対応するコードを書かずにWorkspaceへ接続できる。あわせてAPI利用の2段階料金と、AIエージェントは2027年2月1日からMCP経由でWorkspaceデータにアクセスしなければならないとする強制方針も示された。エージェントを業務で使う企業と開発者は、2月1日までの移行計画が必要になる。",
+    "sections": [
+      {
+        "title": "MCPサーバーとCLI、2つの公式ルート",
+        "body": "Workspace MCPサーバーは、オープン標準のMCP（Model Context Protocol）に基づくGoogleホストのサーバーで、クラウドやウェブで動くAIエージェントがGmailやDriveなどに接続し、あらかじめ用意されたツールをそのまま呼び出せる。KeepのMCPサーバーは近日提供予定とされている。一方のWorkspace CLIは、開発者のターミナルや仮想マシン、コンテナ化されたサンドボックスで動くローカル環境向けのコマンドライン・ツールで、エージェント向けスキル集、動的なコマンド探索、スコープ付きサインインを備え、構造化されたJSON出力を返す。Googleによれば、MCPツールはWorkspaceの境界内で要約を返し、CLIはターミナル上で複数ツールを連鎖できるため、REST APIで生データを1行ずつ取得するよりトークンコストとレイテンシが下がる。どちらもGoogleが管理するため、実行時にツールやスキーマを発見するエージェントは、文脈取得や認証設定、ツール精度の継続的な改善を自動で受けられる。"
+      },
+      {
+        "title": "料金体系と2つの期限──2月1日のMCP必須化、4月1日のScaled課金",
+        "body": "11月24日から、Gmail、Drive、Calendarから始まるWorkspace API（MCPサーバーとCLIを含む）には2段階の利用枠が適用される。Standard tierは無料で公開された利用上限（レート制限）付き、Scaled tierはより高い上限向けで、2027年4月1日からは1日の無料許容量を超えたAPI・MCP利用分にのみ課金される。Googleによれば、現役開発者の99%超はStandard tierの範囲内に収まり、追加コストなしで使い続けられる。もう一つの期限が、AIエージェントに対するMCP必須化だ。AIエージェントや類似のアクセスツールは、WorkspaceのREST APIを直接呼ぶのではなくMCP経由でデータにアクセスしなければならず、2027年2月1日から技術的な強制が始まる。高い上限を維持したい既存プロジェクトは、社内利用のみなら管理者に内部プロジェクトとして登録してもらうか、それ以外は課金アカウントを紐づけてScaled tierへ切り替える必要があり、2027年4月1日までに何もしなければStandard tierの上限へ自動で移行する。"
+      },
+      {
+        "title": "管理者側の統制も同時に強化",
+        "body": "エージェントの接続を広げる一方で、組織の統制も強化された。新しいWorkspace AI Tools Addendumは、Workspace APIから得た派生データを長期間保存したり、AIエージェントでWorkspace APIをスクレイピングしたりするなど、セキュリティ上の懸念がある活動を禁じる。管理コンソールでは、外部AIエージェントのアクセス管理、ヒューマン・イン・ザ・ループ（HITL）の確認ルール、監査ログの閲覧が可能になり、既存のユーザー単位のDLP（情報漏洩防止）ルールはAIエージェントの利用時にも自動で適用され、管理者の監査ログにエージェントの操作とユーザーの確認が記録される。Google Cloud側では、MCPとAgent2Agent（A2A）トラフィック向けのGoogle Cloud Agent Gatewayもあわせて一般提供となり、WorkspaceとGoogle Cloudを横断したエージェントの保護が整えられた。ロールアウトはRapid ReleaseとScheduled Releaseの両ドメインへ2週間で完了する見込みで、すべてのWorkspace顧客と開発者が対象だ。"
+      },
+      {
+        "title": "読者への具体的な影響",
+        "body": "読者がこの発表から読むべきは3点ある。第1に、AIエージェントを業務で使っている、または開発している場合は、2027年2月1日のMCP必須化が事実上の移行期限になる。Claude CodeやCodex、Antigravityなどのエージェント経由でWorkspaceのREST APIを直接呼ぶ仕組みがあれば、MCPサーバーまたはCLIへの切り替えを2月1日までに終える必要がある。第2に、コストの見直しだ。99%超の開発者は無料のStandard tierに収まるとGoogleは説明するが、大量のエージェント利用があるプロジェクトは、2027年4月1日のScaled課金開始までに利用量をダッシュボードで確認し、内部プロジェクト登録かScaled tierへの切り替えを選ぶ必要がある。第3に、管理者への影響だ。AIエージェントのアクセスが管理コンソールで従来のアプリと同様に管理できるようになり、HITL確認や監査ログの設定が求められる。エージェントの利用を黙認してきた組織は、承認ルールの整備を始める好機になる。"
+      },
+      {
+        "title": "不確実性・留保",
+        "body": "本記事はGoogle Workspace Updates Blogの公式記事（2026年11月24日付）を本回で直接照合し、Workspace MCPサーバーとWorkspace CLIの一般提供、対象サービス8種（Keepは近日提供）、Standard・Scaledの2段階料金、2027年2月1日からのMCP必須化の技術的強制、2027年4月1日からのScaled課金開始、2週間でのロールアウト、すべてのWorkspace顧客と開発者が対象であることを確認した。Google Cloud Agent Gatewayの一般提供は、Google Cloud公式ブログ（2026年11月25日付）の記述に基づく。Scaled tierの具体的な料金単価は公表されておらず、4月1日以降の実際の請求額は現時点では分からない。MCPサーバー経由の利用がREST API直接呼び出しと比べてトークンコストがどれだけ下がるかは、Googleの説明によるもので、読者の利用形態による。AnthropicのMCP拡張（2026年11月24日発表、Issue #518）とは別の発表で、こちらはGoogle Workspace側の提供である。\n\n参考資料\n- https://cloud.google.com/blog/products/identity-security/deploying-agents-safely-in-your-enterprise（Google Cloud Blog。Workspace MCPサーバー・CLIとGoogle Cloud Agent Gatewayの一般提供、2026年11月25日付）\n- https://developers.google.com/workspace/guides/workspace-cli（Google Workspace開発者ガイド。Workspace CLIの設定方法）"
+      }
+    ],
+    "social_publish": true,
+    "social_platforms": [
+      "threads",
+      "instagram",
+      "instagram_story",
+      "facebook"
+    ],
+    "publication_key": "82676e286aad29d047ea605138a50351dc10a0dee5f981527dca251e36e756f4",
+    "publication_policy_version": "work-signal-autopublish-2026-11-01-v1"
+  },
+  {
     "id": "20261124-claude-install-artifact-as-app",
     "title": "ClaudeのアーティファクトがMac／Windowsアプリに──「Install as app」ベータ、全プランで提供開始",
     "summary": "Claudeがチャットの中で作った道具を、そのままパソコンのアプリにできるようになった。Anthropicは11月24日、アーティファクトをMac／Windowsのデスクトップアプリとしてインストールできる新機能「Install as app」のベータ提供を開始した。独自のアイコンとウィンドウを持ち、通知やメニューバー、ショートカットにも対応する。アプリは3段階の権限でパソコンと連携でき、プログラムの実行やファイルの読み取りも可能になる。ただし、使うにはオンラインとClaudeへのサインインが必須で、Docs・Slides・Sheetsは対象外だ。AIが作った成果物が「会話の中のもの」から「日常で使う道具」へ変わる一歩になる。",

@@ -7120,9 +7120,9 @@
     },
     "facebook": {
       "status": "attempting",
-      "updated_at": "2026-11-27T23:55:26+00:00",
-      "stage": "publish_requested",
-      "container_id": ""
+      "updated_at": "2026-11-27T23:55:31+00:00",
+      "stage": "publish_response_received",
+      "container_id": "1522891270900103_122112820281543397"
     }
   }
 }

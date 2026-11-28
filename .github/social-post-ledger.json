@@ -7259,10 +7259,12 @@
   },
   "20261125-openai-chat-work-shared-usage-rollout": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-28T09:57:28+00:00",
+      "status": "published",
+      "updated_at": "2026-11-28T09:57:29+00:00",
       "stage": "publish_requested",
-      "container_id": "18499936951110249"
+      "container_id": "18499936951110249",
+      "remote_id": "18499936951110249",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DgR_DdqIR_Z"
     }
   }
 }

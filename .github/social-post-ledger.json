@@ -7215,10 +7215,12 @@
       "permalink": "https://www.threads.com/@work_signal_japan/post/DgR-LmgFRsj"
     },
     "instagram_story": {
-      "status": "attempting",
-      "updated_at": "2026-11-28T09:50:06+00:00",
+      "status": "published",
+      "updated_at": "2026-11-28T09:50:10+00:00",
       "stage": "publish_requested",
-      "container_id": "18164839687488337"
+      "container_id": "18164839687488337",
+      "remote_id": "18134116279769799",
+      "permalink": "https://www.instagram.com/stories/work_signal_japan/4040283912521730768"
     }
   }
 }

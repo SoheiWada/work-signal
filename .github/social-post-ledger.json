@@ -7207,10 +7207,12 @@
   },
   "20261125-deepmind-mass-spec-skills-antigravity": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-28T09:49:50+00:00",
+      "status": "published",
+      "updated_at": "2026-11-28T09:49:52+00:00",
       "stage": "publish_requested",
-      "container_id": "18015207323815522"
+      "container_id": "18015207323815522",
+      "remote_id": "18015207323815522",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DgR-LmgFRsj"
     }
   }
 }

@@ -7233,10 +7233,12 @@
   },
   "20261125-us-gdp-q3-second-estimate-pce-october": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-28T09:56:47+00:00",
+      "status": "published",
+      "updated_at": "2026-11-28T09:56:52+00:00",
       "stage": "publish_requested",
-      "container_id": "18136516675690068"
+      "container_id": "18136516675690068",
+      "remote_id": "18234375478326577",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DgR--vMIe88"
     }
   }
 }

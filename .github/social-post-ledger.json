@@ -7130,7 +7130,9 @@
   "20261124-cognition-swe-2-1-pure-rl-coding-cyber": {
     "threads": {
       "status": "attempting",
-      "updated_at": "2026-11-28T00:46:12+00:00"
+      "updated_at": "2026-11-28T00:46:21+00:00",
+      "stage": "publish_requested",
+      "container_id": "18018672935971459"
     }
   }
 }

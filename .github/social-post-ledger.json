@@ -7155,10 +7155,12 @@
   },
   "20261124-anthropic-siren-sandbox-escape": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-28T00:58:42+00:00",
+      "status": "published",
+      "updated_at": "2026-11-28T00:58:44+00:00",
       "stage": "publish_requested",
-      "container_id": "18250616146314664"
+      "container_id": "18250616146314664",
+      "remote_id": "18250616146314664",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DgRBZX1CSLh"
     }
   }
 }

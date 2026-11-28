@@ -7146,9 +7146,9 @@
     },
     "facebook": {
       "status": "attempting",
-      "updated_at": "2026-11-28T00:46:51+00:00",
-      "stage": "publish_requested",
-      "container_id": ""
+      "updated_at": "2026-11-28T00:46:55+00:00",
+      "stage": "publish_response_received",
+      "container_id": "1522891270900103_122112832167543397"
     }
   }
 }

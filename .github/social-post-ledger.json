@@ -7129,10 +7129,12 @@
   },
   "20261124-cognition-swe-2-1-pure-rl-coding-cyber": {
     "threads": {
-      "status": "attempting",
-      "updated_at": "2026-11-28T00:46:21+00:00",
+      "status": "published",
+      "updated_at": "2026-11-28T00:46:23+00:00",
       "stage": "publish_requested",
-      "container_id": "18018672935971459"
+      "container_id": "18018672935971459",
+      "remote_id": "18018672935971459",
+      "permalink": "https://www.threads.com/@work_signal_japan/post/DgQ_-wMFWkc"
     }
   }
 }

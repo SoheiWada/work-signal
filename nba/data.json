@@ -2,13 +2,13 @@
   "version": 1,
   "provider": "balldontlie",
   "season": 2026,
-  "throughDate": "2026-11-27",
-  "fetchedAt": "2026-11-28T03:59:06.444Z",
-  "lastAttemptAt": "2026-11-28T03:59:06.444Z",
+  "throughDate": "2026-11-28",
+  "fetchedAt": "2026-11-28T18:17:18.925Z",
+  "lastAttemptAt": "2026-11-28T18:17:18.925Z",
   "refreshState": "ok",
   "paginationComplete": true,
   "standingsAvailable": true,
-  "countedGames": 276,
+  "countedGames": 281,
   "standingsReason": null,
   "teams": [
     {
@@ -57,14 +57,14 @@
       "code": "DAL",
       "name": "Dallas Mavericks",
       "conference": "West",
-      "wins": 11,
+      "wins": 12,
       "losses": 7
     },
     {
       "code": "DEN",
       "name": "Denver Nuggets",
       "conference": "West",
-      "wins": 10,
+      "wins": 11,
       "losses": 6
     },
     {
@@ -79,7 +79,7 @@
       "name": "Golden State Warriors",
       "conference": "West",
       "wins": 10,
-      "losses": 8
+      "losses": 9
     },
     {
       "code": "HOU",
@@ -100,14 +100,14 @@
       "name": "LA Clippers",
       "conference": "West",
       "wins": 4,
-      "losses": 13
+      "losses": 14
     },
     {
       "code": "LAL",
       "name": "Los Angeles Lakers",
       "conference": "West",
       "wins": 15,
-      "losses": 3
+      "losses": 4
     },
     {
       "code": "MEM",
@@ -141,7 +141,7 @@
       "code": "NOP",
       "name": "New Orleans Pelicans",
       "conference": "West",
-      "wins": 5,
+      "wins": 6,
       "losses": 14
     },
     {
@@ -177,13 +177,13 @@
       "name": "Phoenix Suns",
       "conference": "West",
       "wins": 9,
-      "losses": 8
+      "losses": 9
     },
     {
       "code": "POR",
       "name": "Portland Trail Blazers",
       "conference": "West",
-      "wins": 12,
+      "wins": 13,
       "losses": 6
     },
     {
@@ -197,7 +197,7 @@
       "code": "SAS",
       "name": "San Antonio Spurs",
       "conference": "West",
-      "wins": 15,
+      "wins": 16,
       "losses": 4
     },
     {
@@ -212,7 +212,7 @@
       "name": "Utah Jazz",
       "conference": "West",
       "wins": 3,
-      "losses": 16
+      "losses": 17
     },
     {
       "code": "WAS",
@@ -224,6 +224,56 @@
   ],
   "sets": [
     [
+      {
+        "id": "21718203",
+        "date": "2026-11-27",
+        "home": "POR",
+        "away": "GSW",
+        "homeScore": 116,
+        "awayScore": 94,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718202",
+        "date": "2026-11-27",
+        "home": "LAC",
+        "away": "NOP",
+        "homeScore": 104,
+        "awayScore": 105,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718201",
+        "date": "2026-11-27",
+        "home": "UTA",
+        "away": "DEN",
+        "homeScore": 107,
+        "awayScore": 120,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718200",
+        "date": "2026-11-27",
+        "home": "SAS",
+        "away": "LAL",
+        "homeScore": 99,
+        "awayScore": 96,
+        "competition": "regular",
+        "countsForStandings": true
+      },
+      {
+        "id": "21718199",
+        "date": "2026-11-27",
+        "home": "PHX",
+        "away": "DAL",
+        "homeScore": 109,
+        "awayScore": 113,
+        "competition": "regular",
+        "countsForStandings": true
+      },
       {
         "id": "21718198",
         "date": "2026-11-27",
